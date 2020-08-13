@@ -1,0 +1,308 @@
+@charset "utf-8";
+/* CSS Document */
+html, body {
+	font-family: "WenQuanYi Micro Hei", sans;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #222222;
+	height: 100%;
+}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td, img {
+	padding: 0;
+	margin: 0;
+}
+img {
+	border: 0;
+}
+address, caption, cite, code, dfn, em, strong, th, var, i {
+	font-weight: normal;
+	font-style: normal;
+}
+ol, ul, li {
+	list-style: none;
+}
+caption, th {
+	text-align: left;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+	font-size: 100%;
+}
+.clearfix:before, .clearfix:after {
+	content: " ";
+	display: table
+}
+.clearfix:after {
+	clear: both
+}
+input[type="radio"] {
+	height: 18px;
+	vertical-align: text-top;
+	margin-top: 0;
+}
+input[type="checkbox"] {
+	height: 18px;
+	vertical-align: text-top;
+	margin-top: 0;
+}
+select, textarea, input[type="text"] {
+	line-height: 24px;
+	vertical-align: top;
+	padding: 0 3px;
+	font-size: 12px;
+	font-weight: normal;
+	color: #222222;
+	background: #FFF;
+	border: 1px solid #c3c9d0;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+select {
+	height: 26px;
+}
+
+.template{ display:none;}
+
+#container {
+	background: url(img_submarine.png) no-repeat 0 0 #74bdb9;
+	height: 100%;
+	overflow-y: scroll;
+	min-width: 710px;
+	position: relative;
+}
+#btnbar {
+	float: right;
+	width: 300px;
+	background-color: #d9d9d9;
+	height: 100%;
+	font-size: 12px;
+}
+#header {
+	position: fixed;
+	width: 710px;
+	background-color: #FFF;
+	border-bottom: 2px solid #CCc;
+	padding: 10px 0;
+	z-index: 100;
+}
+#desion {
+	height: auto;
+	width: 710px;
+	overflow: hidden;
+	background-color: #FFF;
+	margin: 65px auto 0;
+	padding-bottom: 20px;
+}
+#header input {
+	float: left;
+	margin-left: 10px;
+}
+#form_header {
+	width: 680px;
+	margin: 10px auto 0;
+	line-height: 1.5em;
+	font-size: 1em;
+	height: auto;
+	overflow: hidden;
+}
+#form_header p {
+	margin-top: 3px;
+}
+#form_header i {
+	display: inline-table;
+	margin-top: 6px;
+}
+#form_header #form_header_hide {
+	float: right;
+	cursor: pointer;
+}
+.bott_b {
+	border-bottom: 1px solid #CCC;
+}
+.h10 {
+	height: 10px;
+}
+#btnbar .nav li {
+	width: 149px;
+	border-right: 1px solid #CCC;
+	border-bottom: 1px solid #CCC;
+	float: left;
+	text-align: center;
+	height: 28px;
+	line-height: 28px;
+	font-size: 1em;
+	background-color: #FFF;
+	cursor: pointer;
+}
+#btnbar .nav li.active {
+	background-color: #009AFF;
+	color: #FFF;
+}
+#btnbar .panel {
+	overflow-y: scroll;
+}
+#btnbar .panel_field p {
+	margin-left: 20px;
+	margin-top: 15px;
+}
+.field_drag_add {
+	margin-left: 20px;
+	margin-top: 10px;
+	width: 130px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 1em;
+	border: 1px solid #999;
+	background-color: #FFF;
+	cursor: pointer;
+}
+.field_drag_add span {
+	background-image: url(images/ui-icons_6da8d5_256x240.png);
+	background-position: -176px -128px;
+	background-repeat: no-repeat;
+	float: left;
+	margin: 6px;
+}
+.panel_field .field_drag_add:hover {
+	color: #009AFF;
+}
+/*编辑框*/
+#btnbar .panel_edit > ul.contentedit > li {
+	margin-left: 10px;
+	margin-top: 5px;
+}
+#btnbar .panel_edit .tts img {
+	padding-top: 3px;
+	cursor: pointer;
+}
+input.intext {
+	height: 12px;
+	vertical-align: text-top;
+	margin-top: 0;
+}
+
+
+/*预览区*/
+.placehode {
+	height: 40px;
+	border: 1px dashed #009AFF
+}
+#form_exam {
+	padding: 5px 0;
+	min-height: 200px;
+	height: auto;
+	overflow: hidden;
+	cursor: pointer;
+}
+#form_exam .content_tts {
+	background-color: lavender;
+	border: 1px dotted #FCEFA1;
+	margin: 3px 0;
+	padding: 3px;
+}
+#form_exam .content_view {
+	background-color: #F6F6F6;
+	border: 1px dotted #FCEFA1;
+	margin: 3px 0;
+	padding: 3px;
+}
+#form_exam label.question_types_label {
+	display: block;
+	background-color: #00C9B4;
+	text-align: center;
+	line-height: 30px;
+	border-bottom: 1px solid #CCC;
+	position: relative;
+	z-index: 10;
+}
+#form_exam label.curedit {
+	color: #F00;
+	font-weight: bold;
+}
+#form_exam .stem_son .question_types_label {
+	background-color: #14E4CE;
+}
+#form_exam .question_types_label .controlbar {
+	position: absolute;
+	right: 5px;
+	height: 30px;
+	overflow: hidden;
+	top: 0;
+}
+#form_exam .question_types_label .controlbar a {
+	display: inline-table;
+	width: 25px;
+	cursor: pointer;
+	height: 25px;
+	margin: 3px 7px 0 0;
+}
+#form_exam .question_types_label .controlbar a.edit {
+	background: url(controlbar_edit.png)
+}
+#form_exam .question_types_label .controlbar a.edit:hover {
+	background: url(controlbar_edit_hover.png);
+}
+#form_exam .question_types_label .controlbar a.copy {
+	background: url(controlbar_copy.png)
+}
+#form_exam .question_types_label .controlbar a.copy:hover {
+	background: url(controlbar_copy_hover.png);
+}
+#form_exam .question_types_label .controlbar a.delete {
+	background: url(controlbar_delete.png)
+}
+#form_exam .question_types_label .controlbar a.delete:hover {
+	background: url(controlbar_delete_hover.png);
+}
+#form_exam .question_types_label .controlbar a.collapse_s {
+	background: url(controlbar_collapse_s.png)
+}
+#form_exam .question_types_label .controlbar a.collapse_s:hover {
+	background: url(controlbar_collapse_s_hover.png);
+}
+#form_exam .question_types_label .controlbar a.collapse_n {
+	background: url(controlbar_collapse_n.png)
+}
+#form_exam .question_types_label .controlbar a.collapse_n:hover {
+	background: url(controlbar_collapse_n_hover.png);
+}
+#form_exam .stem_combination .stem_son_list {
+	margin: 5px;
+	min-height: 60px;
+}
+#form_exam .question_items_list {
+	min-height: 60px;
+}
+#form_exam .question_items_list .content_tts {
+	margin-top: 0;
+}
+#form_exam .question_items_list {
+	margin: 5px;
+}
+#form_exam .question_item .question_types_label {
+	background-color: #B8FFF7;
+}
+/*#form_exam .question_items_list .content_view {
+	background-color: #E2F0F3;
+}*/
+#form_exam .question_item {
+	border: 1px solid #EFEFEF;
+	margin-bottom: 5px;
+}
+#form_exam .question_item .content_options {
+	padding: 3px;
+}
+#form_exam .question_item .content_options_v p {
+	display: inline-table;
+	width: 220px;
+}
+#form_exam .question_item .content_options_v p img {
+	width: 80px;
+	height: 80px;
+	vertical-align: middle
+}
+#form_exam .question_item .answer {
+	background-color: #FFF2AD;
+	border: 1px dotted #FCEFA1;
+	margin: 3px 0 0;
+	padding: 3px;
+}

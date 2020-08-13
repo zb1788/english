@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<meta name="wap-font-scale" content="no">
+		<title>批改报告</title>
+		<link rel="stylesheet" href="__SUBJECT__/correc/css/iscroll.css" />
+		<link rel="stylesheet" href="__SUBJECT__/correc/css/currency.css" />
+		<link rel="stylesheet" href="__SUBJECT__/correc/font/fonts.css" />
+		<script type="text/javascript" src="__SUBJECT__/correc/js/iscroll-lite.js" ></script>
+		<script type="text/javascript" src="__SUBJECT__/correc/js/demoUtils.js" ></script>
+		<script type="text/javascript" src="__SUBJECT__/correc/js/TouchSlide.1.1.js" ></script>
+<style>
+	body {background: #fcfcfc;}
+	.mui-media-body h3{margin-right: 50px;}
+</style>
+
+
+</head>
+<body>
+<main>
+<header class="head">
+			<a class="head-left" href="{$backUrl}"><i class="icon-back"></i>返回</a>
+			<h1 class="title">智课作文</h1>
+</header>
+<section>
+	<div id="focus" class="focus mt45">
+				<div class="hd">
+					<ul><li class="on">1</li><li class="">2</li><li class="">3</li></ul>
+				</div>
+				<div class="bd">
+					<div class="tempWrap" style="overflow:hidden; position:relative;"><ul style="width: 960px; position: relative; overflow: hidden; padding: 0px; margin: 0px; transition-duration: 200ms; -webkit-transition-duration: 200ms; -webkit-transform: translate(0px, 0px) translateZ(0px);">
+							<li style="display: table-cell; vertical-align: top; width: 320px;"><a href="javascript:;"><img src="__SUBJECT__/correc/img/top_img01.jpg"></a></li>
+							<li style="display: table-cell; vertical-align: top; width: 320px;"><a href="javascript:;"><img src="__SUBJECT__/correc/img/top_img02.jpg"></a></li>
+							<li style="display: table-cell; vertical-align: top; width: 320px;"><a href="javascript:;"><img src="__SUBJECT__/correc/img/top_img03.jpg"></a></li>
+					</ul></div>
+				</div>
+	</div><!--end focus-->
+	<h3 class="textH3">英语作文智能批改（适合小学、初中、高中）。</h3>
+	<p class="textP2">
+		英语作文智能批改：基于数百名英语学科专家的长期研究，构建中小学英语作文批改的评估模型，从八大维度全面提升学生作文写作能力。通过海量人工批改数据分析，在语法错误检测数量和精准度上远远领先于世界上同类产品。是教师英语作文批改的智能助手。专业、易用、有效！
+	</p>
+<!-- 	<h4 class="textH4z"><label>优惠价：</label><font class="redFont">￥0.00</font><span class="jkx">开学季优惠</span></h4>
+	<h4 class="textH4z"><label>原价：</label><font class="font08">￥360.00</font><span class="fr">已有8.6万人学习</span></h4> -->
+</section>
+<section class="courseBtn"><a href="/Subject/Correc/index?gradeid={$gradeid}&backUrl={$backUrl}" id="drTan" class="btn">进入体验学习</a></section>
+
+
+</main>
+<script type="text/javascript" src="__SUBJECT__/correc/js/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript">
+
+TouchSlide({ 
+					slideCell:"#focus",
+					titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+					mainCell:".bd ul", 
+					effect:"left", 
+					autoPlay:true,//自动播放
+					autoPage:true, //自动分页
+					switchLoad:"__SUBJECT__/correc/images" //切换加载，真实图片路径为"_src" 
+				});
+
+</script>
+<script type="text/javascript">
+   shtml=$('.textIn').html();
+	$('.textIn').focus(function(){
+		$(this).html("");
+	})
+	$('.textIn').blur(function(){
+		var ss = $(this).html();
+		ss==""&&$(this).html(shtml);
+	})
+	$('#drTan').click(function(){
+	$('.dialog1').css('left',($(window).width() - 280)/2)
+    $('.dialog1').show();
+    $('#bg').show();
+
+})
+	$('.btyes').click(function(){
+		$('.dialog1').hide();
+    $('#bg').hide();
+	$('.cloud').show();
+	$('.brg').show();
+	setTimeout(function () {
+		$('.cloud').hide();
+	$('.brg').hide();
+    }, 6000);
+	})
+	$('.paizhao').click(function(){
+	$('.bload').show();
+	$('.brg').show();
+	setTimeout(function () {
+		$('.bload').hide();
+	$('.brg').hide();
+    }, 6000);
+})
+</script>
+</body>
+</html>
+<script type="text/javascript" src="__PUBLIC__/js/unitlog.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/performance.js" ></script>

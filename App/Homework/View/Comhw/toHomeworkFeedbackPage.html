@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>优教班班通-教师空间-课前预习</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link href="__PUBLIC__/public/style/keqian.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/common.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/online_work.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/homefamily.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/public/script/jquery-1.11.0.min.js"></script>
+<script src="__PUBLIC__/public/script/pic_scrollplugin.0717.js"></script>
+<script type="text/javascript" src="__PUBLIC__/public/script/jquery.easing.1.3.js"></script>
+<script src="__PUBLIC__/public/script/artDialog.js?skin=default"></script>
+</head>
+<body>
+ <div class="class-content">
+          	<div class="class-timu"> <h2>{$homework_name}</h2> </div>
+            <div class="tab_banji">
+                	<div class="pic_scr2">
+                        <div class="picbox2">
+                    	  <ul class="mainlist">
+                        <foreach name="classsinfo" key="k" item="vo" >
+                        <eq name="k" value="0">
+                        <li  class="cur_2" batchid="{$vo.batchid}" classid="{$vo.id}">{$vo.name}</li>
+                        <else />
+                         <li batchid="{$vo.batchid}" classid="{$vo.id}">{$vo.name}</li>
+                        </eq>
+                        </foreach>
+                   		 </ul>
+                        </div>
+                      <a href="javascript:;" id="btnPre" class="arr_l_white"></a>
+                      <a href="javascript:;" id="btnNext" class="arr_r_white"></a>
+                      </div>
+                      <script>  
+							$.zz_scroll('.pic_scr2', {
+						   eachBox: '.picbox2 ul li',
+						   prevId: 'btnPre',
+						   nextId: 'btnNext',
+						   dir: 1,
+						   type: 2,
+						   step: 6,
+						   effect: 'easeInOutExpo',
+						   loop: true
+						});
+      			   	</script>
+            </div>
+           
+        	<div class="class-one">
+                <div class="class-task-body">
+                	<h2 class="tab-h2" >
+										<span class="fr"> <a href="javascript:void(0);" onclick="cjzy();" class="btn_cui" title="催交">        
+            <span class="ico_cuij"></span></a>
+                </span></span>
+                          <ul class="tab">
+                            <li id="2Tab_0"  class="cur_2" onclick="Show_Tab_List2(2,0,2);">按题目查看</li>
+                            <li id="2Tab_1"   onclick="Show_Tab_List2(2,1,2);">按学生查看</li>
+														<span class="classinfo"></span>
+                          </ul>
+                    </h2>
+                    <div class="clearfix"></div>
+									<div id="2s_0">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_2 qk2">
+                              <tr class="tit2" id="qtype">
+                              
+                                
+                              </tr>
+                               <tr id="qdefenlv">
+                                
+                                
+                              </tr>
+                               <tr id = "qcount">
+                               
+                      
+                                
+                              </tr>
+                              <tr id="errword">
+                               
+                                
+                              </tr>
+                              <tr >
+                                <td colspan="7" align="left" valign="middle"   class="grayFon">易错词汇/音节：根据单词考察的目的，为教师提供了班级学生在英语听读作业中，单词易错词汇和单词发音易错音标的情况分析.</td>
+                              </tr>
+
+                    </table>
+
+                        </div>
+									<div id="2s_1" style=" display: none">
+									<div style="width:100%;">
+                        <div class="table_2" style="width:33%; float:left; clear:none;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_2 qk2" id="table1">
+                            
+                             
+                          </table>
+                        </div>
+                        <div class="table_2" style="width:33%; float:left; clear:none; margin-left:5px;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_2 qk2" id="table2">
+                              
+                              
+                              
+                          </table>
+                        </div>
+                        <div class="table_2" style="width:33%; float:right; clear:none;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_2 qk2" id="table3">
+                             
+                              
+                          </table>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+										
+										
+									</div>
+                </div>
+               
+            </div>
+            
+	</div>
+<!--设置为催交作业弹出层-->
+
+<div class="pop_zy" style="display:none;">
+<div id="gosumbit">
+  <div class="pop_zy gosumbit ">
+  
+  </div>
+ </div>
+ <p style="text-align:center; margin:10px;"><a href="javascript:;" onclick="cuijiao();" class="btn_blue" style="padding:2px 20px;">一键提醒家长</a></p>
+ </div> 
+
+<div id="nosumbit" style="display:none;">
+
+<div class="pop_zy nosumbit ">
+  
+  </div>
+   <p style="text-align:center; margin:10px;"><a href="javascript:;" onclick="cuijiao();" class="btn_blue" style="padding:2px 20px;">一键提醒家长</a></p>
+	</div>
+</body>
+</html>
+<script>
+
+var homeworkid = "{$homeworkid}";
+var homeworkname = "{$homework_name}";
+var yjthomeworkid = "{$yjthomeworkid}";
+var tms = "{$tms}";
+var tqms = "{$tqms}";
+var errword = '';
+var classid="",batchid="{$batchid}",classname="";
+var tempstr="";
+var listnum = 0;
+var nosumbitstr='';
+var gosumbitstr='';
+var ishttps=document.location.protocol;
+$(function(){
+	/*设置图片数变量*/
+	n=0;
+	/*点右箭头*/
+	$(".lef-btn2").click(function(){
+		/*换下一张图*//*如果n大于3，等于3,否则接着加*/
+		if(n>n){
+			n=0;
+		}else{
+			n=n+1;
+		}
+		//document.title=n;
+		$(".over-box").animate({marginLeft:-102*n});
+	})	
+	/*点左箭头*/
+	$(".rig-btn1").click(function(){
+		/*换上一张图*//*如果n大于3，等于3,否则接着加*/
+		if(n>0){
+			n=n-1;
+		}else{
+			n=0;
+		}
+		//document.title=n;
+		$(".over-box").animate({marginLeft:-102*n});
+	});
+
+  $('.mainlist li').click(function(){
+    $('.mainlist li').removeClass('cur_2');
+    $(this).addClass('cur_2');
+    errword = '';
+    classid = $(this).attr('classid');
+    //batchid = $(this).attr('batchid');
+    classname = $(this).text();
+    $.getJSON('toHomeworkFeedbackJson',{homeworkid:homeworkid,classid:$(this).attr('classid'),batchid:batchid},function(result){
+      tempstr = '<h4>已提交作业'+result.classsinfo.submitnum+'人,名单如下：</h3><p><strong>'+classname+'：</strong></p>';
+      tempstr +='<ul>';
+      $(result.classsinfo.students).each(function(i,val){
+        if(val.issubmit == 1){
+
+         tempstr +='<li>'+val.name+'</li>';
+        }
+      });
+      tempstr += '<div class="clearfix"></div></ul>';
+      $('.gosumbit').html(tempstr);
+      tempstr = '';
+      tempstr = '<h4>未提交作业'+result.classsinfo.no_submitnum+'人,名单如下：</h3><p><strong>'+classname+'：</strong></p>';
+      tempstr +='<ul>';
+      $(result.classsinfo.nosumbitstudents).each(function(i,val){
+        if(val.issubmit == 0){
+
+         tempstr +='<li>'+val.name+'</li>';
+        }
+      });
+      tempstr += '<div class="clearfix"></div></ul>';
+      $('.nosumbit').html(tempstr);
+      if(result.classsinfo.no_submitnum != 0){
+        nosumbitstr = '<a href="javascript:nosumbit();">'+result.classsinfo.no_submitnum+'</a>';
+      }
+      else{
+        nosumbitstr = result.classsinfo.no_submitnum;
+      }
+      if(result.classsinfo.submitnum != 0){
+        gosumbitstr = '<a href="javascript:gosumbit();">'+result.classsinfo.submitnum+'</a>';
+      }
+      else{
+        gosumbitstr = result.classsinfo.submitnum;
+      }
+      $('.classinfo').html('作答情况：班级得分率：'+result.classsinfo.average+'%；平均作答时长：'+result.classsinfo.average_time+'；完成情况：已提交；'+gosumbitstr+'；未提交：<font class="redFon">'+nosumbitstr+'</font>');
+
+       $('#qtype').html('<td width="12%" >作业类型</td>');
+        $('#qdefenlv').html('<td >得分率</td>');
+        $('#qcount').html('<td >习题数量</td>');
+        $('#errword').html('<td >易错词汇/音节</td>');
+        $('#table1').html('');
+        $('#table2').html('');
+        $('#table3').html('');
+      if(result.students.length%3 == 0){
+        listnum = result.students.length/3;
+      }
+      else{
+        listnum = (result.students.length - result.students.length%3)/3;
+      }
+      if(listnum < 10){
+        listnum = 10;
+      }
+        $('#table1').html('<tr class="tit2"><td width="20%">排名</td><td width="20%">姓名</td><td width="20%">得分率</td><td width="20%">作答时长</td><td width="">详情</td></tr>');
+        if(result.students.length >= listnum){
+          $('#table2').html('<tr class="tit2"><td width="20%">排名</td><td width="20%">姓名</td><td width="20%">得分率</td><td width="20%">作答时长</td><td width="">详情</td></tr>');
+        }
+        if(result.students.length >= listnum*2){
+          $('#table3').html('<tr class="tit2"><td width="20%">排名</td><td width="20%">姓名</td><td width="20%">得分率</td><td width="20%">作答时长</td><td width="">详情</td></tr>');
+        }
+       $(result.question).each(function(i,qvalue){
+        errword = ''
+          $('#qtype').append('<td>'+qvalue.title+'</td>');
+          $('#qdefenlv').append('<td>'+qvalue.defenlv+'%</td>');
+          $('#qcount').append('<td>'+qvalue.qcount+'</td>');
+          if(qvalue.errtype == 0){
+              // $(this).attr('errword').each(function(j){
+                //console.log(qvalue.errword)
+              // });
+              $(qvalue.errword).each(function(j,errvalue){
+                 errword += (j+1)+'、'+errvalue.word+'<br>';
+              });
+              $('#errword').append('<td >'+errword+'</td>');
+          }
+          else{
+            $('#errword').append('<td >---</td>');
+          }
+       });
+//stufeedback?homeworkid=".$homeworkid."&classId=".$classid."&studentId=".$username
+    //console.log(listnum);
+      $(result.students).each(function(k,stuvale){
+         // console.log(stuvale.name);
+         var htmlstr = '<tr><td>'+(k+1)+'</td><td>'+stuvale.name+'</td><td>'+stuvale.score+'%</td><td>'+stuvale.time+'</td><td><a href="stufeedback?homeworkid='+homeworkid+'&classId='+stuvale.classid+'&studentId='+stuvale.id+'&showtype=1" class="blue">查看</a></td></tr>';
+         if(k < listnum){
+          $('#table1').append(htmlstr);
+         }
+         else if(k >= listnum && k < listnum*2){
+          $('#table2').append(htmlstr);
+         }
+         else{
+          $('#table3').append(htmlstr);
+         }
+      });
+      
+    });
+  });
+  $('.mainlist li:eq(0)').click();
+})
+function Show_Tab_List2(num,active,where){
+  for(var i=0;i<num;i++){
+    if(i!=active){
+      document.getElementById(where+"s_"+i).style.display="none";
+      document.getElementById(where+"Tab_"+i).className="";
+      }else{
+      document.getElementById(where+"s_"+i).style.display="block";
+      document.getElementById(where+"Tab_"+i).className="cur_2";
+      }
+  }
+}
+/*发送作业*/
+function cjzy(){
+  art.dialog({
+    margin:0,
+    id :'nosumbit',
+    title:'催交作业',
+    width:800,
+    content: document.getElementById('nosumbit'),
+    lock:true,
+    opacity: 0.2
+  });
+}
+
+var ishttps=document.location.protocol;
+
+function cuijiao(){
+  $.ajax({
+ 			url: ishttps+'//'+tqms+'/tqms/mobile/homework/homeWortRemindParents.action',
+		    scriptCharset:"gbk",
+		    type: "get",
+		    data:{homeworkId:yjthomeworkid,batch_id:batchid,classIds:classid,homeWorkName:homeworkname},
+		    dataType: "jsonp",
+		    jsonp: "jsoncallback",
+		    success:function(data){
+		    	alert(data.msg);
+    			art.dialog.list['nosumbit'].close();
+		    }
+ 		});
+}
+function nosumbit(){
+  art.dialog({
+    margin: 20,
+    id :'nosumbit',
+    title:'未提交作业学生名单',
+    width:550,
+    content: document.getElementById('nosumbit'),//获取id为dTree_9层里面的内容，dTree_9层在页面下方
+    lock:true,
+    left: '52%',
+    top: '51%',
+    opacity: 0.2,
+   
+  cancelVal: '关闭',
+    cancel: true
+});
+}
+function gosumbit(){
+  art.dialog({
+    margin: 20,
+    title:'已提交作业学生名单',
+    width:550,
+    content: document.getElementById('gosumbit'),//获取id为dTree_9层里面的内容，dTree_9层在页面下方
+    lock:true,
+    left: '52%',
+    top: '51%',
+    opacity: 0.2,
+   
+  cancelVal: '关闭',
+    cancel: true
+});
+}
+</script>
+

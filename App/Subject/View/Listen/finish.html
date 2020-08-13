@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="wap-font-scale" content="no">
+		<meta charset="UTF-8">
+		<title>英语同步练</title>
+        <link rel="stylesheet" href="__SUBJECT__/css/currency.css" />
+        <link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+        <link rel="stylesheet" href="__PUBLIC__/css/layer.css" />
+
+        <script type="text/javascript" src="__PUBLIC__/js/require.js" ></script>
+        <style>
+        	#wrapper {top: 45px; bottom: 40px; background: #F4F4F4;}
+        </style>
+    </head>
+	<body>
+		<main>
+			<header class="head border-nav">
+				<a class="head-left" href="javascript:void(0);"><i class="icon-back"></i>返回</a>
+				<a class="head-right" style="display:none;"><i class="icon-clock"></i></a>
+				<h1 class="title">练习报告</h1>
+			</header>
+			<section>
+				<div id="wrapper">
+					<div id="scroller">
+						<div class="pad10">
+							<div class="topBox pad10">
+								<!-- <strong  id="share">晒成绩</strong> -->
+								<p class="topF" style="padding: 0 0"><strong>{$studentscore}</strong>&nbsp;分</p>
+							</div>
+							<ul class="bjsj backGfff">
+					    		<li style="padding: 0 0"><p class="textH4">用时</p><p class="fontZ">{$homeworksubmittime}</p></li>
+					    		<li style="padding: 0 0"><p class="textH4">作答人次</p><p class="fontZ">{$homeworksubmitnum}人</p></li>
+					    		<li style="padding: 0 0"><p class="textH4">平均用时</p><p class="fontZ">{$homeworkaveragetime}</p></li>
+							</ul>
+					    	<h3 class="listIconText bt" id="classrank">
+								<span class="fr"><i class="icon-right"></i></span>
+					            <span class="textH3">班级得分榜</span>
+							</h3>
+						</div>
+                        <div class="pad10">
+                            <h2 class="textH3">听力训练<font class="font08">共<font id="eqcount">0</font>道试题，答对<font id="equsercount">0</font>道，正确率<font id="eqrate">0%</font></font></h2>
+                        </div>
+						<div class="pad10">
+							<ul class="cpbg" id="iStudy">
+								
+							</ul>
+							<div class="clearfix"></div>
+						</div>
+					</div><!--end scroller-->
+				</div><!--end wrapper-->
+				<div class="courseBtn" display="none;">
+					<a class="fenT" id="check" href="javascript:void(0);;" >查看解析</a>
+					<a class="fenT" id="test" href="javascript:void(0);" style="width:50%">重新测试</a>
+				</div>
+			    <div id="tips"></div>
+            </section>
+        </main>
+    <!--遮罩的代码-->
+        <div id="over" class="over"></div>
+        <div id="layout" class="layout">
+            <img src="__SUBJECT__/img/2013112931.gif" alt="" />
+        </div>
+        <style>
+            .over {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #f5f5f5;
+                opacity:0.5;
+                z-index: 1000;
+            }
+            .layout {
+                display: block;
+                position: absolute;
+                top: 40%;
+                left: 40%;
+                width: 20%;
+                height: 20%;
+                z-index: 1001;
+                text-align:center;
+            }
+        </style> 
+    </body>
+    <script type="text/javascript">
+        var quizid="{$quizid}";
+        var classid="{$classid}";
+        var examsid="{$examsid}";
+        var ks_code="{$ks_code}";
+        var ks_short_name="{$ks_short_name}";
+        var moduleid="{$moduleid}";
+        var errornum=0;
+        var emptynum=0;
+    </script>
+    <script type="text/javascript">
+        var subjectsource="__SUBJECT__";
+        require.config({
+        　paths: {
+                "zepto": "__PUBLIC__/js/zepto.min",
+    　　　　　　"enajax": "__PUBLIC__/js/enajax",
+        　　　　"iscroll":"__PUBLIC__/js/iscroll-lite",
+                "layer":"__PUBLIC__/js/layer",
+        　　　},
+            shim: {
+    　　　　　　"iscroll": {
+    　　　　　　　　exports:"iscroll"
+    　　　　　　}
+        　　},
+            waitSeconds: 0
+        });
+        require(["zepto","enajax",'iscroll',"layer"], function($,enajax,IScroll,layer){
+            //滑动问题
+            new IScroll("#wrapper",{
+                momentum:true,
+                click:true 
+            });
+            $("#wrapper").resize();
+            var Requests = new Object();
+            Requests = GetRequest();
+
+            //进行作业的数据的显示
+            $.ajax({
+                type:'GET',
+                url:"../User/getStudentSituation",
+                data:{quizid:quizid,ran:Math.random()},
+                dataType:'json',
+                async:false,
+                context:$('body'),
+                success: function(data){
+                    //遮罩消失
+                    hideloading();
+                    var homeworkcount=0;
+                    var homeworksubmitcount=0;
+                    var eqcount=0;
+                    var hwscore=0;
+                    var userhwscore=0;
+                    //听力训练
+                    var count=0;
+                    var accrnum=0;
+                    var content="";
+                    //临时变量存储
+                    var questemp="";
+                    var counttemp=0;
+                    $.each(data.eq,function(k,v){
+                        count=count+1;
+                        hwscore=hwscore+parseFloat(v.quesscore);
+
+                        if(questemp!=v.id){
+                            questemp=v.id;
+                            counttemp=counttemp+1;
+                        }
+                        if(parseInt(v.score)>=1){
+                            userhwscore=userhwscore+parseInt(v.score)*parseFloat(v.quesscore);
+                            accrnum=accrnum+1;
+
+                            content=content+'<li><a class="ball_l" loc="listenexam?index='+(counttemp-1)+'">'+(k+1)+'</a></li>';
+                        }else if(v.isdo=='1'&&v.score=='0'){
+                            emptynum=emptynum+1;
+                            userhwscore=userhwscore+parseInt(v.score);
+                            errornum=errornum+1;
+                            content=content+'<li><a class="ball_r" loc="listenexam?index='+(counttemp-1)+'">'+(k+1)+'</a></li>';
+                        }else{
+                            emptynum=emptynum+1;
+                            content=content+'<li><a class="ball_kk" loc="listenexam?index='+(counttemp-1)+'" style="color: gray;">'+(k+1)+'</a></li>';
+                        }
+                    });
+                    var accrate=0;
+                    if(count==0){
+                        accrate=0;
+                    }else{
+                        accrate=Math.round(accrnum*100/count);
+                    }
+                    homeworkcount=homeworkcount+count;
+                    $("#eqcount").html(count);
+                    $("#equsercount").html(accrnum);
+                    $("#eqrate").html(accrate+"%");
+                    $("#iStudy").html(content);
+                    //展示总分数以及用户的分数
+                    $("#iStudy a").on('click',function(){
+                        var url=this.getAttribute("loc");
+                        url=url+"&examsid="+examsid+"&quizid="+quizid+"&issubmit=1&ks_code="+ks_code+"&ks_short_name="+ks_short_name+"&moduleid="+moduleid+"&callbackURL="+encodeURIComponent(document.location.href)+"&backsUrl="+(encodeURIComponent(Requests["backsUrl"]));
+                        window.location.href=url;
+                    })
+
+                    //解析判断一下这个人是否有错题
+                    // document.getElementById("allquesid").addEventListener('tap',function(){
+                    //     var url=this.getAttribute("loc");
+                    //     //alert(url);
+                    //     url="examsquiz?homeworkid="+homeworkid+"&issubmit=1&iserror=0&type=0&studentId="+studentid+"&classId="+classid+"&batchid="+batchid;
+                    //     mui.openWindow(url);
+                        
+                    // });
+                    $(".courseBtn").show();
+                },
+                error:function(xhr,type,errorThrown){
+                    //异常处理；
+                    return errorThrown;
+                }
+            });
+
+            perface();
+
+            //历史查看
+            $(".head-right").click(function(){
+            	layer.open({type: 2});
+            	$.ajax({
+		            type:'GET',
+		            url:"../User/getUserListenHistoryData",
+		            dataType:'json',
+		            async:false,
+		            timeout: 30000,
+		            context:$('body'),
+		            success: function(data){
+		                //遮罩消失
+		                layer.closeAll();
+		                var content='<ul class="wb bWhite iStudy">';
+		                $.each(data,function(k,v){
+		                    //基础模块的添加
+		                    //<li href="readword?chapterid=0&amp;ks_code=00010202070101&amp;moduleid=4&amp;ks_short_name=undefined&amp;chaptername=%25E5%258D%2595%25E8%25AF%258D%25E5%258F%25A3%25E8%25AF%25AD"><p style="display: block;"><span style="display:block;">单词口语</span><span style="display:block;">2017-05-11 最高得分：20分</span></p></li>
+		                    content=content+'<li href="readword?chapterid=0&amp;ks_code=00010202070101&amp;moduleid=4&amp;ks_short_name=undefined&amp;chaptername=%25E5%258D%2595%25E8%25AF%258D%25E5%258F%25A3%25E8%25AF%25AD"><p style="display: block;"><span style="display:block;font-size:1.1em;">'+v.name+"&nbsp;"+v.chapter+'测试</span><span style="display:block;">'+v.submittime+'&nbsp;平均得分:'+v.score+'分</span></p></li>';
+		                });
+						content=content+"</ul>";
+		                layer.open({
+						    type: 1
+						    ,content: content
+						    ,anim: 'up'
+						    ,style: 'position:fixed; bottom:0; left:0; width: 100%; height: 200px; padding:10px 0; border:none;overflow-y:auto;'
+						 });
+	            	},
+	            	error:function(xhr,type){
+
+	            	}
+        		})
+            })
+
+            //查看结果
+            $("#test").click(function(){
+                window.location.href="listenexam?examsid="+Requests["examsid"]+"&ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"]+"&ks_short_name="+encodeURI(encodeURI(Requests["ks_short_name"]))+"&callbackURL="+encodeURIComponent(document.location.href)+"&backsUrl="+(encodeURIComponent(Requests["backsUrl"]));
+            })
+
+            //重新测评
+            $("#check").click(function(){
+            	window.location.href="listenexam?examsid="+Requests["examsid"]+"&ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"]+"&ks_short_name="+(Requests["ks_short_name"])+"&issubmit=1&callbackURL="+encodeURIComponent(document.location.href)+"&backsUrl="+(encodeURIComponent(Requests["backsUrl"]));
+            })
+
+            //返回操作
+            $(".head-left").click(function(){
+                //encodeURI(encodeURI("/order?name=" + name));
+                window.location.href=(decodeURIComponent(Requests["backsUrl"]));
+            })
+
+            //班级得分榜
+            $("#classrank").click(function(){
+                window.location.href="../Word/classrank?dataurl="+encodeURIComponent('../User/getClassRank')+"&classid="+classid+"&mod=exams&callbackURL="+encodeURIComponent(document.location.href)+"&func=getListenExamClassrank&ks_code="+Requests["examsid"]+"&examsid="+Requests["ks_code"]+"&backsUrl="+(encodeURIComponent(Requests["backsUrl"]));
+            })
+
+        });
+    </script>
+</html>

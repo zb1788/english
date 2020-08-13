@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="/public/Mobile//css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="/public/Mobile//css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<header bid="00010802060205">
+    <div class="l fl"><a href="/mobile/wordrecite/index"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">背单词</div>
+    	<div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+                <li><a href="/mobile/index/wordbook"><i class="icon-heart"></i><font class="wordcount">0</font></a></li>
+                <li><a href="/mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount">0</font></a></li>
+                <li><a href="/mobile/index/index"><i class="icon-evil"></i>学习中心</a></li>
+				<li><a href="/mobile/index/course"><i class="icon-pencil-square"></i><b>课程设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<section class="recite" id="0" wid="89" >
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="89" mid="E9F003D4FE8AA18E30C3BEF6C0C9590D.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >get to</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                筛（煤、矿石等）；拍摄；放映（电影 ）<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                剧本<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        C.
+                                                到达<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        惊呼，尖叫<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/190bc3e2d84ab8e080dbaf1bae53297f.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>get to</span><span>到达</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="1" wid="90" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="90" mid="28223AC732004190D0ACB4C115200C02.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >train</span><span>[treɪn]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                笑( laugh的过去式和过去分词 )<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        B.
+                                                火车<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                有关的<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        跳过；快速移动；（因吃惊、害怕或激动而）猛地一动<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/264d0b01d80a89338dee2a8f52772d46.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>train</span><span>[treɪn]</span><span>n.火车</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="2" wid="91" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="91" mid="CA66BEF5943974E7FECF9ABB22F0A5F0.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>bus</span><span>[bʌs]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                crossing<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        B.
+                                                bus<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                cows<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        cycling<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/ec9456694958c748839349639bdbb985.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>bus</span><span>[bʌs]</span><span>n.公共汽车</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="3" wid="92" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="92" mid="4A884DC21D7C88698FD0BB5C456EE501.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >subway</span><span>[ˈsʌbweɪ]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150412100447833392.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/7aa688a311b68d3bd4f315f07c8ec532.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150831173039669696.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/603f9f32b27560225062c730aaf8d548.jpg" src="/public/Mobile//images/loading.gif"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/7aa688a311b68d3bd4f315f07c8ec532.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>subway</span><span>[ˈsʌbweɪ]</span><span>n.地铁；地下通道</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="4" wid="93" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="93" mid="B8EEE8159478E395E8951889E69B4E5C.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >take the subway</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="1" onclick="recite(this);">
+                        A.
+                                                乘地铁<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                听( listen的过去时形式)；<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                男人（man的复数）<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        结婚的；已婚的<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/933561843a2dd7f4f2ee56c6fb4dd2ab.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>take the subway</span><span>乘地铁</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="5" wid="94" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="94" mid="6D75ECD577F21B301AD374E47E141D4B.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >ride</span><span>[raɪd]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/39d7091aeb79e7b55b265f900a80d28c.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/688c908735423254158eb2a4e2362553.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150829010711958499.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/9967ab5f13edb1e4ce2cabb3c304f248.jpg" src="/public/Mobile//images/loading.gif"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/688c908735423254158eb2a4e2362553.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>ride</span><span>[raɪd]</span><span>v.骑；n.旅程</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="6" wid="95" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="95" mid="7BD05D688951A6CFD997582BB11F55B9.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >bike</span><span>[baɪk]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150617095322862973.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150611234407688565.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/251b1b614e3d835444a61c71dcde7fb2.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/0759e1355aba8296e35b74c827c45e2d.jpg" src="/public/Mobile//images/loading.gif"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/0759e1355aba8296e35b74c827c45e2d.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>bike</span><span>[baɪk]</span><span>n.自行车</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="7" wid="96" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="96" mid="22F6C4C808F3241ADAC9FEBF27092BE7.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >ride a bike</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20170203133840351889.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/d215762f555d01e2d3d97b7799210486.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20170203140028510696.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150412143915809799.jpg" src="/public/Mobile//images/loading.gif"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/d215762f555d01e2d3d97b7799210486.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>ride a bike</span><span>骑自行车</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="8" wid="97" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="97" mid="B2F48397A88BFACE701C914E83472C0D.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >sixty</span><span>[ˈsɪksti]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                惊呼，尖叫<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                剧本<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        C.
+                                                六十<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        屏幕；荧光屏<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/15f24f1a3700baf80f1a6c4eaf3a5ff6.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>sixty</span><span>[ˈsɪksti]</span><span>num.六十</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="9" wid="98" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="98" mid="3E9B198C0DE9528211EB769E76B32BAE.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>seventy</span><span>[ˈsevnti]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                main<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                major<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        C.
+                                                seventy<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        mainly<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/84d689b7e1aa4ffc45cd1f1da7f975f4.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>seventy</span><span>[ˈsevnti]</span><span>num.七十</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="10" wid="99" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="99" mid="2F1434D921B58BC9B1ECB0B4FFCE3B68.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>eighty</span><span>[ˈeɪti]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                yuk<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                lychee<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                longan<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                         D.                        eighty<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/2b180ef54b218d7d85d2b6f3180f4af8.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>eighty</span><span>[ˈeɪti]</span><span>num.八十</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="11" wid="100" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="100" mid="770DB05D830C1403398D38A5CF514D70.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>ninety</span><span>[ˈnaɪnti]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                faster<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        B.
+                                                ninety<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                fairest<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        fallen<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/76a0464fbc2e8df8fd80d2cc11871fc2.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>ninety</span><span>[ˈnaɪnti]</span><span>num.九十</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="12" wid="101" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="101" mid="68EFD8DB18DE959C6339C79550F1FD9A.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>hundred</span><span>[ˈhʌndrəd]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                impolite<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        B.
+                                                hundred<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                imperial<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        immediately<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/31f25d03663ab4b81e3cf99110ea40f8.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>hundred</span><span>[ˈhʌndrəd]</span><span>num.百</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="13" wid="102" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="102" mid="B34C5230753DFFF1BA84921050DF0C14.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >minute</span><span>[ˈmɪnɪt]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="1" onclick="recite(this);">
+                        A.
+                                                分钟<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                表明（某人参与了罪行等）(involve的过去式和过去分词)；使参与；牵涉；使专心于<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                跳过；快速移动；（因吃惊、害怕或激动而）猛地一动<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        跳( jump的过去式和过去分词 )；跳过；快速移动；（因吃惊、害怕或激动而）猛地一动<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/e12f250f35f6f36d193ff15e744ba4da.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>minute</span><span>[ˈmɪnɪt]</span><span>n.分钟</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="14" wid="103" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="103" mid="28284476AB6FF5A0B3CFADC83E35B737.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >far</span><span>[fɑː(r)]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                别的( other的名词复数 )；其他的；（两个中的）另一个；其余的<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        B.
+                                                远的；远<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                洋葱（头）( onion的名词复数 )；（食物）洋葱，葱头<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        （打）开( open的现在分词)；开始；睁开；启动<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/e469569c3807ff67f8563b8bae005c76.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>far</span><span>[fɑː(r)]</span><span>adv.远的；远</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="15" wid="104" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="104" mid="55CB420874BCB9E85F10887EE990095C.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >kilometer</span><span>[ˈkɪləmiːtə]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                台北<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        B.
+                                                千米，公里<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                重要地<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        字幕<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/08a42b16755855b7a0cb3df018bc8182.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>kilometer</span><span>[ˈkɪləmiːtə]</span><span>n.千米，公里</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="16" wid="105" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="105" mid="EF217DB924EBC0002CBEE0E643F8DE6C.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>new</span><span>[njuː]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                planted<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                played<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                planned<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                         D.                        new<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/e5eec93d46bc72e9aa93419b0eae063b.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>new</span><span>[njuː]</span><span>adj.新的；新来的</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="17" wid="106" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="106" mid="0ED5A1F0B0449B2EA20C1FAB6004B428.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>every</span><span>[ˈevri]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                rice<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        B.
+                                                every<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                rich<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        riddle<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/f0ae2f70e32ec1a7cf7050dd12646500.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>every</span><span>[ˈevri]</span><span>adj.每一，每个</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="18" wid="107" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="107" mid="1D455D078207BE12B819DF7BB079DC21.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >every day</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                描述；描写<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                视……而定，决定（于）<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                形容；说明<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                         D.                        每天；日常的<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/64fc87ff86d7c231b621d921958ef925.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>every day</span><span>每天；日常的</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="19" wid="108" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="108" mid="FD32514475144579D12C420238A686E3.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>by</span><span>[baɪ]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="1" onclick="recite(this);">
+                        A.
+                                                by<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                boots<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                boarding<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        boxing<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/ad14b6fecacea4cc5c42eda7a54a55a2.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>by</span><span>[baɪ]</span><span>prep.（表示方式）乘（交通工具）</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="20" wid="109" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="109" mid="DE85C08CDDE3F7231E99FBAEABA7AEC9.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>by bike</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                spelt<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        B.
+                                                by bike<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                Trojan<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        hid<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/dfb8288c49982a821c1754535fc26387.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>by bike</span><span>骑自行车</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="21" wid="110" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="110" mid="F4CEF190F18A58A91D51A99E216399D9.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>drive</span><span>[draɪv]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                absent<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                accident<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        C.
+                                                drive<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        accept<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/d6a25ca1b39936b003072f5fd249063d.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>drive</span><span>[draɪv]</span><span>v.驾车送（人）；开（车）；驾驶</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="22" wid="111" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="111" mid="DE1D675943278635957BA0F7F5DE6298.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >car</span><span>[kɑː]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                高粱；[作物] 蜀黍；<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                演哑剧<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        C.
+                                                汽车；轿车<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        漆刷<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/4297513db31c7504a8698cc66b67450c.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>car</span><span>[kɑː]</span><span>n.汽车；轿车</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="23" wid="112" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="112" mid="AB4D5CE211FDB932A640733D38A0C183.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >live</span><span>[lɪv]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150906180942942321.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/17fcc5bbce3dd266f687347882c7adc6.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/a120ac95922bccebd343aaa96340d0c1.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/c9ac04fa5e946f9a7844796756549acd.jpg" src="/public/Mobile//images/loading.gif"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/17fcc5bbce3dd266f687347882c7adc6.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>live</span><span>[lɪv]</span><span>v.居住；生活</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="24" wid="113" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="113" mid="3BF3F823B84BB0362B6670E490013556.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >stop</span><span>[stɒp]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                陷住；无法移动<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                （study的第三人称单数形式）学习<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                （story的复数形式）故事<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                         D.                        车站；停止<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20160204224358876898.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>stop</span><span>[stɒp]</span><span>n.车站；停止</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="25" wid="114" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="114" mid="9B9B163A8398DAE5F5C6441BC5AEAE57.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >think of</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                T恤衫<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                时间的选择<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                开发者，研制者<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                         D.                        认为；想起<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/6f6c97b2aea0ed8ec265a2fae687bf6d.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>think of</span><span>认为；想起</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="26" wid="115" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="115" mid="17222DC9CCF6731B985A6AB93FECFB75.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>cross</span><span>[krɒs]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                eve<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                education<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        C.
+                                                cross<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        event<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150327135511149493.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>cross</span><span>[krɒs]</span><span>v.穿过；横跨，横穿</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="27" wid="116" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="116" mid="C365FAA79FCBFE6A36022B5667C54D8B.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>river</span><span>[ˈrɪvə]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                defeat<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                deep<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                decoration<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                         D.                        river<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/556b842e1024ff162ad3ea7ad8636085.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>river</span><span>[ˈrɪvə]</span><span>n.河，江；溪</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="28" wid="117" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="117" mid="AE5D260DFC9898D2550F613160525A49.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >many</span><span>[ˈmeni]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150908094755494244.png" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/ace58b50086831ef32501cc1148c9253.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150906183106252243.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/2afb0411bcd20bf8ceb3ca4580b80d2f.jpg" src="/public/Mobile//images/loading.gif"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150908094755494244.png"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>many</span><span>[ˈmeni]</span><span>det.&pron.许多</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="29" wid="118" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="118" mid="09ED914E4555B53B73EEF29BF01864AB.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >village</span><span>[ˈvɪlɪdʒ]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150331160734941085.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/5bd9d0d6a3d65a2be50c2404bcfaa148.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150409083613968551.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/7a934ed26b8e3a04978a3220b0915dfc.jpg" src="/public/Mobile//images/loading.gif"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/7a934ed26b8e3a04978a3220b0915dfc.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>village</span><span>[ˈvɪlɪdʒ]</span><span>n.村庄；村镇</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="30" wid="119" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="119" mid="9C5E336080E112C5C7EC464DEDC50C78.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >between</span><span>[bɪˈtwiːn]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/4f1bf7aee9c70f768d9b3ed77c9498d4.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150821164932614379.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150821163930270480.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150821173837953280.jpg" src="/public/Mobile//images/loading.gif"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/4f1bf7aee9c70f768d9b3ed77c9498d4.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>between</span><span>[bɪˈtwiːn]</span><span>prep.介于……之间</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="31" wid="120" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="120" mid="B13D094A2F1877F353328D16F4C20B96.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>between…and…</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                am<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                altitude<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                always<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                         D.                        between…and…<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/208f2ea532f1e20ebd39451a9ae55334.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>between…and…</span><span>在……和……之间</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="32" wid="121" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="121" mid="B47726CB32EC244E4F98F61CDE38FD18.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >bridge</span><span>[brɪdʒ]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/c701dcc95669c71c4c800c5e81595f5f.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/a1385e0c96e8824062ad8368048d33cf.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150326114040618801.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/e7ea301fe7c51dac6176d98ea63a3ef5.jpg" src="/public/Mobile//images/loading.gif"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/c701dcc95669c71c4c800c5e81595f5f.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>bridge</span><span>[brɪdʒ]</span><span>n.桥；桥梁</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="33" wid="122" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="122" mid="7D17754E7CB46073DD2AFD96AD8F70E6.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >boat</span><span>[bəʊt]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                炸薯条<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                连续不断的<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                【复数】通信<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                         D.                        船<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/e01bec033bbbc4b33e38f9122bbb9e90.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>boat</span><span>[bəʊt]</span><span>n.船</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="34" wid="123" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="123" mid="8115C94573765F8D9B979425D03CDC99.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>ropeway</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                amazed<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                Allen<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                almost<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                         D.                        ropeway<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/d7e0f27c638689470bba8937093edaf1.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>ropeway</span><span>索道</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="35" wid="124" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="124" mid="EF420AC5B6BADA5A7912A3E5A4153344.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>year</span><span>[jɪə]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="1" onclick="recite(this);">
+                        A.
+                                                year<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                technology<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                teahouse<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        team<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/2f3f9cfeae345154a350ec3261a2b8d2.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>year</span><span>[jɪə]</span><span>n.年；年龄、岁数</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="36" wid="125" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="125" mid="21BCE33845C54D353A2F0286F49BA588.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >afraid</span><span>[əˈfreɪd]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/74a644052bae709218e149066decd9b6.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/b73c12999d945770f92087f9b0f98ccf.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/d414c7146007dccd8b1de5928fd8e205.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/1f811cba0588f9ef203ba4c8e61741db.jpg" src="/public/Mobile//images/loading.gif"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/74a644052bae709218e149066decd9b6.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>afraid</span><span>[əˈfreɪd]</span><span>adj.害怕；畏惧</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="37" wid="126" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="126" mid="F48EA164292CC85E406747F7B31F484B.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >like</span><span>[laɪk]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                做完的；已完成的<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                人行横道，十字路口；交叉，相交；横越；渡口<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        C.
+                                                像；跟......一样<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        跳舞( dance的过去式）<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/cb0d42dfa3bef4ae596ef11bc737162d.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>like</span><span>[laɪk]</span><span>prep.像；跟......一样</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="38" wid="127" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="127" mid="78A99F5C5FBCF5B739D69A61571445C1.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >villager</span><span>[ˈvɪlɪdʒə(r)]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/2093a12425988843d806171b6e642e2b.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/ffd2a51e1a8aeb489600f701faa83701.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/08dec5e58069b69c6f5b712e3bd3a552.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/2a71654bdcaab93fa4c63bcb3ca3bc52.jpg" src="/public/Mobile//images/loading.gif"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/2a71654bdcaab93fa4c63bcb3ca3bc52.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>villager</span><span>[ˈvɪlɪdʒə(r)]</span><span>n.村民；乡村居民</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="39" wid="128" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="128" mid="2799AC62C7241266879EE1EF9F75C9D8.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >leave</span><span>[liːv]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150617170602100302.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/3e3b4dc116093265c6011c4fd51a3aa6.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/6e79e4b305ae0d9cba93f43aed4a73e0.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/ab391997bda78919d161f5ea2585be14.jpg" src="/public/Mobile//images/loading.gif"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150617170602100302.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>leave</span><span>[liːv]</span><span>v.动身；出发；离开</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="40" wid="129" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="129" mid="3AFFE41A6D5B1D2A01B5904B93477B4A.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>dream</span><span>[driːm]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                gathering<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                goes<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                gloves<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                         D.                        dream<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150421172126271139.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>dream</span><span>[driːm]</span><span>n.梦想；愿望；梦</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="41" wid="130" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="130" mid="DC9B53581EEE701C5CB7B4FD3D6F344D.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >true</span><span>[truː]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150908152952861270.png" src="/public/Mobile//images/loading.gif"></span></li><li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/d23f4b9c4dfb180acf3dc139e54037de.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/8bd3bdd0f70628e3ac1c16a053d80b99.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/3752f76b392ffd3f3d86855ab142c7fa.jpg" src="/public/Mobile//images/loading.gif"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/d23f4b9c4dfb180acf3dc139e54037de.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>true</span><span>[truː]</span><span>adj.确实的，真正的；真实的</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="42" wid="131" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="131" mid="FA5F3554D49FB4E0FE581E02DF7BDC29.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >come true</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                （表示接受建议）<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                饮；喝酒；（尤指）酗酒<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        C.
+                                                （希望、梦想等）实现，成真<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        穿上衣服的<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/0bff4257fc28e5fc6491f5f948d4c97c.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>come true</span><span>（希望、梦想等）实现，成真</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="43" wid="132" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="132" mid="785F179BB757023634B3524C5F67359E.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >Dave</span><span>[deiv]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20150907163757733609.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/e00672e421e9c67689bdab6d1a8f7670.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/c9dbb83245aa611bd16c061d379094d9.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/20170203111052812628.jpg" src="/public/Mobile//images/loading.gif"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="http://en2.czbanbantong.com:8080/yylmp3/pic_word/c9dbb83245aa611bd16c061d379094d9.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>Dave</span><span>[deiv]</span><span>n.戴夫（男子名）</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section>
+<section class="tips bLine" style="display:none;">
+    <p><img src="/public/Mobile//images/trophy.png"></p>
+    <p class="txt"></p>
+</section>  
+<section class="tips bLine" style="display:none;">
+    <h3 class="pad10 bGray">错误率最高的单词</h3>
+    <ul class="listTxt">
+        <!-- <li>vegetable<span>错误3次</span></li>
+        <li>pen<span>错误3次</span></li>
+        <li>white<span>错误3次</span></li>
+        <li>orange<span>错误3次</span></li> -->
+    </ul>
+			<a href="/mobile/wordrecite/recite/unitid/0001080206020e/indexn/1" class="btn bPink">添加生词本，去下一单元</a>    	
+</section>
+<div id="jplayer"></div> 
+
+<script src="/public/Mobile//js/jquery.min.js" type="text/javascript"></script>  
+<script src="/public/Mobile//js/main.js" type="text/javascript"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.cookie.js"></script>
+
+<script type="text/javascript"> 
+mp = new Mplay();
+var unitid="00010802060205";
+var wordlen=$(".recite").length;
+var errword={};
+var index=0;
+mp.url = "http://en2.czbanbantong.com:8080/yylmp3/mp3_word/";
+var wordbcount=parseInt(13);
+var recordcount=parseInt(491);
+$(function() {
+  $.ajaxSetup({async:false});
+    $(".dropdown a:eq(0) .wordcount").text($.cookie("engm_wordbook_count"));
+    $(".dropdown a:eq(1) .recordcount").text($.cookie("engm_record_count"));
+  $(".recite").hide();
+  $(".recite:eq("+index+")").show();
+  try{
+      $(".recite:eq("+index+")").find(".choiceimg").each(function(key,value){
+        var imgsrc=$(this).attr("_src");
+        $(this).attr("src",imgsrc);
+      });
+    }catch(e){
+      console.log(e);
+    }
+  //alert($(".recite:eq("+index+") .wb.bWhite a").attr("mid"));
+  //$(".recite:eq("+index+") .wb.bWhite a").click();
+  //js播放第一个单词电脑可以实现但是手机不能实现
+  mp.clear();
+  var mp3=$(".recite:eq("+index+") .wb.bWhite a").attr("mid");
+  mp.play(mp.url+mp3);
+  //prompt('',mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+  //alert("fasdfasd");
+  //$(".wb.bWhite a").click();
+  // $(".wb.bWhite a").click(function(){
+  //    var mp3=$(this).attr("mid");
+  //    mp.play(mp.url+mp3);
+  // });
+
+  
+  //$('.recite ul:not(:first) li').live('click',function(){
+  // $(".recite ul:not(:first) li").live("click",function(){alert("ok");});
+  //$(".recite li").live("click",function(){alert("ok");});
+
+  //背单词 当单词正确的时候就直接进行下一个单词
+  //$(document).on('click', '.recite ul:not(:first) li', function() {
+  // $('.recite ul:not(:first) li').live('click', function() {
+  // //$('.recite ul:not(:first) li').click(function() {
+  //   var flag=$(this).attr("flag");
+  //   if("1"==flag){
+  //       $(this).find("i").show();
+  //       $(this).find("i").addClass('icon-checkmark');
+  //       setTimeout(function(){
+  //           var wordid=$(".recite:eq("+index+")").attr("wid");
+  //           index=index+1;
+  //           $(".recite").hide();
+  //           $(".recite:eq("+index+")").show();
+  //           mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+  //           var id=$(".recite:eq("+index+")").attr("id");
+            
+            
+  //           if(undefined==id){
+  //               $(".tips.bLine").show();
+  //               //errword.sort(compare);
+  //               var errrate=100-Math.round((parseInt(size(errword))/wordlen)*100);
+                
+  //               $(".txt").text("恭喜您本单元学习过关，正确率"+errrate+"%");
+  //               if(errrate==100){$(".tips.bLine:eq(1) h3").hide();}
+  //               var html="";
+  //               $.each(errword,function(key,value){
+  //                   html=html+"<li>"+key+"<span>错误"+value+"次</span></li>";
+  //               });
+  //               $(".tips.bLine ul.listTxt").html(html);
+  //           }
+  //           else
+  //           {
+  //               $(".dropdown a:eq(1) .wordcount").text(wordbcount+1);
+               
+  //           }
+  //           $.get("../../recite_word_record",{unitid:unitid,wordid:wordid},function(){
+  //                   var recordcount=$(".dropdown a:eq(1) .recordcount").text();
+  //                   $(".dropdown a:eq(1) .recordcount").text(recordcount+data.add);
+  //           });
+  //       },  200);
+  //   }
+  //   else if("0"==flag)
+  //    {
+  //       var wordid=$(this).parent().parent().find("a").eq(0).attr("wid");
+  //       var word=$(this).parent().parent().find("a span").eq(0).text();
+  //       if (word in errword)  
+  //           errword[word]++;  
+  //       else   
+  //           errword[word]=1;
+  //       $(this).find("i").show().addClass('icon-cancel');
+  //       $(this).parent().find("li[flag='1']").find("i").show().addClass('icon-checkmark');
+        
+  //       var id=$(".recite:eq("+(index+1)+")").attr("id");
+  //       if(undefined!=id)
+  //       {
+  //           // $(this).find("i").removeClass('icon-cancel');
+  //           // $(this).parent().find("li[flag='1']").find("i").removeClass('icon-checkmark');
+  //           var sen_len=$(".scrollCon:gt("+index+")").length;
+  //           var ranindex=index+1+Math.round(Math.random()*100)%(sen_len);
+  //           var ranindexs=ranindex-1;
+  //           $(".recite:eq("+ranindex+")").before($(".scrollCon:eq("+index+")").clone().hide());
+  //           $(".scrollCon:eq("+ranindexs+")").after($(".recite:eq("+index+")").clone().hide());
+            
+  //       }
+  //       else
+  //       {
+  //           $(".scrollCon:eq("+index+")").after($(".recite:eq("+index+")").clone().hide());
+  //           $(".recite:eq("+(index+1)+")").after($(".scrollCon:eq("+index+")").clone().hide());
+          
+  //       }
+  //       setTimeout(function(){
+  //           $(".recite").hide();
+  //           $(".scrollCon:eq("+index+")").show();
+  //           mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+  //           var id=$(".recite:eq("+index+")").attr("id");
+  //           if(undefined==id){
+  //               $(".tips.bLine").show();
+  //           }
+  //       }, 2000);
+  //    }
+  // });
+
+
+  
+  //错误的进行单词的详情的展示
+  //$(document).on('click', '.bPink', function() {
+  //  $('.bPink').click(function() {
+  //      // alert("ss");
+  //      index=index+1;
+  //      $(".scrollCon").hide();
+  //      $(".recite").hide();
+  //      $(".recite i").hide();
+  //      $(".icon-volume-up").show();
+  //      var id=$(".recite:eq("+index+")").attr("id");
+  //      $(".recite:eq("+index+")").show();
+  //      mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+  // });
+
+});
+
+//对象进行排序的函数
+function compare() {
+return function (object1, object2) {
+alert("3434");
+var value1 = object1.value;
+var value2 = object2.value;
+if (value2 < value1) {
+return 1;
+}
+else if (value2 > value1) {
+return -1;
+}
+else {
+return 0;
+}
+}
+}
+
+//对象的长度
+function size(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+}
+
+function Mplay(){ 
+   $("#jplayer").jPlayer({
+        swfPath: "",
+        wmode: "window",
+        supplied: "mp3",
+        preload: "none",
+        volume: "1"
+    });
+
+    var oplay = new Object();  
+    oplay.index = 0;
+    oplay.url = "";
+    oplay.repeat = 1;
+
+    oplay.play = function(mp3){  
+        oplay.clear();
+        $("#jplayer").jPlayer("setMedia", {mp3:mp3}).jPlayer("play");
+    };
+
+    oplay.clear = function(){       
+        $("#jplayer").jPlayer("stop");
+        $("#jplayer").jPlayer("clearMedia");
+        //$("#jplayer").data("SpeakMP3Value", "0");  
+        $("#jplayer").unbind($.jPlayer.event.ended);
+        $("#jplayer").unbind($.jPlayer.event.progress);
+    };
+    return oplay;  
+}
+
+//将正在读的元素向上移动
+function  BodyScroll(curpos){
+  var container = $("html,body"); 
+  var pos_y = $(curpos).offset().top-300;
+  $("html,body").animate({scrollTop:pos_y},100);//1000是ms,也可以用slow代替
+}
+
+
+//背单词单击事件函数
+function recite(obj){
+    //alert("fadfadsf");
+    var flag=$(obj).attr("flag");
+    if("1"==flag){
+        $(obj).find("i").show();
+        $(obj).find("i").addClass('icon-checkmark');
+        setTimeout(function(){
+            var wordid=$(".recite:eq("+index+")").attr("wid");
+            index=index+1;
+            $(".recite").hide();
+            $(".recite:eq("+index+")").show();
+            try{
+              $.each($(".recite:eq("+index+")").find("img.choiceimg"),function(key,value){
+                var imgsrc=$(this).attr("_src");
+                $(this).attr("src",imgsrc);
+              });
+            }catch(e){
+              console.log(e);
+            }
+            mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+            var id=$(".recite:eq("+index+")").attr("id");
+            if(undefined==id){
+                $(".tips.bLine").show();
+                //errword.sort(compare);
+                var errrate=100-Math.round((parseInt(size(errword))/wordlen)*100);
+                
+                $(".txt").text("恭喜您本单元学习过关，正确率"+errrate+"%");
+                if(errrate==100){$(".tips.bLine:eq(1) h3").hide();}
+                var html="";
+                $.each(errword,function(key,value){
+                    html=html+"<li>"+key+"<span>错误"+value+"次</span></li>";
+                });
+                $(".tips.bLine ul.listTxt").html(html);
+            }
+            else
+            {
+                $(".dropdown a:eq(1) .wordcount").text(wordbcount+1);
+               
+            }
+            $.get("/mobile/wordrecite/recite_word_record",{unitid:unitid,wordid:wordid},function(){
+                    var recordcount=parseInt($(".dropdown a:eq(1) .recordcount").text());
+                    $(".dropdown a:eq(1) .recordcount").text(recordcount+data.add);
+                    $.cookie("engm_record_count",parseInt($.cookie("engm_record_count"))+parseInt(data.add));
+                    $.cookie("engm_reciteword_count",parseInt($.cookie("engm_reciteword_count"))+parseInt(data.add));
+            });
+        },  200);
+    }
+    else if("0"==flag)
+     {
+        var wordid=$(obj).parent().parent().find("a").eq(0).attr("wid");
+		$.get("/mobile/wordstudy/collect_word",{wordid:wordid,unitid:unitid},function(){});
+        var word=$(obj).parent().parent().find("a span").eq(0).text();
+        if (word in errword)  
+            errword[word]++;  
+        else   
+            errword[word]=1;
+        $(obj).find("i").show().addClass('icon-cancel');
+        $(obj).parent().find("li[flag='1']").find("i").show().addClass('icon-checkmark');
+        
+        var id=$(".recite:eq("+(index+1)+")").attr("id");
+		var wordid=$("bd ul:eq("+mp.index+")").find("a.aBtn.bGreen").attr("wid");
+        if(undefined!=id)
+        {
+            // $(this).find("i").removeClass('icon-cancel');
+            // $(this).parent().find("li[flag='1']").find("i").removeClass('icon-checkmark');
+            var sen_len=$(".scrollCon:gt("+index+")").length;
+            var ranindex=index+1+Math.round(Math.random()*100)%(sen_len);
+            var ranindexs=ranindex-1;
+            $(".recite:eq("+ranindex+")").before($(".scrollCon:eq("+index+")").clone().hide());
+            $(".scrollCon:eq("+ranindexs+")").after($(".recite:eq("+index+")").clone().hide());
+            
+        }
+        else
+        {
+            $(".scrollCon:eq("+index+")").after($(".recite:eq("+index+")").clone().hide());
+            $(".recite:eq("+(index+1)+")").after($(".scrollCon:eq("+index+")").clone().hide());
+          
+        }
+        setTimeout(function(){
+            $(".recite").hide();
+            $(".scrollCon:eq("+index+")").show();
+            try{
+              $.each($(".scrollCon:eq("+index+")").find("img.wordimg"),function(key,value){
+                var imgsrc=$(this).attr("_src");
+                $(this).attr("src",imgsrc);
+              });
+            }catch(e){
+              console.log(e);
+            }
+            mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+            var id=$(".recite:eq("+index+")").attr("id");
+            if(undefined==id){
+                $(".tips.bLine").show();
+            }
+        }, 2000);
+     }
+}
+
+
+function con_recite(){
+       // alert("ss");
+       index=index+1;
+       $(".scrollCon").hide();
+       $(".recite").hide();
+       $(".recite i").hide();
+       $(".icon-volume-up").show();
+       var id=$(".recite:eq("+index+")").attr("id");
+       $(".recite:eq("+index+")").show();
+       mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+}
+
+function  wordplay(obj){
+     var mp3=$(obj).attr("mid");
+     mp.play(mp.url+mp3);
+  }
+</script>
+</body>
+</html>

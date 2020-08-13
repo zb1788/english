@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>优教信使-成语词典</title>
+<link rel="stylesheet" href="__PUBLIC__css/font-awesome.min.css">
+<link href="__PUBLIC__/dict/css/yj.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/dict/js/jquery.min.js" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+</head>
+
+<body>
+<div data-role="page">
+<header>
+<div data-role="header">
+
+            <div class="back"><a href="index"><img src="__PUBLIC__/dict//images/backIco.png" width="20" height="20" />返回</a></div>
+			<!-- <div class="kc_setup"><a class="shou" href="javascript:void(0);">分享</a></div> -->
+</div>
+<span class="line"></span>
+</header>
+<div data-role="content" class="cy_nr">
+
+<span class="top"><img src="__PUBLIC__/dict//images/top_cy2.jpg" /></span>
+<h2>{$suoyin}“<span class="font_red">{$jiegou}</span>”</h2>
+<div class="fenlei">
+	<volist name="cylist" id="vo">
+		<a href="cyinfo?source=0&id={$vo.cyid}&classfyid={$id}&jiegou={$jiegou}&suoyin={$suoyin}"><i class="fa fa-file-text-o"></i>{$vo.cyname}</a>
+	</volist>
+	<div class="clearfix"></div></div>
+</div>
+
+<div data-role="footer"></div>
+</div>
+</body>
+</html>
+<script>
+ $(".fenlei").css({ min-height: $(window).height() - 100  });
+</script>

@@ -1,0 +1,372 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>课程列表</title>
+<style>
+ .page{width:auto;height:25px; margin:auto; line-height:25px;}
+ .page a{display:block; height:25px; padding:0px 6px; border:solid 1px #e7e7e7; border-radius:3px; color:#333; font-family:'微软雅黑'; font-size:13px; text-align:center; text-decoration:none;float:left; margin-right:10px;min-width:20px;}
+ .page a:hover, .page a.this{background:#f7f7f7; font-weight:bold}
+</style>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jPlayer/dist/jplayer/jquery.jplayer.min.js"></script>
+</head>
+<body>
+<div class="place"><strong>位置</strong>：首页 &gt; 课文管理</div>
+<div class="container">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+	  <tr>
+	    <td class="box_top pl_10 f14"><strong>课文管理</strong></td>
+	  </tr>
+	  <tr>
+	    <td class="pl_5">
+	    	<table border="0" cellspacing="0" cellpadding="0" class="form_table">
+		      <tr>
+		        <td align="left">年级：</td>
+		        <td>
+		          <select id="grade" class="select">
+				  	<option value="0001">一年级</option>
+				  	<option value="0002">二年级</option>
+				  	<option value="0003">三年级</option>
+				  	<option value="0004">四年级</option>
+				  	<option value="0005">五年级</option>
+				  	<option value="0006">六年级</option>
+				  	<option value="0007">七年级</option>
+				  	<option value="0008">八年级</option>
+				  	<option value="0009">九年级</option>
+		          </select>
+		        </td>
+				<td  align="left">学期：</td>
+				<td>
+		          <select id="term" class="select">
+				  	<option value="0001">上学期</option>
+				  	<option value="0002">下学期</option>
+		          </select>
+		        </td>
+				<td  align="left">版本：</td>
+				<td>
+		          <select id="version" class="select">
+				  	<option value="0001">人教版</option>
+				  	<option value="0160">人教版（部编）</option>
+				  	<option value="0003">苏教版</option>
+				  	<option value="0004">北师大版</option>
+				  	<option value="0048">语文S版</option>
+		          </select>
+		        </td>
+				<!-- <td>&nbsp;&nbsp;<input type="button" id="chaxun" value="查询" class="btn btn82 btn_search"/></td> -->
+		      </tr>
+	    	</table>
+		</td>
+	  </tr>
+	</table>
+	<div class="h5"></div>
+	<table border="0" cellspacing="0" cellpadding="0" class="form_table">
+		<tr>
+			<td>
+				<input type="button" id="addKecheng" value="添加章节" class="ext_btn ext_btn_submit" />
+			</td>
+		</tr>
+	</table>
+	<div class="h10"></div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+	  <tr>
+	    <th>序号</th>
+	    <th>章节</th>
+	    <th>属性</th>
+	    <th>目录类型</th>
+	    <th>管理</th>
+	  </tr>
+	</table>
+	<div class="h5"></div>
+	<div class="page"></div>
+</div>
+
+
+<table style="display:none;" id="demo">
+	<tr class="tr">
+		<td>序号</td>
+		<td>章节</td>
+		<td>属性</td>
+		<td>目录类型</td>
+		<td align="left">
+			<input type="button" name="edit"  class="ext_btn ext_btn_listen" value="目录类型编辑" />
+			<input type="button" name="manage" value="课文管理" class="ext_btn ext_btn_success" />
+			<input type="button" name="shengzi" value="生字管理" class="ext_btn ext_btn_submit" />
+			<input type="button" name="del" value="删除" class="ext_btn ext_btn_error" />
+			<input type="button" name="kwview" value="课文预览" class="ext_btn ext_btn_success" />
+			<input type="button" name="szview" value="生字预览" class="ext_btn ext_btn_success" />
+		</td>
+	</tr>
+</table>
+<div id="jplayer"></div>
+</body>
+</html>
+<script type="text/javascript">
+var pagesize=10;
+var pagenum;
+$(function(){
+  $.ajaxSetup({async:false});
+  pagenum = $.cookie('pagenum');
+  if(pagenum == null){
+  	pagenum = 1;
+  	$.cookie('pagenum',1);
+  }
+  pagelist(pagenum,pagesize);
+});
+
+$('#grade').change(function(){
+	pagelist(1,pagesize);
+});
+$('#term').change(function(){
+	pagelist(1,pagesize);
+});
+$('#version').change(function(){
+	pagelist(1,pagesize);
+});
+
+
+
+//添加课程
+$('#addKecheng').click(function(){
+	var grade = $("#grade").val();
+	var term = $("#term").val();
+	var version = $("#version").val();
+	var myDialog = $.dialog.open('addchapter?grade='+grade+'&term='+term+'&version='+version+'&ran='+Math.random(),{
+		title:'添加章节',
+		window : 'top',
+		width : 790,
+		height : 400,
+		lock : true,
+		opacity : 0.3,
+		button : [
+				 {
+				 	name:'保存',
+					callback:function(){
+						var iframe = this.iframe.contentWindow;
+						var re = iframe.savedata();//调用窗口的方法
+						if(re==false){
+							art.dialog.alert('添加失败！');
+						}
+						pagenum = $.cookie('pagenum');
+						pagelist(pagenum,pagesize);
+						return re;
+					},
+					focus:true
+				 },
+				 {
+					name : '关闭',
+					callback : function() {
+						return true;
+					},
+					focus : false
+				} ]
+	});
+});
+
+//删除课程
+$('input[name="del"]').live('click',function(){
+	var id=$(this).attr('bid');//课程id
+	var aa=$(this).parent().parent();
+	if($.dialog.confirm('确定删除？',function(){
+		$.get('../Kewen/delunit',{ran:Math.random(),id:id},function(data){
+			$(aa).remove();
+		});
+	}));
+});
+
+//课文预览
+$('input[name="kwview"]').live('click',function(){
+	var id=$(this).attr('bid');//课程id
+	var style = $(this).parent().prev().html();
+	if(style=='拼音'){
+		window.open('../../Yuwen/text/py?ks_code='+id+'&ran='+Math.random());
+	}else{
+		window.open('../../Yuwen/text/text?ks_code='+id+'&ran='+Math.random());
+	}
+});
+
+//生字预览
+$('input[name="szview"]').live('click',function(){
+	var id=$(this).attr('bid');//课程id
+	var style = $(this).parent().prev().html();
+	window.open('../../Yuwen/text/word?ks_code='+id+'&ran='+Math.random());
+});
+
+
+//编辑类型
+$('input[name="edit"]').live('click',function(){
+	var id=$(this).attr('bid');
+	var title_old=$(this).parent().prev().html();
+	var html  = '<select id="title_new">';
+	if(title_old == '课文'){
+		html += '<option value="1" selected>课文</option>';
+	}else{
+		html += '<option value="1">课文</option>';
+	}
+	if(title_old == '古文'){
+		html += '<option value="2" selected>古文</option>';
+	}else{
+		html += '<option value="2">古文</option>';
+	}
+	if(title_old == '拼音'){
+		html += '<option value="3" selected>拼音</option>';
+	}else{
+		html += '<option value="3">拼音</option>';
+	}
+		html += '</select>';
+
+	var cur=$(this).parent().prev();
+		art.dialog({
+		padding:0,
+		title:'修改目录类型',
+		width:200,
+		height:50,
+		content: '<table><tr><td>目录类型：</td><td>'+html+'</td></tr></table>',
+		lock:true,
+		opacity: 0.2,
+		ok:function(){
+			var title_new=$('#title_new').val();
+			$.get('../kewen/updateStyle',{ran:Math.random(),id:id,title_new:title_new},function(data){
+				$(cur).html(mululeixing(title_new));
+			});
+		},
+		cancelVal: '关闭',
+   		cancel: true
+
+	});
+});
+
+
+
+//内容管理
+$('input[name="manage"]').live('click',function(){
+	var id=$(this).attr('bid');//课程id
+	var ks_name = $(this).parent().prev().prev().prev().html();
+	var style = $(this).parent().prev().html();
+	if(style=='课文'){
+		style=1
+	}else if(style=='古文'){
+		style=2;
+	}else if(style=='拼音'){
+		style=3;
+	}
+	location.href = 'addkewen.html?ks_code='+id+'&ks_name='+ks_name+'&style='+style;
+});
+
+//内容管理
+$('input[name="shengzi"]').live('click',function(){
+	var id=$(this).attr('bid');//课程id
+	var ks_name = $(this).parent().prev().prev().prev().html();
+	var style = $(this).parent().prev().html();
+	if(style=='课文'){
+		style=1
+	}else if(style=='古文'){
+		style=2;
+	}else if(style=='拼音'){
+		style=3;
+	}
+	location.href = 'ciyumanage.html?ks_code='+id+'&ks_name='+ks_name+'&style='+style;
+});
+
+
+
+//分页查询
+ function pagelist(pageCurrent,page_size){
+ 	$.cookie('pagenum',pageCurrent);
+ 	var grade=$('#grade').val();
+	var term=$('#term').val();
+	var version=$('#version').val();
+ 	$.get("../Kewen/fenye",
+ 			{
+ 			  ran:Math.random(),
+ 			  pageCurrent:pageCurrent,
+ 			  page_size:page_size,
+ 			  grade:grade,
+			  term:term,
+			  version:version
+ 			},
+ 			function(data){
+			$(".page").empty();
+			$('.list_table tr:not(:first)').remove();
+			$.each(data,function(k,v){
+				$('.page').html(k);
+				$.each(v,function(k,v){
+					//alert(v.nianji);
+					var tr=$('#demo').children('tbody').children('tr').eq(0).clone();
+					tr.children('td').eq(0).html(k+1);
+					tr.children('td').eq(1).html(v.ks_name);
+					tr.children('td').eq(2).html(v.is_unit==1?'单元':'非单元');
+					tr.children('td').eq(3).html(mululeixing(v.style));
+					// alert(v.style);return false;
+					if(v.is_unit ==1){
+						tr.children('td').eq(4).children('input').eq(0).remove();
+						tr.children('td').eq(4).children('input').eq(0).remove();
+						tr.children('td').eq(4).children('input').eq(0).remove();
+						tr.children('td').eq(4).children('input').eq(1).remove();
+						tr.children('td').eq(4).children('input').eq(1).remove();
+					}
+					tr.find('input').attr('bid',v.ks_code);
+					tr.appendTo('.list_table');
+				});
+			});
+ 			$("#SelectPages").change(function(){
+ 				 pagelist($("#SelectPages").val(),page_size);
+ 				 });
+ 		})
+ }
+ //模版类型
+ function mululeixing(mobanid){
+	if(mobanid==1){
+		moban='课文';
+	}else if(mobanid==2){
+		moban='古文';
+	}else if(mobanid==3){
+		moban='拼音';
+	}else{
+		moban = '';
+	}
+	return moban;
+ }
+//课程类型
+function kewenleixing(types){
+	if(types==1){
+		leixing='现代文';
+	}else if(types==2){
+		leixing='现代诗';
+	}else if(types==3){
+		leixing='文言文';
+	}else if(types==4){
+		leixing='古诗';
+	}else{
+		leixing='';
+	}
+	return leixing;
+}
+function jpclear() {
+  $("#jplayer").jPlayer("clearMedia");
+  $("#jplayer").jPlayer("stop");
+  $("#jplayer").unbind($.jPlayer.event.ended);
+  $("#jplayer").unbind($.jPlayer.event.progress);
+}
+
+function jpstart(){
+	$("#jplayer").jPlayer({
+    swfPath: "js",
+    wmode: "window",
+    supplied: "mp3",
+    preload: "none",
+    volume: "1"
+  });
+	$("#jplayer").jPlayer("setMedia", {
+	    mp3: mp3
+	}).jPlayer("play");
+}
+
+
+
+</script>

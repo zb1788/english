@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta charset="UTF-8">
+        <meta name="wap-font-scale" content="no">
+        <title>语文快乐学</title>
+        <link rel="stylesheet" href="__PUBLIC__/css/ywcurr.css" />
+        <link rel="stylesheet" href="__PUBLIC__/font/fonts.css" />
+        <link rel="stylesheet" href="__PUBLIC__/css/iscroll.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/zepto.min.js" ></script>
+        <script type="text/javascript" src="__PUBLIC__/js/demoUtils.js" ></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iscroll-lite.js" ></script>
+        <script type="text/javascript" src="__PUBLIC__/js/ywcommon.js" ></script>
+
+    <script type="text/javascript">
+var myScroll;
+function loaded () {
+    myScroll = new IScroll('#wrapper', { momentum:true,click:true });
+}
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, isPassive() ? {
+    capture: false,
+    passive: false
+    } : false);
+</script>
+<style>
+    #wrapper {top: 45px; bottom: 50px;}
+</style>
+
+
+</head>
+<body onload="loaded()">
+<main>
+<header class="head border-nav">
+            <a class="head-left" href="javascript:back();"><i class="icon-back"></i>返回</a>
+            <h1 class="title">听写检查</h1>
+                    </header>
+        <section>
+            <div id="wrapper">
+    <div id="scroller">
+
+    </div><!--end scroller-->
+</div><!--end wrapper-->
+<div id="tips"></div>
+</section>
+<div class="bottom">
+    <div class="boxCon"><a href="javascript:play();" class="btn bDefault"><i class="icon-uniE60C"></i>开始听写</a></div>
+</div>
+</main>
+</body>
+
+<script type="text/javascript">
+var respath = '__RESOURCE__';
+var baseNetUrl = respath;
+var recordNetUrl = respath+'/recordwav/';
+var kewenNetUrl = respath+'/uploadsyw/kewenvoice/';
+
+var ks_code = GetQueryString('ks_code');
+var index = GetQueryString('index');
+
+
+var currentJson = eval('('+decodeURI(getLocalStorage('cn_wordByChapter'))+')');
+
+
+$(function(){
+    showUnit();
+});
+
+function showUnit(){
+    var html = '';
+    $.each(currentJson,function(k,v){
+        html += '<div class="xlList clear"><span class="left w40"><i class="icon-radio-unchecked"  bid="'+k+'" ks_code="'+v.ks_code+'"></i></span><span class="left wJ110">'+v.ks_name+'</span><span class="right w100" style="width:120px;"><font class="font08z">字：'+v.zi+'&nbsp;&nbsp;&nbsp;词：'+v.ci+'</font></span></div>';
+    });
+    $('#scroller').html(html);
+    $('.xlList').click(function(){
+        $(this).children('span.left').children('i').removeClass('icon-radio-unchecked').addClass('icon-radio-checked');
+        $(this).siblings('div').children('span.left').children('i').removeClass('icon-radio-checked').addClass('icon-radio-unchecked');
+    })
+}
+
+
+
+//返回复习本首页
+function back(){
+    window.location.href = "revision?ks_code="+ks_code+"&index="+index;
+}
+//进入播放页
+function play(){
+    var bid = $('i.icon-radio-checked').attr('bid');
+    if(typeof(bid)=="undefined"){
+        setTip("必须选择一个章节");
+        return false;
+    }
+    var ks_name = $('i.icon-radio-checked').parent().next().html();
+    var ks_code = $('i.icon-radio-checked').attr('ks_code');
+    setLocalStorage('cn_wordPlayList',encodeURI(JSON.stringify(currentJson[bid])));
+    window.location.href = "play?ks_code="+ks_code+"&ks_name="+encodeURI(encodeURI(ks_name))+"&index="+index+'&backurl=revisionselect';
+}
+
+</script>
+</html>

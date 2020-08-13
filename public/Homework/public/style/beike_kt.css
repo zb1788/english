@@ -1,0 +1,208 @@
+@charset "gb2312";
+/* CSS Document */
+body {background:#fff;}
+body.noBg {background-image:none;}
+.header {background:url(../images/student/bolang.jpg) repeat-x bottom center; height:245px;}
+.header.noBg {background:none; height:auto;}
+.logo.stu {margin:38px 0 0 0; }
+.logo.stu .nianji {background:url(../images/student/s_img.png) no-repeat 0 0; width:105px; height:50px; line-height:44px; position:absolute; right:20px; top:-20px; font-size:17px; color:#fff; display:block; text-align:center; text-indent:9px;}
+.adv_top {width:300px; height:80px; float:left; margin:20px 0 0 40px; }
+.nav_kt {clear:both;}
+.nav_kt ul {}
+.nav_kt ul li {display:block; float:left; width:160px; height:60px; margin:0 1px; }
+.nav_kt ul li a {background:url(../images/student/s_img.png) no-repeat 0 -51px; display:block; width:160px; height:60px; color:#fff; font-size:20px; line-height:54px; text-align:center;}
+.nav_kt ul li a:hover {text-decoration:none; background-position:0 -111px;}
+.nav_kt ul li a.sel_kt {background-position:0 -111px;}
+.owl {background:url(../images/student/maotouying.png) no-repeat; width:75px; height:75px; display:block; position:absolute; right:-100px; top:100px;}
+.owl.big {background:url(../images/student/maotouying_b.png) no-repeat;width:120px; height:120px;}
+.bolang {clear:both;background:url(../images/student/bolang2.jpg) repeat-x bottom center; height:424px; margin-top:0; *margin-top:15px;}
+
+.diandian2 { border:1px dotted #555; margin:0 5px 5px 5px; display:block; border-radius:25px;}
+.diandian2.h30 {height:38px; }
+
+/*2015.3.12 start*/
+.w980 .first .focus_full {background:url(../images/student/bannerBg.jpg) no-repeat;width:980px; height:160px; overflow:visible; z-index:18; }
+.xueke_dx {background:none; width:200px; float:left; height:130px; line-height:38px; position:static; margin:20px 0 0 16px; text-align:left; }
+.xueke_dx a,.xueke_dx a:visited { position:relative; z-index:3; background:url(../images/student/btn_short.png) no-repeat 0 0; width:92px; height:41px; display:inline-block; margin:0 0 0 0; padding:0; line-height:37px; color:#fff; font-size:17px; text-align:center;}
+.xueke_dx a:hover,.xueke_dx a.sel6 { background-position:0 -41px; background-color:transparent;}
+.xueke_dx a.len { background-image:url(../images/student/btn_len.png); width:182px; }
+.xueke_dx a.len:hover {background-position:0 -41px;}
+span.dot {background:url(../images/student/redDot.png) no-repeat; width:11px; height:11px; font-size:0; display:block; position:absolute; right:10px; top:8px;}
+span.arr_kt {background:url(../images/student/arr_kt.png) no-repeat 0 0; width:14px; height:8px; display:inline-block; margin-left:8px; vertical-align:middle; font-size:0;}
+span.arr_kt.up {background-position:0 -8px;}
+.pop_kt { width:220px; position:absolute; left:0; top:140px; z-index:15; display:none;}
+.pop_kt .top_p {background:url(../images/student/popBg.png) no-repeat top left; width:220px; height:25px; display:block;}
+.pop_kt .midd_p {background:url(../images/student/popBg.png) repeat-y top center; width:220px; height:auto; display:block; min-height:160px;}
+.pop_kt .bottom_p {background:url(../images/student/popBg.png) no-repeat bottom right; width:220px; height:19px; display:block;}
+
+.focus_full ul { width:725px;  margin:13px 20px 0 0; text-align:left; height:130px; overflow:hidden; line-height:30px; float:right;}
+.focus_full li { height:auto; font-size:16px; color:#16b528; text-indent:2em;}
+/*20150701 add*/
+.dxf_btn.kt {right:345px; bottom:30px;}
+.dxf_btn.kt a { text-indent:2.5em; overflow:hidden;  width:194px; height:37px; line-height:37px; color:#fff; font-size:16px;  letter-spacing:1px;}
+.dxf_btn.kt a:hover { background-position:0 -37px; text-decoration:none;}
+/*20150701 add end*/
+.tab {border:none; background:url(../images/student/bolang3.jpg) repeat-x; height:65px; margin-top:5px;}
+.first {margin-top:5px;}
+.mainTab {border-right:none; margin-top:2px;}
+.mainTab li {width:150px; height:57px; margin-right:42px;  }
+.mainTab.stu li.cur { background:url(../images/student/dot_line_bot.png) no-repeat bottom right; display:block; }
+.mainTab li a,.mainTab li a:visited {width:140px; font-size:20px; height:45px; text-align:center; line-height:38px; color:#c4f2f4; padding-top:3px; display:block; }
+.mainTab li.cur a,.mainTab li.cur a:hover {color:#fff; }
+.mainTab.stu li a,.mainTab.stu li a:visited { background-image:none;}
+.mainTab li a:hover {text-decoration:none; color:#fff; }
+span.ico_yx,span.ico_ts,span.ico_tz,span.ico_dx,span.icoz3 { background-image:url(../images/student/guild_ico.png); background-repeat:no-repeat; width:42px; height:42px; display:inline-block; vertical-align:middle; margin-right:5px;}
+span.ico_yx {background-position:0 0;}
+span.ico_ts {background-position:0 -42px;}
+span.ico_tz {background-position:-42px -84px;}
+span.ico_dx {background-position:0px -126px;}/*20150715 add*/
+.mainTab.stu li.cur a span.ico_yx,.mainTab.stu li a:hover span.ico_yx {background-position:-42px 0;}
+.mainTab.stu li.cur a span.ico_ts,.mainTab.stu li a:hover span.ico_ts {background-position:-42px -42px;}
+.mainTab.stu li.cur a span.ico_dx,.mainTab.stu li a:hover span.ico_dx {background-position:-42px -126px;}/*20150715 add*/
+
+.tongzi {width:160px; text-align:right; margin-top:6px;}
+.tongzi a {font-size:20px; color:#fff; }
+.pop_tz {border:2px solid #0098a0; top:60px;top:50px; right:10px; border-radius:20px;}
+/*2015.3.12 end*/
+
+
+.pop_tz {border:2px solid #0098a0; top:60px;top:70px; right:10px; border-radius:20px;}
+.pop_tz em{color:#0098a0;top:-21px;width:30px;}
+.pop_tz span.arrow4 {top:-18px;width:30px;}
+span.ico_tz {background:url(../images/student/img_kt.png) no-repeat right -71px; width:50px; height:50px; }
+
+.dtree { width:270px; background-color:#f9f9f9; margin-top:5px;}/*2015.3.12*/
+.bottom_jiao {background:url(../images/student/bottom_img.jpg) no-repeat; width:270px; height:10px; position:absolute; bottom:0;}
+.w980 .kc_list {width:688px; margin:10px 0 0 0;}/*2015.3.12*/
+.kc_con {border:none; background:none; width:980px; }
+h1.catalog { height:51px; line-height:51px; background:url(../images/student/bt_kt.png) no-repeat; border-bottom:none; color:#555; padding-left:15px; padding-top:10px;}
+.select2.qk2 { margin-top:6px; margin-right:10px;}
+.kc_name { height:40px; line-height:40px;}
+/*2015.3.12 start*/
+span.pre_k { width:45px; }
+span.next_k {width:45px;}
+span.cur_k {margin-left:30px; }
+span.pre_k.kt{ border:none; width:40px; }
+span.next_k.kt {border:none; width:40px;  }
+
+a.arr_l,a.arr_r { background-image:url(../images/student/img_kt.png); background-repeat:no-repeat; display:block; width:35px; height:35px; }
+a.arr_l {background-position:0 -148px; padding-left:0;}
+a.arr_l:hover { background-position:0 -183px;}
+a.arr_r {background-position:-45px -148px; padding-left:0;}
+a.arr_r:hover { background-position:-45px -183px;}
+/*2015.3.12 end*/
+span.favorite {width:115px; height:39px; line-height:39px; background:url(../images/student/img_kt.png) no-repeat 0 -241px; display:block; margin:4px 4px 0 0;}
+span.favorite a,span.favorite a:visited { text-indent:20px;}
+span.favorite a:hover { background:none;}
+
+.tab_2 { height:47px; line-height:47px; background:url(../images/student/border.jpg) no-repeat bottom left;}
+.tab_banji.stu {background:none; margin-top:5px;}
+.tab_banji.stu li {color:#555; border-right:none; border-radius:5px;}
+.w980 .kc_con .kc_list .tab_banji.stu .pic_scr2 .picbox2 { width:510px; }
+.w980 .kc_con .kc_list .tab_banji li  { width:160px; }
+.tab_2 li.cur_2 {background:#22c872; }
+.w980 .kc_con .kc_list .tab_banji li.cur_2 {color:#fff;}
+.tab_banji.stu .pic_scr2 a.arr_l_white,.tab_banji.stu .pic_scr2 a.arr_r_white { background-color:#bdbdbd; border-radius:5px;}
+.bg1 {background:url(../images/student/border.jpg) no-repeat 0 0; width:688px; height:105px; overflow:hidden;}/*2015.3.12*/
+.bg2 {background:url(../images/student/border.jpg) no-repeat 0 -158px; width:688px; height:299px; overflow:hidden; margin-top:10px;}
+.target_txt,ul.intro3 {border-top:none; background:none;  padding:5px 30px;}
+.target_txt {height:50px; margin-right:20px; overflow-y:auto;}/*2015.3.12*/
+.pop_tz ul {height:180px;}/*2015.3.12*/
+ul.intro3 {color:#555; margin-top:12px; max-height:62px; overflow:hidden; line-height:23px;}
+h2.bt3 {color:#fff;line-height:30px; text-indent:35px; font-size:17px; height:30px; margin-top:0; }
+.tab3.stu { vertical-align:text-top; *margin-left:50px; }
+.tab3.stu a,.tab3.stu a:visited {text-indent:0;}
+.picbox{ margin-top:0;}
+a.og_prev { top:55px; }
+a.og_next {top:55px;}
+
+h1.pingBt.stu { background:url(../images/student/border.jpg) no-repeat 0 -604px; height:47px; width:688px; line-height:47px; text-indent:3.5em;}
+.mul_text_kt {border:none; width:640px; height:60px; overflow-y:hidden; margin:20px 0 0 20px;}
+span.tjBtn_con {width:642px; border:none; background:none; margin-left:20px;}
+.tjBtn.stu {background:url(../images/student/img_kt.png) no-repeat right -241px; width:89px; height:35px; padding:0; }
+.tjBtn.stu:hover { background-color:transparent;}
+ul.border_kt {background:url(../images/student/border.jpg) no-repeat 0 -466px; width:688px; height:131px; overflow:hidden; margin-top:10px;}
+.content1 {margin:10px 0;}
+.lu980 { width:980px; margin:0 auto; position:relative; z-index:9; }
+.lulu {background:url(../images/student/lu.png) no-repeat; width:262px; height:638px; position:absolute; left:-243px; top:-270px; display:block;}
+.dtree {z-index:7;}
+.tm0{ opacity:0.2; filter:alpha(opacity=20); }/*IE滤镜*/
+.bg_bt {
+  background: url(../images/student/ktc_03.png) no-repeat;
+  width: 688px;
+  height: 50px;
+}
+
+
+span.icoz3 {
+  background-position: 0 -168px;
+}
+.mainTab.stu li.cur a span.icoz3, .mainTab.stu li a:hover span.icoz3 {
+  background-position: -42px -168px;
+}
+
+.tab3.stu a.sel2, .tab3.stu a.sel2:visited {color: #fff;display: inline-block;background: #11b962;border-radius: 5px;padding: 0 5px;}
+.tab3 a {font-size: 16px;background: #999;margin: 0 5px;display: inline-block;height: 32px;line-height: 32px;cursor: pointer;padding: 0 5px;border-radius: 5px;color: #fff;}
+
+
+
+.kc_list2 .tab_2 {
+  height: 47px;
+  line-height: 47px;
+  background: url(../images/student/border2.png) no-repeat bottom left;
+}
+.kc_list2 .bg1 {
+  background: url(../images/student/border2.png) no-repeat 0 0;
+  width: 980px;
+  height: 149px;
+  overflow: hidden;
+}
+.kc_list2 .bg2 {
+  background: url(../images/student/ktc_01.png) no-repeat;
+  width: 975px;
+  overflow: hidden;
+  margin-top: 10px;
+  height: auto;
+}
+.kc_list2 h1.pingBt.stu {
+  background: url(../images/student/border2.png) no-repeat 0 -604px;
+  height: 47px;
+  width: 980px;
+  line-height: 47px;
+  text-indent: 3.5em;
+}
+.kc_list2 ul.border_kt {
+  background: url(../images/student/border2.png) no-repeat 0 -466px;
+  width: 980px;
+  height: 131px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+.kc_list2 span.tjBtn_con {
+  width: 940px;
+  border: none;
+  background: none;
+  margin-left: 20px;
+}
+.kc_list2 .mul_text_kt {
+  border: none;
+  width: 930px;
+  height: 60px;
+  overflow-y: hidden;
+  margin: 20px 0 0 20px;
+}
+.kc_list2 .ping ul {
+  width: 980px;
+  margin: 20px auto;
+}
+.kc_list2 .cur_k span {
+  width: 980px;
+}
+.kc_list2 .dbline {
+  background: url(../images/student/ktc_04.png) no-repeat;
+  width: 975px;
+  height: 44px;
+}
+ul.picxx li {background:#efefef;}/* CSS Document */
+
+.dxf_btn a { display:block; background:url(../images/student/dxf_btn.png) no-repeat 0 0; width:140px; height:30px; line-height:30px; color:#fff; font-size:14px; text-indent:2.2em; }/*2016.08.1*/

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版本列表</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/uploadify/jquery.uploadify.min.js"></script> 
+<link href="__PUBLIC__/js/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script> 
+</head>
+<body> 
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list_table"  id="table_excel">
+  <!-- <tr>
+    <td width="100" align="right">发音：</td>
+    <td align="left">&nbsp;
+      <input name="sound" id="sound" type="checkbox" value="US" checked="checked" />
+      美音
+      <input name="sound" id="sound" type="checkbox" value="UK"  <?php if($flag){echo 'checked='.'"'.'checked'.'"';}?>/>
+      英音 </td>
+  </tr>
+  <tr>
+    <td align="right">默认发音：</td>
+    <td  align="left">&nbsp;
+      <input  name="ischeck" type="checkbox"  id="ischeck" value='1' checked="checked"/>
+      <input id="mp3" name="mp3" type="hidden" value=""/>
+      <input id="path" name="path" type="hidden" value=""/>
+      <input id="wordid" type="hidden" value="<?php echo $wordid;?>"/>
+    </td>
+  </tr> -->
+  <tr>
+    <td class="td_right" align="right">音频：</td>
+    <td align="left">&nbsp;
+      <input id="path" name="path" type="hidden" value=""/>
+      <img src="__PUBLIC__/images/sound.gif" width="16" height="13" id="listen" style="cursor: pointer;"  dvideo=""/>
+    </td>
+  </tr> 
+  <tr>
+    <td>&nbsp;</td>
+    <td><div id="queue"></div><input id="file_upload" name="file_upload" type="file" multiple="false"></td>
+  </tr>
+</table>
+<div id="jplayer"></div>
+<script type="text/javascript">  
+  
+$(function(){
+  $.ajaxSetup({async:false});   
+  $("#jplayer").jPlayer({
+    swfPath: "js",
+    wmode: "window",
+    supplied: "mp3",
+    preload: "none",
+    volume: "1"
+  });
+  $("#listen").hide();
+});
+
+$("#listen").click(function() {
+    jpclear();
+    var mp3 = $(this).attr('dvideo'); 
+    if(!mp3){alert("请上传音频");}
+    else
+    {
+    mp3 = "/yylmp3/mp3_text/" + mp3;   
+    $("#jplayer").jPlayer("setMedia", {
+      mp3: mp3
+    }).jPlayer("play");
+  }
+});
+
+function jpclear() {
+  $("#jplayer").jPlayer("clearMedia");
+  $("#jplayer").jPlayer("stop");
+  $("#jplayer").unbind($.jPlayer.event.ended);
+  $("#jplayer").unbind($.jPlayer.event.progress);
+}
+
+
+
+$(function() {
+  $('#file_upload').uploadify({
+    'height'    :30,
+    'width'     :120,
+    'buttonText': '上传MP3',  //选择按钮显示的字符
+    'multi'     : false,   //是否允许同时选择多个(false一次只允许选中一张图片)
+    'method'    : 'post',
+    'formData'  : {
+      'folder'  : 'mp3',
+      'fileext': 'png'
+    },
+    'swf'       : '__PUBLIC__/js/uploadify/uploadify.swf',
+    'uploader'  : 'uploadchpater',
+    'fileTypeExts': '*.mp3', //允许的后缀
+    'fileTypeDesc': 'Mp3 Files', //允许的格式，详见文档
+    'onUploadSuccess' : function(file, data, response) {  //上传成功后的触发事件  
+      var dataObj=eval("("+data+")");
+      $('#' + file.id).find('.data').html(dataObj.msg+'上传完毕，请点击保存信息！');   
+      $("#listen").attr("dvideo", dataObj.filename); 
+//$("#mp3").attr("value", dataObj.newname);
+      $("#listen").show();
+      $("#path").attr("value", dataObj.filename);
+    }
+  });
+});
+</script> 
+</body>
+</html>

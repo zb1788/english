@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>成语词典</title>
+<link href="__PUBLIC__/dict/css/css.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/dict/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/dict/js/cy.js"></script>
+
+</head>
+
+<body>
+    <include file="Common/cyheader"/>
+
+    <div class="w980">
+        <div class="middle">
+            <div class="tline"></div>
+                <div class="kuai01">
+                <h1>推荐成语</h1>
+                    <div class="mrtj">
+                        <h3><span class="font_y">{$cyname}</span>  {$cypinyin}</h3>
+                        <notempty name="cyjieshi"><p>成语解释:{$cyjieshi}</p></notempty>
+                        <notempty name="cydiangu"><p class="l3">成语典故:{$cydiangu}</p></notempty>
+                        <notempty name="cyjinyici"><p>成语近义词:{$cyjinyici}</p></notempty>
+                        <notempty name="cyfanyici"><p>成语反义词:{$cyfanyici}</p></notempty>
+                    </div>
+                    <div class="mrtj" style="border-left:dashed 2px #fff;">
+                       <p class="l6">成语故事:{$cygushi}</p>
+                       <a href=' javascript:void(0);' onclick="getcyinfo({$cyid});" class="more">阅读更多......</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="t02"></div>
+                <div class="nr">
+                <ul class="suoyin">
+                </ul>
+                </div>
+                <div class="bline"></div>
+                <include file="Common/content"/>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/yjt_properties.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/user.js"></script>
+<script type="text/javascript">
+$(function(){
+  //getmain();
+  getDictClassfy(0);
+  $(".font_g").text(truename);
+});
+function Show_Tab_redLine(num,active,where){
+    for(var i=0;i<num;i++){
+        if(i!=active){
+            document.getElementById(where+"s_"+i).style.display="none";
+            document.getElementById(where+"Tab_"+i).className="";
+            }else{
+            document.getElementById(where+"s_"+i).style.display="block";
+            document.getElementById(where+"Tab_"+i).className="on";
+            }
+    }
+}
+</script>
+</html>
+
+    
+    
+

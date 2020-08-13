@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>试题检测</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link href="__PUBLIC__/public/style/common.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/test_paper.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/js/jquery-1.10.1.min.js"></script>
+<script src="__PUBLIC__/public/script/artDialog.js?skin=default_green"></script>
+<script src="__PUBLIC__/public/script/test_paper.js"></script>
+<script src="__COMMON__/js/jquery.tmpl.js"></script>
+<script src="__COMMON__/js/en.js"></script>
+</head>
+<body class="bg_stu ">
+
+<!--begin w1200-->
+<div class="w980" >
+  <div class="clearfix"></div>
+  <div class="test_con" >
+    <h1 class="dbt1"> 《春》提升检测</h1>
+    <div class="test">
+      <div class="te_tab">
+        <a href="javascript:void(0);" name="wa" class="aBtn cur">单词跟读</a>
+        <a href="javascript:void(0);" name="wt" class="aBtn">单词学习</a>
+        <a href="javascript:void(0);" name="ta" class="aBtn">课文跟读</a>
+        <a href="javascript:void(0);" name="eq" class="aBtn">听力训练</a>
+      </div>
+      <div class="test content">
+      </div>
+      
+      
+      
+      <!-- <h1 class="tingli">四、 听力测试<span>（10分）每个小题听两遍</span> <a href="#" class="playBtn"></a></h1> -->
+    </div>
+    <div class="week_tijiao">
+      <input type="button" class="wk_send" value="提 交"  onclick="tj_pop();"  />
+      <input type="button" class=" wk_bGray" value="关 闭" style="margin-left:30px;"/>
+    </div>
+    
+    <!--end shiti-->
+    
+    <div class="clearfix"></div>
+  </div>
+  <!-- 代码 开始 -->
+  <div class="scrollsidebar" id="scrollsidebar" >
+    <div class="side_content">
+      <div class="side_list">
+        <div class="side_title">答题卡<a title="隐藏" class="close_btn"><span>关闭</span></a></div>
+        <div class="side_center" >
+          <p><a href="#" class=" btn_green">保存答案</a></p>
+          <h1>一、选择题</h1>
+          <ul >
+            <li class="complete"><a href="#">1</a></li>
+            <li class="complete"><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+    <div class="show_btn"><span>在线答题卡</span></div>
+  </div>
+</div>
+<!--end w1200--> 
+
+<!--t提交弹出层-->
+<div id="tj_pop" style="display:none;">
+  <div class="popContent">
+    <h5>答案已提交，正在批改中，请稍侯...</h5>
+  </div>
+  <!--end popContent--> 
+</div>
+<include file="template"/>
+</body>
+</html>
+<script src="__PUBLIC__/public/script/common.js"></script>
+<script>
+
+function tj_pop(){
+  savePaper();
+// 	art.dialog({
+// 		padding: 0,
+// 		title:'友情提示',
+// 		width:510,
+// 		content: document.getElementById('tj_pop'),//获取id为dTree_5层里面的内容，dTree_5层在页面下方
+// 		lock:true,
+// 		opacity: 0.2,
+// 		cancelVal: '关闭',
+//     	cancel: true //为true等价于function(){}
+// });
+}
+
+
+</script>
+<script type="text/javascript"> 
+$(function() { 
+	$("#scrollsidebar").fix({
+		float : 'right',	//default.left or right
+		//minStatue : true,
+		skin : 'green',	//default.gray or blue
+		durationTime : 600
+	});
+  var p = en.createNew("00010802060202");
+  var homeworkid="{$homeworkid}";
+  $(".aBtn").bind("click",function(){
+     var name=$(this).attr("name");
+     $(".aBtn").removeClass("cur");
+     $(this).addClass("cur");
+     if(name=="wa"){
+      $(".content").empty();
+      p.getStuWalist(homeworkid,$("#tmplwaquestion"),$(".content"));
+     }else if(name=="wt"){
+      $(".content").empty();
+      p.getStuWtlist(homeworkid,$("#tmplwttquestion"),$(".content"));
+     }else if(name=="ta"){
+      $(".content").empty();
+      p.getStuTalist(homeworkid,$("#tmpltaquestion"),$(".content"));
+     }else if(name=="eq"){
+      $(".content").empty();
+      p.getStuExaminfo(homeworkid,$("#tmpleqquestion"),$(".content"));
+     }
+  });
+  $(".aBtn:eq(0)").click();
+});
+
+function savePaper(){
+  var homeworkid="{$homeworkid}";
+  //听读作业电脑上不能保存
+  //1、保存单词测试的用户答案
+  var wtlen=$(".btn_green[name^=wt]").length;
+  var wtarr=[];
+  //听读作业测试
+  if(wtlen>0){
+    $(".btn_green[name^=wt]").each(function(key,value){
+       var obj={};
+       obj.id=$(this).attr("quesid");
+       obj.tag="a";
+       obj.type="wt";
+       obj.attr="name";
+       obj.useranswer=$(this).text();
+       wtarr.push(obj);
+    });
+  }
+  var eqlen=$(".btn_green[name^=eq]").length;
+  var eqarr=[];
+  //听力训练回答
+  if(eqlen>0){
+    $(".btn_green[name^=eq]").each(function(key,value){
+       var obj={};
+       obj.id=$(this).attr("quesid");
+       obj.tag="a";
+       obj.type="eq";
+       obj.attr="name";
+       obj.useranswer=$(this).text();
+       eqarr.push(obj);
+    });
+  }
+  $.post("../../Pubinterface/index/giveMark",{wtdata:encodeURI(JSON.stringify(wtarr)),eqarr:encodeURI(JSON.stringify(eqarr)),homeworkid:homeworkid,ran:Math.random()},function(data){
+    //进行错误的试题的标注
+    if(data.wa.length>0){
+      $.each(data.wa,function(key,value){
+        var obj=value.obj;
+        $(obj).parents(".testContent").attr("style","border:1px solid #F00;");
+      });
+    }
+    if(data.wt.length>0){
+      $.each(data.wt,function(key,value){
+        var obj=value.obj;
+        if(value.iscorrect=="0"){
+          $(obj).parents(".testContent").attr("style","border:1px solid #F00;");
+        }
+      });
+    }
+    if(data.ta.length>0){
+      $.each(data.ta,function(key,value){
+        var obj=value.obj;
+        $(obj).parents(".testContent").attr("style","border:1px solid #F00;");
+      });
+    }
+    if(data.eq.length>0){
+      $.each(data.eq,function(key,value){
+        var obj=value.obj;
+        $(obj).parents(".testContent").attr("style","border:1px solid #F00;");
+      }); 
+    }
+
+  });
+}
+</script>

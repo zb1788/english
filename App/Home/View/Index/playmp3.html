@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+function commitAction(type){
+	switch(type){
+		case 1:
+			alert("111");
+			UXinJSInterfaceSpeech.playAudio("B59E57FD261506BCDDF108EADBF2F456.mp3");
+			break;
+		case 2:
+			alert("222");
+			UXinJSInterfaceSpeech.playAudio("http://en.youjiaotong.com/yylmp3/mp3_word/B59E57FD261506BCDDF108EADBF2F456.mp3");
+			break;
+		case 3:
+			UXinJSInterfaceSpeech.startRecordVoiceWithUxinFileMan("pls");
+			break;
+		case 4:
+			UXinJSInterfaceSpeech.DownLoadAudioFile("mp3","http://en.youjiaotong.com/yylmp3/mp3_word/B59E57FD261506BCDDF108EADBF2F456.mp3");
+			break;
+		case 5:
+			var jsonstr = '[{name:"20078311111257",size:"2916002",format:"mp3",url:"http://en.youjiaotong.com/yylmp3/mp3_word/B59E57FD261506BCDDF108EADBF2F456.mp3"}]';
+			UXinJSInterfaceSpeech.cacheAudioFiles(iGetInnerText(jsonstr));
+			break;
+	}
+}
+
+function onCacheAudioStatus(status){
+	if(0 == status){
+		alert("下載成功");
+	}else{
+		alert("下載出錯");
+	}
+}
+
+function onAudioPlayStatus(status){
+	if(status == 0){
+		alert("play over!");
+	} else {
+		alert("play error!");
+	}
+}
+
+function getVoicePath(path){
+	alert(path);
+}
+
+function iGetInnerText(testStr) {
+	var resultStr = testStr.replace(/\ +/g, ""); //去掉空格
+	resultStr = testStr.replace(/[ ]/g, "");    //去掉空格
+	resultStr = testStr.replace(/[\r\n]/g, ""); //去掉回车换行
+	return resultStr;
+}
+</script>
+</head>
+
+<body>
+	<br />
+  	<div align="center">
+		<br />
+		<br />
+		<input type="button" value="本地音乐播放" style="font-size:24px;" onclick="commitAction(1)"/>
+		<br />
+		<br />
+		<input type="button" value="在线音乐播放" style="font-size:24px;" onclick="commitAction(2)"/>
+		<br />
+		<br />
+		<input type="button" value="录音上传api服务器" style="font-size:24px;" onclick="commitAction(3)"/>
+		<br />
+		<br />
+		<input type="button" value="录音文件下载播放" style="font-size:24px;" onclick="commitAction(4)"/>
+		<br />
+		<br />
+		<input type="button" value="录音文件批量下载" style="font-size:24px;" onclick="commitAction(5)"/>
+	</div>
+</body>
+</html>

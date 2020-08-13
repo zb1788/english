@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<meta name="wap-font-scale" content="no">
+		<title>原声绘本</title>
+		<link rel="stylesheet" href="__SUBJECT__/book/css/huiben.css" />
+        <link rel="stylesheet" href="__SUBJECT__/book/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/book/css/iscroll.css" />
+        <script type="text/javascript" src="__SUBJECT__/book/js/iscroll-lite.js" ></script>
+        <script type="text/javascript" src="__SUBJECT__/book/js/demoUtils.js" ></script>
+		<style>
+			#wrapper {top: 45px; bottom:60px;background:#ecf8f8;overflow-y: auto;}
+			body {}
+		</style>
+		<script type="text/javascript">
+        // 是否支持orientationchange事件
+        var mql = window.matchMedia('(orientation: portrait)');
+        console.log(mql);
+        function handleOrientationChange(mql) {
+            if(mql.matches) {
+                console.log('portrait');  // 竖屏
+                try{
+                    $("#scroller").height($(document).height()-105+"px");
+                }catch(e){
+
+                }
+                console.log('portrait');  // 竖屏
+            }else {
+                
+                try{
+                    $("#scroller").height($(document).height()-105+"px");
+                }catch(e){
+
+                }
+                console.log('landscape'); // 横屏
+            }
+        }
+        // 输出当前屏幕模式
+        handleOrientationChange(mql);
+        // 监听屏幕模式变化
+        mql.addListener(handleOrientationChange);
+    </script>
+	</head>
+<body>
+<main>
+	<header class="head border-nav">
+		<a class="head-left"><i class="icon-back"></i>返回</a>
+		<h1 class="title">原声绘本</h1>
+	</header>
+	<section>	
+		<div id="wrapper">
+			<div id="scroller">
+				<div class="pad10">
+					<h2 class="hbBt">参考译文</h2>
+					<div class="hb-fanyi">
+						<volist name="contents" id="vo">
+							<p>{$vo.cncontent}</p>
+						</volist>
+				    </div>
+				</div>
+			</div><!--end scroller-->
+		</div><!--end wrapper-->
+		<div class="hbr-bottom" style="z-index:1000;">
+			<ul class="">
+				<li><a class="laabtn list" id="wordlist" style="width:100%;">单词列表</a></li>
+			</ul>
+		</div>
+	</section>
+</main>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js" ></script>
+	<script type="text/javascript" src="__PUBLIC__/js/enajax.js" ></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#scroller").height($(document).height()-105+"px");
+
+			$("#wordlist").click(function(){
+				window.location.href='wordlist?id='+Requests["id"]+"&first="+Requests["first"]+"&second="+Requests["second"]+"&third="+Requests["third"]+"&batchid="+Requests["batchid"]+'&backUrl='+encodeURIComponent(Requests["backUrl"]);
+
+			})
+
+			$(".head-left").click(function(){
+        		window.location.href="book?id="+Requests["id"]+"&first="+Requests["first"]+"&second="+Requests["second"]+"&third="+Requests["third"]+"&batchid="+Requests["batchid"]+'&backUrl='+encodeURIComponent(Requests["backUrl"]);
+    		})
+		})
+	</script>
+</body>
+</html>

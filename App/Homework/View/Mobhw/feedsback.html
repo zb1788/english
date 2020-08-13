@@ -1,0 +1,98 @@
+  <!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="wap-font-scale" content="no">
+<title></title>
+<link href="../../../css/currency.css" rel="stylesheet" type="text/css" />
+<link href="../../../css/newwork.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="../../../fonts/font-icomoon/icomoon.css">
+<script type="text/javascript" src="../../../js/jquery-1.10.1.min.js" ></script>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+</head>
+
+<body>
+<div class="container">
+	   <header>
+            <h1 class="ml60">一颗苹果成学问</h1>
+            <div class="back"><a href="zz_zxzl.html"><img src="../../../images/backIco.png" width="20" height="20" />返回</a></div>
+			<div class="kc_setup"><a class="shou" href="javascript:void(0);"><img src="../../../images/answer.png" class="anns" /><!--<i class="fa fa-star-o"></i>--></a></div>
+        </header>
+        <article>
+
+<div class="edi-head02 mt45"><span class="hd02-left"><strong>三年级一班</strong>作业详情</span><span class="hd02-right"><div class="edi-qiezz"><a class="qie-ze">点击切换班级<i class="fa fa-angle-down"></i></a>
+</div></span></div>
+
+<div class="clearfix"></div>
+<div class="zy-top02">
+			<span>《28.1图形的相似》基础型自主突破</span>
+			<h2>平均用时20分20秒 班级最高分85分</h2>
+		</div>
+	<h3 class="ytj">
+		<a href="javascript:;">
+						<div class="tj_l">
+							已提交：<strong>2</strong>/30
+										</div>
+						<img class="tj_r" src="../../../images/arrow2.png">
+					</a>
+				</h3>
+
+<div class="cpbg_z bg_0">
+ <h2>答题卡<strong>(3道)</strong><span class="right"><i class="dt-bl"></i>正确率>60%<i class="dt-cw"></i>正确率<60%<i class="dt-dp"></i>待批</span></h2>
+ <h5 class="edi-bt01"><span>已批改</span>单选题</h5>
+        <ul>
+<!--<section class="htmleaf-container">
+		<figure id="pie" data-behavior="pie-chart"></figure>
+	</section>-->
+        <li><a class="ball_blu">1<span>100%</span></a></li>
+        <li><a class="ball_blu">2<span>80%</span></a></li>
+        <li><a class="ball_red">3<span>10%</span></a></li>
+        <li><a class="ball_red">4<span>20%</span></a></li>
+        </ul>
+        <div class="clearfix"></div>
+         <h5 class="edi-bt01"><span>已批改</span>填空题</h5>
+        <ul>
+        <li><a class="ball_blu">1<span>100%</span></a></li>
+        </ul>
+        <div class="clearfix"></div>
+         <h5 class="edi-bt01"><span>点击题号，请批改</span>解答题</h5>
+        <ul>
+        <li><a class="ball_gra">1<span>待批</span></a></li>
+        </ul>
+        <div class="clearfix"></div>
+        </div>
+<div class="mb50"></div>
+</article>
+
+
+  	 </div><!--end container-->
+  <div class="tips"></div>
+<a class="btn_blu mb">批改</a>
+
+<div class="bg" style="display: none;"></div>	
+  <div id="wrapper" class="wrapper01" style="display: none;">
+        <div class="scroller"><ul><li>三年级二班</li><li>三年级二班</li><li>三年级二班</li><li>三年级二班</li><li>三年级二十三班</li><li>三年级二十三班</li><li>三年级二十三班</li><li>三年级二十三班</li></ul></div></div>
+</body>
+
+<script>
+$(function(){
+	
+	$('.hd02-left , .hd02-right').click(function(){
+		$('.wrapper01').slideDown(500);
+		$('.bg').show();
+		$('body').css({
+			'height':$(window).height(),
+			'overflow': 'hidden'
+		})
+	})
+	$('.wrapper01').click(function(){
+		$(this).slideUp('hide');
+		$('.bg').hide();	
+				$('body').css({
+			'height':'auto',
+			'overflow': 'auto'
+		})
+	})
+	})
+</script>
+</html>

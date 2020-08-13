@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<title>创建试卷</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<link rel="stylesheet" href="__PUBLIC__/cp/sets.css">
+<link rel="stylesheet" href="__PUBLIC__/cp/base.css">
+<link rel="stylesheet" href="__PUBLIC__/cp/app.css">
+<link rel="stylesheet" href="__PUBLIC__/cp/font-awesome.css">
+<link href="__PUBLIC__/cp/session.css" rel="stylesheet" charset="utf-8">
+<link href="__PUBLIC__/cp/moon.css" rel="stylesheet" charset="utf-8">
+<link href="__PUBLIC__/cp/paper-form.css" rel="stylesheet" charset="utf-8">
+<link href="__PUBLIC__/cp/user-info.css" rel="stylesheet" charset="utf-8">
+<link href="__PUBLIC__/cp/msg.css" rel="stylesheet" charset="utf-8">
+<link href="__PUBLIC__/cp/question-list.css" rel="stylesheet" charset="utf-8">
+<link href="__PUBLIC__/cp/jquery-ui.css" rel="stylesheet" charset="utf-8">
+<link href="__PUBLIC__/cp/select.css" rel="stylesheet" charset="utf-8">
+<link href="__PUBLIC__/cp/file-ui.css" rel="stylesheet" charset="utf-8">
+<link href="__PUBLIC__/cp/style.css" rel="stylesheet" charset="utf-8">
+<link href="__PUBLIC__/cp/font-awesome.min.css" rel="stylesheet" charset="utf-8">
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/cp/cp.js"></script>
+<script type="text/javascript" src="__PUBLIC__/cp/jquery-ui.js"></script>
+<script type="text/javascript"  src="__PUBLIC__/js/jquery.form.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+</head>
+<body class="paper-form-body">
+<div id="paper-form-wrap" class="paper-form container sets-container">
+	<ol class="breadcrumb mt20 mb20">
+	    <li class="active">创建试卷</li>
+	</ol>
+	<div class="row">
+		<div class="col-xs-3">
+	        <div id="paper-form-nav" class="pad paper-form-nav unselectable affix-top">
+	        	<input type="hidden" value="{$gradeid}" id="gradeid"/>
+				<ul class="part nav" >
+					<li class="active">
+						<a class="btn" href="#a1">基本信息</a>
+					</li>
+					<volist name="paper" id="vo" key="k">
+						<li class="">
+							<a class="btn" href="#paper-part-{$k-1}">第{$k}部分</a>
+						</li>
+                    </volist>
+					<li>
+						<a class="btn btn-add-part mb0" href="javascript:void(0);" onclick="addTitle({$examsid});"><i class="fa fa-plus"></i> 继续添加部分</a>
+					</li>
+
+				</ul>
+				<div class="part summary">
+							<div style="height:75px;">
+								<table class="w">
+									<tbody>
+										<tr class="score-wrap">
+											<td>总分值：</td>
+											<td class="tr text-medium-gray">
+												<font id="paperscore" size="4px">0</font>&nbsp;分 
+											</td>
+										</tr>
+										<tr class="timelimit-wrap" >
+											<td>总时长：</td>
+											<td class="tr text-medium-gray">
+												<a class="anchor-mark" id="anchor-timelimit"></a>
+												<span  >
+													<input  class="form-control input-timelimit" id="ztimes" value="{$examstime}">分钟
+												</span>
+											</td>
+										</tr>
+									</tbody>
+							    </table>
+						    </div>
+						    <table class="w">
+						    	<tbody>
+						    		<tr>
+						    			<td>
+						    				<a class="btn btn-warning btn-block btn-save-paper" href="javascript:void(0);" onclick="savepaper({$examsid});">保存试卷</a>
+						    			</td>
+						    		</tr>
+						    	</tbody>
+						    </table>
+						    <div></br></div>
+						    <table class="w">
+						    	<tbody>
+						    		<tr>
+						    			<td>
+						    				<a class="btn  btn-block btn_paper_prew" href="javascript:void(0);" onclick="prewpaper({$examsid});">预览试卷</a>
+						    			</td>
+						    		</tr>
+						    	</tbody>
+						    </table>
+				</div>
+	        </div>
+        </div>
+		<div class="col-xs-9">
+			<div class="paper-form-container" id="paper-form-container">
+				<div class="section-basic" id="a1">
+					<div>
+						<a class="anchor-mark" id="anchor-paper-name"></a>
+						<input  id="exam" class="form-control form-input input-lg paper-name mb10" placeholder="试卷名称（必填）" type="text" value="{$examsname}">
+				    </div>
+					<!-- <div>
+						<a class="anchor-mark" id="anchor-paper-desc"></a>
+						<textarea style="height: 62px;"  class="form-control form-input paper-desc mb10" placeholder="试卷描述，该信息考生不可见（必填）"></textarea>
+					</div> -->
+					<div>
+						<input type="checkbox"  id="display" checked="true"/>是否显示
+						<textarea id="exampaper" class="form-control form-input paper-guide" placeholder="考试说明，该信息考生可见（选填）" >{$papername|str_replace='<p>','',###|str_replace='</p>','',###}</textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+$(function(){
+	show_paper_info({$examsid});
+	//预览试卷
+	  
+})
+function prewpaper(examsid){
+	art.dialog.open('../Exam/preview_exam_paper?examsid='+examsid,{
+	      title:"试题内容",
+	      width:850,
+	      height:600,
+	      lock:true
+	    });
+}
+</script>
+</html>

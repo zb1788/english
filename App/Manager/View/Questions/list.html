@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>版本列表</title>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="__PUBLIC__/js/xunlian.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+    </head>
+    <body>
+        <div class="place"><strong>位置</strong>：首页 &gt; 同步单词管理</div>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="box_top pl_10 f14"><strong>搜索</strong></td> 
+                </tr>
+                <tr>
+                    <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                            <tr>
+                                <td width="50" align="right">年级：</td>
+                                <td>
+                                    <select name="gradeid" class="select" id="gradeid" >
+
+                                    </select>
+                                </td>
+                                <td width="50" align="right">学期：</td>
+                                <td>
+                                    <select name="termid" class="select" id="termid">
+
+                                    </select>
+                                </td>
+                                <td width="50" align="right">版本：</td>
+                                <td>
+                                    <select name="versionid" class="select" id="versionid"> 
+                                    </select>
+                                </td>
+                                <td width="50" align="right">单元：</td>
+                                <td>
+                                    <select name="unitid" class="select" id="unitid"></select>
+                                </td>
+                                <td>
+                                    &nbsp;
+                                    <input type="button" class="btn btn82 btn_search" value="查询" /></td>
+                            </tr>
+                        </table>
+                    </td> 
+                </tr> 
+            </table>
+            <div class="h10"></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_10" height="42">
+                        <input id="genpaper" name="genpaper" type="button" class="ext_btn ext_btn_submit" value="生成训练" />&nbsp;
+                        <input id="checkword" name="checkword" type="button" class="ext_btn ext_btn_submit" value="查看单词"/>&nbsp;
+                        <input id="papermgr" name="papermgr" type="button" class="ext_btn ext_btn_submit" value="训练试卷" />&nbsp;
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+                <tr>
+                    <th width="30" align="center"><input id="all" type="checkbox"/></th>
+                    <th width="60">次序</th>
+                    <th width="200">单词</th>
+                    <th width="300">释义</th>
+                    <th width="60">重点词</th>
+                    <th width="" align="left" style="padding-left:5px;">短语</th>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data_paper" style="display:none;">
+                <tr>
+                    <th width="60">次序</th>
+                    <th width="200">名称</th>
+                    <th width="" align="left" style="padding-left:5px;">操作</th>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none" id="table_demo"> 
+                <tr class="tr">
+                    <td align="center"><input type="checkbox" class="word"/></td> 
+                    <td><input name="sortid" type="text" class="input-text lh30" size="3" maxlength="2" /></td>
+                    <td></td>
+                    <td align="left">
+                        <select name="explainsid" class="select" disabled="true"></select>
+                    </td>
+                    <td><input name="isstress" value="1" type="checkbox" disabled="true"/></td>
+                    <td align="left" style="padding-left:5px;"></td>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none" id="table_demo_paper"> 
+                <tr class="tr">
+                    <td></td>
+                    <td></td>
+                    <td align="left" style="padding-left:5px;">
+                    	<input type="submit" value="编辑" class="ext_btn ext_btn_submit paperedit" />&nbsp;
+                    	<input type="submit" value="发布" class="ext_btn ext_btn_edit paperpublish" />&nbsp;
+                    	<input type="button" value="转移" class="ext_btn ext_btn_submit papertranslate" />&nbsp;
+                        <input type="button" value="复制" class="ext_btn ext_btn_edit paperpreview" />&nbsp;
+                        <input type="button" value="删除" class="ext_btn ext_btn_error paperdel" />&nbsp;
+                    </td>
+                </tr>
+            </table>
+            <div class="h5"></div>
+        </div>
+        <script type="text/javascript">
+
+            $(function(){
+                $.ajaxSetup({async: false});
+                $(".tr:odd").css("background", "#F5F8FA");
+                $('.tr:odd').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#F5F8FA");
+                    }
+                });
+
+                $('.tr:even').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#FFF");
+                    }
+                });
+				$("#genpaper").show();
+				$("#checkword").hide();
+                var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                /**
+                 	初始化年级、学期、版本以及单元和单词
+                 **/
+                $.EBC.inIt("wordlist");
+                dloading.close();
+                /**
+                 	查询按钮单击事件
+                 **/
+                $(".btn_search").click(function() {
+                	var type=$(this).attr("stype");
+                	if(type=='0'){
+                		getWordList();
+                	}else{
+                		$("#papermgr").click();
+                	}
+                    
+                });
+                //全选
+                $("#all").click(function(){
+                    if($(this).is(":checked")){
+                       $(".word").attr("checked",true);
+                    }else{
+                       $(".word").attr("checked",false);
+                    }
+                });
+                
+                //删除试卷
+                $(".paperdel").live("click",function(){
+                    var id=$(this).attr("bid");
+                    var tr=$(this).parents("tr");
+                    art.dialog.confirm('你确定要删除这个单词吗？', function() {
+                        $.get("delPaper", {id: id,random: Math.random()});
+                        tr.remove();
+                        $("#papermgr").click();
+                    });
+                });
+                
+                //发布试卷
+                $(".paperpublish").live("click",function(){
+                    var id=$(this).attr("bid");
+                    var td=$(this).parent();
+                    art.dialog.confirm('您是否已经检查完成确认发布?', function() {
+                        $.get("publishPaper", {id:id,random: Math.random()});
+                        td.find(".paperdel").hide();
+                        td.find(".paperpublish").hide();
+                    });
+                });
+
+                //复制试卷
+                $(".paperpreview").live("click",function(){
+                    var paperid=$(this).attr("bid");
+                    $.getJSON("copyPaper",{paperid:paperid,ran:Math.random()},function(){
+                        $("#papermgr").click();
+                    })
+                });
+
+                //试卷转移
+                $(".papertranslate").live("click",function(){
+                    var paperid=$(this).attr("bid");
+                    var gradeid=$("#gradeid").val();
+                    var termid=$("#termid").val();
+                    var versionid=$("#versionid").val();
+                    var unitid=$("#unitid").val();
+                    art.dialog.open("translate?paperid="+paperid+"&gradeid="+gradeid+"&termid="+termid+"&versionid="+versionid+"&unitid="+unitid+"&ran="+Math.random(),{
+                        title: "转移",
+                        width: 350,
+                        height: 160,
+                        lock: true,
+                        opacity: 0.3,
+                        button: [
+                            {
+                                name: '保存',
+                                callback: function() {
+                                    var iframe = this.iframe.contentWindow;
+                                    var re = iframe.editText();
+                                    if (re) {
+                                        $("#papermgr").click();
+                                        return true;
+                                    }
+                                    else {
+                                        return false;
+                                    }
+                                },
+                                focus: true
+                            },
+                            {
+                                name: '关闭',
+                                callback: function() {
+                                    //$("#gradeid").change();
+                                },
+                                focus: false
+                            }
+                        ]
+                    });
+                });
+                
+                //查看单词
+                $("#checkword").click(function(){
+                	$(this).hide();
+                	$(".btn_search").attr("stype","0");
+                	$("#genpaper").show();
+                	$("#table_data").show();
+                	$("#table_data_paper").hide();
+                })
+                
+                //编辑已经选择好的试卷
+                $("#genpaper").click(function(){
+                	var unitid=$("#unitid").val();
+                	var words=[];
+                    $("#table_data .word:checked").each(function(key,value){
+                    	var word={};
+                    	console.log($(this).html);
+                     	word.wordid=$(this).attr("bid");
+                     	words.push(word);
+                    });
+                    if(words.length==0){
+                    	art.dialog.alert("请选择单词");return false;
+                    }
+                    art.dialog.open("questions?unitid="+unitid+"&data="+JSON.stringify(words)+"&ran="+Math.random(),{
+                		title: "课堂训练",
+                        width: 800,
+                        height: 600,
+                        lock: true,
+                        opacity: 0.3,
+                        button: [
+                            {
+                                name: '保存',
+                                callback: function() {
+                                    var iframe = this.iframe.contentWindow;
+                                    var re = iframe.savePaper();
+                                    if (re) {
+                                        //getWordList();
+                                        $("#papermgr").click();
+                                        return true;
+                                    }
+                                    else {
+                                        return false;
+                                    }
+                                },
+                                focus: true
+                            },
+                            {
+                                name: '关闭',
+                                callback: function() {
+                                    //$("#gradeid").change();
+                                },
+                                focus: false
+                            }
+                        ]
+                    });   
+                });
+
+                //生成训练点击事件
+                $(".paperedit").live("click",function(){
+                	var id=$(this).attr("bid");
+                    art.dialog.open("edit?paperid="+id+"&ran="+Math.random(),{
+                		title: "课堂训练",
+                        width: 800,
+                        height: 600,
+                        lock: true,
+                        opacity: 0.3,
+                        button: [
+                            {
+                                name: '保存',
+                                callback: function() {
+                                    var iframe = this.iframe.contentWindow;
+                                    var re = iframe.savePaper();
+                                    if (re) {
+                                        //getWordList();
+                                        $("#papermgr").click();
+                                        return true;
+                                    }
+                                    else {
+                                        return false;
+                                    }
+                                },
+                                focus: true
+                            },
+                            {
+                                name: '关闭',
+                                callback: function() {
+                                    //$("#gradeid").change();
+                                },
+                                focus: false
+                            }
+                        ]
+                    });   
+                });
+                //训练管理
+                $("#papermgr").click(function(){
+                	$("#genpaper").hide();
+                	$("#checkword").show();
+                	$("#table_data").hide();
+                	$("#table_data_paper").show();
+                	$(".btn_search").attr("stype","1");
+                	var unitid=$("#unitid").val();
+	            	var i=0;
+	            	var dloading = art.dialog({time:30,title:'加载中……',width:130,height:30,opacity:0.3,lock:true});
+	            	$.post('getPaperList', {unitid:unitid,random: Math.random()}, function(data) {
+	            		$("#table_data_paper").find("td").parent().empty();
+			            $.each(data, function(key, value) {
+			                i++;
+			                var tr = $("#table_demo_paper tr").eq(0).clone();
+			                var td = tr.children('td').eq(0);
+			                td.html(i);
+			                td = tr.children('td').eq(1);
+			                td.html(value.name);
+			                td = tr.children('td').eq(2);
+			                td.find("input").attr("bid",value.id);
+			                if(value.state=='2'){
+			                	td.find(".paperdel").hide();
+			                	td.find(".paperpublish").hide();
+			                }
+			                tr.appendTo("#table_data_paper");
+			            });
+			        });
+			        $(".tr:odd").css("background", "#F5F8FA");
+    				dloading.close(); 
+                })
+            });
+        </script> 
+    </body>
+</html>

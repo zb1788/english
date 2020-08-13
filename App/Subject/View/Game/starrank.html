@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="wap-font-scale" content="no">
+	<meta charset="UTF-8">
+	<title>英语闯关</title>
+	<link rel="stylesheet" href="__SUBJECT__/game/css/css.css" />
+	<link rel="stylesheet" href="__SUBJECT__/game/font/style.css" />
+	<link rel="stylesheet" href="__PUBLIC__/css/dropload.css" />
+	<style>
+	    body,html{height: auto;}
+		#wrapper,#wrapper01 {top: 82px; bottom: 5px; left: 5px; right: 5px;}
+		#die { bottom: 5px; left: 5px; right: 5px;}
+		*{
+        margin: 0;
+        padding:0;
+        -webkit-tap-highlight-color:rgba(0,0,0,0);
+        -webkit-text-size-adjust:none;
+    }
+	</style>
+</head>
+	<body class="bbYing">
+	<header class="head">
+		<a class="head-left" href="javascript:void(0);"><i class="icon-left2"></i>返回</a>
+		<h1 class="title">积分排行榜</h1>
+		<!-- <a class="head-right"><i class="icon-share"></i></a> -->
+	</header>
+	<section>
+		<div class="model bLine mt45">
+			<span class="cur" type="0">班级排行</span><span type="1">学校排行</span><span type="2">全国排行</span>
+		</div>
+		<div id="iScroll" class="iScroll bWhite">
+	        <div class="tempWrap" >
+		        <div class="bd" id="iScroll-bd">
+		            <div class="con">
+		            	<ul>
+		            		<div class="brtY posR">
+								<div class="topM pad0-10 table" id="user" style="width: 94%;border-bottom: dashed;border-color: darkgray;">
+									<div class="w50">
+										<span class="listImg mL10 bGray">
+											<img src="__SUBJECT__/img/book.jpg" /><b><font id="userrank" style="display:none;"></font></b>
+										</span>
+									</div>
+									<span class="listText pad0-10">
+										<h3 class="textH3" id="truename">{$truename}</h3>
+										<h3 id="notext"></h3>
+									</span>
+									<span class="topH3 w70">
+										<font id="levelnum">0</font>
+										<font class="orgFont pad0-10"><i class="icon-shoucang"></i></font>
+									</span>
+								</div>
+								<div id="wrapper" class="dw01">
+									<div id="scroller" class="content">	
+										<ul class="topList clear lists">
+											
+										</ul>
+									</div><!--end scrolloer-->
+								</div><!--end wrapper-->
+		            		</div>
+						</ul><!--[if IE]-->
+					</div><!--end con-->
+			</div>
+		</div>
+	</section>
+	<div id="over" class="over"></div>
+	    <div id="layout" class="layout">
+	    	<img src="__SUBJECT__/img/2013112931.gif" alt="" />
+	    </div>
+	    <style>
+			.over {
+	            display: block;
+	            position: absolute;
+	            top: 0;
+	            left: 0;
+	            width: 100%;
+	            height: 100%;
+	            background-color: #f5f5f5;
+	            opacity:0.5;
+	            z-index: 1000;
+	        }
+	        .layout {
+	            display: block;
+	            position: absolute;
+	            top: 40%;
+	            left: 40%;
+	            width: 20%;
+	            height: 20%;
+	            z-index: 1001;
+	            text-align:center;
+	        }
+		</style> 
+</body>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/enajax.js" ></script>
+<script type="text/javascript" src="__SUBJECT__/js/wordgame.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/dropload.js" ></script>
+<script type="text/javascript">
+    $(function(){
+    	//游戏id
+    	var gameid=Requests["gameid"];
+    	//开始的page
+    	var page = -1;
+	    // 每页展示5个
+	    var size = 100;
+	    //显示类型
+	    var type=0;
+
+
+	    // dropload
+    	$('.brtY').height($(window).height() - 76);
+    	$(".model span").click(function(){
+    		$(this).parent().find("span").removeClass("cur");
+    		$(this).addClass("cur");
+    		$(".topList").empty();
+    		$(".dropload-down").remove();
+    		$("#levelnum").text("");
+        	$("#truename").text("");
+        	$("#userrank").text("").hide();
+    		page=0;
+    		type=$(this).attr("type");
+    		$('#scroller').dropload({
+	        	scrollArea : window,
+	        	loadDownFn : function(me){
+	            // 拼接HTML
+	            var result = '';
+	            $.ajax({
+		                type: 'GET',
+		                url: 'getUserStarRankList?page='+page+'&size='+size+"&type="+type+"&gameid="+gameid,
+		                dataType: 'json',
+		                success: function(data){
+		                	hideloading();
+		               		page++;
+		                    var arrLen = data.ranklist.length;
+		                    if(arrLen > 0){
+		                        initStarRankList(data,$(".topList"));
+		                    // 如果没有数据
+		                    }else{
+		                        // 锁定
+		                        //me.lock();
+		                        // 无数据
+		                        me.noData();
+		                    }
+		                    me.resetload();
+		                },
+		                error: function(xhr, type){
+		                	hideloading();
+		                    me.resetload();
+		                }
+		            });
+		        }
+		    });
+    		$("#userrank").hide();
+		    $.ajax({
+	            type: 'GET',
+	            url: "getMyStarRank?type="+type+"&gameid="+gameid,
+	            dataType: 'json',
+	            success: function(data){
+	            	hideloading();
+	            	$("#levelnum").text(data.levelnum);
+	            	$("#truename").text(data.truename);
+	            	if(data.levelnum>0){
+	            		$("#userrank").text("第"+data.rank+"名").show();
+	            	}
+	            	if(data.levelnum==0){
+	            		$("#notext").text("您快去闯关吧");
+	            	}
+	                
+	            },
+	            error: function(xhr, type){
+	            	hideloading();
+	            }
+	        });
+    		$(".topList").empty();
+    	})
+
+
+    	$(".model span").eq(0).click();
+    	perface();
+        //滑动问题
+       
+        
+        $(".head-left").click(function(){
+        	var Requests = new Object();
+    		Requests = GetRequest();
+    		console.log(Requests["callBackUrl"]);
+        	window.location.href=decodeURI(Requests["callBackUrl"]);
+        });
+    });
+</script>
+</html>

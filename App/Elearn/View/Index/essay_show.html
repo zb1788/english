@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="wap-font-scale" content="no">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="__ELEARN__css/weike.css" />
+		<link rel="stylesheet" href="__ELEARN__font/fonts.css" />
+		<script type="text/javascript" src="__PUBLIC__/js/require.js" data-main="__ELEARN__/js/main" ></script>
+</head>
+<body class="backGorg">
+<div id="over" class="over"></div>
+	    <div id="layout" class="layout">
+	    <img src="__ELEARN__/images/layout.gif" alt="" />
+</div>
+<section>
+	<header class="head border-nav">
+			<a class="head-left" href="course_show?app_id={$app_id}&course_id={$course_id}
+				&title={$title}&backUrl={$backUrl}"><i class="icon-back"></i>返回</a>
+			<h1 class="title">范文展示</h1>
+			<!-- <a class="head-right"><i class="icon-share01"></i></a> -->
+					</header>
+<div class="backGorg pad10 mT45">
+	<div class="borderX">
+	<div class="zwTop">
+		<!-- <h2 class="clear textC1"><span class="fl font08">优教课程</span><span class="fr"><a class="aBtn2 bBlue">再来一篇</a></span></h2> -->
+		<h2 class="textC">{$essaytitle}</h2>
+		<h3 class="textC2">作者：优教通</h3>
+		<span class="zwP py"></span>
+	</div>
+	<div class="zhengwen plr10">
+	  {$content}
+	</div>
+</div>
+</div>
+</section>
+</body>
+</html>
+<script type="text/javascript">
+require(['zepto.min','enElearn'],function($){
+	$(function(){
+		hideloading();
+		
+	});
+
+});
+</script>

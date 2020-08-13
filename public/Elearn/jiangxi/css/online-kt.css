@@ -1,0 +1,257 @@
+/*固定*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video,
+input {
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+
+html,
+body,
+form,
+fieldset,
+p,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	-webkit-text-size-adjust: none;
+}
+
+body {
+	background: #fff;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+	display: block;
+}
+
+
+input,
+button,
+select {
+	color: #3a3a39;
+	vertical-align: middle;
+}
+
+img {
+	vertical-align: middle;
+}
+
+button {
+	cursor: pointer;
+}
+
+ul,
+li {
+	list-style: none;
+}
+
+input {
+	-webkit-appearance: none;
+}
+
+/*去除input默认样式，用于ios系统*/
+
+
+/*清除float*/
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+* html .clearfix {
+	height: 0;
+}
+
+.clearfix {
+	display: block;
+	overflow: auto;
+	clear: both;
+	height: 0;
+}
+
+/* 20200408 */
+body {
+	background: #fcfcff;
+}
+
+.kq_content {
+	margin-top: 25px;
+}
+
+.fr {
+	float: right;
+}
+
+.kq_search .xuan {
+	width: 31.5%;
+	margin: 10px 0 0 1%;
+	height: 40px;
+	line-height: 30px;
+	overflow: hidden;
+	float: left;
+	background: #fff;
+	border: 1px solid #ccc;
+	position: relative;
+}
+
+.kq_search span.fr {
+	margin-top: 10px;
+	margin-right: 2px;
+	font-size: 1em;
+	color: #888
+}
+
+.kq_search.x2 {
+	padding: 1.3rem 0 0 0;
+	background: #fcfcfc;
+}
+
+.kq_search.x2 .xuan {
+	width: 48%;
+	border-color: #ddd;
+	border-radius: 0.2rem;
+	padding-right: 0.3rem;
+}
+
+.kq_search.x2 .xuan a,
+.kq_search.x2 .xuan a:visited {
+	display: block;
+	width: 100%;
+	line-height: 40px;
+	text-align: center;
+	color: #555;
+}
+
+.wklist {
+	margin-top: 10px;
+}
+
+.wklist .mui-icon {
+	color: #999;
+	margin-right: 5px;
+}
+
+.wklist .bt {
+	display: inline-block;
+	max-width: 75%;
+	overflow: hidden;
+	word-break: keep-all;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.wklist .mui-table-view-cell:after {
+	background-color: #ddd;
+}
+
+.my_select select {
+	display: inline-block;
+	padding: 0 1rem 0 1rem;
+	border: none;
+	outline: none;
+	font-size: 1rem;
+}
+
+ 

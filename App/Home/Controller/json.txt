@@ -1,0 +1,228 @@
+array (size=4)
+  'result' => 
+    array (size=9)
+      'tokenId' => string 'default' (length=7)
+      'applicationId' => string 'a458' (length=4)
+      'dtLastResponse' => string '2019-11-15 10:03:32:773' (length=23)
+      'connect' => 
+        array (size=2)
+          'cmd' => string 'connect' (length=7)
+          'param' => 
+            array (size=2)
+              'app' => 
+                array (size=6)
+                  'timestamp' => string '1573783412' (length=10)
+                  'userId' => null
+                  'sig' => string 'default' (length=7)
+                  'connect_id' => string '1fedd632074c11ea99d46c4b90789c56' (length=32)
+                  'warrantId' => string '5dce232c51123becd46d60bc479695192' (length=33)
+                  'applicationId' => string 'a458' (length=4)
+              'sdk' => 
+                array (size=3)
+                  'protocol' => int 2
+                  'version' => int 1
+                  'source' => int 7
+      'params' => 
+        array (size=3)
+          'app' => 
+            array (size=6)
+              'timestamp' => string '1573783412' (length=10)
+              'userId' => null
+              'sig' => string 'default' (length=7)
+              'connect_id' => string '1fedd632074c11ea99d46c4b90789c56' (length=32)
+              'warrantId' => string '5dce232c51123becd46d60bc479695192' (length=33)
+              'applicationId' => string 'a458' (length=4)
+          'audio' => 
+            array (size=4)
+              'sampleBytes' => int 2
+              'audioType' => string 'mp3' (length=3)
+              'sampleRate' => int 44100
+              'channel' => int 1
+          'request' => 
+            array (size=6)
+              'request_id' => string '1feddfb0074c11ea8d436c4b90789c56' (length=32)
+              'tokenId' => string 'default' (length=7)
+              'rank' => int 100
+              'coreType' => string 'en.sent.score' (length=13)
+              'precision' => float 0.8
+              'refText' => string 'Mmm...This sandwich is yummy!' (length=29)
+      'recordId' => string '11ea074c1f58a150b018a458115135c0' (length=32)
+      'refText' => string 'Mmm...This sandwich is yummy!' (length=29)
+      'result' => 
+        array (size=18)
+          'overall' => int 69
+          'forceout' => int 0
+          'precision' => int 1
+          'systime' => int 217
+          'res' => string 'eng.snt.online.1.0' (length=18)
+          'rank' => int 100
+          'rhythm' => 
+            array (size=4)
+              'stress' => int 60
+              'overall' => int 40
+              'tone' => int 100
+              'sense' => int 0
+          'fluency' => 
+            array (size=3)
+              'pause' => int 1
+              'overall' => int 40
+              'speed' => int 0
+          'pron' => int 76
+          'wavetime' => int 4730
+          'accuracy' => int 76
+          'details' => 
+            array (size=5)
+              0 => 
+                array (size=14)
+                  'stressref' => int 0
+                  'tonescore' => int 0
+                  'dur' => int 690
+                  'liaisonref' => int 0
+                  'senseref' => int 0
+                  'start' => int 810
+                  'char' => string 'Mmm' (length=3)
+                  'liaisonscore' => int 0
+                  'stressscore' => int 0
+                  'fluency' => int 0
+                  'toneref' => int 0
+                  'score' => int 62
+                  'end' => int 1500
+                  'sensescore' => int 1
+              1 => 
+                array (size=14)
+                  'stressref' => int 0
+                  'tonescore' => int 0
+                  'dur' => int 400
+                  'liaisonref' => int 0
+                  'senseref' => int 0
+                  'start' => int 1830
+                  'char' => string 'This' (length=4)
+                  'liaisonscore' => int 0
+                  'stressscore' => int 0
+                  'fluency' => int 50
+                  'toneref' => int 0
+                  'score' => int 64
+                  'end' => int 2230
+                  'sensescore' => int 0
+              2 => 
+                array (size=15)
+                  'stressref' => int 0
+                  'tonescore' => int 0
+                  'dur' => int 1090
+                  'liaisonref' => int 0
+                  'score' => int 59
+                  'senseref' => int 0
+                  'start' => int 2230
+                  'liaisonscore' => int 0
+                  'fluency' => int 50
+                  'char' => string 'sandwich' (length=8)
+                  'toneref' => int 0
+                  'stressscore' => int 1
+                  'is_pause' => int 1
+                  'end' => int 3320
+                  'sensescore' => int 1
+              3 => 
+                array (size=14)
+                  'stressref' => int 0
+                  'tonescore' => int 0
+                  'dur' => int 350
+                  'liaisonref' => int 0
+                  'senseref' => int 0
+                  'start' => int 3480
+                  'char' => string 'is' (length=2)
+                  'liaisonscore' => int 0
+                  'stressscore' => int 0
+                  'fluency' => int 48
+                  'toneref' => int 0
+                  'score' => int 95
+                  'end' => int 3830
+                  'sensescore' => int 0
+              4 => 
+                array (size=14)
+                  'stressref' => int 0
+                  'tonescore' => int 1
+                  'dur' => int 730
+                  'liaisonref' => int 0
+                  'senseref' => int 1
+                  'start' => int 3830
+                  'char' => string 'yummy' (length=5)
+                  'liaisonscore' => int 0
+                  'stressscore' => int 1
+                  'fluency' => int 67
+                  'toneref' => int 0
+                  'score' => int 99
+                  'end' => int 4560
+                  'sensescore' => int 1
+          'info' => 
+            array (size=4)
+              'tipId' => int 0
+              'clip' => int 0
+              'snr' => float 24.49581
+              'volume' => int 94
+          'statics' => 
+            array (size=11)
+              0 => 
+                array (size=3)
+                  'score' => int 74
+                  'char' => string 'm' (length=1)
+                  'count' => int 3
+              1 => 
+                array (size=3)
+                  'score' => int 84
+                  'char' => string 'dh' (length=2)
+                  'count' => int 1
+              2 => 
+                array (size=3)
+                  'score' => int 97
+                  'char' => string 'ih' (length=2)
+                  'count' => int 4
+              3 => 
+                array (size=3)
+                  'score' => int 55
+                  'char' => string 's' (length=1)
+                  'count' => int 2
+              4 => 
+                array (size=3)
+                  'score' => int 0
+                  'char' => string 'ae' (length=2)
+                  'count' => int 1
+              5 => 
+                array (size=3)
+                  'score' => int 28
+                  'char' => string 'n' (length=1)
+                  'count' => int 1
+              6 => 
+                array (size=3)
+                  'score' => int 37
+                  'char' => string 'w' (length=1)
+                  'count' => int 1
+              7 => 
+                array (size=3)
+                  'score' => int 99
+                  'char' => string 'jh' (length=2)
+                  'count' => int 1
+              8 => 
+                array (size=3)
+                  'score' => int 91
+                  'char' => string 'z' (length=1)
+                  'count' => int 1
+              9 => 
+                array (size=3)
+                  'score' => int 99
+                  'char' => string 'y' (length=1)
+                  'count' => int 1
+              10 => 
+                array (size=3)
+                  'score' => int 99
+                  'char' => string 'ah' (length=2)
+                  'count' => int 1
+          'delaytime' => int 24
+          'integrity' => int 100
+          'pretime' => int 1
+          'version' => string '0.0.80.2019.10.23.13:35:31' (length=26)
+      'eof' => int 1
+  'data' => 
+    array (size=1)
+      'score' => int 69
+  'code' => int 1
+  'msg' => string '成功' (length=6)

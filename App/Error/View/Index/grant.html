@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>优教信使</title>
+    <link href="__PUBLIC__/style/yj.css" rel="stylesheet" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <script type="text/javascript" src="/public/public/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/public/public/js/jquery.cookie.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+        var granttip = $.cookie("granttip");
+        var grantusertype = $.cookie("grantusertype");
+        var reasonUrl = $.cookie("reasonUrl");
+        var yjt_backUrl = $.cookie("yjt_backUrl");
+    </script>
+    <div class="container">
+        <header>
+            <h1 class="ml45">温馨提示</h1>
+            <div class="back mt2">
+                <a href="http://www.czbanbantong.com"><img src="__PUBLIC__/images/backIco.png" width="20"
+                        height="20" />返回</a>
+            </div>
+        </header>
+        <section>
+            <div class="error">
+                <img src="__PUBLIC__/images/logoo.png" width="200" height="120" />
+                <span id="tip"></span><br />
+                <a style="display: none;" href="javascript:;" id="dinggou">去订购</a>
+
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+   // $("#tip").html(granttip);
+   $("#tip").html("尊敬的用户您好！您所享受的服务未包含该项业务；如需使用，请进行相关业务订购。感谢您的关注，期待为您提供更多优质教育服务！");
+    if (grantusertype == "0") {
+        if (reasonUrl != "") {
+            $("#dinggou").attr("href", reasonUrl);
+            $("#dinggou").show();
+        }
+    }
+</script>

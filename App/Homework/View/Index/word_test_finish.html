@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <link href="__PUBLIC__/css/mui.min.css" rel="stylesheet"/>
+    <link href="__PUBLIC__/css/wszy.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/swiper/idangerous.swiper.css">
+    	 <link rel="stylesheet" href="__PUBLIC__/fonts/font-awesome/css/font-awesome.min.css">
+    <script type="text/javascript" charset="UTF-8">
+      	mui.init();
+    </script>
+    <style type="text/css">
+    	body{background: #fcfcff;}
+    </style>
+</head>
+<body onload="">
+		<header class="mui-bar mui-bar-nav">
+      <a class="mui-action-back mui-icon  mui-pull-left" style="padding-top:0px;color: #fff; font: normal 19px/45px Microsoft YaHei;">
+        <img width="20" height="20" src="__PUBLIC__/images/backIco.png" width="20" height="20" />返回
+      </a>
+	    <h1 class="mui-title">提交作业</h1>
+	</header>
+		<div class="head01"><i class="fa fa-pencil-square-o fa-lg"></i><span>单词测试训练</span></div>
+			<span class="biaoti01"><s>单词卡</s></span>
+<div class=" pa10">
+	<ul class="mui-table-view edi-bor01">
+        <volist name="wordlist" id="vo">
+            <li class="mui-table-cell edi-dc-all">
+                <span class="edi-dc-left">{$vo.word}</span>
+                <span class="edi-dc-right">
+                    <volist name="vo.que" id="vc">
+                        <a class="btn-ti<notempty name='vc.stuanswer'>-on</notempty>  edi-yuan">{$key+1}</a>
+                    </volist>
+                </span>
+            </li>
+        </volist>
+	</ul>
+</div>
+<div class="mb70"></div>
+<div class="dd-bottom"><a class="edi-btn-bl"  id="titan"  href="student_homework?ispre={$ispre}&sso={$sso}&paper_id={$homeworkid}&homeworkId={$ilearid}&studentId={$username}&classId={$classid}&isOverdue=false&batchid={$batchid}&source=0&starttime={$starttime}">继续完成作业</a></div>
+</body>
+<script src="__PUBLIC__/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+<script>
+    //定位到具体的题目这里可以使用描点 但是 目前是使用的js
+    $(".edi-yuan").click(function(){
+        //首先进行的是找到目前点击的是第几个
+        var prev=$(this).prevAll(".edi-yuan").length;
+        var num=$(".edi-yuan").index( $(this));
+        window.location.href="word_test?ispre={$ispre}&homeworkid={$homeworkid}&sso={$sso}&num="+num+"&paper_id={$homeworkid}&homeworkId={$ilearid}&studentId={$username}&classId={$classid}&isOverdue=false&batchid={$batchid}&backurl=word_test_finish&starttime={$starttime}";
+        //如果前面没有那么就是当前的
+    });
+
+
+</script>
+</html>

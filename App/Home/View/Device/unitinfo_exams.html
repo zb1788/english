@@ -1,0 +1,15 @@
+
+<foreach name="unitinfo" item="unitinfo" key="k" >
+<dl class="chapter">
+<eq name = "unitinfo.isunit" value="1">
+    <dt><i class="fa fa-list-ul"></i> {$unitinfo.unitname}</dt>
+	<foreach name="unitinfo.children" item="childunit" key="childkey" >
+		<dd><a href="javascript:;" curnum="{$curnum++}" unitid="{$childunit.id}" onclick="show_exams_list({$childunit.id},{$childkey});">{$childunit.unitalias}</a></dd>
+	
+	</foreach>
+<else />
+	 <dd><a href="javascript:;" curnum="{$curnum++}" unitid="{$unitinfo.id}" onclick="show_exams_list({$unitinfo.id},{$k});">{$unitinfo.unitalias}</a></dd>
+     
+</eq>
+</dl>
+</foreach>

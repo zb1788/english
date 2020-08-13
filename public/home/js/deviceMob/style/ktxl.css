@@ -1,0 +1,260 @@
+@charset "utf-8";
+/*---2016 01 14----by rwy-- */
+a,*{-webkit-tap-highlight-color:rgba(0,0,0,0);}
+/*----课程训练----*/
+.la_title{ position:fixed; top:40px; height:75px; width:100%; background:#fff; z-index:100;}
+.la_title p{ font:normal 14px/40px  Microsoft YaHei; height:35px; color:#555; text-align:center; background-color:#fafafa;}
+.la_replay{ top:75px; }
+.la_title2{ position:fixed; top:40px; height:40px; width:100%; background:#fff; z-index:100;}
+.la_title2 p{ font:normal 14px/40px  Microsoft YaHei; height:35px; color:#555; text-align:center; background-color:#fafafa;}
+.la_replay2{ top:45px; }
+.class_list.study.mt91 {margin-top:120px;}
+.w_red{ color:#F00 !important;}
+.w_blue{ color:#09F !important;}
+.qie{ position:absolute; right:15px; top:0px; display:block;}
+/*-----训练列表----*/
+#nav-smartSetup ul li{ position:relative;}
+i.yuan{ background-color:#fc4c24; width:6px; height:6px; border-radius:50%; position:absolute; top:6px; right:6px;}
+.train_list{margin-top:160px;}
+.train_list ul h1{ padding:3px 8px; border-radius:2px; background:#55c2f0; display:inline-block; color:#fff; font-weight:normal;font-size:14px ;   margin-left: 10px; }
+.train_list ul li{  border-bottom:1px solid #f4f4f4; height:auto;  position:relative;}
+.t_left{  position:relative; float:left; width:75px; margin-left:10px;}
+.t_left img{ height:60px; margin-top:10px; }
+.t_left span{ position:absolute; bottom:0px; left:0px; display:block; width:60px; height:20px; font:normal 13px/20px "微软雅黑";
+              text-align:center; background:#db783d; color:#fff; border-bottom-left-radius:5px; border-bottom-right-radius:5px;}
+span.b_blue{ background:#12a7c6 !important;}
+span.tl_transp{ background:transparent !important; width:69px !important;}
+.t_right { margin-left:10px;  padding:25px 0px 10px; color:#555;}
+.t_right h2{ line-height:20px; display:block; height:25px;  cursor:pointer;  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:40px;}
+.t_right p{ font-size:13px; color:#939393;}.t_right p span{ margin-right:10px;}
+.t_right p img{ vertical-align:bottom;}
+.r_right { height:60px; float:right; font:normal 16px "微软雅黑"; position:absolute;top:0px; right:0px;
+           padding:15px 5px 0px; }
+.r_right a{ color: #fff; width:55px; text-align:center; padding:0px 5px; font-size:15px; }
+.r_right a img{ margin:10px auto 5px; }
+
+.train_list ul li .yin {
+				  background: #F5F5F5;
+				  height:60px;
+				  width:100%;
+				  border-top: 1px solid #e4e4e4;}
+.train_list ul li .yin a.fen33 {
+				  display: block;
+				  width: 33%;
+				  text-align: center;
+				  float: left;
+				  height: 55px;
+				  line-height: 20px;
+				  padding-top: 5px;
+				  color: #999;}
+.train_list ul li .yin a.fen33 strong {
+				  display: block;
+				  font-size: 12px;
+				  color: #999;}
+.train_list ul li .yin a.fen50 {
+				  display: block;
+				  width: 50%;
+				  text-align: center;
+				  float: left;
+				  height: 55px;
+				  line-height: 20px;
+				  padding-top: 5px;
+				  color: #999;}
+.train_list ul li .yin a.fen50 strong {
+				  display: block;
+				  font-size: 12px;
+				  color: #999;}
+.ponr span.r_dn {
+		  width:30px;
+		  position: absolute;
+		  top: 0px;
+		  right: 0px;
+		  height:80px;
+		  line-height:80px;}
+/*----右下拍照图标--*/
+.photo_t{ position:fixed; bottom:0; right:0; width:70px; height:70px; border-radius:50%; background:#4fbdec}
+.photo_t a{ width:60px; height:60px; padding:5px ; font:normal 14px "微软雅黑"; display:block; 
+            color:#fff;}
+.photo_t a img { display:block; margin:0 auto;}
+.fleft{   color: #159ed2;
+		  padding-left: .4em;
+		  font-size: 20px;
+		  line-height: 40px;}
+/*-----试题信息---*/
+.sc{ border-bottom:1px solid #e4e4e4;}
+.lyl_ti h3 ,.lyl_da h3 {color:#fff; padding-left:.4em; font-size:16px; line-height:25px; background:#4fbdec; display:block; width:100px; border-radius:2px; margin-left: 10px;}
+input.text{ width:150px; border:1px solid #efefef;font:normal16px/25px "微软雅黑";
+             vertical-align:middle; display:inline-block; color:#2076fd;}
+.xuan{ border:1px solid #ccc; height:10px; width:10px;}
+.lyl_da a.red i{ color:#555;}
+.dan{ font-size:14px; color:#555;}
+/*-------试题导入----*/
+.dao_t{  padding:10px; height:auto; position:relative;border:1px solid #efefef; margin:10px; }
+.dao_t textarea{ font: normal 14px/25px "微软雅黑"; color:#9b9b9b; width:95%; 
+                 height:75px; margin-right:10px;
+				 background:transparent;
+			     overflow-x: hidden;
+			     overflow-y: auto;
+			     word-wrap: break-word;
+			     outline: none;
+			     border: none;
+			     }
+.dao_t span{ display:block; position:absolute; bottom:5px; right:5px; border-radius:50px; 
+             cursor:pointer;}
+.photo_list{ margin-top:10px; min-height:20px; }			 
+.photo_list ul li{ border:1px solid #efefef;  float:left; margin:0px 10px 0px 0px;position:relative; padding:20px 0px; }			 
+b.tupian{ width:100px; overflow:hidden; display:block; }
+.photo_list ul li img{ height:70px; display:block; }			 
+.p_del{ position:absolute; width:20px; height:20px; background:url(../images/del.png) no-repeat; top:-5px;right:-5px; cursor:pointer; }			 
+a.b_photo{  width:100%; min-width:100px; overflow:hidden; display:block; height:auto;-webkit-box-align:center; -webkit-box-pack:center;display:-webkit-box;}
+a.b_photo img{ max-height:350px; display:block; -webkit-box-align:center; -webkit-box-pack:center;display:-webkit-box;}
+
+			 
+.form_con label {width:72px; text-align:right;display:inline-block;padding-right:5px; color:#818181; }
+.form_con p span {padding-left:10px;}
+.form_con p {border-top:1px dotted #e4e4e4;padding:8px 0px 4px; font-family:Arial, Microsoft YaHei;  color: #818181;}
+.form_con.noBor p {border:none;}
+
+.upPic {float:right;margin:15px 20px 0 0;width:230px; _display:inline;}
+.pic_pre {display:block;padding-bottom:5px;width:200px; margin:0 auto;}
+input[type=checkbox],input[type=radio]{ border:1px solid #ccc; width:10px; height:10px; border-radius:50%;padding:5px;
+      color:#4fbdec;}
+.d_jixi{  border:1px solid #e4e4e4; width:65%; clear:both; display:inline-block; }
+textarea.jixi{ vertical-align:top;  height:50px; width:100%;
+               font:normal 14px/25px "微软雅黑"; color:#9b9b9b; outline:0; 
+			   background:transparent;
+			   overflow-x: hidden;
+			   overflow-y: auto;
+			   word-wrap: break-word;
+			   outline: none;
+			   border: none; 
+			   }
+.bianji{ position:fixed; bottom:0px; width:100%; height:50px; background:#1f1f1f;}
+.bianji a{ color:#fff; width:25%; display:block; float:left; text-align:center; 
+           font:normal 18px/50px "微软雅黑"; cursor:pointer;}
+
+/*---------------------班级提分-----------------*/
+i.point{ background:url(../images/point.png) no-repeat center bottom;
+        display:block;
+		height:45px;
+		padding-top:20px;}
+i.ti_f{
+        display:block;
+		height:75px;
+		width:70px;}
+i.wei_k{/* background:url(../images/video.png) no-repeat center center;*/
+        display:block;
+		height:75px;
+		}
+i.analysis{ background:url(../images/analysis.png) no-repeat center bottom;
+        display:block;
+		height:45px;
+		padding-top:20px;}
+.t_left b{ font:normal 14px/20px "微软雅黑"; background:#55c2f0; color:#fff; 
+           display:block; 
+		  padding:1px 2px;
+           text-align:center;
+           border-radius:2px;		 
+		   position: absolute;
+		  top: 0px;
+		  left: 0px}
+.summary{ background:#fafafa; padding:10px; border-bottom:1px solid #e4e4e4;}
+.summary p{ width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align:center;
+            color:#555; font:normal 14px/20px "微软雅黑"; letter-spacing:2px;}
+.yx_fx { color:#555; padding:10px;}			
+.yx_fx p{ font-size:14px; line-height:30px; }
+.mt_fx{color:#555; padding:10px; }
+h2.know_h {height:auto; line-height:50px; height:50px;}
+.know_h p{ font:normal 15px/25px "微软雅黑";}
+
+span.up img{ vertical-align:middle; }
+
+a.arr2 {
+  width: 73px;
+  height: 38px;
+  line-height: 38px;
+  overflow: hidden;
+  display: inline-block;
+  border: 1px solid #e4e4e4;}
+.xin { position:relative; left:100px; top:0px;}
+.a_xin{ height:25px !important;}
+
+i.vb img{ vertical-align:bottom;}
+.timu{ margin-left:15px;}
+
+
+/*----班级切换样式---*/
+.kcsz {
+	background: rgba(50, 50, 50, 0.55);
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1995;
+}
+
+.bjj {
+	display: none;
+	width: 120px;
+	height: 190px;
+	position: fixed;
+	right: 4px;
+	top: 45px;
+	z-index: 1999;
+}
+
+.bjj .img_tip {
+	width: 35px;
+	height: 20px;
+	background: url(../images/tip.png) no-repeat;
+	position: fixed;
+	right: 10px;
+	top: 45px;
+}
+
+.ban_box {
+	width: 120px;
+	background: #fff;
+	position: absolute;
+	right: 0;
+	top: 10px;
+	height: 165px;
+	overflow-y: auto;
+	z-index: 2000;
+	border-radius: 5px;
+}
+
+.ban_box a {
+	display: block;
+	padding: 5px;
+	line-height: 30px;
+	height: 30px;
+	overflow: hidden;
+	border-bottom: 1px solid #b7b7b7;
+	color: #010101 !important;
+	font-size: 14px;
+	text-align: center;
+}
+.ban_box .on {background: #e5e6e7;}
+.dq_banji {margin-top: 0px;}
+.la_title .dq_banji span {color: #159ed2 !important;font: normal 15px/25px "微软雅黑";border-bottom: 1px solid #e4e4e4;height: 25px;display: block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;z-index: 100;background: #fff;padding-left: 15px;padding-right: 15px;}
+.hh{  border-bottom: 1px solid #e4e4e4;padding-top: 10px;}
+.lyl_da{border-top: 1px solid #e5e5e5;}
+.lyl_da a.red{border:none;padding-left: 20px;}
+.q{padding-left: 20px;margin-right: 10px;display:block;}
+.lyl_da .c_i{ color:#555;}
+.arcontent{word-break: break-word;overflow-scrolling: auto;-webkit-overflow-scrolling : auto;overflow: auto;height: 100%;}
+sup {vertical-align: super;font-size: smaller;}
+sub{vertical-align:sub;font-size:smaller;}
+.arcontent img {vertical-align: baseline;}
+
+
+/*------------0218-----------------*/
+.tf { border-top:1px solid #e4e4e4;}
+.tf_list ul li { position:relative;}
+.tf h1{ padding:3px 8px; 
+        border-radius:2px; background:#55c2f0; display:inline-block; color:#fff;
+        font-weight:normal;font-size:14px; margin-left:10px;}
+.yx_fx { color:#555; padding-top:10px; margin-left:70px; }			
+.yx_fx p{ font-size:14px; line-height:25px; }

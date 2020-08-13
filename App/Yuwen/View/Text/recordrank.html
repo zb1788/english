@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="wap-font-scale" content="no">
+    <title>英语同步练</title>
+    <link rel="stylesheet" href="__PUBLIC__/css/currNew.css" />
+    <link rel="stylesheet" href="__PUBLIC__/font/fonts.css" />
+    <link rel="stylesheet" href="__PUBLIC__/mui/mui.min.css" />
+    <script type="text/javascript" src="__PUBLIC__/mui/mui.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/ywcommon.js"></script>
+
+
+
+    <style>
+        .tempWrap {
+            margin-top: 45px;
+        }
+
+        .ovv {
+            overflow: hidden;
+            height: 100%;
+        }
+
+        #tips {
+            background-color: #333;
+            font-size: 14px;
+            display: none;
+            width: 90%;
+            left: 2%;
+            text-align: center;
+            color: #fff;
+            border-radius: 5px;
+            opacity: .82;
+            padding: 10px;
+            position: fixed;
+            top: calc(50% - 60px);
+            z-index: 99999;
+        }
+
+        .mui-scroll-wrapper {
+            top: 118px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <main>
+        <header class="head border-nav">
+            <a class="head-left" href="javascript:backParent();">
+                <i class="icon-back"></i>返回</a>
+            <a class="head-right" href="recordrankrule">排名规则</a>
+            <h1 class="title">排行榜</h1>
+        </header>
+        <!--<div class="model bLine"><span><a href="study_list.html" class="cur"><i class="icon-uniE609"></i>列表模式</a></span><span><a href="study_image.html"><i class="icon-uniE616"></i>图文模式</a></span></div>
+-->
+        <section>
+
+            <div id="resbody">
+                <div class="hd qie_b fen3">
+
+                    <ul id="area">
+                        <li class="on" hidefocus="true" bid="my" onclick="show(this);">我的录音</li>
+                        <li hidefocus="true" class="" bid="class" onclick="show(this);">班级录音</li>
+                        <li hidefocus="true" class="" bid="all" onclick="show(this);">全国录音</li>
+                    </ul>
+                </div>
+
+                <div class="backGfff mT90">
+                    <div class="stsx">
+                        <div class="table">
+                            <a class="stbj"></a>
+                            <span class="w50">
+                                <i class="icon-down2 nj-fr"></i>
+                            </span>
+                        </div>
+
+                        <ul class="tanlist">
+
+                        </ul>
+                    </div>
+                    <h2 class="textT2">《
+                        <font id="ks_name"></font>》课文录音，已上传
+                        <font class="blueFont">1</font>篇</h2>
+
+                </div>
+                <!-- <div class="inner">
+                    <ul class="topList clear">
+
+                    </ul>
+                </div> -->
+                <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                        <!--数据列表-->
+                        <ul class="mui-table-view mui-table-view-chevron " id="infoList"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--
+        描述：删除弹出
+    -->
+            <div id="bg"></div>
+            <div class="zit_box" style="display: none;">
+                <span>确定删除吗？</span>
+                <a class="zit_close" id="qx">取消</a>
+                <a id="ok" class="zit_close">确定</a>
+            </div>
+
+
+
+        </section>
+    </main>
+    <div id="tips"></div>
+    <script>
+        var respath = '__RESOURCE__';
+        var recordpath = '__RECORD__';
+        var recordNetUrl = recordpath;
+        var localAreaCode = "{$localAreaCode}";
+
+        var apptype; //1;语文课文，2：英语课文；3：英语单词
+        var pageCurrent = 0;
+        var pageSize = 15;
+        var type = 'my'; //my:我的;class:班级;all:全国
+        var ks_code;
+        var ks_name;
+        var myusername;
+        ks_name = GetQueryString('ks_name');
+        ks_code = GetQueryString('ks_code');
+        apptype = GetQueryString('apptype');
+        var mp3;
+        var downloadJson;
+        // ks_code= '00010203020402';
+        var playlist = [];
+        var obj = {};
+        playlist.push(obj);
+        obj.fayin = [];
+
+        var nowFile; //当前的音频地址
+        var muiobj;
+
+
+
+        var totalheight = 0;
+        // $('#pullrefresh').delegate('em', 'click', function () {
+        //     playRecord(this)
+        // });
+        $("#pullrefresh").on('tap', 'em.playRecord', function (event) {
+            playRecord(this);
+            // this.click();
+        });
+        $("#pullrefresh").on('tap', 'em.payUb', function (event) {
+            payUb(this);
+            // this.click();
+        });
+        $("#pullrefresh").on('tap', 'em.shareRecord', function (event) {
+            shareRecord(this);
+            // this.click();
+        });
+        $("#pullrefresh").on('tap', 'em.delRecord', function (event) {
+            delRecord(this);
+            // this.click();
+        });
+        muiobj = mui.init({
+            pullRefresh: {
+                container: '#pullrefresh',
+                // down: {
+                //     style: 'circle',
+                //     callback: pulldownRefresh
+                // },
+                up: {
+                    auto: true,
+                    contentrefresh: '正在加载...',
+                    contentnomore: '暂无更多数据',
+                    callback: pullupRefresh
+                }
+            }
+        });
+
+        function pullupRefresh() {
+            // console.log('aaxx');
+            getRank();
+        }
+
+        /**
+         * 下拉刷新具体业务实现
+         */
+        function pulldownRefresh() {
+            mui('#pullrefresh').pullRefresh().endPulldownToRefresh(true);
+        }
+        $(function () {
+            if (type !== 'class') {
+                $('.stsx').hide();
+            }
+        });
+
+        function backParent() {
+            UXinJSInterfaceSpeech.stopAudio();
+            UXinJSInterface.popTheController();
+        }
+
+        function show(obj) {
+            $(obj).addClass('on');
+            $(obj).siblings().removeClass('on');
+            pageCurrent = 0;
+
+            $('#infoList').empty();
+            // 检查是否有个班级
+            type = $('#area li.on').attr('bid');
+            if (type == 'class') {
+                getClassList();
+            } else {
+                $('.stsx').hide();
+                $('.mui-scroll-wrapper').css('top', '118px');
+            }
+            mui('#pullrefresh').pullRefresh().refresh(true)
+            mui('#pullrefresh').pullRefresh().pullupLoading();
+        }
+
+        //获取班级列表
+        function getClassList() {
+            $.ajax({
+                type: 'get',
+                url: '../Text/getClassList',
+                data: {
+                    ran: Math.random()
+                },
+                dataType: 'json',
+                success: function (data) {
+                    var html = '';
+                    if (data.isShow) {
+                        //多个班级
+                        $('.stsx').show();
+                        $('.stbj').html(data.classList[0].classname);
+                        $('.tanlist').empty();
+                        var classHtml = '';
+                        $.each(data.classList, function (k, v) {
+                            classHtml += '<li onclick="showNowClass(this)" bid="' + v.classid +
+                                '">' + v.classname + '</li>';
+                            if (data.classid != null) {
+                                if (v.classid == data.classid) {
+                                    $('.stbj').html(v.classname);
+                                }
+                            }
+                        })
+                        $('.tanlist').html(classHtml);
+                        $('.mui-scroll-wrapper').css('top', '158px');
+                    } else {
+                        $('.stsx').hide();
+                    }
+                },
+                error: function (e) {
+
+                }
+            })
+        }
+        //选择班级
+        function showNowClass(obj) {
+            var nowClassName = $(obj).html();
+            var classid = $(obj).attr('bid');
+            $('.stbj').html(nowClassName);
+            pageCurrent = 0;
+            window.scroll(0, 0);
+
+            $.ajax({
+                type: 'get',
+                url: '../Text/setClass',
+                data: {
+                    ran: Math.random(),
+                    classid: classid
+                },
+                success: function (data) {
+                    pageCurrent = 0;
+
+                    $('#infoList').empty();
+                    mui('#pullrefresh').pullRefresh().refresh(true)
+                    mui('#pullrefresh').pullRefresh().pullupLoading();
+                }
+            })
+        }
+
+        function getRank() {
+            pageCurrent++;
+            type = $('#area li.on').attr('bid');
+            $.ajax({
+                type: 'get',
+                url: '../Text/getRecordRank',
+                async: false,
+                data: {
+                    ran: Math.random(),
+                    apptype: apptype,
+                    pageCurrent: pageCurrent,
+                    pageSize: pageSize,
+                    type: type,
+                    ks_code: ks_code
+                },
+                dataType: 'json',
+                success: function (data) {
+                    var html = '';
+                    $('.blueFont').html(data.total);
+                    $('#ks_name').html(ks_name);
+                    if (pageCurrent == 1) {
+                        // $('#infoList').empty();
+                        obj.fayin = [];
+                        try {
+                            UXinJSInterfaceSpeech.pauseAudio();
+                        } catch (err) {
+                            setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+                        }
+                        // if (data.myinfo.hasClass) {
+                        //     //多个班级
+                        //     $('.stsx').show();
+                        //     $('.stbj').html(data.myinfo.classname);
+                        //     $('.tanlist').empty();
+                        //     var classHtml = '';
+                        //     $.each(data.myinfo.classlist, function (k, v) {
+                        //         classHtml += '<li onclick="showNowClass(this)" bid="' + v.classid +
+                        //             '">' + v.classname + '</li>';
+                        //     })
+                        //     $('.tanlist').append(classHtml);
+                        // } else {
+                        //     $('.stsx').hide();
+                        // }
+
+                        if (data.myinfo.hasRank) {
+                            var json = '{"fy":"' + recordNetUrl + data.myinfo.filepath +
+                                '","sleep":"0","id":"' + data.myinfo.id + '"}';
+                            obj.fayin.push(eval('(' + json + ')'));
+                            if (data.myinfo.ispay == 1) {
+                                //送过了，灰色
+                                var ubclass = 'icon-Ubi off';
+                            } else {
+                                var ubclass = 'icon-Ubi';
+                            }
+                            if(data.myinfo.userpic == "null"){
+                                data.myinfo.userpic = "/public/public/images/default1.png";
+                            }
+                            html += '<li class="listIconText table after4">';
+                            html += '<span class="licoM"><em>我的排名</em><label>' + data.myinfo.myRank +
+                                '</label></span>';
+                            html += '<div class="w60"><span class="listImg radius100 bGray"><img src="' +
+                                data.myinfo.userpic + '" /></span><label class="name">' + data.myinfo.truename +
+                                '</label></div>';
+                            html += '<span class="bolist"><label bid_play="' + data.myinfo.id + '">' + data
+                                .myinfo.mylistencount + '</label><em class="playRecord" bid="' + data.myinfo
+                                .id +
+                                '" filepath="' + data.myinfo.filepath +
+                                '" tusername="' + data.myinfo.username +
+                                '"><i class="icon-bofang" name="playbutton" isfirst=1></i></em><label>播放</label></span>';
+                                if(localAreaCode != "86."){
+                                    html += '<span class="bolist yb"><label bid_ub="' + data.myinfo.id + '">' +
+                                data.myinfo.myub + '</label><em class="payUb" bid="' + data.myinfo.id +
+                                '"  tusername="' + data.myinfo.username +
+                                '" localAreaCode = "my" areaid = "my"><i class="' + ubclass + '"></i></em><label>送优币</label></span>';     
+                                }
+                            
+                            html += '<span class="bolist"><label bid_share="' + data.myinfo.id + '">' +
+                                data.myinfo.mysharecount + '</label><em class="shareRecord" bid="' + data.myinfo
+                                .id +
+                                '" ktitle="' + data.myinfo.filename + '" filepath="' + data.myinfo.filepath +
+                                '" tusername="' + data.myinfo.username + '" truename="' + data.myinfo.truename +
+                                '" btype="' + data.myinfo.type + '"' +
+                                '" ><i class="icon-share01"></i></em><label>分享</label></span>';
+                            html += '</li>';
+                        }
+                    }
+                    if (data.info == '') {
+                        mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+                    } else {
+                        mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); //参数为true代表没有更多数据了。
+                        $.each(data.info, function (k, v) {
+                            if (type == 'my') {
+                                myusername = v.username;
+                            }
+                            var json = '{"fy":"' + recordNetUrl + v.filepath +
+                                '","sleep":"0","id":"' + v.id + '"}';
+                            obj.fayin.push(eval('(' + json + ')'));
+                            var isRed = '';
+                            if (v.id == data.myinfo.id) {
+                                var play_class = 'play_same';
+                                var ub_class = 'ub_same';
+                                var share_class = 'share_same';
+                            } else {
+                                var play_class = '';
+                                var ub_class = '';
+                                var share_class = '';
+                            }
+                            html += '<li class="listIconText afterBorder"><div class="table">';
+                            if (v.rank == 1) {
+                                html +=
+                                    '<span class="lico"><i class="icon-topped first"></i></span>';
+                                isRed = 'orgFont';
+                            } else if (v.rank == 2) {
+                                html +=
+                                    '<span class="lico"><i class="icon-topped second"></i></span>';
+                                isRed = 'orgFont';
+                            } else if (v.rank == 3) {
+                                html +=
+                                    '<span class="lico"><i class="icon-topped third"></i></span>';
+                                isRed = 'orgFont';
+                            } else {
+                                isRed = '';
+                                html += '<span class="lico">' + v.rank + '</span>';
+                            }
+                            if(v.userpic == "null" || v.userpic == null){
+                                v.userpic = "/public/public/images/default1.png";
+                            }
+                            //alert(v.userpic);
+                            html +=
+                                '<div class="w60"><span class="listImg radius100 bGray"><img src="' +
+                                v.userpic + '" /></span><label class="name ' + isRed + '">' + v.truename +
+                                '</label></div>';
+                            html += '<span class="bolist"><label bid_play="' + v.id + '">' + v.listencount +
+                                '</label><em class="playRecord" bid="' + v.id + '" filepath="' + v.filepath +
+                                '" tusername="' + v.username +
+                                '"><i class="icon-bofang" name="playbutton" isfirst=1></i></em><label>播放</label></span>';
+                            if (v.ispay == 1) {
+                                //送过了，灰色
+                                var ubclass = 'icon-Ubi off';
+                            } else {
+                                var ubclass = 'icon-Ubi';
+                            }
+                            if(localAreaCode != "86."){
+                                html += '<span class="bolist yb"><label bid_ub="' + v.id + '">' + v.ub +
+                                '</label><em class="payUb" bid="' + v.id +
+                                '"  tusername="' +
+                                v.username + '"  localAreaCode = "'+v.localareacode+'" areaid = "'+v.areaid+'"><i class="' + ubclass +
+                                '"></i></em><label>送优币</label></span>';
+                            }
+                            
+                            html += '<span class="bolist"><label bid_share="' + v.id + '">' + v.sharecount +
+                                '</label><em class="shareRecord" bid="' + v.id + '" ktitle="' + v.filename +
+                                '" filepath="' + v.filepath + '" tusername="' + v.username +
+                                '" truename="' + v.truename + '" btype="' + v.type + '"' +
+                                '"  localAreaCode = "'+v.localareacode+'" areaid = "'+v.areaid+'"><i class="icon-share01"></i></em><label>分享</label></span>';
+                            if (type == 'my') {
+                                html += '<span class="bolist del" bid="' + v.id +
+                                    '"><label>&nbsp;</label><em class="delRecord" bid="' + v.id +
+                                    '"   filepath="' + v.filepath +
+                                    '"><i class="icon-del"></i></em><label>删除</label></span>';
+                            }
+                            html += '</div></li>';
+                        });
+                        // $('.topList').append(html);
+                        $('#infoList').append(html);
+                        console.log(playlist);
+                    }
+
+                },
+                error: function (data) {
+                    alert('Ajax error!');
+                    // 即使加载出错，也得重置
+                }
+            })
+
+        }
+        //播放录音
+        function playRecord_bak(obj) {
+            var id = $(obj).attr('bid');
+            var filepath = $(obj).attr('filepath');
+            var nowListenCount = $(obj).prev('label').html();
+
+
+            var isfirst = $(obj).children('i').attr('isfirst');
+            if ($(obj).children('i').hasClass('icon-bofang')) {
+                //播放
+                if (isfirst == 1) {
+                    //第一次播放
+                    try {
+                        downloadJson = '[{"name":"' + filepath.getBaseName() + '","size":"10","format":"mp3","url":"' +
+                            recordNetUrl + filepath + '"}]';
+                        // UXinJSInterfaceSpeech.playAudio(recordNetUrl+filepath);return false;
+                        downloadAudio(filepath);
+                    } catch (err) {
+                        setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+                    }
+                    $('i[name=playbutton]').prop('class', 'icon-bofang').attr('isfirst', 1);
+                    $(obj).children('i').prop('class', 'icon-zanting');
+                    $(obj).children('i').attr('isfirst', '0');
+                    $('label[bid_play="' + id + '"]').html(nowListenCount * 1 + 1);
+                    addRecordListenCount(id, tusername);
+                } else {
+                    //继续播放
+                    $(obj).children('i').attr('isfirst', '0');
+                    $(obj).children('i').prop('class', 'icon-zanting');
+                    try {
+                        mp3.resumeAudio();
+                    } catch (err) {
+                        setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+                    }
+                }
+            } else {
+                //暂停
+                $(obj).children('i').prop('class', 'icon-bofang');
+                try {
+                    UXinJSInterfaceSpeech.pauseAudio();
+                } catch (err) {
+                    setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+                }
+            }
+        }
+
+
+
+        //播放录音
+        function playRecord(obj) {
+            var id = $(obj).attr('bid');
+            var filepath = $(obj).attr('filepath');
+            var tusername = $(obj).attr('tusername');
+            var nowListenCount = $(obj).prev('label').html();
+
+
+            //获取当前录音的index,从0开始
+            var li = obj.parentNode.parentNode.parentNode;
+
+            var index = $("ul.mui-table-view li").index($(li));
+            if (index == -1) {
+                index = 0;
+            }
+            var isfirst = $(obj).children('i').attr('isfirst');
+            if ($(obj).children('i').hasClass('icon-bofang')) {
+                //播放
+                if (isfirst == 1) {
+                    //第一次播放
+                    try {
+                        //方式1
+                        // downloadJson = '[{"name":"'+filepath.getBaseName()+'","size":"10","format":"mp3","url":"'+recordNetUrl+filepath+'"}]';
+                        // downloadAudio(filepath);
+
+                        //方式2连续播放在线的
+                        mp3 = new player(playlist, 'word');
+                        mp3.init();
+                        mp3.setLeixing(2);
+                        mp3.setIndex(index);
+                        mp3.playWord();
+                        //方式3先下载再播放再下载再播放
+                        // mp3 = new player(playlist,'luyinbofang');
+                        // downloadJson = '[{"name":"'+filepath.getBaseName()+'","size":"10","format":"mp3","url":"'+recordNetUrl+filepath+'"}]';
+                        // mp3.init();
+                        // mp3.setLeixing(3);
+                        // mp3.setIndex(index);
+                        // mp3.downloadList(eval('('+downloadJson+')'));
+                    } catch (err) {
+                        setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+                    }
+                    $('i[name=playbutton]').prop('class', 'icon-bofang').attr('isfirst', 1);
+                    $(obj).children('i').prop('class', 'icon-zanting');
+                    $(obj).children('i').attr('isfirst', '0');
+                    $('label[bid_play="' + id + '"]').html(nowListenCount * 1 + 1);
+                    addRecordListenCount(id, tusername);
+                } else {
+                    //继续播放
+                    $(obj).children('i').attr('isfirst', '0');
+                    $(obj).children('i').prop('class', 'icon-zanting');
+                    try {
+                        mp3.resumeAudio();
+                    } catch (err) {
+                        setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+                    }
+                }
+            } else {
+                //暂停
+                $(obj).children('i').prop('class', 'icon-bofang');
+                try {
+                    UXinJSInterfaceSpeech.pauseAudio();
+                } catch (err) {
+                    setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+                }
+            }
+        }
+
+        function downloadAudio(url) {
+            mp3 = new player(url, 'luyin');
+            mp3.setLeixing(3);
+            UXinJSInterfaceSpeech.cacheAudioFiles(iGetInnerText(downloadJson));
+        }
+
+        function addRecordListenCount(id, tusername) {
+            $.ajax({
+                type: 'get',
+                url: '../Text/addRecordListenCount',
+                data: {
+                    id: id,
+                    tusername: tusername,
+                    ran: Math.random()
+                },
+                success: function (data) {
+
+                },
+                error: function (e) {
+
+                }
+            })
+        }
+        //送U币
+        function payUb(obj) {
+            var id = $(obj).attr('bid');
+            var aa = obj;
+            var nowUbiCount = $(obj).prev('label').html();
+            var tusername = $(obj).attr('tusername');
+            var tlocalAreaCode = $(obj).attr('localAreaCode');
+            var tareaid = $(obj).attr('areaid');
+            var iobj = $(obj).children('i').eq(0);
+            if ($(iobj).hasClass('off')) {
+                setTip('已经送过优币了');
+                return false;
+            }
+
+            $.ajax({
+                type: 'get',
+                url: '../Text/checkIsPayUbForUser',
+                data: {
+                    id: id,
+                    tusername: tusername,
+                    tlocalAreaCode:tlocalAreaCode,
+                    tareaid:tareaid,
+                    type: 1,
+                    ran: Math.random()
+                },
+                success: function (data) {
+                    if (data.status == 1) {
+                        $('label[bid_ub="' + id + '"]').html(nowUbiCount * 1 + 1);
+                        $(iobj).addClass('off');
+                        ubclick($(obj).parent());
+                    } else if (data.status == 2) {
+                        setTip(data.msg);
+                        return false;
+                    } else {
+                        setTip('每个录音只能送一次优币');
+                        return false;
+                    }
+                },
+                error: function (e) {
+
+                }
+            })
+        }
+        //分享录音
+        function shareRecord(obj) {
+            var id = $(obj).attr('bid');
+            var nowShareCount = $(obj).prev('label').html();
+            var tusername = $(obj).attr('tusername');
+            var tlocalAreaCode = $(obj).attr('localAreaCode');
+            var nowUbiCount = $(obj).parent().prev('span').children('label').html();
+            var ktitle = $(obj).attr('ktitle');
+            var filepath = $(obj).attr('filepath');
+            var truename = $(obj).attr('truename');
+            var btype = $(obj).attr('btype');
+
+            $.ajax({
+                type: 'get',
+                url: '../Text/checkIsPayUbForUser',
+                data: {
+                    id: id,
+                    tusername: tusername,
+                    tlocalAreaCode:tlocalAreaCode,
+                    type: 2,
+                    ran: Math.random()
+                },
+                success: function (data) {
+                    if (data.status == 1) {
+                        $('label[bid_ub="' + id + '"]').html(nowUbiCount * 1 + 1);
+                    } else if (data.status == 2) {
+                        //setTip('调用优币接口失败');
+                        return false;
+                    } else {
+                        //setTip(data.msg);
+                        return false;
+                    }
+                },
+                error: function (e) {
+
+                }
+            })
+
+            $.ajax({
+                type: 'get',
+                url: '../Text/addRecordShareCount',
+                data: {
+                    id: id,
+                    ran: Math.random()
+                },
+                success: function (data) {
+                    $('label[bid_share="' + id + '"]').html(nowShareCount * 1 + 1);
+                },
+                error: function (e) {
+
+                }
+            })
+
+            if (filepath.indexOf('.mp3') == -1) {
+                $.ajax({
+                    type: 'get',
+                    url: '../Share/amrTomp3',
+                    data: {
+                        filepath: filepath,
+                        ran: Math.random()
+                    },
+                    success: function (data) {
+                        if (data.status == 'ok') {
+                            filepath = data.filepath;
+                            shareJs(ktitle, nowUbiCount, filepath, truename, tusername, btype);
+                        } else {
+                            // setTip('分享失败');
+                            // alert(data.msg);
+                        }
+                    },
+                    error: function (e) {
+
+                    }
+                })
+            } else {
+                shareJs(ktitle, nowUbiCount, filepath, truename, tusername, btype);
+            }
+
+        }
+
+        function shareJs(ktitle, nowUbiCount, filepath, truename, tusername, btype) {
+            var desc = '';
+            var modulename = '{$modulename}';
+            var typeTtile;
+            btype == 1 ? typeTtile = '朗读' : typeTtile = '背诵';
+            if (tusername == myusername) {
+                var title = '我在《' + modulename + '》' + typeTtile + '了课文《' + ktitle + '》，快来听听吧！';
+                var desc = '帮你纠字音、学生字、学习新课文，晒成果，赢优币！还等什么？快来跟我一起学习吧！';
+            } else {
+                var title = truename + '在《' + modulename + '》' + typeTtile + '了课文《' + ktitle + '》，实在太有趣了！';
+                var desc = '同样的课文不一样的体验，你一定比我朗诵的有趣，还等什么，快来朗诵属于你的课文！';
+            }
+            var iconUrl = window.location.protocol + '//' + window.location.host +
+                '/public/public/images/{$modulepic}.png';
+            var pageUrl = window.location.protocol + '//' + window.location.host + '/Yuwen/Share/share?title=' +
+                encodeURI(encodeURI(ktitle)) +
+                '&ub=' + (nowUbiCount * 1 + 1) + '&filepath=' + filepath + '&truename=' + encodeURI(encodeURI(truename)) +
+                '&localAreaCode={$localAreaCode}&modulename=' + encodeURI(encodeURI(modulename));
+            try {
+                UXinJSInterfaceSpeech.webShare(title, iconUrl, pageUrl, desc);
+            } catch (e) {
+                setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+            }
+        }
+
+        //删除录音
+        function delRecord(obj) {
+            var id = $(obj).attr('bid');
+            var filepath = $(obj).attr('filepath');
+            var aa = obj;
+            $("#bg").css({
+                display: "block",
+                height: $(document).height()
+            });
+            var $box = $('.zit_box');
+            $box.css({
+                //设置弹出层距离左边的位置
+                left: ($("body").width() - $box.width()) / 2 + "px",
+                //设置弹出层距离上面的位置
+                top: ($(window).height() - $box.height()) / 2 + $(window).scrollTop() + "px",
+                display: "block"
+            });
+
+            $('#ok').click(function () {
+                $("#bg,.zit_box").css("display", "none");
+                $.ajax({
+                    type: 'get',
+                    url: '../Text/delRecord',
+                    data: {
+                        id: id,
+                        filepath: filepath,
+                        ran: Math.random()
+                    },
+                    success: function (data) {
+                        $(aa).parent().parent().remove();
+                    },
+                    error: function (e) {
+
+                    }
+                })
+            });
+        }
+    </script>
+
+
+
+    <script type="text/javascript">
+        //点击关闭按钮的时候，遮罩层关闭
+        $("#qx").click(function () {
+            $("#bg,.zit_box").css("display", "none");
+        });
+        /*弹出*/
+        $('.stsx').click(function () {
+            $(this).children('.tanlist').slideToggle();
+            $(this).toggleClass('bg');
+            $('body').toggleClass('ovv')
+        })
+    </script>
+    <script type="text/javascript">
+        (function ($) {
+            $.extend({
+                tipsBox: function (options) {
+                    options = $.extend({
+                        obj: null, //jq对象，要在那个html标签上显示
+                        str: "+1", //字符串，要显示的内容;也可以传一段html，如: "<b style='font-family:Microsoft YaHei;'>+1</b>"
+                        startSize: "12px", //动画开始的文字大小
+                        endSize: "30px", //动画结束的文字大小
+                        interval: 600, //动画时间间隔
+                        color: "red", //文字颜色
+                        callback: function () {} //回调函数
+                    }, options);
+                    $("body").append("<span class='num'>" + options.str + "</span>");
+                    var box = $(".num");
+                    var left = options.obj.offset().left + options.obj.width() / 2;
+                    var top = options.obj.offset().top;
+                    box.css({
+                        "position": "absolute",
+                        "left": left + "px",
+                        "top": top + "px",
+                        "z-index": 9999,
+                        "font-size": options.startSize,
+                        "line-height": options.endSize,
+                        "color": options.color
+                    });
+                    box.animate({
+                        "font-size": options.endSize,
+                        "opacity": "0",
+                        "top": top - parseInt(options.endSize) + "px"
+                    }, options.interval, function () {
+                        box.remove();
+                        options.callback();
+                    });
+                }
+            });
+        })(jQuery);
+
+        function niceIn(prop) {
+            prop.find('i').addClass('niceIn');
+            setTimeout(function () {
+                prop.find('i').removeClass('niceIn');
+            }, 1000);
+        }
+
+        function ubclick(obj) {
+            // $(obj).children('em').children('i.icon-youbi').addClass('off');
+            $.tipsBox({
+                obj: $(obj),
+                str: "+1",
+                callback: function () {}
+            });
+            niceIn($(obj));
+        }
+    </script>
+</body>
+
+</html>

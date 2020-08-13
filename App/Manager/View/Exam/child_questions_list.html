@@ -1,0 +1,555 @@
+<include file="Base/header"/>
+<body>
+<if condition="$flag neq 3">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="36">
+      <if condition="$flag neq 0">
+      <input name="按钮" type="button" class="ext_btn ext_btn_submit" value="添加小题"  id="add_questions"/>
+	  </if>
+	 </td>
+  </tr>
+</table>
+</if>
+
+<table  width="100%" border="0" cellspacing="0" cellpadding="0" class="list_table childques">
+  <tr >
+  	<th width="30">次序</th>
+    <th width="60">排序</th>
+    <th width="500">小题</th>
+	<if condition="$flag neq 3">
+    <th align="left">&nbsp;&nbsp;操&nbsp;作</th>
+	</if>
+  </tr>
+</table>
+<div class="h10"></div>
+<if condition="$flag neq 3">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="">
+  <tr>
+    <td  height="36" <if condition="$flag eq 1">align="right"<else />align="center"</if>>
+      <input name="按钮" type="button" class="btn btn82 btn_save2 save1" value="保存" />
+    </td>
+    <if condition="$paperid neq 0">
+     <td class="pl_10" height="36" align="left">
+	  <input name="按钮" type="button" class="btn btn82 btn_save2" value="返回"  id="save_questions"/>
+	</td>
+	  </if>
+  </tr>
+</table>
+</if>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_demo" style="display:none;">
+          <tr class="tr">
+          	<td align="center"></td>
+            <td algin="left"><input name="sortid" type="text" class="input-text lh30" size="3" maxlength="2"></td>
+		   <td align="left">
+           	<span><strong>题干：</strong><p class="content"></p></span>
+			<span><strong>选项以及答案：</strong><p class="content"></p></span>
+           </td>
+		   <if condition="$flag neq 3">
+           <td align="left">
+	           	<input type="button" class="ext_btn edit" value="修改" />
+	            <input type="button" class="ext_btn ext_btn_error" value="删除" />
+           </td>
+		   </if>
+          </tr>
+</table>
+
+<!--小题弹出窗口begin-->
+<!--选择小题begin-->
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table answer" style="display:none;" id="answer0">
+	<tr>
+	  <td align="right">题干：</td>
+	  <td>&nbsp;
+	    <textarea name="textarea2" cols="30" rows="3" class="textarea"></textarea></td>
+	</tr>
+	<tr>
+	  <td align="right">类型：</td>
+	  <td>
+	  	<input name="choose" type="radio" value='1' checked="checked" class='choose'/> 文字
+	    <input name="choose" type="radio" value='2'  class='choose'/>图片 
+	  </td>
+	</tr>
+	<tr>
+	  <td align="right">&nbsp;</td>
+	  <td height="32">
+	  	<input name="status333" type="radio" value="A"/>A.
+	    <input type="text" class="input-text lh30 question_answer" size="40" />
+		<img class="img" src="" width="60px" height="60px" style="display:none;"></img>
+	    <input type="button" value="上传"  class="ext_btn pic" style="display:none;"/>
+	  </td>
+	</tr>
+	<tr>
+	  <td>&nbsp;</td>
+	  <td height="32">
+	  	<input name="status333" type="radio" value="B" checked="checked" />B.
+	    <input type="text" class="input-text lh30 question_answer" size="40" />
+		<img class="img" src="" width="60px" height="60px"  style="display:none;"></img>
+	    <input type="button" value="上传"  class="ext_btn pic" style="display:none;" />
+	  </td>
+	</tr>
+	<tr>
+	  <td>&nbsp;</td>
+	  <td height="32">
+	  	<input name="status333" type="radio" value="C"/>C.
+	    <input type="text" class="input-text lh30 question_answer" size="40" />
+		<img class="img" src="" width="60px" height="60px" style="display:none;"></img>
+	    <input type="button" value="上传"  class="ext_btn pic" style="display:none;"/>
+	  </td>
+	</tr>
+</table>	
+
+<!--选择小题end-->
+<!--判断小题begin-->
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table answer" style="display:none;" id="answer1">
+	<tr>
+		<td align="right">题干：</td>
+		<td>&nbsp;
+		  <textarea name="textarea" cols="30" rows="3" class="textarea"></textarea>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">答案：</td>
+		<td>
+		  <input name="status" type="radio" value='1'/> True
+		  <input name="status" type="radio" value='0' checked="checked" />False 
+		</td>
+	</tr>
+</table>
+<!--判断小题end-->
+<!--排序小题begin-->
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table questions answer" style="display:none;" id="answer2">
+	<tr>
+		<td align="right">类型：</td>
+		<td>
+		<input name="choose" type="radio"  checked="checked" value="1" class='choose'/>文字
+		<input name="choose" type="radio"  value="2" class='choose'/>图片
+		</td>
+	</tr>
+	<tr>
+		<td align="right">&nbsp;</td>
+		<td height="32"><img class="line_add" src="__PUBLIC__/images/jia.png" width="21" height="19" /></td>
+	</tr>
+	<tr style="display:none;" class="line_add_demo">
+		<td align="right"><img class="line_del" src="__PUBLIC__/images/jian.png" width="21" height="19" />&nbsp;&nbsp;</td>
+		<td height="32">
+			<input type="text" class="input-text lh30" value="" size="5" />
+			<input type="text" class="input-text lh30 question_answer" size="40" />
+			<img class="img" style="display:none;" width="60px" height="60px"></img>
+			<input type="button" value="上传"  class="ext_btn pic" style="display:none;"/>
+		</td>
+	</tr>
+	<tr class="line_added">
+		<td align="right"><img class="line_del" src="__PUBLIC__/images/jian.png" width="21" height="19" />&nbsp;&nbsp;</td>
+		<td height="32">
+			<input type="text" class="input-text lh30" value="" size="5" />
+			<input type="text" class="input-text lh30 question_answer" size="40" />
+			<img class="img" style="display:none;" width="60px" height="60px"></img>
+			<input type="button" value="上传"  class="ext_btn pic" style="display:none;"/>
+		</td>
+	</tr>
+	<tr id="last">
+		<td>&nbsp;&nbsp;</td>
+		<td>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table line_answer">
+			  <tr>
+			    <td align="right">答案：</td>
+			    <td height="32">&nbsp;</td>
+			  </tr>
+			  <tr style="display:none;" class="line_add_demo1">
+			  	<td width="50" align="right"></td>
+			    <td height="32">
+			      &nbsp;&nbsp;<input type="text" class="input-text lh30 line_answer1"  size="5"/></td>
+			  </tr>
+			  <tr id="line1" bid="line1" class="line_addeddemo">
+			    <td width="50" align="right">1.</td>
+			    <td height="32">
+			      &nbsp;&nbsp;<input type="text" class="input-text lh30 line_answer1" size="5"/>
+				</td>
+			  </tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<!--排序小题end-->
+<!--弹窗结束end-->
+
+<!--上传的div块begin-->
+<div id="uploadfile" style="display:none;">
+	<table>
+	  <tr>
+	    <td align="right"><font style="font-weight:10px;">图片：</font></td>
+	    <td align="left">
+	      <img src="" id="myimg" width="120" height="90" style="border:1px solid #CCC; padding:2px;" >
+	    </td>
+      </tr> 
+	  <tr>
+	    <td>&nbsp;</td>
+	    <td>
+	    	<div id="queue"></div>
+			<input id="file_upload" name="file_upload" type="file" multiple="false"/>
+		</td>
+	  </tr>
+	</table>
+</div>
+<!--上传的div块end-->
+
+<script type="text/javascript"> 
+$(function(){ 
+ $(".form_table.answer").hide();
+  $(".form_table.answer:eq(0)").hide();
+  getChildQuestionsList({$qid},{$flag});
+  //连线题的添加和删除
+  $(".line_add").live("click",function(){
+  	var td=$(this).parent().parent().parent().find(".line_add_demo").eq(0).clone().show();
+	var len=$(this).parent().parent().parent().find(".line_del").length+2;
+	$(this).parent().parent().parent().children("tr").eq(len).after(td);
+	var td1=$(this).parent().parent().parent().find(".line_add_demo1").eq(0).clone().show();
+	len=(len-2);
+	td1.attr("bid","line"+len);
+	td1.children("td").eq(0).text(len+".");
+	$(this).parent().parent().parent().find(".line_answer1:last").parents("tr:eq(0)").parent().append(td1);
+  });
+  $(".line_del").live("click",function(){
+  	var table=$(this).parent().parent().parent();
+  	//var len=$(this).parent().parent().parent().parent().find(".line_del").length-1;
+	var len=$(this).parent().parent().index()-3;
+	table.find("tr[bid='line"+len+"']").remove();
+	var sortid=0;
+	$("tr[bid^='line']").each(function(){
+		$(this).children("td").eq(0).text(sortid+".");
+		$(this).attr("bid","line"+sortid);
+		sortid+=1;
+	});
+  	$(this).parent().parent().remove();
+  });
+  //返回按钮的单击事件
+  $("#save_questions").click(function(){
+		if({$flag}==1){
+			location.href="../Exam/unitexam_questions_list?flag={$flag}&classid={$classid}&questype={$questype}&paperid={$paperid}&examsid={$examsid}&questype={$questype}&complexity={$complexity}";	
+		}else{
+			location.href="../Exam/combine_questions_list?flag={$flag}&questype={$questype}&complexity={$complexity}";
+		}
+  });
+
+  //修改次序
+	$(".save1").live('click',function(){
+	    var dloading = art.dialog({time:30,title:'更新中……',width:130,height:30,opacity:0.3,lock:true});  
+	    if($(".list_table tr.tr").length == 0)return;
+	    var arrjson =[];  
+	    $(".list_table").children("tbody").children("tr.tr").each(function(){
+	      var tr =$(this); 
+	      var id = tr.find('input[name="sortid"]').attr("BID");
+	      var sortid = tr.find('input[name="sortid"]').val(); 
+	      var obj = {};
+	      obj.id = id;
+	      obj.sortid = sortid;  
+	      arrjson.push(obj);       
+	    });
+	    $.get("../exam/listupExamsQuestions",{data:JSON.stringify(arrjson)},function(){
+	      //getChildQuestionsList({$qid},{$flag});
+	      if({$flag}==2){
+	      	art.dialog.close();
+	      }else{
+	      	location.href="../Exam/unitexam_questions_list?flag={$flag}&classid={$classid}&questype={$questype}&paperid={$paperid}&examsid={$examsid}&questype={$questype}&complexity={$complexity}";
+	      }
+	      
+	    });
+	});
+  //删除按钮的单击事件
+   $(".ext_btn_error").live('click',function(){
+   	var att=$(this);
+  	var id=$(this).attr("bid");
+	art.dialog.alert("确定要删除此小题吗？",function(){
+		$.getJSON("../Exam/delete_questions_list",{r:Math.random(),id:id,flag:{$flag}},function(){
+		att.parents("tr").remove();
+	});	
+	});	
+  });
+  
+  //题的类型选择
+  $(".choose").live("click",function(){
+  	if($(this).val()=='1'){
+		$(this).parent().parent().nextAll("tr").find(".question_answer").show();
+		$(this).parent().parent().nextAll("tr").find("input[type='button']").hide();
+	    $(this).parent().parent().nextAll("tr").find(".img").hide();
+	}else if($(this).val()=='2'){
+		$(this).parent().parent().nextAll("tr").find("input[type='button']").show();
+		$(this).parent().parent().nextAll("tr").find(".img").show();
+		$(this).parent().parent().nextAll("tr").find(".question_answer").hide();
+	}
+  });
+  
+  //添加小题按钮的单击事件
+  $("#add_questions").click(function(){
+  	  //如果是选择题
+	  var i=0;
+	  if({$questype}==1){
+			var answer="";
+			var answerid="";
+			var tb=$(".answer")[i];
+			var tr=$(tb).children("tbody").children("tr");
+			tr.eq(0).children("td").eq(1).find("textarea").html("");
+			tr.eq(1).children("td").eq(1).find("input").eq(0).attr("checked",true);
+			var data=['A','B','C'];
+			$.each(data,function(key,value){
+					tr.eq(2+key).children("td").eq(1).find("input[type='text']").val("");
+					tr.eq(2+key).children("td").eq(1).find("input[type='text']").attr("bid","");
+					tr.eq(2+key).children("td").eq(1).find("img").attr("src","");
+					tr.eq(2+key).children("td").eq(1).find("img").attr("bid","");	
+			}); 
+		}
+		else if({$questype}==3)
+		{
+			//判断题情况
+			i=1;
+			var tb=$(".answer")[i];
+			var answer="";
+			var tr=$(tb).children("tbody").children("tr");
+			tr.eq(0).children("td").eq(1).find("textarea").html("");
+			tr.eq(1).children("td").eq(1).find("input").attr("bid","");
+			tr.eq(1).children("td").eq(1).find("input").eq(0).attr("checked",true);
+		}else if({$questype}==4){
+			i=2;
+			var tb=$(".answer")[i];
+			$(tb).find(".line_added:gt(0)").remove();
+	        $(tb).find(".line_addeddemo:gt(0)").remove();
+			var tr=$(tb).children("tbody").children("tr");
+			var line=$(tr).eq(3);
+			$(tb).find(".line_add_demo1").find("input[type='text']").val("");
+			line.children("td").eq(1).find("input[type='text']").eq(0).val("");
+			line.children("td").eq(1).find("input[type='text']").eq(1).val("");
+			line.children("td").eq(1).find("img").attr("src","");	
+		}
+	    saveEdit(i,'0');
+  });
+  //上传按钮弹出框
+  $(".ext_btn.pic").live("click",function(){
+  	var ch=$(this);
+	var img=$(this).parent().find(".img:eq(0)");
+	var path="";
+	if($(this).attr("bid")!=undefined){path='../../uploads/'+$(this).attr("bid");}
+	
+	
+	$("#uploadfile:eq(0)").find("img:eq(0)").attr("src",path);
+  	var dialog = art.dialog({
+	    content: $("#uploadfile")[0],
+	    fixed: true,
+	    ok: function(){
+			//var iframe=this.iframe.currentWindow;
+			var path=$("#myimg").attr("bid");
+			$(ch).attr("bid",path);
+			$(img).attr("src",'../../uploads/'+path);
+		}
+    });
+  });
+  //修改单击事件
+  $(".edit").live("click",function(){
+  	var id=$(this).attr("bid");
+	var i=0;
+	if({$questype}==3){i=1;}
+	else if({$questype}==4){i=2;}
+	var tb=$("#answer"+i);
+	$(tb).find(".line_added:gt(0)").remove();
+	$(tb).find(".line_addeddemo:gt(0)").remove();
+  	$.getJSON("../Exam/getChildQuestion",{flag:{$flag},ran:Math.random(),id:id},function(data){
+		//选择题情况
+		if({$questype}==1){
+			var answer="";
+			var answerid="";
+			var tr=$(tb).children("tbody").children("tr");
+			tr.eq(0).children("td").eq(1).find("textarea").html(data.tcontent);
+			tr.eq(1).children("td").eq(1).find("input[value="+data.itemtype+"]").attr("checked",true);
+			tr.eq(1).children("td").eq(1).find("input[value="+data.itemtype+"]").click();
+			$.each(data.answer,function(k,v){
+				answer=answer+v.answer;
+				answerid=v.id;
+			});
+			$.each(data.items,function(key,value){
+				if(data.itemtype==1){
+					if(value.content==answer){
+						tr.eq(2+key).children("td").eq(1).find("input[type='radio']").attr("checked",true);
+					}
+					tr.eq(2+key).children("td").eq(1).find("input[type='radio']").attr("bid",answerid);
+					tr.eq(2+key).children("td").eq(1).find("input[type='text']").val(value.content);
+					tr.eq(2+key).children("td").eq(1).find("input[type='text']").attr("bid",value.id);
+				}else{
+					if(value.content==answer){
+						tr.eq(2+key).children("td").eq(1).find("input[type='radio']").attr("checked",true);
+					}
+					tr.eq(2+key).children("td").eq(1).find("input[type='radio']").attr("bid",answerid);
+					tr.eq(2+key).children("td").eq(1).find("img").attr("src","../../uploads/"+value.content);
+					tr.eq(2+key).children("td").eq(1).find("img").attr("bid",value.id);	
+				}
+			});
+            
+		}else if({$questype}==3)
+		{
+			//判断题情况
+			var answer="";
+			var tr=$(tb).children("tbody").children("tr");
+			tr.eq(0).children("td").eq(1).find("textarea").html(data.tcontent);
+			$.each(data.answer,function(k,v){
+				tr.eq(1).children("td").eq(1).find("input").attr("bid",v.id);
+				tr.eq(1).children("td").eq(1).find("input[value="+v.answer+"]").attr("checked",true);
+			});
+		}else if({$questype}==4){
+			var tr=$(tb).children("tbody").children("tr");
+			tr.eq(0).children("td").eq(1).find("input[value="+data.itemtype+"]").attr("checked",true);
+			$.each(data.items,function(key,value){
+				if(key>0){
+					var line=$(".line_add_demo").eq(0).clone().show();
+					line.addClass("line_added");
+					line.children("td").eq(1).find("input[type='text']").eq(0).val(value.flag);
+					if(data.itemtype==1){
+						line.children("td").eq(1).find("input[type='text']").eq(1).val(value.content);
+					}else{
+						line.children("td").eq(1).find("img").attr("src","../uploads/"+value.content);
+					}
+					$("#last").before(line);
+				}else{
+					var line=$(tr).eq(3);
+					line.children("td").eq(1).find("input[type='text']").eq(0).val(value.flag);
+					if(data.itemtype==1){
+						line.children("td").eq(1).find("input[type='text']").eq(1).val(value.content);
+					}else{
+						line.children("td").eq(1).find("img").attr("src","../uploads/"+value.content);
+					}
+					
+				}
+				
+			});
+			$.each(data.answer,function(k,val){
+				if(k>0){
+					var line1=$(".line_add_demo1").eq(0).clone().show();
+					line1.addClass("line_addeddemo");
+					line1.children("td").eq(0).html((k+1)+".");
+					line1.children("td").eq(1).find("input").val(val.answer);
+					line1.appendTo(".form_table.line_answer");	
+				}else{
+					var line1=$(".form_table.line_answer tr").eq(2);
+					line1.children("td").eq(1).find("input").val(val.answer);
+					
+				}
+				
+			});
+			}
+		saveEdit(i,id);
+	});
+  });
+});
+  
+
+
+function saveEdit(i,id){
+	var dialog = art.dialog({
+	    content: $(".answer")[i],
+	    fixed: true,
+	    ok: function(){
+			var iframe = $("#answer"+i);
+			if({$questype}==1)
+			{
+				var tr=$(iframe).children("tbody").children("tr");
+				//题干
+				var tcontent=tr.eq(0).children("td").eq(1).find("textarea").val();
+				//小题类型
+				var itemtype=tr.eq(1).children("td").eq(1).find("input[type='radio']:checked").val();
+				//答案
+				var answer="";
+				var answerid=tr.find("input[name='status333']:checked").attr("bid");
+				if(itemtype==1)
+				{
+					answer=tr.find("input[name='status333']:checked").parent().find("input[type='text']").val();
+				}
+				else
+				{
+					answer=tr.find("input[name='status333']:checked").parent().find("input[type='button']").attr("bid");
+				}
+				//选项
+				var items=[];
+				var itemsids=[];
+				var question_items=tr.find("input[name='status333']");
+				$.each(question_items,function(key,value){
+					if(itemtype==1){
+						items.push($(this).parent().find("input[type='text']").val());
+						itemsids.push($(this).parent().find("input[type='text']").attr("bid"));
+					}else{
+						items.push($(this).parent().find("input[type='button']").attr("bid"));
+						itemsids.push($(this).parent().find("img").attr("bid"));
+					}
+				});
+				$.get("../Exam/editChildQuestions",{paperid:{$paperid},parid:{$qid},flag:{$flag},id:id,ran:Math.random(),tcontent:tcontent,itemtype:itemtype,answer:answer,answerid:answerid,items:items.join("@"),itemsids:itemsids.join("@"),questype:{$questype}},function(){
+					getChildQuestionsList({$qid},{$flag});
+				});
+			}
+			else if({$questype}==3)
+			{
+				//判断题情况
+				var tr=$(iframe).children("tbody").children("tr");
+				//var tr=$("#answer"+i).children("tbody").children("tr");
+				var tcontent=tr.eq(0).children("td").eq(1).find("textarea").val();
+				var answer=tr.eq(1).children("td").eq(1).find("input[type='radio']:checked").val();
+				var answerid=tr.eq(1).children("td").eq(1).find("input[type='radio']:checked").attr("bid");
+				$.get("../Exam/editChildQuestions",{paperid:{$paperid},parid:{$qid},flag:{$flag},id:id,ran:Math.random(),tcontent:tcontent,answer:answer,answerid:answerid,questype:{$questype}},function(){
+					getChildQuestionsList({$qid},{$flag});
+				});
+			}
+			else if({$questype}==4)
+			{
+				var items=[];
+				var itemsflag=[];
+				var answer=[];
+				var itemtype=$(iframe).find("input[name='choose']:checked").val();
+				$.each($(iframe).find(".line_added"),function(key,value){
+					itemsflag.push($(this).children("td").eq(1).find("input:eq(0)").val());
+					if(itemtype==1){
+						items.push($(this).children("td").eq(1).find("input:eq(1)").val());
+					}else{
+						items.push($(this).children("td").eq(1).find("input[type='button']").attr("bid"));
+					}
+				});
+				$.each($(iframe).find(".line_added.demo"),function(k,v){
+					answer.push($(this).children("td").eq(1).find("input").val());
+				});
+				$.get("../Exam/editChildQuestions",{paperid:{$paperid},parid:{$qid},flag:{$flag},ran:Math.random(),itemtype:itemtype,id:id,items:items.join("@"),itemsflag:itemsflag.join("@"),answer:answer.join("@"),questype:{$questype}},function(){
+					getChildQuestionsList({$qid},{$flag});
+				});
+			}
+		}
+	});
+}
+
+$(function(){
+	$('#file_upload').uploadify({
+    'height'    :30,
+    'width'     :120,
+    'buttonText': '上传图片',  //选择按钮显示的字符
+    'multi'     : false,   //是否允许同时选择多个(false一次只允许选中一张图片)
+    'method'    : 'post',
+    'formData'  : {
+      'folder'  : './uploads/exam/items',
+      'fileext': 'png'
+    },
+    'swf'       : '__PUBLIC__/js/uploadify/uploadify.swf',
+    'uploader'  : '../Upload/index',
+    'fileTypeExts': '*.png;*.jpg', //允许的后缀
+    'fileTypeDesc': 'Image Files', //允许的格式，详见文档
+     'onUploadSuccess' : function(file, data, response) 
+    {
+      //上传成功后的触发事件  
+      var obj=eval("("+data+")");
+      $("#myimg").attr("src",'../../uploads/'+obj.msg.savepath + obj.msg.savename);
+	  $("#myimg").attr("bid",obj.msg.savepath + obj.msg.savename);
+    }
+  });
+	
+});
+
+
+</script>
+
+</body>
+</html>

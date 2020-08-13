@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版本编辑</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/js/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/uploadify/jquery.uploadify.min.js"></script>  
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+
+<body> 
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="box_border" class="list_table">
+  <tr>
+    <th>&nbsp;</th>
+    <th>段落课文</th>
+    <th>图片</th>
+  </tr>
+</table>
+<div class="h10"></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="demo" style="display:none;">
+  <tr class="tr">
+    <td align="center">fasd</td>
+    <td align="left">fasd</td>
+    <td>
+      <img src="" width="60px" height="60px" bid=""></img>
+      <input type="button" value="上传图片" class="ext_btn pic">
+    </td>
+  </tr>
+</table>
+</div>
+<!--上传-->
+<div id="upload" style="display:none;">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table"> 
+      <tr>
+        <td class="td_right">选择图片：</td>
+        <td id="tdinfo" class="">
+          <img id="myimg" src="" width="60px" height="60px"></img>
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">&nbsp;</td>
+        <td>
+          <div id="queue"></div>
+          <input id="file_upload" name="file_upload" type="file" multiple="false" picpath="">
+        </td>
+      </tr>
+  </table> 
+</div>
+<script type="text/javascript">
+$(function(){
+  $.ajaxSetup({async:false});
+  getFlashTextPic();
+  $(".ext_btn.pic").live("click",function(){
+      var ch=$(this);
+      var img=$(this).parent().find("img:eq(0)");
+      var path="";
+      path='../../uploads/'+$(this).attr("bid");
+      $("#myimg").attr("src",path);
+      var dialog = art.dialog({
+        content: $("#upload")[0],
+        fixed: true,
+        ok: function(){
+          var path=$("#myimg").attr("bid");
+          $(ch).attr("bid",path);
+          $(img).attr("src",'../../uploads/'+path);
+        }
+      });
+  });
+
+  $('#file_upload').uploadify({
+    'height'    :30,
+    'width'     :120,
+    'buttonText': '上传图片',  //选择按钮显示的字符
+    'multi'     : false,   //是否允许同时选择多个(false一次只允许选中一张图片)
+    'method'    : 'post',
+    'formData'  : {
+      'folder'  : './uploads/flash',
+      'fileext': 'png'
+    },
+    'swf'       : '__PUBLIC__/js/uploadify/uploadify.swf',
+    'uploader'  : '../Upload/index',
+    'fileTypeExts': '*.png;*.jpg', //允许的后缀
+    'fileTypeDesc': 'Image Files', //允许的格式，详见文档
+     'onUploadSuccess' : function(file, data, response) 
+    {
+      //上传成功后的触发事件  
+      var obj=eval("("+data+")");
+      $("#myimg").attr("src",'../../uploads/'+obj.msg.savepath + obj.msg.savename);
+      $("#myimg").attr("bid",obj.msg.savepath + obj.msg.savename);
+    }
+  });
+
+});
+function saveEdit(){
+  var flashid={$flashid};
+  var chk_value =[];//定义一个数组
+  var arrjson=[];
+  var picflag=true;
+  var ids= chk_value.join(",");
+  $("#box_border tr.tr").each(function(){
+      var tr =$(this); 
+      var id = tr.find('input').attr("tid");
+      var pid= tr.find('input').attr("pid");
+      var picpath = tr.find('input').attr("bid");
+      if(picpath==undefined){picflag=false;}
+      var obj = {};
+      obj.textid = id;
+      obj.picid=pid;
+      obj.picpath = picpath;    
+      arrjson.push(obj);       
+  });
+  if (!picflag) {dialogTips("请上传图片");  return false;};
+  var closeflag = true;
+  $.get("../flash/flashtextpicedit",{flashid:{$flashid},user:JSON.stringify(arrjson),rt:Math.random()},function(data) {
+      if (data.msg != "1") 
+      {
+        closeflag = false;   
+      }             
+  });
+  return closeflag;
+}
+
+function getFlashTextPic(){
+  $.getJSON("../flash/getflashtextpic", {flashid:{$flashid},chapterid:{$chapterid},random:Math.random()}, function(data){
+    var i=1;
+    $.each(data,function(key,value){
+      var tr=$(".demo tr").eq(0).clone();
+      var td=tr.children("td").eq(0);
+      td.html(i);
+      td=tr.children("td").eq(1);
+      td.html(value.encontent);
+      td=tr.children("td").eq(2);
+      tr.find("img").attr("src","../../uploads/"+value.picpath);
+      tr.find("input").attr("bid",value.picpath);
+      tr.find("input").attr("tid",value.id);
+      tr.find("input").attr("pid",value.picid);
+       tr.appendTo("#box_border");
+      i++;
+    });
+  });
+}
+</script>
+</body>
+</html>

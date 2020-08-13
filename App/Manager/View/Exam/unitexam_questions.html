@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑模版</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.form.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+</head>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="36">
+        <input name="add_base" type="button" class="ext_btn ext_btn_submit" value="添加独立大题" />&nbsp;
+        <input name="add_combine" type="button" class="ext_btn ext_btn_submit" value="添加短文大题" />
+        <input name="add_annotation" type="button" class="ext_btn ext_btn_submit" value="添加注释" />
+    </td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table">
+  <tr>
+    <th width="40">次序</th>
+    <th width="70">类型</th>
+    <th width="35">分值</th>
+    <th width="200">展示内容</th>
+    <th width="30">后停</th>
+    <th width="100">题干发音</th>
+    <th width="100">试题发音</th>
+    <th align="center">&nbsp;&nbsp;操&nbsp;作</th>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10 red" height="28">统计信息：大题数<font id="bnum">0</font>个，小题数<font id="snum">0</font>个，总分值<font id="score">0</font>分</td>
+  </tr>
+</table> 
+<div class="h5"></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="36">
+    	<input name="按钮2" type="button" class="ext_btn ext_btn_submit save" value="保存修改" />
+	</td>
+  </tr>
+</table> 
+</div> 
+<table id="table_demo" style="display:none;">
+  <tr class="tr">
+    <td><input name="sortid" type="text" class="input-text" size="3" maxlength="2" style="width:24px" /></td>
+    <td>&nbsp;</td>
+	<td></td>
+    <td align="left"></td>
+    <td></td>
+    <td>
+    	<select name="tvoice" class="select tvoiceid">
+            <option value="1">中男Liang</option>
+            <option value="2">中女Hui</option>
+            <option value="3">美女Kate</option>
+            <option value="4">美女Salli</option>
+            <option value="5">美男Joey</option>
+            <option value="6">英女Bridget</option>
+            <option value="7">英男Brian</option>
+        </select>
+    </td>
+    <td>
+    	<select name="vvoice" class="select vvoiceid">
+    		    <option value="1">中男Liang</option>
+            <option value="2">中女Hui</option>
+            <option value="3">美女Kate</option>
+            <option value="4">美女Salli</option>
+            <option value="5">美男Joey</option>
+            <option value="6">英女Bridget</option>
+            <option value="7">英男Brian</option>
+        </select>
+	</td>
+    <td align="left">
+      <input type="submit" value="详细" class="ext_btn ext_btn_submit info" />
+      <input type="button" class="ext_btn ext_btn_success" value="编辑" />
+      <input type="button" class="ext_btn ext_btn_error" value="删除" />
+	</td>
+  </tr>
+</table>
+<script type="text/javascript">
+$(function(){
+$.ajaxSetup({async:false});
+//頁面初始化
+ var dloading = art.dialog({time:30,title:'加载中……',width:130,height:30,opacity:0.3,lock:true});
+  getExamQuestionList();
+  dloading.close();
+  //返回
+  $(".back").click(function(){
+     location.href="../Exam/unitexam?gradeid="+$("#gradeid").val()+"&termid="+$("#termid").val()+"&versionid="+$("#versionid").val()+"&unitid="+$("#unitid").val()+"&stateid="+$("#state").val();
+  });
+  //修改题干发音
+  $(".vvoiceid").live('change',function(){
+  	var id=$(this).parent().parent().find("input").attr("bid");
+	var voiceid=$(this).val();
+  	$.get('../Exam/changevoice',{id:id,flag:'0',voiceid:voiceid});
+  });
+  //修改题干发音
+  $(".tvoiceid").live('change',function(){
+  	var id=$(this).parent().parent().find("input").attr("bid");
+	var voiceid=$(this).val();
+  	$.get('../Exam/changevoice',{id:id,flag:'1',voiceid:voiceid});
+  });
+  //添加组合答题
+  $("input[name='add_base']").click(function(){
+    editExamQuestion("",'1','1');
+  });
+  //添加短文大题
+  $("input[name='add_combine']").click(function(){
+    editExamQuestion("",'2','2');
+  });
+  //添加注释
+  $("input[name='add_annotation']").click(function(){
+    editExamQuestion("",'0','');
+  });
+  //编辑按钮
+  $(".ext_btn_success").live("click",function(){
+    var id=$(this).attr("bid");
+	var classid=$(this).attr("classid");
+	var questype=$(this).attr("questype");
+    editExamQuestion(id,classid,questype);
+  });
+  //详情
+  $(".ext_btn_submit.info").live("click",function(){
+    var paperid=$(this).attr("bid");
+  	var questype=$(this).attr("questype");
+  	var classid=$(this).attr("classid");
+  	location.href="../Exam/unitexam_questions_list?flag={$flag}&classid="+classid+"&questype="+questype+"&paperid="+paperid+"&examsid="+{$examsid};
+  });
+   //删除
+  $(".ext_btn_error").live("click",function(){
+    var tr=$(this).parents("tr");
+    var paperid=$(this).attr("bid");
+	art.dialog.alert("确定要删除吗?",function(){
+	 $.get('../Exam/examPaperDel',{paperid:paperid,random:Math.random()},function(){
+	 	  getExamQuestionList();
+      },"json");
+	  });
+  });
+  //修改次序
+  $(".ext_btn_submit.save").click(function(){
+    var dloading = art.dialog({time:30,title:'更新中……',width:130,height:30,opacity:0.3,lock:true});  
+    if($(".list_table tr.tr").length == 0)return;
+    var arrjson =[];  
+    $(".list_table tr.tr").each(function(){
+      var tr =$(this); 
+      var id = tr.find('input[name="sortid"]').attr("BID");
+      var sortid = tr.find('input[name="sortid"]').val(); 
+      var obj = {};
+      obj.id = id;
+      obj.sortid = sortid;  
+      arrjson.push(obj);       
+    });
+    $.get("../exam/listUpExamPaper",{data:JSON.stringify(arrjson)},function(){
+      getExamQuestionList();
+      dloading.close();
+    });
+  });
+ });
+
+
+function getExamQuestionList()
+{  
+    var examsid = {$examsid}; 
+    var dloading = art.dialog({time:30,title:'加载中……',width:130,height:30,opacity:0.3,lock:true});   
+    $(".list_table td").parents("tr").remove();
+	var scores=0;
+	var amounts=0;
+	var quess=0;
+	$("#bnum").text("0");
+	$("#ssum").text("0");
+	$("#score").text("0");
+    $.getJSON("../Exam/getExamQuestionList", {examsid:examsid,random:Math.random()}, function(data){
+      var i = 0;
+      $.each(data, function(i,val){
+	    if(val.classid!='0'){
+	    quess+=1;
+		}
+        i++;
+        var tr = $("#table_demo tr").eq(0).clone(); 
+        
+
+        td = tr.children('td').eq(0);
+        var input = td.children('input');
+        input.val(i);
+
+        td = tr.children('td').eq(1);
+		var content="";
+		if(val.examdaid=='0'){
+			content="注释";
+		}else if(val.examdaid=='1'){
+      if(val.classid=='2'){
+         content="<font style='color:red'>[选择题]</font>";
+      }else{
+         content="选择题";
+      }
+		}else if(val.examdaid=='2'){
+			content="填空题";
+		}else if(val.examdaid=='3'){
+      if(val.classid=='2'){
+         content="<font style='color:red'>[判断题]</font>";
+      }else{
+         content="判断题";
+      }
+		}else if(val.examdaid=='4'){
+			content="<font style='color:red'>[排序题]</font>";
+		}
+    td.html(content); 
+
+
+    td = tr.children('td').eq(2);
+    td.html(val.score);
+		scores=scores+parseFloat(val.score);
+		
+        td = tr.children('td').eq(3);
+        td.html(val.tcontent);
+		
+        td = tr.children('td').eq(4);
+		td.html(val.astoptime);
+		td = tr.children('td').eq(5);
+		td.find(".tvoiceid").val(val.tvoiceid);
+		td = tr.children('td').eq(6);
+		td.find(".vvoiceid").val(val.vvoiceid);
+        if(val.classid=='0')
+		{
+		  tr.find("input.info").hide();
+		  tr.children('td').eq(6).html("");
+		}
+		tr.find("input").attr("questype",val.examdaid);
+        tr.find("input").attr("BID",val.id);
+		tr.find("input").attr("classid",val.classid);
+        tr.appendTo(".list_table");
+      });
+    });
+    $("#bnum").text(quess);
+	$("#snum").text(amounts);
+	$("#score").text(scores);
+    $(".tr:odd").css("background", "#F5F8FA");
+    dloading.close(); 
+}
+
+
+function editExamQuestion(id,classid,quesflag)
+{ 
+  var examsid={$examsid}; 
+  location.href='../Exam/exam_questions_add?quesflag='+quesflag+'&classid='+classid+'&examsid='+examsid+'&id='+id;
+}
+
+
+</script>
+</body>
+</html>

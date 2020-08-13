@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+                <meta name="wap-font-scale" content="no">
+                <meta charset="UTF-8">
+                <title>英语同步练</title>
+                <link rel="stylesheet" href="__SUBJECT__/css/currency.css" />
+                <link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+                <link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+                <script type="text/javascript" src="__PUBLIC__/js/require.js" ></script>
+                <style>
+                	#wrapper {top:45px; bottom: 0px;}
+                </style>
+        </head>
+        <body>
+           <main>
+                <header class="head border-nav">
+                    <a class="head-left" href="../Index/entrance"><i class="icon-back"></i>返回</a>
+                    <!-- <a class="head-right font08" onclick="pageDown()">我要测验<i class="icon-down"></i></a> -->
+                    <h1 class="title">学习记录</h1>
+                </header>
+                <section>
+                    <div id="wrapper">
+                        
+                	<div id="scroller">		
+                        <ul class="recordList">
+                        </ul>
+                        <div class="loading-more" id="audioplay" page="0" style="display: none; transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);text-align: center;">正在加载中，请稍后...
+                        </div>
+                	</div><!--end scroller-->
+                     </div><!--end wrapper-->
+                </section>
+                <div id="tips"></div>
+            </main>
+            <div id="over" class="over"></div>
+            <div id="layout" class="layout">
+                <img src="__SUBJECT__/img/2013112931.gif" alt="" />
+            </div>
+            <style>
+                .over {
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: #f5f5f5;
+                    opacity:0.5;
+                    z-index: 1000;
+                }
+                .layout {
+                    display: block;
+                    position: absolute;
+                    top: 40%;
+                    left: 40%;
+                    width: 20%;
+                    height: 20%;
+                    z-index: 1001;
+                    text-align:center;
+                }
+                </style> 
+        </body>
+        <script type="text/javascript">
+            var month="";
+            require.config({
+            　paths: {
+        　　　　　　"userrecord": "__SUBJECT__/js/userrecord",
+                    "iscroll":"__PUBLIC__/js/iscroll-lite",
+        　　　　},
+                waitSeconds: 0
+            });
+            require(["userrecord","iscroll"], function(userrecord,IScroll){
+                var myScroll,
+                upIcon = $("#up-icon");
+                //downIcon = $("#down-icon");
+                userrecord.initLogList("record_list",$(".recordList"),0);
+                //滑动问题
+                myScroll=new IScroll("#wrapper",{
+                    momentum:true,
+                    click:true,
+                });
+
+                perface();
+                myScroll.on("scrollStart",function(){
+                    //console.log($("#up-icon"));
+                })
+
+                myScroll.on("scrollEnd",function(){
+                    //当滚动到最大高度的时候
+                    if(myScroll.y==myScroll.maxScrollY){
+                        $("#audioplay").show();
+                        var start=$("#audioplay").attr("page");
+                        userrecord.initLogList("record_list",$(".recordList"),start);
+                        $("#audioplay").hide();
+                        $("#wrapper").resize();
+                    }
+                })
+
+                $("#wrapper").resize();
+                // $(".head-left").click(function(){
+                //         window.location.href="../Index/entrance";
+                // });
+                //加载更多的响应事件
+                // $("#audioplay").click(function(){
+                //     var start=$(this).attr("page");
+                //     userrecord.initLogList("record_list",$(".recordList"),start);
+                //     $("#wrapper").resize();
+                // })
+            });
+        </script>
+</html>

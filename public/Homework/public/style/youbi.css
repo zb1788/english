@@ -1,0 +1,69 @@
+@charset "gb2312";
+/* CSS Document */
+.grayFon {color:#ccc;}
+.mr5{ margin-right:5px;}
+
+.you_ts{ margin:20px; }
+.you_ts dl dt{ width:200px; float:left;}
+.you_ts dl dt img{ width:100%; height:auto;}
+.you_ts dl dd{ width:320px; float:right; line-height:25px; padding-right:15px; }
+.you_ts dl dd.tit{ margin:20px 0; font-size:16px; font-weight:bold;}
+
+.yb_list dl{ position:relative; width:100%; clear:both; height:80px; border-bottom:1px dashed #ddd; margin:0px 0 10px 0;}
+.yb_list dl dt{ width:90px; float:left;}
+.yb_list dl dt img{ width:60px; height:auto;}
+.yb_list dl dd{ width:80%; float:left; line-height:25px;  }
+.w980 .yb_list dl dd{ width:75%;}
+.yb_list dl dd.tit{ margin:10px 0; font-size:16px; font-weight:bold;}
+.yb_list dl span{ position: absolute; right: -3px; top: 29px; }
+.yb_list dl dd font.redFon{ font-weight:bold;}
+.yb_list dl span a i{ font-size:14px; margin-right:2px;  }
+.yb_list dl span a.blue{ font-weight:bold; margin-right:10px;}
+
+/*tab*/
+.hkuang {border-bottom:1px solid #ddd; background:#fff; height:66px; }
+.homeTab {width:710px; float:left; margin:15px 0 0 10px;}
+.w1200 .homeTab{ width:940px;}
+.homeTab li {float:left; display:block;  height:46px; margin-right:7px;}
+.homeTab li a{ border-radius:5px; text-align:center; padding:0 10px; }
+.homeTab li a,.homeTab li a:visited {background:#f4f4f4;   height:40px; display:block; line-height:40px; color:#828383;  font-size:17px;}
+.homeTab li.cur a,.homeTab li.cur a:hover {background:#4fbdec; color:#fff; border-radius:5px;}
+
+.hkuang span.tit{font-size:24px; text-indent:1em; margin-top:15px;  display:block; float:left;}
+.ybts{ display: inline-block; height: 30px; line-height: 30px; font-size: 14px; margin-left: 15px;  }
+.ybts i{ color: red; font-size:16px; margin-right: 5px; }
+.ybts font{ font-weight: bold; color: red;   }
+
+.rank.yb li{ position:relative;}
+.rank.yb li .ybts{display:none;  right:0px; position: absolute; padding:0px 10px; background-color:#f5fbfe; border:1px dashed #55c2f0; border-radius:5px; box-shadow:1px 1px 2px #e0e0e0;  font-weight:normal; z-index:10000;}
+
+/*duihuan*/
+     
+		 
+		 
+		 
+		 
+		 .lipin dl.last{ margin-right:0;}
+.lipin dl:hover{ border:1px solid #F44336;  background:#fff;}
+.lipin dl dt{ position:relative;  padding:1px;}
+.lipin dl dt span{ position:absolute; bottom:0px; width:100%; text-align:center; display:block; background:#FFD4D9; color:#fff; font:normal 14px/30px Microsoft YaHei; opacity:1;}
+.lipin dl dt img{ width:100%; height:auto;}
+.lipin dl dd.tit{ margin-top:5px; }
+.lipin dl dd.tit a{ color:#212121; font:normal 14px/30px Microsoft YaHei;}
+.lipin dl dd{font:normal 13px/30px Microsoft YaHei; }
+.lipin dl dd a{ color:#727272; }
+.lipin dl dd em{ color:#ff0000; font-weight:bold;}
+
+.lipin dl dd  a.dh{ display: block; background:#C70F1D; color:#fff; width:100%; height:30px; text-align:center; border-radius:5px; line-height:30px; font:normal 18px/30px Microsoft YaHei;}
+.lipin dl dd  a.dh:hover,.duihuan dl dd span a:hover{background:#F44336;  text-decoration:none;}
+
+.w980 .lipin dl{ width:150px;  margin:20px 0 20px 10px;}
+.lipin dl.ydh:hover{ border-color:#ddd;}
+.lipin dl.ydh dd  a.dh{ background:#727272;  }
+.lipin dl.ydh dd  a.dh:hover{ background:#727272; cursor:default; }
+.lipin dl.ydh  dt span{background:#c1c1c1; opacity:1;}
+
+.convert h2{ font:normal 15px/30px Microsoft YaHei; margin-bottom:10px;}
+
+.wujifen{ background:url(../../manage_center/teacher/img/wujf.jpg) center bottom no-repeat; width:100%; height:350px;}
+.wujifen h4{ text-align:center;  font: 22px/50px Microsoft YaHei; margin-top:120px;}

@@ -1,0 +1,456 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>版本列表</title>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+        <script type="text/javascript">
+        	var word_mp3="http://192.168.151.206/yylmp3/mp3_word/";
+        	var text_mp3="http://192.168.151.206/yylmp3/mp3_text/";
+        </script>
+		<style>
+		#navigation {
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 9pt;
+			margin-bottom: 20px;
+		}
+		#navigation ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			padding-top: 4px;
+			height:20px;
+		}
+		#navigation li {
+			display: inline;
+			height:20px;
+		}
+		#navigation a:link, #navigation a:visited { 
+			margin-right: 2px;
+			padding: 3px 10px 2px 10px; 
+			color: #A62020;
+			background-color: #FCE6EA;
+			text-decoration: none;
+			border-top: 1px solid #FFFFFF;
+			border-left: 1px solid #FFFFFF;
+			border-bottom: 1px solid #717171;
+			border-right: 1px solid #717171;
+		}
+		#navigation a:hover {
+			border-top: 1px solid #717171;
+			border-left: 1px solid #717171;
+			border-bottom: 1px solid #FFFFFF;
+			border-right: 1px solid #FFFFFF;
+		}
+		</style>
+    </head>
+    <body>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                	<td class=" pl_10 f14" style="width:100px;">训练名称</td> 
+                    <td class="pl_10 f14"  style="width:300px;"><input type="text" class="select"  bid="{$unitid}" id="unitid" style="width: 300px;" value="{$unitname}"></td>
+                    <td class="pl_10 f14">
+                    	<input name="xueduan" type="radio" value='0' checked="true">小学&nbsp;<input name="xueduan" type="radio" value='1'>初中
+                    </td> 
+                    <td class="pl_10 f14">
+                    	选项数量&nbsp;
+                    	<select class="select" id="itemsnum">
+                    		<option value="3">3</option>
+                    		<option value="4">4</option>
+                    		<option value="5">5</option>
+                    	</select>
+                    </td> 
+                    <td class="pl_10 f14"><input id="addword" name="addword" type="button" class="ext_btn ext_btn_submit" value="重新生成" />&nbsp;</td> 
+                </tr>
+            </table>
+            <div class="h10"></div>
+			<div id="navigation">
+			  <ul>
+				<li class="queslist"><a href="#">试题列表</a></li>
+				<li class="quesgenlist"><a href="#">训练试题<strong id="examscount">0</strong></a></li>
+			  </ul>
+			</div>
+
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+                <tr>
+                    <th width="50" align="center">序号</th>
+                    <th width="100" align="center">单词</th>
+                    <th width="200">题干</th>
+                    <th width="300">选项</th>
+                    <th width="50">答案</th>
+                    <th width="">操作</th>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" style="display:none" id="table_data_gen">
+                <tr>
+                    <th width="50" align="center">序号</th>
+                    <th width="100" align="center">单词</th>
+                    <th width="200">题干</th>
+                    <th width="300">选项</th>
+                    <th width="50">答案</th>
+                    <th width="">操作</th>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none" id="table_demo"> 
+                <tr class="tr">
+                    <td align="center" class="demo_num"></td>
+                    <td align="center"></td>
+                    <td align="left"></td>
+                    <td align="left" style="padding-left:10px;"></td>
+                    <td align="center"></td>
+                    <td align="left" style="padding-left:5px;">
+                    	<input type="button" value="加入" class="ext_btn ext_btn_edit addquestions" />&nbsp;
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none" id="table_demo_gen"> 
+                <tr class="tr questions">
+                    <td align="center"  class="gen_demo_num"></td>
+                    <td align="center"></td>
+                    <td align="left"></td>
+                    <td align="left" style="padding-left:10px;"></td>
+                    <td align="center"></td>
+                    <td align="left" style="padding-left:5px;">
+                    	<input type="button" value="删除" class="ext_btn ext_btn_edit delquestions" />&nbsp;
+                    </td>
+                </tr>
+            </table>
+            <div class="h5"></div>
+        </div>
+         <div id="jplayer"></div>
+        <script type="text/javascript">
+        	//这里需要用到map
+            function Map()
+			{
+				//private
+				var obj = {};//创建一个空对象
+				//put方法 用于把键值对绑定到obj对象上
+				this.put = function(key,value)
+				{
+					obj[key] = value; 
+				}
+				//eachMap方法 用于循环Map
+				this.eachMap = function(fn)//传一个回调函数
+				{
+					for(var a in obj)
+					{
+						fn( a, obj[a]);
+					}
+				}
+				//size方法 用于查看Map的个数
+				this.size = function()
+				{
+					var mupiao = "";
+					for(var m in obj)
+					{
+						mupiao++;
+					}
+					return  mupiao;
+				}
+				//get方法 用于根据key 取得对应的 value
+				this.get = function(key)
+				{
+					if(obj[key] || obj[key] === 0 || obj[key] === false)//如果键中的值是0 或者是 flase 也返回key
+					{
+						return obj[key];
+					}
+					else
+					{
+						return null;
+					}
+				}
+				//remove方法 用于根据key 删除对应的 value
+				this.remove = function(key)
+				{
+					if(obj[key] || obj[key] === 0 || obj[key] === false)
+					{
+						delete obj[key];
+					}
+					else
+					{
+						return false;
+					}
+				}
+				this.toJSONString=function(){
+					var data=[];
+					for(var m in obj)
+					{
+						var temp={};
+						temp.keynode=m;
+						temp.value=obj[m];
+						data.push(temp);
+					}
+					return JSON.stringify(data);
+				}
+			};
+            var data = new Map();
+            $(function(){
+                $.ajaxSetup({async: false});
+                var words='{$words}';
+                var unitid='{$unitid}';
+                var words=eval(words);
+                
+                //直接跳转过来需要进行data数据的处理
+                $("input[name='xueduan']").click(function(){
+                	var period=$("input[type='radio']:checked").val();
+                	$.each(words,function(key,value){
+	                	var wordid=value.wordid;
+	                	var temp=[];
+	                	if(period=='0'){
+	                		temp[0]=0;
+		                	temp[1]=0;
+		                	temp[2]=0;
+	                	}else{
+	                		temp[0]=0;
+		                	temp[1]=0;
+		                	temp[2]=0;
+		                	temp[3]=0;
+	                	}
+	                	console.log(temp);
+	                	data.put(wordid,temp);
+                	});
+                });
+                $("input[name='xueduan']").eq(0).click();
+                $(".queslist").click(function(){
+                	$("#table_data").show();
+                	$("#table_data_gen").hide();
+                })
+                $(".quesgenlist").click(function(){
+                	$("#table_data").hide();
+                	$("#table_data_gen").show();
+                })
+                //随机生成程序
+                gen_questions(unitid,data.toJSONString(),$("#table_data"));
+                
+                //加入直接将上面的数据加入另一个标签中
+                $(".addquestions").live("click",function(){
+                	var adddata={};
+                	adddata.word=$(this).parents("tr").find("td").eq(1).html();
+                	adddata.tcontent=$(this).parents("tr").find("td").eq(2).html();
+                	adddata.stemtcontent=$(this).parents("tr").find("td").eq(2).attr("content");
+                	adddata.stemtcontenttype=$(this).parents("tr").find("td").eq(2).attr("stemcontenttype");
+                	adddata.mp3=$(this).parents("tr").find("td").eq(2).attr("mp3");
+                	adddata.tts=$(this).parents("tr").find("td").eq(2).attr("tts");
+                	adddata.items=$(this).parents("tr").find("td").eq(3).html();
+                	adddata.answer=$(this).parents("tr").find("td").eq(4).html();
+                	adddata.questype=$(this).parents("tr").find("td").eq(5).find("input").attr("questype");
+                	adddata.wordid=$(this).parents("tr").find("td").eq(5).find("input").attr("wordid");
+                	var tr =$("#table_demo_gen tr").eq(0).clone();
+                	var i=$("#table_data_gen td").parents("tr").length;
+	                var td = tr.children('td').eq(0);
+	                td.html(i+1);
+	                //将目前总的试题数量在右上变显示数量
+	                td = tr.children('td').eq(1);
+	                td.html(adddata.word);
+	                td = tr.children('td').eq(2);
+	                td.attr("content",adddata.stemtcontent);
+		            td.attr("stemcontenttype",adddata.stemtcontenttype);
+		            td.attr("mp3",adddata.mp3);
+		            td.attr("tts",adddata.tts);
+	                td.html(adddata.tcontent);
+	                td = tr.children('td').eq(3);
+	                td.html(adddata.items);
+	                td = tr.children('td').eq(4);
+	                td.html(adddata.answer);
+	                td = tr.children('td').eq(5);
+	                td.find("input").attr("questype",adddata.questype);
+	                td.find("input").attr("bid",adddata.wordid);
+	                tr.appendTo("#table_data_gen");
+	                $(this).parents("tr").remove();
+	                $("#examscount").html(parseInt($("#examscount").html())+1);
+	                $(".demo_num").each(function(key,value){
+	                	$(this).html(key+1);
+	                });
+	                //进行map的操作
+	                //console.log(adddata.wordid);
+	                var questionslist=data.get(adddata.wordid);
+	                console.log(questionslist);
+	                questionslist[adddata.questype]=1;
+                });
+                //删除试题
+                $(".delquestions").live("click",function(){
+                	var deldata={};
+                	deldata.word=$(this).parents("tr").find("td").eq(1).html();
+                	deldata.tcontent=$(this).parents("tr").find("td").eq(2).html();
+                	deldata.stemtcontent=$(this).parents("tr").find("td").eq(2).attr("content");
+                	deldata.stemtcontenttype=$(this).parents("tr").find("td").eq(2).attr("stemcontenttype");
+                	adddata.mp3=$(this).parents("tr").find("td").eq(2).attr("mp3");
+                	adddata.tts=$(this).parents("tr").find("td").eq(2).attr("tts");
+                	deldata.items=$(this).parents("tr").find("td").eq(3).html();
+                	deldata.answer=$(this).parents("tr").find("td").eq(4).html();
+                	deldata.questype=$(this).parents("tr").find("td").eq(5).find("input").attr("questype");
+                	deldata.wordid=$(this).parents("tr").find("td").eq(5).find("input").attr("wordid");
+                	var tr =$("#table_demo tr").eq(0).clone();
+                	var i=$("#table_data td").parents("tr").length;
+	                var td = tr.children('td').eq(0);
+	                td.html(i+1);
+	                //将目前总的试题数量在右上变显示数量
+	                td = tr.children('td').eq(1);
+	                td.html(deldata.word);
+	                td = tr.children('td').eq(2);
+	                td.html(deldata.tcontent);
+	                td.attr("content",deldata.stemtcontent);
+		            td.attr("stemcontenttype",deldata.stemtcontenttype);
+		            td.attr("mp3",deldata.mp3);
+		            td.attr("tts",deldata.tts);
+	                td = tr.children('td').eq(3);
+	                td.html(deldata.items);
+	                td = tr.children('td').eq(4);
+	                td.html(deldata.answer);
+	                td = tr.children('td').eq(5);
+	                td.find("input").attr("questype",deldata.questype);
+	                td.find("input").attr("wordid",deldata.wordid);
+	                tr.appendTo("#table_data");
+	                $(this).parents("tr").remove();
+	                $("#examscount").html(parseInt($("#examscount").html())-1);
+	                $(".gen_demo_num").each(function(key,value){
+	                	$(this).html(key+1);
+	                });
+	                //进行map的操作
+	                var questionslist=data.get(deldata.wordid);
+	                questionslist[deldata.questype]=0;
+                });
+                
+                
+                $("#jplayer").jPlayer({
+                    swfPath: "js",
+                    wmode: "window",
+                    supplied: "mp3",
+                    preload: "none",
+                    volume: "1"
+                });
+
+                $("img.listen").live("click", function() {     //发音按钮点击事件
+                    var mp3 = $(this).attr('mp3');
+                    var loc = $(this).attr('loc');
+                    mp3=loc+"/"+mp3;
+                    if (!mp3) {
+                        alert("没有音频");
+                    }
+                    else
+                    {
+                        $("#jplayer").jPlayer("setMedia", {
+                            mp3: mp3
+                        }).jPlayer("play");
+                    }
+                });
+                //重新生成试题
+                $("#addword").click(function(){
+                	$("#table_data").show();
+                	$("#table_data_gen").hide();
+                	gen_questions(unitid,data.toJSONString(),$("#table_data"));
+                });
+            });
+            
+            function gen_questions(unitid,data,obj){
+            	var itemsnum=$("#itemsnum").val();
+            	var xueduan=$("input[name='xueduan']:checked").val();
+            	var i=0;
+            	$.post('genQuestions', {itemsnum:itemsnum,unitid: unitid, period:xueduan,data:data,random: Math.random()}, function(data) {
+            		$(obj).find("td").parent().empty();
+		            $.each(data, function(key, value) {
+		                i++;
+		                var tr = $("#table_demo tr").eq(0).clone();
+		                var td = tr.children('td').eq(0);
+		                td.html(i);
+		                td = tr.children('td').eq(1);
+		                td.html(value.word);
+		                td = tr.children('td').eq(2);
+		                td.attr("stemcontenttype",value.stemtype);
+		                td.attr("content",value.tcontent);
+		                td.attr("mp3",value.mp3);
+		                td.attr("tts",value.tts);
+		                if((value.period==0&&value.stemtype=='0')||(value.period==0&&value.stemtype=='3')){
+		                	td.html("<img src='__PUBLIC__/images/icon_listen.png' class='listen' loc='"+word_mp3+"' mp3='"+value.tcontent+"' width='60px' height='60px'/>");
+		                	//td.html(value.tcontent);
+		                }else if(value.period==0&&value.stemtype=='1'){
+		                	td.html("<img content='"+value.tcontent+"' src='http://192.168.151.206/yylmp3/pic_word/"+value.tcontent+"' width='60px' height='60px'/>");
+		                }else if(value.period==0&&value.stemtype=='2'){
+		                	td.html("<img src='__PUBLIC__/images/icon_listen.png' class='listen' loc='"+text_mp3+"' mp3='"+(value.tcontent.substr(2))+"/"+value.tcontent+"' width='60px' height='60px'/>");
+		                }else if((value.period==1&&value.stemtype=='0')){
+		                	td.html("<img src='__PUBLIC__/images/icon_listen.png' class='listen' loc='"+word_mp3+"' mp3='"+value.tcontent+"' width='60px' height='60px'/>");
+		                }else if(value.period==1&&value.stemtype=='1'||(value.period==1&&value.stemtype=='2')||(value.period==1&&value.stemtype=='3')){
+		                	td.html(value.tcontent);
+		                }
+		                
+		                td = tr.children('td').eq(3);
+		                var items="<ul>";
+		                $.each(value.items,function(itemkey,itemvalue){
+		                	items=items+"<li><strong>"+itemvalue.flag+"</strong>.";
+		                	if(itemvalue.flag==value.answer){
+		                		items=items+"&nbsp;&nbsp;<font style='background-color:red;' itemtype='"+itemvalue.itemtype+"'>"+itemvalue.content+"</font>";
+		                	}else{
+		                		items=items+"&nbsp;&nbsp;<font itemtype='"+itemvalue.itemtype+"'>"+itemvalue.content+"</font></li>";
+		                	}
+		                });
+		                items=items+"</ul>";
+		                td.html(items);
+		                td = tr.children('td').eq(4);
+		                td.html(value.answer);
+		                td = tr.children('td').eq(5);
+		                td.find("input").attr("questype",value.questype);
+		                td.find("input").attr("wordid",value.wordid);
+		                tr.appendTo("#table_data");
+		            });
+		        });
+            }
+            
+            function savePaper(){
+            	//将目前添加的试题进行添加并且保存数据库
+            	var unitid=$("#unitid").attr("bid");
+            	var unitname=$("#unitid").val();
+
+            	var questions=$("#table_data_gen tr.questions");
+            	if(questions.length==0){
+            		art.dialog.alert("您没有在本次训练中加入试题");
+            		return false;
+            	}
+            	var data=[];
+            	var i=0;
+            	$(questions).each(function(){
+            		var id=i++;
+            		var word=$(this).children("td").eq(1).html();
+            		var stemcontent=$(this).children("td").eq(2).attr("content");
+            		var period=$("input[name='xueduan']:checked").val();
+            		var mp3=$(this).children("td").eq(2).attr("mp3");
+            		var tts=$(this).children("td").eq(2).attr("tts");
+            		var stemcontenttype=$(this).find("td").eq(2).attr("stemcontenttype");
+            		var items=[];
+            		var itemtype=0;
+            		$(this).children("td").eq(3).find("li").each(function(k,v){
+            			var item={};
+            			item.flag=$(v).find("strong").html();
+            			item.content=$(v).find("font").html();
+            			item.itemtype=$(v).find("font").attr("itemtype");
+            			itemtype=item.itemtype;
+            			items.push(item);
+            		});
+            		var answer=$(this).children("td").eq(4).html();
+            		var temp={};
+            		temp.id=id;
+            		temp.period=period;
+            		temp.mp3=mp3;
+            		temp.itemtype=itemtype;
+            		temp.tts=tts;
+            		temp.word=word;
+            		temp.stemcontent=stemcontent;
+            		temp.stemcontenttype=stemcontenttype;
+            		temp.items=items;
+            		temp.answer=answer;
+            		data.push(temp);
+            	});
+            	var flag=false;
+            	$.post('savePaper', {unitid:unitid,unitname:unitname,data:JSON.stringify(data),random: Math.random()}, function(data) {
+            		flag=true;
+            	});
+            	return flag;
+            }
+        </script> 
+    </body>
+</html>

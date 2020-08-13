@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>听读作业</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="wap-font-scale" content="no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="__PUBLIC__css/mui.min.css">
+		<style>
+			html,
+			body {
+				background-color: black;
+			}
+			@media (min-width:800px) {
+			body{ zoom:1.5;}
+			}
+			.mui-views,
+			.mui-view,
+			.mui-pages,
+			.mui-page,
+			.mui-page-content {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				width: 100%;
+				height: 100%;
+				background-color: #efeff4;
+			}
+			.mui-pages {
+				top: 32px;
+				height: auto;
+			}
+			.mui-scroll-wrapper,
+			.mui-scroll {
+				background-color: #efeff4;
+			}
+			.mui-page.mui-transitioning {
+				-webkit-transition: -webkit-transform 300ms ease;
+				transition: transform 300ms ease;
+			}
+			.mui-page-left {
+				-webkit-transform: translate3d(0, 0, 0);
+				transform: translate3d(0, 0, 0);
+			}
+			.mui-ios .mui-page-left {
+				-webkit-transform: translate3d(-20%, 0, 0);
+				transform: translate3d(-20%, 0, 0);
+			}
+			.mui-navbar {
+				position: fixed;
+				right: 0;
+				left: 0;
+				z-index: 10;
+				height: 44px;
+				background-color: #f7f7f8;
+			}
+			.mui-navbar .mui-bar {
+				position: absolute;
+				background: transparent;
+				text-align: center;
+			}
+			.mui-android .mui-navbar-inner.mui-navbar-left {
+				opacity: 0;
+			}
+			.mui-ios .mui-navbar-left .mui-left,
+			.mui-ios .mui-navbar-left .mui-center,
+			.mui-ios .mui-navbar-left .mui-right {
+				opacity: 0;
+			}
+			.mui-navbar .mui-btn-nav {
+				-webkit-transition: none;
+				transition: none;
+				-webkit-transition-duration: .0s;
+				transition-duration: .0s;
+			}
+			.mui-navbar .mui-bar .mui-title {
+				display: inline-block;
+				width: auto;
+			}
+			.mui-page-shadow {
+				position: absolute;
+				right: 100%;
+				top: 0;
+				width: 16px;
+				height: 100%;
+				z-index: -1;
+				content: '';
+			}
+			.mui-page-shadow {
+				background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+				background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+			}
+			.mui-navbar-inner.mui-transitioning,
+			.mui-navbar-inner .mui-transitioning {
+				-webkit-transition: opacity 300ms ease, -webkit-transform 300ms ease;
+				transition: opacity 300ms ease, transform 300ms ease;
+			}
+			.mui-page {
+				display: none;
+			}
+			.mui-pages .mui-page {
+				display: block;
+			}
+			.mui-page .mui-table-view:first-child {
+				margin-top: 15px;
+			}
+			.mui-table-view {
+				margin-top: 20px;
+			}
+
+			.mui-table-view span.mui-pull-right {
+				color: #999;
+			}
+			.mui-table-view-divider {
+				background-color: #efeff4;
+				font-size: 14px;
+			}
+			.mui-table-view-divider:before,
+			.mui-table-view-divider:after {
+				height: 0;
+			}
+			.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			.mui-ios .mui-navbar .mui-bar .mui-title {
+				position: static;
+			}
+			#accountcontent a {
+				margin: 5px;
+				width: 40px;
+				height: 40px;
+				display: inline-block;
+				text-align: center;
+				background-color: #fff;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+			}
+			.mui-content-padded a .mui-icon {
+				margin-top: 12px;
+			}
+			.mui-spinner,
+			.mui-spinner-white {
+				margin-top: 12px
+			}
+			.active .mui-spinner-indicator {
+				background: #007AFF;
+			}
+
+			#accountcontent a {
+				color: #8F8F94;
+			}
+			#accountcontent a.active {
+				color: #007aff;
+			}
+			#accountcontent a .mui-icon {
+			   margin-top: 12px;
+			}
+			#accountcontent a .mui-icon {
+				font-family: Muiicons;
+				font-size: 20px;
+				font-weight: 400;
+				font-style: normal;
+				line-height: 1;
+				display: inline-block;
+				text-decoration: none;
+				-webkit-font-smoothing: antialiased;
+			}
+			.mui-icon-close:before {
+				border-radius: 25px;
+			}
+			/*设置标题样式字体*/
+			div.title *{
+			    font-size:1.2em;
+			    font-family: times;
+			    color: blueviolet;
+			}
+			#loading{
+				margin:0 auto;
+                color:#000;
+                border-width:4px;
+                width: 44px;
+                height: 44px;
+                border-style: solid;
+                border-color: #ccc #eee red blue;
+                border-radius: 24px;
+                -webkit-animation: loading  1s infinite linear;
+            }
+	        @-webkit-keyframes loading{
+	                from{
+	                	-webkit-transform:rotate(0deg);
+	                }
+	                to{
+	                	-webkit-transform:rotate(360deg);
+	                }
+	        }
+
+	        /*小红点样式*/
+	       .redpoint{
+	       	  height:10px;
+			  width:10px;
+			  border-radius:16px;
+			  font-size:0.1em;
+			  color:#fff;
+			  background:red;
+	       }
+
+	       .listen li{
+	       	margin:0;padding:0;
+	       	list-style-type:none;
+	       	margin-left:3px;
+
+	       }
+
+	       .listen li *{
+
+	       	color:#000000;
+	       }
+
+	       ul.ques{
+	       	margin-left: 0px;
+	       	padding-left: 0px;
+	       }
+
+	        .head01 {
+			  position: relative;
+			  height: 40px;
+			  font: 1.0em/40px "microsoft yahei";
+			  width: 100%;
+			  margin-top: 45px;
+			  background: #EEEEEE;
+			  color: #666;
+			  overflow: hidden;
+			}
+			.head01 i {
+			  position: absolute;
+			  top: 14px;
+			  left: 10px;
+			  color: #159edc;
+			}
+			.head01 span {
+			  display: block;
+			  margin-left: 35px;
+			  overflow: hidden;
+			  color: #333;
+			}
+			.yeqian {
+			  float: right;
+			  color: #999;
+			margin-right: 10px;
+			}
+
+			div.title p{
+				color:black;
+			}
+
+			div.tkcontent p{
+				color:black;
+				background: white;
+			}
+
+			div.tkcontent table{
+				nowrap:true;
+				width:100%;
+			}
+
+
+			.mui-slider .mui-slider-group .mui-slider-item img {
+			 width: auto;
+			}
+
+			/*.song {margin: 20px 0;}
+	    .sy-left,.sy-right{width: 108px; float: left;}
+	    .edi-sy {width:50px; float:left;}
+	    .sy-left img,.sy-right img,.edi-sy img { width:100%;}*/
+	   .mui-backdrop {
+			    position: fixed;
+			    top: 0;
+			    right: 0;
+			    bottom: 0;
+			    left: 0;
+			    z-index: 998;
+			    /*background:url("__PUBLIC__images/loading.gif") no-repeat center center;*/
+			    background-color: rgba(0,0,0,.3);
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__css/feedback.css" />
+		<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/eruda"></script>
+		<script>eruda.init();</script> -->
+	</head>
+	<body class="mui-fullscreen" style="background-color:white;">
+		<!--页面主结构开始-->
+		<div id="app" class="mui-views">
+			<div class="mui-view">
+				<div class="mui-navbar">
+				</div>
+				<div class="mui-pages" style="color:white;">
+				</div>
+			</div>
+
+			<nav class="mui-bar mui-bar-tab" style="display:none;">
+			    <button class="mui-tab-item"  id="submithomework" style="width:100%;border: 1px solid #007aff;background-color: #007aff;color:white;font-size:1.2em;">
+			       	 提交作业
+			    </button>
+			</nav>
+		</div>
+		<!--页面主结构结束-->
+		<!--单页面开始-->
+		<div id="setting" class="mui-page" style="background:white;">
+			<!--页面标题栏开始-->
+			<div class="mui-navbar-inner mui-bar mui-bar-nav" style="background: #3cb0e0;">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav" style="font-size:2.0em;color:white;"></span><font style="font-size:1.1em;color:white;">返回</font>
+				</button>
+				<a class="mui-icon " id="datika" id="summary" href="#account" >
+					<i class="fa fa-calculator fa-1" style="font-size:20px;color:white;"></i>
+				</a>
+				<h1 id="publish" class="mui-icon mui-right mui-pull-right" id="timeshow" >
+					<font  style="font-size:0.7em;color:white;">发布</font>
+				</h1>
+			</div>
+			<!--页面标题栏结束-->
+			<!--页面主内容区开始-->
+			<div class="mui-page-content" style="background:white;">
+				<div class="mui-scroll-wrapper" style="background:white;">
+					<div class="mui-scroll" style="background:white;min-height: 100%;">
+						<div class="head01" style="margin-top: 10px;">
+							<i class="fa fa-pencil-square-o fa-lg"></i>
+							<span >
+								<b class="yeqian" id="quesnum">
+									<strong style="color:red;font-size:1.5em;" id="quesindex"></strong>/<font id="quesnumcount"></font>
+								</b><font id="type"></font>
+							</span>
+						</div>
+						<div id="leftTabBox" class="tabBox">
+							<div class="hd" style="display:none;">
+								<ul >
+									<for start="1" end="$quescount+1" >
+										<li><a>{$i}</a></li>
+									</for>
+								</ul>
+							</div>
+							<div class="bd">
+								<for start="1" end="$quescount+1">
+									<ul id="item{$i-1}" class="ques">
+										<li><a class="pic" href="#"><img src="data:image/gif;base64,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"/></a></li>
+									</ul>
+								</for>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--页面主内容区结束-->
+		</div>
+		<!--单页面结束-->
+		<div id="account" class="mui-page">
+			<div class="mui-navbar-inner mui-bar mui-bar-nav" style="background: #3cb0e0;">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-action-back mui-icon mui-icon-close mui-pull-left" style="padding-top:8px;"></span>
+				</button>
+				<h1 class="mui-center mui-title" style="color:white;">试题列表</h1>
+				<!--<a class="mui-icon   mui-pull-right" id="summary" href="#account"></a>-->
+			</div>
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper" id="suwt" style="margin-bottom:53px;background-color: white;">
+					<div class="mui-scroll" id="accountcontent" style="margin-top:20px;background: white;">
+	                <!--答题器统计页面-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="jplayer"></div>
+	</body>
+	
+	<script src="__PUBLIC__js/lazyload_2d9c23aa.js" type="text/javascript"></script>
+	<script>
+		var screenwidth=document.body.clientWidth-30;
+		var alound_mp3="__MP3__/yylmp3/mp3_word/";
+		var alound_text="__MP3__/yylmp3/mp3_text/";
+	    var quescount=parseInt("{$quescount}");
+		//var username="{$username}";
+		var sso="{$sso}";
+		var tqms="{$tqms}";
+		var summaryhtml="";
+		var index="{$index}";
+		var fheight=0;
+		var pheight=0;
+		var cheight=0;
+		var issubmit=0;
+		var exams_mp3_url="__MP3__/yylmp3/mp3_exam/";
+		var word_mp3_url="__MP3__/yylmp3/mp3_word/";
+		var text_mp3_url="__MP3__/yylmp3/mp3_text/";
+		var resource="__RESOURCE__";
+		var type="{$type}";
+	    var listendata=[];
+	    //var issubmit=1;
+	    
+	    //var homework='{$homework}';
+	    var homework=window.localStorage.getItem("homework");
+	    var homeworks=decodeURI(homework);
+	    homeworks = eval("("+homeworks+")");
+	    console.log(homeworks);
+	    //var ks_code="{$ks_code}";
+	    var ks_code=homeworks.ks_code;
+	    var username=homeworks.username;
+	    console.log(homework);
+	   	// var wa='{$wa}';
+	   	// var ws='{$ws}';
+	   	// var wc='{$wc}';
+	   	// var wr='{$wr}';
+	    // var ta='{$ta}';
+	    // var eq='{$eq}';
+	    var wa=[];
+	   	var ws=[];
+	   	var wc=[];
+	   	var wr=[];
+	    for(var i=0;i<homeworks.homework.words.length;i++){
+	    	if(homeworks.homework.words[i].typeid==0){
+	    		wa.push(homeworks.homework.words[i]);
+	    	}else if(homeworks.homework.words[i].typeid==1){
+	    		ws.push(homeworks.homework.words[i]);
+	    	}else if(homeworks.homework.words[i].typeid==2){
+	    		wc.push(homeworks.homework.words[i]);
+	    	}else if(homeworks.homework.words[i].typeid==3){
+	    		wr.push(homeworks.homework.words[i]);
+	    	}
+	    }
+	    var ta=homeworks.homework.texts;
+
+	    var eq=homeworks.homework.exams;
+	    var wst =  ws ;
+	    var wct =  wc;
+	    var wrt = wr ;
+	    var eqt =  eq ;
+	    var wat =  wa ;
+	    var tat =  ta ;
+	    // var wacount="{$wacount}";
+	    // var wscount="{$wscount}";
+	    // var wccount="{$wccount}";
+	    // var wrcount="{$wrcount}";
+	    // var tacount="{$tacount}";
+	    // var eqcount="{$eqcount}";
+	   	var wacount=wa.length;
+	    var wscount=ws.length;
+	    var wccount=wc.length;
+	    var wrcount=wr.length;
+	    var tacount=0;
+	    for(var i=0;i<ta.length;i++){
+	    	tacount=tacount+parseInt(ta[i].quescount);
+	    }
+	    //var tacount=ta.length;
+	    var eqcount=0;
+	    if(eq.length!=0){eqcount=parseInt(eq[0].quescount);}
+	    var quescount=wacount+wscount+wccount+wrcount+tacount+eqcount;
+	    var qunum=quescount;
+	    //初始化页面是否需要刷新0表示需要刷新 1表示不需要
+	    var page=new Array(parseInt(quescount));
+	    //定义每个页面的tts成员中的是json对象
+	    var page_tts=new Array(parseInt(quescount));
+	    //定义试题的类型成员是一个对象 obj=>type表示组合题和费组合 obj->stemid表示他的父亲
+	    var page_obj=new Array(parseInt(quescount));
+	    //定义一个数组主要是用于听力训练主要是记录他是从哪里滑动过来的
+	    var pageslider=new Array(parseInt(quescount));
+	    //定义每一页加载的数据
+	    var pagedata=new Array(parseInt(quescount));
+	    
+
+        function loadCss(url) {
+            //<link href="css/main.css" rel="stylesheet" type="text/css" />
+            var link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.type = "text/css";
+            link.href = url;
+            document.getElementsByTagName("head")[0].appendChild(link);
+        }
+		loadCss("__PUBLIC__css/wszy.css");
+		loadCss("__PUBLIC__fonts/font-awesome/css/font-awesome.min.css");
+		LazyLoad(
+			'js',
+			[
+			  "__PUBLIC__js/mobile.js",
+				"__PUBLIC__js/uxinplayer.js",
+			  "__PUBLIC__js/jquery-1.7.2.min.js",
+			  "__PUBLIC__js/mui.min.js",
+			  "__PUBLIC__js/TouchSlide.1.1.js",
+			  "__PUBLIC__js/jquery.jplayer.min.js",
+			  "__PUBLIC__js/mui.view.js",
+			  "__PUBLIC__js/enhw.js",
+			  "__PUBLIC__js/preview.js",
+			]
+		);
+	</script>
+</html>

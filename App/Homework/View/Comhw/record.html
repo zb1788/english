@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+<script>
+    function  f_getURL(){
+        var url = "acceptfile.php";
+        return url;
+    }
+    function f_getMAX(){
+        return 60;//最长录音时间
+    }
+    function f_getMIN(){
+        return 2; //最小录音时间
+    }
+    function f_complete(filename){
+		//alert(filename);
+        /*if (typeof(SUPER_REPLY) != 'undefined') {
+            if (wysiwyg) {
+                editdoc.body.innerHTML += '[audio]rec/'+ filename +'[/audio]';
+            } else {
+                editdoc.value += '[audio]rec/'+ filename +'[/audio]';
+            }
+        }*/
+		var test=jQuery('#fastpostmessage').val() + '[audio]'+ filename +'[/audio]';
+		//alert(test);
+        jQuery('#fastpostmessage').val(test);
+        /*if (jQuery('.pnpost').css('display') == 'none') {
+            jQuery('#fastpostform').submit();
+        }*/
+
+    }
+</script>
+
+</head>
+
+<body>
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="500" height="140" id="as_js" align="middle">
+         <param name="allowScriptAccess" value="sameDomain" />
+         <param name="movie" value="__PUBLIC__/recrod/bbsRecorder.swf" />
+         <param name="quality" value="high" />
+         <param name="wmode" value="transparent">
+         <param name="bgcolor" value="#cccccc" />
+         <embed src="__PUBLIC__/record/bbsRecorder.swf" vmode="transparent" quality="high" bgcolor="#ffffff" width="700" height="140" name="as-js" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+  </object>
+</body>
+</html>

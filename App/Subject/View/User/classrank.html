@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="wap-font-scale" content="no">
+		<meta charset="UTF-8">
+		<title>英语同步练</title>
+		<link rel="stylesheet" href="__SUBJECT__/css/currency.css" />
+        <link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/require.js" ></script>
+		<style>
+			#wrapper {top: 45px;}
+		</style>
+	</head>
+	<body>
+		<main>
+			<header class="head border-nav">
+				<a class="head-left" href="javascript:void(0);"><i class="icon-back"></i>返回</a>
+				<!-- <a class="head-right"><i class="icon-share"></i></a> -->
+				<h1 class="title">班级得分榜</h1>
+			</header>
+			<section>
+				<div id="wrapper">
+					<div id="scroller">
+						<!-- <div class="topM">
+							<span class="listImg fl mL10 bGray"><img src="__SUBJECT__/images/trophy.png" /><b>第8名</b></span>
+							<span class="listText"><h3 class="textH3">马淑全</h3><h4 class="textH4">我的作业完成情况</h4></span>
+							<span class="topH3 fr">16分</span>
+						</div>
+						<ul class="topList clear">
+							<li class="listIconText">
+								<span class="lico"><i class="icon-topped first"></i></span>
+					        	<span class="listImg radius100 fl bGray"><img src="__SUBJECT__/images/trophy.png" /></span>
+								<span class="listText"><h3 class="topH3">背单词</h3></span>
+								<span class="topH3 fr">16分</span>
+							</li>
+							<li class="listIconText">
+								<span class="lico"><i class="icon-topped second"></i></span>
+								<span class="listImg radius100 fl bGray"><img src="__SUBJECT__/img/vegetable.jpg" /></span>
+								<span class="listText"><h3 class="topH3">背单词</h3></span>
+								<span class="topH3 fr">16分</span>
+							</li>
+							<li class="listIconText">
+								<span class="lico"><i class="icon-topped third"></i></span>
+								<span class="listImg radius100 fl bGray"><img src="__SUBJECT__/img/top_img01.jpg" /></span>
+								<span class="listText"><h3 class="topH3">背单词</h3></span>
+								<span class="topH3 fr">16分</span>
+							</li>
+							<li class="listIconText">
+								<span class="lico"><i class="icon-other">4</i></span>
+								<span class="listImg radius100 fl bGray"><img src="__SUBJECT__/img/toux.jpg" /></span>
+								<span class="listText"><h3 class="topH3">背单词</h3></span>
+								<span class="topH3 fr">16分</span>
+							</li>	
+						</ul> -->
+					</div><!--end scroller-->
+				</div><!--end wrapper-->
+			</section>
+		</main>
+	<div id="over" class="over"></div>
+    <div id="layout" class="layout">
+        <img src="__SUBJECT__/img/2013112931.gif" alt="" />
+    </div>
+    <style>
+        .over {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f5f5f5;
+            opacity:0.5;
+            z-index: 1000;
+        }
+        .layout {
+            display: block;
+            position: absolute;
+            top: 40%;
+            left: 40%;
+            width: 20%;
+            height: 20%;
+            z-index: 1001;
+            text-align:center;
+        }
+    </style> 
+</body>
+<script type="text/javascript">
+    require.config({
+    　paths: {
+　　　　　　"classrank": "__SUBJECT__/js/classrank",
+            "iscroll":"__PUBLIC__/js/iscroll-lite",
+　　　　},
+        waitSeconds: 0
+    });
+    require(["classrank","iscroll"], function(classrank,IScroll){
+        var Requests = new Object();
+        Requests = GetRequest();
+        //初始化单词列表
+        classrank.initRankList("../User/getReciteWordClassRank",$("#scroller"));
+        perface();
+        //滑动问题
+        new IScroll("#wrapper",{
+            momentum:true,
+            click:true 
+        });
+        $("#wrapper").resize();
+        //返回按钮的事件
+        $(".head-left").click(function(){
+        	var Requests = new Object();
+        	Requests = GetRequest();
+	        window.location.href="../"+Requests["callBackUrl"]+"?ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"];
+        });
+    });
+	</script>	
+</html>

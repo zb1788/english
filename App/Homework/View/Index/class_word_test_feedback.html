@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <link href="__PUBLIC__/css/mui.min.css" rel="stylesheet"/>
+    <link href="__PUBLIC__/css/wszy.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/swiper/idangerous.swiper.css">
+    <link rel="stylesheet" href="__PUBLIC__/fonts/font-awesome/css/font-awesome.min.css">
+    <style type="text/css">
+    	body{background: #fcfcff;}
+      .ndis{display:none;}
+.zy-key a {
+    display: inline-block;
+    margin: 5px 10px 0 0;
+    width: 30%px;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    text-align: center;
+    font-size: 16px!important;
+}
+.zy-key a.btn_gray, .zy-key a.btn_gray:visited {
+    /* color: #11B962; */
+}
+.zy-key a {
+    display: inline-block;
+    margin: 0 30px 0 0;
+    width: 60px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    text-align: center;
+    font-size: 16px!important;
+}
+.zy-key a.btn_gray {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 12px;
+    display: inline-block;
+    padding: 0 10px;
+    margin-top:3px;
+    border-radius: 3px;
+    background-color: #efefef;
+}
+.zy-key a.btn_green {
+    color: #fff;
+}
+a.cur{
+  border-color: red;
+}
+
+.zy-key a.btn_green {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 12px;
+    color: #fff;
+    display: inline-block;
+    padding: 0 10px;
+    border-radius: 3px;
+    background-color: #23c973;
+}
+.zy-key a, .zy-key a.visited {
+    blr: expression(this.onFocus=this.blur());
+    outline: none;
+    text-decoration: none;
+    color: #555;
+}
+user agent stylesheeta:-webkit-any-link {
+    color: -webkit-link;
+    text-decoration: underline;
+    cursor: auto;
+}
+      .col-no{color:#bbb;}
+    </style>
+</head>
+<body id="word_test">
+	<div class="head01"><i class="fa fa-pencil-square-o fa-lg"></i><span>单词测试</span></div>
+	<h2 class="leix">
+        <b>单词个数<strong>{$wordtestcount}</strong>个</b>
+        <span class="yeqian"><strong id="pagenum">1</strong>/{$wordtestcountd}</span>
+  </h2>
+  <div id="iScroll" class="iScroll bWhite" style="display">
+    <!-- <span class="biaoti01 mar_t10"><s>单词测试</s></span> -->
+    	<span class="biaoti01 mar_t10"><s>背单词</s></span>
+      <div class="hd" style="display:none;">
+          <ul></ul>
+      </div>
+      <div class="bd" id="iScroll-bd">
+
+    <foreach name="wordtest" item="vo" key="k" >
+      <div class="wordtimu con">
+        <div>
+        <foreach name="vo" item="vc" key="kc" >
+          <if condition="$vc.typeid neq '2'">
+            <div class="pretimu" >
+              <div class="timu pa10 " typeid="{$vc.typeid}" quesid="{$vc.id}"  wordid="{$vc.wordid}" typeid="{$vc.typeid}">
+                  <if condition="$vc.typeid eq '0'">
+                    <h2>{$vc.explains}<span class='mp3play'><a class="edi-qiu03" mp3="{$vc.mp3}"><i class="fa fa-volume-up fa-2x" style="display:none;"></i></a></span></h2>
+                  </if>
+                  <if condition="$vc.typeid eq '1'">
+                    <h2>{$vc.word}<span class='mp3play'><a class="edi-qiu03" mp3="{$vc.mp3}"><i class="fa fa-volume-up fa-2x" style="display:none;"></i></a></span></h2>
+                  </if>
+                  <ul class="bdc">
+                      <li class="choose" type="2" quesid="{$vc.id}" answer="A" wordid="{$vc.wordid}"><a>A.</a>{$vc.option_a}</li>
+                      <li class="choose" type="2" quesid="{$vc.id}" answer="B" wordid="{$vc.wordid}"><a>B.</a>{$vc.option_b}</li>
+                      <li class="choose" type="2" quesid="{$vc.id}" answer="C" wordid="{$vc.wordid}"><a>C.</a>{$vc.option_c}</li>
+                  </ul>
+              </div>
+                <ul class="tlie pa10">
+                  <li><span class="fontblue">正确答案：</span>{$vc.answer}</li>
+                </ul>
+                  <span class="biaoti01"><s>做题分析</s></span>
+                  <div class="jiex">
+                     <h2>
+                       <span>作答人数：<strong><empty name="vc.perstu">0<else/>{$vc.perstu}</empty></strong>(人)</span>
+                       <span>正确率：<strong><empty name="vc.per"><else/></empty>{$vc["per"]}%</strong></span>
+                       <!-- <span> 错误率：<strong>{$vc["eper"]}%</strong>({$vc.eperstu}人)</span> -->
+                     </h2>
+                  </div>
+            </div>
+          </if>
+          <if condition="$vc.typeid eq '2'">
+            <div class="pretimu">
+              <div class="timu pa10 " typeid="{$vc.typeid}">
+                  <h2>{$vc.explains}<span class='mp3play'><a class="edi-qiu03" mp3="{$vc.mp3}"><i class="fa fa-volume-up fa-2x" style="display:none;"></i></a></span></h2>
+                  <div class="tixing paixuti">
+                    <div class="inputs mui-text-center" quesid="{$vc.id}" answer="A" wordid="{$vc.wordid}" typeid="{$vc.typeid}">
+                      {$vc.answer}
+                    </div>
+                      <div class="zy-key  mui-text-center">
+                         {$vc.option_a}
+                      </div>
+                 </div>
+              </div>
+                <ul class="tlie pa10">
+                  <li><span class="fontblue">正确答案：</span>{$vc.word}</li>
+                </ul>
+                  <span class="biaoti01"><s>做题分析</s></span>
+                  <div class="jiex">
+                     <h2>
+                       <span>作答人数：<strong><empty name="vc.perstu">0<else/>{$vc.perstu}</empty></strong>(人)</span>
+                       <span>正确率：<strong><empty name="vc.per"><else/></empty>{$vc["per"]}%</strong></span>
+                       <!-- <span> 错误率：<strong>{$vc["eper"]}%</strong>({$vc.eperstu}人)</span> -->
+                     </h2>
+                  </div>
+            </div>
+          </if>
+        </foreach>
+      </div>
+    </div>
+    </foreach>
+  </div>
+</div>
+    <div class="mb50"></div>
+    <div class="ddel">
+      <a class="last" style="width:50%;" id="prev">上一题</a>
+      <a class="next" style="border:0;" id="next">下一题</a>
+    </div>
+        <div id="jplayer"></div>
+</body>
+<script src="__PUBLIC__/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/hammer.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/mobile.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/mp3.js"></script>
+<script src="__PUBLIC__/js/TouchSlide.1.1.js"></script>
+<script>
+$("body").css("width",document.body.clientWidth);
+var homeworkid="{$homeworkid}";
+//定义教师预览的url以及学生做题的url
+var feedbackurl='class_homework_feedback?homeworkid={$homeworkid}&paper_id={$homeworkid}&homeworkId={$ilearid}&studentId={$username}&classId={$classid}&isOverdue={$isOverdue}&batched={$batchid}&source={$source}&backurl={$backurl}';
+//分页插件
+TouchSlide({
+  slideCell:"#iScroll",
+  titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+  autoPage:true, //自动分页
+  prevCell : '#prev',
+	nextCell : '#next',
+  pnLoop:false,
+  switchLoad:"_src",
+  defaultIndex:{$num},
+  endFun:function(i){ //高度自适应
+    $("#pagenum").text(i+1);
+    //页面元素初始化
+    if({$wordtestcountd}==1){
+      $(".last").text("第一题");
+      $(".next").addClass("col-no").text("完成");
+      $(".next").css("color","#bbb");
+    }
+    if((i+1)=={$wordtestcountd}){
+      $(".next").addClass("col-no").text("完成");
+      $(".next").css("color","#bbb");
+    }
+    if((i+1)<{$wordtestcountd}){
+      $(".next").removeClass("col-no").text("下一题");
+      $(".next").css("color","");
+      }
+    }
+});
+$(function(){
+  mui.init();
+  //返回按钮的单击事件
+  mui.back=function(){
+      mp.clear();
+      window.location.href=feedbackurl;
+  }
+  $(".mp3play").click(function(){
+    var mp3=$(this).find("a").attr("mp3");
+    mp.url="http://en.czbanbantong.com/yylmp3/mp3_word/";
+    //alert(mp.url+mp3);
+    mp.play(mp.url +  mp3);
+  });
+});
+function getindex(obj,attr){
+  var index=-1;
+  var reind=0;
+  $(obj).each(function(){
+    index=index+1;
+    if($(this).hasClass(attr)){
+      reind=index;
+    }
+  });
+  return reind;
+}
+
+</script>
+
+</html>

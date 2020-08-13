@@ -1,0 +1,85 @@
+<include file="Base/header"/>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="36">
+      <if condition="$classid eq 2">
+      <input name="按钮2" type="button" class="ext_btn ext_btn_submit" value="选择短文题" onclick="javascript:location.href='../Exam/exam_questions_select?flag={$flag}&amount={$amount}&classid={$classid}&paperid={$paperid}&questype={$questype}&examsid={$examsid}'" /> 
+      <else />
+      <input name="按钮" type="button" class="ext_btn ext_btn_submit" value="选择小题" onclick="javascript:location.href='../Exam/exam_questions_select?flag={$flag}&amount={$amount}&classid={$classid}&paperid={$paperid}&questype={$questype}&examsid={$examsid}'" />
+      </if>
+  </td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table">
+  <tr>
+    <th width="30" align="center">&nbsp;</th>
+    <th width="50">顺序</th>
+    <th width="500"><if condition="$classid eq 1">小题<else />短文题</if></th>
+    <th align="left">&nbsp;&nbsp;操&nbsp;作</th>
+  </tr>
+</table>
+<div class="h10"></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table" >
+  <tr>
+    <td align="right"><input type="button" name="button"  id="save" class="btn btn82 btn_save2" value="保存" />&nbsp;</td>
+    <td align="left">&nbsp;<input type="button" name="button" id="back" class="btn btn82 btn_save2" value="返回" /></td>
+  </tr>
+</table>
+<include file="Base/common"/>
+</body>
+<script type="text/javascript">
+var questype={$questype};
+$(function(){
+	//getUnitExamQuestionsList();
+	getQuestions("getUnitExamQuestionList","{$paperid}","{$classid}","{$flag}");
+	//修改按钮
+	$(".alert").live('click',function(){
+		var id=$(this).attr("bid");
+		if({$classid}==1){
+			editquestions(id,"base_questions_add",'1','0',"修改独立小题",{$paperid},{$questype},{$examsid},{$classid});
+		}else{
+			editquestions(id,"combine_questions_add",'1','2',"修改短文试题",{$paperid},{$questype},{$examsid},{$classid});
+		}
+	});
+	//删词单题
+	$(".ext_btn_error").live('click',function(){
+		var id=$(this).attr("bid");
+		art.dialog.alert("确定删除此单题吗？",function(){
+			$.getJSON("../Exam/delete_questions_list",{ran:Math.random(),id:id,flag:{$flag}},function(data){
+                art.dialog.tips("删除成功！");
+				getQuestions("getUnitExamQuestionList","{$paperid}","{$classid}","{$flag}");
+		});	
+		});
+	});
+	//查看小题按钮响应单击事件
+    $(".childquesedit").live('click',function(){
+  	  location.href='../Exam/child_questions_list?flag={$flag}&amount={$amount}&questype={$questype}&qid='+$(this).attr("bid")+"&classid={$classid}&paperid={$paperid}&id={$examsid}&gradeid={$gradeid}&termid={$termid}&unitid={$unitid}&versionid={$versionid}&complexity="+$(this).attr("complex");
+     });
+	//修改次序
+	$("#save").live('click',function(){
+	    var dloading = art.dialog({time:30,title:'更新中……',width:130,height:30,opacity:0.3,lock:true});  
+	    if($(".list_table tr.tr").length == 0)return;
+	    var arrjson =[];  
+	    $(".list_table").children("tbody").children("tr.tr").each(function(){
+	      var tr =$(this); 
+	      var id = tr.find('input[name="sortid"]').attr("BID");
+	      var sortid = tr.find('input[name="sortid"]').val(); 
+	      var obj = {};
+	      obj.id = id;
+	      obj.sortid = sortid;  
+	      arrjson.push(obj);       
+	    });
+	    $.get("../exam/listupExamsQuestions",{data:JSON.stringify(arrjson)},function(){
+	      getQuestions("getUnitExamQuestionList","{$paperid}","{$classid}","{$flag}");
+	      dloading.close();
+		  location.href="../exam/unitexam_questions?examsid={$examsid}&ran="+Math.random();
+	    });
+	});
+	//返回
+	$("#back").live('click',function(){
+	   location.href="../exam/unitexam_questions?examsid={$examsid}&ran="+Math.random();
+	});
+});
+</script>
+</html>

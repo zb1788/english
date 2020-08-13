@@ -1,0 +1,48 @@
+.tishiword{ border:1px solid #eee; background:#f7f7f7;  margin-left: 10px;margin-bottom: 10px; width:550px;}
+.tishiword dt{ text-align:center; width:160px; float:left;}
+.tishiword dd{ line-height:35px; color:#888; text-indent:2em; font-size:14px; margin-top:20px; padding-bottom:30px;}
+.tishiword dd a{ text-indent:0em;}
+html {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.w700 {width:700px; margin:0 auto;}
+.w900 {width:900px; margin:0 auto;}
+.w700 .listen dl dd{ width: 87%; }
+.w700 .listen dl dd.w15b ul li{width:120px; white-space:nowrap;word-wrap:normal;text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow:hidden;}
+
+.listen dl dd.w15b ul li label {color: #168acc}
+.listen dl ul.heng li label {color: #168acc}
+ul.duyin.gendu li img{ width: 50px; height: 50px; }
+ul.duyin_s li img {
+    width: 50px;
+    height: 50px;
+}
+.side_center ul li.error a {
+    display: block;
+    background: #F2092E;
+    color: #fff;
+}
+.roll{ position:relative; height:110px; overflow:hidden; padding:30px 0px 0px;}
+.over{ width:1080px; margin-left:40px; height:100px; overflow:hidden;  margin-bottom:10px;}
+.over-box{ width:9000px; margin:auto; height:100px; overflow:hidden; position:relative; }
+.row-number{ width:90px; margin:0px 5px 0px; background:#fff; position:relative; text-align:center; float:left;}
+.row-two{ border-radius:0 0 2px 2px ;height:80px; overflow:hidden; border:1px solid #efefef;}
+.row-two:hover{  border:1px solid #269bd7;}
+.row-blur{border:1px solid #ddd; }
+.row-two h3{ height:30px; font:bold 18px/30px Micorsoft YaHei; width:100%; overflow:hidden; color:#555;}
+.image-info{ background:#f8f8f8; height:35px;}
+.row-two .image{ border-top:2px solid #269bd7; position:absolute;bottom:0; font-size:15px; width:100%; height:45px; display:block; overflow:hidden; transition:0.4s; padding-top:3px; }
+.row-two .social-touch{ background:#1fb554; height:35px; width:100%; transition:0.3s; overflow:hidden; }
+.social-touch a{ color:#fff; font-size:14px; line-height:30px; display:inline-block; width:100%;}
+.rig-btn1{ position:absolute; left: 5px; top: 50px; background:url(../images/right1.png) no-repeat; background-position:0 -30px; height:30px; width:30px;  }
+.rig-btn1:hover{ background-position:0  0px;}
+.lef-btn2{ position:absolute; right: 5px; top: 50px;background:url(../images/right1.png) no-repeat; background-position:-30px -30px; height:30px; width:30px;  }
+.lef-btn2:hover{ background-position:-30px  0px;}
+.w-red{ color:#C30105;}
+.w-yellow{ color:#ff8d00;}
+.w-green{color:#08A68D;}
+.w-gray { color: #ccc !important;}
+.bg-green{border:2px solid #269bd7; }
+
+.bg-w-green{background: #269bd7;color: #fff }

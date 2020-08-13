@@ -1,0 +1,475 @@
+<foreach name="paper_infos" item="paper_info" key="k" > <!--循环一套试卷的每个大题开始-->		
+	<eq name = "paper_info.classid" value="1"><!--大题的题干是独立大题-->
+		<div id='paper-part-{$k}' class='section-part'>
+			<div class='part-header'>
+				<form class='form-inline part-name-wrap'>
+					<div class='form-group'>
+						<label class="partm">第{$k+1}部分：</label>
+							<input  class='form-control form-input part-name' placeholder='部分名称' type='text' value="{$paper_info.zhushi.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}" bid="{$paper_info.papersort}" partid="{$paper_info.zhushi.id}">
+					</div>
+					<a class='btn btn-default btn-remove-part pull-right' bid='{$paper_info.id}' examsid="{$examsid}">删除该部分</a>
+				</form>
+				<form class='form mt10 w'>
+					<div>
+						<textarea  class='form-control form-input paper-desc mb10' placeholder='部分答题说明，该信息考生可见（选填）' >{$paper_info.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}</textarea>
+					</div>
+				</form>
+			</div>
+			<div class='part-questions-container mt30'>
+				<div style='height: 51px;' class='pin-wrapper'>
+					<div style='width: 849px;height:40px;' class='part-questions-toolbar unselectable'>
+						<ul class='list-inline inline-block'>
+						</ul> 
+						<ul class='list-inline pull-right'>
+							<li>声音：
+								<span class='text-golden-yellow'>
+									<select class="select">
+										<option value="1" <if condition="$paper_info.tvoiceid eq 1">selected</if>>中男Liang</option>
+										<option value="2" <if condition="$paper_info.tvoiceid eq 2">selected</if>>中女Hui</option>
+									</select>
+								</span>
+							</li>
+							<li>次数：
+								<span class='text-golden-yellow'><input class='form-control form-input input-point repeate'  type='text' value="{$paper_info.readtimes}"></span>
+								<span class='text-medium-gray ml5'>遍</span>
+							</li>
+							<li>停顿时间：
+								<span class='text-golden-yellow'><input class='form-control form-input input-point stoptime'  type='text' value="{$paper_info.astoptime}"></span>
+								<span class='text-medium-gray ml5'>秒</span>
+							</li>
+							<li>单题分值：
+							<span class='text-golden-yellow'><input class='form-control form-input input-point qscore'  type='text' value="{$paper_info.quescore}"></span>
+							<span class='text-medium-gray ml5'>分</span>
+							</li>
+							<li>
+								<a class='btn btn-success btn-sm btn-add-questions' bid="{$paper_info.id}" examsid="{$examsid}">
+								<i class='fa fa-plus'></i> 添加题目
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<ul  class='part-question-list q-list'>
+<!-- 				<p>该部分下还没有试题，请从这里添加 <i class='fa fa-hand-o-up'></i></p> -->
+				<div class='cb'>
+							<foreach name ="paper_info.que_info" item="que" key="quekey"><!--循环每个大题里的小题开始-->
+								<eq name = "que.classid" value="1"><!--如果这个小题是独立题型开始-->
+									<eq name = "que.examdaid" value="1"><!--如果这个小题是选择题-->
+										<div class="que showanswer showtl" typeid="1" queid="{$que.id}" tlid="{$que.id}" score="{$que.score}" mp3url="{$que.mp3}" parentid="{$paper_info.id}">
+											<eq name = "que.itemtype" value="1"><!--如果这个选择题的选项是文字-->
+												<dl class="ti_xuanze">
+											<else /><!--如果这个选择题的选项是图片-->
+												<dl class="ti_xuanze ti_tupian">
+											</eq>
+													<neq name="que.tcontent" value=""> <!--如果这个选择题有题干-->
+														<dt>
+															{$quekey+1}.{$que.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}
+																<ul class='list-inline inline-block' style="float:right;">
+																		<li class=''>
+																			<div class='btn-group'>
+																				<a class='btn btn-default btn-sm baseedit' bid="{$que.id}" examsid="{$examsid}">
+																					<i class='fa fa-arrow-up'></i> 编辑
+																				</a>
+																			</div>
+																		</li>
+																		<li class=''>
+																		<a class='btn btn-default btn-sm basedel' data-action='remove' bid="{$que.id}" examsid="{$examsid}">
+																		<i class='fa fa-trash'></i> 删除
+																		</a>
+																		</li>
+																</ul>
+														</dt>
+
+													<else /><!--如果这个选择题没有题干-->
+														<b>{$quekey+1}.</b>
+														<ul class='list-inline inline-block' style="float:right;">
+															<li class=''>
+																<div class='btn-group'>
+																	<a class='btn btn-default btn-sm baseedit' bid="{$que.id}" examsid="{$examsid}">
+																		<i class='fa fa-arrow-up'></i> 编辑
+																	</a>
+																</div>
+															</li>
+															<li class=''>
+																<a class='btn btn-default btn-sm basedel' data-action='remove' bid="{$que.id}" examsid="{$examsid}">
+																<i class='fa fa-trash'></i> 删除
+																</a>
+															</li>
+														</ul>
+													</neq>
+													<volist name ="que.answer" id="ans" key="anskey">
+														<foreach name ="que.items" item="items" key="itemkey"><!--循环这个选择题下的选项-->
+															<eq name = "que.itemtype" value="1"><!--如果这个选择题的选项是文字-->
+																<dd><input name="{$que.id}" type="radio" value="{$items.content}  {$ans.answer}" <eq name="items.content" value="$ans.answer">checked</eq>/>{$items.flag}.<span>{$items.content|str_replace='<p>','',###|str_replace='</p>','',###}</span></dd>
+															<else /><!--如果这个选择题的选项是图片-->
+																<dd><img src="/uploads/{$items.content}"><span><input name="{$que.id}" type="radio" value="{$items.content}" <if condition="$paper_infos[$k][que_info][$quekey][answer][0][answer] eq $items.content">checked</if>>{$items.flag}</span></dd>
+															</eq>
+													    </foreach>
+													</volist>  <!--循环这个选择题下的选项结束-->
+													<!-- <div style="display:block;">
+														<h1>答案:</h1>
+														<volist name ="que.answer" id="ans" key="anskey">
+															<span>({$anskey}).{$ans.answer}</span>
+														</volist>
+													</div> -->
+												</dl>
+
+
+										</div>
+										
+									    <div class="clearfix"></div>
+									    
+
+									</eq><!--如果这个小题选择题结束-->
+									<eq name = "que.examdaid" value="2"><!--如果这个小题是填空题-->
+										<ul class='list-inline inline-block' style="float:right;">
+												<li class=''>
+													<div class='btn-group'>
+														<a class='btn btn-default btn-sm baseedit' bid="{$que.id}" examsid="{$examsid}">
+															<i class='fa fa-arrow-up'></i> 编辑
+														</a>
+													</div>
+												</li>
+												<li class=''>
+												<a class='btn btn-default btn-sm basedel' data-action='remove' bid="{$que.id}" examsid="{$examsid}">
+												<i class='fa fa-trash'></i> 删除
+												</a>
+												</li>
+										</ul>
+										<div class="que showanswer showtl" typeid="2" queid="{$que.id}" tlid="{$que.id}" score="{$que.score}" mp3url="{$que.mp3}" parentid="{$paper_info.id}">
+
+											<ul class="ti_tiankong">
+											<li><b>{$quekey+1}.</b>{$que.tcontent|str_replace='<p>','',###|str_replace='</p>','',###|preg_replace="[##.*?##]","<input type='text'>",###}</li>
+											</ul>
+											<div class="clearfix"></div>
+											</br></br>
+											<div style="display:block;">
+												<h1>答案:</h1>
+												<volist name ="que.answer" id="ans" key="anskey">
+													<span>({$anskey}).{$ans.answer}</span>
+												</volist>
+											</div>
+										</div>
+									</eq><!--如果这个小题是填空题结束-->
+									<eq name = "que.examdaid" value="3"><!--如果这个小题是判断题-->
+										<ul class='list-inline inline-block' style="float:right;">
+											<li class=''>
+												<div class='btn-group'>
+													<a class='btn btn-default btn-sm baseedit' bid="{$que.id}" examsid="{$examsid}">
+														<i class='fa fa-arrow-up'></i> 编辑
+													</a>
+												</div>
+											</li>
+											<li class=''>
+												<a class='btn btn-default btn-sm basedel' data-action='remove' bid="{$que.id}" examsid="{$examsid}">
+												<i class='fa fa-trash'></i> 删除
+												</a>
+											</li>
+										</ul>
+										<div class="que showanswer showtl" typeid="3" queid="{$que.id}" tlid="{$que.id}" score="{$que.score}" mp3url="{$que.mp3}" parentid="{$paper_info.id}">
+										<ul class="ti_panduan">
+											<volist name ="que.answer" id="ans" key="anskey">
+												<li><b>{$quekey+1}.</b>{$que.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}<span><input name="{$que.id}" type="radio" value="1" <if condition="$ans.answer eq 1">checked</if>>√</span><span><input name="{$que.id}" type="radio" value="0" <if condition="$ans.answer eq 0">checked</if>>×</span></li>
+											</volist>
+											
+										</ul>
+										<div class="clearfix"></div>
+										<!-- <div style="display:block;">
+											<h1>答案:</h1>
+											<volist name ="que.answer" id="ans" key="anskey">
+												<span>({$anskey}).{$ans.answer}</span>
+											</volist>
+										</div> -->
+										</div>
+									</eq><!--如果这个小题是判断题结束-->
+									<eq name = "que.examdaid" value="4"><!--如果这个小题是排序题-->
+										<div class="que showanswer showtl" typeid="4" queid="{$que.id}" tlid="{$que.id}" score="{$que.score}" mp3url="{$que.mp3}" parentid="{$paper_info.id}">
+											<ul class="ti_list">
+												<volist name="que.items" id="items" key="itemkey"><!--循环这个选择题下的选项-->
+												<eq name = "que.itemtype" value="1">
+												<li>{$items.flag}.{$items.content}</li>
+												<else />
+												<li>{$items.flag}.<img src="/uploads/{$items.content}"/></li>
+												</eq>
+												</volist>
+											</ul>
+											<div class="clearfix"></div>
+											<ul class="ti_paixu">
+												<volist name="que.items" id="items" key="itemkey"><!--循环这个选择题下的选项-->
+												<li>{$itemkey}.<input type="text" name="{$que.id}"></li>
+												</volist>
+											</ul>
+										</div>
+										<div class="clearfix"></div>
+										</br></br>
+										<div style="display:block;">
+											<h1>答案:</h1>
+											<volist name ="que.answer" id="ans" key="anskey">
+												<span>({$anskey}).{$ans.answer}</span>
+											</volist>
+										</div>
+								    </eq><!--如果这个小题是排序题结束-->
+								</eq><!--如果这个小题是独立题型结束-->
+					        </foreach><!--循环每个大题里的小题结束-->
+						</div>
+				</ul>
+			</div>
+		</div>
+	</eq><!--大题的题干是独立题-->
+	<eq name = "paper_info.classid" value="2"><!--大题的题干短文大题-->
+<div id='paper-part-{$k}' class='section-part'>
+	<div class='part-header'>
+		<form class='form-inline part-name-wrap'>
+			<div class='form-group'>
+				<label class="partm">第{$k+1}部分：</label>
+				<input  class='form-control form-input part-name' placeholder='部分名称' type='text' value="{$paper_info.zhushi.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}" bid="{$paper_info.papersort}" partid="{$paper_info.zhushi.id}">
+			</div>
+			<a class='btn btn-default btn-remove-part pull-right'  bid='{$paper_info.id}' examsid="{$examsid}">删除该部分</a>
+		</form>
+		<form class='form mt10 w'>
+			<div>
+			<textarea  class='form-control form-input paper-desc mb10' placeholder='部分答题说明，该信息考生可见（选填）' >{$paper_info.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}</textarea>
+			</div>
+		</form>
+	</div>
+	<div class='part-questions-container mt30'>
+		<div style='height: 51px;' class='pin-wrapper'>
+			<div style='width: 849px;height:40px;' class='part-questions-toolbar unselectable'>
+				<ul class='list-inline pull-right'>
+					<li>声音：
+						<span class='text-golden-yellow'>
+							<select class="select">
+								<option value="1" <if condition="$paper_info.tvoiceid eq 1">selected</if>>中男Liang</option>
+								<option value="2" <if condition="$paper_info.tvoiceid eq 2">selected</if>>中女Hui</option>
+							</select>
+						</span>
+					</li>
+					<li>次数：
+						<span class='text-golden-yellow'><input class='form-control form-input input-point repeate'  type='text' value="{$paper_info.readtimes}"></span>
+						<span class='text-medium-gray ml5'>遍</span>
+					</li>
+					<li>停顿时间：
+						<span class='text-golden-yellow'><input class='form-control form-input input-point stoptime'  type='text' value="{$paper_info.astoptime}"></span>
+						<span class='text-medium-gray ml5'>秒</span>
+					</li>
+					<li>单题分值：
+					<span class='text-golden-yellow'><input class='form-control form-input input-point qscore'  type='text' value="{$paper_info.quescore}"></span>
+					<span class='text-medium-gray ml5'>分</span>
+					</li>
+					<li>
+						<a class='btn btn-success btn-sm btn-add-questions' bid="{$paper_info.id}" examsid="{$examsid}">
+						<i class='fa fa-plus'></i> 添加题目
+						</a>
+					</li>
+				</ul>
+			</div>
+	</div>
+	<ul  class='part-question-list q-list'>
+	<!-- 				<p>该部分下还没有试题，请从这里添加 <i class='fa fa-hand-o-up'></i></p> -->
+		<div class='cb'>
+		<foreach name ="paper_info.que_info" item="que" key="quekey">
+			<div class="showtl que" tlid="{$que.id}" mp3url="{$que.mp3}" parentid="{$paper_info.id}">
+			<neq name="que.tcontent" value="">
+				<h3 class="que">
+					{$quekey+1}.{$que.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}
+					<ul class='list-inline inline-block' style="float:right;">
+						<li class=''>
+							<a class='btn btn-default btn-sm combineedit' bid="{$que.id}" examsid="{$examsid}">
+							<i class='fa fa-trash'></i> 编辑
+							</a>
+						</li>
+						<li class=''>
+							<a class='btn btn-default btn-sm combinedel' bid="{$que.id}" examsid="{$examsid}">
+							<i class='fa fa-trash'></i> 删除
+							</a>
+						</li>
+						<li class=''>
+							<div class='btn-group'>
+								<a class='btn btn-default btn-sm combinechildadd' bid="{$que.id}" examsid="{$examsid}">
+									<i class='fa fa-arrow-up'></i> 添加小题
+								</a>
+							</div>
+						</li>
+				    </ul>
+				</h3>	
+			<else/>
+				<h3 class="que">
+						<ul class='list-inline inline-block' style="float:right;">
+							<li class=''>
+								<a class='btn btn-default btn-sm combineedit' bid="{$que.id}" examsid="{$examsid}">
+								<i class='fa fa-trash'></i> 编辑
+								</a>
+							</li>
+							<li class=''>
+								<a class='btn btn-default btn-sm combinedel' bid="{$que.id}" examsid="{$examsid}">
+								<i class='fa fa-trash'></i> 删除
+								</a>
+							</li>
+							<li class=''>
+								<div class='btn-group'>
+									<a class='btn btn-default btn-sm combinechildadd' bid="{$que.id}" examsid="{$examsid}">
+										<i class='fa fa-arrow-up'></i> 添加小题
+									</a>
+								</div>
+							</li>
+					    </ul>
+					</h3>
+					<br/>
+
+			 </neq>
+				<foreach name ="que.duanwen_info" item="quedw" key="quedwkey">
+					<!--循环这个短文题下的所有小题-->
+					<eq name = "quedw.examdaid" value="1"><!--如果这个小题是选择题-->
+						<div class="showanswer" typeid="1" queid="{$quedw.id}" score="{$quedw.score}" style="margin-top:30px">
+							<eq name = "quedw.itemtype" value="1"><!--如果这个选择题的选项是文字-->
+								<dl class="ti_xuanze">
+								<else />
+								<dl class="ti_xuanze ti_tupian"><!--如果这个选择题的选项是图片-->
+							</eq>
+							<li class='' style="float:right;margin-right:0px;">
+										<div class='btn-group'>
+											<a class='btn btn-default btn-sm combinechildedit' bid="{$quedw.id}" examsid="{$examsid}">
+												<i class='fa fa-arrow-up'></i> 编辑
+											</a>
+											<a class='btn btn-default btn-sm combinechilddel' style="margin-left:5px;" bid="{$quedw.id}" examsid="{$examsid}">
+												<i class='fa fa-arrow-down' ></i> 删除
+											</a>
+										</div>
+									</li>
+								<eq name="que.tcontent" value="">
+									
+									<neq name="quedw.tcontent" value=""> <!--如果这个选择题有题干-->
+									<dt>{$quedwkey+1}.{$quedw.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}</dt>
+			 						<else />						
+			                         <b>{$quedwkey+1}.</b>
+									</neq>
+								<else />
+								    <!--<b>{$quedwkey+1}.</b>-->
+									<neq name="quedw.tcontent" value=""> <!--如果这个选择题有题干-->
+										<dt> <font style="">({$quedwkey+1})</font>{$quedw.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}</dt>
+			 						<else /><!--如果这个选择题没有题干-->
+										<b>({$quedwkey+1})</b>
+			 -->					</neq>
+							    </eq>
+							    <volist name ="quedw.answer" id="ans" key="anskey">
+									<volist name="quedw.items" id="dwitems" key="dwitemkey"><!--循环这个选择题下的选项-->
+										<eq name = "quedw.itemtype" value="1"><!--如果这个选择题的选项是文字-->
+											<dd><input name="{$quedw.id}" type="radio" value="{$dwitems.content}" <eq name="dwitems.content" value="$ans.answer">checked</eq>>{$dwitems.flag}.<span>{$dwitems.content|str_replace='<p>','',###|str_replace='</p>','',###}</span></dd>
+										<else /><!--如果这个选择题的选项是图片-->
+											<dd><img src="/uploads/{$dwitems.content}"><span><input name="{$quedw.id}" type="radio" value="{$dwitems.content}"<eq name="dwitems.content" value="$ans.answer">checked</eq>>{$dwitems.flag}</span></dd>
+										</eq>
+									</volist>
+								</volist>
+								
+						   </dl>
+						</div>
+					    <div class="clearfix"></div>
+						<!-- <div style="display:block;">
+							<h1>答案:</h1>
+							<volist name ="quedw.answer" id="ans" key="anskey">
+								<span>({$anskey}).{$ans.answer}</span>
+							</volist>
+						</div> -->
+					</eq><!--如果这个小题是选择题结束-->
+					<eq name = "quedw.examdaid" value="2"><!--如果这个小题是填空题-->
+					<div class="showanswer" typeid="2" queid="{$quedw.id}" score="{$quedw.score}" style="margin-top:30px">
+						<li class='' style="float:right;margin-right:0px;">
+										<div class='btn-group'>
+											<a class='btn btn-default btn-sm combinechildedit' bid="{$quedw.id}" examsid="{$examsid}">
+												<i class='fa fa-arrow-up'></i> 编辑
+											</a>
+											<a class='btn btn-default btn-sm combinechilddel' style="margin-left:5px;" bid="{$quedw.id}" examsid="{$examsid}">
+												<i class='fa fa-arrow-down' ></i> 删除
+											</a>
+										</div>
+									</li>
+					<ul class="ti_tiankong word">
+					<li>{$quedwkey+1}.{$quedw.tcontent|str_replace='<p>','',###|str_replace='</p>','',###|preg_replace="[##.*?##]","<input type='text'>",###}</li>
+					</ul>
+					</div>
+					<div class="clearfix"></div>
+					</br></br>
+						<div style="display:block;">
+							<h1>答案:</h1>
+							<volist name ="quedw.answer" id="ans" key="anskey">
+								<span>({$anskey}).{$ans.answer}</span>
+							</volist>
+						</div>
+					</eq><!--如果这个小题是填空题结束-->
+					<eq name = "quedw.examdaid" value="3"><!--如果这个小题是判断题-->
+					<div class="showanswer" typeid="3" queid="{$quedw.id}" score="{$quedw.score}">
+						<li class='' style="float:right;margin-right:0px;">
+										<div class='btn-group'>
+											<a class='btn btn-default btn-sm combinechildedit' bid="{$quedw.id}" examsid="{$examsid}">
+												<i class='fa fa-arrow-up'></i> 编辑
+											</a>
+											<a class='btn btn-default btn-sm combinechilddel' style="margin-left:5px;" bid="{$quedw.id}" examsid="{$examsid}">
+												<i class='fa fa-arrow-down' ></i> 删除
+											</a>
+										</div>
+									</li>
+					<ul class="ti_panduan">
+						<volist name ="quedw.answer" id="ans" key="anskey">
+							<li>{$quedwkey+1}.{$quedw.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}<span><input name="{$quedw.id}" type="radio" value="1" <if condition="$ans.answer eq 1">checked</if>>√</span><span><input name="{$quedw.id}" type="radio" value="0" <if condition="$ans.answer eq 0">checked</if>>×</span></li>
+					    </volist>
+					</ul>
+					</div>
+					<div class="clearfix"></div>
+						<!-- <div style="display:block;">
+							<h1>答案:</h1>
+							<volist name ="quedw.answer" id="ans" key="anskey">
+								<span>({$anskey}).{$ans.answer}</span>
+							</volist>
+						</div> -->			
+					</eq><!--如果这个小题是判断题结束-->
+					<eq name = "quedw.examdaid" value="4"><!--如果这个小题是排序题-->
+					<div class="showanswer" typeid="4" queid="{$quedw.id}" score="{$quedw.score}">
+						<li class='' style="float:right;margin-right:0px;">
+										<div class='btn-group'>
+											<a class='btn btn-default btn-sm combinechildedit' bid="{$quedw.id}" examsid="{$examsid}">
+												<i class='fa fa-arrow-up'></i> 编辑
+											</a>
+											<a class='btn btn-default btn-sm combinechilddel' style="margin-left:5px;" bid="{$quedw.id}" examsid="{$examsid}">
+												<i class='fa fa-arrow-down' ></i> 删除
+											</a>
+										</div>
+									</li>
+					<ul class="ti_list">
+
+					<volist name="quedw.items" id="dwitems" key="dwitemkey"><!--循环这个选择题下的选项-->
+					<eq name = "quedw.itemtype" value="1">
+					<li>{$dwitems.flag}.{$dwitems.content}</li>
+					<else />
+					<li>{$dwitems.flag}.<img src="/uploads/{$dwitems.content}"/></li>
+					</eq>
+					</volist>
+					</ul>
+
+					<div class="clearfix"></div>
+					<ul class="ti_paixu">
+					<volist name="quedw.items" id="dwitems" key="dwitemkey"><!--循环这个选择题下的选项-->
+					<li>{$dwitemkey}.<input type="text" name="{$quedw.id}"></li>
+					</volist>
+					</ul>
+					</div>
+					<div class="clearfix"></div>
+					</br></br>
+						<div style="display:block;">
+							<h1>答案:</h1>
+							<volist name ="quedw.answer" id="ans" key="anskey">
+								<span>({$anskey}).{$ans.answer}</span>
+							</volist>
+						</div>
+					</eq><!--如果这个小题是排序题结束-->
+				</foreach>
+		</div>
+		</foreach>
+	</div>
+	</ul>
+	</div>
+</div>
+		</eq>
+		
+</foreach><!--循环一套试卷的每个大题结束-->
+
+

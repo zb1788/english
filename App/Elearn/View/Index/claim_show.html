@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="wap-font-scale" content="no">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="__ELEARN__css/weike.css" />
+		<link rel="stylesheet" href="__ELEARN__font/fonts.css" />
+		<script type="text/javascript" src="__PUBLIC__/js/require.js" data-main="__ELEARN__/js/main" ></script>
+</head>
+<body>
+<div id="over" class="over"></div>
+	    <div id="layout" class="layout">
+	    <img src="__ELEARN__/images/layout.gif" alt="" />
+</div>
+<section>
+	<header class="head border-nav">
+			<a class="head-left" href="course_show?app_id={$app_id}&course_id={$course_id}
+				&title={$title}&backUrl={$backUrl}"><i class="icon-back"></i>返回</a>
+			<h1 class="title">{$claimtitle}</h1>
+					</header>
+<div class="mT45 pad10 backGfff">
+	 <!-- <h1 class="textH1">关于2017年第五批申请勘察设计注册工程师初始注册审查意见的公示</h1>
+     <h2 class="textH2 afterBorder"><label>2017年</label>,<label>勘察设计</label></h2> -->
+<!--     <h3 class="textP2">关于2017年第五批申请勘察设计注册工程师初始注册审查意见关于2017年第五批申请勘察设计注册工程师初始注册审查意见关于2017年第五批申请勘察设计注册工程师初始注册审查意见</h3>
+-->   
+{$content}
+     
+
+</div>
+</section>
+</body>
+</html>
+<script type="text/javascript">
+require(['zepto.min','enElearn'],function($){
+	$(function(){
+		hideloading();
+		
+	});
+
+});
+</script>

@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>背景分类管理</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<link href="/Public/Manager/js/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="/Public/Manager/js/uploadify/jquery.uploadify.min.js"></script>
+</head>
+<body>
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+	<tr>
+		<td>
+			<input type="button" id="add" value="添加类型" class="ext_btn ext_btn_submit"/>
+		</td>
+	</tr>
+</table>
+<div class="h5"></div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+  <tr>
+    <th>名称</th>
+    <th width="100">类型</th>
+    <th>颜色</th>
+    <th width="120">操作</th>
+  </tr>
+
+</table>
+
+<table style="display:none" id="table_demo">
+  <tr class="tr">
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="center">
+      <input type="button" name="edit" class="ext_btn ext_btn_error" value="修改" />
+      <input type="button" name="del" class="ext_btn ext_btn_error" value="删除" />
+    </td>
+  </tr>
+</table>
+</div>
+
+
+
+
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+    pagelist();
+})
+//添加背景
+$('#add').click(function(){
+	$.dialog.open('addtypeinfo?type=add',{
+		padding:0,
+		title:'添加类型',
+		width:300,
+        height:170,
+		lock:true,
+		opacity: 0.2,
+		ok:function(){
+            var iframe = this.iframe.contentWindow;
+            var re = iframe.savedata();//调用窗口的方法
+            if(re==false){
+                art.dialog.alert('添加失败！');
+            }else{
+                pagelist();
+            }
+            return re;
+		},
+		cancelVal: '关闭',
+   		cancel: true
+
+	});
+});
+
+
+function pagelist(){
+    $.get('../Kewen/gettypeinfos',{ran:Math.random()},function(data){
+        $('.list_table tr:not(:first)').remove();
+        $.each(data,function(k,v){
+            var tr=$('#table_demo').children('tbody').children('tr').eq(0).clone();
+            tr.children('td').eq(0).html(v.name);
+            tr.children('td').eq(1).html(v.type==1?'字':'词');
+            var colorinfo;
+            if(v.color == 1){
+                colorinfo = '绿色';
+            }else if(v.color == 2){
+                colorinfo = '蓝色';
+            }else{
+                colorinfo = '无';
+            }
+            tr.children('td').eq(2).html(colorinfo);
+            tr.find('input').attr('bid',v.id);
+            if(v.id<4){
+                tr.find('input').remove();
+            }
+            tr.appendTo('.list_table');
+        });
+    });
+}
+
+//修改背景
+$('input[name="edit"]').live('click',function(){
+    var id = $(this).attr('bid');
+    $.dialog.open('addtypeinfo?type=edit&id='+id,{
+        padding:0,
+        title:'修改类型',
+        width:300,
+        height:170,
+        lock:true,
+        opacity: 0.2,
+        ok:function(){
+            var iframe = this.iframe.contentWindow;
+            var re = iframe.savedata();//调用窗口的方法
+            if(re==false){
+                art.dialog.alert('修改失败！');
+            }
+            pagelist();
+            return re;
+        },
+        cancelVal: '关闭',
+        cancel: true
+
+    });
+});
+//删除背景
+$('input[name="del"]').live('click',function(){
+	var id=$(this).attr('bid');
+	var aa=$(this).parent().parent();
+	//alert($(this).parent().parent().html());return false;
+	$.get('../kewen/deltype',{ran:Math.random(),id:id},function(data){
+		if(data=='ok'){
+			$(aa).remove();
+		}else{
+			art.dialog.alert('正在使用，无法删除！');
+            return false;
+		}
+
+	});
+});
+
+</script>

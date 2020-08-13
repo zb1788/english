@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="/public/Mobile//css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="/public/Mobile//css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<header bid="0001040304030c">
+    <div class="l fl"><a href="/mobile/wordrecite/index"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">背单词</div>
+    	<div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+                <!-- <li><a href="/mobile/index/wordbook"><i class="icon-heart"></i><font class="wordcount">0</font></a></li>
+                <li><a href="/mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount">0</font></a></li> -->
+                <li><a href="/mobile/index/index"><i class="icon-evil"></i>学习中心</a></li>
+				<li><a href="/mobile/index/course"><i class="icon-pencil-square"></i><b>课程设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<section class="recite" id="0" wid="15516" >
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="15516" mid="240060528FC08362AB56B21E03B25B05.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>arm</span><span>[ɑːm]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="1" onclick="recite(this);">
+                        A.
+                                                arm<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                faster<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                eating<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        fairest<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="en.czbanbantong.com:8081/yylmp3/pic_word/161f41f5f38f353bc10e228c857a7b41.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>arm</span><span>[ɑːm]</span><span>n.手臂，胳膊</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="1" wid="15517" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="15517" mid="A14AA626F88E664CA7B1C7F2E0B587E2.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >hand</span><span>[hænd]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="en.czbanbantong.com:8081/yylmp3/pic_word/7909b84a9facc0accd99c2975ab48750.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="en.czbanbantong.com:8081/yylmp3/pic_word/20170901035238815209.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="en.czbanbantong.com:8081/yylmp3/pic_word/20170904021528464306.jpg" src="/public/Mobile//images/loading.gif"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img class="choiceimg" _src="en.czbanbantong.com:8081/yylmp3/pic_word/20170901092405567083.jpg" src="/public/Mobile//images/loading.gif"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="en.czbanbantong.com:8081/yylmp3/pic_word/7909b84a9facc0accd99c2975ab48750.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>hand</span><span>[hænd]</span><span>n.手；指针</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="2" wid="15518" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="15518" mid="8E5F3783ED7423ED0BD33D385752E94E.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>head</span><span>[hed]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                Roy<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                rough<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                rotten<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                         D.                        head<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="en.czbanbantong.com:8081/yylmp3/pic_word/3a856cbc6aedcabe72f21ac4c2b32728.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>head</span><span>[hed]</span><span>n.头部；头脑；顶端；领袖；硬币的正面</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="3" wid="15519" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="15519" mid="D61B3A9D0CA3C358BD28FCD3AA2D371E.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>body</span><span>['bɒdɪ]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                all<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                agriculture<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        C.
+                                                body<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        ago<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="en.czbanbantong.com:8081/yylmp3/pic_word/20150908093836302368.png"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>body</span><span>['bɒdɪ]</span><span>n.身体</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="4" wid="15520" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="15520" mid="63844552224E1A1C42187BAFF3864919.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >leg</span><span>[leɡ]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                全球的，全球性的<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                粘合；似胶般固着于<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        C.
+                                                腿<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        荣誉，光荣；赞美<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="en.czbanbantong.com:8081/yylmp3/pic_word/b3b8d477f0849b357d73a87a2f781f5d.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>leg</span><span>[leɡ]</span><span>n.腿</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="5" wid="15521" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="15521" mid="17C1FA7D656BCA32D82AF4559B964598.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>foot</span><span>[fʊt]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                Georgia<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                gentleman<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        C.
+                                                foot<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        gently<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img class="wordimg" _src="en.czbanbantong.com:8081/yylmp3/pic_word/4148f7f5281860725b831151af3fea78.jpg"  src="/public/Mobile//images/loading.gif"/></p>
+        <p><span>foot</span><span>[fʊt]</span><span>n.脚；足；英尺</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section>
+<section class="tips bLine" style="display:none;">
+    <p><img src="/public/Mobile//images/trophy.png"></p>
+    <p class="txt"></p>
+</section>  
+<section class="tips bLine" style="display:none;">
+    <h3 class="pad10 bGray">错误率最高的单词</h3>
+    <ul class="listTxt">
+        <!-- <li>vegetable<span>错误3次</span></li>
+        <li>pen<span>错误3次</span></li>
+        <li>white<span>错误3次</span></li>
+        <li>orange<span>错误3次</span></li> -->
+    </ul>
+	<a  class="btn bPink">恭喜您将所有的单词消灭</a>
+	    	
+</section>
+<div id="jplayer"></div> 
+
+<script src="/public/Mobile//js/jquery.min.js" type="text/javascript"></script>  
+<script src="/public/Mobile//js/main.js" type="text/javascript"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.cookie.js"></script>
+
+<script type="text/javascript"> 
+mp = new Mplay();
+var unitid="0001040304030c";
+var wordlen=$(".recite").length;
+var errword={};
+var index=0;
+mp.url = "en.czbanbantong.com:8081/yylmp3/mp3_word/";
+var wordbcount=parseInt();
+var recordcount=parseInt();
+$(function() {
+  $.ajaxSetup({async:false});
+    $(".dropdown a:eq(0) .wordcount").text($.cookie("engm_wordbook_count"));
+    $(".dropdown a:eq(1) .recordcount").text($.cookie("engm_record_count"));
+  $(".recite").hide();
+  $(".recite:eq("+index+")").show();
+  try{
+      $(".recite:eq("+index+")").find(".choiceimg").each(function(key,value){
+        var imgsrc=$(this).attr("_src");
+        $(this).attr("src",imgsrc);
+      });
+    }catch(e){
+      console.log(e);
+    }
+  //alert($(".recite:eq("+index+") .wb.bWhite a").attr("mid"));
+  //$(".recite:eq("+index+") .wb.bWhite a").click();
+  //js播放第一个单词电脑可以实现但是手机不能实现
+  mp.clear();
+  var mp3=$(".recite:eq("+index+") .wb.bWhite a").attr("mid");
+  mp.play(mp.url+mp3);
+  //prompt('',mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+  //alert("fasdfasd");
+  //$(".wb.bWhite a").click();
+  // $(".wb.bWhite a").click(function(){
+  //    var mp3=$(this).attr("mid");
+  //    mp.play(mp.url+mp3);
+  // });
+
+  
+  //$('.recite ul:not(:first) li').live('click',function(){
+  // $(".recite ul:not(:first) li").live("click",function(){alert("ok");});
+  //$(".recite li").live("click",function(){alert("ok");});
+
+  //背单词 当单词正确的时候就直接进行下一个单词
+  //$(document).on('click', '.recite ul:not(:first) li', function() {
+  // $('.recite ul:not(:first) li').live('click', function() {
+  // //$('.recite ul:not(:first) li').click(function() {
+  //   var flag=$(this).attr("flag");
+  //   if("1"==flag){
+  //       $(this).find("i").show();
+  //       $(this).find("i").addClass('icon-checkmark');
+  //       setTimeout(function(){
+  //           var wordid=$(".recite:eq("+index+")").attr("wid");
+  //           index=index+1;
+  //           $(".recite").hide();
+  //           $(".recite:eq("+index+")").show();
+  //           mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+  //           var id=$(".recite:eq("+index+")").attr("id");
+            
+            
+  //           if(undefined==id){
+  //               $(".tips.bLine").show();
+  //               //errword.sort(compare);
+  //               var errrate=100-Math.round((parseInt(size(errword))/wordlen)*100);
+                
+  //               $(".txt").text("恭喜您本单元学习过关，正确率"+errrate+"%");
+  //               if(errrate==100){$(".tips.bLine:eq(1) h3").hide();}
+  //               var html="";
+  //               $.each(errword,function(key,value){
+  //                   html=html+"<li>"+key+"<span>错误"+value+"次</span></li>";
+  //               });
+  //               $(".tips.bLine ul.listTxt").html(html);
+  //           }
+  //           else
+  //           {
+  //               $(".dropdown a:eq(1) .wordcount").text(wordbcount+1);
+               
+  //           }
+  //           $.get("../../recite_word_record",{unitid:unitid,wordid:wordid},function(){
+  //                   var recordcount=$(".dropdown a:eq(1) .recordcount").text();
+  //                   $(".dropdown a:eq(1) .recordcount").text(recordcount+data.add);
+  //           });
+  //       },  200);
+  //   }
+  //   else if("0"==flag)
+  //    {
+  //       var wordid=$(this).parent().parent().find("a").eq(0).attr("wid");
+  //       var word=$(this).parent().parent().find("a span").eq(0).text();
+  //       if (word in errword)  
+  //           errword[word]++;  
+  //       else   
+  //           errword[word]=1;
+  //       $(this).find("i").show().addClass('icon-cancel');
+  //       $(this).parent().find("li[flag='1']").find("i").show().addClass('icon-checkmark');
+        
+  //       var id=$(".recite:eq("+(index+1)+")").attr("id");
+  //       if(undefined!=id)
+  //       {
+  //           // $(this).find("i").removeClass('icon-cancel');
+  //           // $(this).parent().find("li[flag='1']").find("i").removeClass('icon-checkmark');
+  //           var sen_len=$(".scrollCon:gt("+index+")").length;
+  //           var ranindex=index+1+Math.round(Math.random()*100)%(sen_len);
+  //           var ranindexs=ranindex-1;
+  //           $(".recite:eq("+ranindex+")").before($(".scrollCon:eq("+index+")").clone().hide());
+  //           $(".scrollCon:eq("+ranindexs+")").after($(".recite:eq("+index+")").clone().hide());
+            
+  //       }
+  //       else
+  //       {
+  //           $(".scrollCon:eq("+index+")").after($(".recite:eq("+index+")").clone().hide());
+  //           $(".recite:eq("+(index+1)+")").after($(".scrollCon:eq("+index+")").clone().hide());
+          
+  //       }
+  //       setTimeout(function(){
+  //           $(".recite").hide();
+  //           $(".scrollCon:eq("+index+")").show();
+  //           mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+  //           var id=$(".recite:eq("+index+")").attr("id");
+  //           if(undefined==id){
+  //               $(".tips.bLine").show();
+  //           }
+  //       }, 2000);
+  //    }
+  // });
+
+
+  
+  //错误的进行单词的详情的展示
+  //$(document).on('click', '.bPink', function() {
+  //  $('.bPink').click(function() {
+  //      // alert("ss");
+  //      index=index+1;
+  //      $(".scrollCon").hide();
+  //      $(".recite").hide();
+  //      $(".recite i").hide();
+  //      $(".icon-volume-up").show();
+  //      var id=$(".recite:eq("+index+")").attr("id");
+  //      $(".recite:eq("+index+")").show();
+  //      mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+  // });
+
+});
+
+//对象进行排序的函数
+function compare() {
+return function (object1, object2) {
+alert("3434");
+var value1 = object1.value;
+var value2 = object2.value;
+if (value2 < value1) {
+return 1;
+}
+else if (value2 > value1) {
+return -1;
+}
+else {
+return 0;
+}
+}
+}
+
+//对象的长度
+function size(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+}
+
+function Mplay(){ 
+   $("#jplayer").jPlayer({
+        swfPath: "",
+        wmode: "window",
+        supplied: "mp3",
+        preload: "none",
+        volume: "1"
+    });
+
+    var oplay = new Object();  
+    oplay.index = 0;
+    oplay.url = "";
+    oplay.repeat = 1;
+
+    oplay.play = function(mp3){  
+        oplay.clear();
+        $("#jplayer").jPlayer("setMedia", {mp3:mp3}).jPlayer("play");
+    };
+
+    oplay.clear = function(){       
+        $("#jplayer").jPlayer("stop");
+        $("#jplayer").jPlayer("clearMedia");
+        //$("#jplayer").data("SpeakMP3Value", "0");  
+        $("#jplayer").unbind($.jPlayer.event.ended);
+        $("#jplayer").unbind($.jPlayer.event.progress);
+    };
+    return oplay;  
+}
+
+//将正在读的元素向上移动
+function  BodyScroll(curpos){
+  var container = $("html,body"); 
+  var pos_y = $(curpos).offset().top-300;
+  $("html,body").animate({scrollTop:pos_y},100);//1000是ms,也可以用slow代替
+}
+
+
+//背单词单击事件函数
+function recite(obj){
+  console.log(index);
+    //alert("fadfadsf");
+    var flag=$(obj).attr("flag");
+    console.log(flag);
+    if("1"==flag){
+        $(obj).find("i").show();
+        $(obj).find("i").addClass('icon-checkmark');
+        setTimeout(function(){
+            var wordid=$(".recite:eq("+index+")").attr("wid");
+            index=index+1;
+            $(".recite").hide();
+            $(".recite:eq("+index+")").show();
+            try{
+              console.log(index);
+              console.log($(".recite:eq("+index+")"));
+              $.each($(".recite:eq("+index+")").find("img.choiceimg"),function(key,value){
+                var imgsrc=$(this).attr("_src");
+                $(this).attr("src",imgsrc);
+              });
+            }catch(e){
+              console.log(e);
+            }
+            mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+            var id=$(".recite:eq("+index+")").attr("id");
+            if(undefined==id){
+                $(".tips.bLine").show();
+                //errword.sort(compare);
+                var errrate=100-Math.round((parseInt(size(errword))/wordlen)*100);
+                
+                $(".txt").text("恭喜您本单元学习过关，正确率"+errrate+"%");
+                if(errrate==100){$(".tips.bLine:eq(1) h3").hide();}
+                var html="";
+                $.each(errword,function(key,value){
+                    html=html+"<li>"+key+"<span>错误"+value+"次</span></li>";
+                });
+                $(".tips.bLine ul.listTxt").html(html);
+            }
+            else
+            {
+                $(".dropdown a:eq(1) .wordcount").text(wordbcount+1);
+               
+            }
+            $.get("/mobile/wordrecite/recite_word_record",{unitid:unitid,wordid:wordid},function(data){
+                    var recordcount=parseInt($(".dropdown a:eq(1) .recordcount").text());
+                    $(".dropdown a:eq(1) .recordcount").text(recordcount+data.add);
+                    $.cookie("engm_record_count",parseInt($.cookie("engm_record_count"))+parseInt(data.add));
+                    $.cookie("engm_reciteword_count",parseInt($.cookie("engm_reciteword_count"))+parseInt(data.add));
+            });
+        },  200);
+    }
+    else if("0"==flag)
+     {
+        var wordid=$(obj).parent().parent().find("a").eq(0).attr("wid");
+		$.get("/mobile/wordstudy/collect_word",{wordid:wordid,unitid:unitid},function(){});
+        var word=$(obj).parent().parent().find("a span").eq(0).text();
+        if (word in errword)  
+            errword[word]++;  
+        else   
+            errword[word]=1;
+        $(obj).find("i").show().addClass('icon-cancel');
+        $(obj).parent().find("li[flag='1']").find("i").show().addClass('icon-checkmark');
+        
+        var id=$(".recite:eq("+(index+1)+")").attr("id");
+		var wordid=$("bd ul:eq("+mp.index+")").find("a.aBtn.bGreen").attr("wid");
+        if(undefined!=id)
+        {
+            // $(this).find("i").removeClass('icon-cancel');
+            // $(this).parent().find("li[flag='1']").find("i").removeClass('icon-checkmark');
+            var sen_len=$(".scrollCon:gt("+index+")").length;
+            var ranindex=index+1+Math.round(Math.random()*100)%(sen_len);
+            var ranindexs=ranindex-1;
+            $(".recite:eq("+ranindex+")").before($(".scrollCon:eq("+index+")").clone().hide());
+            $(".scrollCon:eq("+ranindexs+")").after($(".recite:eq("+index+")").clone().hide());
+            
+        }
+        else
+        {
+            $(".scrollCon:eq("+index+")").after($(".recite:eq("+index+")").clone().hide());
+            $(".recite:eq("+(index+1)+")").after($(".scrollCon:eq("+index+")").clone().hide());
+          
+        }
+        setTimeout(function(){
+            $(".recite").hide();
+            $(".scrollCon:eq("+index+")").show();
+            try{
+              $.each($(".scrollCon:eq("+index+")").find("img.wordimg"),function(key,value){
+                var imgsrc=$(this).attr("_src");
+                $(this).attr("src",imgsrc);
+              });
+            }catch(e){
+              console.log(e);
+            }
+            mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+            var id=$(".recite:eq("+index+")").attr("id");
+            if(undefined==id){
+                $(".tips.bLine").show();
+            }
+        }, 2000);
+     }
+}
+
+
+function con_recite(){
+       // alert("ss");
+       index=index+1;
+       $(".scrollCon").hide();
+       $(".recite").hide();
+       $(".recite i").hide();
+       $(".icon-volume-up").show();
+       var id=$(".recite:eq("+index+")").attr("id");
+       $(".recite:eq("+index+")").show();
+       mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+       try{
+              $.each($(".recite:eq("+(index+1)+")").find("img.choiceimg"),function(key,value){
+                var imgsrc=$(this).attr("_src");
+                $(this).attr("src",imgsrc);
+              });
+            }catch(e){
+              console.log(e);
+            }
+}
+
+function  wordplay(obj){
+     var mp3=$(obj).attr("mid");
+     mp.play(mp.url+mp3);
+  }
+</script>
+</body>
+</html>

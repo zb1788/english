@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="/public/Mobile/css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="/public/Mobile/css/style.css" rel="stylesheet">
+</head>
+
+<body class="catalog catalog_listen">
+<header>
+	<div class="l fl"><a href="/mobile/index/index"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">听力训练</div>
+    <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+                <li><a href="/mobile/index/wordbook"><i class="icon-heart"></i><font class="wordcount">2</font></a></li>
+                <li><a href="/mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount">235</font></a></li>
+                <li><a href="/mobile/index/index"><i class="icon-evil"></i>学习中心</a></li>
+                <li><a href="/mobile/index/course"><i class="icon-pencil-square"></i><b>课程设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section class="study iListen" id="course">
+	<h2>..</h2>
+    <ul class="cd-navigation">
+        <li class="item-has-children">
+        	<ul class="cd-navigation">
+                <li><strong>Unit1</strong></li>
+                                            <li><a href="show_exams_list?unitid=00010402040201">Unit1 Part A</a></li>                        <li><a href="show_exams_list?unitid=00010402040202">Unit1 Part B</a></li>                        <li><a href="show_exams_list?unitid=00010402040221">Unit1 单元综合</a></li><li><strong>Unit2</strong></li>
+                                            <li><a href="show_exams_list?unitid=00010402040204">Unit2 Part A</a></li>                        <li><a href="show_exams_list?unitid=00010402040205">Unit2 Part B</a></li>                        <li><a href="show_exams_list?unitid=00010402040222">Unit2 单元综合</a></li><li><strong>Unit3</strong></li>
+                                            <li><a href="show_exams_list?unitid=00010402040207">Unit3 Part A</a></li>                        <li><a href="show_exams_list?unitid=00010402040208">Unit3 Part B</a></li>                        <li><a href="show_exams_list?unitid=00010402040223">Unit3 单元综合</a></li>                        <li><a href="show_exams_list?unitid=00010402040210">Recycle1</a></li><li><strong>Unit4</strong></li>
+                                            <li><a href="show_exams_list?unitid=0001040204020a">Unit4 Part A</a></li>                        <li><a href="show_exams_list?unitid=0001040204020b">Unit4 Part B</a></li>                        <li><a href="show_exams_list?unitid=00010402040224">Unit4 单元综合</a></li><li><strong>Unit5</strong></li>
+                                            <li><a href="show_exams_list?unitid=0001040204020d">Unit5 Part A</a></li>                        <li><a href="show_exams_list?unitid=0001040204020e">Unit5 Part B</a></li>                        <li><a href="show_exams_list?unitid=00010402040225">Unit5 单元综合</a></li><li><strong>Unit6</strong></li>
+                                            <li><a href="show_exams_list?unitid=0001040204020g">Unit6 Part A</a></li>                        <li><a href="show_exams_list?unitid=0001040204020h">Unit6 Part B</a></li>                        <li><a href="show_exams_list?unitid=00010402040226">Unit6 单元综合</a></li>                        <li><a href="show_exams_list?unitid=00010402040220">Recycle2</a></li>            </ul>
+        </li>
+    </ul>  
+</section>
+
+
+<script type="text/javascript" src="/public/Mobile/js/jquery.min.js"></script>  
+<script src="/public/Mobile/js/main.js"></script>
+</body>
+</html>

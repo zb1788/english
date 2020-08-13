@@ -1,0 +1,1221 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>英语听力课堂训练</title>
+	<link href="__Hjs__device/css/style1360.css" rel="stylesheet" type="text/css" />
+	<link href="__Hjs__device/css/q_answer.css" rel="stylesheet" type="text/css" />
+	<link href="__Hjs__device/css/fixck.css" rel="stylesheet" type="text/css" />
+	<link href="__Hjs__device/css/style.css" rel="stylesheet" type="text/css" />
+	<style type="text/css">
+		.lockDiv {
+			width: 100%;
+			height: 100%;
+			display: none;
+			z-index: 10000;
+			background-color: #000;
+			position: fixed;
+			top: 0px;
+			left: 0px;
+		}
+
+		.lockDivInfo {
+			width: 350px;
+			height: 140px;
+			line-height: 140px;
+			display: none;
+			z-index: 10001;
+			background-color: LightSkyBlue;
+			position: fixed;
+			left: 0px;
+			top: 0px;
+			text-align: center;
+			font-size: 17px;
+			font-family: Microsoft YaHei;
+			border: #5f5f5f 1px solid;
+			filter: progid:DXImageTransform.Microsoft.Shadow(color=#5f5f5f, direction=120, strength=6);
+		}
+
+		.namelist {
+			color: #ec4140;
+			text-align: center;
+			margin-top: 1rem;
+			text-decoration: underline;
+			margin-bottom: 1rem;
+			font-size: 1.2rem;
+			position: absolute;
+			bottom: 0;
+			right: 10px;
+			z-index:10000;
+		}
+	</style>
+	<script type="text/javascript" src="__Hjs__device/js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="__Hjs__device/js/jquery.reveal.js"></script>
+	<script type="text/javascript" src="__Pjs__jquery.jplayer.min.js"></script>
+	<script type="text/javascript" src="__Hjs__device/js/jquery.json-2.2.js"></script>
+	<script type="text/javascript" src="__Hjs__device/js/zoom.js?id=2"></script>
+	<script type="text/javascript" src="__Hjs__device/js/base.js"></script>
+	<script type="text/javascript" src="__Hjs__device/moment/moment.min.js"></script>
+	<script type="text/javascript" src="__Hjs__device/js/jquery.lazyload.js"></script>
+	<script type="text/javascript" language="javascript">
+		var loginStyle = "{$loginStyle}";
+		var username = "{$username}";
+		var truename = "{$truename}";
+		var papername = "{$papername}";
+		var tqms = "{$tqms}";
+		var ks_code = "{$ks_code}";
+		var examsid = "{$examsid}";
+		var exams_mp3_url = "__resource_path__mp3_exam/";
+		var word_mp3_url = "__resource_path__mp3_word/";
+		var word_pic_url = "__resource_path__pic_word/";
+		var text_mp3_url = "__resource_path__mp3_text";
+		var resource_path = "__resource_path__";
+		var device_service = "__device_service__";
+		var studentClassid = "{$studentClassid}"; //学生所在班级ID
+		var sum_student = parseInt("{$sum_student}"); //学生总人数
+		var deviceMap = {{$deviceMap}}; //答题器编号map-key:答题器编号;value:学生编号
+		var deviceMap_tool = {{$deviceMap_tool}}; //答题器编号map-key:答题器编号;value:学生编号
+		var userMap = {{$userMap}}; //学生map-key:学生id;value:学生名字
+		//var deviceMap = {"5210002292":"41010210000661","":"41010210000465","":"41010210000464","":"41010210000664","":"41010210006097","":"41010210000453","":"41010210000459","":"41010210000458","":"41010210000660","":"41010210000662","":"41010210000462","":"41010210000659","":"41010210000460","":"41010210000657","":"41010210000663","":"41010210000665","":"41010210000463","":"41010210000658","":"41010210000455","":"41010210000582","":"41010210000656"}; //答题器编号map-key:答题器编号;value:学生编号
+		//var userMap = {"41010210000661":"iusxsfe","41010210000465":"答复","41010210000464":"定时","41010210000664":"二十","41010210006097":"高霞霞","41010210000453":"驾驶","41010210000459":"凯乐石","41010210000458":"刻录机","41010210000660":"空间是","41010210000662":"奎文","41010210000462":"拉克丝1","41010210000659":"来看","41010210000460":"雷克萨斯","41010210000657":"棉花糖","41010210000663":"欧文","41010210000665":"偶偶位","41010210000463":"萨顶顶","41010210000658":"水电费","41010210000455":"宋德福","41010210000582":"新增学生","41010210000656":"至上励合"}; //学生map-key:学生id;value:学生名字
+
+		var timer; //定时器,用于禁用"停止答题"按钮
+		var disableTime = 3000; //禁用"停止答题"按钮的时间(毫秒)
+		//定义代码用到的模块id变量
+		var smartPaperEnable = 1; //是否在用手写板
+		var MODULEID_MAP = {};
+		MODULEID_MAP['type_result_show'] = 'type_result_show'; //设置答题结果展示形式	
+		MODULEID_MAP['option_rs_detail'] = 'option_rs_detail'; //答题结果按照正确、错误、未作答显示
+		MODULEID_MAP['option_rs_simple'] = 'option_rs_simple'; //答题结果按照作答、未作答显示
+
+		MODULEID_MAP['type_change_page'] = 'type_change_page'; //设置自动切换下一题方式
+		MODULEID_MAP['option_cp_submit'] = 'option_cp_submit'; //学生全部作答完成后自动切换到下一题
+		MODULEID_MAP['option_cp_manual'] = 'option_cp_manual'; //不自动切换
+		MODULEID_MAP['option_cp_interval'] = 'option_cp_interval'; //定时切换到下一题
+
+		var RESULT_SHOW_TYPE; //答题结果显示形式
+		var CHANGE_PAGE_TYPE; //自动换页类别
+		var PAGE_INTERVAL_SEL; //自动换页倒计时时间-当前所选项
+		var PAGE_COUNTDOWN_TIME; //自动换页倒计时时间-实时时间
+		var PAGE_START_TIME; //自动换页倒计时起始时间
+		var PAGE_END_TIME; //自动换页倒计时结束时间-即00:00
+		var PAGE_INTERVAL_ID; //自动换页计时器id
+
+
+		var PR_QUES_CHARNUM = 0; //套卷结果窗口里试题内容要截取的字符数
+		var from_platform = "{$from_platform}";
+		$(function () {
+			if (screenW > 2000) {
+				$('.renshu').css("zoom", pagezoom);
+				$('.renshu').css("right", "260px");
+				$(".right#toolbar").css("right", "260px");
+				$(".right#toolbar").css("bottom", "50%");
+				$('#toolbar').css("zoom", pagezoom);
+				$('.student').css("zoom", pagezoom);
+				$(".student").css("left", "30%");
+				$(".student").css("bottom", "50%");
+				$("#student").css("bottom", "65%");
+			}
+
+			if (VcomAQTool && ("InitWriteini" in VcomAQTool)) {
+
+				try {
+					VcomAQTool.InitWriteini();
+
+				} catch (e) {}
+			}
+
+			//初始化倒计时时间
+			var zeroTime = moment();
+			zeroTime.hour(0);
+			zeroTime.minute(0);
+			zeroTime.second(0);
+			PAGE_COUNTDOWN_TIME = moment(zeroTime);
+			PAGE_START_TIME = moment(zeroTime);
+			PAGE_END_TIME = moment(zeroTime);
+
+			$("#jplayer").jPlayer({
+				swfPath: '__Pjs__',
+				wmode: "window",
+				supplied: "mp3",
+				preload: "none",
+				volume: "1"
+			});
+
+			loadQuestion(1);
+			////处理设置窗口
+			//处理默认选中
+			$("ul.confOption :radio[data-uoflag='true']").attr("checked", true);
+			$("ul.confOption").each(function () {
+				if ($(this).find(":radio:checked").length == 0) {
+					if ($(this).data("type") == MODULEID_MAP['type_change_page']) {
+						$(this).find(":radio[value='" + MODULEID_MAP['option_cp_manual'] + "']").attr(
+							"checked", true);
+					} else if ($(this).data("type") == MODULEID_MAP['type_result_show']) {
+						$(this).find(":radio[value='" + MODULEID_MAP['option_rs_detail'] + "']").attr(
+							"checked", true);
+					}
+				}
+			});
+			CHANGE_PAGE_TYPE = $(":radio[name='" + MODULEID_MAP['type_change_page'] + "']:checked").val();
+			RESULT_SHOW_TYPE = $(":radio[name='" + MODULEID_MAP['type_result_show'] + "']:checked").val();
+			if (RESULT_SHOW_TYPE == MODULEID_MAP['option_rs_detail']) {
+				$("#simpleColorMemo").hide();
+				$("#detailColorMemo").show();
+			} else if (RESULT_SHOW_TYPE == MODULEID_MAP['option_rs_simple']) {
+				$("#detailColorMemo").hide();
+				$("#simpleColorMemo").show();
+			}
+			$("#pageInterval option[data-uoflag='true']").attr("selected", true);
+			if ($("#pageInterval option[data-uoflag='true']").length == 0) {
+				//自动换页时间默认选择1分钟
+				$("#pageInterval option").eq(1).attr("selected", true);
+			}
+			PAGE_INTERVAL_SEL = $("#pageInterval option:selected").val();
+			if (CHANGE_PAGE_TYPE == MODULEID_MAP['option_cp_interval'] && $('#startorstop').data("status") ==
+				'start') {
+				initPageCountDown(Number($("#pageInterval").val()));
+			}
+			//处理遥控器监听按键
+			$("body").focus();
+			$(document).keydown(function (event) {
+				//屏蔽按键默认行为
+				var keyList = [37, 39, 38, 40, 13, 36, 16];
+				if ($.inArray(event.keyCode, keyList) != -1) {
+					event.preventDefault();
+				}
+			});
+			$(document).keyup(function (event) {
+				$(":focus").not("body").blur();
+				$("body").focus();
+				switch (event.keyCode) {
+					case 37: //左箭头
+						$("#pagebar1 a.pre").click();
+						break;
+					case 39: //右箭头
+						$("#pagebar1 a.next").click();
+						break;
+					case 38: //上箭头
+						$("a.jia").click();
+						break;
+					case 40: //下箭头
+						$("a.jian").click();
+						break;
+					case 13: //确定(Enter)
+						$("#startorstop").click();
+						break;
+					case 36: //起始(Home)
+						$("a[data-reveal-id='answer']").click();
+						break;
+					case 16: //全屏(Shift)-遥控器上的全屏键绑定Shift+F5，但是授课端页面监听这两个按键有问题，所以这里只监听Shift即可
+						$("a[data-reveal-id='paperResult']").click();
+						break;
+				}
+				// 			    	if(event.shiftKey && event.keyCode==116){//全屏(Shift+F5)
+				// 			    		$("a[data-reveal-id='paperResult']").click();
+				// 			    	}
+			});
+			$(document).bind("contextmenu", function (e) { //屏蔽鼠标右键默认行为
+				return false;
+			});
+			$(document).mousedown(function (e) {
+				if (e.button == 2) { //鼠标右键
+					$("a[data-reveal-id='result']").click();
+					$(":focus").not("body").blur();
+					$("body").focus();
+				}
+			});
+			//设置套卷结果窗口大小
+			var prWinH = Math.round($(window).height() * 0.68);
+			var prWinW = Math.round($(window).width() * 0.7);
+			$("#paperResult").css({
+				"height": prWinH,
+				"width": prWinW
+				//"margin-left": -Math.round(prWinW / 2)
+			});
+
+
+			if (screenW > 2000) {
+				$("#paperResult").css({
+					"height": Math.round($(window).height() * 0.2),
+					"width": Math.round($(window).width() * 0.2)
+					//"margin-left": -Math.round(prWinW / 10)
+				});
+			}
+			$("#paperResult .boxCon").height($("#paperResult").height() - $("#paperResult > .title").outerHeight());
+			//根据列宽动态计算套卷结果里试题内容要截取的字符数
+			//PR_QUES_CHARNUM = Math.round($("#qlist tr.tit2 td").eq(1).outerWidth()/13*0.93);
+			//设置答题人数窗口里学生列表的高度，防止低分辨率时学生显示不全
+			var stuListH = $("#student ul.stuList").height();
+			var maxStuListH = Math.round($(window).height() * 0.55);
+			if (stuListH > maxStuListH) {
+				$("#student ul.stuList li").css("width", "12.0%");
+				$("#student ul.stuList").height(maxStuListH);
+				$("#student ul.stuList").width($("#student ul.stuList").width() + 14);
+				$("#student ul.stuList").css("overflow-y", "scroll");
+			}
+			//处理答题分析窗口里统计图的弹出窗
+			$(".bg-on-student").css({
+				width: $(window).width(),
+				height: $(window).height(),
+				opacity: "0.35"
+			});
+			$(".bg-on-student").click(function () {
+				$("#studentStat").css("visibility", "hidden");
+				$(".bg-on-student").hide();
+			});
+			$("#studentStat .close-plain").click(function () {
+				$("#studentStat").css("visibility", "hidden");
+				$(".bg-on-student").hide();
+			});
+		});
+		//设置自动换页倒计时初始时间
+		function initPageCountDown(intevalByMi) {
+			var mi = parseInt(intevalByMi);
+			var se = Math.round(intevalByMi * 60 % 60);
+			PAGE_START_TIME.minute(mi);
+			PAGE_START_TIME.second(se);
+			PAGE_COUNTDOWN_TIME.minute(mi);
+			PAGE_COUNTDOWN_TIME.second(se);
+		}
+
+		function subInternal() {
+			var oldV = $("#pageInterval").val();
+			var curIndex = $("#pageInterval").get(0).selectedIndex;
+			var newIndex = curIndex == 0 ? 0 : curIndex - 1;
+			$("#pageInterval option").eq(newIndex).attr("selected", true);
+			var newV = $("#pageInterval").val();
+			if (oldV != newV) {
+				$("#pageInterval").change();
+			}
+		}
+
+		function addInternal() {
+			var oldV = $("#pageInterval").val();
+			var curIndex = $("#pageInterval").get(0).selectedIndex;
+			var newIndex = curIndex + 1;
+			$("#pageInterval option").eq(newIndex).attr("selected", true);
+			var newV = $("#pageInterval").val();
+			if (oldV != newV) {
+				$("#pageInterval").change();
+			}
+		}
+		//保存设置
+		function saveConf() {
+			//保存自动切换配置-发生变化时再保存
+			var $cpTypeSel = $(":radio[name='" + MODULEID_MAP['type_change_page'] + "']:checked");
+			var newCpType = $cpTypeSel.val();
+			var newInterval = $("#pageInterval").val();
+			//alert(CHANGE_PAGE_TYPE);
+			if (newCpType != CHANGE_PAGE_TYPE ||
+				(newCpType == CHANGE_PAGE_TYPE && CHANGE_PAGE_TYPE == MODULEID_MAP['option_cp_interval'] && newInterval !=
+					PAGE_INTERVAL_SEL)) {
+				CHANGE_PAGE_TYPE = newCpType;
+				PAGE_INTERVAL_SEL = newInterval;
+				if (PAGE_INTERVAL_ID) {
+					clearInterval(PAGE_INTERVAL_ID);
+				}
+				if (CHANGE_PAGE_TYPE == MODULEID_MAP['option_cp_interval']) {
+					if ($('#startorstop').data("status") == 'stop') {
+						initPageCountDown(Number(newInterval));
+						$("#pageTime").text(PAGE_COUNTDOWN_TIME.format("mm:ss"));
+						$("#pageTime").show();
+						PAGE_INTERVAL_ID = setInterval(function () {
+							PAGE_COUNTDOWN_TIME.subtract(1, "seconds");
+							$("#pageTime").text(PAGE_COUNTDOWN_TIME.format("mm:ss"));
+							if (PAGE_COUNTDOWN_TIME.isSame(PAGE_END_TIME)) {
+								if (PAGE_INTERVAL_ID) {
+									clearInterval(PAGE_INTERVAL_ID);
+								}
+								$("#pagebar1 a.next").click();
+							}
+						}, 1000);
+					} else {
+						$("#pageTime").hide();
+					}
+				} else {
+					$("#pageTime").hide();
+				}
+				var parentMid = $cpTypeSel.attr("name");
+				var intervalTimeOid = $("#pageInterval option:selected").data("operateid");
+				$.ajax({
+					url: saveDeviceConfUrl,
+					dataType: 'json',
+					type: 'POST',
+					data: {
+						'username': username,
+						'config_type': 'type_change_page',
+						'config_value': CHANGE_PAGE_TYPE,
+						'pageInterval': newInterval,
+						'studentClassid': studentClassid
+
+					},
+					success: function (data) {
+						// if(!data.success){
+						// 	alert("保存设置错误："+data.msg);
+						// }
+					}
+				});
+			} else {
+				if (PAGE_INTERVAL_ID) {
+					clearInterval(PAGE_INTERVAL_ID);
+				}
+				if (CHANGE_PAGE_TYPE == MODULEID_MAP['option_cp_interval']) {
+					if ($('#startorstop').data("status") == 'stop') {
+						initPageCountDown(Number(newInterval));
+						$("#pageTime").text(PAGE_COUNTDOWN_TIME.format("mm:ss"));
+						$("#pageTime").show();
+						PAGE_INTERVAL_ID = setInterval(function () {
+							PAGE_COUNTDOWN_TIME.subtract(1, "seconds");
+							$("#pageTime").text(PAGE_COUNTDOWN_TIME.format("mm:ss"));
+							if (PAGE_COUNTDOWN_TIME.isSame(PAGE_END_TIME)) {
+								if (PAGE_INTERVAL_ID) {
+									clearInterval(PAGE_INTERVAL_ID);
+								}
+								$("#pagebar1 a.next").click();
+							}
+						}, 1000);
+					} else {
+						$("#pageTime").hide();
+					}
+				} else {
+					$("#pageTime").hide();
+				}
+			}
+			//保存答题结果展示形式配置-发生变化时再保存
+			var $rsTypeSel = $(":radio[name='" + MODULEID_MAP['type_result_show'] + "']:checked");
+			var newRsType = $rsTypeSel.val();
+			if (newRsType != RESULT_SHOW_TYPE) {
+				RESULT_SHOW_TYPE = newRsType;
+				if (RESULT_SHOW_TYPE == MODULEID_MAP['option_rs_detail']) {
+					$("#simpleColorMemo").hide();
+					$("#detailColorMemo").show();
+				} else if (RESULT_SHOW_TYPE == MODULEID_MAP['option_rs_simple']) {
+					$("#detailColorMemo").hide();
+					$("#simpleColorMemo").show();
+				}
+				var inValidClass = "bgYellow";
+				var rightClass = "bgcGreen";
+				var wrongClass = "bgcRed";
+				if (RESULT_SHOW_TYPE == MODULEID_MAP['option_rs_simple']) {
+					inValidClass = "bgcGreen";
+					rightClass = "bgcGreen";
+					wrongClass = "bgcGreen";
+				}
+				$("#student ul.stuList a[answerResult='100']").attr("class", rightClass);
+				$("#student ul.stuList a[answerStatus='2'][answerResult='99']").attr("class", wrongClass);
+				$("#student ul.stuList a[answerStatus='1']").attr("class", inValidClass);
+				var parentMid = $rsTypeSel.attr("name");
+				$.ajax({
+					url: saveDeviceConfUrl,
+					dataType: 'json',
+					type: 'POST',
+					data: {
+						'username': username,
+						'config_type': 'type_result_show',
+						'config_value': newRsType,
+						'pageInterval': '0',
+						'studentClassid': studentClassid
+					},
+					success: function (data) {
+						// if(!data.success){
+						// 	alert("保存设置错误："+data.msg);
+						// }
+					}
+				});
+			}
+			$("#config").css({
+				'visibility': 'hidden'
+			});
+			$('.student-bg').css({
+				'display': 'none'
+			});
+		}
+
+		function cancelConf() {
+			restoreConf(); //恢复修改前的设置
+			$("#config").css({
+				'visibility': 'hidden'
+			});
+			$('.student-bg').css({
+				'display': 'none'
+			});
+		}
+
+		function restoreConf() {
+			$("ul.confOption").find(":radio[value='" + CHANGE_PAGE_TYPE + "']").attr("checked", true);
+			$("ul.confOption").find(":radio[value='" + RESULT_SHOW_TYPE + "']").attr("checked", true);
+			$("#pageInterval option[value='" + PAGE_INTERVAL_SEL + "']").attr("selected", true);
+		}
+
+		function Answer(question_id, answer, answer_result, answer_status) {
+			this.question_id = question_id;
+			this.answer = answer;
+			this.answer_result = answer_result;
+			this.answer_status = answer_status;
+		}
+
+		function startorstop() {
+			var status = $('#startorstop').data("status");
+			if (status == "start") {
+				start();
+			} else {
+				stop();
+			}
+		}
+		var issubmit = 0;
+		var ishttps = document.location.protocol;
+		//设置"开始/停止答题"按钮的状态
+		//参数: start:设置为"开始答题"; stop:设置为"停止答题"
+		function setStartBtnStatus(status) {
+			if (status == "start") {
+				$('#startorstop').data("status", status).text("开始答题");
+			} else if (status == "stop") {
+
+				$('#startorstop').data("status", status).text("停止答题");
+			}
+			if (issubmit == 0) {
+				//  	tqms/mobile/homework/saveEnClsrmPaper.action
+				// homeWorkName(试卷名称) lessionId(章节ID) paper_id(英语试卷ID) username(教师账号) truename(教师真实姓名)
+				issubmit = 1;
+				// $.getJSON('http://'+tqms+'/tqms/mobile/homework/saveEnClsrmPaper.action',{homeWorkName:papername,lessionId:ks_code,paper_id:examsid,username:username,truename:truename,jsoncallback:Math.random()},function(resturl){
+
+				// });
+				$.ajax({
+					url: ishttps + '//' + tqms + '/tqms/mobile/homework/saveEnClsrmPaper.action',
+					scriptCharset: "gbk",
+					type: "get",
+					data: {
+						homeWorkName: papername,
+						lessionId: ks_code,
+						paper_id: examsid,
+						username: username,
+						truename: truename
+					},
+					dataType: "jsonp",
+					jsonp: "jsoncallback"
+				});
+
+			}
+		}
+		/*
+		 * strparams 答题模式，格式如下：Type,Area;Mode,{cardid}
+		 * Type表示题目类型:0 字母单选 1 字母多选 2 数字题 3 判断题 4 主观打分题 5书写
+		 * Area 表示答案范围
+		 *	如果 type 取值 2 和 4,area 表示最高可输入数值， 0 表示不限制，最大 9999
+		 *	如果 type 取值 0、 01 以及 3,area 取值按ABCDEFGH,判断题为GH
+		 *	如果type 取值5, area试题ID
+		 *	Mode 表示是分组答题还是指定卡号答题， 1 表示分组答题， 2 表示指定卡号答题。
+		 * */
+		function setMode(Type, Area, cardid) {
+			//alert(Type+ Area+cardid);
+			var as = arguments,
+				asLen = arguments.length;
+			if (asLen < 2) {
+				return;
+			} else {
+				Type = as[0];
+				Area = as[1];
+				if (asLen > 2) {
+					cardid = ';2,' + as[2];
+				} else {
+					cardid = ';';
+				}
+			}
+
+			try {
+				if (VcomAQTool && ("setMode" in VcomAQTool)) {
+					//alert(Type+ Area+cardid);
+					//log('setMode=>' + (Type + ',' + Area + cardid));
+
+					VcomAQTool.setMode(Type + ',' + Area + cardid);
+					//alert(Type + ',' + Area + cardid);
+				}
+			} catch (e) {
+				//alert("模式设置错误");
+			}
+		}
+		//开始答题
+
+		function start() {
+			if (VcomAQTool && ("Start" in VcomAQTool)) {
+
+				if (questionType == 1) {
+					//alert("选择题");
+					setMode('0', '5');
+				} else if (questionType == 3) {
+					//alert("判断题");
+					setMode('3', '0');
+				}
+				VcomAQTool.Start();
+				//alert("start方法存在");
+			} else {
+				//alert("start方法不存在");
+			}
+			isReceiveSignal = true;
+			$('#startorstop').addClass("nodisplay").unbind("click");
+			setStartBtnStatus("stop");
+			timer = setTimeout(function () {
+				$('#startorstop').removeClass("nodisplay").unbind("click").bind("click", startorstop);
+			}, disableTime);
+			anMaps = {}; //重置本次作答答题结果json对象
+			answered_stu_num = 0; //重置已答题人数
+			document.getElementById("answered_stu_num").innerHTML = answered_stu_num;
+			//清除"答题人数"窗口中显示的学生历史答题结果
+			//清除"答题人数"窗口中显示的学生历史答题结果
+			$("#student ul.stuList a").attr("class", "none").attr("answerStatus", "0").attr("answerResult", "0");
+			$("#student ul.stuList a span").text("");
+			//设置答题结果页面的答题人数
+
+			$("#rightCount").text($("#student ul.stuList a[answerResult='100']").length);
+			$("#wrongCount").text($("#student ul.stuList a[answerStatus='2'][answerResult='99']").length);
+			$("#inValidCount").text($("#student ul.stuList a[answerStatus='1']").length);
+			$("#noAnswerCount").text($("#student ul.stuList a[answerStatus='0']").length);
+			if (PAGE_INTERVAL_ID) {
+				clearInterval(PAGE_INTERVAL_ID);
+			}
+			if (CHANGE_PAGE_TYPE == MODULEID_MAP['option_cp_interval']) {
+				PAGE_COUNTDOWN_TIME = moment(PAGE_START_TIME);
+				$("#pageTime").text(PAGE_COUNTDOWN_TIME.format("mm:ss"));
+				$("#pageTime").show();
+				PAGE_INTERVAL_ID = setInterval(function () {
+					PAGE_COUNTDOWN_TIME.subtract(1, "seconds");
+					$("#pageTime").text(PAGE_COUNTDOWN_TIME.format("mm:ss"));
+					if (PAGE_COUNTDOWN_TIME.isSame(PAGE_END_TIME)) {
+						if (PAGE_INTERVAL_ID) {
+							clearInterval(PAGE_INTERVAL_ID);
+						}
+						$("#pagebar1 a.next").click();
+					}
+				}, 1000);
+			}
+			$.getJSON(ListenConter + 'clearanMapsHis', {
+				examsid: examsid,
+				from_platform: from_platform,
+				studentClassid: studentClassid,
+				queid: questionInfo[currentPage - 1].id,
+				random: Math.random()
+			}, function (result) {
+
+			})
+		}
+
+		//停止答题
+		function stop() {
+			if (VcomAQTool && ("Stop" in VcomAQTool)) {
+				//alert("stop方法存在");
+				VcomAQTool.Stop();
+			} else {
+				//alert("stop方法不存在");
+			}
+			isReceiveSignal = false;
+			setStartBtnStatus("start");
+			//如果有倒计时就停止计时
+			if (PAGE_INTERVAL_ID) {
+				clearInterval(PAGE_INTERVAL_ID);
+			}
+			$("#pageTime").hide();
+			saveAnswer(); //保存答题结果
+		}
+
+		//关闭
+		function exit() {
+			isReceiveSignal = false;
+			lockSrc("正在关闭，请稍等......"); //锁屏,禁止用户在关闭前进行其他操作
+			setTimeout("doExit()", 40); //延时调用:执行VcomAQTool.Stop()时页面会卡住几秒,导致锁屏效果不能立即生效,延时调用可以解决
+		}
+
+		function doExit() {
+
+			//客户机没有注册答题器控件的话就不执行控件关闭接口
+			if (VcomAQTool && ("Stop" in VcomAQTool)) {
+				VcomAQTool.Stop();
+			}
+			if ($('#startorstop').data("status") == "stop") {
+				setStartBtnStatus("start");
+				saveAnswerForExit(); //保存答题结果
+			} else {
+				unlockSrc();
+				closeWin();
+			}
+		}
+
+		function closeWin() {
+			if (loginStyle == '0') {
+				(function () {
+					function checkOcxVersion(cversion) {
+						if (cversion && cversion != null && cversion.trim().length > 0) {
+							try {
+								var nowversion = ocx.GetVersion();
+								if (nowversion != null && nowversion.trim().length > 0) {
+									var nvArr = nowversion.split(".");
+									var cvArr = cversion.split(".");
+									if (nvArr.length == cvArr.length) {
+										for (var vi = 0; vi < cvArr.length; vi++) {
+											var nvai = Number(nvArr[vi]);
+											var cvai = Number(cvArr[vi]);
+											if (nvai == cvai) {
+												if (vi == (cvArr.length - 1)) {
+
+													return 1;
+												}
+											} else if (nvai > cvai) {
+
+												return 1;
+											} else {
+
+												return -1;
+											}
+										}
+									} else if (nvArr.length > cvArr.length) {
+
+										return 1;
+									} else {
+										return -1;
+									}
+								} else {
+									return 0;
+								}
+							} catch (e) {
+								return 0;
+							}
+						} else {
+							return 0;
+						}
+					}
+					try {
+						if (checkOcxVersion("1.0.1.9") >= 1) {
+							ocx.WriteInfo("", "padflag.ini", '{"flag":"0"}', 0);
+						}
+					} catch (err) {}
+				})();
+				window.location.href = 'close:///';
+			} else {
+				window.close();
+			}
+		}
+
+		function saveAnswer(type) {
+			//alert(question_id);
+			for (var student_id in userMap) { //当此学生以前答过此题且本次没答时，要覆盖历史作答结果
+				var stuAnswerHis = "";
+
+				if (anMapsHis[student_id]) {
+					var stuAnswerHisObj = anMapsHis[student_id];
+					stuAnswerHis = stuAnswerHisObj.answer;
+				}
+				// if (anMaps[student_id] == null) {
+				// 	var answerObj = new Answer(question_id, "", "99", "3");
+				// 	anMaps[student_id] = answerObj;
+				// }
+			}
+			if ($.isEmptyObject(anMaps)) {
+				return;
+			}
+
+			var params = $.toJSON({
+				'examsid': examsid,
+				'question_id': question_id,
+				'studentClassid': studentClassid,
+				'questionScore': questionScore,
+				'from_platform': from_platform,
+				'tqms': tqms,
+				'anMaps': anMaps
+			});
+			//alert(parseInt(currentPage)-1);
+			//alert(params);
+			$.post(saveAnswerUrl, {
+				json: params
+			}, function (data, stuats) {
+				if (stuats == 'success') {
+					anMapsHis = anMaps; //更新历史作答结果parseInt
+					if (type == 2) {
+						paperresult();
+					}
+
+				} else {
+					alert("保存答题结果请求异常,请联系系统管理员");
+
+				}
+			});
+		}
+
+		function saveAnswerForExit() {
+			for (var student_id in userMap) { //当此学生以前答过此题且本次没答时，要覆盖历史作答结果
+				var stuAnswerHis = "";
+				if (anMapsHis[student_id]) {
+					var stuAnswerHisObj = anMapsHis[student_id];
+					stuAnswerHis = stuAnswerHisObj.answer;
+				}
+				// if (anMaps[student_id] == null) {
+				// 	var answerObj = new Answer(question_id, "", "99", "3");
+				// 	anMaps[student_id] = answerObj;
+				// }
+			}
+			//alert([answerObj]);
+			if ($.isEmptyObject(anMaps)) {
+				unlockSrc();
+				closeWin();
+			}
+			//alert(question_id);
+			var params = $.toJSON({
+				'examsid': examsid,
+				'question_id': question_id,
+				'studentClassid': studentClassid,
+				'questionScore': questionScore,
+				'from_platform': from_platform,
+				'tqms': tqms,
+				'anMaps': anMaps
+			});
+			//alert(params);
+			$.post(saveAnswerUrl, {
+				json: params
+			}, function (data, stuats) {
+				if (stuats == 'success') {
+					//alert(stuats);
+					anMapsHis = anMaps; //更新历史作答结果
+					unlockSrc();
+					closeWin();
+				} else {
+					alert("保存答题结果请求异常,请联系系统管理员");
+					unlockSrc();
+					closeWin();
+				}
+			});
+		}
+
+		//查看单题-跳转到所选试题的答题页面
+		function viewQues(page) {
+			$("#paperResult").css({
+				'visibility': 'hidden'
+			});
+			$('.student-bg').css({
+				'display': 'none'
+			});
+			showQuestion(page);
+			// var quesIndex = rowNum-1;
+			// $.loadObject.setPageParams({start:quesIndex});
+			// $.loadObject.loadQuestion();
+		}
+		//锁屏
+		function lockSrc(message) {
+			$("#lockDivMsg").text(message);
+			var scrollWidth = document.documentElement.scrollWidth; //实际宽度
+			var scrollHeight = document.documentElement.scrollHeight; //实际高度
+			var clientWidth = document.documentElement.clientWidth; //可见宽度
+			var clientHeight = document.documentElement.clientHeight; //可见高度
+			if (scrollHeight < clientHeight) {
+				scrollHeight = clientHeight;
+			}
+			var divWidth = $(".lockDivInfo").width();
+			var divHeight = $(".lockDivInfo").height();
+			var divLeft = clientWidth / 2 - divWidth / 2;
+			var divTop = clientHeight / 2 - divHeight / 2;
+			$(".lockDiv").css({
+				"top": 0,
+				"left": 0,
+				width: scrollWidth,
+				height: scrollHeight,
+				"opacity": "0.35"
+			}).fadeIn(0);
+			$(".lockDivInfo").css({
+				"top": divTop,
+				"left": divLeft
+			}).fadeIn(0);
+		}
+
+		//解屏
+		function unlockSrc() {
+			$("#lockDivMsg").text("");
+			$(".lockDivInfo").fadeOut(0);
+			$(".lockDiv").fadeOut(0);
+		}
+		function showNoPan(){
+			alert("sss");
+			$("#nopanmap").show();
+		}
+	</script>
+	<script language="JavaScript">
+		var question_id = "";
+	</script>
+	<script language="JavaScript" for="VcomAQTool" event="OnGetKeys(id,keys)">
+		//alert(keys+isReceiveSignal);
+		if (!isReceiveSignal) {
+
+			return;
+		}
+		var student_id = deviceMap[id];
+		if (student_id == null || student_id == "") {
+			student_id = deviceMap_tool[id];
+			smartPaperEnable = 0;
+		} else {
+			smartPaperEnable = 1;
+		}
+		//document.getElementById("span2").innerHTML = deviceMap[id] + ":" + student_id + "<br>";
+		if ($('#answer_' + student_id).length == 0) {
+			return;
+		}
+		if (questionType == 3) {
+			keys = keys.replace("G", "1"); //√
+			keys = keys.replace("H", "0"); //×
+		} else {
+			if (smartPaperEnable == 1) {
+				keys = keys.replace("G", "F"); //√
+				keys = keys.replace("H", "G"); //×
+			} else {
+				keys = keys.replace("G", "√"); //√
+				keys = keys.replace("H", "×"); //×
+			}
+		}
+
+
+		var rightAnswer = $("#qutesion").attr("answer");
+		question_id = $("#qutesion").attr("queid");
+		//alert(rightAnswer);
+		var answerObj;
+		//判断答案是否无效：选择候选项以外的选项、单选题选多个
+		var inValidFlag = false;
+		//alert(keys);
+		var stuAnswerArr = keys.split("");
+		//alert(stuAnswerArr.length);
+		if (stuAnswerArr.length > 1) {
+			inValidFlag = true;
+			keys = keys.replace("1", "F"); //√
+			keys = keys.replace("0", "G"); //×
+		} else {
+
+			for (var i = 0; i < stuAnswerArr.length; i++) {
+				//alert($.inArray(stuAnswerArr[i], answerOptions));
+				//alert(stuAnswerArr[i]);
+				if ($.inArray(stuAnswerArr[i], answerOptions) == -1) {
+					inValidFlag = true;
+					break;
+				}
+			}
+		}
+
+		var inValidClass = "bgYellow";
+		var rightClass = "bgcGreen";
+		var wrongClass = "bgcRed";
+		if (RESULT_SHOW_TYPE == MODULEID_MAP['option_rs_simple']) {
+			inValidClass = "bgcGreen";
+			rightClass = "bgcGreen";
+			wrongClass = "bgcGreen";
+		}
+		//alert($("#answer_"+student_id).attr("class"));
+		if (inValidFlag) {
+			if ($("#answer_" + student_id).attr("class") == "none") {
+				answered_stu_num++;
+			}
+			$("#answer_" + student_id).removeAttr("class").removeAttr("answerStatus").removeAttr("answerResult").attr("class",
+				inValidClass).attr("answerStatus", "1").attr("answerResult", "99");
+			$("#inValidCount").text($("#student ul.stuList a[answerStatus='1']").length);
+			$("#rightCount").text($("#student ul.stuList a[answerResult='100']").length);
+			$("#wrongCount").text($("#student ul.stuList a[answerStatus='2'][answerResult='99']").length);
+			answerObj = new Answer(question_id, keys, "99", "1");
+		} else {
+			//alert('sss');
+			if (rightAnswer == keys) {
+				if ($("#answer_" + student_id).attr("class") == "none") {
+					answered_stu_num++;
+				}
+				$("#answer_" + student_id).removeAttr("class").removeAttr("answerStatus").removeAttr("answerResult").attr(
+					"class", rightClass).attr("answerStatus", "2").attr("answerResult", "100");
+				$("#inValidCount").text($("#student ul.stuList a[answerStatus='1']").length);
+				$("#rightCount").text($("#student ul.stuList a[answerResult='100']").length);
+				$("#wrongCount").text($("#student ul.stuList a[answerStatus='2'][answerResult='99']").length);
+				answerObj = new Answer(question_id, keys, "100", "2");
+			} else {
+				if ($("#answer_" + student_id).attr("class") == "none") {
+					answered_stu_num++;
+				}
+				$("#answer_" + student_id).removeAttr("class").removeAttr("answerStatus").removeAttr("answerResult").attr(
+					"class", wrongClass).attr("answerStatus", "2").attr("answerResult", "99");
+				$("#inValidCount").text($("#student ul.stuList a[answerStatus='1']").length);
+				$("#rightCount").text($("#student ul.stuList a[answerResult='100']").length);
+				$("#wrongCount").text($("#student ul.stuList a[answerStatus='2'][answerResult='99']").length);
+				answerObj = new Answer(question_id, keys, "99", "2");
+			}
+		}
+
+		$("#noAnswerCount").text($("#student ul.stuList a[answerStatus='0']").length);
+		document.getElementById("answered_stu_num").innerHTML = answered_stu_num;
+		if (keys == 0) keys = "×";
+		if (keys == 1) keys = "√";
+		document.getElementById("span_" + student_id).innerHTML = "(" + keys + ")";
+		anMaps[student_id] = answerObj;
+		//alert(anMaps[student_id].answer);
+		//处理自动换页
+		if (CHANGE_PAGE_TYPE == MODULEID_MAP['option_cp_submit']) {
+			if (answered_stu_num == sum_student) {
+				$("#pagebar1 a.next").click();
+			}
+		}
+	</script>
+</HEAD>
+</head>
+
+<body style='overflow:-Scroll;overflow-x:hidden'>
+	<div id="jplayer"></div>
+	<div class="main">
+		<div id="list" class="realContent"
+			style="position:relative; border-top:0px; border-bottom:0px; padding-right:60px;">
+			<li style="list-style:none;" id="realContent">
+
+			</li>
+		</div>
+	</div>
+
+	<div class="renshu" style="display:none;"><big
+			id="answered_stu_num"></big><span>/</span><small>{$sum_student}</small></div>
+	<div id="pageTime"></div>
+	<div id="toolbar" class="right">
+		<p class="why"> <a id="mp3play" href="javascript:;"></a></p>
+		<!-- <p> <a id="mp3play" class="sound_single" href="javascript:;"></a></p> -->
+		<p class="tips"></p>
+		<p class="aBtn"><a href="javascript:void(0);" id="startorstop" data-status="start">开始答题</a></p>
+		<p class="aBtn"><a href="javascript:void(0);" class="close-student" data-reveal-id="result">答题分析</a></p>
+		<p class="aBtn"><a href="javascript:void(0);" class="close-student" data-reveal-id="answer">参考答案</a></p>
+		<p class="aBtn"><a href="javascript:void(0);" class="close-student" data-reveal-id="student">答题结果</a></p>
+		<p class="page" id="pagebar1"><a href="javascript:void(0);" class="pre" p="prev">&lt;</a><a
+				href="javascript:void(0);" class="next" p="next">&gt;</a></p>
+		<div class="clearfix"></div>
+		<p class="aBtn"><a href="javascript:void(0);" class="close-student" data-reveal-id="paperResult">套卷结果</a></p>
+		<p class="zoom"><a href="javascript:void(0);" onclick="zoomIn('.bigger_150')" class="jia">+</a><a
+				href="javascript:void(0);" onclick="zoomOut('.bigger_150')" class="jian">-</a></p>
+		<p class="aBtn"><a href="javascript:void(0);" class="close-student" data-reveal-id="config">设&nbsp;&nbsp;置</a>
+		</p>
+		<!-- <p class="aBtn"><a class="playmp3" href="javascript:void(0);">播&nbsp;&nbsp;放</a></p> -->
+		<p class="switch"><a href="javascript:void(0);">切&nbsp;&nbsp;换</a></p>
+		<p class="close"><a href="javascript:void(0);" onclick="exit()"></a></p>
+		
+	</div>
+	<if condition="($allowAnswerNopay eq 0) and ($noPayMapCount gt 0) ">
+		<div class="namelist"><a href="javascript:void(0);" data-reveal-id="nopanmap" style="color: #ec4140;">答题卡禁用名单</a></div>
+	</if>
+	<!--答题结果-->
+	<div id="student" class="student stu">
+		<div class="title"><a href="javascript:void(0);" class="close-student"></a>
+			<h2>答题结果</h2>
+		</div>
+		<div class="boxCon">
+			<p class="answerNumMemo">
+				答对<span id="rightCount"></span>人&nbsp;&nbsp;&nbsp;&nbsp;
+				答错<span id="wrongCount"></span>人&nbsp;&nbsp;&nbsp;&nbsp;
+				无效作答<span id="inValidCount"></span>人&nbsp;&nbsp;&nbsp;&nbsp;
+				未作答<span id="noAnswerCount"></span>人&nbsp;&nbsp;&nbsp;&nbsp;
+				班级总人数<span id="totalCount">{$sum_student}</span>人
+			</p>
+			<ul class="stuList">
+				<foreach name="studentInfo" item="studentInfo" key="key">
+					<li><a href="javascript:void(0);" id="answer_{$studentInfo.studentNumber}" class="none" class="none"
+							answerStatus="0" answerResult="0">
+							<font>{$studentInfo.realname}</font><span id="span_{$studentInfo.studentNumber}"></span>
+						</a></li>
+				</foreach>
+			</ul>
+			<div class="ts">
+				<p id="detailColorMemo"><span class="bGreen"></span>正确；<span class="bRed"></span>错误；<span
+						class="bYellow"></span>无效；<span class="bGray"></span>未作答。</p>
+				<p id="simpleColorMemo"><span class="bGreen"></span>已作答；<span class="bGray"></span>未作答。</p>
+			</div>
+		</div>
+	</div>
+	<!--欠费学生-->
+	<div id="nopanmap" class="student stu">
+		<div class="title"><a href="javascript:void(0);" class="close-student"></a>
+			<h2>提示</h2>
+		</div>
+		<div class="boxCon">
+<h2 style="font-size: 18px;">以下学生因欠费或未订购，答题卡禁用，不能正常使用！</h2>
+			<ul class="stuList">
+
+				<foreach name="noPayMap" item="noPayMap" key="key">
+					<li><a href="javascript:void(0);" <font>{$noPayMap.realname}</font>
+						</a></li>
+				</foreach>
+			</ul>
+
+		</div>
+	</div>
+	<!--答题分析-->
+	<div id="result" class="student result">
+		<div class="title"><a href="javascript:void(0);" class="close-student"></a>
+			<h2>答题分析</h2>
+		</div>
+		<div class="boxCon">
+			<h3>本题答对<b id="rightNum">0人</b>，正确率<b id="rightRatio">0%</b></h3>
+			<div class="clearfix"></div>
+			<div class="ts">
+				<p id="inValidMemo"></p>
+			</div>
+		</div>
+	</div>
+
+	<!--参考答案-->
+	<!--参考答案-->
+	<div id="answer" class="student answer">
+		<div class="title"><a href="javascript:void(0);" class="close-student"></a>
+			<h2>参考答案</h2>
+		</div>
+		<div class="boxCon" style="word-break:break-all;word-wrap:break-word;">
+			<p id="answer_p"><span>参考答案：</span><span id="answer_display"></span></p>
+			<p id="answer_analysis_p"><span>听力材料：</span><span id="answer_analysis_display"></span></p>
+		</div>
+	</div>
+
+	<div id="config" class="student">
+
+		<div class="title"><a href="javascript:void(0);" class="close-student"></a>
+			<h2>设置</h2>
+		</div>
+		<div class="boxCon">
+			<div id="configArea">
+				<ul class="confTitle">
+
+					<li>设置自动切换下一题方式
+						<ul class="confOption" data-type="type_change_page">
+
+							<li>
+								<input type="radio" name="type_change_page" value="option_cp_manual"
+									data-uoflag="{$cp_manual_uoflag}" />
+								不自动切换
+							</li>
+
+
+							<li>
+								<input type="radio" name="type_change_page" value="option_cp_submit"
+									data-uoflag="{$cp_submit_uoflag}" />
+								学生全部作答完成后自动切换到下一题
+							</li>
+
+
+							<li>
+								<input type="radio" name="type_change_page" value="option_cp_interval"
+									data-uoflag="{$cp_interval_uoflag}" />
+								定时切换到下一题
+							</li>
+
+							<span id="intevalSetArea">
+								<a id="subInternalBtn" href="javascript:void(0);" onclick="subInternal()">-</a>
+								<select id="pageInterval">
+
+									<option value="0.5" data-operateid="0.5" data-uoflag="{$Intervalflag1}">30秒</option>
+
+									<option value="1" data-operateid="1" data-uoflag="{$Intervalflag2}">1分钟</option>
+
+									<option value="1.5" data-operateid="1.5" data-uoflag="{$Intervalflag3}">1.5分钟
+									</option>
+
+									<option value="2" data-operateid="2" data-uoflag="{$Intervalflag4}">2分钟</option>
+
+									<option value="2.5" data-operateid="2.5" data-uoflag="{$Intervalflag5}">2.5分钟
+									</option>
+
+									<option value="3" data-operateid="3" data-uoflag="{$Intervalflag6}">3分钟</option>
+
+									<option value="4" data-operateid="4" data-uoflag="{$Intervalflag7}">4分钟</option>
+
+									<option value="5" data-operateid="5" data-uoflag="{$Intervalflag8}">5分钟</option>
+
+								</select>
+								<a id="addInternalBtn" href="javascript:void(0);" onclick="addInternal()">+</a>
+							</span>
+
+
+						</ul>
+					</li>
+
+					<li>设置答题结果展示形式
+						<ul class="confOption" data-type="type_result_show">
+
+							<li>
+								<input type="radio" name="type_result_show" value="option_rs_detail"
+									data-uoflag="{$rs_detail_uoflag}" />
+								答题结果按照正确、错误、未作答显示
+							</li>
+
+
+							<li>
+								<input type="radio" name="type_result_show" value="option_rs_simple"
+									data-uoflag="{$rs_simple_uoflag}" />
+								答题结果按照作答、未作答显示
+							</li>
+
+
+						</ul>
+					</li>
+
+				</ul>
+				<div class="confirmBtn">
+					<a id="saveConfBtn" href="javascript:void(0);" onclick="saveConf()">确定</a>
+					<a id="cancelConfBtn" href="javascript:void(0);" onclick="cancelConf()"
+						style="margin-left:90px;">取消</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="paperResult" class="student">
+
+		<div class="title"><a href="javascript:void(0);" class="close-student"></a>
+			<h2>套卷结果</h2>
+		</div>
+		<div class="boxCon">
+			<div id="paperResultArea">
+				<div class="tab_2" style="width:100%;">
+					<span class="white" id="showTitle">试卷概况</span>
+				</div>
+				<p class="fank">
+					<!-- 试卷难度：<span id="paperAvgDif"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->试题数量：<span
+						id="qNum"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<!-- <span id="kNum">涉及知识点数量：<font id="kNumValue"></font></span> -->
+				</p>
+				<div class="tab_2" style="width:100%;">
+					<span class="white">按题目查看</span>
+				</div>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_2 qk2"
+					style="margin-top:10px;">
+					<tbody id="qlist">
+						<tr class="tit2">
+							<td width="10%">序号</td>
+							<td>题目</td>
+							<!-- <td width="11%">难易度</td> -->
+							<td width="16%">答对人数/作答人数</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div id="studentStat" class="student stu" style="z-index:10001;">
+		<div class="title"><a href="javascript:void(0);" class="close-plain"></a>
+			<h2></h2>
+		</div>
+		<div class="boxCon">
+			<p style="display:none;font-size:17px;padding:5px 0px 0px 12px;">无</p>
+		</div>
+	</div>
+
+	<form action="" method="post" id="fm">
+		<input type="hidden" name="paper_id" id="paper_id" value="cc2aa8429bff47c1a3b919f7047e11f2" />
+		<input type="hidden" name="homeworkid" id="homeworkid" value="2016_4454429b-e7cf-4e72-afee-38f8a1fde11b" />
+		<input type="hidden" name="studentClass" id="studentClass" value="142268915605781314" />
+	</form>
+	<span id="span2"></span><br>
+	<div class="lockDiv" style="display:none;"></div>
+	<div class="lockDivInfo" style="display:none;"><span id="lockDivMsg"></span><img
+			src="__Hjs__device/images/loading.gif"></div>
+	<OBJECT id="VcomAQTool" align="CENTER" WIDTH=0 HEIGHT=0
+		classid="clsid:3c782736-05fa-43a4-af03-b7aa96876d99"></OBJECT>
+	<OBJECT ID="ocx" width="0" height="0" CLASSID="CLSID:B02201C9-1789-4FF0-B95F-C1A03D8B6B99">
+		<PARAM NAME="_Version" VALUE="65536">
+		<PARAM NAME="_ExtentX" VALUE="10583">
+		<PARAM NAME="_ExtentY" VALUE="10583">
+		<PARAM NAME="_StockProps" VALUE="0">
+	</OBJECT>
+	<br>
+</body>
+
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta charset="UTF-8">
+  <title>口算卡</title>
+  <link rel="stylesheet" href="__PUBLIC__/game/css/ksk.css" />
+  <link rel="stylesheet" href="__PUBLIC__/game/font/fonts.css" />
+  <script type="text/javascript" src="__PUBLIC__/game/zepto.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/game/common.js"></script>
+</head>
+
+<body>
+  <header class="head">
+    <a class="head-left" href="javascript:goIndex();">
+      <i class="icon-back"></i>返回</a>
+    <h1 id="grade"></h1>
+    <a class="head-right" id="downB">
+      <span>上学期
+        <i class="icon-down2"></i>
+      </span>
+      <div class="xlList">
+        <ul>
+          <li>上学期</li>
+          <li>下学期</li>
+        </ul>
+      </div>
+    </a>
+  </header>
+  <section>
+    <div class="mT50">
+      <ul class="ksList">
+      </ul>
+    </div>
+
+  </section>
+  <script type="text/javascript" src="__PUBLIC__/game/jquery.min.js"></script>
+  <script>
+    var gradeCode = GetQueryString('gradeid');
+    var subjectid = GetQueryString('subjectid');
+    var moduleid = GetQueryString('moduleid');
+    var urlCallBack = GetQueryString('urlCallBack');
+
+    var debug = GetQueryString('debug');
+
+    $(function () {
+      getTerm();
+      $('#grade').html(getGradeName(gradeCode));
+    });
+
+    function goIndex() {
+      // UXinJSInterface.closeWebView();
+      window.location.href = 'index?gradeid=' + gradeCode + '&subjectid=0002&moduleid=' + moduleid + '&backUrl=' +
+        encodeURIComponent(urlCallBack);
+    }
+
+    function goRules() {
+      window.location.href = 'rules?gradeid=' + gradeCode + '&subjectid=0002&moduleid=' + moduleid + '&urlCallBack=' +
+        encodeURIComponent(urlCallBack);
+    }
+
+    function goGenre(genreid, title) {
+      setLocalStorage('sx_title', title);
+      setLocalStorage('sx_genreid', genreid);
+      setLocalStorage('sx_gradeid', gradeCode);
+      setLocalStorage('sx_subjectid', subjectid);
+      setLocalStorage('sx_moduleid', moduleid);
+
+      var backToStageList = window.location.protocol + '//' + window.location.host +
+        '/Shuxue/Game/stagelistksk?genreid=' + genreid +
+        '&gradeid=' +
+        gradeCode + '&subjectid=' + subjectid + '&moduleid=' + moduleid + '&type=1' + '&urlCallBack=' +
+        encodeURIComponent(
+          urlCallBack);
+      var url = backToStageList + '&title=' + encodeURI(encodeURI(title)) + '&ks_short_name=' + encodeURI(
+        encodeURI(
+          title));
+
+      if (debug) {
+        window.location.href = url;
+      }
+      window.location.href = url;
+      // window.UXinJSInterface.openProgressController(url);
+    }
+
+    function getGenre() {
+      $.ajax({
+        type: 'get',
+        url: '../Game/getGenresByksk',
+        data: {
+          ran: Math.random(),
+        },
+        dataType: 'json',
+        success: function (data) {
+          var html = '';
+          $.each(data, function (k, v) {
+            html += '<li class="newJb" onclick="goGenre(' + v.id + ',\'' + v.name + '\');">';
+            html += '<a class="table">';
+            html += '<span class="w50 pad5">';
+            if (v.status == -1) {
+              var imgurl = '__PUBLIC__/game/images/ksk/xuan02.png';
+            } else if (v.status == 1 || v.status == 0) {
+              var imgurl = '__PUBLIC__/game/images/ksk/xuan03.png';
+            } else {
+              var imgurl = '__PUBLIC__/game/images/ksk/xuan01.png';
+            }
+            html += '<img src="' + imgurl + '" class="img100" />';
+            html += '</span>';
+            html += '<span>' + v.name + '</span>';
+            html += '</a>';
+            html += '</li>';
+          })
+		  if(html==""){
+			html = "<li style=\"text-align:center;\">暂无内容</li>";
+		  }
+          $('.ksList').html(html);
+        },
+        error: function (e) {
+
+        }
+      })
+    }
+
+    function getTerm() {
+      $.ajax({
+        type: 'get',
+        url: '../Game/getTerm',
+        data: {
+          ran: Math.random()
+        },
+        dataType: 'json',
+        success: function (data) {
+          $('#downB span').html(getTermName(data.termCode) + '<i class=' + 'icon-down2' + '></i>');
+          getGenre();
+        },
+        error: function (e) {
+
+        }
+      })
+    }
+
+    function setTerm(termName) {
+      if (getTermCode(termName) != '0001') {
+        // $('#ting').hide();
+      } else {
+        // $('#ting').show();
+      }
+      $.ajax({
+        type: 'get',
+        url: '../Game/setTerm',
+        data: {
+          ran: Math.random(),
+          termCode: getTermCode(termName)
+        },
+        dataType: 'json',
+        success: function (data) {
+          getGenre();
+        },
+        error: function (e) {
+
+        }
+      })
+    }
+  </script>
+
+  <script>
+    $('#downB span').click(function () {
+      $('.xlList').slideDown();
+    })
+    $('.xlList li').click(function () {
+      ss = $(this).html();
+      bnr = ($('.xlList').html());
+      $('#downB span').html(ss + '<i class=' + 'icon-down2' + '></i>');
+      $('.xlList').slideUp();
+      setTerm(ss);
+    })
+  </script>
+</body>
+
+</html>

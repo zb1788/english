@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="wap-font-scale" content="no">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="__SUBJECT__/react/style/css/currency.css" />
+    <link rel="stylesheet" href="__SUBJECT__/react/style/font/fonts.css" />
+    <script type="text/javascript" src="__SUBJECT__/react/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__SUBJECT__/react/js/performance.js"></script>
+    <script type="text/javascript" src="__SUBJECT__/react/js/common.js"></script>
+    <script type="text/javascript">
+      var datasource="__PUBLIC__";
+      var subject="__SUBJECT__";
+      //通过获取参数 如果参数有 那么就不区看cookie
+      var gradeid=window.localStorage.getItem("enqwgradeid");
+      if(!gradeid){
+        gradeid="{$grade}";
+      }
+      var gradeids=parseInt(gradeid,10);
+      if(gradeids>10){
+        gradeids=10;
+      }else if(gradeids==""||gradeids==undefined){
+        gradeids=1;
+      }
+      gradeids=gradeids-1;
+    </script>
+    <title>英语同步练</title>
+  </head>
+  <body>
+    <main id="example">
+      
+    </main>
+  <script type="text/javascript" src="__SUBJECT__/react/js/main.js"></script></body>
+  <script type="text/javascript">
+    $(function(){
+      $(".am-icon-history").hide();
+    })
+  </script>
+</html>

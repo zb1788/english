@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <link href="__PUBLIC__/css/mui.min.css" rel="stylesheet"/>
+    <link href="__PUBLIC__/css/wszy.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/swiper/idangerous.swiper.css">
+    	 <link rel="stylesheet" href="__PUBLIC__/fonts/font-awesome/css/font-awesome.min.css">
+    <script type="text/javascript" charset="UTF-8">
+      	mui.init();
+    </script>
+    <style type="text/css">
+    	body{background: #fcfcff;}
+    </style>
+</head>
+<body>
+	<div class="mar_t45 bor-bo">
+	<span class="biaoti01 mar_t10"><s>作答结果</s></span>
+  <if condition="$wordtestlen neq '0'">
+    <span class="biaoti01 mar_t10" ><s>单词测试</s></span>
+    <div class=" pa10">
+    	<ul class="mui-table-view edi-bor01">
+        <volist name="wordtest" id="vo" key="k">
+          <li class="mui-table-cell edi-dc-all" onclick="javascript:window.location.href='class_word_test_feedback?homeworkid={$homeworkid}&classid={$classid}&studentid={$studentid}&num={$k-1}';">
+            <span class="edi-dc-left02">{$vo.word}</span>
+            <foreach name="vo.que" item="qu">
+              <span class="edi-dc-right02">
+                辨识率<strong><empty name="qu.bsrate">0<else/>{$qu.bsrate}</empty>%</strong>
+                <if condition="$vo.pxrate neq ''">，拼写率<strong><empty name="qu.pxrate">0<else/>{$qu.pxrate}</empty>%</strong></if>
+              </span>
+            </foreach>
+          </li>
+        </volist>
+    		</ul>
+    </div>
+  </if>
+  <if condition="$examsquizlen neq '0'">
+    <span class="biaoti01 mar_t10" ><s>听力训练</s></span>
+    <div class="pa10">
+    		<ul class="mui-table-view edi-bor01" style="margin: 10px 0;">
+          <volist name="examsquiz" id="vo">
+                  <volist name="vo.stem" id="vc" key="k">
+                      <eq name="vc.stem_type" value="1">
+                         <h3 class="bt-f02">第{$k}大题</h3>
+                         <foreach name="vc.question" item="qu">
+                            <li class="mui-table-view-divider" onclick="javascript:window.location.href='class_exams_quiz_feedback?homeworkid={$homeworkid}&classid={$classid}&studentid={$studentid}&num={$k-1}';">
+                              <span class="edi-qiu01">{$qu.question_num}</span>答题人数{$qu.num}人,正确率{$qu.accrrate}%
+                            </li>
+                         </foreach>
+                      </eq>
+                      <eq name="vc.stem_type" value="2">
+                         <h3 class="bt-f02">第{$k}大题</h3>
+                         <volist name="vc.stem_children" id="vd" key="ck">
+                            <h3 class="bt-f02">第{$k}大题第{$ck}部分</h3>
+                            <foreach name="vd.question" item="qu">
+                              <li class="mui-table-view-divider" onclick="javascript:window.location.href='class_exams_quiz_feedback?homeworkid={$homeworkid}&classid={$classid}&studentid={$studentid}&num={$k-1}';">
+                                <span class="edi-qiu01">{$qu.question_num}</span>答题人数{$qu.num}人,正确率{$qu.accrrate}%
+                              </li>
+                            </foreach>
+                         </volist>
+                      </eq>
+                  </volist>
+          </volist>
+    		</ul>
+    </div>
+  </if>
+</body>
+</html>

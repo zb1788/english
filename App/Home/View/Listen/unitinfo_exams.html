@@ -1,0 +1,4 @@
+
+<foreach name="unitinfo" item="unitinfo" key="k" >
+    <li><a href="javascript:show_exams_list({$unitinfo.id},{$k});" curnum="{$k}" unitid="{$unitinfo.id}" onclick="return isLogin();">{$unitinfo.unitalias}<b>></b></a></li>
+</foreach>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <title>英语同步练</title>
+    <link href="/public/Mobile//css/fonts.css" rel="stylesheet" type="text/css">
+    <link href="/public/Mobile//css/style.css" rel="stylesheet">
+    <script src="/public/Mobile//js/TouchSlide.1.1.js"></script>
+	<script type="text/javascript" src="/public/Mobile//js/jquery.min.js"></script>  
+	<script src="/public/Mobile//js/jquery.cookie.js" type="text/javascript"></script> 
+</head>
+
+<body>
+<header>
+    <div class="l fl"><a href="/mobile/textread/index"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">读课文</div>
+    <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+               <!--  <li><a href="/mobile/index/wordbook"><i class="icon-heart"></i><font class="wordcount"></font></a></li>
+                <li><a href="/mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount"></font></a></li> -->
+                <li><a href="/mobile/index/index"><i class="icon-evil"></i>学习中心</a></li>
+                <li><a href="/mobile/index/course"><i class="icon-pencil-square"></i><b>版本设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<section class="wordbook">
+    <div class="wbBtn bLine" bid="0001060206020l"><p>Unit3 Part A</p><p><font class="curindex">1</font>/4</p></div> 
+</section>
+
+<section class="read">
+    <div id="iScroll" class="iScroll bWhite">
+        <div class="hd" style="display:none;">
+            <ul></ul>
+        </div>
+        <div class="bd" id="iScroll-bd">
+            <div class="con">
+            	<ul>
+                    <div class="text">
+                       <h3 class="active"></h3>
+                            <p class="active"><span class="en" ></span></p>
+                    </div>
+                </ul>
+            </div>
+            <div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>A Let's talk</a></h3>
+                           <p class="active" bid="962">
+                                    <span class="en" mid="2A288B4A76C8FF7DF1432796E429897C">
+                                        Mike&nbsp;:&nbsp;We have a few fun things in spring. After the sports meet, we have an English party.                                    </span>
+                                    <span class="ch" style="">
+                                        Mike&nbsp;:&nbsp;春天的时候我们会有一些有趣的事情。运动会之后，我们会举办一场英语派对。                                    </span>
+                                </p><p class="active" bid="962">
+                                    <span class="en" mid="8ABDE0C61E5035F6D39CD4DC55CE5331">
+                                        Zhang Peng&nbsp;:&nbsp;When is the party?                                    </span>
+                                    <span class="ch" style="">
+                                        Zhang Peng&nbsp;:&nbsp;派对在什么时候？                                    </span>
+                                </p><p class="active" bid="962">
+                                    <span class="en" mid="9231FB3163CE0D6B8F0B91A66E8F2B28">
+                                        Mike&nbsp;:&nbsp;It's in April.We have a school trip,too.                                    </span>
+                                    <span class="ch" style="">
+                                        Mike&nbsp;:&nbsp;在四月。我们也有一个学校郊游。                                    </span>
+                                </p><p class="active" bid="962">
+                                    <span class="en" mid="D49FBF52CDE05A14A4082C1550A20B01">
+                                        Zhang Peng&nbsp;:&nbsp;When is that?                                    </span>
+                                    <span class="ch" style="">
+                                        Zhang Peng&nbsp;:&nbsp;那是在什么时候？                                    </span>
+                                </p><p class="active" bid="962">
+                                    <span class="en" mid="3FB110A6252FE87C1FF0BF9822B89EFF">
+                                        Mike&nbsp;:&nbsp;It's in May.                                    </span>
+                                    <span class="ch" style="">
+                                        Mike&nbsp;:&nbsp;在五月。                                    </span>
+                                </p><p class="active" bid="962">
+                                    <span class="en" mid="B68A2849BBF6441EA2C861A7CFDC6E13">
+                                        Zhang Peng&nbsp;:&nbsp;Cool!                                    </span>
+                                    <span class="ch" style="">
+                                        Zhang Peng&nbsp;:&nbsp;太酷了！                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>A Let's talk-Write and talk</a></h3>
+                           <p class="active" bid="963">
+                                    <span class="en" mid="441A37BBE0FBCEF6657EB7A4486DE99C">
+                                        Zoom&nbsp;:&nbsp;When is the singing contest?                                    </span>
+                                    <span class="ch" style="">
+                                        Zoom&nbsp;:&nbsp;歌唱比赛是什么时候？                                    </span>
+                                </p><p class="active" bid="963">
+                                    <span class="en" mid="FA2BB35B8E3C5E29FD8BE959C23D1BC9">
+                                        Zip&nbsp;:&nbsp;It's usually in May.                                    </span>
+                                    <span class="ch" style="">
+                                        Zip&nbsp;:&nbsp;通常在三月。                                    </span>
+                                </p><p class="active" bid="963">
+                                    <span class="en" mid="76AC3F0C11E4E290E1A34ADD28EA0BC3">
+                                        &nbsp;school trip                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;学校郊游                                    </span>
+                                </p><p class="active" bid="963">
+                                    <span class="en" mid="D8288B8A89C2C3CEDB607CAD6055DA00">
+                                        &nbsp;sports meet                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;运动会                                    </span>
+                                </p><p class="active" bid="963">
+                                    <span class="en" mid="CCA4721B94E93AE2127B0F86ABFC7A31">
+                                        &nbsp;Chinese test                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;语文考试                                    </span>
+                                </p><p class="active" bid="963">
+                                    <span class="en" mid="57021545F822A81544044A8C80073566">
+                                        &nbsp;maths test                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;数学考试                                    </span>
+                                </p><p class="active" bid="963">
+                                    <span class="en" mid="402D33D581820EEF1D46B4357FE2C1BA">
+                                        &nbsp;singing contest                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;歌唱比赛                                    </span>
+                                </p><p class="active" bid="963">
+                                    <span class="en" mid="1123E2DE5521150FCA696057FABC5A0B">
+                                        &nbsp;April                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;四月                                    </span>
+                                </p><p class="active" bid="963">
+                                    <span class="en" mid="28C89AEF298592D2BCDE785EEAB2E41C">
+                                        &nbsp;May                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;五月                                    </span>
+                                </p><p class="active" bid="963">
+                                    <span class="en" mid="EFD29208BF69607699B3E1DFF6479E19">
+                                        &nbsp;singing contest                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;歌唱比赛                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>A Let's learn</a></h3>
+                           <p class="active" bid="964">
+                                    <span class="en" mid="29BB1F997C217D55C306577FBB97BD78">
+                                        Mike&nbsp;:&nbsp;When is Tree Planting Day?                                    </span>
+                                    <span class="ch" style="">
+                                        Mike&nbsp;:&nbsp;植树节是什么时候？                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="56DFB285487D354DBD29C8B99B949F29">
+                                        Zhang Peng&nbsp;:&nbsp;It's in March.                                    </span>
+                                    <span class="ch" style="">
+                                        Zhang Peng&nbsp;:&nbsp;在三月。                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="58D1788896F22CC1DD2DE5232A077E41">
+                                        &nbsp;January(Jan.)                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;一月                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="6A962FF7A428BF82FF538A7C40D628A9">
+                                        &nbsp;New Year's Day                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;元旦                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="0D65794E5BEAB39AD47B53C1D6B398DF">
+                                        &nbsp;winter vacation                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;寒假                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="472F00F873FA85840B0A4731398C1ED0">
+                                        &nbsp;February(Feb.)                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;二月                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="786C2C64F6A3FC2D75A331528367ABB6">
+                                        &nbsp;winter vacation                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;寒假                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="9B20BC57543DBA77A77B268D91C33F72">
+                                        &nbsp;March (Mar.)                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;三月                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="6FD46D49F64C19859A674B5DD0018213">
+                                        &nbsp;Tree Planting Day                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;植树节                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="3C0E694C2DD54AA95BF264205C10F731">
+                                        &nbsp;April(Apr.)                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;四月                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="066AF506A7C1F6AEAEB8FECC643035AB">
+                                        &nbsp;English Party                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;英语派对                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="1D44424636952648CF2CD4538A684D80">
+                                        &nbsp;sports meet                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;运动会                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="45653F68032F1FE76124DCC5EEFABE63">
+                                        &nbsp;May                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;五月                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="EB43EEA1BA06C77D9643B2C397F817BF">
+                                        &nbsp;singing contest                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;歌唱比赛                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="217E73FEA9902E94615D2F0EBD18B48D">
+                                        &nbsp;school trip                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;学校郊游                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="6522B7A7304130649ABC8DD3D453A27C">
+                                        &nbsp;May Day                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;劳动节                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="61B388D6DFC6BA23D8929ADFBEB62F14">
+                                        &nbsp;Mother's Day                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;母亲节                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="D057023F3F94D56DA70FEC50490D1E60">
+                                        &nbsp;June(Jun.)                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;六月                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="EBD1188A462747CC346E74F114EECF38">
+                                        &nbsp;Children's Day                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;儿童节                                    </span>
+                                </p><p class="active" bid="964">
+                                    <span class="en" mid="AE77907D6F67BA094D4705AE8A45D95A">
+                                        &nbsp;Father's Day                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;父亲节                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>A Let's spell</a></h3>
+                           <p class="active" bid="965">
+                                    <span class="en" mid="E385373519B5C47EAD81079F8580994A">
+                                        &nbsp;Read, listen and chant.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;读一读，听一听，唱一唱。                                    </span>
+                                </p><p class="active" bid="965">
+                                    <span class="en" mid="D3B6F35A61ADDAE3F914BC7E96795E6E">
+                                        &nbsp;ch-[tʃ]: China chicken lunch teacher                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;ch发[tʃ]： 中国 小鸡 午饭 教师                                    </span>
+                                </p><p class="active" bid="965">
+                                    <span class="en" mid="10954C68C6B954CD6B267E36F347933C">
+                                        &nbsp;sh-[ʃ]: sheep fish shirt shorts                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;sh发[ʃ]：绵羊 鱼 衬衫 短裤                                    </span>
+                                </p><p class="active" bid="965">
+                                    <span class="en" mid="47B79007022903FDF9A48C851EE50688">
+                                        &nbsp;Let's chant.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;唱一唱。                                    </span>
+                                </p><p class="active" bid="965">
+                                    <span class="en" mid="EE5F479D3F783A4B94F5A6768F5A4DFC">
+                                        &nbsp;Teacher, teacher. What's for lunch today? Chicken or fish.Chicken or fish. I love chicken, HOORAY!                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;老师，老师，今天的午餐是什么？鸡肉还是鱼肉？鸡肉还是鱼肉？我喜欢鸡肉，太棒啦！                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div> 
+            <div class="con">
+            	<ul>
+                    <div class="text">
+                       <h3 class="active"></h3>
+                            <p class="active"><span class="en" >fasdfasdfasdfasd</span></p>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    TouchSlide( { slideCell:"#iScroll",
+    titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+    autoPage:true, //自动分页
+    defaultIndex:1,
+    endFun:function(i){ //高度自适应
+    	    mp.clear();
+            $(".wbBtn font").text(i);
+            $(".tips").hide();
+            var bd = document.getElementById("iScroll-bd");
+            bd.parentNode.style.minHeight = window.screen.availHeight+100+"px";
+            document.getElementsByClassName("con")[i].getElementsByClassName("text")[0].style.minHeight=window.screen.availHeight+"px";
+            bd.scrollTop="20px";
+            if(i>0)bd.parentNode.style.transition="200ms";
+
+             if((i-1)==4)
+            {
+                $(".wbBtn.bLine p:eq(1)").hide(); 
+                $(".con:last span").text("正在加载下一单元......");
+                var indexn="1";
+                var unitcount="1";
+            
+                
+                unitcount=parseInt(unitcount)-1;
+                if(indexn!=unitcount)
+                {
+                   window.location.href="/mobile/textread/read/indexn/1/indexp/-1/model/tm/flag/0";
+                }
+                else
+                {
+                   $(".con:last span").text("您已经背诵到最有一个单元了，恭喜你已经学完本册书籍");
+                   return false;
+                }
+            }
+            
+            if(i>0)
+            {
+              $('.text:eq('+i+') h3').click();
+            }
+            
+            if((i)==4){$(".tips").show();}
+            if((i)==0)
+            {
+            	$(".wbBtn.bLine p:eq(1)").hide();            	
+          	    var indexp="-1";
+            	if(indexp!='-1')
+            	{
+            	   $(".con:eq(0) span").text("正在加载上一单元......");
+                   window.location.href="/mobile/textread/read/indexn/1/indexp/-1/model/tm/flag/1"; 
+                }
+            	else
+            	{
+               	   $(".con:eq(0) span").text("这里是第一单元，向左开始读课文");
+               	   return false;
+                }
+            }
+
+           
+         }
+    } );</script>
+</section>
+
+<section class="tips" style-"display:none;">
+    <p class="txt">已经到最后一段课文了，向左滑动进入下一个单元。</p>
+</section>
+<div id="jplayer"></div> 
+ 
+
+<script src="/public/Mobile//js/main.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.cookie.js"></script>
+
+<script type="text/javascript"> 
+$(".tips").hide();
+mp = new Mplay();
+var unitid="0001060206020l";
+var textcount=$(".con").length;
+mp.index=0;
+mp.url = "en.czbanbantong.com:8081/yylmp3/mp3_text/";
+var wordbcount=parseInt();
+var recordcount=parseInt();
+$(function() {
+    $(".dropdown a:eq(0) .wordcount").text($.cookie("engm_wordbook_count"));
+    $(".dropdown a:eq(1) .recordcount").text($.cookie("engm_record_count"));
+    //$('.ch').hide(); 
+    $('h3').removeClass('active');
+    $('p').removeClass('active');
+   // $(document).on('click', '.text h3', function() {
+    $('.text h3').click(function(){
+    	mp.clear();
+        $(this).addClass("active");
+        var pdom=$(this).nextAll('p');
+        var ind=$(this).parents().prevAll().length-4;
+        mp.index = pdom.index()-1;
+        mp.repeat = 1;
+        twordplay(".text:eq("+ind+")  p","span.en","active",1,1);
+    });
+
+    //$(document).on('click', '.text p', function() {
+    $('.text p').click(function(){
+    	mp.clear();
+        mp.index = $(this).index()-1;
+        mp.repeat = 1;
+        var ind=$(this).parents().prevAll().length-4;
+        twordplay(".text:eq("+ind+")  p","span.en","active",1,1);
+        $(this).parent().find("h3").addClass("active");
+    });
+});
+
+//获取mp3文件路径
+function getmp3url(mp3name){
+    //mp3name = mp3name.substr(0,mp3name.length-1);
+    var mp3url = '';
+    var quespeed = 1;
+    //if(examstts_type == 1){           //系统生成
+        if(quespeed == 0){
+            mp3name = mp3name+'s';
+        }
+        else if(quespeed == 2){
+            mp3name = mp3name+'q';
+        }
+    //}
+    mp3url = mp.url+mp3name.substr(0,2)+'/'+mp3name+'.mp3';
+    return mp3url;
+}
+
+
+function twordplay(pdom,cdom,cclass,repeat,timeoutnum)
+{
+    var allnum =  $(pdom).length; 
+    var carindex = mp.index;
+    //$(pdom).find("span.ch").hide();
+    //$(pdom).removeClass(cclass);
+    $(pdom + ":eq(" + carindex + ")").addClass(cclass);
+    var $word = $(pdom + ":eq(" + carindex + ")").find(cdom);
+    var mp3  = $word.attr("mid");
+    $word.addClass(cclass);
+    //$(pdom + ":eq(" + carindex + ")").find("span.ch").show();
+    if (carindex < allnum) {
+
+        mp.play(getmp3url(mp3));
+        $("#jplayer").bind($.jPlayer.event.ended,function (event) {
+            if (mp.repeat >= repeat) 
+            {mp.index = mp.index + 1; mp.repeat = 1;}
+            else
+            {mp.repeat = mp.repeat + 1};                
+            setTimeout(function(){twordplay(pdom,cdom,cclass,repeat,timeoutnum);}, timeoutnum * 1000); 
+        });
+    }
+    else
+    {
+        mp.index = 0;
+        $(".boxCon").show();
+        $word.removeClass(cclass);
+        var chapterid=$(pdom).attr("bid");
+        $.get("/mobile/textread/study_text_record",{unitid:unitid,chapterid:chapterid},function(data){
+            var recordcount=$(".dropdown a:eq(1) .recordcount").text();
+            $(".dropdown a:eq(1) .recordcount").text(parseInt(recordcount)+parseInt(data.add));
+            $.cookie("engm_record_count",parseInt($.cookie("engm_record_count"))+parseInt(data.add));
+        });
+      
+    } 
+}
+
+function Mplay(){ 
+   $("#jplayer").jPlayer({
+        swfPath: "",
+        wmode: "window",
+        supplied: "mp3",
+        preload: "none",
+        volume: "1"
+    });
+
+    var oplay = new Object();  
+    oplay.index = 0;
+    oplay.url = "";
+    oplay.repeat = 1;
+
+    oplay.play = function(mp3){  
+        oplay.clear();
+        $("#jplayer").jPlayer("setMedia", {mp3:mp3}).jPlayer("play");
+    };
+
+    oplay.clear = function(){       
+        $("#jplayer").jPlayer("stop");
+        $("#jplayer").jPlayer("clearMedia");
+        //$("#jplayer").data("SpeakMP3Value", "0");  
+        $("#jplayer").unbind($.jPlayer.event.ended);
+        $("#jplayer").unbind($.jPlayer.event.progress);
+    };
+    return oplay;  
+}
+
+
+function  BodyScroll(curpos){
+  var container = $("html,body"); 
+  var pos_y = $(curpos).offset().top-300;
+  $("html,body").animate({scrollTop:pos_y},100);//1000是ms,也可以用slow代替
+}
+</script>
+</body>
+</html>

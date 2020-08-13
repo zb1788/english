@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>登封口算王决赛</title>
+<link rel="stylesheet" type="text/css" href="style/style.css" />
+<script src="script/jquery-1.8.3.min.js"></script>
+</head>
+
+<body>
+<div class="top">
+</div>
+<div class="box">
+	<div class="w1000">
+		<div class="tongzhi"></div>
+		<ul class="stqie">
+                <li class="on" id="0">A轮排名</li>
+				<li id="1">B轮排名</li>
+				<li id="2">获奖名单</li>
+			<div class="clearfix"></div>
+		</ul>
+		<h2 class="bbs">2019年度“口算王”决赛</br>奖项设置：“口算王”5名、一等奖25名、二等奖50名、三等奖75名、优秀奖及优秀辅导教师若干名，各年级均分名额</h2>
+		<div class="bgbox">
+			<h3 class="pcbt"><span>竞赛排名</span></h3>
+			<ul class="njqie">
+				<li class="on" id="0002"><span>二年级</span></li>
+				<li id="0003"><span>三年级</span></li>
+				<li id="0004"><span>四年级</span></li>
+				<li id="0005"><span>五年级</span></li>
+				<li id="0006"><span>六年级</span></li>
+				<div class="clearfix"></div>
+			</ul>
+			<table class="bdlist" id="getresult">
+			</table>
+			 <img src="images/ssr.png" style="float: right;" />
+			 <div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+
+    <div class="footer mt0">
+   	  <div class="w1000">
+            <div class="left_f">
+                
+                <li class="nav2">
+                    <a href="#">关于我们</a>  /  
+                    <a href="#">版权声明</a>  /  
+                    <a href="#">服务条款</a>  /  
+                    <a href="#">隐私保护</a>  /  
+                    <a href="#">帮助中心</a>  /  
+                    <a href="#">加入我们</a>
+                </li>
+                <li class="copyRight">
+                  2012-2015 优教班班通版权所有  豫ICP备12019223号-1     服务热线：400-637-1319   0371-67679900<br>
+                    郑州教育资源中心　 郑州市现代教育信息技术中心   郑州威科姆教育科技有限公司 中国联通河南分公司  联合运营
+                </li>
+            </div>
+            <div class="right_f">
+                <li class="code">
+                    <span class="code2"></span>            
+                </li>
+                
+            </div>
+            <div class="clearfix"></div>
+        </div><!--end w980-->
+    </div>
+
+</body>
+<script>
+    var eng='/Shuxue/Api/';
+	$('.xueke a,.banben a,.nianji a').click(function(){
+		$(this).addClass('on');
+		$(this).parent('li').siblings('li').children('a').removeClass('on');
+	})
+    var gradeid='0002';
+	var type=0;
+	$(document).ready(function(){
+		 getResult(gradeid,type);
+	});
+    
+    $(".stqie li").click(function(){
+	  $(this).siblings().removeClass('on');
+	  $(this).addClass('on');
+	  type=$(this).attr("id");
+	  getResult(gradeid,type);
+	});
+
+	$(".njqie li").click(function(){
+	  $(this).siblings().removeClass('on');
+	  $(this).addClass('on');
+	  gradeid=$(this).attr("id");
+	  getResult(gradeid,type);
+	});
+
+	function getResult(gradeid,type){
+			var getresult=eng+'getRank?gradeid='+gradeid+"&type="+type;
+			if(type==2){
+			var str='<thead><tr><th width="20%">排名</th><th width="30%">学校</th><th width="30%">姓名</th></tr></thead>';
+			}
+			else{
+			var str='<thead><tr><th width="20%">排名</th><th width="30%">学校</th><th width="30%">姓名</th><th width="20%">分值</th></tr></thead>';
+			}
+			var score='';
+			$("#getresult").empty();
+			$.getJSON(getresult, function(data) {
+				if(data.length==0){return false;}
+				 else{
+				var num=data.length;
+				for(var i=0;i<num;i++)
+				{
+					schoolname=data[i].schoolname;
+					truename=data[i].truename;
+					if(type==0){
+				    score=parseInt(data[i].score0,10);
+					score=score*2;
+                    score='<td>'+score+'</td>';
+					}
+					else if(type==1){
+					score=parseInt(data[i].score1,10);
+					score=score*2;
+					score='<td>'+score+'</td>';
+					}
+					else if(type==2){
+					score='';
+					}
+					if(i<3){
+						str+='<tr><td><img src="images/'+(i+1)+'.png" width="25" /></td><td>'+schoolname+'</td><td>'+truename+'</td>'+score+'</tr>';}
+						else{
+						str+='<tr><td>'+(i+1)+'</td><td>'+schoolname+'</td><td>'+truename+'</td>'+score+'</tr>';}
+				}
+					 $("#getresult").append(str);
+				 }
+			  });
+       }
+
+</script>
+</script>
+</html>
+

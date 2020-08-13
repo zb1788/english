@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>登录</title>
+	<link href="__Hcss__mui.min.css" rel="stylesheet" />
+	<link href="__Hcss__mui.picker.css" rel="stylesheet" />
+	<link href="__Hcss__mui.poppicker.css" rel="stylesheet" />
+	<link href="__Hcss__yx-dd.css" rel="stylesheet" />
+	<style>
+		.area {
+			margin: 20px auto 0px auto;
+		}
+
+		.mui-input-group {
+			margin-top: 10px;
+		}
+
+		.mui-input-group:first-child {
+			margin-top: 20px;
+		}
+
+		.mui-input-group label {
+			width: 22%;
+		}
+
+		.mui-input-row label~input,
+		.mui-input-row label~select,
+		.mui-input-row label~textarea {
+			width: 78%;
+		}
+
+		.mui-checkbox input[type=checkbox],
+		.mui-radio input[type=radio] {
+			top: 6px;
+		}
+
+		.mui-content-padded {
+			margin-top: 25px;
+		}
+
+		.mui-btn {
+			padding: 10px;
+		}
+
+		.link-area {
+			display: block;
+			margin-top: 25px;
+			text-align: center;
+		}
+
+		.spliter {
+			color: #bbb;
+			padding: 0px 8px;
+		}
+
+		.oauth-area {
+			position: absolute;
+			bottom: 20px;
+			left: 0px;
+			text-align: center;
+			width: 100%;
+			padding: 0px;
+			margin: 0px;
+		}
+
+		.oauth-area .oauth-btn {
+			display: inline-block;
+			width: 50px;
+			height: 50px;
+			background-size: 30px 30px;
+			background-position: center center;
+			background-repeat: no-repeat;
+			margin: 0px 20px;
+			/*-webkit-filter: grayscale(100%); */
+			border: solid 1px #ddd;
+			border-radius: 25px;
+		}
+
+		.oauth-area .oauth-btn:active {
+			border: solid 1px #aaa;
+		}
+
+		.oauth-area .oauth-btn.disabled {
+			background-color: #ddd;
+		}
+	</style>
+	<style>
+		.biao {
+			background: 0;
+			box-shadow: none;
+			border: 0;
+		}
+
+		.biao p b.tishi {
+			right: 20px;
+		}
+
+		.biao p input {
+			text-align: center;
+			background: 0;
+		}
+
+		img.zimg {
+			width: 80%;
+			margin: 20px auto;
+			display: block;
+		}
+
+		#account,
+		#password {
+			margin-bottom: 0px;
+			border: 0px solid rgba(0, 0, 0, .2);
+		}
+
+		.mui-popup-button {
+			color: #00BDC7;
+		}
+
+		.mui-popup-button:first-child {
+			font-weight: 600;
+		}
+
+		.mui-popup-button:last-child {
+			font-weight: 10;
+			color: #999;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="fwtk">
+		<img src="__Himg__tbyyl.png" class="zimg" />
+	</div>
+	<div class="biao">
+		<!--	<h3>请输入您的报名信息</h3>-->
+		<p>
+			<b id="accounttips" class="tishi" style="display:none;">账号或者密码错误。</b>
+			<input id="account" type="text" value="账号" oninput="document.getElementById('accounttips').style.display='none';"
+				onfocus="if(value=='账号') {console.log(document.getElementById('accounttips'));document.getElementById('accounttips').style.display='none';value=''}"
+				onblur="if (value=='') {console.log(document.getElementById('accounttips'));document.getElementById('accounttips').style.display='none';value='账号'}">
+		</p>
+		<p>
+			<input id="password" type="text" value="密码" oninput="document.getElementById('accounttips').style.display='none';"
+				onfocus="if(this.value=='密码') {document.getElementById('accounttips').style.display='none';value='';this.type='password';}"
+				onblur="if (this.value=='') {document.getElementById('accounttips').style.display='none';this.type='text';this.value='密码';}">
+		</p>
+		<div class="clearfix"></div>
+	</div>
+	<a class="btn-fh" id="login">登 录</a>
+	<a href="http://tmszz.zzedu.net.cn/tms/ucbuyReg/buy.do" class="btn-zc">注 册</a>
+</body>
+<script src=" __Hjs__jquery-1.10.1.min.js"></script>
+<script src="__Hjs__mui.min.js"></script>
+<script src="__Hjs__mui.enterfocus.js"></script>
+<script src="__Hjs__app.js"></script>
+<script src="__Hjs__mui.picker.js"></script>
+<script src="__Hjs__mui.poppicker.js"></script>
+<script src="__Hjs__yjtYy_properties.js"></script>
+<script type="text/javascript">
+	$(function () {
+		$('.btn-tj').click(function () {
+			$('.bg').fadeIn(500);
+			$('.zhifu').show('500');
+			$('body').scrollTop(0);
+			$('body').css({
+				'overflow': 'hidden',
+			});
+		})
+		$('.btn-close').click(function () {
+			$('.bg').fadeOut(500);
+			$('.zhifu').hide('500');
+			$('body').css('overflow', 'auto');
+		});
+	});
+</script>
+<script type="text/javascript">
+	(function ($, doc) {
+		$.init({
+			statusBarBackground: '#f7f7f7'
+		});
+		$.ready(function () {
+			//普通示例
+			var userPicker = new $.PopPicker();
+			var showUserPickerButton = doc.getElementById('login');
+			showUserPickerButton.addEventListener('click', function (event) {
+				var phoneNum = document.getElementById("account").value;
+				var pwd = document.getElementById("password").value;
+				if (phoneNum == "" || phoneNum == "账号") {
+					document.getElementById("accounttips").innerHTML = "请输入账号";
+					document.getElementById("accounttips").style.display = "";
+					return false;
+				} else if (pwd == "" || pwd == "密码") {
+					document.getElementById("accounttips").innerHTML = "请输入密码";
+					document.getElementById("accounttips").style.display = "";
+					return false;
+				}
+				// userPicker.show(function(items) {
+
+				var localAreaCode = "1.";
+				var ssourl = '';
+				ssourl = mapObj[localAreaCode]["sso"];
+				//接口只有学生
+				mui.ajax('../Public/getRoles', {
+					data: {
+						sso: ssourl,
+						username: phoneNum
+					},
+					dataType: 'json',//服务器返回json格式数据
+					type: 'get',//HTTP请求类型
+					timeout: 10000,//超时时间设置为10秒；
+					async: true,
+					success: function (data) {
+						var obj = [];
+						if (data.length > 1) {
+							mui.each(data, function (index, item) {
+								var temp = {};
+								temp.text = item.role;
+								temp.value = item.username;
+								obj.push(temp);
+							});
+							userPicker.setData(obj);
+							userPicker.show(function (items) {
+								console.log(items);
+								var username = items[0].value;
+								console.log(username);
+								//prompt('',loginurl);
+								mui.ajax('../Public/loginwww', {
+									data: {
+										sso: ssourl,
+										username: username,
+										password: pwd,
+										inputname: phoneNum
+									},
+									dataType: 'json',//服务器返回json格式数据
+									type: 'get',//HTTP请求类型
+									timeout: 10000,//超时时间设置为10秒；
+									async: true,
+									success: function (data) {
+										if (data.authFlg == '0' && data.islogin == '1') {
+											window.location.href = "../../Mobile/Index/index?source=web";
+										}
+										else {
+											mui.toast(data.msg);
+										}
+									},
+									error: function (xhr, type, errorThrown) {
+										//异常处理；
+										console.log(type);
+									}
+								});
+							});
+						} else {
+							//prompt('',loginurl);
+							mui.ajax('../Public/loginwww', {
+								data: {
+									sso: ssourl,
+									username: phoneNum,
+									password: pwd,
+									inputname: phoneNum
+								},
+								dataType: 'json',//服务器返回json格式数据
+								type: 'get',//HTTP请求类型
+								timeout: 10000,//超时时间设置为10秒；
+								async: true,
+								success: function (data) {
+									if (data.authFlg == '0' && data.islogin == '1') {
+										window.location.href = "../../Mobile/Index/index?source=web";
+
+									}
+									else {
+										//mui.toast(data.msg);
+										if (data.msg == null || data.msg == 'null') {
+											document.getElementById("accounttips").innerHTML = "密码错误";
+										} else {
+											document.getElementById("accounttips").innerHTML = data.msg;
+										}
+
+										document.getElementById("accounttips").style.display = "";
+									}
+								},
+								error: function (xhr, type, errorThrown) {
+									//异常处理；
+									console.log(type);
+								}
+							});
+						}
+					},
+					error: function (xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+				//返回 false 可以阻止选择框的关闭
+				//return false;
+			}, false);
+		});
+	}(mui, document));
+</script>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="/public/Mobile//css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="/public/Mobile//css/style.css" rel="stylesheet">
+</head>
+
+<body style="overflow:hidden;" class="catalog catalog_study">
+<header>
+	<div class="l fl"><a href="/Mobile/index/windex"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">学单词</div>
+    <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+               <!--  <li><a href="/Mobile/index/wordbook"><i class="icon-heart"></i><font class="wordcount"></font></a></li>
+                <li><a href="/Mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount"></font></a></li> -->
+                <li><a href="/Mobile/index/index"><i class="icon-evil"></i>学习中心</a></li>
+                <li><a href="/Mobile/index/course"><i class="icon-pencil-square"></i><b>版本设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section class="study iStudy" id="course">
+    <h2>三年级.人教PEP.上学期</h2>
+    <ul class="cd-navigation">
+        <li class="item-has-children">
+            
+            <ul class="sub-menu">
+                <li><strong>Unit1</strong></li>
+                                            <li><a href="study?unitid=00010403040301" class="unit" unitid="00010403040301">Unit1 Part A</a></li>                        <li><a href="study?unitid=00010403040302" class="unit" unitid="00010403040302">Unit1 Part B</a></li><li><strong>Unit2</strong></li>
+                                            <li><a href="study?unitid=00010403040304" class="unit" unitid="00010403040304">Unit2 Part A</a></li>                        <li><a href="study?unitid=00010403040305" class="unit" unitid="00010403040305">Unit2 Part B</a></li><li><strong>Unit3</strong></li>
+                                            <li><a href="study?unitid=00010403040307" class="unit" unitid="00010403040307">Unit3 Part A</a></li>                        <li><a href="study?unitid=0001040304030c" class="unit" unitid="0001040304030c">Unit3 Part B</a></li><li><strong>Unit4</strong></li>
+                                            <li><a href="study?unitid=00010403040308" class="unit" unitid="00010403040308">Unit4 Part A</a></li>                        <li><a href="study?unitid=0001040304030d" class="unit" unitid="0001040304030d">Unit4 Part B</a></li><li><strong>Unit5</strong></li>
+                                            <li><a href="study?unitid=00010403040309" class="unit" unitid="00010403040309">Unit5 Part A</a></li>                        <li><a href="study?unitid=0001040304030e" class="unit" unitid="0001040304030e">Unit5 Part B</a></li><li><strong>Unit6</strong></li>
+                                            <li><a href="study?unitid=0001040304030a" class="unit" unitid="0001040304030a">Unit6 Part A</a></li>                        <li><a href="study?unitid=0001040304030f" class="unit" unitid="0001040304030f">Unit6 Part B</a></li><li><strong>复习单元</strong></li>
+                                </ul>
+        </li>
+
+        
+        
+    </ul>
+</section>
+
+<script type="text/javascript" src="/public/Mobile//js/jquery.min.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/xback.js"></script> 
+<script src="/public/Mobile//js/jquery.cookie.js" type="text/javascript"></script>  
+<script src="/public/Mobile//js/main.js"></script>
+<script type="text/javascript">
+$(function() {
+    $(".unit").click(function(){
+    var unitid="";
+    $(".unit").each(function(key,value){
+
+     unitid=unitid+$(this).attr("unitid")+",";
+    });
+    
+    var currunit=$(this).prevAll().find(".unit").length;
+    $.cookie("engm_unitid",unitid);
+    $.cookie("engm_currunit",currunit);
+  });
+
+     XBack.listen(function(){
+      var href=$('.l.fl').find('a').attr('href');
+      location.href=href;
+    });
+}); 
+</script>  
+</body>
+</html>

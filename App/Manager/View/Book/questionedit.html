@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>问题编辑</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/wenjuan_ht.css">
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/ue/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/ue/ueditor.all.min.js"> </script>  
+<script type="text/javascript" src="__PUBLIC__/js/myueditor.js"></script>
+<script>
+$(function(){
+	$.ajaxSetup({async: false});
+	var id="{$id}";
+	var ue = UE.getEditor('editor');//ueditor插件
+	$.getJSON('getQuestionById',{id:id,ran:Math.random},function(data){
+		console.log(data);
+		setTimeout(function(){
+			ue.setContent(data.tncontent);
+		},100);
+		
+		$.each(data.items,function(key,value){
+			var div=$('<div class="kzjxx_iteam"></div>');
+			var input=$('<input name="item" type="radio" value="" class="dxk"/>');
+			if(value.ischecked==1){
+				input.attr("checked",true);
+			}
+			div.append(input);
+			input=$('<input name="content" type="text" class="input_wenbk" value="选项" onBlur="if(!this.value)this.value=\'选项\'" onClick="if(this.value&&this.value==\'选项\' )  this.value=\'\'"/>');
+			input.val(value.content);
+			div.append(input);
+			var a=$('<a href="javascript:void(0);" class="del_xm">删除</a>');
+			div.append(a);
+			$(".title_itram").append(div);
+		})
+	})
+	//鼠标移上去显示按钮
+	$(".movie_box").hover(function(){ 
+	var	html_cz = "<div class='kzqy_czbut'><a href='javascript:void(0)' class='sy'>上移</a><a href='javascript:void(0)'  class='xy'>下移</a><a href='javascript:void(0)'  class='bianji'>编辑</a><a href='javascript:void(0)' class='del' >删除</a></div>" 
+ 		 $(this).css({"border":"1px solid #0099ff"}); 
+		 $(this).children(".wjdc_list").after(html_cz);
+		},function(){ 
+		 $(this).css({"border":"1px solid #fff"}); 
+		$(this).children(".kzqy_czbut").remove();
+		//$(this).children(".dx_box").hide(); 
+		});	
+		
+		//下移
+		$(".xy").live("click", function() {  
+			//文字的长度 
+			var leng = $(".yd_box").children(".movie_box").length;
+			var dqgs = $(this).parent(".kzqy_czbut").parent(".movie_box").index();  
+			 
+			if(dqgs < leng-1){
+				var czxx = $(this).parent(".kzqy_czbut").parent(".movie_box");  
+				var xyghtml = czxx.next().html();
+				var syghtml = czxx.html(); 
+				czxx.next().html(syghtml);
+				czxx.html(xyghtml);
+				//序号
+				czxx.children(".wjdc_list").find(".nmb").text(dqgs+1);
+				czxx.next().children(".wjdc_list").find(".nmb").text(dqgs+2);
+				}else{
+					alert("到底了");
+					}  
+		});
+		//上移
+		$(".sy").live("click", function() {
+			//文字的长度 
+		    var leng = $(".yd_box").children(".movie_box").length;
+			var dqgs = $(this).parent(".kzqy_czbut").parent(".movie_box").index(); 
+			if(dqgs > 0){
+			var czxx = $(this).parent(".kzqy_czbut").parent(".movie_box");  
+			var xyghtml = czxx.prev().html();
+  			var syghtml = czxx.html();   
+			czxx.prev().html(syghtml);
+			czxx.html(xyghtml);
+			//序号
+			czxx.children(".wjdc_list").find(".nmb").text(dqgs+1);
+			czxx.prev().children(".wjdc_list").find(".nmb").text(dqgs);
+			
+				}else{
+					alert("到头了");
+					}  
+		});
+		//删除
+		$(".del").live("click", function() {  
+			var czxx = $(this).parent(".kzqy_czbut").parent(".movie_box"); 
+			var zgtitle_gs = czxx.parent(".yd_box").find(".movie_box").length;
+			var xh_num = 0; 
+			//重新编号
+			czxx.parent(".yd_box").find(".movie_box").each(function() { 
+				$(".yd_box").children(".movie_box").eq(xh_num).find(".nmb").text(xh_num);
+				 xh_num++;
+				//alert(xh_num);
+            }); 
+			 czxx.remove(); 	  		 
+		});
+		 
+		
+		//增加选项  
+		$(".zjxx").live("click", function() {  
+			 var zjxx_html =  $(this).prev(".title_itram").children(".kzjxx_iteam").html();
+			 $(this).prev(".title_itram").append("<div class='kzjxx_iteam'>"+zjxx_html+"</div>"); 
+		});
+		
+		//删除一行 
+		$(".del_xm").live("click", function() {  
+			//获取编辑题目的个数
+			var zuxxs_num = $(this).parent(".kzjxx_iteam").parent(".title_itram").children(".kzjxx_iteam").length;
+			 if(zuxxs_num > 1){
+				  $(this).parent(".kzjxx_iteam").remove();
+				 }else{
+					alert("手下留情");
+					 } 
+		});
+		//取消编辑
+		$(".dx_box .qxbj_but").live("click", function() {  
+			 $(this).parent(".bjqxwc_box").parent(".dx_box").empty().hide();
+			  $(".movie_box").css({"border":"1px solid #fff"});
+			  $(".kzqy_czbut").remove(); 
+			  // 			  
+		});
+});
+
+
+function save(){
+	var tncontent= UE.getEditor('editor').getContent();
+	var items=[];
+	$('.title_itram .kzjxx_iteam').each(function(key,value){
+		var ischecked=$(value).find(".dxk").is(":checked")?1:0;
+		var content=$(value).find(".input_wenbk").val();
+		var obj={};
+		obj.ischecked=ischecked;
+		obj.content=content;
+		items.push(obj);
+	})
+	var flag=false;
+	$.post('questioneditbyid',{tncontent:tncontent,id:"{$id}",picid:"{$picid}",data:JSON.stringify(items)},function(data){
+		flag=true;
+	})
+	return false;
+}
+</script>
+</head>
+<body>
+	<div class=" all_660"> 
+	  <div class="xxk_box" >
+	    <div class="xxk_conn"> 
+	      <div class="xxk_xzqh_box dxuan ">
+	    	<p style="margin-bottom: 15px;">
+	    	<script id="editor" type="text/plain" style="width:500px;height:125px;">{$tcontent}</script>
+	    	</p>
+	        <div class="title_itram">
+	          
+	        </div>
+	    	<a href="javascript:void(0)" class="zjxx">增加选项</a>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</body>
+</html>
+

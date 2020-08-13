@@ -1,0 +1,861 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+<title>口算卡</title>
+<link href="__PUBLIC__/style/klxsx/style.css" type="text/css" rel="stylesheet" >
+<script src="__PUBLIC__/js/jquery.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/artDialog/jquery.artDialog.js?skin=default" type="text/javascript"></script>
+<script src="__PUBLIC__/js/iframeTools.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/klxsx/klxsx.js" type="text/javascript"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jPlayer/dist/jplayer/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/yjt_properties.js"></script>
+<!--[if lt IE 9]>
+    <script src="__PUBLIC__/js/klxsx/json2.js"></script>
+<![endif]-->
+</head>
+<body>
+	<div class="head">
+    	<div class="w980">
+            <p id="nianji">
+                <span class="blue" style="margin-left:10px;" onclick="changeGrade(this);">一年级</span>
+                <span onclick="changeGrade(this);">二年级</span>
+                <span onclick="changeGrade(this);">三年级</span>
+				<input type="hidden" value="end" id="status"/>
+                <input type="hidden" value="{$truename}" id="truename"/>
+                <input type="hidden" value="" id="userid"/>
+				<input type="hidden" value="" id="userarea"/>
+            </p>
+            <div class="ranking">
+            	<a class="left_a" href="javascript:void(0);"></a>
+                <a class="right_a" href="javascript:void(0);"></a>
+                <div id="img" style="display:none; position:relative;">
+                	<img src="__PUBLIC__/style/klxsx/images/kou.png" class="kou">
+                    <img src="__PUBLIC__/style/klxsx/images/lsten.png" class="listen">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="w1010">
+        <div class="section">
+          <div class="left">
+          	<div class="s_bj" >
+            	<h1 id="kecheng">十以内的加减法</h1>
+                <p>
+                	技巧：<font id="keypoint">熟记十以内数的组成</font>
+					<br>举例：<font id="example">6+3=9</font>
+					<br>思路：<font id="thinking">因为6加三组成9，所以6+3=9</font>
+				</p>
+                <span><a href="javascript:void(0);" id="btn1">开始练习</a></span>
+            </div>
+            <!-- 首页结束 -->
+            <Div class="j_bj" style="display:none;">
+            	<div class="j_left"><p>倒计时<br><b id="time" style="font-size:50px;">60</b></p></div>
+                <div class="j_center">
+                	<h1>
+                		<span id="style1">
+                			<label id="style11">
+                				<font id="shizi">6+3</font>=
+							</label>
+							<img class="laba" src="__PUBLIC__/style/klxsx/images/laba.png"/>
+							<font id="answer"></font>
+						</span>
+                		<span id="style3" style="display:none;">
+                		<img class="laba" src="__PUBLIC__/style/klxsx/images/laba.png" style="left:-50px;" />
+							<label id="style33" style="float:left;"><font id="shizi1">6+3</font>=</label>
+							<input type="text" name="fenshu" id="answer1" style="margin-top:5px;height:25px;border: 1px solid #fff; background:#ffe7b6; width:50px;display:block;float:left;font-size:25px;">
+							...
+							<input type="text" name="fenshu" id="answer2" style="margin-top:5px;height:25px;border: 1px solid #fff; background:#ffe7b6; width:50px;display:block;float:right;font-size:25px;">
+						</span>
+						<span id="style2" style="display:none;">
+						<img class="laba" src="__PUBLIC__/style/klxsx/images/laba.png"/>
+						  <label id="style22" style="margin-left: 10px;">
+							<i class="fm" id="fenzi_1">8</i><i class="fz" id="fenmu_1">9</i>
+							&nbsp;&nbsp;&nbsp;<font id="fuhao">+</font>&nbsp;
+							<i class="fm" id="fenzi_2">5</i><i class="fz" id="fenmu_2">7</i>
+							&nbsp;&nbsp;&nbsp;=&nbsp;
+						  </label>
+						  <label id="style222"></label>
+							<i class="fm" style="width:53px;">
+								<input type="text" name="fenshu" id="fenzi_3"  style="border: 1px solid #fff; background:#ffe7b6; width:50px;font-size:14px;">
+							</i>
+							<i class="fz">
+								<input type="text" name="fenshu" id="fenmu_3" style="border: 1px solid #fff; background:#ffe7b6; width:50px;font-size:14px;">
+							</i>
+						</span>
+					</h1>
+                    <div>
+                    	<table cellpadding="0" cellspacing="0" border="1px" bordercolor="#492109">
+                        	<tr>
+								<td val="1" name="tijiao"></td>
+								<td val="2" name="tijiao"></td>
+								<td val="3"  name="tijiao"></td>
+								<td val="bac" name="tijiao" class="big" colspan="2" ></td>
+							</tr>
+                            <tr>
+								<td val="4" name="tijiao"></td>
+								<td val="5" name="tijiao"></td>
+								<td val="6" name="tijiao"></td>
+								<td val="+" name="tijiao"></td>
+								<td val="-" name="tijiao"></td>
+							</tr>
+                            <tr>
+								<td val="7" name="tijiao"></td>
+								<td val="8" name="tijiao"></td>
+								<td val="9" name="tijiao"></td>
+								<td val="*" name="tijiao"></td>
+								<td val="/" name="tijiao"></td>
+							</tr>
+                            <tr>
+								<td val="0" name="tijiao" class="big" colspan="2"></td>
+								<td val="." name="tijiao"></td>
+								<td val="(" name="tijiao"></td>
+								<td val=")" name="tijiao"></td>
+							</tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="j_right">
+                	<h1>进度:<font id="jindu">1</font>/<font id="total_eq">15</font></h1>
+                    <span><a href="javascript:void(0);" id="btn3">提交</a><br><a href="javascript:void(0);" id="btn2">结束练习</a></span>
+
+                </div>
+                 <div class="end" style="display:none;"> </div>
+                  <div class="end_t" style="display:none;" >
+                      <p>确定结束本次练习吗？</p>
+                      <span><input id="btn4" type="button" value="确定" style="margin-right:30px;">
+                            <input id="btn5" type="button" value="取消" style="margin-left:30px;"></span>
+                  </div>
+                  <div class="tijiao_t" style="display:none;">
+                      <h2 id="kcjg">十以内的加法</h2>
+                      <p>
+                      	<span class="brown">练习成绩：</span>
+						<span id="stars"><i class="ico2"></i>
+						<i class="ico2"></i>
+						<i class="ico2"></i>
+						<i class="ico2"></i>
+						<i class="ico1"></i></span>
+						<br>
+					</p>
+                      <p><em>正确：<font id="right">8</font>个</em><em>错误：<font id="wrong">8</font>个</em><em>用时：<font id="usetime">50</font>秒</em></p>
+                      <p><span class="brown">练习奖励：</span><span class="red" id="ub" style="line-height:30px">1</span>个优币
+                         <img src="__PUBLIC__/style/klxsx/images/06.png" /></p>
+                      <p style="text-align:center;">你的班级排名：<span class="red" id="paiming">第三名</span></p>
+                      <b><input id="btn6" type="button" value="晒成绩" style="">
+                         <input id="btn7" type="button" value="返回首页" style="">
+                         <input id="btn8" type="button" value="重新练习" style="">
+                         <input id="starnum" type="hidden" />
+                      </b>
+                  </div>
+            </div>
+          </div>
+          <div class="right">
+          	<span class="cur" bid="2s_0" onclick="show_tab(this);">口算</span>
+			<span  id="2Tab_1" bid="2s_1" onclick="show_tab(this);">听算</span>
+            <div class="list" id="2s_0">
+            	<ul>
+            		<volist name="data_ks" id="vo" >
+            			<li>
+            				<a name="suan" href="javascript:void(0);" bid="{$vo.id}" type="{$vo.type}" mathtype="{$vo.mathtype}" keypoint="{$vo.keypoint}" example="{$vo.example}" thinking="{$vo.thinking}">
+            				<b title="{$vo.name}">{$vo.name}</b><label>
+							<if condition="$vo.gold eq ''">
+								<i class="ico1"></i>
+								<i class="ico1"></i>
+								<i class="ico1"></i>
+								<i class="ico1"></i>
+								<i class="ico1"></i>
+								<else/>
+								<for start="0" end="$vo.gra">
+									<i class="ico1"></i>
+								</for>
+								<for start="0" end="$vo.gold">
+									<i class="ico2"></i>
+								</for>
+							</if></label>
+							</a>
+						</li>
+            		</volist>
+                </ul>
+            </div>
+            <div class="list" id="2s_1" style="display:none;">
+            	<ul>
+            		<volist name="data_ts" id="vo" >
+            			<li>
+            				<a name="suan" href="javascript:void(0);" bid="{$vo.id}" type="{$vo.type}" mathtype="{$vo.mathtype}" keypoint="{$vo.keypoint}" example="{$vo.example}" thinking="{$vo.thinking}">
+            				<b title="{$vo.name}">{$vo.name}</b><label>
+							<if condition="$vo.gold eq ''">
+								<i class="ico1"></i>
+								<i class="ico1"></i>
+								<i class="ico1"></i>
+								<i class="ico1"></i>
+								<i class="ico1"></i>
+								<else/>
+								<for start="0" end="$vo.gra">
+									<i class="ico1"></i>
+								</for>
+								<for start="0" end="$vo.gold">
+									<i class="ico2"></i>
+								</for>
+							</if></label>
+							</a>
+						</li>
+            		</volist>
+                </ul>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      	    <div class="bottom">
+                <div class="blank"></div>
+                <h1><span>其他小朋友都在学</span></h1>
+                <div class="other">
+                    <ul>
+                        <li><a href="javascript:void(2);"  onclick="redirectfun(2);"><img src="__PUBLIC__/images/app/klxpy.jpg"></a><span>快乐学拼音</span></li>
+                        <li><a href="javascript:void(0);"  onclick="redirectfun(3);"><img src="__PUBLIC__/images/app/zmly.jpg"></a> <span>字母乐园</span></li>
+                        <li><a href="javascript:void(0);"  onclick="redirectfun(4);"><img src="__PUBLIC__/images/app/cycd.jpg"></a><span>成语词典</span></li>
+                        <li><a href="javascript:void(0);"  onclick="redirectfun(6);"><img src="__PUBLIC__/images/app/kkxa.jpg"></a><span>可可小爱</span></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+        	</div>
+
+          <div class="rank" style="display:none;">
+          <h5>  <img id="del" src="__PUBLIC__/style/klxsx/images/del.png" style="margin:10px 10px 5px 50px;float:right;vertical-align:middle; cursor:pointer;">
+          		<a href="javascript:;" onclick="myfunction();"><img src="__PUBLIC__/style/klxsx/images/ask.png" style="vertical-align:middle;">获得星星的规则</a></h5>
+          <h1></h1>
+          <ul id="paihangbang">
+          	<li class="cur2" name="gradelist" type="class" >班级排行</li>
+            <li name="gradelist" type="school">学校排行</li>
+            <li name="gradelist" type="all">全国排行</li>
+          </ul>
+          <div class="clearfix"></div>
+          <div class="rank_list">
+          	<ol id="myrank">
+            	<li class="cur2">
+                	<span style="width:50%; color:#fff;"><b style="margin-right:40px;" id="myname">心情达人</b>总星量<font id="mystar">450</font>颗</span>
+                    <span style="float:right;  color:#fff;">我的<font id="mytype">班级</font>排名：<b>第<font id="mypaiming">三</font>名</b></span>
+                </li>
+                <li>
+                	<span style="width:45%;"><b>第一名</b>
+						<img src="__PUBLIC__/style/klxsx/images/kk.png" class="photo">
+						林峰儿
+					</span>
+                	<span style="width:30%;">
+						<img src="__PUBLIC__/style/klxsx/images/yellow.png" style="vertical-align:middle; margin:-5px 5px auto;">
+						203颗
+					</span>
+                    <span style="float:right;">
+						<b>口算王</b>
+					</span>
+				</li>
+                <li><span style="width:45%;"><b>第一名</b> <img src="__PUBLIC__/style/klxsx/images/kk.png" class="photo">林峰儿</span>
+                	<span style="width:30%;"><img src="__PUBLIC__/style/klxsx/images/yellow.png" style="vertical-align:middle; margin:-5px 5px auto;">203颗</span>
+                    <span style="float:right;"><b>口算王</b></span></li>
+                <li><span style="width:45%;"><b>第一名</b> <img src="__PUBLIC__/style/klxsx/images/kk.png" class="photo">林峰儿</span>
+                	<span style="width:30%;"><img src="__PUBLIC__/style/klxsx/images/yellow.png" style="vertical-align:middle; margin:-5px 5px auto;">203颗</span>
+                    <span style="float:right;"><b>口算王</b></span></li>
+                <li><span style="width:45%;"><b>第一名</b> <img src="__PUBLIC__/style/klxsx/images/kk.png" class="photo">林峰儿</span>
+                	<span style="width:30%;"><img src="__PUBLIC__/style/klxsx/images/yellow.png" style="vertical-align:middle; margin:-5px 5px auto;">203颗</span>
+                    <span style="float:right;"><b>口算王</b></span></li>
+                <li><span style="width:45%;"><b>第一名</b> <img src="__PUBLIC__/style/klxsx/images/kk.png" class="photo">林峰儿</span>
+                	<span style="width:30%;"><img src="__PUBLIC__/style/klxsx/images/yellow.png" style="vertical-align:middle; margin:-5px 5px auto;">203颗</span>
+                    <span style="float:right;"><b>口算王</b></span></li>
+            </ol>
+             <div class="clearfix"></div>
+        	<div class="manu">
+        		<span class="disabled"> <  上一页</span>
+        		<span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a>
+            	<a href="#?page=2">下一页  > </a>
+			</div>
+          </div>
+           <div class="guize"><img src="__PUBLIC__/style/klxsx/images/03.png"/><a class="del_1"><img src="__PUBLIC__/style/klxsx/images/del.png"/></a></div>
+        </div>
+	</div>
+   <div class="bbg" style="display:none;"></div>
+
+
+
+
+<div id="demo" style="display:none;">
+	<li>
+		<a name="suan" href="javascript:void(0);" bid="5" type="1" mathtype="" keypoint="" example="" thinking="">
+		<b>5以内的减法</b>
+		<label></label>
+		</a>
+	</li>
+</div>
+<div id="demolist" style="display:none;">
+	<li>
+		<span style="width:45%;">
+			<b>第一名</b>
+			<img src="__PUBLIC__/style/klxsx/images/kk.png" class="photo" />
+			<font>林峰儿</font>
+		</span>
+		<span style="width:30%;">
+			<img src="__PUBLIC__/style/klxsx/images/yellow.png" style="vertical-align:middle; margin:-5px 5px auto;" />
+			<font>203</font>颗
+		</span>
+	    <span style="float:right;">
+			<b>口算王</b>
+		</span>
+	</li>
+</div>
+<div id="jplayer"></div>
+<script>
+	$("#jplayer").jPlayer({
+	swfPath: "__PUBLIC__/js",
+	wmode: "window",
+	supplied: "mp3",
+	preload: "none",
+	volume: "1"
+	});
+$.ajaxSetup({async:false});
+var t;
+var time=60;//倒计时
+var count=0;
+var array=[];//存储试题信息
+var arrAnswer=[];//存储答案信息
+var usetime=0;//用时
+var pagesize=5;
+var total_eq=15;//题目总数
+var totaltime=0;
+
+var usertype=$.cookie('usertype');
+var username=$.cookie('username');
+var userarea=$.cookie('localAreaCode');
+var schoolid=$.cookie('schoolId');
+var classid=$.cookie('classId');
+var gradeid=$.cookie('gradeCode');
+
+var tmsip = window.location.protocol+'//'+$.cookie('tmsip');
+var ilearnip = window.location.protocol+'//'+$.cookie('ilearnip');
+var ubip =  window.location.protocol+'//'+$.cookie('ubip');
+var respath = '__RESOURCE__';
+
+
+
+//alert(usertype);
+$(function(){
+	//$.cookie('ut')
+    if(gradeid=='0001'){
+        $('#nianji').children('span').removeAttr('class');
+        $('#nianji').children('span').eq(0).attr('class','blue');
+    }
+    if(gradeid=='0002'){
+        $('#nianji').children('span').removeAttr('class');
+        $('#nianji').children('span').eq(1).attr('class','blue');
+    }
+    if(gradeid=='0003'){
+        $('#nianji').children('span').removeAttr('class');
+        $('#nianji').children('span').eq(2).attr('class','blue');
+    }
+	if ($.cookie('ut')) {
+    $('#userid').val(username);
+    $('#userarea').val(userarea);
+		var truename=$('#truename').val();
+        truename = '';
+        //alert(truename);
+		if(truename==''){
+			// var tms=mapObj[userarea]['tms'];
+
+			if(usertype==4){
+				$.getJSON(tmsip+'/tms/interface/queryStudent.jsp?jsoncallback=?',{queryType:'byNames',usernames:username},function(data){
+					if (data.rtnArray[0].schoolId == '') {
+            //如果获取不到用户信息，返回优教通网站
+            location.href="http://www.czbanbantong.com";
+						return false;
+					}
+					else {
+						var truename = data.rtnArray[0].realname;
+						$.get('../Klxsx/getUserinfo', {
+							ran: Math.random(),
+							truename: truename
+						}, function(data){
+                            //alert(data);
+                            // $('#userid').val(data.userid);
+                            // $('#userarea').val(data.userarea);
+						});
+					}
+				});
+			}else{
+				//家长登录
+				$.getJSON(tmsip+'/tms/interface/queryStudent.jsp?jsoncallback=?',{queryType:'byParent',parentAccount:username},function(data){
+					if (data.result == 0) {
+            //如果获取不到用户信息，返回优教通网站
+            //location.href="http://www.czbanbantong.com";
+						return false;
+					}
+					else {
+						var truename = data.rtnArray[0].realname;
+						$.get('../Klxsx/getUserinfo', {
+							ran: Math.random(),
+							truename: truename
+						}, function(data){
+                            //alert(data.userid);
+                            // $('#userid').val(data.userid);
+                            // $('#userarea').val(data.userarea);
+						});
+					}
+				});
+			}
+
+
+			// $.get('http://ubhenan.czbanbantong.com/ub/interface/data_report.jsp',
+			// 	{
+			// 		ad:Math.random(),
+			// 		at:
+			// 	},
+			// 	function(data){
+
+			// });
+
+
+		}else{
+
+			if('{$grade}'=='0001'){
+				$('#nianji').children('span').removeAttr('class');
+				$('#nianji').children('span').eq(0).attr('class','blue');
+			}
+			if('{$grade}'=='0002'){
+				$('#nianji').children('span').removeAttr('class');
+				$('#nianji').children('span').eq(1).attr('class','blue');
+			}
+			if('{$grade}'=='0003'){
+				$('#nianji').children('span').removeAttr('class');
+				$('#nianji').children('span').eq(2).attr('class','blue');
+			}
+		}
+		$('a[name="suan"]').eq(0).attr('class','cur1');
+		var obj=$('a[name="suan"]').eq(0);
+		checkKecheng(obj);
+	}else{
+		art.dialog({
+			content: '请先登录优教通',
+			ok: function(){
+				location.href="http://www.czbanbantong.com";
+			}
+		});
+	}
+});
+//点击某一章节
+$('a[name="suan"]').live('click',function(){
+	//clearAll();
+    $('a[name="suan"]').removeAttr('class');
+    $(this).attr('class','cur1');
+	checkKecheng(this);
+
+	//$(".end,.tijiao_t,.j_bj").hide();
+	$(".s_bj").show();
+});
+//切换年级
+function changeGrade(obj){
+	//clearAll();
+	var grade=$(obj).html();
+	$(obj).siblings('span').removeAttr('class');
+	$(obj).attr('class','blue');
+
+	$.get('../Klxsx/getGrades',{ran:Math.random(),grade:grade},function(data){
+		$('#2s_0 ul').empty();
+		$('#2s_1 ul').empty();
+
+		$.each(data.ks,function(k,v){
+
+			//var li=$('#demo').children('li').clone();
+			// li.children('a').attr('bid',v.id);
+			// li.children('a').attr('type',v.type);
+			// li.children('a').attr('mathtype',v.mathtype);
+			// li.children('a').attr('keypoint',v.keypoint);
+			// li.children('a').attr('example',v.example );
+			// li.children('a').attr('thinking',v.thinking );
+			// li.children('a').children('b').html(v.name);
+			// li.children('a').children('b').attr('title',v.name);
+
+			var str2='';
+			if(v.gold===null){
+				str2='<i class="ico1"></i><i class="ico1"></i><i class="ico1"></i><i class="ico1"></i><i class="ico1"></i>';
+			}else{
+				for(i=0;i<(5-v.gold);i++){
+					str2+='<i class="ico1"></i>';
+				}
+				for(i=0;i<v.gold;i++){
+					str2+='<i class="ico2"></i>';
+				}
+			}
+
+            (v.keypoint==null)?v.keypoint='':v.keypoint;
+            (v.example==null)?v.example='':v.example;
+            (v.thinking==null)?v.thinking='':v.thinking;
+
+            var li='<li><a name="suan" href="javascript:void(0);" bid="'+v.id+'" type="'+v.type+'" mathtype="'+v.mathtype+'" keypoint="'+v.keypoint+'" example="'+v.example+'" thinking="'+v.thinking+'"><b title="'+v.name+'">'+v.name+'</b><label>'+str2+'</label></a></li>';
+
+			//li.children('a').children('label').html(str2);
+
+			$(li).appendTo('#2s_0 ul');
+		});
+		$.each(data.ts,function(k,v){
+			//alert(v.name);
+			//var li=$('#demo').children('li').clone();
+			// li.children('a').attr('bid',v.id);
+			// li.children('a').attr('type',v.type);
+			// li.children('a').attr('mathtype',v.mathtype);
+			// li.children('a').attr('keypoint',v.keypoint);
+			// li.children('a').attr('example',v.example );
+			// li.children('a').attr('thinking',v.thinking );
+			// li.children('a').children('b').html(v.name);
+			// li.children('a').children('b').attr('title',v.name);
+			var str2='';
+			if(v.gold===null){
+				str2='<i class="ico1"></i><i class="ico1"></i><i class="ico1"></i><i class="ico1"></i><i class="ico1"></i>';
+			}else{
+				for(i=0;i<(5-v.gold);i++){
+					str2+='<i class="ico1"></i>';
+				}
+				for(i=0;i<v.gold;i++){
+					str2+='<i class="ico2"></i>';
+				}
+			}
+
+            (v.keypoint==null)?v.keypoint='':v.keypoint;
+            (v.example==null)?v.example='':v.example;
+            (v.thinking==null)?v.thinking='':v.thinking;
+
+            var li='<li><a name="suan" href="javascript:void(0);" bid="'+v.id+'" type="'+v.type+'" mathtype="'+v.mathtype+'" keypoint="'+v.keypoint+'" example="'+v.example+'" thinking="'+v.thinking+'"><b title="'+v.name+'">'+v.name+'</b><label>'+str2+'</label></a></li>';
+
+			//li.children('a').children('label').html(str2);
+			$(li).appendTo('#2s_1 ul');
+		});
+		var obj=$('span.cur');
+		show_tab(obj);
+	});
+}
+
+//切换排名
+$('li[name="gradelist"]').live('click',function(){
+	var type=$(this).attr('type');
+	$('li[name="gradelist"]').removeAttr('class');
+	$(this).attr('class','cur2');
+	// var gene=$('#img').find('img:visible').attr('class');
+	// if(gene=='kou'){
+	// 	gene='口算';
+	// }else{
+	// 	gene='听算';
+	// }
+	pagelist(1,pagesize);
+});
+
+//用户输入
+$('td[name="tijiao"]').live('click',function(){
+	var type=$('a[name="suan"].cur1').attr('type');//获取当前算式类型：1普通算式2分数3余数
+	submit(this,type);
+});
+
+//定位光标
+$('input[name="fenshu"]').live('click',function(){
+	$('input[name="fenshu"]').removeAttr('class');
+	$(this).attr('class','currentnow');
+});
+
+
+$().ready(function(e) {
+	//开始练习
+    $("#btn1").click(function(){
+
+		$(".s_bj,.end,.end_t,.tijiao_t").hide();
+		$(".j_bj").show();
+
+
+		$('#status').val('start');//设置状态为练习中
+		begLx();
+
+		});
+	<!--------------------->
+	//结束练习
+	$("#btn2").click(function(){
+		$(".end").show();
+		$(".end_t").show();
+		});
+	<!--------------------->
+	//确定
+	$("#btn4").click(function(){
+			var gene=$('.right span.cur').html();
+			if(gene=='口算'){
+				var tmpcount=14;
+				//totaltime=60;
+			}else{
+				var tmpcount=14;
+				//totaltime=120;
+			}
+
+			if(count==tmpcount){
+			//把最后一道题的答案存入数组
+			var tmp={};
+			tmp.id=array[count].id;
+			tmp.answer=$('#answer').html();
+			arrAnswer.push(tmp);
+
+			usetime=$('#time').html();//取出用时
+			usetime=totaltime-usetime;
+			time=1;
+			}else{
+//				$('#status').val('end');
+//				time=60;//公共时间重置为60
+//				usetime=0;
+//				count=0;//公共计数重置为0
+//				arrAnswer=[];//答案清空
+//				array=[];
+
+//				$('#time').html(60);
+//				$("#answer").html('');
+//				$('#jindu').html('1');
+				goBack();
+			}
+		});
+	<!--------------------->
+	//取消
+	$("#btn5").click(function(){
+		$(".end_t,.end").hide();
+		$(".j_bj").show();
+		});
+	//返回首页
+	$("#btn7").click(function(){
+			goBack();
+		});
+
+	//重新练习
+	$("#btn8").click(function(){
+		var obj=$('a[name="suan"].cur1');
+		checkKecheng(obj);
+
+		begLx();
+
+		$(".end,.tijiao_t,.s_bj").hide();
+		$(".j_bj").show();
+	});
+
+
+
+	//晒成绩
+	$("#btn6").click(function(){
+		//alert(userarea);return false;
+		var username=$.cookie('username');
+		var area=$.cookie('localAreaCode');
+		// var ilearn=mapObj[area]['ilearn'];
+		// var tms=mapObj[area]['tms'];
+		//alert(ilearn);return false;
+
+		var classidList,truename,schoolId;
+
+    var domain = window.location.host;
+    var url_c=window.location.protocol+'//'+domain+'/Klx/Klxsx/index';
+    // (area=='1.')?url_c='http://enzz.zzedu.net.cn/Klx/Klxsx/index':url_c;
+
+    var paiming = $('#paiming').html();
+    var starnum = $('#starnum').val();
+    var kcmc = $('#kcjg').html();
+
+    var content='小伙伴们，我在快乐学习-口算卡练习<a href="'+url_c+'" target="_blank">《'+kcmc+'》</a>中获得了'+starnum+'颗星,快来向我挑战吧！';
+
+    art.dialog({
+      title:'晒成绩',
+      content:content,
+      opacity:0.3,
+      lock:true,
+      button:[
+      {
+        name:'分享',
+        callback:function(){
+          $.getJSON(tmsip+'/tms/interface/queryStudent.jsp?jsoncallback=?',{queryType:'byNames',usernames:username},function(data){
+            if (data.rtnArray[0].schoolId == '') {
+              return false;
+            }
+            else {
+              classidList = data.rtnArray[0].schoolClassId;
+              truename = data.rtnArray[0].realname;
+              schoolId = data.rtnArray[0].schoolId;
+                      // var right = $('#right').html();
+                      // var wrong = $('#wrong').html();
+
+              //var url='http://www.baidu.com';
+
+
+                      //小伙伴们，我在快乐学习-口算卡练习《5以内的加法》中获得了5颗星,班级排名第1位,快来向我挑战吧！
+                      //var content='小伙伴们，我在快乐学习-口算卡练习《'+kcmc+'》中获得了'+starnum+'颗星,班级排名第'+paiming+'位,快来向我挑战吧！<a href="'+url_c+'" target="_blank">点击参与</a>';
+
+
+              var param={'classidList':classidList,'username':username,'truename':truename,'schoolId':schoolId,'says.content':content,'says.infourl':url_c,"says.windowtype":"1"};
+              $.ajax({
+                  type :'GET',
+                  url : ilearnip+'/exportInterface/share.action',
+                  data : param,
+                  dataType : 'jsonp',
+                  success : function(data) {
+                    //alert(data.success);
+                    if(data.success==true){
+                      art.dialog.alert('分享成功！');
+                    }else{
+                      art.dialog.alert('分享失败！');
+                    }
+                  },
+                  error : function() {
+
+                  }
+                });
+            }
+          });
+
+        },
+        focus:true
+      },
+      {
+        name:'取消',
+        callback:function(){
+          //默认关闭弹窗
+        },
+        focus:true
+      }
+      ]
+    });
+
+
+	});
+
+//点击提交
+$("#btn3").click(function(){
+		var type=$('a[name="suan"].cur1').attr('type');//获取当前算式类型：1普通算式2分数3余数
+		var gene=$('.right span.cur').html();//获取当前是口算还是听算
+		var tmp={};
+		if(type==1){
+			tmp.id=array[count].id;
+			tmp.answer=$('#answer').html();
+		}else if(type==2){
+			tmp.id=array[count].id;
+			tmp.answer=$('#fenzi_3').val()+'/'+$('#fenmu_3').val();
+		}else{
+			tmp.id=array[count].id;
+			tmp.answer=$('#answer1').val()+'/'+$('#answer2').val();
+		}
+		arrAnswer.push(tmp);
+
+		if(gene=='口算'){
+			var tmpcount=14;
+			//totaltime=60;
+		}else{
+			var tmpcount=14;
+			//totaltime=120;
+		}
+
+		if (count==tmpcount){
+			//alert(JSON.stringify(arrAnswer));return false;
+			//去数据库核对答案，并给出结果
+			usetime=$('#time').html();//取出用时
+			usetime=totaltime-usetime;
+			$("#usetime").html(usetime);
+			answerEnd();
+			//time=1;//设置为1
+		}else{
+			count +=1;
+			$('#jindu').html(count+1);//进度
+			$('#answer').html('');//清除答案
+			$('#answer1').val('');
+			$('#answer2').val('');
+			$('#fenzi_3').val('');
+			$('#fenmu_3').val('');
+			if (type == 1) {
+				$("#shizi").html(array[count].name);
+				//var mp3arr=chaifen(array[count].name,1);
+				var mp3arr=getmp3(array[count].name);
+			}
+			else if (type == 2) {
+				var mp3arr=getmp3(array[count].name);
+				var strs=strFormat(array[count].name);
+				var strarray=[];
+				strarray=strs.split(',');
+				$('#fenzi_1').html(strarray[0]);
+				$('#fenmu_1').html(strarray[1]);
+				$('#fenzi_2').html(strarray[2]);
+				$('#fenmu_2').html(strarray[3]);
+				$('#fuhao').html(strarray[4]);
+				$('input[name="fenshu"]').removeAttr('class');
+				$('#fenzi_3').focus();
+				$('#fenzi_3').attr('class','currentnow');
+
+			}else{
+				$("#shizi1").html(array[count].name);
+				//var mp3arr=chaifen(array[count].name,2);
+				var mp3arr=getmp3(array[count].name);
+
+				$('input[name="fenshu"]').removeAttr('class');
+				$('#answer1').attr('class','currentnow');
+				$('#answer1').focus();
+			}
+
+			if(gene=='听算'){
+				play(mp3arr,respath);
+			}
+
+
+
+		}
+	});
+
+
+
+
+});
+<!--------------------->
+
+
+	function goBack(){
+		var obj=$('a[name="suan"].cur1');
+		checkKecheng(obj);
+
+		$(".end,.tijiao_t,.j_bj,.end_t").hide();
+		$(".s_bj").show();
+	}
+
+	function clearAll(){
+		$(".end,.tijiao_t,.end_t").hide();
+	}
+<!--------------------->
+
+function myfunction(){
+	$('.guize').show();
+}
+
+$('.del_1').click(function(){
+	$('.guize').hide();
+	})
+
+</script>
+<script>
+$().ready(function(e) {
+	//口算排行榜
+    $(".left_a").click(function(){
+		$('li[name="gradelist"]').removeAttr('class');
+		$('li[name="gradelist"]').eq(0).attr('class','cur2');
+
+		$(".bbg,.rank,#img,.kou").show();
+		$(".listen").hide();
+		pagelist(1,pagesize);
+		})
+	//听算排行榜
+	$(".right_a").click(function(){
+		$('li[name="gradelist"]').removeAttr('class');
+		$('li[name="gradelist"]').eq(0).attr('class','cur2');
+
+		$(".bbg,.rank,#img,.listen").show();
+		$(".kou").hide();
+		pagelist(1,pagesize);
+		})
+	//关闭排行榜
+	$("#del").click(function(){
+		$(".bbg,.rank,#img").hide();
+		})
+});
+</script>
+</body>
+</html>

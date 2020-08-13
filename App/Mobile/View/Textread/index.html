@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="__PUBLIC__/css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="__PUBLIC__/css/style.css" rel="stylesheet">
+    <script type="text/javascript"> 
+    // $.getJSON("{$geturl}",function(data){
+    //     if(){
+          
+    //     }else{
+    //         windows.location.href="error.html";
+    //     }
+    // });
+    </script>
+</head>
+
+<body class="catalog catalog_read">
+<header>
+	<div class="l fl"><a href="{:U('index/windex')}"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">读课文</div>
+    <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+                <!-- <li><a href="{:U('index/wordbook')}"><i class="icon-heart"></i><font class="wordcount">{$wordbcount}</font></a></li>
+                <li><a href="{:U('index/record')}"><i class="icon-list-alt"></i><font class="recordcount">{$recordcount}</font></a></li> -->
+                <li><a href="{:U('index/index')}"><i class="icon-evil"></i>学习中心</a></li>
+                <li><a href="{:U('index/course')}"><i class="icon-pencil-square"></i><b>版本设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<section class="study iRead" id="course">
+    <h2>{$vgt_name}</h2>
+    <ul class="cd-navigation">
+        <li class="item-has-children">
+            
+            <ul class="sub-menu">
+                <volist name="unitlist" id="vo">
+                    <if condition="$vo.is_unit eq 1">
+                        <li class="unit no" unitid="{$vo.ks_code}"><strong>{$vo.ks_name_short}</strong></li>
+                    <else/>
+                        <li class="unit yes" unitid="{$vo.ks_code}"><a href="read?unitid={$vo.ks_code}">{$vo.ks_name_short}</a></li>
+                    </if>   
+                </volist>
+            </ul>
+        </li>
+
+        
+        
+    </ul>
+</section>
+
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script src="__PUBLIC__/js/jquery.cookie.js" type="text/javascript"></script>  
+<script src="__PUBLIC__/js/main.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/xback.js"></script> 
+<script type="text/javascript">
+$(function() {
+    $(".unit.yes").on("click",function(){
+    var unitid="";
+    $(".unit.yes").each(function(key,value){
+        if($(this).hasClass("yes")){
+            unitid=unitid+$(this).attr("unitid")+",";
+        }
+    });
+    var currunit=$(this).prevAll().length;
+    $.cookie("engm_unitid",unitid,{path: '/'});
+    $.cookie("engm_currunit",currunit,{path: '/'});
+  });
+
+     XBack.listen(function(){
+      var href=$('.l.fl').find('a').attr('href');
+      location.href=href;
+    });
+}); 
+</script>
+</body>
+</html>

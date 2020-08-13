@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="/public/Mobile//css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="/public/Mobile//css/style.css" rel="stylesheet">
+</head>
+
+<body style="overflow:hidden;" class="catalog catalog_study">
+<header>
+	<div class="l fl"><a href="/mobile/index/windex"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">学单词</div>
+    <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+               <!--  <li><a href="/mobile/index/wordbook"><i class="icon-heart"></i><font class="wordcount"></font></a></li>
+                <li><a href="/mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount"></font></a></li> -->
+                <li><a href="/mobile/index/index"><i class="icon-evil"></i>学习中心</a></li>
+                <li><a href="/mobile/index/course"><i class="icon-pencil-square"></i><b>版本设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section class="study iStudy" id="course">
+    <h2>五年级.人教PEP.下学期</h2>
+    <ul class="cd-navigation">
+        <li class="item-has-children">
+            
+            <ul class="sub-menu">
+                <li><strong>Unit1</strong></li>
+                                            <li><a href="study?unitid=00010602060201" class="unit" unitid="00010602060201">Unit1 Part A</a></li>                        <li><a href="study?unitid=0001060206020g" class="unit" unitid="0001060206020g">Unit1 Part B</a></li><li><strong>Unit2</strong></li>
+                                            <li><a href="study?unitid=0001060206020i" class="unit" unitid="0001060206020i">Unit2 Part A</a></li>                        <li><a href="study?unitid=0001060206020j" class="unit" unitid="0001060206020j">Unit2 Part B</a></li><li><strong>Unit3</strong></li>
+                                            <li><a href="study?unitid=0001060206020l" class="unit" unitid="0001060206020l">Unit3 Part A</a></li>                        <li><a href="study?unitid=0001060206020m" class="unit" unitid="0001060206020m">Unit3 Part B</a></li><li><strong>Unit4</strong></li>
+                                            <li><a href="study?unitid=0001060206020o" class="unit" unitid="0001060206020o">Unit4 Part A</a></li>                        <li><a href="study?unitid=0001060206020p" class="unit" unitid="0001060206020p">Unit4 Part B</a></li><li><strong>Unit5</strong></li>
+                                            <li><a href="study?unitid=0001060206020r" class="unit" unitid="0001060206020r">Unit5 Part A</a></li>                        <li><a href="study?unitid=0001060206020s" class="unit" unitid="0001060206020s">Unit5 Part B</a></li><li><strong>Unit6</strong></li>
+                                            <li><a href="study?unitid=0001060206020u" class="unit" unitid="0001060206020u">Unit6 Part A</a></li>                        <li><a href="study?unitid=0001060206020v" class="unit" unitid="0001060206020v">Unit6 Part B</a></li>            </ul>
+        </li>
+
+        
+        
+    </ul>
+</section>
+
+<script type="text/javascript" src="/public/Mobile//js/jquery.min.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/xback.js"></script> 
+<script src="/public/Mobile//js/jquery.cookie.js" type="text/javascript"></script>  
+<script src="/public/Mobile//js/main.js"></script>
+<script type="text/javascript">
+$(function() {
+    $(".unit").click(function(){
+    var unitid="";
+    $(".unit").each(function(key,value){
+
+     unitid=unitid+$(this).attr("unitid")+",";
+    });
+    
+    var currunit=$(this).prevAll().find(".unit").length;
+    $.cookie("engm_unitid",unitid);
+    $.cookie("engm_currunit",currunit);
+  });
+
+     XBack.listen(function(){
+      var href=$('.l.fl').find('a').attr('href');
+      location.href=href;
+    });
+}); 
+</script>  
+</body>
+</html>

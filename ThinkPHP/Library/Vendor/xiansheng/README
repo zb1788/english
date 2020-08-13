@@ -1,0 +1,8 @@
+使用步骤：
+1、请先复制.env.dist 到.env
+2、根据授权服务端的参数对.env内的SINGSOUND_APP_ID和SINGSOUND_APP_SECRET进行配置
+3、根据环境需要，放开一组授权服务和语音评测服务的地址
+4、运行composer update 更新php的依赖包
+5、根据需要进行业务集成:
+	index.php是用在web环境中做用户认证和授权中转用。
+	cli_request.php演示了整个授权和请求过程。

@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>背景分类管理</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+</head>
+<body>
+<div class="container">
+<!-- <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+	<tr>
+		<td>
+			<input type="button" id="add" value="添加背景" class="ext_btn ext_btn_submit"/>
+		</td>
+	</tr>
+</table> -->
+<div class="h5"></div>
+<strong><font color="red">首先设置所选章节的目录类型</font></strong>
+<div class="h5"></div>
+<div class="h5"></div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+  <tr>
+    <th width="40">序号：</th>
+    <th width="180">章节：</th>
+    <th width="100">属性：</th>
+    <th width="100">目录类型：</th>
+    <th><input type="checkbox" id="CheckAll">全选：</th>
+  </tr>
+</table>
+
+
+
+
+
+<table id="demo" style="display:none;">
+	<tr>
+        <td>序号：</td>
+        <td>章节：</td>
+        <td>属性：</td>
+        <td>
+            <select class="select" name="" id="">
+                <option value="1">课文</option>
+                <option value="2">古文</option>
+                <option value="3">拼音</option>
+            </select>
+        </td>
+		<td>
+			<input type="checkbox" name="item" value="ha">选择
+		</td>
+	</tr>
+</table>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+$.ajaxSetup({async:false});
+$(function(){
+    getchapter();
+    //全选全不选
+    $("#CheckAll").click(function(){
+        $('[name=item]:checkbox').prop("checked",this.checked);
+    });
+    $("[name=item]:checkbox").click(function(){
+        var flag=true;
+        $('[name=item]:checkbox').each(function(){
+            if(!this.checked){
+                flag=false;
+            }
+        });
+        $('#CheckAll').prop("checked",flag);
+    });
+});
+
+//获取当前章节
+function getchapter(){
+    $.get('../Kewen/getchapter',
+        {
+            ran:Math.random(),
+            grade:'{$grade}',
+            term:'{$term}',
+            version:'{$version}',
+        },
+        function(data){
+        $('#list_table tr:not(:first)').remove();
+        $.each(data,function(k,v){
+            var tr=$('#demo').children('tbody').children('tr').eq(0).clone();
+            tr.children('td').eq(0).html(k+1);
+            tr.children('td').eq(1).html(v.ks_name);
+            tr.children('td').eq(2).html(v.is_unit==1?'单元':'非单元');
+            if(v.is_unit==1){
+                tr.children('td').eq(3).html('');
+            }
+            tr.children('td').eq(4).find('input').val(v.ks_code);
+            tr.appendTo('#table_data');
+        });
+    })
+}
+
+//获取多选框的值
+function auditAll(){
+    var arrVersion = []; //定义一个数组
+    $('input[name="item"]:checked').each(function(){
+        if($(this).val()!='ha'){
+            var obj = {};
+            obj.style = $(this).parent('td').prev().children('select').val();
+            obj.ks_code = $(this).val();
+            arrVersion.push(obj);//把选中的区域放入数组
+        }
+    });
+    return JSON.stringify(arrVersion);
+}
+function savedata(){
+        var chapterlist = auditAll();
+        var flag=false;
+        if(chapterlist=='[]'){
+            art.dialog.alert('必须选择章节！');
+            return false;
+        }else{
+        $.post('../kewen/addchapterFromRms',
+            {ran:Math.random(),
+             chapterlist:chapterlist
+            },
+            function(data){
+                if(data=='已存在'){
+                    flag=false;
+                }else{
+                    flag=true;
+                }
+            });
+            return flag;
+        }
+
+}
+
+
+
+</script>

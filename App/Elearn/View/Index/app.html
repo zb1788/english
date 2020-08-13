@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<meta name="wap-font-scale" content="no">
+		<title>英语同步练</title>
+		<link rel="stylesheet" href="__ELEARN__css/weike.css" />
+		<link rel="stylesheet" href="__ELEARN__font/fonts.css" />
+		<link rel="stylesheet" href="__ELEARN__css/iscroll.css" />
+		<script type="text/javascript" src="__ELEARN__js/iscroll-lite.js" ></script>
+		<script type="text/javascript" src="__ELEARN__js/demoUtils.js" ></script>
+		<script type="text/javascript" src="__ELEARN__js/TouchSlide.1.1.js" ></script>
+		<script type="text/javascript" src="__ELEARN__js/zepto.min.js" ></script>
+<style>
+	#wrapper {top: 200px; bottom: 70px;}
+</style>
+</head>
+<body>
+<main>
+
+		<div id="iScroll" class="iScroll bWhite">
+        <div class="hd qie_b fen3">
+        <ul class="tabs">
+                 <li class="on" hidefocus="true" >目录</li>
+              
+		</ul></div>
+        <div class="tempWrap" >
+        	<div class="bd" id="iScroll-bd" style="width: 981px; position: relative; overflow: hidden; padding: 0px; margin: 0px; transition-duration: 200ms; -webkit-transition-duration: 200ms; -webkit-transform: translate(0px, 0px) translateZ(0px);">
+     
+              <div class="con backGfff">
+				<ul class="splist">
+					<volist name="appresult" id="app">
+						<li><div class="img pad10"><span><a href="index?app_id={$app.id}"><img src="__RESOURCE__{$app.app_pic}"></a><em class="twz">{$app.app_name}</em></span></div>
+							<div class="nr"><h2 class="textH3">{$app.app_name}</h2>
+								<!-- <p class="clear"><span class="xing"><label>评价：</label><i class="icon-uniF005"></i><i class="icon-uniF005"></i><i class="icon-uniF005"></i><i class="icon-uniF006"></i><i class="icon-uniF006"></i></span><span class="fontb redFont">免费</span></p> -->
+							</div>
+						</li>
+					
+					</volist>
+					</ul>
+			   </div>
+            <div class="con">
+                <ul>
+
+                    <div class="overYz">
+<div class="ms-jj">
+			<h2>适用对象：</h2>
+			<ul>
+			<volist name="app_object" id="object">
+			<li><span class="mui-badge mui-badge-danger">{$key+1}</span>{$object}</li>
+			</volist>
+			</ul>
+			<h2>培养目标：</h2>
+			<ul>
+			<volist name="app_target" id="target">
+			<li><span class="mui-badge mui-badge-warning">{$key+1}</span>{$target}</li>
+			</volist>
+			</ul>
+			<h2>课程特色：</h2>
+
+			<img src="__RESOURCE__{$pic_feat}" />
+			<h2>课程大纲：</h2>
+			<img src="__RESOURCE__{$pic_content}" />
+			<h2>课程名师：</h2>
+			<img src="__RESOURCE__{$pic_teac}" />
+		</div>
+							</div>
+                </ul>
+            </div>             
+            <div class="con">
+            	<ul>
+
+                    <a href="../elearn/index/ping" class="inp pos-bottom"><span><div class="pp"></div><em>评价</em></span></a>
+<div class="ms-ping">
+			<ul>
+				<li><span class="toux"><img src="__ELEARN__img/toux.png"></span>
+					<div class="ping">
+						<p><label>张晓明</label><span class="time">2016-10-10</span></p>
+						<p>中考英语作文前导中考英语作文前导中考英语作文前导中考英语作文前导.</p>
+					</div>
+				</li>
+				<li><span class="toux"><img src="__ELEARN__img/toux.png"></span>
+					<div class="ping">
+						<p><label>张晓明</label><span class="time">2016-10-10</span></p>
+						<p>中考英语作文前导中考英语作文前导中考英语作文前导中考英语作文前导.</p>
+					</div>
+				</li>
+				<li><span class="toux"><img src="__ELEARN__img/toux.png"></span>
+					<div class="ping">
+						<p><label>张晓明</label><span class="time">2016-10-10</span></p>
+						<p>中考英语作文前导.</p>
+					</div>
+				</li>
+				<li><span class="toux"><img src="__ELEARN__img/toux.png"></span>
+					<div class="ping">
+						<p><label>张晓明</label><span class="time">2016-10-10</span></p>
+						<p>中考英.</p>
+					</div>
+				</li>
+				<li><span class="toux"><img src="__ELEARN__img/toux.png"></span>
+					<div class="ping">
+						<p><label>张晓明</label><span class="time">2016-10-10</span></p>
+						<p>中考英语作文前导中考英语作文前导中考英语作文前导中考英语作文前导.</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+            	</ul>
+            </div>                               
+
+        </div></div>
+    </div>
+
+<script type="text/javascript">
+    TouchSlide({ slideCell:"#iScroll",
+       endFun:function(i){ //高度自适应
+          var bd = document.getElementById("iScroll-bd");
+          bd.parentNode.style.height = bd.children[i].children[0].offsetHeight+"px";
+           if(i>0)bd.parentNode.style.transition="200ms";//添加动画效果
+       }
+    } );
+</script> 
+    <script type="text/javascript">
+
+$(".tabs li").on('touchstart mousedown',function(e){
+    $(".tabs .on").removeClass('on');
+    $(this).addClass('on');
+
+});
+
+//$(".tabs li").click(function(e){
+//  e.preventDefault();
+//});
+
+</script>
+</main>
+</body>
+</html>

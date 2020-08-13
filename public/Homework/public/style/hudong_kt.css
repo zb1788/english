@@ -1,0 +1,82 @@
+@charset "gb2312";
+/* CSS Document */
+body {background:#fff;}
+body.noBg {background-image:none;}
+.header {background:url(../images/student/bolang.jpg) repeat-x bottom center; height:245px;}
+.header.noBg {background:none; height:auto;}
+.logo.stu {margin:38px 0 0 0; }
+.logo.stu .nianji {background:url(../images/student/s_img.png) no-repeat 0 0; width:105px; height:50px; line-height:44px; position:absolute; right:20px; top:-20px; font-size:17px; color:#fff; display:block; text-align:center; text-indent:9px;}
+.adv_top {width:300px; height:80px; float:left; margin:20px 0 0 40px; }
+.nav_kt {clear:both;}
+.nav_kt ul {}
+.nav_kt ul li {display:block; float:left; width:160px; height:60px; margin:0 1px; }
+.nav_kt ul li a {background:url(../images/student/s_img.png) no-repeat 0 -51px; display:block; width:160px; height:60px; color:#fff; font-size:20px; line-height:54px; text-align:center;}
+.nav_kt ul li a:hover {text-decoration:none; background-position:0 -111px;}
+.nav_kt ul li a.sel_kt {background-position:0 -111px;}
+.owl {background:url(../images/student/maotouying.png) no-repeat; width:75px; height:75px; display:block; position:absolute; right:-100px; top:100px;}
+.owl.big {background:url(../images/student/maotouying_b.png) no-repeat;width:120px; height:120px;}
+.bolang {clear:both;background:url(../images/student/bolang2.jpg) repeat-x bottom center; height:424px; margin-top:0; *margin-top:15px;}
+
+.diandian2 { border:1px dotted #555; margin:0 5px 5px 5px; display:block; border-radius:25px;}
+.diandian2.h30 {height:38px; }
+
+.task {width:650px; margin:10px 0;}
+.task h1,.parent h1,.circle h1 {height:53px; line-height:50px; color:#fff; font-size:16px; background:#fafafa; border:none;}
+.task.blue h1 {background:url(../images/student/border_blue.png) no-repeat top left; }
+.task.yellow h1 {background:url(../images/student/border_yellow.png) no-repeat top left; }
+.task.green h1 {background:url(../images/student/border_green.png) no-repeat top left; }
+.task.blue .nr {background:url(../images/student/border_blue.png) repeat-y center center; padding:0 10px 10px 30px;}
+.task.yellow .nr {background:url(../images/student/border_yellow.png) repeat-y center center; padding:10px 10px 10px 30px;}
+.task.green .nr {background:url(../images/student/border_green.png) repeat-y center center; padding:10px 26px 10px 30px;}
+.task.blue .bottom_jiao {background:url(../images/student/border_blue.png) no-repeat bottom right; height:17px; font-size:0; display:block;}
+.task.yellow .bottom_jiao {background:url(../images/student/border_yellow.png) no-repeat bottom right; height:17px; font-size:0; display:block;}
+.task.green .bottom_jiao {background:url(../images/student/border_green.png) no-repeat bottom right; height:17px; font-size:0; display:block;}
+.task h1 a.more {float:right; margin-right:15px; font-size:14px;}
+.task h1 font {border-bottom:none !important; color:#fff !important; font:normal 16px/36px Microsoft YaHei !important; padding:0;}
+
+ul.day { width:83%;}
+
+span.hd_ico_1,span.hd_ico_2,span.hd_ico_3,span.hd_ico_4,span.hd_ico_5,span.hd_ico_6 {background-image:url(../images/student/ico_hd.png); width:20px; height:20px; display:inline-block; vertical-align:middle; margin:0 20px 0 44px;}
+span.hd_ico_1 {background-position:0 0; background-color:transparent;}
+span.hd_ico_2 {background-position:0 -20px; background-color:transparent;}
+span.hd_ico_3 {background-position:0 -40px; background-color:transparent;}
+span.hd_ico_4 {background-position:0 -60px; background-color:transparent;}
+span.hd_ico_5 {background-position:0 -80px; background-color:transparent;}
+span.hd_ico_6 {background-position:0 -100px; background-color:transparent;}
+
+.rm  {width:60px; }
+.rm span { width:60px; height:60px; -moz-border-radius: 30px; -webkit-border-radius: 30px; border-radius:30px;}
+.rm span img { width:60px; height:60px; -moz-border-radius: 30px;    -webkit-border-radius: 30px; border-radius:30px;}
+.tab_2 {border-bottom:3px solid #55d693; padding-left:85px;}
+.tab_2 li.cur_2 {background:#55d693; margin-bottom: 14px;}
+span.arrow {border-color: #55d693 transparent transparent transparent;}
+.rmiddle {width:320px; _width:320px; border-left:none; margin-left:0; background:#fff;}
+
+.border_hui {width:320px; margin:10px auto; }
+.border_hui h1 {background:url(../images/student/border_hui.png) no-repeat top left; border:none; height:53px; _height:53px; line-height:52px; font-size:16px; }
+.border_hui .nr {background:url(../images/student/border_hui.png) repeat-y center center; padding:12px 20px 12px 30px;}
+.border_hui .nr.qk2 { padding:12px 30px;}
+.border_hui .bottom_jiao_hui {background:url(../images/student/border_hui.png) no-repeat bottom right; height:17px; font-size:0; display:block;}
+
+.w980 .hd_textbox2 {  height:30px; line-height:30px; padding:0 15px; color:#555; font-size:13px; width:55%; float:none; margin-left:10px; color:#888; border: solid 1px #efefef;}
+.group2 p { display:block; padding:5px 0; font-size:14px;}
+.cy_list { margin-top:10px;}
+.cy_list li span {padding-top:2px;}
+h1 a.gr_up{float:right; color:#fff; height:27px; font:14px/27px "Microsoft YaHei"; padding-right:8px; margin:13px 15px 0 0; background-color:#8e9290; border-radius:3px;}
+h1 a.gr_up span {background: url(../images/shd_sicoadd.png) no-repeat; width:27px; height:24px; float:none; display:inline-block; vertical-align:middle;}
+.show_kt {*width:260px;}
+.show_kt li {display:block; margin-bottom:10px; border-bottom:solid 1px #efefef; padding:10px;}
+.hd_zp01 {width:75%; }
+.hd_zp01 a {line-height:18px; margin-top:3px;}
+.hd_zp01 span { margin-top:-5px;}
+.r_ti{ width:84%; _width:80%; margin-right:10px;}
+.w980 .pingping ul li.txt2 {width:87%; }
+.w980 .hd_textbox3 {  line-height:38px; width:69.5%;}
+
+.hd_y,.hd_b,.hd_g { height:36px; padding:5px 11px !important; *padding:5px 0 !important; border-radius:5px; margin-right:5px; font-size:14px;}
+.flaa { clear:both; margin:10px 0 0 0; width:100%; float:none;}
+.cy_list.flaa li {padding:0; margin:0 21px 10px 15px;}
+span.btn_fj {float:right; margin:0 20px 0 0;}
+a.xcw {  width:100%;}
+
+ul.tj_banji { height:350px; overflow-y:auto; margin:0 10px;}

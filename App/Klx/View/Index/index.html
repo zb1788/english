@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type"	content="text/html;	charset=UTF-8">
+    <meta name="Description" CONTENT="语文字典">
+    <title>远教信使-成语词典</title>
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta content="telephone=no" name="format-detection" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	<link href="__PUBLIC__/nami/zxzd.css" rel="stylesheet" type="text/css" media="screen">
+	<script type="text/javascript" src="__PUBLIC__/nami/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/nami/jquery.jplayer.min.js"></script>
+	<script>
+		var g_support_html5 = !!document.createElement('audio').canPlayType
+		var g_id_user_login = 0;
+		function draw_chinese(hzdata){
+			var pinyins = hzdata.pinyin.split(',');
+			var pinyinStr = Array();
+			var not_exsit_py = hzdata.not_pinyin;
+
+			for(var i=0; i < pinyins.length; i++)
+			{
+
+				if(pinyins[i] != ''){
+					pinyinStr.push(pinyins[i]);
+					if(not_exsit_py.hasOwnProperty(pinyins[i])){
+						pinyinStr.push('<span style="margin-left:3px;width:24px;display:inline-block;" ><img src="__PUBLIC__/nami/images/bo2.gif" /></span>');
+					}else{
+					 	pinyinStr.push('<span class="audiodev" style="margin-left:3px;" mp3path="http://localhost:9004/resource/mp3/tina/static/dict/chinese/mp3/'+pinyins[i]+'.mp3" ><img src="__PUBLIC__/nami/images/bo2.gif" /></span>');
+					 }
+				}
+			}
+            //基本信息
+			$('#pinyin').html(pinyinStr.join(''));
+			$(".nblist_ec:eq(1)").show();
+			if(hzdata.bushou){
+				$('#bushou').show();
+				$('#bushou').html(hzdata.bushou);
+			}else{
+				$('#bushou').hide();
+			}
+			if(hzdata.bihuashu){
+				$('#bihuashu').show();
+				$('#bihuashu').html(hzdata.bihuashu);
+			}else{
+				$('#bihuashu').hide();
+			}
+			if(hzdata.bihua_jiegou){
+				$('#jiegou').parents("tr").show();
+				$('#jiegou').html(hzdata.bihua_jiegou);
+			}else{
+				$('#jiegou').hide();
+			}
+			if(hzdata.bihua_mingcheng){
+				$('p.bih').html(hzdata.bihua_mingcheng);
+			}else{
+				$('p.bih').hide();
+			}
+			if(!(hzdata.bushou||hzdata.bihuashu||hzdata.bihua_jiegou||hzdata.bihua_mingcheng)){
+				$(".nblist_ec:eq(1)").hide();
+			}
+			$(".jibenjieshi").show();
+            $(".jibenjieshi").html(hzdata.jibenjieshi);
+            if(!hzdata.jibenjieshi){
+            	$(".jibenjieshi").hide();
+            }
+            $(".xiangxijieshi").show();
+            $(".xiangxijieshi").html(hzdata.xiangxijieshi);
+            if(!hzdata.xiangxijieshi){
+            	$(".xiangxijieshi").hide();
+            }
+            $(".xiangguancizu").show();
+            $(".xiangguancizu").html(hzdata.xiangguancizu);
+            if(!hzdata.xiangguancizu){
+            	$(".xiangguancizu").hide();
+            }
+			if (hzdata.gif)
+				$(".wz").attr('src',"http://192.168.133.14:9004//resource/hanzi/"+hzdata.gif);
+			else{
+				$(".wz").hide();
+			}
+		}
+
+		function show_bihua(chword){
+			// 默认采用HTML5的Canvas，如果不行，就使用GIF图片！PC浏览器强制使用图片！
+			$.ajax({
+				type	:	'GET',
+				url		: 	'chinesex?word=' + encodeURI(chword) + '&gif=1',
+				dataType:	'json',
+				cache	: 	false ,
+				success	: 	function(series){
+								if (series.result != 'succ'){
+									$("#canvas").hide();
+									$('#bihuatip').html('* 很遗憾，没有查到这个汉字的笔画数据！');
+									$(".nblist_ec:eq(1)").hide();
+									$(".nblist_ec:eq(2)").empty().hide();
+									$(".nblist_ec:eq(3)").empty().hide();
+									$(".nblist_ec:eq(4)").empty().hide();
+									return;
+								}
+								$('#bihuatip').html('').show();
+								$('#chx0').show();
+								draw_chinese(series.data[0]);
+								//namibox_app_ready();
+							} ,
+				error	:	function(error){
+								$('#chx0').show();
+							}
+			});
+		}
+		function jpclear() {
+		  $("#jplayer").jPlayer("clearMedia");
+		  $("#jplayer").jPlayer("stop");
+		  $("#jplayer").unbind($.jPlayer.event.ended);
+		  $("#jplayer").unbind($.jPlayer.event.progress);
+        }
+
+		$(function(){
+			$("#jplayer").jPlayer({
+	            swfPath: '/public/public/js',
+	            wmode: "window",
+	            supplied: "mp3",
+	            preload: "none",
+	            volume: "1"
+        	});
+			$(".but_y").click(function(){
+				var val=$(".sou01").val();
+				show_bihua(val);
+			});
+			$(".but_y").click();
+			if($('.action_button')){
+				$('.action_button').parent().find(':gt(4)').toggle();
+				$('.action_more').click(function() {
+					$(this).parent().find(':gt(4)').toggle();
+					return false;
+				})
+			}
+			//发音
+			$("span .audiodev").live('click',function() {
+				jpclear();
+			    var mp3 = $(this).attr('mp3path');
+			    $("#jplayer").jPlayer("setMedia", {
+			      mp3: mp3
+			    }).jPlayer("play");
+			});
+		});
+	</script>
+</head>
+<body style="">
+	<header>
+        <div class="back"><a href="zz_zxzl.html"><img src="__PUBLIC__/nami/images/backIco.png" width="20" height="20" />返回</a></div>
+		<div class="kc_setup"><a class="shou" href="javascript:void(0);">分享</a></div>
+        <span class="line"></span>
+    </header>
+	<div class="cy_nr">
+
+		<span class="top"><img src="__PUBLIC__/nami/images/top.jpg" /></span>
+
+		<div class="sousou">
+			<div class="shur">
+			<input type="text"  value="汗" class="sou01">
+			</div>
+			<a  class="but_y" href="javascript:void(0);"><img src="__PUBLIC__/nami/images/sou.png" />检索</a>
+		</div>
+		<div class="bihua">
+			<h2><img id="canvas" src="__PUBLIC__/nami/images/bt.png" /><span>汉字笔画</span></h2>
+			<h3 id="pinyin"></h3>
+			<img class="wz" src="../img/han.gif" />
+			<p class="bih"></p>
+			<img class="gui" src="__PUBLIC__/nami/images/gui.png">
+		</div>
+		<ul class="jxx">
+			<h3>基本信息</h3>
+			<li><label>部首：</label><span class="red" id="bushou"></span></li>
+			<li><label>笔画数：</label><span class="red" id="bihuashu"></span></li>
+			<li><label>笔画结构：</label><span class="red" id="jiegou"></span></li>
+			<h3>基本解释</h3>
+			<li><span class="jibenjieshi"></span></li>
+			
+			<h3>详细解释</h3>
+			<li><span class="xiangxijieshi"></span></li>
+			<h3>相关词语</h3>
+			<li><span class="xiangguancizu"></span></li>
+		</ul>
+		</div>
+	
+</body>
+</html>

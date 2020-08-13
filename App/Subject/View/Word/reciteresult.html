@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="wap-font-scale" content="no">
+        <meta charset="UTF-8">
+        <title>英语同步练</title>
+         <link rel="stylesheet" href="__SUBJECT__/css/currency.css" />
+        <link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+        <link rel="stylesheet" href="__PUBLIC__/css/layer.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/require.js" ></script>
+        <style>
+            #wrapper {top: 80px; bottom: 40px;}
+        </style>
+    </head>
+    <body >
+        <main>
+            <header class="head border-nav">
+                <a class="head-left"><i class="icon-back"></i>返回</a>
+                <a class="head-right">生词本</a>
+                <h1 class="title">测试结果</h1>
+            </header>
+            <div class="topH4 plr10">
+                <span class="fl"><i class="icon-clock icon-l"></i>总用时：<font id="timer">0秒</font></span>
+            </div>       
+            <section>
+                <div id="wrapper">
+                    <div id="scroller">
+                        <h3 class="listIconText bt" id="rank">
+                            <span class="fr"><i class="icon-right"></i></span>
+                            <span class="textH3">班级得分榜</span>
+                        </h3>
+                        <section class="tips bLine">
+                            <p><img id="resimg" src="" height="100px" width="100px"></p>
+                            <p class="txt" id="result"></p>
+                        </section>
+                         <section class="tips bLine" id="errorword" style="display:none;">
+                            <h3 class="pad10 bGray">本次练习错误单词(已加入生词本)</h3>
+                            <ul class="listTxt">
+                                
+                            </ul>
+                        </section>
+                    </div><!--end scroller-->
+                </div><!--end wrapper-->
+                <div class="courseBtn" style="line-height: normal;">
+                    <!--<a class="fenT" href="javascript:;" >查看解析</a>-->
+                    <a class="fenT btn" id="test" href="javascript:void(0);" style="width:100%">重新测试</a>
+                </div>
+                <div id="tips"></div>
+            </section>
+        </main> 
+    </body>
+    <script type="text/javascript">
+    require.config({
+        paths: {
+            "learnword": "__SUBJECT__/js/learnword",
+            "iscroll":"__PUBLIC__/js/iscroll-lite",
+        },
+        shim: {
+            "iscroll": {
+                exports:"IScroll"
+            }
+        },
+        waitSeconds: 0
+    });
+    require(["learnword","iscroll"], function(learnword,IScroll){
+        $(function(){
+            $("#result").hide();
+            var Requests = new Object();
+            Requests = GetRequest();
+            //设置时间
+            var setTimeValue=window.localStorage.getItem("jp_timer");
+            $("#timer").html(setTimeValue+"秒");
+            //滑动问题
+            new IScroll("#wrapper",{
+                momentum:true,
+                click:true 
+            });
+            //var Requests = new Object();
+            //Requests = GetRequest();
+            //正确率
+            var rate=window.localStorage.getItem("jp_recite_rate");
+
+            //将正确率进行展示
+            if(rate==null){
+                $("#result").text("恭喜你本次测试完美过关！正确率100%");
+                $("#resimg").attr("src","__SUBJECT__/images/trophy.png");
+                
+            }else{
+                rate=rate.replace(/%/, "");
+                rate=parseFloat(rate);
+               //进行不同成绩的对应的结果的展示
+               if(rate<=60){
+                    $("#result").text("成绩不太理想，需要加油了哟！正确率"+String(rate)+"%");
+                    $("#resimg").attr("src","__SUBJECT__/images/trophy4.png");
+                    $("#errorword").show();
+               }else if(rate>60&&rate<=85){
+                    $("#result").text("成绩有进步，仍需努力哟！正确率"+String(rate)+"%");
+                    $("#resimg").attr("src","__SUBJECT__/images/trophy3.png");
+                    $("#errorword").show();
+               }else if(rate>85&&rate<=99){
+                    $("#result").text("恭喜你取得佳绩，继续加油呀！正确率"+String(rate)+"%");
+                    $("#resimg").attr("src","__SUBJECT__/images/trophy2.png");
+                    $("#errorword").show();
+               }else{
+                    $("#result").text("恭喜你本次测试完美过关！正确率100%");
+                    $("#resimg").attr("src","__SUBJECT__/images/trophy1.png");
+               }
+               
+               //$("#rate").text(rate); 
+           }
+           $("#result").show();
+
+            
+            //单词列表
+            var reciteword=window.localStorage.getItem("jp_recite");
+            reciteword=decodeURI(reciteword);
+            reciteword = eval("("+reciteword+")");
+            //进行单词的展示
+            var wordlist="";
+            $.each(reciteword,function(k,v){
+                wordlist=wordlist+"<li>"+v+"</li>";
+            })
+            $(".listTxt").html(wordlist);
+            $("#wrapper").resize();
+            perface();
+            //返回按钮的事件
+            $(".head-left").click(function(){
+                try{
+                      UXinJSInterfaceSpeech.stopAudio();  
+                }catch(e){
+
+                }
+                window.location.href="reciteunit?moduleid="+Requests["moduleid"];
+            })
+
+            //排名跳转
+            $("#rank").click(function(){
+                try{
+                      UXinJSInterfaceSpeech.stopAudio();  
+                }catch(e){
+
+                }
+                window.location.href="../Word/classrank?dataurl="+encodeURIComponent('../User/getClassRank')+"&mod=word&callbackURL="+encodeURIComponent(document.location.href)+"&func=getReciteWordClassRank&ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"];
+                //window.location.href="../User/classrank?callBackUrl="+encodeURIComponent(window.location.href)+"&ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"];
+            })
+
+            //生词本跳转
+            $(".head-right").click(function(){
+                try{
+                      UXinJSInterfaceSpeech.stopAudio();  
+                }catch(e){
+
+                }
+                window.location.href="../User/vocabulary?callBackUrl=Word/reciteresult&ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"]+"&ks_short_name="+Requests["ks_short_name"];
+            })
+
+            //重新测试再来一次的事件
+            $(".courseBtn").click(function(){
+                try{
+                      UXinJSInterfaceSpeech.stopAudio();  
+                }catch(e){
+
+                }
+                window.location.href="../Word/reciteword?ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"]+"&ks_short_name="+Requests["ks_short_name"];
+            })
+        })
+    });
+    </script>
+</body>
+</html>

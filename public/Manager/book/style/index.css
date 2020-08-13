@@ -1,0 +1,392 @@
+@charset "UTF-8";
+/* CSS Document */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, del, dfn, em, img, ins, kbd, q, samp, small, strong, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, table, tbody, tfoot, thead, tr, th, td, article, aside, footer, header, nav, section {
+	background:transparent;
+	border:0;
+	font-size:100%;
+	margin:0;
+	outline:0;
+	padding:0;
+	vertical-align:baseline;
+}
+body {
+  min-width: 1200px;
+  color: #CCCCCC;
+  font-family: Helvetica, verdana, sans-serif, "宋体";
+  background-color: #323232;
+}
+p {
+	margin-left: 50px;
+	margin-right: 50px;
+	line-height: 200%;
+}
+a {
+	color: #8dbe49;
+	text-decoration: none;
+}
+#header{
+	background-color: #323232;
+	width: 100%;
+	border-bottom: 1px solid #848484;
+  background-image: url(../images/logo.png);
+  background-image: url(../images/logo4ie.png)\9;
+	height: 110px;
+	background-size: 240px auto;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}
+
+#content{
+	width:100%;
+	 background-image: url(../images/bg16.jpg);
+}
+
+#button-left{
+	background-color:transparent;
+	background-image: url(../images/button-left.png);
+	background-repeat: no-repeat;
+  background-size:100%;
+	border:none;
+  width:83px;
+  height:83px;
+  position:absolute;
+  top:45%;
+  left:5%;
+  cursor: pointer;
+}
+
+#button-left a:hover{
+	background-image: url(../images/button-left-hover.png);
+}
+
+#button-right{
+	background-color:transparent;
+	background-image: url(../images/button-right.png);
+	background-repeat: no-repeat;
+	background-size:100%;
+	border:none;
+  width:83px;
+  height:83px;
+  position:absolute;
+  float:right;
+  top:45%;
+  right:5%;
+  cursor: pointer;
+}
+
+.words{
+	color: #eeeeee;
+  font-family: Helvetica, verdana, sans-serif,"宋体";
+  font-size:0.85em;
+  line-height:200%;
+}
+
+.name{
+	color: #eeeeee;
+  font-family: Helvetica, verdana, sans-serif, "宋体";
+  float:right;
+  font-size:0.85em;
+  line-height:200%;
+}
+ 
+#main {
+	width: 60%;
+	margin:0 auto;
+	padding-bottom: 0px;
+	padding-top: 10px;
+
+}
+.w100 {
+	width: 100%;
+}
+
+#bottom {
+	background-color: #323232;
+	width: 100%;
+	border-top: 1px solid #848484;
+	color:#999999;
+	text-align: center;
+	font-size: 0.7em;
+	letter-spacing: 2px;
+	clear: both;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+
+/* Swipe 2 required styles */
+
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+  clear:both;
+}
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap > div {
+  float:left;
+  width:100%;
+  position: relative;
+}
+
+.swipe .nav {
+	position: absolute;
+	width: 80px;
+	height: 38px;
+	z-index: 10;
+	text-align: center;
+	line-height: 40px;
+	display: inline-block;
+	color: #fff;
+	top: 45%;
+	cursor: pointer;
+	background-color: rgba(0,0,0,0.8)
+}
+.swipe .nav.next {
+	right: 0;
+	-webkit-border-radius: 3px 0 0 3px;
+	border-radius: 3px 0 0 3px;
+}
+.swipe .nav.prev {
+	-webkit-border-radius: 0 3px 3px 0;
+	border-radius: 0 3px 3px 0;
+}
+
+/* END required styles */
+#left-button{
+	width: 45px;
+	height: 80px;
+	display: block;
+	left: 10px;
+	top: 47%;
+	position: absolute;
+	background-image: url(../images/arrow.png);
+	background-repeat: no-repeat;
+	opacity: 0.8;
+	-moz-transform:rotate(180deg); 
+	-webkit-transform:rotate(180deg);
+	transform:rotate(180deg);
+	cursor: pointer;
+}
+#right-button{
+	width: 45px;
+	height: 80px;
+	display: block;
+	right: 10px;
+	top: 47%;
+	position: absolute;
+	background-image: url(../images/arrow.png);
+	background-repeat: no-repeat;
+	opacity: 0.8;
+	cursor: pointer;
+}
+#slide img {
+	width: 80%;
+	text-align: center;
+	margin-bottom: 0px;
+	display: block;
+}
+#gallery img {
+	width:100%;
+	text-align:center;
+	margin:0px;
+	padding:300px 0px;
+	display:block;	
+}
+#bottom-menu {
+	width: 100%;
+	height: 100px;
+	text-align: center;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	letter-spacing: 3px;
+	font-size: 42px;
+}
+.menu-list ul {
+	width: 100%;
+	display:block;
+	list-style-type: none;
+}
+.menu-list ul li {
+	background-color: #666666;
+	width: 24.593%;
+	height: 40px;
+	border: 2px solid #828282;
+	text-align: center;
+	font-size: 85%;
+	padding-top:60px;
+	padding-bottom:60px;
+	float: left;
+	overflow:hidden;
+}
+.menu-list .gold {
+	background-color:#958357;
+}
+
+.menu-list a {
+	color:#eeeeee;
+	display: block;
+	text-decoration: none;
+}
+.menu-list a:hover {
+	color:#eeeeee;
+}
+.about-img {
+	float:left;
+	margin-right:10px;
+}
+.gallery-list {
+	margin: 10px;
+}
+.gallery-list li {
+	margin-bottom:5px;
+}
+
+/*下拉菜单*/
+.menu {
+width: 100%;
+	height: 90px;
+	background-repeat: no-repeat;
+font-family: verdana, sans-serif, "宋体";
+position:relative;
+font-size:0.9em;
+padding-bottom:0px;
+top:58px;
+z-index:9999;
+}
+.menu ul {
+padding:0;
+margin:0;
+list-style-type: none;
+}
+.menu ul li {
+float:right;
+position:relative;
+}
+.menu ul li a, .menu ul li a:visited {
+display:block;
+text-decoration:none;
+width:160px;
+height:30px;
+color:#ccc;
+border:0px solid #333;
+border-width:0 0 0 0;
+background:transparent;
+padding-left:40px;
+line-height:30px;
+}
+* html .menu ul li a, .menu ul li a:visited {
+width:160px;
+w\idth:160px;
+}
+.menu ul li ul {
+display: none;
+}
+.menu table {
+margin:-1px;
+border-collapse:collapse;
+font-size:1em;
+}
+
+/* specific to non IE browsers */
+.menu ul li:hover a {
+color:#fff;
+background:transparent;
+}
+.menu ul li:hover ul {
+display:block;
+position:absolute;
+top:23px; /* 下拉菜单定位 */
+margin-top:1px;
+left:30;
+width:200px;
+background:#666;
+}
+.menu ul li:hover ul li ul {
+display: none;
+}
+.menu ul li:hover ul li a {
+display:block;
+background:transparent;
+color:#ccc;
+height:auto;
+line-height:1.2em;
+padding:5px 0px 5px 10px;
+border:1px solid #333;
+border-width:0 0 1px 0;
+width:190px;/* 下拉菜单宽度 */
+}
+.menu ul li:hover ul li a.drop {
+background:#000 url(../../graphics/drop.gif) bottom right no-repeat;
+color:#ccc;
+}
+.menu ul li:hover ul li a:hover {
+background:#a5955e;
+color:#fff;
+}
+.menu ul li:hover ul li:hover ul {
+display:block;
+position:absolute;
+right:200px;
+top:-1px;
+width:200px;
+}
+.menu ul li:hover ul li:hover ul.left {
+right:200px;
+}/* 二级下拉菜单定位 */
+
+</style>
+<!--[if lte IE 6]>
+<style type="text/css">
+.menu ul li a:hover {
+color:#fff;
+background:#bd8d5e;
+}
+.menu ul li a:hover ul {
+display:block;
+position:absolute;
+top:3em;
+left:0;
+background:#fff;
+margin-top:0;
+marg\in-top:1px;
+}
+.menu ul li a:hover ul li a {
+display:block;
+background:#dbe4ab;
+color:#000;
+height:auto;
+line-height:1.5em;
+padding:5px 10px;
+width:200px;
+w\idth:200px;
+}
+.menu ul li a:hover ul li a.drop {
+background:#c9c9a7 url(../../graphics/drop.gif) bottom right no-repeat;
+}
+.menu ul li a:hover ul li a ul {
+visibility:hidden;
+position:absolute;
+height:0;
+width:0;
+}
+.menu ul li a:hover ul li a:hover {
+background:#c9c9a7; color:#000;
+}
+.menu ul li a:hover ul li a:hover ul {
+visibility:visible;
+position:absolute;
+top:0;
+color:#000;
+left:240px;
+}
+.menu ul li a:hover ul li a:hover ul.footleft {
+left:-240px;
+}
+
+</style>
+<![endif]-->
+/*下拉菜单*/

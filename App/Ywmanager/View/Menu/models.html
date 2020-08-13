@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>模块管理</title>
+<style>
+ .page{width:auto;height:25px; margin:auto; line-height:25px;}
+ .page a{display:block; height:25px; padding:0px 6px; border:solid 1px #e7e7e7; border-radius:3px; color:#333; font-family:'微软雅黑'; font-size:13px; text-align:center; text-decoration:none;float:left; margin-right:10px;min-width:20px;}
+ .page a:hover, .page a.this{background:#f7f7f7; font-weight:bold}
+</style>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jPlayer/dist/jplayer/jquery.jplayer.min.js"></script>
+</head>
+<body>
+<div class="place"><strong>位置</strong>：首页 &gt; 模块管理</div>
+<div class="container">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+      <tr>
+        <td class="box_top pl_10 f14"><strong>模块管理</strong>&nbsp;&nbsp;<input type="button" name="m" onclick="goManage('add',0);" value="模块添加" class="ext_btn ext_btn_submit"/></td>
+      </tr>
+    </table>
+	<div class="h10"></div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+	  <tr>
+        <th width="60">ID</th>
+        <th width="280">模块名称</th>
+        <th>模块地址</th>
+	      <th>模块说明</th>
+        <th>模块管理</th>
+	  </tr>
+	</table>
+	<div class="h5"></div>
+	<div class="page"></div>
+</div>
+<div class="h5"></div>
+
+
+<table style="display:none;" id="demo">
+  <tr class="tr">
+    <td align="left"></td>
+    <td align="left"></td>
+    <td align="left"></td>
+    <td align="left"></td>
+    <td align="left">
+    <input type="button" name="edit" value="编辑" class="ext_btn ext_btn_success" />
+    <input type="button" name="del" value="删除" class="ext_btn ext_btn_error" />
+    </td>
+  </tr>
+</table>
+<div id="jplayer"></div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+  $.ajaxSetup({async:false});
+  pagelist();
+});
+
+function goManage(type,bid){
+      var myDialog = $.dialog.open('edit?type='+type+'&bid='+bid,{
+          id:'unit_edit',
+          title:'模块添加',
+          window:'top',
+          width:500,
+          height:280,
+          lock:true,
+          opacity:0.3,
+          button: [
+            {
+              name: '保存',
+              callback: function () {
+                var iframe = this.iframe.contentWindow;
+                var re = iframe.addData();
+                if(re==true){
+                    pagelist();
+                }
+                return re;
+              },
+              focus: true
+            },
+            {
+              name: '关闭',
+              callback: function () {
+              },
+              focus: false
+            }
+          ]
+        });
+}
+
+$('input[name="edit"]').live('click',function(){
+  var bid = $(this).attr('bid');
+  goManage('edit',bid);
+});
+
+//删除
+$('input[name="del"]').live('click',function(){
+  var id=$(this).attr('bid');//动画id
+  var aa=$(this).parent().parent();
+  if($.dialog.confirm('确定删除模块？删除则年级关联的模块都将被删掉',function(){
+    $.get('../Menu/delModel',{ran:Math.random(),id:id},function(data){
+      $(aa).remove();
+    });
+  }));
+});
+
+//保存排序
+ $("#btn_submit").click(function()
+  {
+    var dloading = art.dialog({time:30,title:'更新中……',width:130,height:30,opacity:0.3,lock:true});
+
+    var strjson = auditAll();
+    var grade = $('#grade').val();
+    var subject = $('#subject').val();
+    $.get("../Menu/addConfig",
+        {
+            strjson:strjson,
+            grade:grade,
+            subject:subject
+        },
+        function(){
+      pagelist();
+      dloading.close();
+    });
+
+  });
+
+function auditAll(){
+    var arrVersion = []; //定义一个数组
+    $('input[name="item"]:checked').each(function(){
+        var obj = {};
+        obj.sortid = $(this).parent('td').next().children('input').val();
+        obj.menuid = $(this).val();
+        arrVersion.push(obj);//把选中的区域放入数组
+    });
+    return JSON.stringify(arrVersion);
+}
+
+
+//分页查询
+ function pagelist(){
+    $.get("../Menu/getAllModels",
+            {
+              ran:Math.random()
+            },
+            function(data){
+            $('.list_table tr:not(:first)').remove();
+            $.each(data,function(k,v){
+                    var tr=$('#demo').children('tbody').children('tr').eq(0).clone();
+                    tr.children('td').eq(0).html(v.id);
+                    tr.children('td').eq(1).html(v.title);
+                    tr.children('td').eq(2).html(v.url);
+                    tr.children('td').eq(3).html(v.remark);
+                    tr.find('input').attr('bid',v.id);
+                    tr.appendTo('.list_table');
+            });
+        })
+ }
+
+
+
+</script>

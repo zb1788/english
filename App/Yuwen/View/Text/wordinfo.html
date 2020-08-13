@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta charset="UTF-8">
+	<meta name="wap-font-scale" content="no">
+	<title>语文快乐学</title>
+	<link rel="stylesheet" href="__PUBLIC__/css/ywcurr.css" />
+	<link rel="stylesheet" href="__PUBLIC__/font/fonts.css" />
+	<link rel="stylesheet" href="__PUBLIC__/css/iscroll.css" />
+	<script type="text/javascript" src="__PUBLIC__/js/zepto.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/demoUtils.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/iscroll-lite.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/ywcommon.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/text.js"></script>
+
+	<style>
+		#wrapper {
+			top: 45px;
+			bottom: 0px;
+		}
+	</style>
+
+</head>
+
+<body>
+	<main>
+		<header class="head border-nav">
+			<a class="head-left" href="javascript:goBack();">
+				<i class="icon-back"></i>返回</a>
+			<h1 class="title" id="tag"></h1>
+			<a class="head-right" onclick="collect();">收藏</a>
+		</header>
+		<section>
+			<div id="wrapper" class="backGef">
+				<div id="scroller">
+					<div class="xlList clear">
+						<span class="fl" style="color:#93cc52;" id="kname"></span>
+						<span class="fr mR10">
+							<font class="redFont" id="nowNum">1</font>/
+							<font id="totalNum">5</font>
+						</span>
+					</div>
+				</div>
+				<!--end scroller-->
+				<div class="courseBtn">
+					<a class="fenT" href="javascript:wordPrev();">上一个</a>
+					<a class="fenT" href="javascript:wordNext();">下一个</a>
+				</div>
+			</div>
+			<!--end wrapper-->
+
+		</section>
+
+		<div id="wordDemo" style="display:none;">
+			<!-- <div class="xlList clear"><span class="fl" style="color:#93cc52;" id="kname"></span><span class="fr mR10"><font class="redFont" id="nowNum">1</font>/<font id="totalNum">5</font></span></div> -->
+			<!-- <div> -->
+			<div class="pad10">
+				<div class="ywJie01 pad10 backGfff">
+					<span class="w80">
+						<label id="zi">浙</label>
+					</span>
+					<span class="wz">
+						<p class="leftR">
+							<label class="greenFont">拼音：</label>
+							<strong id="py"></strong>
+						</p>
+						<p class="leftR">
+							<label class="greenFont">部首：</label>
+							<font id="bs"></font>
+						</p>
+						<p class="leftR">
+							<label class="greenFont">笔画：</label>
+							<font id="bh"></font>画</p>
+						<p class="leftR">
+							<label class="greenFont">结构：</label>
+							<font id="jg"></font>
+						</p>
+					</span>
+				</div>
+			</div>
+			<div class="pad10" style="padding-top: 0;">
+				<div class="pad10 backGfff">
+					<h3 class="afterBorder">
+						<span class="fr"></span>
+						<span class="textH3">词语</span>
+					</h3>
+					<div id="info">
+					</div>
+					<!--end ciyu-->
+					<div id="other">
+						<h3 class="afterBorder">
+							<span class="fr"></span>
+							<span class="textH3">其他读音和组词</span>
+						</h3>
+						<div id="duoyin">
+						</div>
+						<!--end ciyu-->
+					</div>
+				</div>
+			</div>
+			<div class="pad10" style="padding-top: 0;">
+				<div class="pad10 backGfff" id="zigif">
+					<h3 class="afterBorder">
+						<span class="textH3">汉字笔顺</span>
+					</h3>
+					<!-- <h4 class="textH4 bTextCenter">横、横、竖、撇、捺、折</h4> -->
+				</div>
+			</div>
+			<div class="h50"></div>
+			<!-- </div> -->
+		</div>
+
+		<div id="ciDemo" style="display:none;">
+			<!-- <div class="xlList clear"><span class="fl" style="color:#93cc52;" id="kname"></span><span class="fr mR10"><font class="redFont" id="nowNum">1</font>/<font id="totalNum">5</font></span></div> -->
+			<div class="pad10">
+				<div class="cyxq pad10 backGfff">
+					<div class="clear marBottom10">
+					</div>
+					<h3>
+						<span class="greenFont">拼音：</span>
+					</h3>
+					<h4>【
+						<font id="py" onclick="playCi();"></font>】
+						<i onclick="playCi();" class="icon-uniE60C greenFont"></i>
+					</h4>
+				</div>
+			</div>
+			<div class="pad10" style="padding-top: 0;">
+				<div class="pad10 backGfff" id="ciyu">
+					<div id="tongyici">
+						<h3 id="ci">
+							<span class="greenFont">同义词：</span>
+						</h3>
+						<dl class="ywCi clear">
+						</dl>
+					</div>
+					<div id="fanyici">
+						<h3>
+							<span class="greenFont">反义词：</span>
+						</h3>
+						<dl class="ywCi clear">
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<div id="tips"></div>
+	<script type="text/javascript">
+		var respath = '__RESOURCE__';
+		var respathimg = '__RESOURCIMG__';
+		var baseNetUrl = respath;
+		var recordNetUrl = respath + '/recordwav/';
+		var kewenNetUrl = respath + '/uploadsyw/kewenvoice/';
+
+		var ks_code = GetQueryString('ks_code');
+		var ks_name = GetQueryString('ks_name');
+		var wordinfo_p = GetQueryString('wordinfo');
+		var index = GetQueryString('index');
+		var backurl = GetQueryString('backurl');
+		var resource = "__RESOURCE__";
+		var myScroll;
+
+		var ciJson;
+		var tagNamge = GetQueryString('tag');
+		var fy = GetQueryString('fy');
+		var downloadJson;
+		var wordlist;
+		var nowNum;
+		var totalNum;
+
+
+		$(function () {
+			myScroll = new IScroll('#wrapper', {
+				momentum: true,
+				click: true
+			});
+			if (backurl == 'word') {
+				$('#tag').html(tagNamge);
+				wordlist = JSON.parse(getLocalStorage(tagNamge));
+			} else {
+				$('#tag').html('复习本');
+				wordlist = JSON.parse(getLocalStorage('cn_fuxiben'));
+			}
+			totalNum = wordlist.length;
+			$('#totalNum').html(totalNum);
+			getTextInfo(wordinfo_p, fy);
+		})
+
+
+		function getTextInfo(wordinfo, fy) {
+			wordinfo_p = wordinfo;
+			if (wordinfo.length == 1) {
+				//字
+				getWordInfo(wordinfo, fy);
+			} else {
+				//词
+				getCiInfo(wordinfo);
+			}
+		}
+
+
+		//设置当前是第几个字
+		function checkNowNum(wordinfo) {
+			$.each(wordlist, function (k, v) {
+				if (v.word == wordinfo) {
+					nowNum = k + 1;
+					$('#nowNum').html(nowNum);
+					return false;
+				}
+			})
+			checkIsLast(nowNum, totalNum);
+		}
+
+		function checkIsLast(nowNum, totalNum) {
+			if (nowNum == totalNum) {
+				$('.courseBtn').find('a').eq(1).html("完成学习");
+			} else {
+				$('.courseBtn').find('a').eq(1).html("下一个");
+			}
+		}
+
+		//上一个字词
+		function wordPrev() {
+			if (nowNum > 1) {
+				var text = wordlist[nowNum - 2].word;
+				var nowfy = wordlist[nowNum - 2].fy;
+				console.log(text + '|' + nowfy);
+				getTextInfo(text, nowfy);
+			} else {
+				//没有上一个了
+				return false;
+			}
+		}
+		//下一个字词
+		function wordNext() {
+			if (nowNum < totalNum) {
+				var text = wordlist[nowNum].word;
+				var nowfy = wordlist[nowNum].fy;
+				getTextInfo(text, nowfy);
+			} else {
+				//没有下一个了(完成学习)
+				window.location.href = "word?ks_code=" + ks_code + '&index=' + index;
+				return false;
+			}
+		}
+
+
+		function goBack() {
+			setTimeout(function(){
+				location.href = backurl + "?ks_code=" + ks_code + '&index=' + index;
+			},400)
+			
+		}
+
+		function play(obj) {
+			playErrNum = 0;
+			var py = $(obj).attr('py');
+			var mp3 = new player(py + '.mp3', 'zi');
+			mp3.playNet();
+		}
+
+
+		function collect() {
+			if (wordinfo_p.length == 1) {
+				//字
+				collect_zi();
+			} else {
+				//词
+				collect_ci();
+			}
+		}
+
+
+		function playCi() {
+			var fy = $('#py').siblings('i').attr('fy');
+			var arr = new Array(); //定义一数组
+			arr = fy.split("#"); //字符分割
+
+			var obj = [];
+			for (i = 0; i < arr.length; i++) {
+				var json = '{"word":["ci"],"py":["ci"],"fy":["fy"],"fayin":[{"fy":"' + arr[i] + '","sleep":"0"}]}';
+				obj.push(eval('(' + json + ')'));
+			}
+			console.log(obj);
+
+			playErrNum = 0;
+			mp3 = new player(obj, 'word');
+			mp3.init();
+			mp3.setLeixing(2); //不带
+			mp3.setLoop(1);
+			mp3.setPlayType('playci');
+			mp3.playWord();
+		}
+
+
+
+
+		function collect_ci() {
+			var word = $('.marBottom10').html();
+			word = word.delHtmlTab();
+			var py = $('#py').html();
+			var fy = $('#py').siblings('i').attr('fy');
+			$.get('../Text/addUserWord', {
+					ran: Math.random(),
+					ks_code: ks_code,
+					word: word,
+					py: py,
+					fy: fy,
+					type: 'add'
+				},
+				function () {
+					setTip("已加入复习本");
+				});
+		}
+
+		function collect_zi() {
+			var word = $('#zi').html();
+			var py = $('#py').find('font').html();
+			var fy = $('#py').children('b').attr('py');
+			$.get('../Text/addUserWord', {
+					ran: Math.random(),
+					ks_code: ks_code,
+					word: word,
+					py: py,
+					fy: fy,
+					type: 'add'
+				},
+				function () {
+					setTip("已加入复习本");
+				});
+		}
+	</script>
+
+</body>
+
+</html>

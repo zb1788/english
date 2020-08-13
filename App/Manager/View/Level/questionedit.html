@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版本列表</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/Sortable.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+        <script type="text/javascript">
+        var mp = '';
+        var mp3_progress='';
+        var mp3_progress_reap="";
+        function myplay() {
+            var oplay = new Object();
+            oplay.index = 0;
+            oplay.stemindex = 0;
+            oplay.queinitindex = 0;
+            oplay.questionindex = 0;
+            oplay.childstemindex = 0;
+            oplay.playtimes=0;
+            oplay.childinitstemindex = 0;
+            oplay.url = "";
+            oplay.repeat = 1; //默认播放次数
+            oplay.curpeat = 1;//当前播放到第几次
+            oplay.url = "";
+            oplay.play = function(mp3) {
+                $("#jplayer").jPlayer("setMedia", {mp3: mp3}).jPlayer("play");
+            };
+
+            oplay.pause = function() {
+                $("#jplayer").jPlayer("pause");
+                $("#jplayer").unbind($.jPlayer.event.ended);
+                $("#jplayer").unbind($.jPlayer.event.progress);
+            }
+            oplay.clear = function() {
+
+                $("#jplayer").jPlayer("stop");
+                $("#jplayer").jPlayer("clearMedia");
+                //$("#jplayer").data("SpeakMP3Value", "0");
+        //      $("#jplayer").unbind($.jPlayer.event.ended);
+        //      $("#jplayer").unbind($.jPlayer.event.progress);
+            };
+            return oplay;
+        }
+
+        $(function(){
+            $("#jplayer").jPlayer({
+                swfPath: '/public/Homework/js',
+                wmode: "window",
+                supplied: "mp3",
+                preload: "none",
+                volume: "1"
+            });
+            mp = new myplay();
+            mp.clear();
+        });
+    </script>
+<style>
+  ul{overflow: hidden;width:100%;}
+  li{border: 1px solid #ddd;}
+</style>
+</head>
+<body>
+  <div id="jplayer"></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+  <tr>
+    <td class="td_right">单词:</td>
+    <td>
+      <select class="select word" style="margin-left:10px;"></select>
+    </td>
+  </tr>
+  <tr>
+    <td class="td_right">释义:</td>
+    <td>
+      <select class="select explains" style="margin-left:10px;"></select>
+    </td>
+  </tr>
+  <tr>
+    <td class="td_right">题型:&nbsp;</td>
+    <td>
+      <select class="select questype" style="margin-left:10px;"></select>
+    </td>
+  </tr>
+  <tr>
+    <td class="td_right">题干:&nbsp;</td>
+    <td id="tncontent" style="padding-left:10px;">
+      <if condition="$questype eq '0'">
+        <img src='__PUBLIC__/images/icon_listen.png' width='40px' height='40px' class="play" mp3='{$tncontent}'/>
+      </if>
+      <if condition="$questype eq '1'">
+        <img src='__PUBLIC__/images/icon_listen.png' width='40px' height='40px' class="play" mp3='{$tncontent}'/>
+      </if>
+      <if condition="$questype eq '2'">
+        <input type="text" id="tcontent" class="input-text lh150" value="{$tncontent}"/>
+      </if>
+      <if condition="$questype eq '3'">
+        <input type="text" id="tcontent" class="input-text lh150" value="{$tncontent}"/>
+      </if>
+      <if condition="$questype eq '4'">
+        <input type="text" id="tcontent" class="input-text lh150" value="{$tncontent}"/>
+      </if>
+      <if condition="$questype eq '5'">
+        <img src='__PUBLIC__/images/icon_listen.png' width='40px' height='40px' class="play" mp3='{$tncontent}'/>
+      </if>
+      <if condition="$questype eq '6'">
+        <textarea cols="80" rows="10" class="tncontent" id="tcontent">{$tncontent}</textarea>
+      </if>
+      <if condition="$questype eq '7'">
+        <textarea cols="80" rows="10" class="tncontent" id="tcontent">{$tncontent}</textarea>
+      </if>
+      <if condition="$questype eq '8'">
+        <textarea cols="80" rows="10" class="tncontent" id="tcontent">{$tncontent}</textarea>
+      </if>
+      <if condition="$questype eq '9'">
+        <textarea cols="80" rows="10" class="tncontent" id="tcontent">{$tncontent}</textarea>
+      </if>
+      <if condition="$questype eq '10'">
+        <textarea cols="80" rows="10" class="tncontent" id="tcontent">{$tncontent}</textarea>
+      </if>
+    </td>
+  </tr>
+  <tr>
+    <td class="td_right">
+      选项:&nbsp;
+    </td>
+    <td style="padding-left:10px;">
+      <input type="radio" class="itemtype" value="0" <if condition="$typeid eq '0'">checked='true'</if>/>文字
+      <input type="radio" class="itemtype" value="1" <if condition="$typeid eq '1'">checked='true'</if>/>图片
+    </td>
+  </tr>
+  <tr>
+    <td class="td_right">
+      内容:&nbsp;
+    </td>
+    <td style="padding-left:10px;" id="quesitem">
+      <ul id="items">
+        <volist name="items" id="vo">
+          <li>
+            <span style="display:block;">
+              <neq name="answer" value="$vo.flag">
+                <input name="sortid" style="text-align:center" type="text" class="input-text lh20 flag" size="3" maxlength="2" value="{$vo.flag}"/>
+              <else/>
+                <input name="sortid" style="text-align:center" type="text" class="input-text lh20 flag answer" size="3" maxlength="2" value="{$vo.flag}"/>
+              </neq>
+              <eq name="vo.typeid" value="0">
+                <input name="content" type="text" class="input-text lh150 content" value="{$vo.content}"/>
+              <else/>
+                <img class="input-text lh150 content" src="{$vo.content}" height="60px" width="60px" bid="{$vo.path}"/>
+                <input type="button" class="ext_btn imgupload" value="上传" />
+              </eq>
+
+              <input type="button" class="ext_btn textadd" value="添加" />
+              <neq name="answer" value="$vo.flag">
+                <input type="button" class="ext_btn ext_btn_error textdel" value="删除" />
+              </neq>
+            </span>
+          </li>
+        </volist>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="td_right">解析内容:&nbsp;</td>
+    <td style="padding-left:10px;">
+      <textarea placeholder="辨析内容" id="quesanalysis" cols="80" rows="10" class="quesanalysis">{$analysis}</textarea>
+    </td>
+  </tr>
+</table>
+<script type="text/javascript">
+$(function(){
+  $.ajaxSetup({async: false});
+  var Requests = new Object();
+  Requests = GetRequest();
+  var levelid=Requests["levelid"];
+  //初始化单词
+  $.getJSON("getLevelWordList",{levelid:levelid,ran:Math.random()},function(data){
+    $.each(data,function(key,vals){
+      $(".word").append($("<option>").val(vals.wordid).text(vals.word));
+    });
+  })
+  $(".word").val("{$wordid}");
+  $(".word").attr("disabled",true);
+  getExplainsByWordid();
+  $(".explains").val("{$explainid}");
+  $(".explains").attr("disabled",true);
+  getQuestypeByWordidExplainid();
+  $(".questype").val("{$questype}");
+  $(".questype").attr("disabled",true);
+  //getQuestions();
+  var el = document.getElementById('items');
+  var sortable = Sortable.create(el,{
+    onUpdate: function (evt){
+      $("li").each(function(key,value){
+        var alphabet= String.fromCharCode(65 + parseInt(key));
+        $(value).find("input").eq(0).val(alphabet);
+      });
+    }
+  });
+  //获取释义
+  $(".word").change(function(){
+    getExplainsByWordid();
+    getQuestypeByWordidExplainid();
+    //getQuestions();
+  })
+  //获取题型
+  $(".explains").change(function(){
+    getQuestypeByWordidExplainid();
+    //getQuestions();
+  })
+  //获取试题
+  // $(".questype").change(function(){
+  //   getQuestions();
+  // })
+
+  //文本选项的添加
+  $("#quesitem").delegate(".textadd", "click", function(){
+    
+    $('<li><span style="display:block;"><input name="sortid" style="text-align:center" type="text" class="input-text lh20 flag" size="3" maxlength="2"/><input name="sortid" type="text" class="input-text lh150 content"/><input type="button" class="ext_btn textadd" value="添加" /><input type="button" class="ext_btn ext_btn_error textdel" value="删除" /><img src="__PUBLIC__/imange/"/></span></li>').insertAfter($(this).parents("li"));
+    $("li").each(function(key,value){
+      var alphabet= String.fromCharCode(65 + parseInt(key));
+      $(value).find("input").eq(0).val(alphabet);
+    });
+  })
+  //文本选项的删除
+  $("#quesitem").delegate(".textdel", "click", function(){
+    $(this).parents("li").remove();
+    $("li").each(function(key,value){
+      var alphabet= String.fromCharCode(65 + parseInt(key));
+      $(value).find("input").eq(0).val(alphabet);
+    });
+  })
+
+  //音频发音
+    $(".play").live("click", function() {
+        var mp3=$(this).attr("mp3");
+        var word_mp3="http://192.168.151.208/yylmp3/mp3_word/";
+        mp.play(word_mp3+mp3);
+    })
+
+  //上传图片
+  $("#quesitem").delegate(".imgupload","click",function(){
+      var index=$(this).parents("li").index();
+      art.dialog.open('imgupload?index='+index,{
+          title: "单词上传",
+          width: 450,
+          height: 450,
+          lock: true,
+          opacity: 0.3,
+          button: [
+              {
+                  name: '保存',
+                  callback: function() {
+                      var iframe = this.iframe.contentWindow;
+                      iframe.getpic();
+                      var itempic=artDialog.data('itempic');
+                      alert(itempic);
+                      if(itempic!=undefined||itempic!=""){
+                        $("li").eq(index).find("img").attr("src","../../uploads/game/pic/"+itempic);
+                        $("li").eq(index).find("img").attr("bid","http://192.168.151.208/uploads/game/pic/"+itempic);
+                      }
+                      return true;
+                  },
+                  focus: true
+              },
+              {
+                  name: '关闭',
+                  callback: function() {
+                      getGameLevelList();
+                      //$("#gradeid").change();
+                  },
+                  focus: false
+              }
+          ]
+      });
+  })
+})
+
+function getExplainsByWordid(){
+  var wordid=$(".word").val();
+  $(".explains").empty();
+  $.getJSON("getExplainListByWordid",{wordid:wordid,ran:Math.random()},function(data){
+    $.each(data,function(key,vals){
+      $(".explains").append($("<option>").val(vals.id).text(vals.explains));
+    });
+  })
+}
+
+function getQuestypeByWordidExplainid(){
+  var wordid=$(".word").val();
+  var explainid=$(".explains").val();
+  $(".questype").empty();
+  $.getJSON("getQuestypeList",{wordid:wordid,explainid:explainid,ran:Math.random()},function(data){
+    $.each(data,function(key,vals){
+      $(".questype").append($("<option>").val(vals.cindex).text(vals.remark));
+    });
+  })
+}
+
+//选择不同题型
+function getQuestions(){
+  var questype=$(".questype").val();
+  var wordid=$(".word").val();
+  var explainid=$(".explains").val();
+  var data="";
+  $.getJSON('getWordinfoByWordidExplainid',{wordid:wordid,explainid:explainid,ran:Math.random()},function(data){
+    data=data;
+    if(questype=='0'){
+      $("#tncontent").html("<img src='__PUBLIC__/images/icon_listen.png' width='40px' height='40px' mp3='"+data.ukmp3+"'/>");
+      $(".itemtype").attr("disabled",true);
+      $(".itemtype").eq(0).attr("checked",true);
+    }else if(questype=='1'){
+      $("#tncontent").html("<img src='__PUBLIC__/images/icon_listen.png' width='40px' height='40px' mp3='"+data.ukmp3+"'/>");
+      $(".itemtype").attr("disabled",true);
+      $(".itemtype").eq(0).attr("checked",true);
+    }else if(questype=='2'){
+      $("#tncontent").html('<input type="text" id="tcontent" class="input-text lh150" value="'+data.explains+'"/>');
+      $(".itemtype").attr("disabled",true);
+      $(".itemtype").eq(0).attr("checked",true);
+    }else if(questype=='3'){
+      $("#tncontent").html('<input type="text" id="tcontent" class="input-text lh150" value="'+data.word+'"/>');
+      $(".itemtype").attr("disabled",true);
+      $(".itemtype").eq(0).attr("checked",true);
+    }else if(questype=='4'){
+      $("#tncontent").html('<input type="text" id="tcontent" class="input-text lh150" value="'+data.word+'"/>');
+      $(".itemtype").attr("disabled",true);
+      $(".itemtype").eq(1).attr("checked",true);
+    }else if(questype=='5'){
+      $("#tncontent").html("<img src='__PUBLIC__/images/icon_listen.png' width='40px' height='40px' mp3='"+data.ukmp3+"'/>");
+      $(".itemtype").attr("disabled",true);
+      $(".itemtype").eq(1).attr("checked",true);
+    }
+  });
+}
+
+function GetRequest() {
+    var url = location.search; //获取url中"?"符后的字串
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for(var i = 0; i < strs.length; i ++) {
+            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+}
+
+function saveQuestion(){
+  //题干
+  var Requests = new Object();
+  Requests = GetRequest();
+  var id=Requests["id"];
+  var levelid=Requests["levelid"];
+  var wordid=$(".word").val();
+  var explainid=$(".explains").val();
+  var questype=$(".questype").val();
+  var tncontent=$("#tcontent").val();
+  tncontent=tncontent.toString().replace(new RegExp('(["\"])', 'g'),"\\\"");
+  var itemtype=$(".itemtype:checked").val();
+  var analysis=$("#quesanalysis").val();
+  var answer="";
+  var items=[];
+  $("li").each(function(key,value){
+    var temp={};
+    if(itemtype==0){
+      var flag=$(value).find(".flag").val();
+      var content=$(value).find(".content").val();
+      temp.flag=flag;
+      temp.content=content;
+      temp.itemtype=itemtype;
+    }else if(itemtype==1){
+      var flag=$(value).find(".flag").val();
+      var content=$(value).find(".content").attr("bid");
+      temp.flag=flag;
+      temp.content=content;
+      temp.itemtype=itemtype;
+    }
+    if($(value).find(".flag").hasClass("answer")){
+      answer=flag;
+    }
+    items.push(temp);
+  })
+  var question={};
+  question.tncontent=tncontent;
+  question.items=items;
+  question.answer=answer;
+  question.questype=questype;
+  question.analysis=analysis;
+  var flag=false;
+  $.post("saveQuestion",{id:id,levelid:levelid,wordid:wordid,explainid:explainid,question:JSON.stringify(question),ran:Math.random()},function(){
+    flag=true;
+  });
+  return flag;
+}
+
+
+  
+</script>
+</body>
+</html>
+

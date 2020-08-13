@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<title>批改报告</title>
+		<link rel="stylesheet" href="__SUBJECT__/correc/css/mui.min.css" />
+		<link rel="stylesheet" href="__SUBJECT__/correc/css/currency.css" />
+		<link rel="stylesheet" href="__SUBJECT__/correc/font/fonts.css" />
+        <script type="text/javascript" src="__SUBJECT__/correc/js/mui.min.js" ></script>
+        <script type="text/javascript" src="__SUBJECT__/correc/js/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript" src="__SUBJECT__/correc/echarts/ichart.latest.min.js" ></script> 
+        
+<style>
+#wrapper{ top: 44px; left: 0; right: 0; height: 100px;}
+ canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+	<script type="text/javascript" charset="UTF-8">
+      	mui.init();
+    </script>
+
+</head>
+<body>
+<main>
+<header class="head">
+			<a class="head-left" href="javascript:history.go(-1);"><i class="icon-back"></i>返回</a>
+			<h1 class="title">作文批改报告</h1>
+			<!-- <a class="head-right"><i class="icon-share01"></i></a> -->
+</header>
+<div class="mui-scroll-wrapper mt45 bDefault" style="height: 80px;">
+<div class="mui-scroll name-h topBox">
+	<ul class="fen4" id="qie01">
+		<li class="yuanW on"><span><i class="icon-uniE619"></i></span><label>批改成绩</label></li>
+		<li class="yuanW"><span><i class="icon-kwld"></i></span><label>批改报告</label></li>
+		<li class="yuanW"><span><i class="icon-uniE61B"></i></span><label>分项评价</label></li>
+		<li class="yuanW"><span><i class="icon-kwdd2"></i></span><label>综合评价</label></li>
+		<!-- <li class="yuanW"><span><i class="icon-uniE61A"></i></span><label>离题检测</label></li> -->
+	</ul>
+</div><div class="clearfix"></div></div>
+<div class="bybox">
+	<div class="mui-scroll-wrapper01">
+	<div class="mui-scroll" id="byH">
+            <div class="con">
+                <div>  	
+                <!-- <img src="__SUBJECT__/correc/img/tubiao.png" class="img100"  /> -->
+                <script type='text/javascript'>
+                
+                    $(function(){
+                        window.chartColors = {
+                            nryd: 'rgb(58, 238, 128)',   //内容要点
+                            wzzs: 'rgb(127, 227, 255)',  //文章字数
+                            dlhf: 'rgb(255, 182, 102)',  //段落划分
+                            xjlg: 'rgb(129, 171, 238)',  //衔接连贯
+                            chsy: 'rgb(172, 245, 116)',  //词汇使用得当
+                            chpx: 'rgb(255, 140, 133)',  //词汇拼写
+                            chnd: 'rgb(255, 243, 112)',  //词汇难度
+                            yf: 'rgb(159, 129, 247)'     //语法
+                        };
+                        var chart = new iChart.Donut2D({
+                            render:"ichart-render",
+                            width:$('.bybox').width()-20,
+                            height:$('.bybox').height()-40,
+                            background_color:"#F4F4F4",
+                            gradient:false,
+                            donutwidth:0.6,
+                            color_factor:0.2,
+                            border:{
+                                  color:"BCBCBC",
+                                  width:0
+                            },
+                            align:"center",
+                            offsetx:0,
+                            offsety:-35,
+                            sub_option:{
+                                  border:{
+                                        color:"#bdbdbd",
+                                        width:1
+                                  },
+                                  label:{
+                                        fontweight:500,
+                                        fontsize:13,
+                                        color:"#4572a7",
+                                        sign:"",
+                                        sign_size:13,
+                                        border:{
+                                              color:"#BCBCBC",
+                                              width:0
+                                        },
+                                        background_color:"rgba(255,255,255,0)"
+                                  }
+                            },
+                            shadow:false,
+                            shadow_color:"#666666",
+                            shadow_blur:2,
+                            showpercent:false,
+                            column_width:"70%",
+                            bar_height:"70%",
+                            radius:"100%",
+                            subtitle:{
+                                  text:"",
+                                  color:"#111111",
+                                  fontsize:16,
+                                  font:"微软雅黑",
+                                  textAlign:"center",
+                                  height:20,
+                                  offsetx:0,
+                                  offsety:0
+                            },
+                            footnote:{
+                                  text:"",
+                                  color:"#111111",
+                                  fontsize:12,
+                                  font:"微软雅黑",
+                                  textAlign:"center",
+                                  height:20,
+                                  offsetx:0,
+                                  offsety:0
+                            },
+                            //图例
+                            legend:{
+                                  enable:true,
+                                  background_color:"rgba(254,254,254,0)",
+                                  color:"#333333",
+                                  fontsize:13,//文字大小
+                                  legend_space:$('.bybox').width()/25,//列间距
+                                  line_height:$('.bybox').height()/30,//行间距
+                                  border:{
+                                        color:"#BCBCBC",
+                                        width:0
+                                  },data:[
+                                        {
+                                            name:'内容要点',
+                                            color:window.chartColors.nryd
+                                        },{
+                                            name:'文章字数',
+                                            color:window.chartColors.wzzs
+                                        },{
+                                            name:'段落划分',
+                                            color:window.chartColors.dlhf
+                                        },{
+                                            name:'衔接连贯',
+                                            color:window.chartColors.xjlg
+                                        },{
+                                            name:'词汇使用得当',
+                                            color:window.chartColors.chsy
+                                        },{
+                                            name:'词汇拼写',
+                                            color:window.chartColors.chpx
+                                        },{
+                                            name:'词汇难度',
+                                            color:window.chartColors.chnd
+                                        },{
+                                            name:'语法',
+                                            color:window.chartColors.yf
+                                        },
+                                        
+                                    ],
+                                  column:3,
+                                  align:"center",
+                                  valign:"bottom",
+                                  offsetx:0,
+                                  offsety:0
+                            },
+                            coordinate:{
+                                  width:"84%",
+                                  height:"84%",
+                                  background_color:"#ffffff",
+                                  axis:{
+                                        color:"#a5acb8",
+                                        width:[1,"",1,""]
+                                  },
+                                  grid_color:"#d9d9d9",
+                                  label:{
+                                        fontweight:500,
+                                        color:"#666666",
+                                        fontsize:11
+                                  }
+                            },
+                            label:{
+                                  fontweight:500,
+                                  color:"#666666",
+                                  fontsize:11
+                            },
+                            type:"pie2d",
+                            data:[
+                                {
+                                  name:"",
+                                  value:'{$dlhf}',
+                                  color:window.chartColors.dlhf//段落划分
+                                },
+                                {
+                                  name:"",
+                                  value:'{$xjlg}',
+                                  color:window.chartColors.xjlg//衔接连贯
+                                },
+                                {
+                                  name:"",
+                                  value:'{$chsy}',
+                                  color:window.chartColors.chsy//词汇使用得当
+                                },
+                                {
+                                  name:"",
+                                  value:'{$chpx}',
+                                  color:window.chartColors.chpx//词汇拼写
+                                },
+                                {
+                                  name:"",
+                                  value:'{$chnd}',
+                                  color:window.chartColors.chnd//词汇难度
+                                },
+                                {
+                                  name:"",
+                                  value:'{$yufa}',
+                                  color:window.chartColors.yf//语法
+                                },
+                                {
+                                  name:"",
+                                  value:'{$nryd}',
+                                  color:window.chartColors.nryd//内容要点
+                                },
+                                {
+                                  name:"",
+                                  value:'{$wzzs}',
+                                  color:window.chartColors.wzzs//文章字数
+                                }
+                                ]
+                      });
+                      chart.draw();
+                    });
+                    </script>
+
+                    <div id='ichart-render'></div>
+                </div>
+            </div>
+            <div class="con" style="display: none;">
+                <ul>
+                	<p class="pad20">
+                        {$htmlBuff}
+                        {$errorReason}
+                </p></ul>
+            </div>             
+            <div class="con" style="display: none;">
+            	<ul class="fen3 pad10-0" id="qie02">
+            		<!-- <li index="0"><span class="tabYuan">切题</span></li> -->
+                <li class="cur" index="2"><span class="tabYuan">词汇</span></li>
+                <li index="3"><span class="tabYuan">语法</span></li>
+            		<li index="1"><span class="tabYuan">表达</span></li>
+            		
+            		<div class="clearfix"></div>
+            	</ul>
+                <div class="pad20" id="qh02">
+                <ul class="textList" index="0" style="display: none">
+                	<h2 class="textH2">{$subItems1:name}</h2>
+                    <li>{$subItems1:explain}</li>
+                    <volist name="subItems1:subItems" id="data">
+                    <span class="theme">{$data:name}</span>
+                    <li>{$data:explain}</li>
+                    <neq name="data:comments" value=""><li>{$data:comments}</li></neq>
+                    <neq name="data:examples" value=""><li>{$data:examples}</li></neq>
+                    <neq name="data:suggestions" value=""><li>{$data:suggestions}</li></neq>
+                    </volist>
+                </ul>
+                <ul class="textList" index="1" style="display: none">
+                    <h2 class="textH2">{$subItems2:name}</h2>
+                    <li>{$subItems2:explain}</li>
+                    <volist name="subItems2:subItems" id="data">
+                    <span class="theme">{$data:name}</span>
+                    <li>{$data:explain}</li>
+                    <neq name="data:comments" value=""><li>{$data:comments}</li></neq>
+                    <neq name="data:examples" value=""><li>{$data:examples}</li></neq>
+                    <neq name="data:suggestions" value=""><li>{$data:suggestions}</li></neq>
+                    </volist>
+                </ul>
+                 <ul class="textList" index="2">
+                    <h2 class="textH2">{$subItems3:name}</h2>
+                    <li>{$subItems3:explain}</li>
+                    <volist name="subItems3:subItems" id="data">
+                    <span class="theme">{$data:name}</span>
+                    <li>{$data:explain}</li>
+                    <neq name="data:comments" value=""><li>{$data:comments}</li></neq>
+                    <neq name="data:examples" value=""><li>{$data:examples}</li></neq>
+                    <neq name="data:suggestions" value=""><li>{$data:suggestions}</li></neq>
+                    </volist>
+                </ul>
+                 <ul class="textList" index="3" style="display: none">
+                    <h2 class="textH2">{$subItems4:name}</h2>
+                    <li>{$subItems4:explain}</li>
+                    <volist name="subItems4:subItems" id="data">
+                    <span class="theme">{$data:name}</span>
+                    <li>{$data:explain}</li>
+                    <neq name="data:comments" value=""><li>{$data:comments}</li></neq>
+                    <neq name="data:examples" value=""><li>{$data:examples}</li></neq>
+                    <neq name="data:suggestions" value=""><li>{$data:suggestions}</li></neq>
+                    </volist>
+                </ul>
+                </div>
+            </div>                               
+<div class="con" style="display: none;">
+                <div class="pad20">
+                	<h2 class="textH2">综合评价</h2>
+                <ul class="textList">
+                <volist name="commentList" id="data">
+                <li>{$data}</li>
+                </volist>
+                </ul></div>
+            </div>
+<div class="con"  style="display: none;">
+                <div class="pad20">
+                	<h2 class="textH2">离题检测</h2>
+                <ul class="textList">
+                  <eq name = "isOffTopic" value="0">
+                    <li>您的作文没有偏离题目</li>
+                    <else/>
+                     <li>您的答案可能偏离题目</li>  
+                 </eq>                 
+                </ul></div>
+            </div>
+            </div></div><!--end scroll-->
+    </div>
+ 
+</section>
+<div id="bg"></div>
+<div id="dialog">
+	
+</div>
+
+</main>
+
+<script type="text/javascript">
+mui('.mui-scroll-wrapper').scroll({
+	deceleration: 0, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+	scrollY:  false,//是否横向滚动
+  scrollX: true,//是否横向滚动
+  indicators: false,
+});
+mui('.mui-scroll-wrapper01').scroll({
+	deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+});
+</script>
+<script type="text/javascript">
+function commDialog(isPrositive,type,text,subExplain){
+    //alert(text);
+    var htmDialog = " <div id='bg'></div> " +
+    " <div class='dialog2'> " +
+    " <h2>"+ type +"</h2> " +
+    " <div class='diNr'> " +
+    " <span class='mui-badge mui-badge-danger mR10'>"+text+"</span> " +
+    " <p>"+subExplain+"</p> " +
+    " </div> " +
+    " <div class='btn_d tCenter'>记住啦</div> ";
+
+    //动态生成dialog
+    $("#dialog").html(htmDialog);
+    //显示dialog
+    $('.dialog2').css('left',($(window).width() - 280)/2)
+    if(isPrositive == "1"){
+        $('.dialog2 h2').css('background','#00bdc7')
+    }else{
+        $('.dialog2 h2').css('background','#F79463')
+    }
+    $('.dialog2').show();
+    $('#bg').show();
+    //隐藏dialog
+    $('.btn_d').click(function(){
+        $('.dialog2').hide();
+        $('#bg').hide();
+    })
+   //alert(htmDialog);
+}
+$('.btn_d').click(function(){
+	$('.dialog2').hide();
+	$('#bg').hide();
+})
+$('#bg').click(function(even){
+	$('.dialog2').hide();
+	$('#bg').hide();
+	even.stopPropagation();
+})
+$('#qie01').children('li').click(function(){
+	var i = $(this).index();
+	$(this).siblings().removeClass('on');
+	$(this).addClass('on');
+	$('#byH').children('.con').eq(i).show();
+	$('#byH').children('.con').eq(i).siblings().hide();
+	mui('.mui-scroll-wrapper01').scroll().refresh();
+})
+$('#qie02').children('li').click(function(){
+	var i = $(this).attr('index');
+	$(this).siblings().removeClass('cur');
+	$(this).addClass('cur');
+  $('#qh02 ul').hide();
+  $('#qh02 ul[index='+i+']').show();
+	// $('#qh02').children('').find("[index="+i+"]").show();
+	// $('#qh02').children('').find("[index="+i+"]").siblings().hide();
+	mui('.mui-scroll-wrapper01').scroll().refresh();
+})
+</script>
+</body>
+</html>
+<script type="text/javascript" src="__PUBLIC__/js/unitlog.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/performance.js" ></script>

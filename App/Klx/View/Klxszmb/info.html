@@ -1,0 +1,415 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>快乐学生字</title>
+<link rel="stylesheet" href="__PUBLIC__/style/klxszM/path/to/font-awesome/css/font-awesome.min.css">
+<link href="__PUBLIC__/style/klxszM/klxsz.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/style/klxszM/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/yjt_properties.js"></script>
+<script src="__PUBLIC__/style/klxszM/hammer.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jPlayer/dist/jplayer/jquery.jplayer.min.js"></script>
+<!--
+<script src="../script/jquery.mobile-1.4.5.js" type="text/javascript"></script>-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body id="huadong">
+
+<header>
+<div data-role="header">
+
+            <div class="back"><a href="index?kid={$kid}"><img src="__PUBLIC__/style/klxszM/images/backIco.png" width="20" height="20" />返回</a></div>
+            <h1>{$kecheng}</h1>
+			<div class="kc_setup"><a class="shou" href="javascript:void(0);"></a></div>
+</div>
+<span class="line"></span>
+</header>
+<div class="cy_nr">
+<div class="xshi">
+<div class="zzie">
+<span class="wz">
+	<h2>拼音<i class="shengyin" id="laba" onclick="labaClick(this);"></i></h2>
+	<div id="songs">
+		<a><b>ha</b></a>
+	</div>
+</span>
+<span class="img"><img src="../uploads/zigif/一.gif" onerror="errorImg(this);"/></span>
+</div>
+</div>
+<h3>本课其他生字</h3>
+<span class="qita">
+	<volist name="hanzi" id="vo" key="k">
+		<if condition="$k eq 1">
+			<a class="on" name="hanzi" onclick="hanziClick(this);" zid="{$vo.zid}" ziyinid="{$vo.ziyinid}"><b>{$vo.zi}</b></a>
+			<else />
+			<a name="hanzi" onclick="hanziClick(this);" zid="{$vo.zid}" ziyinid="{$vo.ziyinid}"><b>{$vo.zi}</b></a>
+		</if>
+	</volist>
+</span>
+<div class="zline"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<div class="xshi2">
+<ul>
+<li id="pinyin"><label>拼音：</label><span>jing</span></li>
+<li id="bihua"><label>笔画：</label><span>恒恒</span></li>
+<li id="bushou"><label>部首：</label><span>青</span></li>
+<li>
+	<label>组词：</label>
+	<span id="zuhe">
+		<font id="zuci">ziyi</font>
+		<dl>
+			<dd>普通工人和家庭居住的小镇</dd>
+			<dd>普通工人和家庭居住的小镇</dd>
+		</dl>
+		<font>普通</font>
+		<dl>
+			<dd>普通工人和家庭居住的小镇</dd>
+			<dd>普通工人和家庭居住的小镇</dd>
+		</dl>
+		<font>普通</font>
+		<dl>
+			<dd>普通工人和家庭居住的小镇</dd>
+			<dd>普通工人和家庭居住的小镇</dd>
+		</dl>
+	</span>
+</li>
+<li id="xiezi"><label>写字指导：</label><span style="margin-left:80px;">xiezi</span></li>
+<li id="shizi"><label>识字方法：</label><span style="margin-left:80px;">shizi</span></li>
+</ul>
+</div>
+<div class="zline2"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+</div>
+<div class="page">
+	<div class="rttt">
+		<a class="zi-right" kid="{$kiddown}">下一课</a>
+		<span class="arrow-right"></span>
+	</div>
+	<div class="lttt">
+		<a class="zi-left" kid="{$kidup}">上一课</a>
+		<span class="arrow-left"></span>
+	</div>
+</div>
+<div id="jplayer"></div>
+<div id="demo" style="display:none;">
+	<a name="duoyin" onclick="duoyinClick(this);" ziyinid="" url="" ><b></b></a>
+</div>
+<script>
+$.ajaxSetup({async:false});
+$(function(){
+	var zid=$('a[class="on"]').attr('zid');
+	var ziyinid=$('a[class="on"]').attr('ziyinid');
+	var zi=$('a[class="on"]').children('b').html();
+	var ziurl='__RESOURCE__/uploadklx/klxsz/uploads/zigif/'+zi+'.gif';
+	$('.img').children('img').attr('src',ziurl);
+	// checkFile(ziurl);
+	hanziInfo(zid,ziyinid);
+	if('{$kidup}'=='first'){
+		$('.lttt').hide();
+	}
+	if('{$kiddown}'=='last'){
+		$('.rttt').hide();
+	}
+	var hammertime = new Hammer(document.getElementById("huadong"));
+    //添加事件
+    hammertime.on("swipeleft", function (e) {
+		if('{$kiddown}'=='last'){
+			return false;
+		}else{
+			location.href='info?kid={$kiddown}&ran='+Math.random();
+		}
+    });
+    hammertime.on("swiperight", function (e) {
+		if('{$kidup}'=='first'){
+			return false;
+		}else{
+			location.href='info?kid={$kidup}&ran='+Math.random();
+		}
+    });
+});
+
+//上一页
+$('.zi-left').click(function(){
+	var kid=$(this).attr('kid');
+	if(kid!='first'){
+		location.href='info?kid={$kidup}&ran='+Math.random();
+	}
+});
+//下一页
+$('.zi-right').click(function(){
+	var kid=$(this).attr('kid');
+	if(kid!='last'){
+		location.href='info?kid={$kiddown}&ran='+Math.random();
+	}
+});
+
+
+//切换汉字
+
+function hanziClick(obj){
+	$(obj).siblings('a').removeAttr('class');
+	$(obj).attr('class','on');
+	var zid=$('a[class="on"]').attr('zid');
+	var ziyinid=$('a[class="on"]').attr('ziyinid');
+	var zi=$(obj).children('b').html();
+	var ziurl='__RESOURCE__/uploadklx/klxsz/uploads/zigif/'+zi+'.gif';
+	$('.img').children('img').attr('src',ziurl);
+	// checkFile(ziurl);
+
+
+	hanziInfo(zid,ziyinid);
+}
+
+// $('a[name="hanzi"]').live('click',function(){
+// 	$(this).siblings('a').removeAttr('class');
+// 	$(this).attr('class','on');
+// 	var zid=$('a[class="on"]').attr('zid');
+// 	var ziyinid=$('a[class="on"]').attr('ziyinid');
+// 	var zi=$(this).children('b').html();
+// 	var ziurl='../../uploadklx/klxsz/uploads/zigif/'+zi+'.gif';
+// 	$('.img').children('img').attr('src',ziurl);
+// 	checkFile(ziurl);
+
+
+// 	hanziInfo(zid,ziyinid);
+// });
+
+
+// $('a[name="duoyin"]').live('click',function(){
+// 	var ziyinid=$(this).attr('ziyinid');
+// 	//$(this).siblings().css("color","");
+// 	//$(this).css("color","#F90");
+// 	$('#laba').attr('class','shengyin on');//切换多音字，喇叭变为未选中颜色
+// 	var url=$(this).attr('url');
+// 	url='../../uploadklx/klxsz/'+url;
+// 	jpstart(url);
+
+// 	$(this).siblings().removeAttr('class');
+// 	$(this).attr('class','bianse');
+// 	$.get('../Klxszmb/queryDuoyin',{ran:Math.random(),ziyinid:ziyinid},function(data){
+// 		$('#zuhe').empty();
+
+// 		$('#pinyin').children('span').eq(0).html(data.pinyin);
+
+// 		var zuhe1='<font>'+data.zuci1+'</font><dl><dd>'+data.ziyi1+'</dd><dd>'+data.zaoju1+'</dd></dl>';
+// 		$(zuhe1).appendTo('#zuhe');
+// 		var zuhe2='<font>'+data.zuci2+'</font><dl><dd>'+data.ziyi2+'</dd><dd>'+data.zaoju3+'</dd></dl>';
+// 		$(zuhe2).appendTo('#zuhe');
+// 		var zuhe3='<font>'+data.zuci3+'</font><dl><dd>'+data.ziyi3+'</dd><dd>'+data.zaoju3+'</dd></dl>';
+// 		$(zuhe3).appendTo('#zuhe');
+// 	});
+// });
+
+//播放音频
+function labaClick(obj){
+	var status=$(obj).attr('class');
+	if(status=='shengyin'){
+		//播放
+		$(obj).attr('class','shengyin on');
+		var url=$('a[class="bianse"]').attr('url');
+		//alert(url);
+		url='__RESOURCE__/uploadklx/klxsz/'+url;
+		jpstart(url);
+	}else{
+		//停止
+		 $(obj).attr('class','shengyin');
+		 jpclear();
+	}
+}
+// $('#laba').click(function(){
+// 	var status=$(this).attr('class');
+// 	if(status=='shengyin'){
+// 		//播放
+// 		$(this).attr('class','shengyin on');
+// 		var url=$('a[class="bianse"]').attr('url');
+// 		//alert(url);
+// 		url='../../uploadklx/klxsz/'+url;
+// 		jpstart(url);
+// 	}else{
+// 		//停止
+// 		 $(this).attr('class','shengyin');
+// 		 jpclear();
+// 	}
+// });
+
+//停止播放
+function jpclear() {
+	$("#jplayer").jPlayer("clearMedia");
+	$("#jplayer").jPlayer("stop");
+	$("#jplayer").unbind($.jPlayer.event.ended);
+	$("#jplayer").unbind($.jPlayer.event.progress);
+}
+//开始播放
+function jpstart(mp3){
+$("#jplayer").jPlayer({
+	swfPath: "js",
+	wmode: "window",
+	supplied: "mp3",
+	preload: "none",
+	volume: "1"
+	});
+	$("#jplayer").jPlayer("setMedia", {
+	mp3: mp3
+	}).jPlayer("play");
+	$("#jplayer").bind($.jPlayer.event.ended, function(event) {
+	$('#laba').attr('class','shengyin');
+  });
+}
+
+//查询当前汉字信息
+function hanziInfo(zid,ziyinid){
+		$.get('../Klxszmb/queryHanziInfo',
+		{
+			ran:Math.random(),
+			zid:zid,
+			ziyinid:ziyinid
+		},
+		function(data){
+			$('#zuhe').empty();
+			$('#songs').empty();
+			//正常字
+			$.each(data.normal,function(k,v){
+
+				var pinyin = $('#demo').children('a').clone();
+				pinyin.attr('ziyinid',v.id);
+				pinyin.attr('url',v.wav);
+				pinyin.attr('class','bianse');
+				pinyin.children('b').html(v.pinyin);
+				//var pinyin='<a name="duoyin" onlick="duoyinClick(this);" ziyinid="'+v.id+'" url="'+v.wav+'" class="bianse"><b>'+v.pinyin+'</b></a>';
+				pinyin.appendTo('#songs');
+
+				$('#pinyin').children('span').eq(0).html(v.pinyin);
+				$('#bihua').children('span').eq(0).html(v.bihuashu);
+				$('#bushou').children('span').eq(0).html(v.pianpang);
+
+				var zuhe1='<font>'+v.zuci1+'</font><dl><dd>'+v.ziyi1+'</dd><dd>'+v.zaoju1+'</dd></dl>';
+				$(zuhe1).appendTo('#zuhe');
+				var zuhe2='<font>'+v.zuci2+'</font><dl><dd>'+v.ziyi2+'</dd><dd>'+v.zaoju2+'</dd></dl>';
+				$(zuhe2).appendTo('#zuhe');
+				var zuhe3='<font>'+v.zuci3+'</font><dl><dd>'+v.ziyi3+'</dd><dd>'+v.zaoju3+'</dd></dl>';
+				$(zuhe3).appendTo('#zuhe');
+
+				$('#xiezi').children('span').eq(0).html(v.xiezi);
+				$('#shizi').children('span').eq(0).html(v.shizi);
+			});
+			//多音字
+			if(data.duoyin!=''){
+				$.each(data.duoyin,function(k,v){
+
+					//var pinyin='<a name="duoyin" onlick="duoyinClick(this);" ziyinid="'+v.id+'" url="'+v.wav+'"><b>'+v.pinyin+'</b></a>';
+					var pinyin = $('#demo').children('a').clone();
+					pinyin.attr('ziyinid',v.id);
+					pinyin.attr('url',v.wav);
+					pinyin.children('b').html(v.pinyin);
+					pinyin.appendTo('#songs');
+			});
+			}
+
+		});
+}
+
+
+
+//切换多音字
+function duoyinClick(obj){
+	var ziyinid=$(obj).attr('ziyinid');
+	//$(this).siblings().css("color","");
+	//$(this).css("color","#F90");
+	$('#laba').attr('class','shengyin on');//切换多音字，喇叭变为未选中颜色
+	var url=$(obj).attr('url');
+	url='__RESOURCE__/uploadklx/klxsz/'+url;
+	jpstart(url);
+
+	$(obj).siblings().removeAttr('class');
+	$(obj).attr('class','bianse');
+	$.get('../Klxszmb/queryDuoyin',{ran:Math.random(),ziyinid:ziyinid},function(data){
+		$('#zuhe').empty();
+
+		$('#pinyin').children('span').eq(0).html(data.pinyin);
+
+		var zuhe1='<font>'+data.zuci1+'</font><dl><dd>'+data.ziyi1+'</dd><dd>'+data.zaoju1+'</dd></dl>';
+		$(zuhe1).appendTo('#zuhe');
+		var zuhe2='<font>'+data.zuci2+'</font><dl><dd>'+data.ziyi2+'</dd><dd>'+data.zaoju3+'</dd></dl>';
+		$(zuhe2).appendTo('#zuhe');
+		var zuhe3='<font>'+data.zuci3+'</font><dl><dd>'+data.ziyi3+'</dd><dd>'+data.zaoju3+'</dd></dl>';
+		$(zuhe3).appendTo('#zuhe');
+	});
+}
+
+
+function checkFile(url){
+	$.ajax({
+		type:"POST",
+		url:url,
+		data:{ran:Math.random()},
+		success:function(data){},
+		error:function(){
+			$('.img').children('img').attr('src','__RESOURCE__/uploadklx/klxsz/uploads/default.gif');
+		}
+	});
+}
+
+
+function errorImg(img) {
+img.src = "__RESOURCE__/uploadklx/klxsz/uploads/default.gif";
+img.onerror = null;
+}
+
+
+//分享
+$('.shou').click(function(){
+	var kid='{$kid}';
+	var kecheng='{$kecheng}';
+
+	var username=$.cookie('username');
+	var area=$.cookie('localAreaCode');
+	var ilearn=mapObj[area]['ilearn'];
+	var tms=mapObj[area]['tms'];
+	//alert(ilearn);return false;
+
+	var classidList,truename,schoolId;
+	$.getJSON(tms+'/tms/interface/queryStudent.jsp?jsoncallback=?',{queryType:'byNames',usernames:username},function(data){
+		if (data.rtnArray[0].schoolId == '') {
+			return false;
+		}
+		else {
+			classidList = data.rtnArray[0].schoolClassId;
+			truename = data.rtnArray[0].realname;
+			schoolId = data.rtnArray[0].schoolId;
+
+			var url=window.location.protocol+'//en.czbanbantong.com/Klx/Klxsz/index?kid='+kid;
+			(area=='1.')?url=window.location.protocol+'//enzz.zzedu.net.cn/Klx/Klxsz/index?kid='+kid:url;
+
+			var content='小伙伴们，我在快乐学习—快乐学生字中学习了"'+kecheng+'"，快来一块学习吧！';
+			var param={'classidList':classidList,'username':username,'truename':truename,'schoolId':schoolId,'says.content':content,'says.infourl':url,"says.windowtype":"1"};
+			$.ajax({
+					type :'GET',
+					url : ilearn+'/exportInterface/share.action',
+					data : param,
+					dataType : 'jsonp',
+					success : function(data) {
+						//alert(data.success);
+						if(data.success==true){
+							art.dialog.alert('分享成功！');
+						}else{
+							art.dialog.alert('分享失败！');
+						}
+					},
+					error : function() {
+
+					}
+				});
+
+		}
+	});
+
+
+
+});
+</script>
+
+
+
+</body>
+
+</html>

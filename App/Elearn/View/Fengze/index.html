@@ -1,0 +1,150 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>微课大赛</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="/public/Elearn/fengze/css/sytle.css" />
+    <script type="text/javascript" src="/public/public/js/jquery-1.11.2.min.js" ></script>
+    <script type="text/javascript" src="/public/public/js/jquery.tmpl.min.js" ></script>
+    <script type="text/javascript" src="/public/Elearn/fengze/js/getmicro.js" ></script>
+<title>微课专题</title>
+<style type="text/css">
+input[type=search] {
+-webkit-appearance:textfield;
+-webkit-box-sizing: content-box;
+font-family: inherit;
+font-size:100%;
+}
+
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+display: none;
+}
+.sousuo{ margin-top:8px; border:1px solid #d2d1d1; text-indent:1em; border-radius:12px; height:24px; width:160px; -webkit-user-select:text !important;}
+.bianju{ padding-left:5px;}
+.seachicon{ width:15px; height:15px; padding-top:13px; margin-left:5px;}
+</style>
+</head>
+<script type="text/javascript">
+var code = "{$code}";
+var isgetuser = "{$isgetuser}";
+var version_id = "0";
+var listOrderType = "desc";
+function sousuo(){
+  var keyword = $(".sousuo").val();
+ // console.log(keyword);
+  keyword=keyword.replace(/\s+/g,""); 
+  if(keyword == "搜索内容" || keyword =="" ){
+    alert("请输入要搜索的关键字");
+    return;
+  }
+  
+  $.ajax({
+    url:"getCourseListSearch",
+    type:"post",
+    dataType:"json",
+    data:{keyword:encodeURI(keyword),ran:Math.random()},
+    success:function(data){
+      if(data.length > 0){
+        $(".kechenglist").empty(); 
+        $("#script_list").tmpl(data).appendTo(".kechenglist");
+      }
+      else{
+        alert("没有找到相关的内容");
+      }
+    },
+    error:function(error){
+      return false;
+    } 
+  });
+}
+$(function(){
+   getItem();
+
+   $(".seachicon").click(function(){
+        sousuo();
+   })
+   
+})
+
+</script>
+ 
+
+</head>
+
+
+<!--[if lte IE 7]>
+<style type="text/css">
+/* bug fixes for IE7 and lower - DO NOT CHANGE */
+.nav .fly {width:99%;} /* make each flyout 99% of the prevous flyout */
+a, a:hover, a:active, a:focus {} /* requires a blank style for :active to stop it being buggy */
+.nav a {background:none; cursor:pointer; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='ulmultitwo/tab2.png', sizingMethod='scale');
+}
+</style>
+<![endif]-->
+
+  
+	<body>
+		<header class="ztTop">
+        </header>
+        <div style=" position:relative;" class="nanji">
+        <!--下拉导航菜单-->
+        
+        <ul id="ul1">
+    <li class="li1">
+      <a href="#">课程<span style=" margin-left:5px; "><img style="width:13px; height:9px;" src="/public/Elearn/fengze/images/xialajiantou.png"></span></a>
+      <ul class="ul2">
+      <!--二级导航开始--> 
+      
+        <!--二级导航结束--> 
+      </ul>
+    </li>
+  </ul>
+        <!--下拉导航菜单结束--> 
+        <ul style=" float:left;" ><li style="-webkit-user-select:text !important;"><input class="sousuo" type="搜索内容" placeholder="搜索内容"></li><li class="seachicon"><img src="/public/Elearn/fengze/images/t.png"width="15" height="15"></li>
+        </ul>
+        <ul style=" float:right;"><li class="sawd" onclick="changeOrder();">按人气 <span> <img id="imgorder" src="/public/Elearn/fengze/images/downlist.png"width="10" height="17" ></span></li>
+       <!--  <li class="sawd">按时间 <span> <img src="/public/Elearn/fengze/images/jiantousa.png" width="10" height="17"></span></li> --> 
+        </ul>      
+    </div>
+    <div style=" clear:both;"></div>
+
+    <div class="kechenglist">
+     
+    </div>
+ 
+    
+	</body>
+  <script id="getitem" type="text/x-jquery-tmpl">
+        <li class="li2">
+          <a href="javascript:;">${r_grade_name}</a>
+           <!--三级导航--> 
+          <ul class="ul3">
+          {{each(i,sub ) subject}}
+            <li class="li3">
+              <a href="javascript:;">${sub.r_subject_name}</a>
+               
+              <!--四级导航--> 
+          <ul class="ul4">
+            {{each(k,t) sub.term}}
+                <li><a href="javascript:getCourseList(${t.version_id});">${t.r_term_name}</a></li>
+       
+            {{/each}}
+          </ul>
+          <!--四级导航--> 
+            </li> 
+          {{/each}}
+         </ul>
+          <!--三级导航结束--> 
+        </li>
+  </script>
+  <script id="script_list" type="text/x-jquery-tmpl">
+        <dl>
+        <dd class=" postst_tit" ><div class="postst_tittel">${click}人在学</div><img src="${pic}" width="320" height="180"></dd>
+        <dt>${title}</dt>
+        <dt class="bisfd"><button class="quxuexi" style=" " type="button" onclick="goPlay('${id}')" >去学习</button></dt>
+        </dl>
+        <div style=" clear:both;"></div>
+  </script>
+</html>
+<script type="text/javascript" src="https://cms.czbanbantong.com/A01/lib/defaultstyle/2015yjt/jxlt/res/script/baidu.js" ></script>

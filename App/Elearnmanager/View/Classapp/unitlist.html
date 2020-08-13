@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>版本列表</title>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+    </head>
+    <body>
+        <div class="place"><strong>位置</strong>：首页 &gt; 单元信息管理</div>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="box_top pl_10 f14"><strong>单元信息管理</strong>&nbsp;&nbsp;<input name="btn_submit_goback" id="btn_submit_goback" type="button" class="ext_btn ext_btn_submit" value="返回" /></td> 
+                </tr>
+                <tr>
+                    <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                            <tr>
+                                <td width="50" align="right">学科：</td>
+                                <td>
+                                    <select name="subjectlist" class="select" id="subjectlist" onchange="appchange();">
+                                    </select>
+                                </td>
+                                <td width="50" align="right">应用：</td>
+                                <td>
+                                    <select name="applist" class="select" id="applist" onchange="versionchange();">
+                                    </select>
+                                </td>
+                               
+                                <td width="50" align="right">版本：</td>
+                                <td>
+                                    <select name="versionlist" class="select" id="versionlist" onchange="getUnitList();"> 
+                                    </select>
+                                </td>
+                        
+                                <td>
+                                    &nbsp;<input type="button" class="btn btn82 btn_search" value="查询" />&nbsp;<input type="button" class="btn btn82 btn_save2 unitadd" value="添加" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td> 
+                </tr> 
+            </table>
+            <div class="h10"></div> 
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+                <tr> <th width="30" align="center"><input id="all" type="checkbox"/></th>
+                    <th width="60" align="center">次序</th>
+                    <th width="300">单元名称</th>
+                   <th width="60" align="center">是否可点</th>
+                   <th width="60" align="center">是否有图</th>
+                    <th width="150">单元图片</th>
+                    <th width="150">KS_CODE</th>
+                    <th>操作</th>
+                </tr> 
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none" id="table_demo"> 
+                <tr class="tr">
+                <td align="center"><input type="checkbox" class="tras"/></td>
+                    <td><input name="sortid" type="text" class="input-text lh30" size="3" maxlength="10" /></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td align="left">
+                        &nbsp;&nbsp; 
+                        <input type="button" class="ext_btn ext_btn_submit unitedit" value="编辑"   />&nbsp;&nbsp;
+                        <input type="button" class="ext_btn ext_btn_error unitdel" value="删除"   />&nbsp;&nbsp;
+
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_10" height="42">
+                        <input name="btn_submit" id="btn_edit_sortid" type="button" class="ext_btn ext_btn_submit" value="修改次序" />
+                    </td>
+                </tr>
+            </table> 
+            <div class="h5"></div>
+
+        </div>
+        <script type="text/javascript">
+        var subject_code = "{$subject_code}";
+        var version_id = "{$version_id}";
+        var unit_id = "{$unit_id}";
+        var app_id = "{$app_id}";
+        var selec_unit_type = "version";
+        function appchange(){
+            $.EBC.setAppname($('#applist'),$('#subjectlist').val(),0);
+            app_id = $('#applist').val();
+            subject_code = $('#subjectlist').val();
+            
+        }
+        function versionchange(){
+            $.EBC.setVersion($('#versionlist'),$('#subjectlist').val(),$('#applist').val(),version_id);
+            version_id = $('#versionlist').val();
+            getUnitList();
+        }
+            $(function() {
+                $.ajaxSetup({async: false});
+                $('#btn_submit_goback').click(function(){
+                    window.history.go(-1);
+                });
+                $(".tr:odd").css("background", "#F5F8FA");
+                $('.tr:odd').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#F5F8FA");
+                    }
+                });
+
+                $('.tr:even').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#FFF");
+                    }
+                });
+                var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                //$.EBC.inIt('unitlist');
+                $.EBC.setSubject($('#subjectlist'),subject_code,0);
+                $.EBC.setAppname($('#applist'),$('#subjectlist').val(),app_id);
+                $.EBC.setVersion($('#versionlist'),$('#subjectlist').val(),$('#applist').val(),version_id);
+                
+                getUnitList();
+                dloading.close();
+              
+				$('.btn_search').click(function(){
+					getUnitList();
+				});
+                $('.unitadd').click(function(){
+                    if($('#versionlist').val() == 0){
+                        dialogTips('请先添加版本');
+                    }
+                    else{
+                        unitadd($('#subjectlist').val(),$('#versionlist').val(),$('#applist').val(),0,1);
+                    }
+                   
+                });
+             
+                //全选
+                $("#all").click(function(){
+                    if($(this).is(":checked")){
+                       $(".tras").attr("checked",true);
+                    }else{
+                       $(".tras").attr("checked",false);
+                    }
+                });
+                $("#btn_edit_sortid").click(function()
+                {
+                   upUnitsort();
+                });
+                $("#table_data .unitedit").live("click", function() {
+                    var tr = $(this).parents("tr");
+                    var id = $(this).attr('bid');
+                   
+                    unitadd($('#subjectlist').val(),$('#versionlist').val(),$('#applist').val(),id,1);
+                });
+                  $("#table_data .unitdel").live("click", function() {
+                    var tr = $(this).parents("tr");
+                    var unit_id = $(this).attr("bid");
+                    art.dialog.confirm('你确定要删除这个单元吗？', function() {
+                        $.get("../classapp/unit_del", {unit_id: unit_id,random: Math.random()});
+                        tr.remove();  
+                    });
+                });
+            });
+
+            
+           
+        </script> 
+    </body>
+</html>

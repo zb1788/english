@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="wap-font-scale" content="no">
+        <meta charset="UTF-8">
+        <title>英语同步练</title>
+        <link rel="stylesheet" href="__SUBJECT__/css/currency.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/boxing.css" />
+        <link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+        <link rel="stylesheet" href="__PUBLIC__/css/layer.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/require.js" ></script>
+        <style>
+            #wrapper {top: 85px;}
+        </style>
+    </head>
+	<body>
+		<main>
+			<header class="head border-nav">
+				<a class="head-left"><i class="icon-back"></i>返回</a>
+				<!-- <a class="head-right" href="javascript:void(0);">生词本</a> -->
+				<h1 class="title">生词本测试</h1>
+			</header>
+			<div class="topH4">
+				<span class="fl mL10"><i class="icon-clock icon-l"></i>已用时：<font id="timer">00:00</font></span>
+				<span class="fr mR10"><font class="redFont" id="cur"></font>/<font id="count"></font></span>
+			</div>
+			<section>
+				<div id="wrapper">
+					<div id="scroller">
+						<div id="iScroll" class="iScroll bWhite">
+				        	<div class="bd" id="iScroll-bd">
+					            
+				        	</div>
+					    </div>
+					</div><!--end scroller-->
+				</div><!--end wrapper-->
+				<div id="tips"></div>
+			</section>
+			<a class="prev" id="prev" style="width:50%;">上一题</a>
+        	<a class="next" id="next" style="width:50%;">下一题</a>
+		</main>
+		<!--遮罩的代码-->
+		<div id="over" class="over"></div>
+	    <div id="layout" class="layout">
+	    	<img src="__SUBJECT__/img/2013112931.gif" alt="" />
+	    </div>
+	    <style>
+			.over {
+	            display: block;
+	            position: absolute;
+	            top: 0;
+	            left: 0;
+	            width: 100%;
+	            height: 100%;
+	            background-color: #f5f5f5;
+	            opacity:0.5;
+	            z-index: 1000;
+	        }
+	        .layout {
+	            display: block;
+	            position: absolute;
+	            top: 40%;
+	            left: 40%;
+	            width: 20%;
+	            height: 20%;
+	            z-index: 1001;
+	            text-align:center;
+	        }
+		</style> 
+	</body>
+	<script type="text/javascript">
+	    var subjectsource="__SUBJECT__";
+        var Requests = new Object();
+        var page=0;
+        var storage=window.localStorage;
+        var book_recite=window.localStorage.getItem("book_recite");
+        console.log(book_recite);
+        book_recite=decodeURI(book_recite);
+        console.log(book_recite);
+	    require.config({
+	    　paths: {
+	　　　　　　"bookrecite": "__SUBJECT__/js/bookrecite",
+	            "touchslide": "__PUBLIC__/js/TouchSlide.1.1",
+	            "iscroll":"__PUBLIC__/js/iscroll-lite",
+                "layer":"__PUBLIC__/js/layer",
+	　　　　},
+            waitSeconds: 0
+	    });
+	    require(["bookrecite",'touchslide','iscroll','layer'], function(bookrecite,touchslide,IScroll,layer){
+            //设置下载的列表
+            var mp3list;
+            Requests = GetRequest();
+	        bookrecite.initReciteList("getUserReciteQuestionsData",book_recite,$("#iScroll-bd"));
+            perface();
+            mp3list=mp3.getdownlist();
+	        //设置标题
+            //setTitle($(".title"));
+            //这是时间
+            setTimer(0,$("#timer"));
+            //滑动问题
+	        new IScroll("#wrapper",{
+	            momentum:true,
+	            click:true 
+	        });
+	        $("#wrapper").resize();
+            //添加数据
+            var errorarr=[];
+            var rightarr=[];
+            var arr=[];
+            var arrids=[];
+            var ratenum=0;
+            var playlist=mp3.getPlaylist();
+            console.log(playlist);
+	        TouchSlide({ 
+                slideCell:"#iScroll",
+                effect:"left",
+		        prevCell : '#prev',
+		        nextCell : '#next',
+		        pnLoop:false,
+                switchLoad:"_src",
+                startFun:function(i){
+                    $("#cur").text(i+1);
+                },
+                endFun:function(i){
+                	page=i;
+                    //设置播放列表
+                    var array=[];
+                    array.push(playlist[i]);
+                    mp3.setPlaylist(array);
+                    mp3.setParentobj($("a.btnYuan.radius100 i").eq(i));
+                    //console.log($("a.btnYuan.radius100 i").eq(i));
+                    //mp3.setPlaylist()
+                	//高度自适应
+                	var div= $("#iScroll").find(".con").eq(i);
+                    var height=window.screen.height;
+                    if(div.height()<height){
+                        div.css("height",height+"px");
+                    }
+                	//注册单词的测试的事件
+                	$("ul.bdc li").click(function(){
+                		var flag=$(this).attr("flag");
+                		var quesid=$(this).attr("quesid");
+                		var logid=$(this).attr("logid");
+                		var answer=$(this).attr("answer");
+                        var ks_code=mp3list[page].ks_code;
+                		var word=$(this).attr("word");
+                        if(!arrContrain(arrids,quesid)){
+                            arr.push(word);
+                            arrids.push(quesid);
+                        }else{
+                            return false;
+                        }
+
+                		// if(arrContrain(arr,word)){
+                  //           arr.push(word);
+                		// 	//return false;
+                		// }
+                		//提交答案
+                		$.ajax({
+				            type:'GET',
+				            url:"../Public/setUserWordtestanswer",
+				            data:{quesid:quesid,useranswer:flag,id:logid},
+				            dataType:'json',
+				            context:$('body')
+				        });
+				        $(this).parent().find(".cur").removeClass("cur");
+				        $(this).parent().find(".error").removeClass("error");
+                		$(this).addClass("cur");
+                		if(flag!=answer){
+                            if(!arrContrain(errorarr,word))errorarr.push(word);
+                            //添加生词本动画
+                            setTip("此单词太难了，您还需要复习");
+                            $(".con").eq(page).find(".useransweritem").text(flag);
+                            $(".con").eq(page).find(".answertips").show();
+                			//最后一页进行跳转
+             //    			if(page==($(".con").length-1)){
+        					// 	window.location.href=decodeURIComponent(Requests["callBackUrl"]);
+        					// }
+                		}else{
+                            ratenum=ratenum+1;
+                            setTip("本单词已经从生词本删除");
+                            $.ajax({
+                                type:'GET',
+                                url:"../Word/setWordBook",
+                                data:{wordid:quesid,action:"del",ks_code:ks_code,source:"reciteword"},
+                                dataType:'json',
+                                timeout: 300,
+                                context:$(this),
+                                complete:function(){
+                                    hideloading();
+                                }
+                            });                			
+                			//document.getElementById("next").click();
+                		}
+                        storage.setItem("jp_recite_rate",Math.round(ratenum*100/($(".con").length))+"%");
+                        storage.setItem("jp_recite",encodeURI(JSON.stringify(errorarr)));
+                        var timer=$("#timer").html();
+                        var seconds=setSecondsTimer(timer);
+                        storage.setItem("jp_timer",seconds);
+                        if(page==($(".con").length-1)){
+                            setTimeout(function(){ 
+                                window.location.href="bookresult?callBackUrl="+encodeURIComponent(Requests["callBackUrl"]);
+                            }, 2000);
+                        }
+                	})
+                }
+            });
+            //设置总页数
+            $("#count").text($(".con").length);
+            //返回按钮的事件
+            $(".head-left").click(function(){
+
+                window.location.href=decodeURIComponent(Requests["callBackUrl"]);
+            });
+            //播放音频
+            $(".btnYuan").click(function(){
+                //设置播放列表
+                mp3.setUse(0);
+                mp3.setPlayliststyle(0);
+                mp3.playWordList(0);
+            });
+            //生词本跳转
+	        // $(".head-right").click(function(){
+	        // 	var Requests = new Object();
+         //    	Requests = GetRequest();
+	        //     window.location.href="../User/vocabulary?callBackUrl=Word/reciteword&ks_code="+Requests["ks_code"];
+	        // })
+	    });
+	</script>
+</html>

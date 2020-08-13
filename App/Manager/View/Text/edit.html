@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版本列表</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+</head>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+  <tr>
+    <td class="td_right">自然段：</td>
+    <td>
+      <input type="text" name="edit_sectionid" id="edit_sectionid" class="input-text lh30" size="5" value="{$sectionid}">
+      <input type="hidden" name="chapterid" id="chapterid" value="{$chapterid}">
+      <input type="hidden" name="id" id="id" value="{$id}">
+    </td>
+  </tr>
+  <tr>
+    <td class="td_right">顺序：</td>
+    <td><input type="text" name="edit_sortid" id="edit_sortid" class="input-text lh30" size="5" value="{$sortid}"/></td>
+  </tr>
+  <tr>
+    <td class="td_right">不发音：</td>
+    <td><input type="text" name="edit_enbefore" id="edit_enbefore" class="input-text lh30" size="30" value="{$enbefore}"/></td>
+  </tr>
+  <tr>
+    <td class="td_right">英文：</td>
+    <td><textarea name="edit_encontent" id="edit_encontent" cols="45" rows="2" >{$encontent}</textarea></td>
+  </tr>
+  <tr>
+    <td class="td_right">中文：</td>
+    <td><textarea name="edit_cncontent" id="edit_cncontent" cols="45" rows="2" >{$cncontent}</textarea></td>
+  </tr>
+  <tr id="tr_voice">
+    <td align="left" class="td_right">发音：</td>
+    <td>
+    <select id="edit_voiceid" name="edit_voiceid" class="select">
+      <option value="0">自定义</option>
+      <option value="1">Kate</option>
+      <option value="2">Salli</option> 
+    </select>
+    </td>
+  </tr>
+  <tr id="tr_mp3">
+    <td class="td_right">MP3：</td>
+    <td>
+      <input type="text" name="edit_mp3" id="edit_mp3" class="input-text lh30" size="50" >
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+$(function(){
+ $.ajaxSetup({async:false});
+ if({$id}!='0'){
+     $("#edit_mp3").parent().parent().hide(); 
+     $("#edit_voiceid").parent().parent().hide();
+ }
+});
+  
+function editText()
+  { 
+    $.ajaxSetup({async:false});
+    var chapterid = $("#chapterid").val();
+    var encontent = $.trim($("#edit_encontent").val());
+    if (encontent == "") { art.dialog.alert("请添加课文英文！");return false;};
+    var sectionid = $.trim($("#edit_sectionid").val()); 
+    var sortid = $.trim($("#edit_sortid").val()); 
+    var enbefore = $.trim($("#edit_enbefore").val()); 
+    var cncontent= $.trim($("#edit_cncontent").val()); 
+    var mp3= $.trim($("#edit_mp3").val()); 
+    var voiceid= $.trim($("#edit_voiceid").val());
+    var id = {$id};
+    var closeflag = false; 
+    $.getJSON('../text/textEdit',{id:id,chapterid:chapterid,sortid:sortid,sectionid:sectionid,enbefore:enbefore,encontent:encontent,cncontent:cncontent,mp3:mp3,voiceid:voiceid,random:Math.random()},function(data){
+        art.dialog.tips(data.msg); 
+        if (data.isadd == '1') {closeflag=true;}
+    }); 
+    return closeflag;
+  }
+</script>
+</body>
+</html>

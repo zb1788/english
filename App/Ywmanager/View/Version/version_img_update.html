@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>上传图片</title>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/uploadify/jquery.uploadify.min.js"></script>
+        <link href="__PUBLIC__/js/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+ </head>
+ <body>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list_table"  id="table_excel">
+   <tr>
+        <td align="right">版本：</td>
+        <td align="left">
+           <select  id="version" class="select">
+           <volist id="vo" name="data">
+            <option value="{$vo.detail_code}">{$vo.detail_name_short}</option>
+           </volist>
+           </select>
+        </td>
+   </tr>
+  <tr>
+    <td align="right">图片：</td>
+    <td align="left">
+      <if condition="$pic eq ''">
+        <img src="__PUBLIC__/images/zw.png" id="myimg" width="180" height="225"/ style="border:1px solid #CCC; padding:2px;" >
+        <else />
+        <img src="../../{$pic}" id="myimg" width="180" height="225"/ style="border:1px solid #CCC; padding:2px;" >
+      </if>
+      <input type="hidden" id="filename" name="filename" value="{$pic}" />
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><div id="queue"></div><input id="file_upload" name="file_upload" type="file" multiple="false"></td>
+  </tr>
+</table>
+ </body>
+<script>
+$(function(){
+    var version = '{$version}';
+    if(version !==""){
+        $('#version').val(version);
+    }
+})
+
+
+$(function(){
+	$('#file_upload').uploadify({
+                    'height': 30,
+                    'width': 120,
+                    'buttonText': '上传图片', //选择按钮显示的字符
+                    'multi': false, //是否允许同时选择多个(false一次只允许选中一张图片)
+                    'method': 'post',
+                    'swf': '__PUBLIC__/js/uploadify/uploadify.swf',
+					'formData': { 'jsessionid': '<?php echo session_id();?>',
+								'folder': './uploads'
+					 },
+                    'uploader': '../version/Versionimgupload',
+                    'fileTypeExts': '*.jpg;*.gif;*.png', //允许的后缀
+                    'fileTypeDesc': 'pic Files', //允许的格式，详见文档
+                    'onUploadSuccess': function(file, data, response)
+                    {
+						//alert(data);
+                        //上传成功后的触发事件
+                        var obj = eval("(" + data + ")");
+                        if (obj.issuc == 1)
+                        {
+                            $('#' + file.id).find('.data').html('上传完毕');
+							$("#myimg").attr("src","../../uploadsyw/versionimg/" +  obj.msg.savepath + obj.msg.savename);
+                            $("#filename").val(obj.msg.savepath + obj.msg.savename);
+                           // $("#btn_excel").show();
+                        }
+                        else
+                        {
+                            //$("#tdinfo").html("【" + obj.msg + '】文件已上传，请点击导入EXCEL数据');
+                        }
+
+                    }
+                });
+});
+</script>

@@ -1,0 +1,49 @@
+var uxinplayer = "";
+//播放的时候需要定义全局的player
+//uxinplayer表示UXIN的web播放器
+//参数option 需要两个参数id以及callback
+var UXINAudioPlayer = function(options = {id:"",callback:""}){
+    this.player = options.id;
+    this.callback = options.callback;
+    var oplay = new Object();
+    oplay.index = 0;
+	oplay.stemindex = 0;
+	oplay.queinitindex = 0;
+	oplay.questionindex = 0;
+	oplay.childstemindex = 0;
+    oplay.playtimes=0;
+    oplay.childinitstemindex = 0;
+    oplay.url = "";
+    oplay.repeat = 1; //默认播放次数
+    oplay.curpeat = 1;//当前播放到第几次
+    oplay.url = "";
+    oplay.id = options.id;
+    oplay.callback = options.callback;
+
+    oplay.play = function(mp3) {
+        window.UXinJSInterfaceSpeech.playAudio(mp3);
+    };
+
+    oplay.pause = function() {
+        window.UXinJSInterfaceSpeech.stopAudio();
+    };
+
+    oplay.change = function(obj,options){
+        obj.callback = options.callback;
+        obj.id = options.id;
+        return obj;
+    };
+    return oplay;
+}
+
+mp = new UXINAudioPlayer();
+
+
+//uxin全局的播放完成的状态
+function onAudioPlayStatus(status){
+    if(status == 0){
+        mp.callback !=undefined?mp.callback():"";
+    }else{
+
+    }
+}

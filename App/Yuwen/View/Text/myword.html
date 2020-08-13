@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+        <meta name="wap-font-scale" content="no">
+		<title>语文快乐学</title>
+        <link rel="stylesheet" href="__PUBLIC__/css/ywcurr.css" />
+        <link rel="stylesheet" href="__PUBLIC__/font/fonts.css" />
+        <link rel="stylesheet" href="__PUBLIC__/css/iscroll.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/zepto.min.js" ></script>
+        <script type="text/javascript" src="__PUBLIC__/js/demoUtils.js" ></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iscroll-lite.js" ></script>
+        <script type="text/javascript" src="__PUBLIC__/js/ywcommon.js" ></script>
+
+	<script type="text/javascript">
+var myScroll;
+function loaded() {
+	myScroll = new IScroll('#wrapper', { momentum:true,click:true });
+}
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, isPassive() ? {
+	capture: false,
+	passive: false
+	} : false);
+</script>
+<style>
+	#wrapper {top: 45px; bottom: 40px;}
+</style>
+
+
+</head>
+<body>
+<main>
+<header class="head border-nav">
+            <a class="head-left" href="javascript:goWord();"><i class="icon-back"></i>返回</a>
+			<!-- <a class="head-left" href="index.html"><i class="icon-error03"></i></a> -->
+			<h1 class="title">听写检查</h1>
+					</header>
+		<section>
+			<div id="wrapper">
+	<div id="scroller">
+<ul class="wb bWhite iStudy">
+   <!--      <li><div class="bnqian pad10"><div class="pinZi02"><div class="pin">chong</div><div class="zi ywBook">停</div></div></div><p class="iBtn"><a href="#" class="aBtn fav"><i class="icon-favorite"></i><span>从复习本移除</span></a></p></li>
+    	<li><div class="bnqian pad10"><div class="pinZi02"><div class="pin">chong</div><div class="zi ywBook">停</div></div><div class="pinZi02"><div class="pin">chong</div><div class="zi ywBook">停</div></div></div><p class="iBtn"><a href="#" class="aBtn no"><i class="icon-favorite-o"></i><span>加入复习本</span></a></p></li> -->
+
+    </ul>
+	</div><!--end scroller-->
+</div><!--end wrapper-->
+<div id="tips"></div>
+</section>
+<div class="courseBtn">
+		<a class="fenT" href="javascript:goPlay();">继续听写</a><a href="javascript:back();" class="fenT">结束听写</a>
+	</div>
+</main>
+<div id="mask"></div>
+<div class="tanTup radius8">
+    <span class="cclose" onclick="closeResultView();">X</span>
+    <img class="tImg" src="__PUBLIC__/images/tanImg.png" />
+    <h3 class="yingFont textH4 bTextCenter">恭喜，本课听写已完成。</h3>
+    <ul class="btnfen2">
+        <li><a href="javascript:listenNextUnit();" class="btn bDefault"><!--<i class="icon-search"></i>-->听写下一课</a></li>
+        <li><a href="javascript:listenKewen();" class="btn bDefault">朗读课文</a></li>
+    </ul>
+    <!-- <a href="javascript:goMyWord();" class="btn bDefault"><i class="icon-search"></i>查看结果</a> -->
+
+</div>
+</body>
+
+<script>
+var respath = '__RESOURCE__';
+var baseNetUrl = respath;
+var recordNetUrl = respath+'/recordwav/';
+var kewenNetUrl = respath+'/uploadsyw/kewenvoice/';
+
+
+var index = GetQueryString('index');
+var ks_code = GetQueryString('ks_code');
+var backurl = GetQueryString('backurl');
+var currentJson = eval('('+decodeURI(getLocalStorage('cn_wordPlayList'))+')');
+
+showMyWord();
+
+console.log(currentJson);
+
+function showMyWord(){
+    $.get('../Text/getMyWord',{ran:Math.random(),ks_code:ks_code},function(data){
+        var html = '';
+        $.each(currentJson.info,function(k,v){
+            var str = '加入复习本';
+            var istr = 'icon-uniF006';
+            var wordStr = v.word.join('');
+            $.each(data,function(kk,vv){
+                if(vv.word == wordStr){
+                    str = '从复习本移除';
+                    istr = 'icon-uniF005';
+                    return;
+                }
+            });
+            if(v.word.length == 1){
+                html += '<li><div class="bnqian pad10"><div class="pinZi02"><div class="pin" fy="'+v.fy+'">'+v.py+'</div><div class="zi ywBook">'+v.word+'</div></div>';
+                if(v.zuci!=''){
+                    $.each(v.zuci,function(k_ci,v_ci){
+                        html += '<a class="zici">'+v_ci+'</a>';
+                    });
+                }
+                html += '</div><p class="iBtn"  onclick="isMyWord(this);"><a href="#" class="aBtn fav"><i class="'+istr+'"></i><span>'+str+'</span></a></p></li>';
+            }else{
+                html += '<li>';
+                html +='<div class="bnqian pad10">';
+                $.each(v.word,function(kkk,vvv){
+                    html += '<div class="pinZi02">';
+                    html += '<div class="pin" fy="'+v.fy[kkk]+'">'+v.py[kkk]+'</div>';
+                    html +='<div class="zi ywBook">'+vvv+'</div>';
+                    html += '</div>';
+                });
+                html +='</div>';
+                html +='<p class="iBtn"  onclick="isMyWord(this);"><a href="#" class="aBtn no"><i class="'+istr+'"></i><span>'+str+'</span></a></p></li>';
+            }
+        });
+        $('.iStudy').html(html);
+        loaded();
+    });
+}
+
+
+
+tip = document.getElementById('tips');
+
+function isMyWord(obj){
+    var fv = $(obj).find('i').prop('class');
+    if(fv == 'icon-uniF005'){
+        //取消收藏
+        $(obj).find('i').prop('class','icon-uniF006');
+        var type = 'del';
+        $(obj).find('i').siblings('span').html('加入复习本');
+        setTip('已从复习本移除');
+    }else{
+        //收藏
+        $(obj).find('i').prop('class','icon-uniF005');
+        var type = 'add';
+        $(obj).find('i').siblings('span').html('从复习本移除');
+        setTip('已加入复习本');
+    }
+
+    var pyHtml = '';
+    var fyHtml = '';
+    var wordHtml = '';
+    $.each($(obj).prev().find('.pin'),function(k,v){
+        pyHtml += $(v).html()+' ';
+        fyHtml += $(v).attr('fy')+' ';
+    });
+    $.each($(obj).prev().find('.zi'),function(k,v){
+        wordHtml += $(v).html();
+    });
+    pyHtml = pyHtml.trim();
+
+
+    $.get('../Text/addUserWord',
+        {
+            ran:Math.random(),
+            ks_code:ks_code,
+            word:wordHtml,
+            py:pyHtml,
+            fy:fyHtml,
+            type:type
+        },
+        function(data){
+        });
+}
+
+
+
+//听写完成弹窗
+function showResultView(){
+    $('#mask').css('display','block');
+    $('.tanTup').show();
+}
+//关闭弹窗
+function closeResultView(){
+    $('#mask').css('display','none');
+    $('.tanTup').hide();
+}
+
+
+//结束听写
+function back(){
+    // if(backurl == 'word'){
+    //     window.location.href='word?ks_code='+ks_code+'&index='+index;
+    // }else if(backurl == 'revisionselect'){
+    //     window.location.href='revision?ks_code='+ks_code+'&index='+index;
+    // }
+    showResultView();
+}
+
+//返回word页面
+function goWord(){
+    window.location.href = "word?ks_code="+ks_code+"&index="+index;
+}
+//继续听写
+function goPlay(){
+    window.location.href='play?ks_code='+ks_code+'&index='+index+'&backurl=word';
+}
+
+//去下一章节的听写
+function listenNextUnit(){
+    if(currentJson.nextkscode !== ''){
+        //有下个章节
+        window.location.href='word?ks_code='+currentJson.nextkscode+'&index='+index;
+        // if(backurl == 'word'){
+        //     window.location.href='word?ks_code='+ks_code+'&index='+index;
+        // }else if(backurl == 'revisionselect'){
+        //     window.location.href='revision?ks_code='+ks_code+'&index='+index;
+        // }
+    }else{
+        if(backurl == 'word'){
+            var url = 'word?ks_code='+ks_code+'&index='+index;
+        }else if(backurl == 'revisionselect'){
+            var url = 'revision?ks_code='+ks_code+'&index='+index;
+        }
+        setTipLocation('本册听写已完成',url);
+    }
+}
+
+//去读课文
+function listenKewen(){
+    window.location.href='text?ks_code='+ks_code;
+}
+</script>
+<script type="text/javascript">
+
+	</script>
+</html>

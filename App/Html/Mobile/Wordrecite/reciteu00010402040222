@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="/public/Mobile//css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="/public/Mobile//css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<header bid="00010402040222">
+    <div class="l fl"><a href="/Mobile/wordrecite/index"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">背单词</div>
+    	<div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+                <li><a href="/Mobile/index/wordbook"><i class="icon-heart"></i><font class="wordcount">0</font></a></li>
+                <li><a href="/Mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount">0</font></a></li>
+                <li><a href="/Mobile/index/index"><i class="icon-evil"></i>学习中心</a></li>
+				<li><a href="/Mobile/index/course"><i class="icon-pencil-square"></i><b>课程设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<section class="recite" id="0" wid="1727" >
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="1727" mid="6950544A39C9E01061A917A9F457CC09.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >father</span><span>[ˈfɑːðə(r)]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/9ce83b9ec468abb3de35555b870d4c41.jpg" src="http://192.168.151.206/yylmp3/pic_word/9ce83b9ec468abb3de35555b870d4c41.jpg"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/20150423144801186462.jpg" src="http://192.168.151.206/yylmp3/pic_word/20150423144801186462.jpg"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/20150423160146944189.jpg" src="http://192.168.151.206/yylmp3/pic_word/20150423160146944189.jpg"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/20150423135432559722.jpg" src="http://192.168.151.206/yylmp3/pic_word/20150423135432559722.jpg"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img src="http://192.168.151.206/yylmp3/pic_word/9ce83b9ec468abb3de35555b870d4c41.jpg" /></p>
+        <p><span>father</span><span>[ˈfɑːðə(r)]</span><span>n.父亲</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="1" wid="1728" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="1728" mid="B040B25EAFC002ACF0C84062CDFAD86E.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>dad</span><span>[dæd]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="1" onclick="recite(this);">
+                        A.
+                                                dad<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                dance<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                cup<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        cry<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img src="http://192.168.151.206/yylmp3/pic_word/fba33415a3cbad4facb0d02b1e4f2329.jpg" /></p>
+        <p><span>dad</span><span>[dæd]</span><span>n.爸爸；爹爹</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="2" wid="1729" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="1729" mid="8C71D3352864566C09BC99C9E22589FA.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>man</span><span>[mæn]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                fuel<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                fruit<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                fry<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                         D.                        man<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img src="http://192.168.151.206/yylmp3/pic_word/6f4be8c3b3ee8bbb710e4eec2bc1e34a.jpg" /></p>
+        <p><span>man</span><span>[mæn]</span><span>n.男人</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="3" wid="1730" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="1730" mid="F2A649AAC80F073342ACE1AF66CC39A2.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >woman</span><span>[ˈwʊmən]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <ul class="listTxt bWhite">
+                <li flag="1" onclick="recite(this);">
+                        A.
+                                                女人<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                使迷惑，使难解( puzzle的现在分词 )；为难，伤脑筋，苦思<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                谜，难题<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        速度比赛，赛跑，赛马，赛车等；竞赛<i></i>
+                    </li>            </ul>      
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img src="http://192.168.151.206/yylmp3/pic_word/3b882865c1cb69085c57ce3a822fade2.jpg" /></p>
+        <p><span>woman</span><span>[ˈwʊmən]</span><span>n.女人</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="4" wid="1731" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="1731" mid="0FA60290017FB81E951560A51BC1F64B.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >mother</span><span>[ˈmʌðə(r)]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/ce16730102bdd16a0ac25e39317d7f71.jpg" src="http://192.168.151.206/yylmp3/pic_word/ce16730102bdd16a0ac25e39317d7f71.jpg"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/e00672e421e9c67689bdab6d1a8f7670.jpg" src="http://192.168.151.206/yylmp3/pic_word/e00672e421e9c67689bdab6d1a8f7670.jpg"></span></li><li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/a87be3018175c50c517bf7dd3c7a798f.jpg" src="http://192.168.151.206/yylmp3/pic_word/a87be3018175c50c517bf7dd3c7a798f.jpg"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/20150907163757733609.jpg" src="http://192.168.151.206/yylmp3/pic_word/20150907163757733609.jpg"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img src="http://192.168.151.206/yylmp3/pic_word/a87be3018175c50c517bf7dd3c7a798f.jpg" /></p>
+        <p><span>mother</span><span>[ˈmʌðə(r)]</span><span>n.母亲</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="5" wid="1732" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="1732" mid="A0FC9F8502A33B5A4150F7D54A453590.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>sister</span><span>[ˈsɪstə(r)]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                librarian<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                learnt<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                lab<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                         D.                        sister<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img src="http://192.168.151.206/yylmp3/pic_word/2775f5fbd821b8a1d47cdbc6b5fd8e15.jpg" /></p>
+        <p><span>sister</span><span>[ˈsɪstə(r)]</span><span>n.姐姐；妹妹</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="6" wid="1733" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="1733" mid="8F9FABE02FE17D5CF226F2EB739B1D4B.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >brother</span><span>[ˈbrʌðə(r)]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/ee87a98ba8fa35be5e4426b86db62c74.jpg" src="http://192.168.151.206/yylmp3/pic_word/ee87a98ba8fa35be5e4426b86db62c74.jpg"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/0bd0048b3cecb5e2fb943b5f00df896c.jpg" src="http://192.168.151.206/yylmp3/pic_word/0bd0048b3cecb5e2fb943b5f00df896c.jpg"></span></li><li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/20150907144911357574.jpg" src="http://192.168.151.206/yylmp3/pic_word/20150907144911357574.jpg"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/f2f3c57ba529157d82edcfbabca78f70.jpg" src="http://192.168.151.206/yylmp3/pic_word/f2f3c57ba529157d82edcfbabca78f70.jpg"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img src="http://192.168.151.206/yylmp3/pic_word/20150907144911357574.jpg" /></p>
+        <p><span>brother</span><span>[ˈbrʌðə(r)]</span><span>n.哥哥；弟弟</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="7" wid="1734" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="1734" mid="F05EF9F50FDDFA87A4A3AD8972C12585.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>grandmother</span><span>[ˈɡræn(d)mʌðə(r)]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                riding<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                        B.
+                                                grandmother<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                related<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        remaining<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img src="http://192.168.151.206/yylmp3/pic_word/20150907160341518276.jpg" /></p>
+        <p><span>grandmother</span><span>[ˈɡræn(d)mʌðə(r)]</span><span>n.（外）祖母；奶奶；外婆；姥姥</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="8" wid="1735" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="1735" mid="6DEDE6012ED4320CA54139084C93C33C.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >grandma</span><span>[ˈɡrænmɑː]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/20150909093621548269.jpg" src="http://192.168.151.206/yylmp3/pic_word/20150909093621548269.jpg"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/6ecfcdc6c76ff3d17c7fbcad5e1335a8.jpg" src="http://192.168.151.206/yylmp3/pic_word/6ecfcdc6c76ff3d17c7fbcad5e1335a8.jpg"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/20150409084323458071.jpg" src="http://192.168.151.206/yylmp3/pic_word/20150409084323458071.jpg"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/2d3306fcf27800042fb2c985b59260fc.jpg" src="http://192.168.151.206/yylmp3/pic_word/2d3306fcf27800042fb2c985b59260fc.jpg"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img src="http://192.168.151.206/yylmp3/pic_word/20150909093621548269.jpg" /></p>
+        <p><span>grandma</span><span>[ˈɡrænmɑː]</span><span>n.（外）祖母；奶奶；外婆；姥姥</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="9" wid="1736" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="1736" mid="19C561D29943E5FD46351E3A889A01AF.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span >grandfather</span><span>[ˈɡrænfɑːðə(r)]</span></p>
+                </a>
+            </li>
+        </ul>
+        <ul class="listImg bLine" >
+                <li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/20150907102828819714.jpg" src="http://192.168.151.206/yylmp3/pic_word/20150907102828819714.jpg"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/20150412143915809799.jpg" src="http://192.168.151.206/yylmp3/pic_word/20150412143915809799.jpg"></span></li><li flag="0" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/543b0edb87acb5f1db9f4a1348a12b2b.jpg" src="http://192.168.151.206/yylmp3/pic_word/543b0edb87acb5f1db9f4a1348a12b2b.jpg"></span></li><li flag="1" onclick="recite(this);"><span><i style="display:none;"></i><img _src="http://192.168.151.206/yylmp3/pic_word/b0ceebbc0b8b5e6f986e900b4ad06430.jpg" src="http://192.168.151.206/yylmp3/pic_word/b0ceebbc0b8b5e6f986e900b4ad06430.jpg"></span></li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img src="http://192.168.151.206/yylmp3/pic_word/b0ceebbc0b8b5e6f986e900b4ad06430.jpg" /></p>
+        <p><span>grandfather</span><span>[ˈɡrænfɑːðə(r)]</span><span>n.（外）祖父</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="10" wid="1737" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="1737" mid="5E6FF52264A5796673F82BC722786E8B.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>grandpa</span><span>[ˈɡrænpɑː]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="1" onclick="recite(this);">
+                        A.
+                                                grandpa<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                painted<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                parking<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                         D.                        parents<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img src="http://192.168.151.206/yylmp3/pic_word/20150909093417525170.jpg" /></p>
+        <p><span>grandpa</span><span>[ˈɡrænpɑː]</span><span>n.（口语）爷爷，外公</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section><section class="recite" id="11" wid="1738" style='display:none;'>
+        <ul class="wb bWhite">
+            <li>
+                <a  class="word" wid="1738" mid="27C2CCF0F6CF7AB4C9F4141CAED9F06B.mp3" onclick="wordplay(this);">
+                    <p class="icon"><i class="icon-volume-up"></i></p>
+                    <p><span style='display:none;'>family</span><span>[ˈfæməli]</span></p>
+                </a>
+            </li>
+        </ul>
+                    <div class="clearfix"></div>
+            <ul class="listTxt bWhite">
+                <li flag="0" onclick="recite(this);">
+                        A.
+                                                men<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        B.
+                                                mice<i></i>
+                    </li><li flag="0" onclick="recite(this);">
+                        C.
+                                                mixed<i></i>
+                    </li><li flag="1" onclick="recite(this);">
+                         D.                        family<i></i>
+                    </li>            </ul>
+              
+    </section>
+    <section class="scrollCon" style="display:none;">
+        <p><img src="http://192.168.151.206/yylmp3/pic_word/fc17d04d7c480b5c27c11ada1d0f3445.jpg" /></p>
+        <p><span>family</span><span>[ˈfæməli]</span><span>n.家庭；一家人</span></p>
+        <p><a  class="btn bPink" onclick="con_recite();">继续背单词</a></p>
+    </section>
+<section class="tips bLine" style="display:none;">
+    <p><img src="/public/Mobile//images/trophy.png"></p>
+    <p class="txt"></p>
+</section>  
+<section class="tips bLine" style="display:none;">
+    <h3 class="pad10 bGray">错误率最高的单词</h3>
+    <ul class="listTxt">
+        <!-- <li>vegetable<span>错误3次</span></li>
+        <li>pen<span>错误3次</span></li>
+        <li>white<span>错误3次</span></li>
+        <li>orange<span>错误3次</span></li> -->
+    </ul>
+			<a href="/Mobile/wordrecite/recite/unitid/00010402040223/indexn/1" class="btn bPink">添加生词本，去下一单元</a>    	
+</section>
+<div id="jplayer"></div> 
+
+<script src="/public/Mobile//js/jquery.min.js" type="text/javascript"></script>  
+<script src="/public/Mobile//js/main.js" type="text/javascript"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.cookie.js"></script>
+
+<script type="text/javascript"> 
+mp = new Mplay();
+var unitid="00010402040222";
+var wordlen=$(".recite").length;
+var errword={};
+var index=0;
+mp.url = "http://192.168.151.206/yylmp3/mp3_word/";
+var wordbcount=parseInt();
+var recordcount=parseInt();
+$(function() {
+  $.ajaxSetup({async:false});
+    $(".dropdown a:eq(0) .wordcount").text($.cookie("wordcount"));
+    $(".dropdown a:eq(1) .recordcount").text($.cookie("recordcount"));
+  $(".recite").hide();
+  $(".recite:eq("+index+")").show();
+  //alert($(".recite:eq("+index+") .wb.bWhite a").attr("mid"));
+  //$(".recite:eq("+index+") .wb.bWhite a").click();
+  //js播放第一个单词电脑可以实现但是手机不能实现
+  mp.clear();
+  var mp3=$(".recite:eq("+index+") .wb.bWhite a").attr("mid");
+  mp.play(mp.url+mp3);
+  //prompt('',mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+  //alert("fasdfasd");
+  //$(".wb.bWhite a").click();
+  // $(".wb.bWhite a").click(function(){
+  //    var mp3=$(this).attr("mid");
+  //    mp.play(mp.url+mp3);
+  // });
+
+  
+  //$('.recite ul:not(:first) li').live('click',function(){
+  // $(".recite ul:not(:first) li").live("click",function(){alert("ok");});
+  //$(".recite li").live("click",function(){alert("ok");});
+
+  //背单词 当单词正确的时候就直接进行下一个单词
+  //$(document).on('click', '.recite ul:not(:first) li', function() {
+  // $('.recite ul:not(:first) li').live('click', function() {
+  // //$('.recite ul:not(:first) li').click(function() {
+  //   var flag=$(this).attr("flag");
+  //   if("1"==flag){
+  //       $(this).find("i").show();
+  //       $(this).find("i").addClass('icon-checkmark');
+  //       setTimeout(function(){
+  //           var wordid=$(".recite:eq("+index+")").attr("wid");
+  //           index=index+1;
+  //           $(".recite").hide();
+  //           $(".recite:eq("+index+")").show();
+  //           mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+  //           var id=$(".recite:eq("+index+")").attr("id");
+            
+            
+  //           if(undefined==id){
+  //               $(".tips.bLine").show();
+  //               //errword.sort(compare);
+  //               var errrate=100-Math.round((parseInt(size(errword))/wordlen)*100);
+                
+  //               $(".txt").text("恭喜您本单元学习过关，正确率"+errrate+"%");
+  //               if(errrate==100){$(".tips.bLine:eq(1) h3").hide();}
+  //               var html="";
+  //               $.each(errword,function(key,value){
+  //                   html=html+"<li>"+key+"<span>错误"+value+"次</span></li>";
+  //               });
+  //               $(".tips.bLine ul.listTxt").html(html);
+  //           }
+  //           else
+  //           {
+  //               $(".dropdown a:eq(1) .wordcount").text(wordbcount+1);
+               
+  //           }
+  //           $.get("../../recite_word_record",{unitid:unitid,wordid:wordid},function(){
+  //                   var recordcount=$(".dropdown a:eq(1) .recordcount").text();
+  //                   $(".dropdown a:eq(1) .recordcount").text(recordcount+data.add);
+  //           });
+  //       },  200);
+  //   }
+  //   else if("0"==flag)
+  //    {
+  //       var wordid=$(this).parent().parent().find("a").eq(0).attr("wid");
+  //       var word=$(this).parent().parent().find("a span").eq(0).text();
+  //       if (word in errword)  
+  //           errword[word]++;  
+  //       else   
+  //           errword[word]=1;
+  //       $(this).find("i").show().addClass('icon-cancel');
+  //       $(this).parent().find("li[flag='1']").find("i").show().addClass('icon-checkmark');
+        
+  //       var id=$(".recite:eq("+(index+1)+")").attr("id");
+  //       if(undefined!=id)
+  //       {
+  //           // $(this).find("i").removeClass('icon-cancel');
+  //           // $(this).parent().find("li[flag='1']").find("i").removeClass('icon-checkmark');
+  //           var sen_len=$(".scrollCon:gt("+index+")").length;
+  //           var ranindex=index+1+Math.round(Math.random()*100)%(sen_len);
+  //           var ranindexs=ranindex-1;
+  //           $(".recite:eq("+ranindex+")").before($(".scrollCon:eq("+index+")").clone().hide());
+  //           $(".scrollCon:eq("+ranindexs+")").after($(".recite:eq("+index+")").clone().hide());
+            
+  //       }
+  //       else
+  //       {
+  //           $(".scrollCon:eq("+index+")").after($(".recite:eq("+index+")").clone().hide());
+  //           $(".recite:eq("+(index+1)+")").after($(".scrollCon:eq("+index+")").clone().hide());
+          
+  //       }
+  //       setTimeout(function(){
+  //           $(".recite").hide();
+  //           $(".scrollCon:eq("+index+")").show();
+  //           mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+  //           var id=$(".recite:eq("+index+")").attr("id");
+  //           if(undefined==id){
+  //               $(".tips.bLine").show();
+  //           }
+  //       }, 2000);
+  //    }
+  // });
+
+
+  
+  //错误的进行单词的详情的展示
+  //$(document).on('click', '.bPink', function() {
+  //  $('.bPink').click(function() {
+  //      // alert("ss");
+  //      index=index+1;
+  //      $(".scrollCon").hide();
+  //      $(".recite").hide();
+  //      $(".recite i").hide();
+  //      $(".icon-volume-up").show();
+  //      var id=$(".recite:eq("+index+")").attr("id");
+  //      $(".recite:eq("+index+")").show();
+  //      mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+  // });
+
+});
+
+//对象进行排序的函数
+function compare() {
+return function (object1, object2) {
+alert("3434");
+var value1 = object1.value;
+var value2 = object2.value;
+if (value2 < value1) {
+return 1;
+}
+else if (value2 > value1) {
+return -1;
+}
+else {
+return 0;
+}
+}
+}
+
+//对象的长度
+function size(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+}
+
+function Mplay(){ 
+   $("#jplayer").jPlayer({
+        swfPath: "",
+        wmode: "window",
+        supplied: "mp3",
+        preload: "none",
+        volume: "1"
+    });
+
+    var oplay = new Object();  
+    oplay.index = 0;
+    oplay.url = "";
+    oplay.repeat = 1;
+
+    oplay.play = function(mp3){  
+        oplay.clear();
+        $("#jplayer").jPlayer("setMedia", {mp3:mp3}).jPlayer("play");
+    };
+
+    oplay.clear = function(){       
+        $("#jplayer").jPlayer("stop");
+        $("#jplayer").jPlayer("clearMedia");
+        //$("#jplayer").data("SpeakMP3Value", "0");  
+        $("#jplayer").unbind($.jPlayer.event.ended);
+        $("#jplayer").unbind($.jPlayer.event.progress);
+    };
+    return oplay;  
+}
+
+//将正在读的元素向上移动
+function  BodyScroll(curpos){
+  var container = $("html,body"); 
+  var pos_y = $(curpos).offset().top-300;
+  $("html,body").animate({scrollTop:pos_y},100);//1000是ms,也可以用slow代替
+}
+
+
+//背单词单击事件函数
+function recite(obj){
+    //alert("fadfadsf");
+    var flag=$(obj).attr("flag");
+    if("1"==flag){
+        $(obj).find("i").show();
+        $(obj).find("i").addClass('icon-checkmark');
+        setTimeout(function(){
+            var wordid=$(".recite:eq("+index+")").attr("wid");
+            index=index+1;
+            $(".recite").hide();
+            $(".recite:eq("+index+")").show();
+            mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+            var id=$(".recite:eq("+index+")").attr("id");
+            
+            
+            if(undefined==id){
+                $(".tips.bLine").show();
+                //errword.sort(compare);
+                var errrate=100-Math.round((parseInt(size(errword))/wordlen)*100);
+                
+                $(".txt").text("恭喜您本单元学习过关，正确率"+errrate+"%");
+                if(errrate==100){$(".tips.bLine:eq(1) h3").hide();}
+                var html="";
+                $.each(errword,function(key,value){
+                    html=html+"<li>"+key+"<span>错误"+value+"次</span></li>";
+                });
+                $(".tips.bLine ul.listTxt").html(html);
+            }
+            else
+            {
+                $(".dropdown a:eq(1) .wordcount").text(wordbcount+1);
+               
+            }
+            $.get("/Mobile/Wordrecite/recite_word_record",{unitid:unitid,wordid:wordid},function(){
+                    var recordcount=$(".dropdown a:eq(1) .recordcount").text();
+                    $(".dropdown a:eq(1) .recordcount").text(recordcount+data.add);
+            });
+        },  200);
+    }
+    else if("0"==flag)
+     {
+        var wordid=$(obj).parent().parent().find("a").eq(0).attr("wid");
+		$.get("/Mobile/Wordstudy/collect_word",{wordid:wordid,unitid:unitid},function(){});
+        var word=$(obj).parent().parent().find("a span").eq(0).text();
+        if (word in errword)  
+            errword[word]++;  
+        else   
+            errword[word]=1;
+        $(obj).find("i").show().addClass('icon-cancel');
+        $(obj).parent().find("li[flag='1']").find("i").show().addClass('icon-checkmark');
+        
+        var id=$(".recite:eq("+(index+1)+")").attr("id");
+		var wordid=$("bd ul:eq("+mp.index+")").find("a.aBtn.bGreen").attr("wid");
+        if(undefined!=id)
+        {
+            // $(this).find("i").removeClass('icon-cancel');
+            // $(this).parent().find("li[flag='1']").find("i").removeClass('icon-checkmark');
+            var sen_len=$(".scrollCon:gt("+index+")").length;
+            var ranindex=index+1+Math.round(Math.random()*100)%(sen_len);
+            var ranindexs=ranindex-1;
+            $(".recite:eq("+ranindex+")").before($(".scrollCon:eq("+index+")").clone().hide());
+            $(".scrollCon:eq("+ranindexs+")").after($(".recite:eq("+index+")").clone().hide());
+            
+        }
+        else
+        {
+            $(".scrollCon:eq("+index+")").after($(".recite:eq("+index+")").clone().hide());
+            $(".recite:eq("+(index+1)+")").after($(".scrollCon:eq("+index+")").clone().hide());
+          
+        }
+        setTimeout(function(){
+            $(".recite").hide();
+            $(".scrollCon:eq("+index+")").show();
+            mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+            var id=$(".recite:eq("+index+")").attr("id");
+            if(undefined==id){
+                $(".tips.bLine").show();
+            }
+        }, 2000);
+     }
+}
+
+
+function con_recite(){
+       // alert("ss");
+       index=index+1;
+       $(".scrollCon").hide();
+       $(".recite").hide();
+       $(".recite i").hide();
+       $(".icon-volume-up").show();
+       var id=$(".recite:eq("+index+")").attr("id");
+       $(".recite:eq("+index+")").show();
+       mp.play(mp.url+$(".recite:eq("+index+")").find("a").attr("mid"));
+}
+
+function  wordplay(obj){
+     var mp3=$(obj).attr("mid");
+     mp.play(mp.url+mp3);
+  }
+</script>
+</body>
+</html>

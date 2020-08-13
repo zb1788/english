@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版本编辑</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="__PUBLIC__/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link href="__PUBLIC__/js/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/uploadify/jquery.uploadify.min.js"></script> 
+
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.ztree.excheck.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.ztree.exedit.js"></script>
+    <SCRIPT type="text/javascript">
+        var setting = {
+            async: {
+                enable: true,
+                url:"getNodes",
+                autoParam:["id", "name=n", "level=lv"],
+                otherParam:{"otherParam":"zTreeAsyncTest"},
+                dataFilter: filter
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },  
+            callback: {  
+                onClick: deviceTypeOnClick  
+            } 
+        };
+
+        function filter(treeId, parentNode, childNodes) {
+            if (!childNodes) return null;
+            for (var i=0, l=childNodes.length; i<l; i++) {
+                childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+            }
+            return childNodes;
+        }
+
+        function deviceTypeOnClick(e, treeId, treeNode) {  
+            var zTree = $.fn.zTree.getZTreeObj("deviceTypeTree");  
+            if(!treeNode.isParent){
+                $("#selectDevType").val(treeNode.name);
+                $("#zhuti").val(treeNode.id);
+                //并且刷新列表
+                //getBookList();
+            }
+        } 
+
+        function showDevTypeTree(){
+            $.fn.zTree.init($("#treeDemo"), setting);
+            var deptObj = $("#selectDevType");  
+            var deptOffset = $("#selectDevType").offset();  
+            $("#devTreeContent").css({left:deptOffset.left + "px", top:deptOffset.top + deptObj.outerHeight() + "px"}).slideDown("fast");  
+            $('#treeDemo').css({width:deptObj.outerWidth() - 12 + "px"});
+            $("body").bind("mousedown", onBodyDownByDevType);
+        }
+
+         
+
+        function onBodyDownByDevType(event) {  
+            if(event.target.id.indexOf('switch') == -1){  
+                hideDeviceTypeMenu();  
+            }  
+        } 
+
+        function hideDeviceTypeMenu() {  
+            $("#devTreeContent").fadeOut("fast");  
+            $("body").unbind("mousedown", onBodyDownByDevType);  
+        }  
+
+    </SCRIPT>
+<body> 
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="p5"> 
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+      <tr>
+        <td width="50" align="right">主题：</td>
+        <td>
+            <input id="selectDevType" class="device_select" onfocus="showDevTypeTree()" onclick="showDevTypeTree()" readonly="readonly" value={$catname}>  
+            <input type="hidden" class="selectDevTypeid">
+            <input type="hidden" id="zhuti" value="{$ks_code}">  
+            <div id="devTreeContent" class="menuContent" style="z-index:1000;display: none; position: absolute; border: 1px #CCC solid; background-color: #F0F6E4;">  
+                <ul id="treeDemo" class="ztree" style="margin-top:0;"></ul>  
+            </div>
+        </td>      
+      </tr>
+      <tr>
+        <td class="td_right">名称：</td>
+        <td>
+          <input type="text" id="unitalias" name="name" class="input-text lh30" size="50" value="{$name}" />
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">绘本缩略图：</td>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table" id="table_excel"> 
+                <tr>
+                    <td width="150px">
+                        <div id="queue"></div>
+                        <input id="file_upload" name="file_upload" type="file" multiple="false">
+                    </td>
+                    <td>
+                        <img width="40px" height="40px" id="imgfilename" src="../../uploads/book/pic/{$filename}" bid="{$filename}">
+                        <input type="hidden" id="filename" name="filename" bid="{$filename}"/>
+                    </td>
+                </tr>
+            </table> 
+        </td>
+      </tr>
+    </table>
+  <div class="h10"></div>
+    </td> 
+  </tr> 
+</table>
+</div>
+<script type="text/javascript">  
+$(function(){ 
+  $.ajaxSetup({async:false});
+ // var dloading = art.dialog({time:30,title:'加载中……',width:130,height:30,opacity:0.3,lock:true});
+ //初始化年级、学期以及版本基本信息
+  var gradeid=$("#gradeid").attr("bid");
+  $.getJSON("../User/getBookCatagloryList", {random: Math.random()}, function(data) {
+      $.each(data, function(i,value){   
+          $("#gradeid").append($("<option>").val(value.id).text(value.name));
+      });
+  });
+  $('#gradeid').val(gradeid);
+  $("#gradeid").change(function(){
+      var parentid=$("#gradeid").val();
+      $("#unitid").empty();
+      $.getJSON("../User/getBookThemeList", {parentid:parentid,random: Math.random()}, function(data) {
+          $.each(data, function(i,value){   
+              $("#unitid").append($("<option>").val(value.id).text(value.name));
+          });
+      });
+  });
+  $("#gradeid").change();
+  $('#unitid').val("{$ks_code}");
+//文件上传插件初始化开始
+    $('#file_upload').uploadify({
+        'height': 30,
+        'width': 120,
+        'buttonText': '上传图片', //选择按钮显示的字符
+        'multi': false, //是否允许同时选择多个(false一次只允许选中一张图片)
+        'method': 'post',
+        'formData': {
+            'folder': './uploads',
+            'fileext': 'png'
+        },
+        'swf': '__PUBLIC__/js/uploadify/uploadify.swf',
+        'uploader': '../upload/indexbook',
+        'fileTypeExts': '*', //允许的后缀
+        'onUploadSuccess': function(file, data, response)
+        {
+            //上传成功后的触发事件  
+            var obj = eval("(" + data + ")");
+            if (obj.issuc == 1)
+            {
+                $("#filename").val(obj.msg.savepath + obj.msg.savename);
+                $("#imgfilename").attr("bid",obj.msg.savepath + obj.msg.savename);
+                $("#imgfilename").attr("src","../../uploads/book/pic/"+ obj.msg.savepath + obj.msg.savename);
+                //$("#btn_excel").show();
+            }
+            else
+            {
+                $("#tdinfo").html("文件已上传");
+            }
+            ;
+        }
+    });
+    //选择基础库中的单词
+    // $("#addwordlist").click(function(){
+    //   art.dialog.open('wordlist?ran='+Math.random(), {
+    //       title: "绘本编辑",
+    //       width: 600,
+    //       height: 400,
+    //       lock: true,
+    //       opacity: 0.3,
+    //       button: [
+    //           {
+    //               name: '保存',
+    //               callback: function() {
+    //                   var iframe = this.iframe.contentWindow;
+    //                   var re = iframe.edit();
+    //                   if (re) {
+    //                       getBookList();
+    //                       return true;
+    //                   }
+    //                   else {
+    //                       return false;
+    //                   }
+    //               },
+    //               focus: true
+    //           },
+    //           {
+    //               name: '关闭',
+    //               callback: function() {
+    //                   //$("#gradeid").change();
+    //               },
+    //               focus: false
+    //           }
+    //       ]
+    //   });
+    // });
+});
+
+/*发送作业*/
+function edit(url){
+  //var data=$("form").serialize();
+  var id=$("#bookid").val();
+  var unitid=$("#zhuti").val();
+  var name=$("#unitalias").val();
+  var img=$("#imgfilename").attr("bid");
+  var closeflag=false;
+  $.post('editBook',{id:"{$id}",ks_code:unitid,name:name,filename:img},function(result){
+    closeflag=true;
+  });
+  return closeflag;
+}
+</script> 
+</body>
+</html>

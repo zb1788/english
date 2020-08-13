@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="wap-font-scale" content="no">
+<title>口算卡</title>
+<link href="__PUBLIC__/css/ksk.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/font/back.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/js/zepto.min.js" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.bbj {position: absolute; top: 50px; right: 0; display: none; z-index: 99;}
+.bbj ul li {background: #36a1a0; height: 30px; line-height: 30px; width: 100px; text-align: center; color: #fff; border-bottom: solid 1px #ccc;}
+</style>
+</head>
+
+<body>
+<header class="head">
+			<a class="head-left" href="javascript:backToIndex();"><i class="icon-back"></i>返回</a>
+			<a class="head-right" href="../Ksk/rank?type=1">排名</a>
+</header>
+
+<section>
+	<ul class="shou">
+		<li>
+			<a href="../Ksk/lists?grade=0001&type=1">
+				<span class="lr">一年级</span>
+				<span class="mm"><h2>谁是口算王</h2><h3>{$jindu[0]['name']}</h3><s><b style="width: {$jindu[0]['style']}%;"></b></s></span>
+				<span class="rr">
+					<if condition="$jindu[0]['status'] eq 0">
+						<img src="__PUBLIC__/images/ksk/guan02.png">
+					<else/>
+						<img src="__PUBLIC__/images/ksk/guan01.png">
+					</if>
+				</span>
+			</a>
+		</li>
+		<li>
+			<a href="../Ksk/lists?grade=0002&type=1">
+			<span class="lr">二年级</span>
+			<span class="mm"><h2>谁是口算王</h2><h3>{$jindu[1]['name']}</h3><s><b style="width: {$jindu[1]['style']}%;"></b></s></span>
+			<span class="rr">
+				<if condition="$jindu[1]['status'] eq 0">
+					<img src="__PUBLIC__/images/ksk/guan02.png">
+				<else/>
+					<img src="__PUBLIC__/images/ksk/guan01.png">
+				</if>
+			</span>
+			</a>
+		</li>
+		<li>
+			<a href="../Ksk/lists?grade=0003&type=1">
+			<span class="lr">三年级</span>
+			<span class="mm"><h2>谁是口算王</h2><h3>{$jindu[2]['name']}</h3><s><b style="width: {$jindu[2]['style']}%;"></b></s></span>
+			<span class="rr">
+				<if condition="$jindu[2]['status'] eq 0">
+					<img src="__PUBLIC__/images/ksk/guan02.png">
+				<else/>
+					<img src="__PUBLIC__/images/ksk/guan01.png">
+				</if>
+			</span>
+			</a>
+		</li>
+	</ul>
+</section>
+<input type="hidden" value="{$truename}" id="truename"/>
+
+<script type="text/javascript">
+var needHideProgress = false;
+	try{
+		UXinJSInterface.hideProgress();
+	}catch(e){
+		needHideProgress =true;
+	}
+</script>
+
+<script>
+var urlCallBack = GetQueryString('backUrl');
+
+$(function(){
+	if('{$grade}'=='0001'){
+		$('.shou').children('li').eq(0).attr('class','cur');
+	}else if('{$grade}'=='0002'){
+		$('.shou').children('li').eq(1).attr('class','cur');
+	}else{
+		$('.shou').children('li').eq(2).attr('class','cur');
+	}
+
+});
+
+
+$(document).ready(function(){
+    $("#bj").click(function(){
+        $(".bbj").toggle();
+    })
+$(".bbj").click(function(){
+    $(".bbj").toggle();
+})
+})
+
+
+
+function backToIndex(){
+	if(urlCallBack == null){
+	    window.location.href='http://www.czbanbantong.com';
+	}else{
+	    window.location.href=decodeURIComponent(urlCallBack);
+	}
+
+}
+/**
+ * 获取地址栏参数
+ * 【注意】传递参数的时候使用encodeURI(encodeURI(content)),取的时候decodeURI(value)
+ * @param {[String]} name [参数名称]
+ */
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  decodeURI(unescape(r[2])); return null;
+}
+
+
+function checkLocalStorage(){
+	if(!window.localStorage){
+	    mui.toast("您的手机不支持预览功能");return false;
+	}
+}
+
+/**
+ * 存储内容到localStorage
+ * 【主要】如果是json格式需要encodeURI(JSON.stringify(value)),取的时候decodeURI(value)
+ * @param {[String]} name  [名称]
+ * @param {[String]} value [值]
+ */
+function setLocalStorage(name,value){
+	checkLocalStorage();
+	window.localStorage.setItem(name,value);
+}
+
+/**
+ * 从localStorage获取内容
+ * @param {[String]} name  [description]
+ * @param {[String]} value [description]
+ */
+function getLocalStorage(name){
+	checkLocalStorage();
+	var value = window.localStorage.getItem(name);
+	return decodeURI(value);
+}
+
+/**
+ * 删除localStorage的指定内容
+ * @param  {[String]} name [description]
+ */
+function removeLocalStorage(name){
+	checkLocalStorage();
+    window.localStorage.removeItem(name);
+}
+</script>
+<!-- <script src="http://en.czbanbantong.com/Homework/Public/setLog?type=mobile.klxsxmb.index"></script> -->
+</body>
+
+</html>

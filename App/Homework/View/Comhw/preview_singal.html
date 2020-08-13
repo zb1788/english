@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>听读作业</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link href="__PUBLIC__/public/style/common.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/Test_paper/style/ks_exam.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/test_paper.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+<script src="__PUBLIC__/public/script/artDialog.js?skin=default_green"></script>
+<script src="__PUBLIC__/public/script/test_paper.js"></script>
+<script src="__COMMON__/js/jquery.tmpl.js"></script>
+<script src="__COMMON__/js/jquery.tmplPlus.js"></script>
+<script src="__COMMON__/js/en.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/pcmp3play.js"></script>
+<script>
+var examsmp3url = "__RESOURCE__mp3_exam/";
+var word_pic_url = "__RESOURCE__pic_word/";
+var wordmp3url = "__RESOURCE__mp3_word/";
+var textmp3url = "__RESOURCE__mp3_text/";
+var recordmp3url = "{$Think.config.record_mp3_path}";
+</script>
+</head>
+<body class="bg_stu ">
+<font id="num" style="display:none;">0</font>
+<!--begin w1200-->
+<div id="jplayer"></div>
+<div class="w980" >
+  <div class="clearfix"></div>
+  <div class="test_con" >
+    <h1 class="dbt1">{$ks_name}</h1>
+    <div class="test">
+      <div class="te_tab">
+         <if condition="$taids neq ''">
+           <a href="javascript:void(0);" name="ta" class="aBtn">课文跟读</a>
+        </if>
+         <if condition="$eqids neq ''">
+           <a href="javascript:void(0);" name="eq" class="aBtn">听力训练</a>
+        </if>
+      </div>
+      <div class="test content">
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="clearfix"></div>
+  </div>
+
+</div>
+<include file="template"/>
+</body>
+</html>
+<script src="__PUBLIC__/public/script/common.js"></script>
+<script type="text/javascript">
+ //mp.url = "{$Think.config.word_mp3_path}";
+ var taids="{$taids}";
+ var eqids="{$eqids}";
+var p = en.createNew("00010802060202");
+$(function() {
+  
+      $(".content").empty();
+     if(taids != ''){
+      p.getPreTalist(taids,$("#tmpltaquestion"),$(".content"));
+     }
+     if(eqids != ''){
+       p.getPreExaminfo(eqids,$("#tmpleqquestion"),$(".content"));
+     }
+});
+function getTemplate( key ) {
+  return $( "#" + key ).template();
+}
+
+function reading(obj,flag){
+  //console.log(wordmp3url);
+  mp.clear();
+   var playimg = '';
+   if($(obj).find("img").length != 0){
+      var playimg = $(obj).find("img").attr('src');
+       var _playimg =playimg.replace('png','gif');
+      $(obj).find("img").attr('src',_playimg);
+   }
+   else{
+    $(obj).find('a').addClass('active');
+   }
+   if(flag==0){
+     var mp3=$(obj).find("a").attr("mp3");
+     mp.play(wordmp3url +  mp3);
+   }else if(flag==1){
+     var mp3=$(obj).find("a").attr("mp3");
+     mp.play(textmp3url +  mp3.substr(0,2) + "/" + mp3 + ".mp3");
+   }
+   else if(flag==2){
+     var mp3=$(obj).find("a").attr("mp3");
+     mp.play(recordmp3url +  mp3);
+   }
+   $("#jplayer").bind($.jPlayer.event.ended,function(event){
+    if(playimg != ''){
+       $(obj).find("img").attr('src',playimg);
+    }
+    else{
+       $(obj).find("a").removeClass('active');
+    }
+           
+    });
+}
+
+</script>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <link href="__PUBLIC__/css/mui.min.css" rel="stylesheet"/>
+    <link href="__PUBLIC__/css/wszy.css" rel="stylesheet"/>
+    <link rel="__PUBLIC__/stylesheet" href="css/swiper/idangerous.swiper.css">
+    	 <link rel="stylesheet" href="__PUBLIC__/fonts/font-awesome/css/font-awesome.min.css">
+    <script type="text/javascript" charset="UTF-8">
+      	mui.init();
+    </script>
+    <style type="text/css">
+    	body{background: #fcfcff;}
+    </style>
+</head>
+<body onload="opener.location.reload()">
+		<header class="mui-bar mui-bar-nav">
+      <a class="mui-action-back mui-icon  mui-pull-left" style="padding-top:0px;color: #fff; font: normal 19px/45px Microsoft YaHei;">
+        <img width="20" height="20" src="__PUBLIC__/images/backIco.png" width="20" height="20" />返回
+      </a>
+	    <h1 class="mui-title">作业详情</h1>
+	</header>
+	<div class="head01"><i class="fa fa-pencil-square-o fa-lg"></i><span>听力训练</span></div>
+	<span class="biaoti01 mar_t10"><s>答题卡</s></span>
+    <volist name="examsquiz" id="vo">
+        <h2 class="edi-bt01"><i class="fa fa-circle"></i>{$vo.name}</h2>
+        <div class="fen5">
+            <volist name="vo.stem" id="vc" key="k">
+                <eq name="vc.stem_type" value="1">
+                   <h3>第{$k}大题</h3>
+                   <foreach name="vc.question" item="qu">
+                      <span>
+                        <if condition="$qu.iscorrect eq ''">
+                          <a class="edi-qiu btn-ti" onclick="javascript:window.location.href='exams_quiz?homeworkid={$qu.homeworkid}&sso={$sso}&num={$k-1}&paper_id={$qu.homeworkid}&homeworkId={$ilearid}&studentId={$username}&classId={$classid}&isOverdue={$isOverdue}&batchid={$batchid}&backurl=exams_quiz_finish&source=0&starttime={$starttime}';">{$qu.question_num}</a>
+                        <else/>
+                          <a class="edi-qiu btn-ti-on" onclick="javascript:window.location.href='exams_quiz?homeworkid={$qu.homeworkid}&sso={$sso}&num={$k-1}&paper_id={$qu.homeworkid}&homeworkId={$ilearid}&studentId={$username}&classId={$classid}&isOverdue={$isOverdue}&batchid={$batchid}&backurl=exams_quiz_finish&source=0&starttime={$starttime}';">{$qu.question_num}</a>
+                        </if>
+                      </span>
+                   </foreach>
+                </eq>
+                <eq name="vc.stem_type" value="2">
+                   <h3>第{$k}大题</h3>
+                   <volist name="vc.stem_children" id="vd" key="ck">
+                      <h3>第{$k}大题第{$ck}部分</h3>
+                      <foreach name="vd.question" item="qu">
+                           <span>
+                             <if condition="$qu.iscorrect eq ''">
+                               <a class="edi-qiu btn-ti" onclick="javascript:window.location.href='exams_quiz?homeworkid={$qu.homeworkid}&sso={$sso}&num={$k-1}&paper_id={$qu.homeworkid}&homeworkId={$ilearid}&studentId={$username}&classId={$classid}&isOverdue={$isOverdue}&batchid={$batchid}&backurl=exams_quiz_finish&source=0&starttime={$starttime}';">{$qu.question_num}</a>
+                             <else/>
+                               <a class="edi-qiu btn-ti-on" onclick="javascript:window.location.href='exams_quiz?homeworkid={$qu.homeworkid}&sso={$sso}&num={$k-1}&paper_id={$qu.homeworkid}&homeworkId={$ilearid}&studentId={$username}&classId={$classid}&isOverdue={$isOverdue}&batchid={$batchid}&backurl=exams_quiz_finish&source=0&starttime={$starttime}';">{$qu.question_num}</a>
+                             </if>
+                           </span>
+                      </foreach>
+                   </volist>
+                </eq>
+            </volist>
+        </div>
+        <div class="clearfix"></div>
+    </volist>
+    <div class="mb70"></div>
+    <div class="dd-bottom"><a class="edi-btn-bl"  id="titan"  href="student_homework?paper_id={$homeworkid}&sso={$sso}&homeworkId={$ilearid}&studentId={$username}&classId={$classid}&isOverdue=false&batchid={$batchid}&source=0&starttime={$starttime}">继续完成作业</a></div>
+  </body>
+</html>

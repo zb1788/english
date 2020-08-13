@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="wap-font-scale" content="no">
+    <title>语文快乐学</title>
+    <link rel="stylesheet" href="__PUBLIC__/css/ywcurr.css" />
+    <link rel="stylesheet" href="__PUBLIC__/font/fonts.css" />
+    <link rel="stylesheet" href="__PUBLIC__/css/iscroll.css" />
+    <script type="text/javascript" src="__PUBLIC__/js/zepto.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/demoUtils.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/iscroll-lite.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/ywcommon.js"></script>
+
+    <style>
+        #wrapper {
+            top: 45px;
+            bottom: 50px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <main>
+        <header class="head border-nav">
+            <a class="head-left" href="javascript:goWord();">
+                <i class="icon-back"></i>返回</a>
+            <h1 class="title">复习本</h1>
+        </header>
+        <section>
+            <div id="wrapper">
+                <div id="scroller">
+                    <!-- content -->
+                </div>
+                <!--end scroller-->
+            </div>
+            <!--end wrapper-->
+            <div id="tips"></div>
+        </section>
+        <div class="bottom">
+            <div class="boxCon">
+                <a href="javascript:goSelect();" class="btn bDefault">
+                    <i class="icon-uniE60C"></i>开始听写</a>
+            </div>
+        </div>
+        <div id="mask"></div>
+        <div class="dialog2">
+            <h2>确定要删除吗</h2>
+            <div class="btn_d">
+                <a id="fangqi">确定</a>
+                <a id="fanhui">取消</a>
+            </div>
+        </div>
+    </main>
+
+    <div id="demo">
+        <div class="xlList clear">
+            <span class="fl" style="color:#93cc52;">忆江南</span>
+            <span class="fr">
+                <i class="icon-down"></i>
+            </span>
+            <span class="fr">
+                <font class="font08z">字：
+                    <font id="zi"></font>，词：
+                    <font id="ci"></font>
+                </font>
+            </span>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    var respath = '__RESOURCE__';
+    var baseNetUrl = respath;
+    var recordNetUrl = respath + '/recordwav/';
+    var kewenNetUrl = respath + '/uploadsyw/kewenvoice/';
+
+    var myScroll;
+    var ks_code = GetQueryString('ks_code');
+    var index = GetQueryString('index');
+
+
+    $(function () {
+        getMyBookWord();
+    })
+
+
+    //获取复习本中的字词
+    function getMyBookWord() {
+        var html = '';
+        $.get('../Text/getMyBookWord', {
+            ran: Math.random(),
+            ks_code: ks_code
+        }, function (data) {
+            $('#scroller').empty();
+            var cizu = new Array();
+            $.each(data, function (k, v) {
+                var div = $('#demo').children('div').eq(0).clone();
+                div.children('span').eq(0).html(v.ks_name);
+                var zi = 0;
+                var ci = 0;
+                var ulhtml = '<ul class="wb bWhite iStudy">';
+                $.each(v.info, function (kk, vv) {
+                    if (vv.fy == '') {
+                        return true;
+                    }
+                    var obj = {};
+                    var wordinfo = '';
+                    ulhtml += '<li><div class="bnqian pad10">';
+                    if (vv.word.length == 1) {
+                        zi++;
+                        ulhtml += '<div onclick="goWordInfoByRevision(this,2);" fy="' + vv.fy +
+                            '" ks_code="' + v.ks_code +
+                            '" class="pinZi02" btype="zi"><div class="pin">' + vv.py +
+                            '</div><div class="zi ywBook">' + vv.word + '</div></div>';
+                        wordinfo = vv.word[0];
+                        if (vv.zuci != '') {
+                            $.each(vv.zuci, function (k_ci, v_ci) {
+                                ulhtml += '<a class="zici">' + v_ci + '</a>';
+                            });
+                        }
+                        obj.fy = vv.fy;
+                    } else {
+                        ci++;
+                        $.each(vv.word, function (kkk, vvv) {
+                            ulhtml +=
+                                '<div onclick="goWordInfoByRevision(this,2);" ks_code="' +
+                                v.ks_code + '"  fy="' + vv.fy +
+                                '" class="pinZi02"  btype="ci"><div class="pin">' + vv.py[
+                                    kkk] + '</div><div class="zi ywBook">' + vvv +
+                                '</div></div>';
+                            wordinfo += vvv;
+                        });
+                        obj.fy = '';
+                    }
+                    ulhtml += '</div><p class="iBtn bDel" backurl="revision" wordinfo="' +
+                        wordinfo + '"><a bid="' + vv.bid +
+                        '" onclick="delMyWord(this);"  class="aBtn"><i class="icon-del"></i><span>删除</span></a></p></li>';
+                    obj.word = wordinfo;
+                    cizu.push(obj);
+
+                });
+                ulhtml += '</ul>';
+                div.find('font').eq(0).children('font').eq(0).html(zi);
+                div.find('font').eq(0).children('font').eq(1).html(ci);
+                div.appendTo('#scroller');
+                $(ulhtml).appendTo('#scroller');
+                data[k].zi = zi;
+                data[k].ci = ci;
+            });
+            setLocalStorage('cn_fuxiben', JSON.stringify(cizu));
+            if (data == '') {
+                var html = '<div style="text-align: center;">您还没有添加生词</div>';
+                $('#scroller').html(html);
+                $('.bottom').hide();
+            }
+            myScroll = new IScroll('#wrapper', {
+                momentum: true,
+                click: true
+            });
+            $('.xlList').click(function () {
+                $(this).next('ul').toggle();
+                $(this).children().children('i').toggleClass('icon-right').toggleClass('icon-down');
+            })
+            setLocalStorage('cn_wordByChapter', encodeURI(JSON.stringify(data)));
+        });
+    }
+
+    function goWordInfoByRevision(obj, type) {
+        if (type == 1) {
+            //word页面
+            var goword = $(obj).attr('wordinfo');
+            var backurl = $(obj).attr('backurl');
+        } else if (type == 2) {
+            //revision页面
+            var goword = $(obj).parent().next().attr('wordinfo');
+            var backurl = $(obj).parent().next().attr('backurl');
+            var ks_id = $(obj).attr('ks_code');
+        }
+
+        if (goword.length == 1) {
+            var fy = $(obj).attr('fy');
+        } else {
+            var fy = '';
+        }
+
+
+        location.href = "wordinfo?wordinfo=" + encodeURI(encodeURI(goword)) + "&fy=" + fy + "&ks_code=" + ks_code +
+            "&index=" + index + '&backurl=' + backurl;
+
+        // if(goword.length == 1){
+        //     //字
+        //     location.href="wordinfo?wordinfo="+encodeURI(encodeURI(goword))+"&ks_code="+ks_id+"&index="+index+'&backurl='+backurl;
+        // }else{
+        //     //词
+        //     location.href="ci?wordinfo="+encodeURI(encodeURI(goword))+"&ks_code="+ks_id+"&index="+index+"&backurl="+backurl;
+        // }
+    }
+
+
+    //删除复习本中的字词
+    function delMyWord(obj) {
+        setTimeout(function () {
+            $('#mask').show();
+            $('.dialog2').show();
+        }, 50);
+        //取消
+        $('#fanhui').click(function () {
+            $('#mask').hide();
+            $('.dialog2').hide();
+        })
+
+
+        //确定删除
+        $('#fangqi').unbind('click').click(function () {
+            var bid = $(obj).attr('bid');
+            var aa = $(obj).parent().parent();
+            var btype = $(aa).children('div').eq(0).children('div').eq(0).attr('btype');
+            var zi = $('#zi').html();
+            var ci = $('#ci').html();
+
+            $.get('../Text/delUserWord', {
+                    ran: Math.random(),
+                    id: bid
+                },
+                function (data) {
+                    getMyBookWord();
+                    // if(data == 'ok'){
+                    //     $(aa).remove();
+                    //     if(btype == 'zi'){
+                    //         $('#zi').html(zi-1);
+                    //     }else{
+                    //         $('#ci').html(ci-1);
+                    //     }
+                    // }
+                });
+            $('#mask').hide();
+            $('.dialog2').hide();
+        })
+    }
+
+
+
+
+    //返回word页面
+    function goWord() {
+        window.location.href = "word?ks_code=" + ks_code + "&index=" + index;
+    }
+
+    //进入选择页面
+    function goSelect() {
+        window.location.href = "revisionselect?ks_code=" + ks_code + "&index=" + index;
+    }
+</script>
+<script type="text/javascript">
+    document.addEventListener('touchmove', function (e) {
+        e.preventDefault();
+    }, isPassive() ? {
+        capture: false,
+        passive: false
+    } : false);
+</script>
+
+</html>

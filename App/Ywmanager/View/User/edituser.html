@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户信息修改</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript">
+
+
+function addData(){
+    $.ajaxSetup({async:false});
+    var oldPasswd=$("#oldPasswd").val();
+    var newPasswd=$("#newPasswd").val();
+    var newPasswdNext=$("#newPasswdNext").val();
+    var id='{$id}';
+    var flag = false;
+    //alert(yearId+'|'+courseId+'|'+versionId+'|'+typeId+'|'+gradeId+'|'+unitName+'|'+sortId+'|'+markId);
+    if (oldPasswd==""){
+        $.dialog({
+              content:'原密码不能为空',
+              lock:true,
+              opacity:0.3,
+              width:160,
+              height:45,
+              ok:function(){}
+            });
+        document.baseForm.oldPasswd.focus();
+        return false;
+        }else if(newPasswd==""){
+            $.dialog({
+                  content:'新密码不能为空',
+                  lock:true,
+                  opacity:0.3,
+                  width:160,
+                  height:45,
+                  ok:function(){}
+                });
+            document.baseForm.newPasswd.focus();
+            return false;
+            }else if(newPasswdNext==""){
+            $.dialog({
+                  content:'确认新密码不能为空',
+                  lock:true,
+                  opacity:0.3,
+                  width:160,
+                  height:45,
+                  ok:function(){}
+                });
+            document.baseForm.newPasswdNext.focus();
+            return false;
+            }else if(newPasswd!=newPasswdNext){
+                    $.dialog({
+                          content:'新密码和确认新密码不一致',
+                          lock:true,
+                          opacity:0.3,
+                          width:180,
+                          height:45,
+                          ok:function(){}
+                        });
+                    document.baseForm.passwd.focus();
+                    return false;
+                    }else{
+                    $.get('../User/editUserInfo',
+                        {
+                        oldPasswd:oldPasswd,
+                        newPasswd:newPasswd,
+                        newPasswdNext:newPasswdNext,
+                        id:id
+                        },function(data){
+                          if (data=="ok"){
+                              flag = true;
+                              }else{
+                                  $.dialog({
+                                      content:'原密码错误',
+                                      lock:true,
+                                      opacity:0.3,
+                                      width:160,
+                                      height:45,
+                                      ok:function(){}
+                                    });
+                                  flag=false;
+                                  }
+                        });
+                        return flag;
+                    }
+
+}
+</script>
+</head>
+<body>
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="box_top pl_10 f14"><strong>用户添加</strong></td>
+  </tr>
+  <tr>
+    <td class="p5">
+  <form name="baseForm" action="wordadd_list.html" method="get">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+      <tr>
+        <td class="td_right">原密码：</td>
+        <td>
+            <input type="password" id="oldPasswd" name="oldPasswd" value="" class="input-text lh30" size="10" style="width:300px;" />
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">新密码：</td>
+        <td>
+            <input type="password" id="newPasswd" name="newPasswd" value="" class="input-text lh30" size="10" style="width:300px;" />
+        </td>
+      </tr>
+      <tr>
+      <tr>
+        <td class="td_right">确认新密码：</td>
+        <td>
+            <input type="password" id="newPasswdNext" name="newPasswdNext" value="" class="input-text lh30" style="width:300px;"  size="10" />
+        </td>
+      </tr>
+      </table>
+    </form>
+  <div class="h10"></div>
+    </td>
+  </tr>
+</table>
+</div>
+
+</body>
+</html>

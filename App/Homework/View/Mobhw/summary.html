@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="wap-font-scale" content="no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="__PUBLIC__/css/mui.min.css" rel="stylesheet" />
+		<style>
+			.flex-container {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-flex-flow: row wrap;
+				justify-content: space-between;
+				text-align: center;
+			}
+			.mui-content-padded {
+				padding: 10px;
+			}
+			.mui-content-padded a {
+				margin: 5px;
+				width: 40px;
+				height: 40px;
+				display: inline-block;
+				text-align: center;
+				background-color: #fff;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+			}
+			.mui-content-padded a .mui-icon {
+				margin-top: 12px;
+			}
+			.mui-spinner,
+			.mui-spinner-white {
+				margin-top: 12px
+			}
+			.active .mui-spinner-indicator {
+				background: #007AFF;
+			}
+			
+			.mui-content a {
+				color: #8F8F94;
+			}
+			.mui-content a.active {
+				color: #007aff;
+			}
+			.mui-content-padded a .mui-icon {
+			   margin-top: 12px;
+			}
+			.mui-icon {
+				font-family: Muiicons;
+				font-size: 20px;
+				font-weight: 400;
+				font-style: normal;
+				line-height: 1;
+				display: inline-block;
+				text-decoration: none;
+				-webkit-font-smoothing: antialiased;
+			}
+			.mui-icon-close:before {
+				border-radius: 25px;
+				background-color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="text-align:center;">
+			<span class="mui-action-back mui-icon mui-icon-close mui-pull-left"></span>
+			<h4 id="time" style="padding-top:5px;vertical-align: center;text-align:center;">答题器</h4>
+		</header>
+		<div class="mui-content">
+            <div class="mui-content-padded">
+				<div class="flex-container" style="text-align:left;" id="content">
+						
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="__PUBLIC__/js/mui.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/websql.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				swipeBack:true, //启用右滑关闭功能
+				beforeback: function() {  
+			    //获得列表界面的webview  
+			    var list = plus.webview.currentWebview().opener();  
+			    //触发列表界面的自定义事件（refresh）,从而进行数据刷新  
+			    mui.fire(list, 'refresh');  
+			    //返回true，继续页面关闭逻辑  
+			    return true;  
+			    }  
+			});
+			var quescount=parseInt("{$quescount}");
+			setContent(quescount);
+			var active = null,
+				lastid, span;
+			mui(".mui-content").on("tap", "a", function() {
+				var id = this.getAttribute("id");
+				if (!active) {
+					this.classList.add("active");
+					if (id) {
+						span = this.querySelector("span");
+						span.classList.remove("mui-" + id);
+						span.classList.add("mui-" + id + "-filled");
+					}
+					active = this;
+				} else {
+					active.classList.remove("active");
+					if (lastid) {
+						span.classList.remove("mui-" + lastid + "-filled");
+						span.classList.add("mui-" + lastid);
+					}
+
+					this.classList.add("active");
+					if (id) {
+						span = this.querySelector("span");
+						span.classList.remove("mui-" + id);
+						span.classList.add("mui-" + id + "-filled");
+					}
+
+					active = this;
+				}
+				lastid = id;
+			});
+			
+			function setContent(count){
+				var html="";
+				for(var i=1;i<=count;i++){
+					html=html+'<a id="icon-icon-contact"><span class="mui-icon">'+i+'</span></a>';
+				}
+				document.getElementById("content").innerHTML=html;
+			}
+		</script>
+	</body>
+
+</html>

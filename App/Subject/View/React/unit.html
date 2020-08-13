@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="wap-font-scale" content="no">
+    <meta charset="UTF-8">
+    <title>英语同步练</title>
+    <link rel="stylesheet" href="__SUBJECT__/react/style/css/currency.css" />
+    <link rel="stylesheet" href="__SUBJECT__/react/style/font/fonts.css" />
+
+
+  </head>
+  <body>
+    <main id="example">
+      
+    </main>
+    <script type="text/javascript" src="__SUBJECT__/react/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__SUBJECT__/react/js/common.js"></script>
+    <script type="text/javascript">
+
+      function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+          var str = url.substr(1);
+          strs = str.split("&");
+          for(var i = 0; i < strs.length; i ++) {
+            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+          }
+        }
+        return theRequest;
+      }
+
+      var Requests = new Object();
+      Requests = GetRequest();
+      var datasource="__PUBLIC__";
+      var subject="__SUBJECT__";
+      var backUrl=decodeURIComponent(Requests["backUrl"]);
+      var is_share="{$is_share}";
+      var localAreaCode = "{$localAreaCode}";
+      $(function(){
+       // console.log(is_share);
+        if(is_share == "1"){
+          $(".head-right").hide();
+        }
+        
+
+      });
+
+    </script>
+    <script type="text/javascript" src="__SUBJECT__/react/js/unit.js"></script>
+
+    <script type="text/javascript" src="__PUBLIC__/js/performance.js" async defer></script>
+    
+</body>  
+</html>

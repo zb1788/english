@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="wap-font-scale" content="no">
+        <meta charset="UTF-8">
+        <title>英语同步练</title>
+        <link rel="stylesheet" href="__SUBJECT__/css/currency.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/boxing.css" />
+        <link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+        <link rel="stylesheet" href="__PUBLIC__/css/layer.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/require.js" ></script>
+        <style>
+            #wrapper {top: 85px;}
+        </style>
+    </head>
+	<body>
+		<main>
+			<header class="head border-nav">
+				<a class="head-left"><i class="icon-back"></i>返回</a>
+				<a class="head-right" href="javascript:void(0);">生词本</a>
+				<h1 class="title"></h1>
+			</header>
+			<div class="topH4">
+				<span class="fl mL10"><i class="icon-clock icon-l"></i>已用时：<font id="timer">00:00</font></span>
+				<span class="fr mR10"><font class="redFont" id="cur"></font>/<font id="count"></font></span>
+			</div>
+			<section>
+				<div id="wrapper">
+					<div id="scroller">
+						<div id="iScroll" class="iScroll bWhite">
+				        	<div class="bd" id="iScroll-bd">
+					            
+				        	</div>
+					    </div>
+					</div><!--end scroller-->
+				</div><!--end wrapper-->
+				<div id="tips"></div>
+			</section>
+			<a class="prev" id="prev" style="width:50%;">上一题</a>
+        	<a class="next" id="next" style="width:50%;">下一题</a>
+		</main>
+		<!--遮罩的代码-->
+		<div id="over" class="over"></div>
+	    <div id="layout" class="layout">
+	    	<img src="__SUBJECT__/img/2013112931.gif" alt="" />
+	    </div>
+	    <style>
+			.over {
+	            display: block;
+	            position: absolute;
+	            top: 0;
+	            left: 0;
+	            width: 100%;
+	            height: 100%;
+	            background-color: #f5f5f5;
+	            opacity:0.5;
+	            z-index: 1000;
+	        }
+	        .layout {
+	            display: block;
+	            position: absolute;
+	            top: 40%;
+	            left: 40%;
+	            width: 20%;
+	            height: 20%;
+	            z-index: 1001;
+	            text-align:center;
+	        }
+		</style> 
+	</body>
+	<script type="text/javascript">
+	    var subjectsource="__SUBJECT__";
+        var Requests = new Object();
+        var page=0;
+        //localstoreage
+        var storage=window.localStorage;
+
+        //添加数据
+        var errorarr=[];
+        var rightarr=[];
+        var arr=[];
+        var arrids=[];
+        
+        // storage.setItem("homework",encodeURI(JSON.stringify(homework)));
+        // window.location.href=url;
+        var ratenum=0;
+	    require.config({
+	    　paths: {
+	　　　　　　"reciteword": "__SUBJECT__/js/reciteword",
+	            "touchslide": "__PUBLIC__/js/TouchSlide.1.1",
+	            "iscroll":"__PUBLIC__/js/iscroll-lite",
+                "layer":"__PUBLIC__/js/layer",
+	　　　　},
+            shim: {
+                "iscroll": {
+                    exports:"IScroll"
+                },
+                "touchslide": {
+                    exports:"touchslide"
+                },
+                "layer": {
+                    exports:"layer"
+                }
+            },
+            waitSeconds: 0
+	    });
+	    require(["reciteword",'touchslide','iscroll','layer'], function(reciteword,touchslide,IScroll,layer){
+            if(!window.localStorage){
+                setTip("您的手机不支持预览功能");
+                return false;
+            }
+            storage=window.localStorage;
+            storage.removeItem("jp_recite");
+            storage.removeItem("jp_recite_rate");
+            Requests = GetRequest();
+            $(function(){
+                reciteword.initReciteList("getReciteQuestionsData",$("#iScroll-bd"));
+                //设置标题
+                $(".title").text(decodeURI(Requests["ks_short_name"]));
+                //这是时间
+                setTimer(0,$("#timer"));
+                //滑动问题
+                new IScroll("#wrapper",{
+                    momentum:true,
+                    click:true 
+                });
+                $("#wrapper").resize();
+                var playlist=mp3.getPlaylist();
+                TouchSlide({ 
+                    slideCell:"#iScroll",
+                    effect:"left",
+                    prevCell : '#prev',
+                    nextCell : '#next',
+                    pnLoop:false,
+                    switchLoad:"_src",
+                    startFun:function(i){
+                        $("#cur").text(i+1);
+                        try{
+                              UXinJSInterfaceSpeech.stopAudio();  
+                        }catch(e){
+
+                        }
+                        $(".cPlay.iplay").addClass("istop").removeClass("iplay");
+
+                        //判断是否已经出现过了
+                        var isvisiable=$(".recite").eq(i).attr("isvisiable");
+                        if(isvisiable!="1"){
+                            $(".recite").eq(i).empty();
+                            $.ajax({
+                                type:'GET',
+                                url:"getReciteQuestion",
+                                data:{ks_code:Requests["ks_code"],index:i},
+                                dataType:'json',
+                                async:false,
+                                context:$('body'),
+                                success: function(data){
+                                    //遮罩消失
+                                    hideloading();
+                                    if($(".recite").eq(i).attr("isvisiable")!="1"){
+                                         setPageContent(data,$(".recite").eq(i));
+                                         $(".recite").eq(i).attr("isvisiable","1");
+                                    }
+                                   
+                                },
+                                error:function(xhr,type){
+
+                                }
+                            })
+                        }
+                        //加载下一页
+                        if(i<($(".recite").length-1)){
+                            var isvisiable=$(".recite").eq(i+1).attr("isvisiable");
+                            if(isvisiable!="1"){
+                                $(".recite").eq(i+1).empty();
+                                $.ajax({
+                                    type:'GET',
+                                    url:"getReciteQuestion",
+                                    data:{ks_code:Requests["ks_code"],index:i+1},
+                                    dataType:'json',
+                                    async:true,
+                                    context:$('body'),
+                                    success: function(data){
+                                        //遮罩消失
+                                        hideloading();
+                                        if($(".recite").eq(i+1).attr("isvisiable")!="1"){
+                                             setPageContent(data,$(".recite").eq(i+1));
+                                             $(".recite").eq(i+1).attr("isvisiable","1");
+                                        }
+                                       
+                                    },
+                                    error:function(xhr,type){
+
+                                    }
+                                })
+                            }
+                        }
+                        $("#wrapper").resize();
+                        //设置播放列表
+                        var array=[];
+                        array.push(playlist[i]);
+                        mp3.setPlaylist(array);
+                        mp3.setParentobj($("a.btnYuan.radius100 i").eq(i));
+
+                    },
+                    endFun:function(i){
+                        page=i;
+                        //mp3.setPlaylist()
+                        //高度自适应
+                        var div= $("#iScroll").find(".con").eq(i);
+                        var height=window.screen.height;
+                        if(div.height()<height){
+                            div.css("height",height+"px");
+                        }
+                        //
+                        $("#scroller").css("transform","translate(0px, 0px) translateZ(0px)");
+                        $("#wrapper").resize();
+                        //判断如果是听音的话就需要进行自动播放
+                        var cplaylen=$(".con.recite").eq(i).find(".cPlay").length;
+                        if(cplaylen>0){
+                            var obj=$(".con.recite").eq(i).find(".playWord");
+                            var status=$(obj).find(".cPlay").hasClass("iplay");
+                            var exitstatus=isExitsFunction("UXinJSInterfaceSpeech.playAudio");
+                            if(exitstatus==-1){
+                                setTip("请下载优教信使客户端");
+                            }else if(exitstatus==1){
+                                if(status){
+                                    $(obj).find(".cPlay").addClass("istop").removeClass("iplay");
+                                    try{
+                                        UXinJSInterfaceSpeech.stopAudio();  
+                                    }catch(e){
+                                        setTip("请升级到最新的客户端");
+                                    }
+                                }else{
+                                    $(obj).find(".cPlay").addClass("iplay").removeClass("istop");
+                                    mp3.setUse(0);
+                                    mp3.setPlayliststyle(0);
+                                    mp3.playWordList(0);
+                                }
+                            }else{
+                                setTip("使用最新的客户端进行播放");
+                            }
+                        }
+                    }
+                });
+                //设置总页数
+                $("#count").text($(".recite").length);
+                //返回按钮的事件
+                $(".head-left").click(function(){
+                    Requests = GetRequest();
+                    layer.open({
+                        anim: 'up'
+                        ,style: 'border:none; color:#666;'
+                        ,content:"您放弃本次作答吗？"
+                        ,btn: ['继续', '放弃']
+                        ,yes: function(index){
+                            //设置放弃标志
+                            layer.closeAll();
+                        }
+                        ,no: function(index){
+                           $.ajax({
+                                type:'GET',
+                                url:'../User/setUserReciteOver',
+                                context:$('body'),
+                            });
+                           try{
+                                  UXinJSInterfaceSpeech.stopAudio();  
+                            }catch(e){
+
+                            }
+                            window.location.href=Requests["urlCallBack"];
+                        }          
+                    });
+                    
+                });
+                //性能数据
+                perface();
+                //生词本跳转
+                $(".head-right").click(function(){
+                    var Requests = new Object();
+                    Requests = GetRequest();
+                    var Requests = new Object();
+                    Requests = GetRequest();
+                    layer.open({
+                        anim: 'up'
+                        ,style: 'border:none; color:#666;'
+                        ,content:"查看生词本将导致本地作答失效，建议您提交之后再去查看"
+                        ,btn: ['继续', '放弃']
+                        ,yes: function(index){
+                            layer.closeAll();
+                           //window.location.href="../Word/readchapter?ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"];
+                        }
+                        ,no: function(index){
+                            $.ajax({
+                                type:'GET',
+                                url:'../User/setUserReciteOver',
+                                context:$('body')
+                            });
+                            try{
+                                  UXinJSInterfaceSpeech.stopAudio();  
+                            }catch(e){
+
+                            }
+                           window.location.href="../User/vocabulary?callBackUrl=Word/reciteword&ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"]+"&ks_short_name="+Requests["ks_short_name"];
+                           
+                        }          
+                    });
+                    
+                })
+            })
+	    });
+	</script>
+</html>

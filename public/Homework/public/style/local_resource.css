@@ -1,0 +1,85 @@
+@charset "gb2312";
+
+/*zxj*/
+
+.BredFon { color: #f60; font-weight: bold; font-family: Arial, Microsoft YaHei; padding: 0 2px; }
+.search_yy{ display:inline-block;}
+.sub_dh{ height:35px; overflow:hidden;}
+/*table变色*/
+.table_odd {  margin-top:10px; text-align: center; border-collapse: collapse; border-spacing: 0; background: #fff; /*border:1px solid #cceaff; */ }
+.table_odd td { white-space: normal; word-break: break-all; border-bottom: 1px solid #f6f6f6; height: 35px; line-height: 35px; overflow: hidden; font-size:14px; padding: 0 6px; }
+.table_odd td.bt{ font-weight:bold; font-size:15px;}
+.table_odd .tit2 { height: 40px; line-height: 40px; background: #cceaff; color: #333; font-weight:bold; cursor: default; padding: 0 6px;  }
+.table_odd .tit2 td { border: none; font-size:15px;}
+
+.table_odd.qk2 td { line-height: 26px; height: 40px; font-size: 13px; }
+.table_odd.qk2 .tit2 { height: 40px; line-height: 40px; }
+.table_odd.parent td { line-height: 26px; height: 40px; font-size: 13px; }
+.table_odd.parent .tit2 { height: 40px; line-height: 40px; background: #f8f8f8; }
+
+.even{ background:#f4f4f4;}/* 偶数行*/
+.odd{ background:#fff;}/*奇数行 */
+.table_odd tr:hover{ background:#f0f9ff; cursor:pointer;} 
+
+.jiacu{font-weight:bold; font-size:14px;}
+
+.rong_main{ margin-top:10px;}
+.rong_main h1{ font:16px/ 30px "微软雅黑"; background:#f7f7f7;}
+.rong_main h1 span{ float:right;}
+.rong_main h1 span,.rong_main h1 span a{ font-size:12px;}
+.rong_main h1 img{ margin-right:3px;}
+
+.rong_left{ width:49%; float:left;}
+.rong_right{ width:49%; float:right;}
+
+.rong_tj{ background:#f7f7f7; border:1px solid #eee;  padding:10px 15px; height:30px; }
+.rong_tj ul li{ float:left; width:30%; font-size:14px; line-height:30px;  font-weight:bold;}
+.rong_tj ul li span.fr a.btn_blue{ padding:0 15px;}
+.rong_tj ul li span.fr{ margin-top:0px;}
+.rong_tj ul li span a{ font-size:12px; font-weight:normal;}
+
+.jinduBar { width:120px; font-size:11px; color:#777; position:absolute; top:7px; left:80px;}
+.jinduBar ul {width:120px; background-color:#8a8a8a; border-radius:7px; height:14px; line-height:14px;  display:block; position:relative;}
+.jinduBar ul span {background-color:#23c973; display:block; height:14px; line-height:14px; border-radius:7px; width:0%; transition: width 1s ease-in-out;  }
+font.spaceF {position:absolute; width:100%; text-align:center; top:0; left:0; color:#fff; display:block;}
+.blueFon,.yellowFon {color:#168acc;font-family:Arial, Microsot YaHei;}
+.yellowFon {color:#f80;}
+.greenFon {color:#12b360;}
+
+/*上传至本地资源弹出层20151221*/
+.sc_bzy{ margin:20px 30px 5px 30px; }
+.sc_bzy p{ line-height:25px; padding:0px 0 10px 20px; }
+.tanchu_tj{ text-align:center; margin-top:10px;}
+.pop h3{  font: bold 14px/30px "微软雅黑"; border-bottom:1px solid #efefef; margin-bottom:10px; background:#f7f7f7; text-indent:1em;}
+
+/*上传至本地资源弹出层end 20151221*/
+/*批量添加课程目录弹出层20151222*/
+.batch_add{ margin:20px 30px 20px 30px; }
+.batch_add h3 select{ width:30%; height:25px;}
+.batch_add p{ line-height:25px; padding:0px 0 10px 20px; }
+.batch_add ul { padding-bottom:15px; }
+.batch_add li{ width:33%; float:left;   }
+.batch_add li label{ background:#; padding:2px 5px;  margin:0 1%;}
+/*批量添加课程目录弹出层end 20151222*/
+
+/*20151230 add 上传资源*/
+.resource_load,.check_main{ margin:20px 30px ; }
+.check_wj{ }
+.resource_load p，.check_main p{ line-height:25px; padding:0px 0 10px 20px; }
+.check_wj input{ margin-right:15px;}
+.pop h4{  font: bold 16px/30px "微软雅黑"; margin-top:15px;}
+.check_main p{ color:#999;}
+.textBox {background:#fff;height:26px; line-height:26px; border:1px solid #d0d0d0; padding:0 5px; width:170px; color:#555;}
+
+.zy_form{ margin-top:15px; background:#f9f9f9; padding:10px;}
+.zy_form p{ margin:5px 0;}
+
+input[type="file"] {
+		position:absolute;
+		bottom:30px;
+		right:10px;
+		padding:0 5px;
+		cursor:pointer;
+		opacity:0; }
+.zy_mid p{ margin:10px 30px; line-height:25px; }
+.zy_mid p label{ margin-right:20px;}

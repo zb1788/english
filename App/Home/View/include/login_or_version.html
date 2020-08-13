@@ -1,0 +1,66 @@
+<!--弹出层-->
+<div id="login" class="inputBox">
+<div class="nid" style="display:none" id="roleDiv" phonenum="">
+    	<ul id="roleList">
+        	<li><a href="#">13503867601</a></li>
+            <li><a href="#">张布丁的家长</a></li>
+            <li><a href="#">18638190727</a></li>
+            <li><a href="#">张布丁的家长</a></li>
+		</ul>
+    </div>
+    <div class="tcc_top close"><a href="javascript:void(0)" class="fr" onclick = "showOrHide('login', 'hide')"></a></div>
+    <h2 class="tab"><a href="javascript:;" id="teacher">教师</a><a href="javascript:;" id="student">学生</a><a href="javascript:;" style="margin-right:0;" id="parent">家长</a></h2>
+    <input type="hidden" id="loginUsertype" name="loginUsertype"/>
+    <div class="loginBg">
+        <p class="bor">
+            <label class="user"></label>
+            <input type="text" id="inputname" name="inputname" class="textbox1" placeholder="用户名" value="用户名" onfocus="clearusername();focuss(this);" onblur="blurr(this)" onkeyup="clearusername();" onchange="clearusername();" />
+            <input type="hidden" name="username" id="username"/>
+        </p>
+        <p class="bor">
+            <label class="password"></label>
+            <input type="password" placeholder="密　码"  id="pwd" name="pwd" class="textbox1" onfocus="focuss(this);" onblur="blurr(this)" />
+        </p>
+       <p class="style1">
+           <select id="area" onchange="selectchange();"></select>
+        </p>
+         <p class="bor" style="width:120px;float:left;"><label class="check_code"></label><input type="text" placeholder="验证码" name="validateCode" id="validateCode" class="textbox1" style="width:50px;" maxlength="4" onfocus="focuss(this);" onblur="blurr(this);"></p>
+         <span class="yanz"><img src="{:U('Home/Public/verify_c')}" title="点击刷新" onclick="re_verifyimg();" id="verifycode"></span>
+        <div class="getKey">
+            <input type="checkbox" value="1" id="savepass"/>&nbsp;记住密码　　
+            <a href='javascript:;' id="findpwd" onclick = "findpwd();" class="blue" >找回密码</a>
+        </div>
+        <p class="mt20 qk2">
+            <input type="button" value="登&nbsp;录"  class="loginBtn" id="loginbuttion" onclick="tologin();"/>
+            <input type="button" class="greenBtn" value="注&nbsp;册" onclick="register();"/>
+        </p>
+    </div>
+
+</div>
+<div id="top" class="topdiv">
+    <div class="tcc_top">
+        <a href="javascript:void(0)" class="fr" onclick="showOrHide('top', 'hide')"></a>为了更好同步你的学习，请选择教材：
+    </div>
+    <div class="tcc_left">
+        <ul>
+            <volist name="grade_info" id="grade">
+                <li><a href="javascript:;" gradeid="{$grade.id}">{$grade.name}</a></li>
+            </volist>
+        </ul>
+    </div>
+    <div class="tcc_right">
+        <div class="tcc_xueqi">
+            
+        </div>
+        <div class="tcc_banben">
+            <ul id="tcc_banben">
+
+            </ul>
+            <div class="clearfix"></div>
+            <div class="btnCon tac">
+                <a href="javascript:set_version_sumbit();" id="bbBtn" gradeid="{$grade_info[0].id}" class="aBtn none okBtn">确定</a>&nbsp;<a href="javascript:void(0)" onclick="showOrHide('top', 'hide')" class="aBtn none bgc">取消</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="below" class="belowdiv"></div>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="__PUBLIC__/css/fonts.css" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__/css/nav.css" rel="stylesheet">
+	<link href="__PUBLIC__/css/style.css" rel="stylesheet">
+</head> 
+<body>
+<header>
+    <div class="l fl"><a href="{:U('wordstudy/index')}"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">学单词</div>
+    <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+                <li><a href="{:U('index/wordbook')}"><i class="icon-heart"></i><font class="wordcount">{$wordbcount}</font></a></li>
+                <li><a href="{:U('index/record')}"><i class="icon-list-alt"></i><font class="recordcount">{$recordcount}</font></a></li>
+                <li><a href="{:U('index/index')}"><i class="icon-evil"></i>学习中心</a></li>
+                <li><a href="{:U('index/course')}"><i class="icon-pencil-square"></i><b>课程设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <li><a href="wordbook.html"><i class="icon-heart"></i>240</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>345</a></li>
+                <li><a href="#"><i class="icon-evil"></i>纯洁的微笑</a></li>
+            </ul>
+        </div>
+    </div> -->
+</header>
+
+<section class="wordbook">
+    <div class="wbBtn"><p>Until 1 My classroom</p><p>3/15</p></div>
+    <div class="model bLine"><span><a href="{:U('wordstudy/image')}"><i class="icon-picture-in-picture"></i>图文模式</a></span><span><a href="#" class="cur"><i class="icon-reorder"></i>列表模式</a></span></div>
+    <ul class="wb bWhite iStudy">
+        <li><a href="#"><p class="icon"><i class="icon-volume-up"></i></p><p><span>vegetable</span><span>[ˈvedʒtəbl]</span><span>n.蔬菜;</span></p></a><p class="iBtn"><a href="#" class="aBtn fav cur"><i class="icon-favorite"></i>取消</a></p></li>
+        <li><a href="#" class="active"><p class="icon"><i class="icon-volume-up"></i></p><p><span>vegetable</span><span>[ˈvedʒtəbl]</span><span>n.蔬菜;植物</span></p></a><p class="iBtn"><a href="#" class="aBtn fav cur"><i class="icon-favorite"></i>取消</a></p></li>
+        <li><a href="#"><p class="icon"><i class="icon-volume-up"></i></p><p><span>vegetable</span><span>[ˈvedʒtəbl]</span><span>n.蔬菜;植物;生活</span></p></a><p class="iBtn"><a href="#" class="aBtn fav cur"><i class="icon-favorite"></i></a></p></li>
+        <li><a href="#"><p class="icon"><i class="icon-volume-up"></i></p><p><span>vegetable</span><span>[ˈvedʒtəbl]</span><span>n.蔬菜;植物;生活呆板</span></p></a><p class="iBtn"><a href="#" class="aBtn fav"><i class="icon-favorite"></i>收藏</a></p></li>
+        <li><a href="#"><p class="icon"><i class="icon-volume-up"></i></p><p><span>vegetable</span><span>[ˈvedʒtəbl]</span><span>n.蔬菜;植物;生活呆板的人</span></p></a><p class="iBtn"><a href="#" class="aBtn fav"><i class="icon-favorite"></i>收藏</a></p></li>
+        <li><a href="#"><p class="icon"><i class="icon-volume-up"></i></p><p><span>vegetable</span><span>[ˈvedʒtəbl]</span><span>n.蔬菜;植物;生活呆板的人</span></p></a><p class="iBtn"><a href="#" class="aBtn fav"><i class="icon-favorite"></i>收藏</a></p></li>
+        <li><a href="#"><p class="icon"><i class="icon-volume-up"></i></p><p><span>vegetable</span><span>[ˈvedʒtəbl]</span><span>n.蔬菜;植物;生活呆板的人</span></p></a><p class="iBtn"><a href="#" class="aBtn fav"><i class="icon-favorite"></i>收藏</a></p></li>
+    </ul>
+    <div class="boxCon"><a href="#" class="btn bGreen">背单词</a></div>
+</section>
+
+
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>  
+<script src="__PUBLIC__/js/main.js"></script>
+</body>
+</html>

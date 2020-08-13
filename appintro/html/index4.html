@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<title></title>
+		<!--<link rel="stylesheet" href="../css/iscroll.css" />-->
+		<link rel="stylesheet" href="../css/responsive.css"/>
+		<link rel="stylesheet" href="../css/currency.css" />
+		<link rel="stylesheet" href="../font/fonts.css" />
+		<script type="text/javascript" src="../js/iscroll-lite.js" ></script>
+		<script type="text/javascript" src="../js/demoUtils.js" ></script>
+		<script type="text/javascript" src="../js/TouchSlide.1.1.js" ></script>
+<style>
+	body {background: #fcfcfc;}
+	/*.mui-media-body h3{margin-right: 50px;}*/
+</style>
+</head>
+<body>
+<main>
+<header class="head">
+			<a class="head-left" href="javascript:UXinJSInterface.popTheController();"><i class="icon-back"></i>返回</a>
+			<h1 class="title">生字听写</h1>
+	        <!-- <a class="head-right">分享</a> -->
+</header>
+	<!--页中-->
+<section>
+   <div class="section01">
+        <div class="leftTitle">
+			<img src="../images/title_04.png" alt=""/>
+		</div>
+
+	    <div class="rightLesson">
+			<img src="../images/lessonIcon_04.png" alt=""/>
+		</div>
+   </div>
+	<div class="hx"></div>
+	<div class="section02">
+        <div class="title02">
+			<img src="../images/title_002.png" alt=""/>
+		</div>
+	</div>
+	<div class="contentInfo04">
+		<div class="topTitle">
+			<h4><span>生字学习so easy “5步”教会你读 会写 还会用</span></h4>
+		</div>
+       <div class="contentList04">
+		   <ul>
+			   <li><img src="../images/iconSmall.png" alt=""/>
+				   <span><b>认：&nbsp;</b>看动画片牢记笔画笔顺</span>
+			   </li>
+			   <li><img src="../images/iconSmall02.png" alt=""/>
+				   <span><b>听：&nbsp;</b>听发音，掌握准确读音</span>
+			   </li>
+			   <li><img src="../images/iconSmall03.png" alt=""/>
+				   <span><b>读：&nbsp;</b>跟读，读准字音，练习发音</span>
+			   </li>
+			   <li><img src="../images/iconSmall04.png" alt=""/>
+				   <span><b>写：&nbsp;</b>认清字形，正确读写</span>
+			   </li>
+			   <li><img src="../images/iconSmall05.png" alt=""/>
+				   <span><b>用：&nbsp;</b>用字组词，掌握用法，理解字义</span>
+			   </li>
+		   </ul>
+	   </div>
+	</div>
+</section>
+	<!--页底-->
+<footer>
+    <div class="footerList">
+		<ul>
+			<li><img src="../images/bigImg04.png" alt=""/></li>
+			<li><img src="../images/bigImg05.png" alt=""/></li>
+			<li><img src="../images/bigImg06.png" alt=""/></li>
+			<li><img src="../images/bigImg07.png" alt=""/></li>
+		</ul>
+	</div>   
+</footer>
+</main>
+<script type="text/javascript" src="../js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$(".head-right").click(function(){
+    		var url = document.location.toString();
+	　　　　var arrUrl = url.split("//");
+	　　　　var start = arrUrl[1].indexOf("/");
+	　　　　var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
+			var arr=relUrl.split("/");
+			var url=arr.pop();
+    		//需要进行ajax的请求
+    		$.getJSON('../../Subject/Api/getLocation',function(data){
+				var title = '《生字听写》完整收录课后生字词，帮助家长高效辅导孩子！';
+	    		var iconUrl = window.location.protocol+"//"+window.location.host+"/public/public/images/sztx.png";
+			    var pageUrl = window.location.protocol+"//"+window.location.host+"/share/html/index4.html?localareacode="+data.localareacode+"&code="+data.code;
+			    var content="完整收录课后生字词，帮助家长辅导孩子听写，让孩子记忆生字快一倍！智能听写辅导，简单高效！";
+			    try{
+			        window.UXinJSInterfaceSpeech.webShare(title,iconUrl,pageUrl,content);
+			    }catch(e){
+			        
+			    }
+    		})
+   		 })
+    });
+</script>
+</body>
+</html>

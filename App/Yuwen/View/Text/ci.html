@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<meta name="wap-font-scale" content="no">
+		<title>语文快乐学</title>
+		<link rel="stylesheet" href="__PUBLIC__/css/ywcurr.css" />
+		<link rel="stylesheet" href="__PUBLIC__/font/fonts.css" />
+		<link rel="stylesheet" href="__PUBLIC__/css/iscroll.css" />
+		<script type="text/javascript" src="__PUBLIC__/js/zepto.min.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__/js/demoUtils.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__/js/iscroll-lite.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__/js/ywcommon.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__/js/text.js" ></script>
+<style>
+	#wrapper {top: 45px; bottom:0px;}
+</style>
+
+</head>
+<body>
+<main>
+<header class="head border-nav">
+			<a class="head-left" href="javascript:goBack();"><i class="icon-back"></i>返回</a>
+			<h1 class="title"></h1>
+			<a class="head-right" onclick="collect();">收藏</a>
+					</header>
+		<section>
+<div id="wrapper" class="backGef">
+	<div id="scroller">
+		<div class="pad10">
+		<div class="cyxq pad10 backGfff">
+				<div class="clear marBottom10">
+				</div>
+				<h3><span class="greenFont">拼音：</span></h3>
+				<h4>【<font id="py" onclick="playCi();"></font>】<i onclick="playCi();" class="icon-uniE60C greenFont"></i></h4>
+		</div>
+		</div>
+		<div class="pad10" style="padding-top: 0;">
+			<div class="pad10 backGfff" id="ciyu">
+				<div id="tongyici">
+				<h3 id="ci"><span class="greenFont">同义词：</span></h3>
+				<dl class="ywCi clear" >
+				</dl>
+				</div>
+				<div id="fanyici">
+				<h3><span class="greenFont">反义词：</span></h3>
+				<dl class="ywCi clear" >
+				</dl>
+				</div>
+			</div>
+		</div>
+
+	</div><!--end scroller-->
+</div><!--end wrapper-->
+</section>
+
+</main>
+<div class="redFont" style="display:none;">1</div>
+<div class="total" style="display:none;">2</div>
+<div id="tips"></div>
+	<script type="text/javascript">
+var respath = '__RESOURCE__';
+var baseNetUrl = respath;
+var recordNetUrl = respath+'/recordwav/';
+var kewenNetUrl = respath+'/uploadsyw/kewenvoice/';
+
+var ks_code = GetQueryString('ks_code');
+var wordinfo = GetQueryString('wordinfo');
+var index = GetQueryString('index');
+var backurl = GetQueryString('backurl');
+var isback = GetQueryString('isback');
+var resource = "__RESOURCE__";
+var ciJson;
+var myScroll;
+var mp3;
+var mode = 1;
+var downloadJson;
+
+getCiInfo(wordinfo);
+	myScroll = new IScroll('#wrapper', {momentum:true,click:true });
+function goBack(){
+	if(isback == 1){
+		//特殊情况，只有从生词进入词语页面的，返回要用loction，因为要记住index,不能history.go(-1)
+		location.href=backurl+"?ks_code="+ks_code+'&index='+index;
+	}else{
+		history.go(-1);
+	}
+}
+
+
+function playCi(){
+	var fy = $('#py').siblings('i').attr('fy');
+	var arr= new Array(); //定义一数组
+	arr=fy.split("#"); //字符分割
+	var json = '[{"fy":[';
+	for (i=0;i<arr.length ;i++ )
+	{
+		json += '"'+arr[i]+'",';
+	}
+	json = json.trimStr(',');
+    json += ']}]';
+    json = eval('('+json+')');
+
+    playErrNum = 0;
+    mp3 = new player(json,'word');
+    mp3.init();
+    mp3.setLoop(1);
+    mp3.playWord();
+}
+
+function downloadAudio(){
+    mp3 = new player(eval('('+downloadJson+')'),'download');
+    mp3.downloadList();
+}
+
+function collect(){
+	var word = $('.marBottom10').html();
+	word = word.delHtmlTab();
+	var py = $('#py').html();
+	var fy = $('#py').siblings('i').attr('fy');
+	$.get('../Text/addUserWord',
+		{
+			ran:Math.random(),
+			ks_code:ks_code,
+			word:word,
+			py:py,
+			fy:fy,
+			type:'add'
+		},
+		function(){
+			setTip("已加入复习本");
+		});
+}
+</script>
+
+</body>
+</html>

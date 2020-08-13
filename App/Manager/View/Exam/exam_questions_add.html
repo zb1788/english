@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑模版</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/js/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/uploadify/jquery.uploadify.min.js"></script>  
+<script type="text/javascript"  src="__PUBLIC__/js/jquery.form.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/ue/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/ue/ueditor.all.min.js"> </script>  
+<script type="text/javascript" src="__PUBLIC__/js/myueditor.js"></script>
+</head>
+<body>
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="p5">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+      	<if condition="$classid neq 0">
+		<tr>
+			<td width="22%" height="34" align="right" class="td_right">输入框：</td>
+			<td width="78%">&nbsp;&nbsp;
+				<input name="ques"  type="radio"  value='1' <if condition="$examdaid eq 1 or $examdaid eq 0">checked='checked'</if>/>选择题&nbsp;
+				<input type="radio" name="ques"   value='2' <if condition="$examdaid eq 2">checked='checked'</if>  <if condition="$classid neq 1">style='display:none;'</if>/><font <if condition="$classid neq 1">style='display:none;'</if>>填空题&nbsp;</font>
+				<input type="radio" name="ques"   value='3' <if condition="$examdaid eq 3">checked='checked'</if>/>判断题&nbsp;
+				<input type="radio" name="ques"   value='4' <if condition="$examdaid eq 4">checked='checked'</if>  <if condition="$classid neq 2">style='display:none;'</if>/><font <if condition="$classid neq 2">style='display:none;'</if>>排序题&nbsp;</font> 
+			</td>
+		</tr>
+      	<tr>
+	        <td align="right" class="td_right">小题分值：</td>
+	        <td><input type="text" class="input-text lh30" size="5" id="score" value="{$score}" />分</td>
+	     </tr>
+	 	</if>
+		<tr>
+	        <td align="right" class="td_right">小题朗读次数：</td>
+	        <td><input type="text" class="input-text lh30" size="5" id="repeat" value="{$repeate}" />遍</td>
+	   	</tr>
+      	<tr>
+	        <td align="right" class="td_right">前停顿秒数：</td>
+	        <td><input type="text" class="input-text lh30" size="5" id="bstoptime" value="{$bstoptime}"/></td>
+      	</tr>
+       	<tr>
+	        <td align="right" class="td_right">后停顿秒数：</td>
+	        <td><input type="text" class="input-text lh30" size="5" id="astoptime" value="{$astoptime}"/></td>
+      	</tr>
+		<tr>
+	        <td align="right" class="td_right">试题题干：</td>
+	        <td><script id="editor" type="text/plain" style="width:650px;height:150px;">{$tcontent}</script></td>
+      	</tr>
+		<tr>
+			<td align="right" class="td_right">题干听力材料：</td>
+			<td><textarea cols="60" rows="3" id="vcontent">{$vcontent}</textarea></td>
+		</tr>
+	  	<tr>
+	  	  	<td align="right">题干发音：</td>
+		  	<td align="left">
+			  	<select name="vvoice" class="select" id="tvoiceid">
+					<option value="1">中男Liang</option>
+					<option value="2">中女Hui</option>
+					<option value="3">美女Kate</option>
+					<option value="4">美女Salli</option>
+					<option value="5">美男Joey</option>
+					<option value="6">英女Bridget</option>
+					<option value="7">英男Brian</option>
+		        </select>
+	      	</td>
+	  </tr>
+	  <tr style="display:none;">
+	  	<td align="right">听力内容发音：</td>
+	    <td align="left">
+	    	<select name="tvoice" class="select" id="vvoiceid">
+	    		<option value="1">中男Liang</option>
+	            <option value="2">中女Hui</option>
+	            <option value="3">美女Kate</option>
+	            <option value="4">美女Salli</option>
+				<option value="5">美男Joey</option>
+	            <option value="6">英女Bridget</option>
+				<option value="7">英男Brian</option>
+	        </select>
+		</td>
+	  </tr>
+      <tr>
+        <td align="right"></td>
+        <td align="left">
+        	<input type="button" id="save" name="save" class="btn btn82 btn_save2" value="保存" />&nbsp;
+        	<input type="button" id="back" name="back" class="btn btn82 btn_save2" value="返回" />
+		</td>
+      </tr>
+    </table>
+    </td> 
+  </tr> 
+</table>
+</div> 
+
+<script type="text/javascript">  
+var ue = UE.getEditor('editor');//ueditor插件
+$(function(){
+	$.ajaxSetup({async:false});
+	
+	$("#vvoiceid").val({$vvoiceid});
+	$("#tvoiceid").val({$tvoiceid});
+	$("#back").click(function(){
+		location.href="unitexam_questions?ran="+Math.random()+"&examsid="+{$examsid};
+	});
+	
+	$("#save").click(function(){
+		editExamPaper();
+	});
+	
+});
+
+
+function editExamPaper()
+{ 
+	$.ajaxSetup({async:false});
+	var questype=$("input[name='ques']:checked").val();
+	var examsid = {$examsid};
+	var classid={$classid};
+	var score = $("#score").val(); 
+	var tcontent=ue.getContent();
+	var bstoptime=$("#bstoptime").val();
+	var astoptime=$("#astoptime").val();
+	var id = {$id};
+	var vcontent=$("#vcontent").val();
+	var repeat=$("#repeat").val();
+	var vvoiceid=$("#vvoiceid").val();
+	var tvoiceid=$("#tvoiceid").val();
+	//判断
+	if(classid!='0'){
+		if(score==""){art.dialog.tips("请输入分值");return false;}
+		if(tcontent==""){art.dialog.tips("请输入听力材料");return false;}
+		if(questype==""){art.dialog.tips("请选择题型");return false;}
+	}
+	var closeflag = false; 
+	$.post('../Exam/add_exam_questions',{vvoiceid:vvoiceid,tvoiceid:tvoiceid,repeat:repeat,id:id,classid:classid,examsid:examsid,score:score,questype:questype,vcontent:vcontent,tcontent:tcontent,bstoptime:bstoptime,astoptime:astoptime,random:Math.random()},function(data){
+	    location.href="unitexam_questions?ran="+Math.random()+"&examsid="+{$examsid};
+	}); 
+	return closeflag;
+}
+
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <title>英语同步练</title>
+    <script>
+        var devcetype="{$devcetype}";
+        var learnurl="{:U('Index/learn')}";
+        document.write('<link href="__PUBLIC__/css/test_jquery.mmenu.min.css" rel="stylesheet" type="text/css"> ');
+    </script>
+    
+    <style type="text/css">
+    .signout{ position:absolute; left:0px; top:8px; z-index:1;text-align:left;display:inline;}
+    .signout a{color:#fff; display: block;color: #fff;cursor:pointer;}
+    .signout a span{font-size:18px;vertical-align: middle;}
+    .signout a i{font-size: 33px;vertical-align: middle; margin-right:-8px;}
+    #header a.navicon{ top:0px; left:100%; float:right; margin-left:-35px; margin-top:15px;}
+    </style>
+</head>
+<body >
+<div class="content" id="content">
+    <div id="header">
+        <a class="navicon" href="#menu-left" > </a>
+        <!--<label><a href="#menu-left" ><i class="icon-bars"></i><span class="dian"></span></a></label>-->
+    </div>
+   <!--  <div class="signout">
+            <a href='http://www.czbanbantong.com'>
+            <i class="" ></i><span>返回</span></a></div> -->
+    <div class="nav">
+        <h1>英语同步练</h1>
+    </div>        
+    <div class="user">
+        <div class="face">
+            <p>
+            <img/>
+            </p><span>{$truename}</span></div>
+        <!-- <div class="info">
+            <i></i>&nbsp;
+            <font class="welcome">
+            <if condition="($readwcount eq 0)">Happiness is a choice that requires effort at times
+                <else />你累计背诵了<strong>{$readwcount}</strong>个单词&nbsp;    
+            </if>
+            </font>
+            <i></i> 
+        </div> -->
+        <div class="line"></div>
+        <!-- <div class="number">
+            <span><a href="{:U('index/wordbook')}" class="wordbcount"><i></i><font class="wordcount">{$wordbcount}</font></a></span><span><a href="{:U('index/record')}"><i></i><font class="recordcount">{$recordcount}</font></a></span>
+        </div> -->
+    </div>
+    <div class="iconBox">
+        <ul class="iconCon">
+            <li>
+                <a href="{:U('wordstudy/index')}"><i class=""></i>学单词</a>
+            </li>
+            <li>
+                <a href="{:U('textread/index')}"><i class=""></i>读课文</a>
+            </li>
+            <li>
+                <a href="{:U('wordrecite/index')}"><i class=""></i>背单词</a>
+            </li>
+             <li>
+                <a href="{:U('index/course')}"><i class=""></i>版本设置</a>
+            </li>
+        </ul>
+    </div>
+    <div class="page" id="page" style="display:none;">
+        <nav id="menu-left">
+            <ul>
+                <h2><img >{$truename}</h2>
+                <li><a href="#"><i class=""></i><b>学习中心</b></a></li>
+                <li><a href="{:U('index/course')}"><i class=""></i><b>版本设置</b></a></li>
+                <!-- <li><a href="{:U('index/record')}"><i class=""></i><b>学习记录</b></a></li> -->
+            </ul>
+       </nav> 
+    </div>
+    <div class="ttip"></div>
+    <div class="bBg"></div>
+   
+</div>
+</body>
+<script type="text/javascript">
+    var source="{$logintype}";
+    var ut="{$ut}";
+    var devcetype="{$devcetype}";
+</script>
+<script>
+    document.write('<link href="__PUBLIC__/css/styletest.css" rel="stylesheet" type="text/css">');
+    document.write('<link href="__PUBLIC__/css/fonttest.css" rel="stylesheet" type="text/css"> '); 
+</script>
+<script type="text/javascript" src="__PUBLIC__/js/mui.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/index.js"  async defer></script>
+</html>

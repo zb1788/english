@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<meta name="wap-font-scale" content="no">
+		<title>英语同步练</title>
+		<link rel="stylesheet" href="__ELEARN__css/weike.css" />
+		<link rel="stylesheet" href="__ELEARN__font/fonts.css" />
+		<script type="text/javascript" src="__PUBLIC__/js/require.js" data-main="__ELEARN__/js/main" ></script>
+</head>
+<body>
+<div id="over" class="over"></div>
+	    <div id="layout" class="layout">
+	    <img src="__ELEARN__/images/layout.gif" alt="" />
+</div>
+<main>
+<header class="head border-nav">
+			<a class="head-left" href="/Elearn/index/index?app_id={$app_id}&backUrl={$backUrl}"><i class="icon-back"></i>返回</a>
+			<h1 class="title">{$title}</h1>
+					</header>
+	
+<div class="backGfff mT45">
+	<ul class="splist">
+	<volist name="courselist" id="vo">
+	<eq name="isspecial" value="1">
+		<li videocode="{$vo.video_code}" <gt name="vo.learn_num" value="0">class="ture"</gt>><div class="img pad10"><a href="course_show?app_id={$app_id}&course_id={$vo.id}
+			&title={$title}&backUrl={$backUrl}&version_id={$version_id}&unit_id={$unit_id}&isterm={$isterm}&isunit={$isunit}&course_back=/Elearn/index/course"><span><img src="__RESOURCE__{$vo.pic}"><gt name="vo.learn_num" value="0"><em class="twz">已学习</em></gt></span></a></div>
+			<div class="nr"><p class="textP3"><a href="course_show?app_id={$app_id}&course_id={$vo.id}
+				&title={$title}&backUrl={$backUrl}&version_id={$version_id}&unit_id={$unit_id}&isterm={$isterm}&isunit={$isunit}&course_back=/Elearn/index/course">{$vo.title}</a></p>
+				<p class="btt"><a class="aBtn bBlue" href="course_show?app_id={$app_id}&course_id={$vo.id}
+				&title={$title}&backUrl={$backUrl}&version_id={$version_id}&unit_id={$unit_id}&isterm={$isterm}&isunit={$isunit}&course_back=/Elearn/index/course">学一学</a> </p>
+			</div>
+		</li>
+	
+	<else/>
+	<li <gt name="vo.learn_num" value="0">class="ture"</gt>><div class="img pad10" videocode="{$vo.video_code}" app_id="{$app_id}" version_id="{$version_id}" unit_id="{$unit_id}" course_id="{$vo.id}" videotitle="{$vo.title}" onclick="videoplay(this)"><span><img src="__RESOURCE__{$vo.pic}"><gt name="vo.learn_num" value="0"><em class="twz">已学习</em></gt></span></div>
+			<div class="nr"><p class="textP3" videocode="{$vo.video_code}" app_id="{$app_id}" version_id="{$version_id}" unit_id="{$unit_id}" course_id="{$vo.id}" videotitle="{$vo.title}" onclick="videoplay(this)">{$vo.title}</p>
+				<p class="btt"><a videocode="{$vo.video_code}" app_id="{$app_id}" version_id="{$version_id}" unit_id="{$unit_id}" course_id="{$vo.id}" videotitle="{$vo.title}" class="aBtn bBlue" onclick="videoplay(this)">学一学</a> <gt name="vo.q_num" value="0" ><a class="aBtn bPink" href="/Elearn/question/index?app_id={$app_id}&course_id={$vo.id}
+				&title={$title}&backUrl={$backUrl}&videotitle={$vo.title}&course_back=/Elearn/index/course&version_id={$version_id}&unit_id={$unit_id}&isterm={$isterm}&isunit={$isunit}">练一练</a></gt></p>
+			</div>
+	</li>
+	</eq>
+	</volist>
+	</ul>
+</div>
+
+</main>
+</body>
+</html>
+<script type="text/javascript">
+var pls_url="{$pls_url}";
+var userName = "{$username}";
+var app_moduleid = "{$app_moduleid}";
+var ishttps=document.location.protocol;
+require(['zepto.min','enElearn'],function($){
+	$(function(){
+		hideloading();
+	});
+});
+	function videoplay(obj){
+		var app_id = $(obj).attr('app_id');
+		var version_id = $(obj).attr('version_id');
+		var unit_id = $(obj).attr('unit_id');
+		var course_id = $(obj).attr('course_id');
+		var videotitle = $(obj).attr('videotitle');
+		$.getJSON(ishttps+"//"+pls_url+"/youjiao/doMutiplePlay.do?jsoncallback=?",
+	      {
+	        rcode:$(obj).attr('videocode'),
+	        userName:userName,
+	        filterType:2,
+	        outType:1
+	      },
+	      function(data){
+	      	$.get('saveLearnRecord',{app_id:app_id,version_id:version_id,unit_id:unit_id,course_id:course_id},function(result){
+			      		$.get('/Subject/Public/setUserModuleUnitLog',{ks_code:unit_id,moduleid:app_moduleid,ks_name:videotitle},function(){
+			      			window.location.href= data.jsonList[0].list[0].path;
+			      		});
+			 });
+	      });
+	}
+</script>

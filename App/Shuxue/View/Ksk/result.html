@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="wap-font-scale" content="no">
+    <title>口算卡</title>
+    <link rel="stylesheet" href="__PUBLIC__/css/path/to/font-awesome/css/font-awesome.min.css">
+    <link href="__PUBLIC__/css/ksk.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/font/back.css" rel="stylesheet" type="text/css" />
+    <script src="__PUBLIC__/js/zepto.min.js" type="text/javascript"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style type="text/css">
+        body {
+            background: url(__PUBLIC__/images/ksk/bg.png);
+        }
+
+        header {
+            background: #36a1a0;
+        }
+
+        #tips {
+            background-color: #333;
+            font-size: 14px;
+            display: none;
+            width: 90%;
+            left: 5%;
+            text-align: center;
+            color: #fff;
+            border-radius: 5px;
+            opacity: .82;
+            padding: 10px;
+            position: fixed;
+            top: calc(50% - 60px);
+            z-index: 999;
+        }
+
+        #tips img {
+            vertical-align: middle;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="head">
+        <a href="../Ksk/lists?grade={$grade}&type={$type}&backUrl={$backUrl}" class="head-left">
+            <i class="icon-back"></i>返回</a>
+        <h1></h1>
+    </header>
+    <section>
+        <div class="chengji">
+            <h2>{$str}</h2>
+            <p>
+                <img src="__PUBLIC__/images/ksk/bg_da.png">
+            </p>
+            <span class="star">
+                <for start="0" end="$star">
+                    <i>
+                        <img src="__PUBLIC__/images/ksk/xing02.png">
+                    </i>
+                </for>
+            </span>
+            <div class="clearfix"></div>
+            <h3>用时：{$usetime}秒</h3>
+            <h3>U币：{$ubi}个</h3>
+            <h3>答对：{$right}个 答错：{$wrong}个</h3>
+            <!-- <a class="btn_ye" href="javascript:void(0);">晒成绩</a> -->
+            <a class="btn_qi" href="../Ksk/start?id={$bid}&type={$type}&geshi={$geshi}&grade={$grade}&name={$name}&times={$times}&backUrl={$backUrl}">重新练习</a>
+        </div>
+        <div id="tips"></div>
+    </section>
+
+
+    <script type="text/javascript">
+        var needHideProgress = false;
+        try {
+            UXinJSInterface.hideProgress();
+        } catch (e) {
+            needHideProgress = true;
+        }
+    </script>
+    <script>
+        //晒成绩
+        $(".btn_ye").click(function () {
+
+            var username = '{$username}';
+            var area = '{$localAreaCode}';
+
+            var ilearn = window.location.protocol + '//{$ilearnip}';
+
+            var domain = window.location.host;
+            var url_c = window.location.protocol + '//' + domain + '/Klx/Klxsx/index';
+            var content = '小伙伴们，我在快乐学习-口算卡练习<a href="' + url_c + '" target="_blank">《' + '{$name}' +
+                '》</a>中获得了' + '{$star}' + '颗星,快来向我挑战吧！';
+
+            var classidList = '{$classid}';
+            var truename = '{$truename}';
+            var schoolId = '{$schoolid}';
+
+            var param = {
+                'classidList': classidList,
+                'username': username,
+                'truename': truename,
+                'schoolId': schoolId,
+                'says.content': content,
+                'says.infourl': url_c,
+                "says.windowtype": "1"
+            };
+            $.ajax({
+                type: 'GET',
+                url: ilearn + '/exportInterface/share.action',
+                data: param,
+                dataType: 'jsonp',
+                success: function (data) {
+                    if (data.success == true) {
+                        // art.dialog.alert('分享成功！');
+                        setTip('分享成功！');
+                    } else {
+                        // art.dialog.alert('分享失败！');
+                        setTip('分享失败！');
+                    }
+                },
+                error: function () {
+
+                }
+            });
+
+
+
+
+        });
+
+
+        //提示信息
+        function setTip(content) {
+            var tip = document.getElementById('tips');
+            tip.innerHTML = content;
+            tip.style.display = 'block';
+            setTimeout(function () {
+                tip.style.display = 'none';
+            }, 1000);
+        }
+    </script>
+    <!-- <script src="http://en.czbanbantong.com/Homework/Public/setLog?type=mobile.klxsxmb.result"></script> -->
+</body>
+
+</html>

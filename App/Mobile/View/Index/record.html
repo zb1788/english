@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="__PUBLIC__/css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="__PUBLIC__/css/new_file.css" rel="stylesheet">
+</head>
+
+<body style="overflow:hidden;">
+<header>
+	<div class="l fl"><a href="index.html"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">学习记录</div>
+    <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+                <li><a href="{:U('index/wordbook')}"><i class="icon-heart"></i><font class="wordcount">{$wordbcount}</font></a></li>
+                <li><a href="{:U('index/record')}"><i class="icon-list-alt"></i><font class="recordcount">{$recordcount}</font></a></li>
+                <li><a href="{:U('index/index')}"><i class="icon-evil"></i>学习中心</a></li>
+				<li><a href="{:U('index/course')}"><i class="icon-pencil-square"></i><b>课程设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<notempty name="recordlist">
+<section class="record">
+    <foreach name="recordlist" item="wl">
+        <if condition="($wl.learnword gt 20) or ($wl.learntext gt 4) or ($wl.reciteword gt 15)">
+            <dl class="timeLine pingyu1">
+                <dt><span class="face"><i class="icon-grin"></i></span><span class="date">{$wl.addtimem}月{$wl.addtimed}日</span></dt>
+                <dd><div class="infoBox">
+                    <p>今天你一共学习了
+                        <strong>{$wl.learnword}</strong>个单词，跟读了
+                        <strong>{$wl.learntext}</strong>段课文，同时还听写了
+                        <strong>{$wl.reciteword}</strong>个单词，同时完成了
+                        <strong>{$wl.learnexams}</strong>套试卷。
+                    </p>
+                    <span class="txt"><i></i>你就是传说中的超级学霸，好葱白你…</span></div></dd>
+           </dl>
+		<else />
+			<if condition="($wl.learnword eq 20 ) or ($wl.learntext eq 4) or ($wl.reciteword elt 15 and $wl.reciteword gt 10)">
+					<dl class="timeLine pingyu2">
+						<dt><span class="face"><i class="icon-happy"></i></span><span class="date">{$wl.addtimem}月{$wl.addtimed}日</span></dt>
+						<dd><div class="infoBox">
+							<p>今天你一共学习了
+								<strong>{$wl.learnword}</strong>个单词，跟读了
+								<strong>{$wl.learntext}</strong>段课文，同时还听写了
+								<strong>{$wl.reciteword}</strong>个单词，同时完成了
+	                        <strong>{$wl.learnexams}</strong>套试卷。
+							</p>
+							<span class="txt"><i></i>你今天真是无敌了，宇宙第一…</span></div></dd>
+					</dl>
+				<else />
+					<if condition="($wl.learnword elt 20 and $wl.learnword gt 15) or ($wl.learntext eq 3) or ($wl.reciteword elt 10 and $wl.reciteword gt 8)">
+						<dl class="timeLine pingyu3">
+							<dt><span class="face"><i class="icon-wink"></i></span><span class="date">{$wl.addtimem}月{$wl.addtimed}日</span></dt>
+							<dd><div class="infoBox">
+								<p>今天你一共学习了
+									<strong>{$wl.learnword}</strong>个单词，跟读了
+									<strong>{$wl.learntext}</strong>段课文，同时还听写了
+									<strong>{$wl.reciteword}</strong>个单词，同时完成了
+	                                <strong>{$wl.learnexams}</strong>套试卷。
+								</p>
+								<span class="txt"><i></i>就喜欢认真学习的孩纸，和你做朋友吧！</span></div></dd>
+						</dl>
+					<else />
+						<if condition="($wl.learnword elt 15 and $wl.learnword gt 10) or ($wl.learntext eq 2) or ($wl.reciteword elt 8 and $wl.reciteword gt 5)">   
+							<dl class="timeLine pingyu4">
+								<dt><span class="face"><i class="icon-smile"></i></span><span class="date">{$wl.addtimem}月{$wl.addtimed}日</span></dt>
+								<dd><div class="infoBox">
+									<p>今天你一共学习了
+										<strong>{$wl.learnword}</strong>个单词，跟读了
+										<strong>{$wl.learntext}</strong>段课文，同时还听写了
+										<strong>{$wl.reciteword}</strong>个单词，同时完成了
+	                        <strong>{$wl.learnexams}</strong>套试卷。
+									</p>
+									<span class="txt"><i></i>今天马马虎虎，要继续加油哦！</span></div></dd>
+							</dl>
+						<else />
+							<if condition="($wl.learnword gt 5 and $wl.learnword elt 10) or ($wl.learntext eq 1) or ($wl.reciteword elt 5 and $wl.reciteword egt 0)">    
+									<dl class="timeLine pingyu5">
+										<dt><span class="face"><i class="icon-tongue"></i></span><span class="date">{$wl.addtimem}月{$wl.addtimed}日</span></dt>
+										<dd><div class="infoBox">
+											<p>今天你一共学习了
+												<strong>{$wl.learnword}</strong>个单词，跟读了
+												<strong>{$wl.learntext}</strong>段课文，同时还听写了
+												<strong>{$wl.reciteword}</strong>个单词，同时完成了
+		                                         <strong>{$wl.learnexams}</strong>套试卷。
+											</p>
+											<span class="txt"><i></i>革命尚未成功，童鞋仍需努力！！</span></div></dd>
+									</dl>
+							</if>
+					    </if>
+				    </if>
+	           </if>
+		</if>
+		<!-- <if condition="($wl.learnword egt 0 and $wl.learnword elt 5) and ($wl.learntext eq 0) and ($wl.reciteword eq 0)">   
+			<dl class="timeLine pingyu6">
+				<dt><span class="face"><i class="icon-angry"></i></span><span class="date">{$wl.addtimem}月{$wl.addtimed}日</span></dt>
+				<dd><div class="infoBox">
+					<p>今天你一共学习了
+						<strong>{$wl.learnword}</strong>个单词，跟读了
+						<strong>{$wl.learntext}</strong>段课文，同时还听写了
+						<strong>{$wl.reciteword}</strong>个单词，同时完成了
+                        <strong>{$wl.learnexams}</strong>套试卷。
+					</p>
+					<span class="txt"><i></i>学习不刻苦，不如回家卖红薯。</span></div></dd>
+			</dl>
+		</if> -->
+    </foreach>
+</section>
+</notempty> 
+<empty name="recordlist">
+<section class="tips">
+	<p><img src="__PUBLIC__/images/xueba.gif"></p>
+    <p class="txt">成为学霸，就从这里开始！</p>
+</section>
+</empty> 
+
+<script src="__PUBLIC__/js/jquery.min.js" type="text/javascript"></script>  
+<script src="__PUBLIC__/js/main.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+    $(".icon-list-alt").parent().parent().hide();
+});  
+
+</script>
+</body>
+</html>

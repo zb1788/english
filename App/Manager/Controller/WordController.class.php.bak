@@ -1,0 +1,403 @@
+<?php
+
+namespace Manager\Controller;
+
+use Think\Controller;
+
+/**
+ * 单词控制器
+ *  
+ * @author         gm 
+ * @since          1.0 
+ */
+class WordController extends CheckController {
+
+    /**
+     *  checkdata  
+     * 单词存在性验证
+     * @param  void
+     * @return  json 其中 word表示验证的单词 isyes表示是否存在(1 表示存在,0表示不存在)
+     */
+    public function checkData() {
+        $arrrows = explode("\n", I("wordlist")); //将接收到的单词字符串以换行符分隔
+        $data = array();        //定义结果集数组
+        foreach ($arrrows as $row => $v) {   //循环单词列表
+            $word = trim($v);
+            if (trim($word) == "")  //如果该行单词为空
+                continue;           //结束本次循环，进行下一次循环
+            $arr = array();
+            $arr["word"] = $word;
+            $arr["isyes"] = 0;
+            $baseword = M('base_word');
+            $rs = $baseword->where("word='%s'", $word)->getField("id"); //查询该单词在数据库中是否存在
+            if (!empty($rs)) {
+                $arr["isyes"] = 1;
+            }
+            $data[] = $arr;
+        }
+        $this->ajaxReturn($data);
+    }
+
+    /**
+     *  addmulti  
+     *  单词批量添加
+     * @param  void
+     * @return  json 表示单词添加是否成功的信息
+     */
+    public function addMulti() {
+        $arrrows = explode("\n", I("wordlist"));
+        $unitid = I("unitid/s", 0);
+        $word = M("word"); // 实例化Word对象
+        $baseword = M('base_word'); // 实例化base_Word对象
+        $rms_unit = M('rms_unit');
+        
+        $issuc = 1;
+        $errmsg = "";
+        $i = 0;
+        $ic = 0;
+        foreach ($arrrows as $row => $v) {
+            $i++;
+            $v = str_replace("，", ',', $v); //将中文的逗号替换成英文的逗号
+            $arrcol = explode(",", $v); //将单词信息拆分
+            if (empty($arrcol[0])) {
+                $issuc = 0;
+                $errmsg.= '第' . $i . '行单词为空<br>';
+                continue;
+            }
+            $arrcol[1] = ($arrcol[1] == "是") ? 1 : 0;
+            $wordname = trim(str_replace("  ", " ", $arrcol[0])); //如果是词组将中文的空格替换成英文的空格 
+            $isstress = $arrcol[1];
+            $sortid = $i;
+            $rs = $word->where("isdel = 1 and word='%s' and ks_code='%s'", $wordname, $unitid)->field('id')->find();
+            if (!empty($rs)) {
+                $iserr = 1;
+                $errmsg.= '第' . $i . '行单词已经添加<br>';
+                continue;
+            }
+   
+            $rs = $baseword->where("word='%s'", $wordname)->field("id,(SELECT IFNULL(MIN(id),0 ) from engs_base_word_explains where engs_base_word_explains.base_wordid = engs_base_word.id) as explainsid")->find();
+
+            $wordid = empty($rs["id"]) ? 0 : $rs["id"];
+            $explainsid = empty($rs["explainsid"]) ? 0 : $rs["explainsid"];
+
+            unset($data);
+            $data['ks_code'] = $unitid;
+            $data['word'] = $wordname;
+            $data['base_wordid'] = $wordid;
+            $data['base_explainsid'] = $explainsid;
+            $data['sortid'] = $sortid;
+            $data['isstress'] = $isstress;
+            $data['isdel'] = 1;
+            $id = $word->add($data);
+
+            unset($data);
+            $data['id'] = $id;
+            $data['sortid'] = $id;
+            $word->save($data);
+            $ic++;
+            $update_time = time();
+            $rms_unit -> update_word_time = $update_time;           //单词修改时间更新
+            $rms_unit -> where('ks_code="'.$unitid.'"')->save();
+        }
+       
+        unset($data);
+        $data["issuc"] = 1;
+        $data["msg"] = $errmsg;
+        $data["sucnum"] = $ic;
+        $this->ajaxReturn($data);
+    }
+
+    /**
+     *  importword  
+     *  用excel将单词进行批量导入
+     *  @param  void
+     *  @return  json 返回单词是否导入的基本信息
+     */
+    public function importWord() {
+        Vendor("PHPExcel");
+        $filename = I("filename");
+        $arr_rs = $this->importWordExcel($filename); //获取导入的结果集
+        $iserr = 0;
+        $errmsg = "";
+        $i = 0;
+        foreach ($arr_rs as $row => $v) {
+            if ($v["iserr"]) {
+                $iserr = 1;
+                $errmsg.= $v["errmsg"] . '<br>';
+            } else {
+                $i++;
+            }
+        }
+        $data["iserr"] = $iserr;
+        $data["errmsg"] = $errmsg;
+        $data["sucnum"] = $i;
+        $this->ajaxReturn($data);
+    }
+
+    /**
+     *  importWordExcel  
+     *  读取Excel文件并将文件中的单词插入数据库
+     * @param   filename表示文件存放路径
+     * @return  array 
+     */
+    protected function importWordExcel($filename) {
+        $arr_excel = readExcel($filename);
+        $rms_unit = M('rms_unit');
+        $rms_dictionary = M("rms_dictionary");
+        $rs = $rms_dictionary->where('dictionary_code = "edition"')->field('detail_code,detail_name')->select();
+        foreach ($rs as $v) {
+            $arr_version[$v["detail_code"]] = $v["detail_name"];
+        }
+        $rs = $rms_dictionary->where('dictionary_code = "grade"')->field('detail_code,detail_name')->select();
+        foreach ($rs as $v) {
+            $arr_grade[$v["detail_code"]] = $v["detail_name"];
+        }
+        $rs = $rms_dictionary->where('dictionary_code = "volume"')->field('detail_code,detail_name')->select();
+        foreach ($rs as $v) {
+            $arr_term[$v["detail_code"]] = $v["detail_name"];
+        }
+        //A B C D E G 
+        $arrcolumn = array('A', 'B', 'C', 'D', 'E', 'F');
+        $i = 0;
+        $iserr = false;
+
+        foreach ($arr_excel as $row => $v) {
+            if (empty($v["Column"]['A'])) {
+                unset($arr_excel[$row]);
+                continue;
+            }
+            /* 必填列判断 */
+            foreach ($arrcolumn as $cv) {
+                $v["iserr"] = false;
+                if (empty($v["Column"][$cv])) {
+                    $v["iserr"] = true;
+                    $v["errmsg"] = '第' . $row . '行' . $cv . '列为空';
+                    $arr_excel[$row] = $v;
+                    $iserr = true;
+                    break;
+                }
+            }
+            if ($v["iserr"]) {
+                continue;
+            }
+            $i++;
+            $arr_excel[$row]["A"] = is_numeric($v["Column"]["A"]) ? $v["Column"]["A"] : $i;
+            //开始比对数据
+            $termid = array_search(trim($v["Column"]["B"]), $arr_term);
+            if (empty($termid)) {
+                $v["iserr"] = true;
+                $v["errmsg"] = '第' . $row . '行B列，学期错误,没有该学期';
+                $arr_excel[$row] = $v;
+                $iserr = true;
+                continue;
+            }
+            $v["Column"]['termid'] = $termid;
+            $versionid = array_search(trim($v["Column"]["C"]), $arr_version);
+            if (empty($versionid)) {
+                $v["iserr"] = true;
+                $v["errmsg"] = '第' . $row . '行C列，版本错误，没有该版本';
+                $arr_excel[$row] = $v;
+                $iserr = true;
+                continue;
+            }
+            $v["Column"]['versionid'] = $versionid;
+            $gradeid = array_search(trim($v["Column"]["D"]), $arr_grade);
+            if (empty($gradeid)) {
+                $v["iserr"] = true;
+                $v["errmsg"] = '第' . $row . '行D列，年级错误，没有该年级';
+                $arr_excel[$row] = $v;
+                $iserr = true;
+                continue;
+            }
+            $v["Column"]['gradeid'] = $gradeid;
+            unset($arr_cur_unit);
+            $arr_cur_unit["r_grade"] = $v["Column"]["gradeid"];
+            $arr_cur_unit["r_version"] = $v["Column"]["versionid"];
+            $arr_cur_unit["r_volume"] = $v["Column"]["termid"];
+            $arr_cur_unit["ks_name"] = str_replace("  ", " ",trim($v["Column"]["E"]));//章节全称
+            //$arr_cur_unit["ks_name"] = trim($v["Column"]["F"]); //章节全称
+            //var_dump($arr_cur_unit);
+            $ks_code = getUnitID($arr_cur_unit); //章节全称
+            if (empty($ks_code) || $ks_code==0) {
+                $v["iserr"] = true;
+                $v["errmsg"] = '第' . $row . '行E列，章节错误，所填年级学期版本下没有该单元或该单元是非章节目录';
+                $arr_excel[$row] = $v;
+                $iserr = true;
+                continue;
+            }
+            $v["Column"]["ks_code"] = $ks_code;
+            $v["Column"]["G"] = trim($v["Column"]["G"]) == "是" ? 1 : 0;
+            $wordname = trim(str_replace("  ", " ", trim($v["Column"]["F"])));
+            $isstress = $v["Column"]["G"];
+            $word = M("word");
+            $sort = $word->where("ks_code='%s' and isdel=1", $ks_code)->field("max(sortid) sortid")->find();
+            $sortid = $sort["sortid"] + 1;
+            //$sortid = $arr_excel[$row]["A"];
+            $rs = $word->where("word ='%s' and ks_code='%s' and isdel=1", clearSQL($wordname), $ks_code)->field('id')->select();
+            if (!empty($rs)) {
+                $v["iserr"] = true;
+                $v["errmsg"] = '第' . $row . '行F列，单词已经添加';
+                $arr_excel[$row] = $v;
+                $iserr = true;
+                continue;
+            }
+            $baseword = M('base_word');
+            $rs = $baseword->where("word ='%s'", clearSQL($wordname))->field("id ,(SELECT IFNULL(MIN(id),0 ) from engs_base_word_explains where engs_base_word_explains.base_wordid = engs_base_word.id) as explainsid")->find();
+            $wordid = empty($rs["id"]) ? 0 : $rs["id"];
+            $explainsid = empty($rs["explainsid"]) ? 0 : $rs["explainsid"];
+            $word->ks_code = $ks_code;
+            $word->word = $wordname;
+            $word->base_wordid = $wordid;
+            $word->base_explainsid = $explainsid;
+            $word->sortid = $sortid;
+            $word->isstress = $isstress;
+            $word->isdel = 1;
+            $id = $word->add();
+            $v["unitwordid"] = $id;
+            $arr_excel[$row] = $v;
+            $update_time = time();
+            $rms_unit -> update_word_time = $update_time;           //单词修改时间更新
+            $rms_unit -> where('ks_code="'.$ks_code.'"')->save();
+        }
+        return $arr_excel;
+    }
+
+    /**
+     * getlist  
+     * 取出在此单元下的所有的单词
+     * 
+     * @access   public  
+     * @param    void
+     * @return 	json 返回每次的属性 
+     */
+    public function getList() {
+        $unitid = I("get.unitid/s", 0);
+        $word = M('word'); // 实例化Word对象
+        $rs = $word->where("isdel=1 and ks_code='%s'", $unitid)->order('sortid')->field("id,word,base_wordid,base_explainsid,isstress,(SELECT ISWORD FROM engs_base_word WHERE engs_base_word.id =  engs_word.base_wordid) AS isword,sortid")->order("sortid,id")->select();
+        foreach ($rs as $key => $value) {
+            $word_explains = M('base_word_explains'); // 实例化Word对象
+            $rs2 = $word_explains->where("base_wordid='%s'", $value["base_wordid"])->order('id')->field("id,morphology,explains")->select();
+            $rs[$key]["explains"] = $rs2;
+        }
+        $this->ajaxReturn($rs);
+    }
+
+    /**
+     * del  
+     * 删除word表中的单词(单词删除不是物理删除)
+     * 
+     * @param void
+     * @return json 表示单词是否更新成功
+     */
+    public function updel() {
+        $wordid = I("wordid/d", 0);
+        $ks_code = I("ks_code/d", 0);
+        $word = M("word");
+        $rms_unit = M('rms_unit');
+        $model = M();
+        $word->isdel = '0';
+        $result = $word->where('id=%d', $wordid)->save();
+        $res = $word->where("id=%d", $wordid)->field('sortid')->find();
+        $sql = "update engs_word set sortid=sortid-1 where sortid>%d and isdel=1";
+        $model->execute($sql, $res['sortid']);
+        if (false !== $result) {
+            $update_time = time();
+            $rms_unit -> update_word_time = $update_time;           //单词修改时间更新
+            $rms_unit -> where('ks_code="'.$ks_code.'"')->save();
+            $arr_return["isadd"] = 0;
+            $arr_return["msg"] = "单词禁用成功！";
+            $this->ajaxReturn($arr_return);
+        } else {
+            $arr_return["isadd"] = 0;
+            $arr_return["msg"] = "单词禁用失败！";
+            $this->ajaxReturn($arr_return);
+        }
+    }
+
+    /**
+     * add  
+     * 向此单元下添加新的单词
+     * 
+     * @param void
+     * @return json 返回单词是否添加成功 isadd表示是否添加 msg表示错误信息
+     */
+    public function add() {
+        $unitid = I("unitid/s");
+        $worder = I("word/s");
+        $flag = I("flag/d");
+        $word = M('word');
+        $rms_unit = M('rms_unit');
+        $str = ($flag == 1) ? "单词" : "短语";
+        if (trim($worder) == '') {
+            $arr_return["isadd"] = 0;
+            $arr_return["msg"] = "添加失败，" . $str . "为空！";
+            $this->ajaxReturn($arr_return);
+        }
+        $worder = trim(str_replace("  ", " ", $worder));
+        $baseword = M('base_word');
+        $basers = $baseword->where("word ='%s' and isword=%d", $worder, $flag)->field('id ,(SELECT IFNULL(MIN(id),0 ) from engs_base_word_explains where engs_base_word_explains.base_wordid = engs_base_word.id) as explainsid')->find();
+        $wordid = empty($basers["id"]) ? 0 : $basers["id"];
+        $explainsid = empty($basers["explainsid"]) ? 0 : $basers["explainsid"];
+        $rs = $word->where("isdel = 1 and word ='%s' and ks_code=%s", $wordid, $unitid)->field('id')->find();
+        if (!empty($rs)) {
+            $arr_return["isadd"] = 0;
+            $arr_return["msg"] = "添加失败，" . $str . "已经添加！";
+            $this->ajaxReturn($arr_return);
+        }
+        $sort = $word->where("ks_code=%s and isdel=1", $unitid)->field("max(sortid) sortid")->find();
+        $sortid = $sort["sortid"] + 1;
+        $data['ks_code'] = $unitid;
+        $data['word'] = $worder;
+        $data['base_wordid'] = $wordid;
+        $data['base_explainsid'] = $explainsid;
+        $data['sortid'] = $sortid;
+        $data['isstress'] = 0;
+        $data['isdel'] = 1;
+        $id = $word->data($data)->add();
+        $arr_return["isadd"] = 1;
+        $arr_return["msg"] = "添加成功";
+        $update_time = time();
+        $rms_unit -> update_word_time = $update_time;           //单词修改时间更新
+        $rms_unit -> where('ks_code="'.$unitid.'"')->save();
+        $this->ajaxReturn($arr_return);
+    }
+/**
+ * 批量修改单词顺序和释义
+ */
+    public function listup() {
+        $data = stripslashes(I("data"));
+        $data = rtrim($data, '"');
+        $data = ltrim($data, '"');
+        $data = str_replace('&quot;', '"', $data);
+        $res = json_decode($data);
+        $ks_code = I('ks_code/s',0);
+        $word = M("word");
+        $rms_unit = M('rms_unit');
+        foreach ($res as $obj) {          
+            $id = $obj->id;
+            $sortid = $obj->sortid;
+            $isstress = $obj->isstress;
+            $explainsid = $obj->explainsid;
+            if (empty($isstress)) {
+                $isstress = 0;
+            }
+            if (empty($explainsid)) {
+                $explainsid = 0;
+            }
+            $id = !is_numeric($id) ? 0 : $id;
+            $sortid = !is_numeric($sortid) ? 0 : $sortid;
+            $isstress = !is_numeric($isstress) ? 0 : $isstress;
+            $explainsid = !is_numeric($explainsid) ? 0 : $explainsid;
+            $word->sortid = $sortid;
+            $word->isstress = $isstress;
+            $word->base_explainsid = $explainsid;
+            $result = $word->where("id=%d", $id)->save();
+        }
+        $arr_return["msg"] = 1;
+        $arr_return["err"] = "修改成功";
+        $update_time = time();
+        $rms_unit -> update_word_time = $update_time;           //单词修改时间更新
+        $rms_unit -> where('ks_code="'.$ks_code.'"')->save();
+        //$this -> ajaxReturn($arr_return);
+    }
+}

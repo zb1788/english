@@ -1,0 +1,20 @@
+CACHE MANIFEST
+# v = 8f708b371de7949de35b8cec4dac678b
+CACHE:
+# CSS and CSS resource image
+http://192.168.133.17/virtualhost/style/font/fonts/icomoon.ttf?ejyigo
+http://192.168.133.17/virtualhost/style/css/currency.css
+http://192.168.133.17/virtualhost/style/font/fonts.css
+# js
+http://192.168.133.17/virtualhost/js/jquery.min.js
+# image
+http://192.168.133.17/style/images/logoo.png
+http://192.168.133.17/style/images/empty.gif
+http://192.168.133.17/virtualhost/style/images/newimg/gkbg01.jpg
+http://192.168.133.17/virtualhost/style/images/newimg/gkxin.png
+http://192.168.133.17/virtualhost/style/images/newimg/btnB.png
+http://192.168.133.17/virtualhost/style/images/newimg/gkbg03.jpg
+http://192.168.133.17/virtualhost/style/images/newimg/gkbg02.jpg
+http://192.168.133.17/virtualhost/style/images/newimg/suo.png
+NETWORK:
+*

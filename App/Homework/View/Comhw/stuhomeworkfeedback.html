@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>试题检测</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link href="__PUBLIC__/public/style/feedback.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/test_paper.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/beike.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/public/script/artDialog.js?skin=default_green"></script>
+<script src="__COMMON__/js/jquery.tmpl.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+<script src="__COMMON__/js/en.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/pcmp3play.js"></script>
+<script>
+var examsmp3url = "__RESOURCE__mp3_exam/";
+var word_pic_url = "__RESOURCE__pic_word/";
+var wordmp3url = "__RESOURCE__mp3_word/";
+var textmp3url = "__RESOURCE__mp3_text/";
+</script>
+</head>
+<body class="">
+
+<!--begin w1200-->
+<div class="w980" style="overflow:auto;">
+  <div class="clearfix"></div>
+  <div class="test_con" >
+    <div class="test">
+      <div class="test content">
+      </div>
+    </div>
+    <!--end shiti-->
+
+    <div class="clearfix"></div>
+    <div id="jplayer"></div>
+  </div>
+</div>
+<!--end w1200-->
+<include file="template"/>
+</body>
+</html>
+<script src="__PUBLIC__/public/script/common.js"></script>
+<script type="text/javascript">
+$(function() {
+  var p = en.createNew("00010802060202");
+  var homeworkid="{$homeworkid}";
+  var classid="{$classid}";
+  var quesid="{$id}";
+  var type="{$type}";
+  if(type=='0'){
+    p.getDStuFeedbackWordread(quesid,homeworkid,classid,$("#feedbacktmplwaquestion"),$(".content"));
+  }else if(type=="1"){
+    p.getDStuFeedbackWordtest(quesid,homeworkid,classid,$("#feedbacktmplwtquestion"),$(".content"));
+  }else if(type=="2"){
+    p.getDStuFeedbackTextread(quesid,homeworkid,classid,$("#feedbacktmpltaquestion"),$(".content"));
+  }else if(type=="4"){
+    p.getDStuFeedbackExaminfo(quesid,homeworkid,classid,$("#feedbacktmplxzquestion"),$(".content"));
+  }else if(type=="5"){
+    p.getDStuFeedbackExaminfo(quesid,homeworkid,classid,$("#feedbacktmpltkquestion"),$(".content"));
+  }else if(type=="6"){
+    p.getDStuFeedbackExaminfo(quesid,homeworkid,classid,$("#feedbacktmplpdquestion"),$(".content"));
+  }else{
+    p.getDStuFeedbackExaminfo(quesid,homeworkid,classid,$("#feedbacktmplpxquestion"),$(".content"));
+  }
+
+  // $(".sound_single").click(function(){
+  //   var mp3=$(this).attr("mp3");
+  //   alert("{$Think.config.word_mp3_path}"+mp3);
+  //   mp.play("{$Think.config.word_mp3_path}" +  mp3);
+  // })
+
+});
+function reading(obj,flag){
+  mp.clear();
+   $('.sound_single').removeClass('active');
+   if(flag==0){
+     var mp3=$(obj).find("a").attr("mp3");
+     $(obj).find("a").addClass('active');
+     mp.play("{$Think.config.word_mp3_path}" +  mp3);
+   }else if(flag==1){
+    $(obj).find("a").addClass('active');
+     var mp3=$(obj).find("a").attr("mp3");
+     mp.play("{$Think.config.text_mp3_path}" +  mp3.substr(0,2) + "/" + mp3 + ".mp3");
+   }
+    $("#jplayer").bind($.jPlayer.event.ended,function(event){
+        $(obj).find("a").removeClass('active');
+    });
+}
+</script>

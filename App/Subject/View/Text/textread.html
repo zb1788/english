@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<meta name="wap-font-scale" content="no">
+		<title>英语同步练</title>
+		<link rel="stylesheet" href="__SUBJECT__/css/currNew.css" />
+		<link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+        <link rel="stylesheet" href="__PUBLIC__/css/layer.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/muitan.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/zepto.min.js" ></script>
+        <script type="text/javascript" src="__SUBJECT__/js/learntext.js" ></script>
+        <script type="text/javascript" src="__PUBLIC__/js/TouchSlide.1.1.js" ></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iscroll-lite.js" ></script>
+        <script type="text/javascript" src="__PUBLIC__/js/layer.js" ></script>
+
+<style>
+  body {background: #fff;}
+  .topH4{position: fixed; top: 45px;}
+    .qie_b {position: relative; top: 0;}
+    .text {margin: 5px 0 10px 0; overflow-y: auto;}
+    .model{background:#efefef;}
+    .mTdub {margin-top: 86px;}
+    .nrBtn,.kypage{position: initial;}
+</style>
+</head>
+<body>
+<main>
+<header class="head border-nav">
+                <a class="head-left"><i class="icon-back"></i>返回</a>
+                <a class="head-right"><i class="icon-eye1"></i></a>
+                <h1 class="title" ></h1>
+            </header>
+	<div class="topH4"><span class="fl mL10" id="chapter"></span><span class="fr mR10"><font id="cur"></font>/<font id="count"></font></span></div>
+
+		<section>
+	<div class="mTdub">
+				<div id="iScroll" class="tabBox">
+                           <div class="hd" style="display:none;">
+                                <ul></ul>
+                            </div>
+				<div class="bd mT85" id="iScroll-bd">
+						
+
+				</div>
+
+			</div>
+	
+<div>
+	
+</div>
+<!--<div class="nrBtn"><a class="off">上一页</a><a class="">下一页</a></div>-->
+    </div>
+</section>
+</main>
+<div id="tips"></div>
+        <!-- <a class="prev" id="prev" style="width:50%;">上一题</a>
+        <a class="next" id="next" style="width:50%;">下一题</a> -->
+        <!--遮罩的代码-->
+        <div id="over" class="over"></div>
+        <div id="layout" class="layout">
+            <img src="__SUBJECT__/img/2013112931.gif" alt="" />
+        </div>
+        <style>
+            .over {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #f5f5f5;
+                opacity:0.5;
+                z-index: 1000;
+            }
+            .layout {
+                display: block;
+                position: absolute;
+                top: 40%;
+                left: 40%;
+                width: 20%;
+                height: 20%;
+                z-index: 1001;
+                text-align:center;
+            }
+            .layui-m-layer-yourclass {
+                width: 420px;
+                height: 240px;
+                background-color: #81BA25;
+                box-shadow: none;
+                color: #fff;
+            }
+            #tips {background-color:#333; font-size: 14px; display:none; width: 90%; left: 5%; text-align: center; color:#fff; border-radius:5px; opacity:.82; padding:10px; position:fixed; top: 45%; z-index: 999;}
+        </style> 
+       </body>
+</html>
+<script type="text/javascript">
+ function getHttpUrl(url) {
+    url = url.replace(/https/g, "http");
+    url = url.replace(/:8443/g, ":8080");
+    return url;
+     // body...
+ }
+ var userAgent = navigator.userAgent;
+    var indexA = userAgent.indexOf("Android")
+    if(indexA >= 0){
+        isAndroid = true;
+        androidVersion = parseFloat(userAgent.slice(indexA+8));
+    }else{
+        isAndroid = false;
+    }
+
+var leanrnindex = 0;
+var ReadTextList ='';
+var ks_code = '';
+var ks_short_name = '';
+var recordType = 1;
+var chaptertitle = '';
+var textreadarr = {};
+var apptype = 2;
+var Bartype = 1;
+            $(function(){               
+                //性能数据
+                var Requests = new Object();
+                Requests = GetRequest();
+                var defaultindex=Requests["defaultindex"]==undefined?0:Requests["defaultindex"];
+                ks_code = Requests["ks_code"];
+
+                ks_short_name = Requests["ks_short_name"];
+                //$("#wrapper").resize();
+                //设置标题
+                $(".title").text(decodeURI(Requests["ks_short_name"]));
+                //setTitle($(".title"));
+                //初始化课文列表
+                //alert('aa');
+                initReadTextList("getTextsDataByUnit",$("#iScroll-bd"));
+               
+                //设置总页数
+                $("#count").text($(".text").length);
+                //返回按钮的事件
+                $(".head-left").click(function(){
+                    try{
+                        UXinJSInterfaceSpeech.hideVoiceView(Bartype);
+                        UXinJSInterfaceSpeech.stopAudio();
+
+                    }catch(e){
+                        setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+                    }
+                    window.location.href=Requests["urlCallBack"];
+                   
+                });
+
+                 //分页
+                var touch=TouchSlide({ 
+                    slideCell:"#iScroll",
+                    titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+                    autoPage:true, //自动分页
+                    defaultIndex:defaultindex,
+                    startFun:function(i){
+                        $("#cur").text(i+1);
+                        $("#chapter").text($('ul .child').eq(i).attr("chapter"));
+                        chaptertitle = $('ul .child').eq(i).attr("chapter");
+                        try{
+                            UXinJSInterfaceSpeech.stopAudio();
+                            }catch(e){
+                               // setTip("停止音频失败，请升级到最新的优信");
+                            }
+                    },
+                    endFun:function(i){ //高度自适应
+                      
+                       var voices = [];
+                       for (var ii = 0; ii <3; ii++) {
+                           $.each(ReadTextList.data[i].texts,function(k,v){
+                            var c = {};
+                            c.url = v.url;
+                            c.url = getHttpUrl(c.url);
+                            voices.push(c);
+                           });
+                       }
+                        
+                         var voices2 = [];
+                         var c1 = {};
+                         c1.url = ReadTextList.data[i].texts[0].url;
+                         c1.url = getHttpUrl(c1.url);
+                         voices2.push(c1);
+                         textreadarr = {};
+                         textreadarr.readid = ReadTextList.data[i].texts[0].id;
+                         textreadarr.content = ReadTextList.data[i].texts[0].encontent;
+                         textreadarr.datatype = 1;
+                         textreadarr.chapterid = ReadTextList.data[i].texts[0].chapterid;
+                         textreadarr.ks_code = ks_code;
+                         console.log(JSON.stringify(voices));
+
+                        
+                        if($('.model').eq(i).find('span').length == 0){
+                           // alert('000');
+                            showBar(1,JSON.stringify(voices));
+                        }
+                        else{
+                            $('.model').eq(i).find('span').each(function(){
+                                if($(this).find('a').hasClass("cur")){
+                                    if($(this).attr('learntype') == 0){
+                                        showBar(1,JSON.stringify(voices));
+                                    }
+                                    else{
+                                        showBar(2,JSON.stringify(voices));
+                                    }
+                                }
+                            });
+                                $('.model').eq(i).find('span').unbind('click').bind('click',function(){
+                                    $(this).children('a').addClass('cur');
+                                    index=$('.model').eq(i).find('span').index(this);
+                                    $(this).siblings('span').children('a').removeClass('cur');
+                                    $('ul .child').eq(i).find('div').eq(index).show();
+                                    $('ul .child').eq(i).find('div').eq(index).siblings().hide();
+                                    //console.log($(this).children('a').text())
+                                    if($(this).attr('learntype') == 0){ //读课文
+                                        //UXinJSInterfaceSpeech.hideVoiceView(1);
+                                        showBar(1,JSON.stringify(voices));
+                                    }
+                                    else{
+                                    
+                                        showBar(2,JSON.stringify(voices2));
+                                    }
+                                    $('.text').height($(window).height()-150);
+                                    $('.kouyu').height($(window).height()-280);
+                                     //alert($(window).height()+"=="+$('.kouyu').height());
+                                });
+                        }
+                        
+                        $('.text').height($(window).height()-150);
+                        $('.kouyu').height($(window).height()-280);
+
+                        var enbeforecon = '';
+                        var cnbeforecon = '';
+                        var htmlstr = '';
+                        if(ReadTextList.data[i].texts[0].enbefore == ''){
+                            singlecon = ReadTextList.data[i].texts[0].encontent;
+                            singleconen = ReadTextList.data[i].texts[0].cncontent;
+                        }
+                       else{
+                            singlecon = ReadTextList.data[i].texts[0].enbefore+":"+ReadTextList.data[i].texts[0].encontent;
+                            singleconen = ReadTextList.data[i].texts[0].enbefore+":"+ReadTextList.data[i].texts[0].cncontent;
+                       }
+                        if($(".head-right").find("i").hasClass("icon-eye2")){
+                            htmlstr += ' <p mp3="'+ReadTextList.data[i].texts[0].url+'" contentid="'+ReadTextList.data[i].texts[0].id+'" chapterid="'+ReadTextList.data[i].texts[0].chapterid+'" typeid="1" ks_code="'+ks_code+'" source="1"><span class="en">'+singlecon+'</span><span class="ch">'+singleconen+'</span></p>';
+                        }
+                        else{
+                            htmlstr += ' <p mp3="'+ReadTextList.data[i].texts[0].url+'" contentid="'+ReadTextList.data[i].texts[0].id+'" chapterid="'+ReadTextList.data[i].texts[0].chapterid+'" typeid="1" ks_code="'+ks_code+'" source="1"><span class="en">'+singlecon+'</span><span class="ch" style="display:none">'+singleconen+'</span></p>';
+                        }
+                        htmlstr += '<a class="kypage"><strong>'+1+'</strong>/'+ReadTextList.data[i].texts.length+'</a>';
+                        if(ReadTextList.data[i].texts.length == 1){
+                            htmlstr += '<div class="nrBtn"><a class="off">上一页</a><a class="off">下一页</a></div>';
+                        }
+                        else{
+                            htmlstr += '<div class="nrBtn"><a class="off">上一页</a><a class="" onclick="changelearn(2,\'next\','+ReadTextList.data[i].texts.length+','+i+')">下一页</a></div>';
+                        }
+                        $('ul .child').eq(i).find('.kouyu').html(htmlstr);
+ 
+                    }
+                    
+                });
+                $("#iScroll-bd").on("click","p",function(event){
+                    try{
+                        UXinJSInterfaceSpeech.stopAudio();
+                       }
+                    catch(e){
+
+                    }
+                    try{
+                       UXinJSInterfaceSpeech.playAudio($(this).attr('mp3')); 
+                    }
+                    catch(e){
+                        setTip("播放失败");
+                    }    
+                });
+              
+                //显示隐藏翻译
+                $(".head-right").click(function(){
+                    if($(this).find("i").hasClass("icon-eye2")){
+                        $(this).find("i").addClass("icon-eye1").removeClass("icon-eye2");
+                        setTip2("隐藏所有翻译");
+                        $("em.cn").hide();
+                        $("span.ch").hide();
+                       
+                    }else{
+                        $(this).find("i").addClass("icon-eye2").removeClass("icon-eye1");
+                        setTip2("显示所有翻译");
+                        $("em.cn").show();
+                        $("span.ch").show();
+                       
+                    }
+                })
+            })
+       
+       function changelearn(curindex,type,length,k){
+       	    var singlecon = '';
+            var singleconen = '';
+            var htmlstr='';
+            var voices2 = [];
+            var c1 = {};
+            if(type == "pre"){
+            	if(curindex == 0){
+            		setTip("已经是第一个");
+            	}
+            	else{
+            		if(ReadTextList.data[k].texts[curindex-1].enbefore == ''){
+		                singlecon = ReadTextList.data[k].texts[curindex-1].encontent;
+		                singleconen = ReadTextList.data[k].texts[curindex-1].cncontent;
+		           }
+		           else{
+		                singlecon = ReadTextList.data[k].texts[curindex-1].enbefore+":"+ReadTextList.data[k].texts[curindex-1].encontent;
+		                singleconen = ReadTextList.data[k].texts[curindex-1].enbefore+":"+ReadTextList.data[k].texts[curindex-1].cncontent;
+		           }
+                   if($(".head-right").find("i").hasClass("icon-eye2")){
+                        htmlstr += ' <p mp3="'+ReadTextList.data[k].texts[curindex-1].url+'" contentid="'+ReadTextList.data[k].texts[curindex-1].id+'" chapterid="'+ReadTextList.data[k].texts[curindex-1].chapterid+'" typeid="1" ks_code="'+ks_code+'" source="1"><span class="en">'+singlecon+'</span><span class="ch">'+singleconen+'</span></p>';
+                   }
+		           else{
+                    htmlstr += ' <p mp3="'+ReadTextList.data[k].texts[curindex-1].url+'" contentid="'+ReadTextList.data[k].texts[curindex-1].id+'" chapterid="'+ReadTextList.data[k].texts[curindex-1].chapterid+'" typeid="1" ks_code="'+ks_code+'" source="1"><span class="en">'+singlecon+'</span><span class="ch" style="display:none">'+singleconen+'</span></p>';
+                   }
+	           	   htmlstr += '<a class="kypage"><strong>'+(curindex)+'</strong>/'+length+'</a>';
+	           		if((curindex) == 1){
+	           			 htmlstr += '<div class="nrBtn"><a class="off">上一页</a><a class="" onclick="changelearn('+(curindex+1)+',\'next\','+length+','+k+')">下一页</a></div>';
+	           		}
+	           		else{
+	           			htmlstr += '<div class="nrBtn"><a class="" onclick="changelearn('+(curindex-1)+',\'pre\','+length+','+k+')">上一页</a><a class="" onclick="changelearn('+(curindex+1)+',\'next\','+length+','+k+')">下一页</a></div>';
+	           		}
+                    leanrnindex = curindex-1;
+            	}
+            	$('ul .child').eq(k).find('.kouyu').html(htmlstr);
+                c1.url = ReadTextList.data[k].texts[curindex-1].url;
+                c1.url = c.url.replace(/https/g, "http");
+                c1.url = c.url.replace(/:8443/g, ":8080");
+                voices2.push(c1);
+                showBar(2,JSON.stringify(voices2));
+                 textreadarr = {};
+                 textreadarr.readid = ReadTextList.data[k].texts[curindex-1].id;
+                 textreadarr.content = ReadTextList.data[k].texts[curindex-1].encontent;
+                 textreadarr.datatype = 1;
+                 textreadarr.chapterid = ReadTextList.data[k].texts[curindex-1].chapterid;
+                 textreadarr.ks_code = ks_code;
+
+            }
+            else{
+            	if((curindex-1) == length){
+            		setTip("已经是最后一个");
+            	}
+            	else{
+            		if(ReadTextList.data[k].texts[curindex-1].enbefore == ''){
+		                singlecon = ReadTextList.data[k].texts[curindex-1].encontent;
+		                singleconen = ReadTextList.data[k].texts[curindex-1].cncontent;
+		           }
+		           else{
+		                singlecon = ReadTextList.data[k].texts[curindex-1].enbefore+":"+ReadTextList.data[k].texts[curindex-1].encontent;
+		                singleconen = ReadTextList.data[k].texts[curindex-1].enbefore+":"+ReadTextList.data[k].texts[curindex-1].cncontent;
+		           }
+
+            	
+	               if($(".head-right").find("i").hasClass("icon-eye2")){
+                        htmlstr += ' <p mp3="'+ReadTextList.data[k].texts[curindex-1].url+'"><span class="en">'+singlecon+'</span><span class="ch">'+singleconen+'</span></p>';
+                   }
+                   else{
+                    htmlstr += ' <p mp3="'+ReadTextList.data[k].texts[curindex-1].url+'"><span class="en">'+singlecon+'</span><span class="ch" style="display:none">'+singleconen+'</span></p>';
+                   }
+	           		htmlstr += '<a class="kypage"><strong>'+curindex+'</strong>/'+length+'</a>';
+	           		if((curindex) == length){
+	           			 htmlstr += '<div class="nrBtn"><a class="" onclick="changelearn('+(curindex-1)+',\'pre\','+length+','+k+')">上一页</a><a class="off">下一页</a></div>';
+	           		}
+	           		else{
+	           			htmlstr += '<div class="nrBtn"><a class="" onclick="changelearn('+(curindex-1)+',\'pre\','+length+','+k+')">上一页</a><a class="" onclick="changelearn('+(curindex+1)+',\'next\','+length+','+k+')">下一页</a></div>';
+	           		}
+                    leanrnindex = curindex-1;
+           		}
+           		$('ul .child').eq(k).find('.kouyu').html(htmlstr);
+                
+               
+                c1.url = ReadTextList.data[k].texts[curindex-1].url;
+                c1.url = getHttpUrl(c1.url);
+                voices2.push(c1);
+                showBar(2,JSON.stringify(voices2));
+                 textreadarr = {};
+                 textreadarr.readid = ReadTextList.data[k].texts[curindex-1].id;
+                 textreadarr.content = ReadTextList.data[k].texts[curindex-1].encontent;
+                 textreadarr.datatype = 1;
+                 textreadarr.chapterid = ReadTextList.data[k].texts[curindex-1].chapterid;
+                 textreadarr.ks_code = ks_code;
+            }
+          
+           //alert(data.data[k].texts[0].encontent);
+           
+       }
+       //openAudioView(type,voices,progresType,url)
+        //type:1，控件1；2，控件2
+        //voices:json字符串[{"url":"http://...."}]
+        //progresType: 1,显示进度条,0不显示进度条
+        //url：要跳转的地址
+        // function showBar(type,voices){
+        //     try{
+        //         UXinJSInterfaceSpeech.hideVoiceView(1);
+        //         UXinJSInterfaceSpeech.openAudioView(type,voices,1,'',1);
+        //         }catch(e){
+        //             setTip("升级到最新版本的优信");
+        //         }
+        // }
+        function showBar(type,voices){
+            UXinJSInterfaceSpeech.stopAudio();
+            checkRow(2);
+            Bartype = type;
+            var domain = window.location.host;
+           // alert(ks_code);
+            var url = window.location.protocol+"//"+domain+"/Yuwen/Text/recordrank?ks_code="+ks_code+"&apptype=2"+"&ks_name="+ks_short_name+"&moduleid=2";
+            var mp3cachelist =[];
+            $.each(ReadTextList.mp3list,function(k,v){
+                var c = {};
+                c.name = v.name;
+                c.size = v.size;
+                c.format = v.format;
+                c.url = getHttpUrl(v.url);
+                mp3cachelist.push(c);
+            });
+
+            $.ajax({
+                url : '../../Yuwen/Text/getPushNum',
+                type : 'get',
+                data : {ran:Math.random(),ks_code:ks_code},
+                dataType : 'json',
+                success : function(data){
+                    try{
+                        UXinJSInterfaceSpeech.hideVoiceView(type);
+                        UXinJSInterfaceSpeech.openAudioView(type,voices,1,url,data.pushnum*1,2000);
+                        setTimeout(function(){
+                                    try{
+                                      UXinJSInterfaceSpeech.cacheAudioFiles(iGetInnerText(JSON.stringify(mp3cachelist)));
+                                 
+                                    }catch(e){
+                                        setTip("音频下载失败,请升级至最新版本.");
+                                  }
+
+                        },500)
+                    }catch(e){
+                        try{
+                            UXinJSInterfaceSpeech.hideVoiceView(type);
+                            UXinJSInterfaceSpeech.openAudioView(type,voices,1,url,data.pushnum*1);
+                            setTimeout(function(){
+                                    try{
+                                      UXinJSInterfaceSpeech.cacheAudioFiles(iGetInnerText(JSON.stringify(mp3cachelist)));
+                                 
+                                    }catch(e){
+                                        setTip("音频下载失败,请升级至最新版本.");
+                                  }
+
+                            },500)
+                        }
+                        catch(e){
+                            setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+                        }
+
+                        
+                    }
+                },
+                error : function(e){
+
+                }
+            })
+        }
+        //优信调用此函数
+function blurToggle(type,stateType){
+    recordType = type;
+    if(type == 1){
+        //背诵
+        if(stateType == 1){
+            //增加模糊
+            checkRow(1);
+        }else{
+            //取消模糊
+            checkRow(2);
+        }
+    }else{
+        //朗读
+        checkRow(2);
+    }
+}
+//type:1,add;2,remove
+function checkRow(type){
+    if(isAndroid){
+        if(androidVersion<4.3){
+        // 版本小于4.3的事情
+            if(type == 1){
+                $('.child').addClass('row1');//加模糊的，需要就加，不需要不加
+            }else{
+                $('.child').removeClass('row1');
+            }
+        }else{
+            if(type == 1){
+                $('.child').addClass('row');//加模糊的，需要就加，不需要不加
+            }else{
+                $('.child').removeClass('row');
+            }
+        }
+    }else{
+        if(type == 1){
+            $('.child').addClass('row');//加模糊的，需要就加，不需要不加
+        }else{
+            $('.child').removeClass('row');
+        }
+    }
+}
+  function getWidgetHeight(height){
+   // alert(height);
+    height = parseInt(height);
+    var bd = document.getElementById("iScroll-bd");
+    bd.parentNode.style.height = ($(window).height()-84-height)+"px";
+    $('.text').height($(window).height()-150-height);
+    $('.kouyu').height($(window).height()-130-height);
+    
+  }  
+</script>
+<script type="text/javascript" src="__PUBLIC__/js/unitlog.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/performance.js" ></script>
+  

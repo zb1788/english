@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>课程列表</title>
+<style>
+ .page{width:auto;height:25px; margin:auto; line-height:25px;}
+ .page a{display:block; height:25px; padding:0px 6px; border:solid 1px #e7e7e7; border-radius:3px; color:#333; font-family:'微软雅黑'; font-size:13px; text-align:center; text-decoration:none;float:left; margin-right:10px;min-width:20px;}
+ .page a:hover, .page a.this{background:#f7f7f7; font-weight:bold}
+</style>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jPlayer/dist/jplayer/jquery.jplayer.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<table border="0" cellspacing="0" cellpadding="0" class="form_table">
+		<tr>
+			<td>
+				<input type="button" id="addKecheng" value="添加翻译" class="ext_btn ext_btn_submit" />
+			</td>
+		</tr>
+	</table>
+	<div class="h10"></div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+	  <tr>
+		<th width="60">次序</th>
+	    <th>语句</th>
+	    <th>释义</th>
+	    <th  width="120">管理</th>
+	  </tr>
+	</table>
+	<div class="h5"></div>
+	<div class="h5"></div>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+	  <tr>
+	    <td class="pl_10" height="42"><input id="btn_submit" type="button" class="ext_btn ext_btn_submit" value="保存次序" /></td>
+	  </tr>
+	</table>
+
+</div>
+
+
+<table style="display:none;" id="demo">
+	<tr class="tr">
+		<td><input name="sortid" type="text" class="input-text lh30" size="3" maxlength="2" /></td>
+		<td>语句</td>
+		<td>释义</td>
+		<td align="left">
+			<input type="button" name="edit" value="编辑" class="ext_btn ext_btn_success" />
+			<input type="button" name="del" value="删除" class="ext_btn ext_btn_error" />
+		</td>
+	</tr>
+</table>
+<div id="jplayer"></div>
+</body>
+</html>
+<script type="text/javascript">
+var pagesize=10;
+$(function(){
+  $.ajaxSetup({async:false});
+  pagelist();
+});
+
+
+
+
+//添加翻译
+$('#addKecheng').click(function(){
+	var textid = '{$textid}';
+	var myDialog = $.dialog.open('addfanyi?option=add&textid='+textid+'&ran='+Math.random(),{
+		title:'添加翻译',
+		window : 'top',
+		width : 670,
+		height : 400,
+		lock : true,
+		opacity : 0.3,
+		button : [
+				 {
+			 	name:'继续添加',
+				callback:function(){
+					var iframe = this.iframe.contentWindow;
+					var re = iframe.savedata();//调用窗口的方法
+					if(re==false){
+						art.dialog.alert('添加失败！');
+					}else{
+						var explains_id=art.dialog.data('explains_id');
+						insertGuweninfo(explains_id);
+						iframe.document.getElementById('sentence').value='';
+						iframe.document.getElementById('description').value='';
+					}
+				  	return false;
+				},
+				focus:true
+				 },
+				 {
+				name : '保存',
+				callback : function() {
+					var iframe = this.iframe.contentWindow;
+					var re = iframe.savedata();//调用窗口的方法
+					if(re==false){
+						art.dialog.alert('添加失败！');
+					}else{
+						var explains_id=art.dialog.data('explains_id');
+						insertGuweninfo(explains_id);
+					}
+					return re;
+				},
+				focus : false
+				} ]
+	});
+});
+
+//添加的古文释义展示到当前页面
+function insertGuweninfo(id){
+	$.get('../kewen/queryExplainInfo',{ran:Math.random(),id:id},function(data){
+		var tr=$('#demo').children('tbody').children('tr').eq(0).clone();
+		tr.children('td').eq(0).find('input').val(data.sortid);
+		tr.children('td').eq(1).html(data.content);
+		tr.children('td').eq(2).html(data.interpretation);
+		tr.find('input').attr('bid',data.id);
+		tr.appendTo('.list_table');
+	});
+}
+
+//古文释义删除
+$('input[name="del"]').live('click',function(){
+	var id=$(this).attr('bid');//精彩语段的ID
+	var aa=$(this).parent().parent();
+	$.get('../Kewen/delExplain',{ran:Math.random(),id:id},function(data){
+		$(aa).remove();
+	});
+});
+//古文释义编辑
+$('input[name="edit"]').live('click',function(){
+	var id=$(this).attr('bid');//精彩语段的ID
+	var aa=$(this).parent().parent();
+	var myDialog=$.dialog.open('editguwen?id='+id,{
+		title:'编辑语段',
+		window : 'top',
+		width : 670,
+		height : 400,
+		lock : true,
+		opacity : 0.3,
+		button : [
+		 {
+		 	name:'确定',
+			callback:function(){
+				var iframe = this.iframe.contentWindow;
+				var re = iframe.savedata();//调用窗口的方法
+				//更新词语信息
+				// var guwen_section=art.dialog.data('guwen_section');
+				// var arr=guwen_section.split('|');
+				// $(aa).children('td').eq(0).html(arr[0]);
+				// $(aa).children('td').eq(1).html(arr[1]);
+				pagelist();
+			  	return re;
+			},
+			focus:true
+		 },
+		 {
+			name : '关闭',
+			callback : function() {
+				return true;
+			},
+			focus : false
+		} ]
+	});
+
+
+});
+
+
+//分页查询
+ function pagelist(){
+ 	var textid = '{$textid}';
+ 	$.get("../Kewen/getExplain",
+ 			{
+ 			  textid:textid,
+ 			  ran:Math.random(),
+ 			},
+ 			function(data){
+ 			$('.list_table tr:not(:first)').remove();
+			$.each(data,function(k,v){
+				var tr=$('#demo').children('tbody').children('tr').eq(0).clone();
+				tr.children('td').eq(0).find('input').val(k+1);
+				tr.children('td').eq(1).html(v.content);
+				tr.children('td').eq(2).html(v.interpretation);
+				tr.find('input').attr('bid',v.id);
+				tr.appendTo('.list_table');
+			});
+ 		})
+ }
+
+
+
+//保存排序
+ $("#btn_submit").click(function()
+  {
+    var dloading = art.dialog({time:30,title:'更新中……',width:130,height:30,opacity:0.3,lock:true});
+    // if($("#table_data tr.tr").length == 0)return;
+    var arrjson =[];
+    $("#table_data tr.tr").each(function(){
+      var tr =$(this);
+      var id = tr.find('input[name="sortid"]').attr("bid");
+      var sortid = tr.find('input[name="sortid"]').val();
+      var obj = {};
+      obj.id = id;
+      obj.sortid = sortid;
+      arrjson.push(obj);
+    });
+    $.get("../Kewen/upExplainsSort",{data:JSON.stringify(arrjson)},function(){
+      pagelist(1,pagesize);
+      dloading.close();
+      art.dialog.alert("排序保存成功");
+    });
+
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

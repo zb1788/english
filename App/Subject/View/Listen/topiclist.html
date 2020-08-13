@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="wap-font-scale" content="no">
+		<meta charset="UTF-8">
+		<title>英语同步练</title>
+		<link rel="stylesheet" href="__SUBJECT__/css/currency.css" />
+		<link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+		<link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+		<script type="text/javascript" src="__PUBLIC__/js/require.js" ></script>
+<style>
+	#wrapper {top: 45px; bottom:0px;}
+	.pad3 {padding: 3px;}
+</style>
+
+
+</head>
+<body>
+<main>
+<header class="head border-nav">
+	<a class="head-left" href="javascript:void(0);"><i class="icon-back"></i>返回</a>
+<!-- 	<a class="head-right"><i class="icon-share"></i></a> -->
+	<h1 class="title">中考听力</h1>
+</header>
+<section>		
+	<div id="wrapper">
+		<div id="scroller">
+			<div class=" afterBorder4">
+				<div class=" backGfff pad10 lieX">
+					<div class="table mB10">
+						<div class="lieL"><a class="cu">类型:</a></div>
+						<div class="lieR" id="zttype">
+							
+						</div>
+					</div>
+					<div class="table mB10">
+						<em class="lieL"><a class="cu">年份:</a></em>
+						<div class="lieR" id="ztyear">
+							
+						</div>
+					</div>
+					<div class="table pad3">
+						<div class="lieL"><a class="cu">省份:</a></div>
+						<div class="lieR" id="ztprovince">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<ul class="wb backGfff iStudy"  id="iStudy">
+
+		    </ul>
+		</div><!--end scroller-->
+	</div><!--end wrapper-->
+</section>
+</main>
+<!--遮罩的代码-->
+<div id="over" class="over"></div>
+<div id="layout" class="layout">
+	<img src="__SUBJECT__/img/2013112931.gif" alt="" />
+</div>
+<style>
+	.over {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #f5f5f5;
+        opacity:0.5;
+        z-index: 1000;
+    }
+    .layout {
+        display: block;
+        position: absolute;
+        top: 40%;
+        left: 40%;
+        width: 20%;
+        height: 20%;
+        z-index: 1001;
+        text-align:center;
+    }
+</style> 
+</body>
+<script type="text/javascript">
+	require.config({
+	　paths: {
+　　　　　　"topiclist": "__SUBJECT__/js/topiclist",
+　　　　	"iscroll":"__PUBLIC__/js/iscroll-lite",
+			"layer":"__PUBLIC__/js/layer",
+	　　　},
+	  shim: {
+　　　　　　"iscroll": {
+　　　　　　　　exports:"iscroll"
+　　　　　　}
+	　　},
+        waitSeconds: 0
+	});
+	require(["topiclist","iscroll","layer"], function(topiclist,IScroll,layer){
+			var Requests = new Object();
+	         new IScroll("#wrapper",{
+	         	momentum:true,
+	         	click:true
+	         });
+	        
+	        //设置标题
+	        $(".title").text("{$title}");
+	       
+			//初始化客场单元的列表展示
+			topiclist.initTopicList("getList",$("#zttype"),$("#ztyear"),$("#ztprovince"));
+			$("#wrapper").resize();
+            topiclist.getExamsListData("getTopicList",$("#iStudy"),0,0,0);
+            perface();
+			//滑动问题
+	        $(".head-left").click(function(){
+        		Requests = GetRequest();
+	        	window.location.href=Requests["backUrl"];
+	        });
+
+	        $(document).on("click","a.paperattr",function(){
+	        	$(this).parent().find(".on").removeClass("on");
+                $(this).addClass("on");
+                var typeid=$("#zttype").find("a.on").attr("bid");
+                var yearid=$("#ztyear").find("a.on").attr("bid");
+                var provinceid=$("#ztprovince").find("a.on").attr("bid");
+                topiclist.getExamsListData("getTopicList",$("#iStudy"),typeid,yearid,provinceid);
+	        })
+	    });
+	</script>
+</html>

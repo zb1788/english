@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="wap-font-scale" content="no">
+		<meta charset="UTF-8">
+		<title>听读作业</title>
+		<link rel="stylesheet" href="css/currency.css" />
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/londing.css" />
+		<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
+		<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
+		<script type="text/javascript" src="js/TouchSlide.1.1.js"></script>
+		<script type="text/javascript" src="js/mobile.js"></script>
+		<script type="text/javascript" src="js/examsquiz.js"></script>
+		<style>
+			.wsgray{
+				font-family: Muiicons;
+				padding-left:0px;
+				margin-left:0px;
+				margin-top:10px;
+				display:inline-block;
+				padding: 0;
+				width: 50px;
+				height: 50px;
+				border-radius: 20px;
+				text-align: center;
+				border: solid 1px transparent;
+				line-height: 50px;
+			}
+
+			.wgray{
+				background-color: #f7f7f7;
+				box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+				color: #a7a7a7;
+			}
+
+			.wgreen{
+				background-color: #2bc8a0;
+				box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #2bc8a0;
+				color: white;
+			}
+			.daH1 {    margin: 0!important;    padding: 0!important;-webkit-margin-before: 0!important;-webkit-margin-after: 0!important;}
+			.con ,.con ul,#iScroll-bd{ margin: 0!important;    padding: 0!important;-webkit-margin-before: 0!important;-webkit-margin-after: 0!important; box-sizing: border-box;}
+		</style>
+		<script type="text/javascript">
+			//初始化参数
+			var Requests = new Object();
+            Requests = GetRequest();
+			var pageindex=0;
+			var quescount=0;
+			var issubmit="";
+			var type="0";
+			var title="";
+			var index="0";
+			//console.log(Requests["index"]);
+			index = Requests["index"] == undefined ? index : Requests["index"];
+			var questions="";
+			var questionscard="";
+            var curindex=index;
+            var resultJosn=$$result$$;
+		</script>
+	</head>
+	<body>
+		<main>
+			<header class="head border-nav">
+				<!-- <a class="head-left" href="javascript:try{clearTimeout(mp3_progress);}catch(e){console.log(e);}try{mp.pause();mp.clear();}catch(e){console.log(e);}UXinJSInterface.popTheController();"><i class="icon-back"></i></a>
+				<a class="head-right"><i class="icon-share"></i></a> -->
+				<h1 class="title examsname"></h1>
+			</header>
+			<section>
+				<div class="pad050" style="overflow:hidden;">
+					<div class="box">
+						<div class="datiLeft">
+							<h1 class="dth1"><i class="icon-shijuan"></i>答题卡</h1>
+							<div class="lfl flY" id="card">
+								<!--直接将数据查询出来进行模板展示-->
+								<script id="questioncard" type="text/x-jquery-tmpl">
+								    <h2 class="btH2 afterBorder">${name}（${num}）</h2>
+									<div class="clear afterBorder">
+										<div class="dtk pad10">
+											{{each(i,lang ) questions}}
+												<span class="load-container load8">
+													<div class=""></div>
+													{{if lang.score !=null}}
+														<a href="javascript:void(0);" class="ball t2 bGreen">${i + 1}</a>
+													{{else}}
+														<a href="javascript:void(0);" class="ball t2 bGray">${i + 1}</a>
+													{{/if}}
+												</span>
+											{{/each}}
+										</div>
+									</div>
+								</script>
+							</div>
+							<div class="bbt">
+								<!-- <a class="bBtn">暂存</a> -->
+								<a class="bBtn" id="submithomework">提交</a>
+							</div>						</div><!--end left-->
+						<div class="datiRight">
+							<div class="posR">
+								<div id="iScroll" class="iScroll">
+									<div class="bd" id="iScroll-bd">
+
+									</div>
+								</div>
+								<div class="h50"></div>
+								<div class="bbtR">
+								<!-- 	<div class="fl">
+										<span class="dabble">
+											<a class="cBtn record" id="tan"><i class="icon-yuyin"></i>录音</a>
+											<a class="cBtn myrecord"><i class="icon-shengyin"></i>我的录音</a>
+										</span>
+									</div> -->
+									<div class="fr">
+										<span class="dabble">
+											<button class="prev cBtn" id="wpre"><i class="icon-left"></i>上一题</button>
+											<button class="next cBtn" id="wnxt">下一题<i class="icon-right"></i></button>
+										</span>
+									</div>
+								</div>
+								<!-- <div class="opBottom"></div> -->
+							</div>
+						</div>
+						<!--end right-->
+					</div>
+				</div>
+			</section>
+			<div id="bg" style="display: none;"></div>
+			<!--英语天天练pad模板文件-->
+<!--听力训练选择题模板其中issubmit表示是否提交进行答案的判断[${lang.score}题]-->
+<script id="tmplecquestion" type="text/x-jquery-tmpl">
+<div class="con" name="${type}">
+    <ul>
+      <h1 class="daH1">
+        <div class="fl">${name}</div>
+        <div class="fr greenFont">当前：第<font class="qusdindex">${index}</font>题/${count}题</div>
+      </h1>
+    <div class="backGfff border-nav timu radius8">
+      <div class="tigan" style="margin-top:10px;margin-left:10px;font-family: times;text-align:left;font-size:0.8em;color: #8f8f94;">{{html stemcontent}}</div>
+      <div class="center sanT mb20">
+        <img src="images/sy_left.png" />
+        <img src="images/sy.png" class="read"/>
+        <img src="images/sy_right.png" />
+      </div>
+      <div class="tigan" style="margin-top:10px;margin-left:10px;font-family: times;text-align:left;font-size:0.8em;color: #8f8f94;">{{html cncontent}}</div>
+      <div class="mb20 center quLine">{{html encontent}}</div>
+      <div class="zy-xuan">
+        {{each(i,item) items}}
+          {{if itemtype=='0'}}
+           <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}" pd_answer="${item.contentid}"><span class="ball">${item.flag}</span>${item.content}</p>
+          {{else}}
+          <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}" pd_answer="${item.contentid}"><span class="ball" style="background: vertical-align: middle;">${item.flag}</span><img height="90px" width="120px" style="display: inline;vertical-align: middle;" src="${item.content}"></p>
+          {{/if}}
+        {{/each}}
+      </div>
+    </div>
+  </ul>
+</div>
+</script>
+<!--听力训练判断题模板其中issubmit表示是否提交进行答案的判断[${lang.score}题]-->
+<script id="tmpletquestion" type="text/x-jquery-tmpl">
+<div class="con" name="${type}">
+    <ul>
+      <h1 class="daH1">
+        <div class="fl">${name}</div>
+        <div class="fr greenFont">当前：第<font class="qusdindex">${index}</font>题/${count}题</div>
+      </h1>
+    <div class="backGfff border-nav timu radius8">
+      <div class="tigan" style="margin-top:10px;margin-left:10px;font-family: times;text-align:left;font-size:0.8em;color: #8f8f94;">{{html stemcontent}}</div>
+      <div class="center sanT mb20">
+        <img src="images/sy_left.png" />
+        <img src="images/sy.png" class="read"/>
+        <img src="images/sy_right.png" />
+      </div>
+      <div class="tigan" style="margin-top:10px;margin-left:10px;font-family: times;text-align:left;font-size:0.8em;color: #8f8f94;">{{html cncontent}}</div>
+      <div class="mb20 center quLine">{{html encontent}}</div>
+      <div class="zy-xuan">
+        {{each(i,item) items}}
+          <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}" pd_answer="${item.content}"><span class="ball">${item.flag}</span>${item.content}</p>
+        {{/each}}
+      </div>
+    </div>
+  </ul>
+</div>
+</script>
+<!--英汉互译做作业-->
+<!--作业模板-->
+<script id="tmplquestion" type="text/x-jquery-tmpl">
+      {{if type==0}}
+        {{tmpl "#tmplwaquestion"}}
+      {{/if}}
+      {{if type==1}}
+        {{tmpl "#tmplwtquestion"}}
+      {{/if}}
+      {{if type==2}}
+        {{tmpl "#tmplwlquestion"}}
+      {{/if}}
+      {{if type==3}}
+        {{tmpl "#tmplwsquestion"}}
+      {{/if}}
+      {{if type==4}}
+        {{tmpl "#tmpltaquestion"}}
+      {{/if}}
+      {{if type==5}}
+        {{if typeid==1}}
+          {{tmpl "#tmplecquestion"}}
+        {{/if}}
+        {{if typeid==3}}
+          {{tmpl "#tmpletquestion"}}
+        {{/if}}
+      {{/if}}    
+</script>
+
+
+
+
+			<div id="jplayer"></div>
+			<div id="tanS" class="tanshow radius8">
+				<h1 class="tanH1"><i class="icon-light"></i>思路点拨<span class="fr" id="close"><i class="icon-cuo"></i></span></h1>
+				<div class="pad30">
+					<p class="tanNr">5. 点击“交作业”按钮，系统自动判断试题是否已全部完成，如未完成，提示：您还有X道试题未作答，提交之后将不能作答！如已完成，提示：作业提交后，答案将不可修改，确认提交点击确认；点击提交，提交当前的网上作业，并返回至网上作业列表页面；</p>
+					<p class="tanNr">5. 点击“交作业”按钮，系统自动判断试题是否已全部完成，如未完成，提示：您还有X道试题未作答，提交之后将不能作答！如已完成，提示：作业提交后，答案将不可修改，确认提交点击确认；点击提交，提交当前的网上作业，并返回至网上作业列表页面；</p>
+
+				</div>
+			</div>
+		</main>
+		
+	</body>
+
+</html>
+

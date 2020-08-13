@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+ <HEAD>
+  <TITLE> ZTREE DEMO </TITLE>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/zTree/jquery.ztree.core-3.5.js"></script>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/zTree/zTreeStyle.css" rel="stylesheet" type="text/css" />
+  <SCRIPT type="text/javascript" >
+  var subject_code = getParameter("subject_code");
+  var version_id = getParameter("version_id");
+  var app_id = getParameter("app_id");
+  var unit_id = getParameter("id");
+ //异步加载的树
+    var setting = {
+        async: {
+            enable: true,
+            url:"../classapp/getResKsTreeNodes",
+            autoParam:["id"],
+            //otherParam:{"otherParam":"zTreeAsyncTest"},
+            dataFilter: filter
+        },
+        callback: {
+            beforeClick: function(treeId, treeNode){
+                if (treeNode.isParent){
+                  
+                    // var level=treeNode.file;//当前目录层级
+                    // var maxLevel = treeNode.maxLevel;//当前目录最大级别
+                 
+                    // if(level==(maxLevel-1)){
+                    //     var bookid=treeNode.pId;//父id
+                    //     var chapterid=treeNode.id;//id
+                    //     var name=treeNode.name;//章节名称
+                    //     $('.list_table tr:not(:eq(0))').remove();
+                    //     $('#outFile').show();
+                    //     $.get('../Outccm/getLists',{ran:Math.random(),chapterid:chapterid},function(data){
+                    //         if(data=='error'){
+                    //             art.dialog.alert('没有课本相关信息!');
+                    //             $('#outFile').hide();
+                    //             return false;
+                    //         }else{
+                    //             $('#outFile').show();
+                    //             $.each(data,function(k,v){
+                    //                 var tr=$('#demo').children('tbody').children('tr').eq(0).clone();
+                    //                 tr.children('td').eq(0).children('input').val(v.ks_id);
+                    //                 tr.children('td').eq(0).children('input').attr('name','item');
+                    //                 tr.children('td').eq(1).html(v.ks_name);
+                    //                 tr.appendTo('.list_table');
+                    //             });
+                    //             $('.list_table input[type="checkbox"]').attr('checked',false);
+                    //         }
+
+                    //     });
+                    // }
+                }else {
+                    //alert('孩子：'+treeNode.name);
+					$('.list_table tr:not(:first)').remove();
+					var tr=$('#demo tr').clone();
+					tr.children('td').eq(1).html(treeNode.name);
+					tr.children('td').eq(2).html(treeNode.id);
+                    //tr.children('td').eq(3).html(v.r_code);
+					tr.appendTo('.list_table');
+					return true;
+
+
+                }
+            }
+        }
+    };
+
+    function filter(treeId, parentNode, childNodes) {
+        if (!childNodes) return null;
+        for (var i=0, l=childNodes.length; i<l; i++) {
+            childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+        }
+        return childNodes;
+    }
+
+    $(document).ready(function(){
+        $.fn.zTree.init($("#tree"), setting);
+        //资源勾选
+			$('input[class="radio"]').live('click',function(){
+					var ks_name=$(this).parent().parent().children('td').eq(1).html();
+					var ks_code=$(this).parent().parent().children('td').eq(2).html();
+					$.getJSON('../classapp/Unit_save',{id:unit_id,version_id:version_id,app_id:app_id,unit_name:ks_name,ks_code:ks_code,isclick:"0",isimg:"0",pic:""},function(){
+
+					})
+					$.dialog.confirm('确定选择此章节吗',
+						function(){
+							window.parent.getUnitList();
+							$.dialog.close();
+			});
+	
+});
+    });
+function video_search(){
+    var search_value=$.trim($('#coursename').val());
+    if(search_value == ''){
+       dialogTips('请输入资源名称');
+       return;
+    }
+     $('.list_table tr:not(:first)').remove();
+    var tr=$('#demo tr').clone();
+    tr.children('td').eq(1).html('正在搜索...');
+                tr.children('td').eq(2).html('');
+                tr.appendTo('.list_table');
+    
+        $.get('../classapp/queryRes2',{ran:Math.random(),search_value:search_value},function(data){
+            $('.list_table tr:not(:first)').remove();
+            $.each(data,function(k,v){
+                var tr=$('#demo tr').clone();
+                tr.children('td').eq(1).html(v.r_title);
+                tr.children('td').eq(2).html(v.c1);
+                //tr.children('td').eq(3).html(v.r_code);
+                tr.appendTo('.list_table');
+            });
+    });
+}
+  </SCRIPT>
+ </HEAD>
+
+<BODY>
+
+<TABLE border=0 height=600px align=left>
+	<TR>
+		<TD width=260px align=left valign=top style="BORDER-RIGHT: #999999 1px dashed">
+			<ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul>
+		</TD>
+		<TD width=770px align=left valign=top>
+        <!--  <table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                    <tr>
+                    <td>
+                     资源名称：<input type="text" id="coursename" name="coursename" class="input-text lh30" size="50" value="" />
+                    </td>
+                    <td>
+                                  &nbsp;
+                                  <input type="button" class="btn btn82 btn_search" value="搜索" onclick="video_search();" /></td>
+                              <td>
+                    </tr>
+            </table> -->
+			<table width="70%"  border="0" cellspacing="0" cellpadding="0" class="list_table">
+				<tr>
+					<th>&nbsp;</th>
+					<th align="left">章节名称</th>
+                    <th align="left">章节CODE</th>
+					<th style="display: none"></th>
+				</tr>
+			</table>
+		</TD>
+		
+	</TR>
+</TABLE>
+
+<table id="demo" style='display:none'>
+	<tr>
+		<td><input type="radio" name="radio" class="radio" /></td>
+		<td align="left">名称</td>
+		<td align="left"></td>
+        <td style="display: none"></td>
+	</tr>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>在线字典</title>
+<link href="__PUBLIC__/dict/css/zidianpc.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/dict/js/jquery.min.js" type="text/javascript"></script>
+<style>
+.foot {
+    background: url(__PUBLIC__/style/klxpy/images/bottm.png) no-repeat;
+    height: 107px;
+    margin-top: -70px;
+}
+.footer {
+    clear: both;
+    background: #666464;
+    display: block;
+    min-height: 100px;
+    padding: 10px 0 60px 0;
+}
+.w1200 {
+    width: 1000px;
+    margin: 0 auto;
+}
+.left_f {
+    float: left;
+    width: 650px;
+    margin-left: 30px;
+}
+.nav2 {
+    clear: both;
+    display: block;
+    padding: 25px 0 15px 0;
+    font-size: 13px;
+    color: #949494;
+}
+.nav2 a, .nav2 a:visited {
+    color: #f4f4f4;
+    font-size: 13px;
+    margin: 0 5px;
+}
+.copyRight {
+    color: #bebebe;
+    font-size: 12px;
+    line-height: 24px;
+}
+.right_f {
+    float: right;
+    width: 280px;
+}
+.code {
+    display: block;
+    text-align: center;
+    padding-top: 20px;
+}
+span.code2 {
+    background: url(__PUBLIC__/style/klxpy/images/QQ.png) no-repeat 0 0;
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+}   
+</style>
+</head>
+
+<body>
+    
+    	<div class="head">
+            <div class="search">
+            <a href="index" style="position:absolute;display:block;width:200px;height:200px;margin-top:50px;z-index:20px;"></a>
+            <a href="index" style="position:absolute;display:block;width:500px;height:200px;margin-top:1%;margin-left:23%;z-index:20px;"></a>
+            <p>
+                <input type="text" class="search_T" maxlength="1" onblur="value=value.replace(/[^\u4E00-\u9FA5]/g,'')">
+                <input type="button" class="search_B" value="搜索"></p>
+            </div>
+        </div>
+    <div class="Z_center">
+    	<img src="__PUBLIC__/dict/image/01.png" width="1068" style="margin:0 auto; display:block;" >
+    	<div class="section">
+        	
+            <div class="s_center">
+            	<h2>
+                    <a href="javascript:void(0);" class="cur" bid="1" id="3Tab_0" onClick="Show_Tab(0,2)">偏旁部首查字</a>
+                    <a href="javascript:void(0);" id="3Tab_1" bid="1" onClick="Show_Tab(1,1)">拼音查字</a>
+                    <a href="javascript:void(0);" id="3Tab_2" bid="1" onClick="Show_Tab(2,3)">笔画数查字</a></h2>
+                <div class="chazi" id="3s_0">
+                	
+                    
+                </div>
+            </div>
+            <div class="s_bottom">
+                <p>其他小朋友都在学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <div class="s_other">
+                    <ul>
+                        <li><a href="javascript:void(0);"  onclick="redirectfun(4);"><img src="__PUBLIC__/images/app/cycd.jpg"></a><span>成语词典</span></li>
+						<li><a href="javascript:void(0);"  onclick="redirectfun(2);"><img src="__PUBLIC__/images/app/klxpy.jpg"></a> <span>快乐学拼音</span></li>
+						<li><a href="javascript:void(0);"  onclick="redirectfun(3);"><img src="__PUBLIC__/images/app/zmly.jpg"></a><span>字母乐园</span></li>
+						<li><a href="javascript:void(0);"  onclick="redirectfun(1);"><img src="__PUBLIC__/images/app/klxsz.jpg"></a><span>快乐学生字</span></li>
+                    </ul>
+                </div>
+                <div  style="margin-top:30; clear:both;"></div>
+        	</div>
+        </div>
+        
+        
+        <Div class="clearfix"></Div>
+     </div>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/yjt_properties.js"></script>
+    <script>
+       $(".search_B").click(function(){
+         var search=$(".search_T").val();
+         if(search==""){return false;}
+         location.href="info?id="+search;
+       });
+        document.onkeydown=function(event){ 
+            var e = event || window.event || arguments.callee.caller.arguments[0]; 
+            if(e && e.keyCode==13){
+            $(".search_B").click();
+            } 
+        }; 
+       
+
+        getClassfy("2",1);
+
+
+    	function Show_Tab(active,id){
+			for(var i=0;i<3;i++){
+				if(i!=active){
+					document.getElementById("3Tab_"+i).className="";
+					}else{
+					document.getElementById("3Tab_"+i).className="cur";
+					}
+			}
+            getClassfy(id,1);
+		}
+
+        function getClassfy(id,i){
+            $(".chazi").empty();
+            var content="";
+            if(id=='3'){
+                 content="<div class='chazi1' id='3s_1'><ul class='js'><li><a href='javascript:void(0);' onclick='getClassfy(3,1);'>一画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,2);'>二画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,3);'>三画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,4);'>四画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,5);'>五画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,6);'>六画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,7);'>七画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,8);'>八画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,9);'>九画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,10);'>十画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,11);'>十一画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,12);'>十二画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,13);'>十三画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,14);'>十四画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,15);'>十五画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,16);'>十六画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,17);'>十七画</a></li><li><a href='javascript:void(0);' onclick='getClassfy(3,18);' style='width:75px;'>十八画以上</a></li></ul></div>";
+                 $(".chazi").append(content);
+                 $("#3s_1 li").removeClass("li_selected");
+                 $("#3s_1 li").eq(i-1).addClass("li_selected");
+            }
+
+            $.post("getClassfy",{id:id,i:i,ran:Math.random()},function(data){
+                content="";
+                if(id!=3){
+                    $.each(data,function(k,v){
+                    content="<p>"+v.title+"</p><ul class='cz'>";
+
+                    $.each(v.cindex,function(key,value){
+                         if(v.type=='3'){
+                            content=content+"<li><a href='info?id="+value.text+"' title='"+value.title+"'>"+value.text+"</a></li>";
+                        }else if(v.type=='1'){
+                            content=content+"<li><a href='classfy?id="+value.id+"&type="+value.type+"' title='"+value.title+"'>"+value.text+"</a></li>";
+                        }else if(v.type=='2'){
+                            content=content+"<li><a href='classfy?id="+value.text+"&type="+value.type+"' title='"+value.title+"'>"+value.text+"</a></li>";
+                        }
+                         
+                    });
+                    content=content+"</ul>";
+                    $(".chazi").append(content);
+                    });
+                }else{
+                    content="<p>"+data.title+"</p><ul class='cz'>";
+                    $.each(data.cindex,function(key,value){
+                            content=content+"<li><a href='info?id="+value.text+"' title='"+value.title+"'>"+value.text+"</a></li>";
+                         
+                    });
+                    content=content+"</ul>";
+                    $(".chazi").append(content);
+
+                }
+                
+                $(".chazi").append("<div class='clearfix'></div>"); 
+            });
+        }
+    </script>
+</body>
+</html>

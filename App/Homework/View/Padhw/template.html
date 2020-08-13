@@ -1,0 +1,288 @@
+<!--英语天天练pad模板文件-->
+<!--单词朗读预览试题模板-->
+<script id="tmplwaquestion" type="text/x-jquery-tmpl">
+  <div class="con" name="${type}" content="${encontent}" contentid="${contentid}" readid="${id}" type="0" userreadid="${userreadid}">
+    <ul>
+      <h1 class="daH1">
+        <div class="fl">${name}</div>
+        <div class="fr greenFont">当前：第<font class="qusdindex">${index}</font>题/${count}题</div>
+      </h1>
+      <div class="backGfff border-nav timu radius8">
+        <div class="tdImg"><img class="img100" src="${picbaseroot}${pic}" /></div>
+        <div class="tdWz">
+            <p>
+              <span class="font12"><b>${encontent}</b></span> <span class="font12">[${remark}]</span><br/>            
+              <span class="font08">${cncontent}</span><br/>
+              {{if score}}
+                  {{if score<=20}}
+                    <span class="xingFont"><i class="icon-shoucang"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i></span>
+                  {{/if}}
+                  {{if score<=40&&score>20}}
+                    <span class="xingFont"><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i></span>
+                  {{/if}}
+                  {{if score<=60&&score>40}}
+                    <span class="xingFont"><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i></span>
+                  {{/if}}
+                  {{if score<=80&&score>60}}
+                    <span class="xingFont"><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang-o"></i></span>
+                  {{/if}}
+                  {{if score<=100&&score>80}}
+                    <span class="xingFont"><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang"></i></span>
+                  {{/if}}
+                {{else}}
+                    <span class="xingFont"><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i></span>
+                {{/if}}
+            </p>    
+            <a href="#" class="cBtn bGreen center read"><i class="icon-ketang"></i>标准读音</a>
+            <span class="bFontCenter font1 score"><font class="fontZ">
+            {{if score}}
+                ${score}
+            {{else}}
+                0
+            {{/if}}
+            </font><font class="fonG">分</font></span>
+        </div>
+      </div>
+    </ul>
+  </div>
+</script>
+<!--课文朗读预览试题模板-->
+<script id="tmpltaquestion" type="text/x-jquery-tmpl">
+  <div class="con" name="${type}"  name="${type}" content="${encontent}" contentid="${contentid}" readid="${id}" type="1"  userreadid="${userreadid}">
+    <ul>
+      <h1 class="daH1">
+        <div class="fl">${name}</div>
+        <div class="fr greenFont">当前：第<font class="qusdindex">${index}</font>题/${count}题</div>
+      </h1>
+      <div class="backGfff border-nav timu radius8">
+            <p>
+              <span class="font12"><b>${encontent}</b></span><br/>            
+              <span class="font08">${cncontent}</span><br/>
+              {{if score}}
+                  {{if score<=20}}
+                    <span class="xingFont"><i class="icon-shoucang"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i></span>
+                  {{/if}}
+                  {{if score<=40&&score>20}}
+                    <span class="xingFont"><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i></span>
+                  {{/if}}
+                  {{if score<=60&&score>40}}
+                    <span class="xingFont"><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i></span>
+                  {{/if}}
+                  {{if score<=80&&score>60}}
+                    <span class="xingFont"><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang-o"></i></span>
+                  {{/if}}
+                  {{if score<=100&&score>80}}
+                    <span class="xingFont"><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang"></i><i class="icon-shoucang"></i></span>
+                  {{/if}}
+                {{else}}
+                    <span class="xingFont"><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i><i class="icon-shoucang-o"></i></span>
+                {{/if}}
+            </p>    
+            <a href="#" class="cBtn bGreen center read"><i class="icon-ketang"></i>标准读音</a>
+            <span class="bFontCenter font1 score"><font class="fontZ">
+            {{if score}}
+                ${score}
+            {{else}}
+                0
+            {{/if}}
+            </font><font class="fonG">分</font></span>
+      </div>
+    </ul>
+  </div>
+</script>
+<!--听音选词预览选择题模板其中issubmit表示是否提交进行答案的判断[${lang.score}题]-->
+<script id="tmplwlquestion" type="text/x-jquery-tmpl">
+<div class="con" name="${type}">
+    <ul>
+      <h1 class="daH1">
+        <div class="fl">${name}</div>
+        <div class="fr greenFont">当前：第<font class="qusdindex">${index}</font>题/${count}题</div>
+      </h1>
+    <div class="backGfff border-nav timu radius8">
+      <div class="center sanT mb20">
+        <img src="../../public/Homework/images/sy_left.png" />
+        <img src="../../public/Homework/images/sy.png" class="read"/>
+        <img src="../../public/Homework/images/sy_right.png" />
+      </div>
+      <div class="zy-xuan">
+        {{each(i,item) items}}
+          {{if item.flag==useranswer}}
+            <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}"><span class="ball" style="background: #2bc8a0;">${item.flag}</span>${item.content}</p>
+          {{else}}
+            <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}"><span class="ball">${item.flag}</span>${item.content}</p>
+          {{/if}}
+        {{/each}}
+      </div>
+    </div>
+  </ul>
+</div>
+</script>
+<!--单词拼写预览选择题模板其中issubmit表示是否提交进行答案的判断[${lang.score}题]-->
+<script id="tmplwsquestion" type="text/x-jquery-tmpl">
+<div class="con" name="${type}">
+    <ul>
+      <h1 class="daH1">
+        <div class="fl">${name}</div>
+        <div class="fr greenFont">当前：第<font class="qusdindex">${index}</font>题/${count}题</div>
+      </h1>
+    <div class="backGfff border-nav timu radius8">
+      <div class="center sanT mb20">
+        <img src="../../public/Homework/images/sy_left.png" />
+        <img src="../../public/Homework/images/sy.png" class="read"/>
+        <img src="../../public/Homework/images/sy_right.png" />
+      </div>
+      <div class="mb20 center"><b class="font12">${cncontent}</b></div>
+      <div class="mb20 center">
+        <ul class="aIn encontent">
+          {{each(i,item) encontent}}
+            {{if item==""}}
+              <li {{if i==activeindex}}class="active"{{/if}} style="font-family: Times New Roman;"><a></a></li>
+            {{else}}
+              <li {{if i==activeindex}}class="active"{{/if}} style="font-family: Times New Roman;">${item}</li>
+            {{/if}}   
+          {{/each}}
+        </ul>
+      </div>
+      <ul style="padding:4px 0;margin:0;">
+        {{each(i,item) items}}
+          <li class="wspell" style="float:left;width:20%;" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}" word="${item.content}">
+          {{if item.ischoose==1}}
+            <a class="wsgray wgreen" inputword="${item.inputword}">
+              <span class="mui-icon" style="font-family: inherit;"><font style="font-family: Times New Roman;">${item.content}</font></span>
+            </a>
+          {{else}}
+            <a class="wsgray wgray">
+              <span class="mui-icon" style="font-family: inherit;"><font style="font-family: Times New Roman;">${item.content}</font></span>
+            </a>
+          {{/if}}
+          </li>
+        {{/each}}
+        <li style="float:left;width:20%;" class="wcal" type="${type}"  bid="${id}" contentid="${contentid}" typeid="${typeid}">
+          <a class="wsgray wgray"><span class="mui-icon" style="font-family: inherit;"><i class="icon-back"></i></span></a>
+        </li>
+        <div class="clearfix"></div>
+      </ul>
+    </div>
+      </ul>
+</div>
+</script>
+<!--英汉互译预览选择题模板其中issubmit表示是否提交进行答案的判断[${lang.score}题]-->
+<script id="tmplwtquestion" type="text/x-jquery-tmpl">
+<div class="con" name="${type}">
+    <ul>
+      <h1 class="daH1">
+        <div class="fl">${name}</div>
+        <div class="fr greenFont">当前：第<font class="qusdindex">${index}</font>题/${count}题</div>
+      </h1>
+    <div class="backGfff border-nav timu radius8">
+      <div class="mb20 center"><b class="font12">${encontent}</b></div>
+      <div class="zy-xuan">
+        {{each(i,item) items}}
+          {{if item.flag==useranswer}}
+            <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}"><span class="ball" style="background: #2bc8a0;">${item.flag}</span>${item.content}</p>
+          {{else}}
+            <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}"><span class="ball">${item.flag}</span>${item.content}</p>
+          {{/if}}
+        {{/each}}
+      </div>
+    </div>
+  </ul>
+</div>
+</script>
+<!--听力训练选择题模板其中issubmit表示是否提交进行答案的判断[${lang.score}题]-->
+<script id="tmplecquestion" type="text/x-jquery-tmpl">
+<div class="con" name="${type}">
+    <ul>
+      <h1 class="daH1">
+        <div class="fl">${name}</div>
+        <div class="fr greenFont">当前：第<font class="qusdindex">${index}</font>题/${count}题</div>
+      </h1>
+    <div class="backGfff border-nav timu radius8">
+      <div class="tigan" style="margin-top:10px;margin-left:10px;font-family: times;text-align:left;font-size:0.8em;color: #8f8f94;">{{html stemcontent}}</div>
+      <div class="center sanT mb20">
+        <img src="../../public/Homework/images/sy_left.png" />
+        <img src="../../public/Homework/images/sy.png" class="read"/>
+        <img src="../../public/Homework/images/sy_right.png" />
+      </div>
+      <div class="tigan" style="margin-top:10px;margin-left:10px;font-family: times;text-align:left;font-size:0.8em;color: #8f8f94;">{{html cncontent}}</div>
+      <div class="mb20 center quLine">{{html encontent}}</div>
+      <div class="zy-xuan">
+        {{each(i,item) items}}
+          {{if itemtype=='0'}}
+            {{if item.flag==useranswer}}
+              <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}"><span class="ball" style="background: #2bc8a0;">${item.flag}</span>${item.content}</p>
+            {{else}}
+              <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}"><span class="ball">${item.flag}</span>${item.content}</p>
+            {{/if}}
+          {{else}}
+            {{if item.flag==useranswer}}
+              <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}"><span class="ball" style="background: #2bc8a0;vertical-align: middle;">${item.flag}</span><img height="90px" width="120px" style="display: inline;vertical-align: middle;" src="${item.content}"></p>
+            {{else}}
+              <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}"><span class="ball" style="background: vertical-align: middle;">${item.flag}</span><img height="90px" width="120px" style="display: inline;vertical-align: middle;" src="${item.content}"></p>
+            {{/if}}
+          {{/if}}
+        {{/each}}
+      </div>
+    </div>
+  </ul>
+</div>
+</script>
+<!--听力训练判断题模板其中issubmit表示是否提交进行答案的判断[${lang.score}题]-->
+<script id="tmpletquestion" type="text/x-jquery-tmpl">
+<div class="con" name="${type}">
+    <ul>
+      <h1 class="daH1">
+        <div class="fl">${name}</div>
+        <div class="fr greenFont">当前：第<font class="qusdindex">${index}</font>题/${count}题</div>
+      </h1>
+    <div class="backGfff border-nav timu radius8">
+      <div class="tigan" style="margin-top:10px;margin-left:10px;font-family: times;text-align:left;font-size:0.8em;color: #8f8f94;">{{html stemcontent}}</div>
+      <div class="center sanT mb20">
+        <img src="../../public/Homework/images/sy_left.png" />
+        <img src="../../public/Homework/images/sy.png" class="read"/>
+        <img src="../../public/Homework/images/sy_right.png" />
+      </div>
+      <div class="tigan" style="margin-top:10px;margin-left:10px;font-family: times;text-align:left;font-size:0.8em;color: #8f8f94;">{{html cncontent}}</div>
+      <div class="mb20 center quLine">{{html encontent}}</div>
+      <div class="zy-xuan">
+        {{each(i,item) items}}
+          {{if item.flag==useranswer}}
+            <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}"><span class="ball" style="background: #2bc8a0;">${item.flag}</span>${item.content}</p>
+          {{else}}
+            <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}"><span class="ball">${item.flag}</span>${item.content}</p>
+          {{/if}}
+        {{/each}}
+      </div>
+    </div>
+  </ul>
+</div>
+</script>
+<!--英汉互译做作业-->
+<!--作业模板-->
+<script id="tmplquestion" type="text/x-jquery-tmpl">
+      {{if type==0}}
+        {{tmpl "#tmplwaquestion"}}
+      {{/if}}
+      {{if type==1}}
+        {{tmpl "#tmplwtquestion"}}
+      {{/if}}
+      {{if type==2}}
+        {{tmpl "#tmplwlquestion"}}
+      {{/if}}
+      {{if type==3}}
+        {{tmpl "#tmplwsquestion"}}
+      {{/if}}
+      {{if type==4}}
+        {{tmpl "#tmpltaquestion"}}
+      {{/if}}
+      {{if type==5}}
+        {{if typeid==1}}
+          {{tmpl "#tmplecquestion"}}
+        {{/if}}
+        {{if typeid==3}}
+          {{tmpl "#tmpletquestion"}}
+        {{/if}}
+      {{/if}}    
+</script>
+
+

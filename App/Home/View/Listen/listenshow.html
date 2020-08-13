@@ -1,0 +1,16 @@
+<div class="titleCon">
+    <div class="fl"><h2 id="total_score" examsid="{$examsdata[0].id}" unitid="{$examsdata[0].ks_code}" total_score="{$examsdata[0].total_score}">听力训练：{$examsdata[0].name}</h2><a href="javascript:;" class="playBtn none"></a><span id="timeinfo"> &nbsp;&nbsp;&nbsp;总分:<font color="red">{$examsdata[0].total_score}</font>分&nbsp;&nbsp;</span></div>
+    <div class="fr  none"><a href="javascript:ShowHide_TLCL(1);" class="aBtn cur" id="tlst1">听力试题</a><a href="javascript:ShowHide_TLCL(2);" class="aBtn" id="tlst2">听力材料</a><a id="goback" href="javascript:;" class="aBtn">返回</a></div>
+	<div class="fl" id="timer" timenum = "{$examsdata[0].exams_times}">时间{$examsdata[0].exams_times}分钟</div>
+    <div class="clearfix"></div>
+</div>
+  <div class="speed">速度：<input name="speed" type="radio" value="0"><label>慢速</label><input name="speed" type="radio" value="1" checked><label>正常</label><input name="speed" type="radio" value="2"><label>快速</label></div>
+<div class="boxCon">
+	<foreach name="examsdata[0]['stem']" item="stemdata" key="stemkey" >
+		 <eq name = "stemdata.stem_type" value="1"><!--大题是独立大题-->
+		 	
+		 </eq>
+	</foreach>
+<div class="submit"><a href="javascript:void(0)" onclick="exams_sumbit()" class="aBtn" id="tj">提交答案</a></div>
+</div>
+<div class="bk10"></div> 

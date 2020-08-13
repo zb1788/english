@@ -1,0 +1,116 @@
+@charset "gb2312";
+/* CSS Document */
+/*.mt10{ margin-top:10px;}
+body{ background:#fdfdfd; padding:20px; }
+.ml10{ margin-left: 10px; }
+.m7{ margin:7px; }
+*/
+a.cr_hong:link,a.cr_hong:visited {text-decoration:none;color:#d24726;}
+a.cr_hong:hover {text-decoration:underline;}
+a.cr_blue,a.cr_blue:visited {color:#3366bb;text-decoration:none;}
+a.cr_blue:hover {color:#f60;text-decoration:underline;}
+
+.w330{ min-width:320px; width:100%; min-height:800px; background:#fff; border:1px solid #bfbfbf;}
+.course{ }
+.course h1{ margin-top:10px; background:#d24726; color:#fff; height:35px; text-align:center; line-height:35px; font-size:16px;}
+
+/*tab*/
+.tab_course { height:36px; line-height:36px; background:#e3e3e3; margin: 10px; overflow:hidden;}
+.tab_course li {border-right:1px solid #fff; float:left; padding:0 15px; display:block; color:#000; font-size:16px; cursor:pointer;}
+.tab_course.kuan li { padding:0 35px;}
+.tab_course li.cur_2 {position: relative; background:#232a37; color: #fff; margin-bottom: 14px;}
+span.arrow {position: absolute; left: 46%; bottom: -14px; width: 0; height: 0; font-size: 0; border-width: 7px; border-style: solid dashed dashed dashed; border-color: #232a37 transparent transparent transparent; display:none;}
+/*form*/
+.souBox {background:none;border:none;width:160px; height:31px; line-height:31px; color:#9a9a9a; float:left; padding:0 10px; }
+.zoom {background:#232a37 url(../images/microsoft/souIco_hover.png) no-repeat center left; height:33px; padding:0 10px 0 30px; border:1px solid #232a37; color:#fff;font:normal 14px/31px Microsoft YaHei; cursor:pointer;  margin-top:-1px; _display:inline; clear: both;}
+.zoom:hover {}
+
+.course_zy{ margin: 10px 0 ; }
+.w290{ width: 290px; }
+
+.course_zy h2{ color: #d24726; font-size: 14px; line-height: 35px; }
+.cr_img ul.tulist{}
+.cr_img ul.tulist li{ width: 135px; height: 260px; margin:5px 10px; float: left; color: #000;}
+.cr_img ul.tulist li img{  width: 135px; height: 200px; }
+.cr_img ul.tulist li span { display: block; text-align: center; height: 30px; line-height: 30px;  }
+
+/*list*/
+
+.list_cr { min-height:50px; border-bottom:1px solid #efefef; margin: 5px; padding: 5px 0; position: relative;}
+.list_cr span.frr{ position: absolute; right: 5px; top: 20px; width:65px;  display: block; }
+span.text { }
+
+span.text li.ico_b {width:46px;  float:left; padding-top:10px; position:relative; z-index:5;}
+span.upload {background:url(../images/teacher/img.png) no-repeat right -68px; width:20px; height:20px; display:block; position:absolute; right:-10px; top:-10px;}
+span.text ul li.txt {width:60%;  float:left;   margin-top: 0px; margin-right:0; padding-left: 10px;}
+
+.list_cr.kuan span.btn_color {width:265px;}
+.list_cr.kuan span.text {width:385px;}
+.list_cr.kuan span.text li.txt {width:315px; float:right; margin-right:10px;}
+
+font.tit2 a {font-size:13px; line-height: 18px;color:#0096d6; display:block;  overflow:hidden;}
+font.intro1 {font-size:12px; line-height: 18px; display:block; }
+font.intro2 {color:#aaa;  line-height: 18px;font-size:12px;}
+
+.btn_color a,.btn_color a:visited { height:30px; line-height:30px; text-align:center; font-size:12px; color:#fff; display:inline-block; padding:0 10px; }
+.btn_color a:hover {text-decoration:none;}
+
+.zy_list{ margin:0 10px; }
+.zy_list ul {}
+.zy_list ul li{ line-height: 38px; height: 38px; border-bottom: 1px dashed #e2e2e2;  }
+.zy_list ul li em{ margin-right: 5px; }
+.zy_list ul li em img{ width: 29px; height: 29px; vertical-align: center; margin-bottom: 2px; }
+
+/*leixing*/
+span.filter { display:block; clear:both; font-size:13px; color:#555; height:45px; line-height:45px; padding:0 10px; border-bottom:1px solid #efefef;}
+span.filter a,span.filter a:visited { display:inline-block; height:30px; border:1px solid #fff; line-height:30px; padding:0 8px; border-radius:3px;}
+span.filter a:hover {background-color:#fff; border:1px solid #e0e0e0; text-decoration:none; box-shadow:1px 1px 2px #f0f0f0;}
+span.filter a s {background:url(../images/file.png) no-repeat; width:18px; height:18px; display:inline-block; vertical-align:text-bottom; margin-right:4px;}
+span.filter a s.file {background-position:0 0;}
+span.filter a s.pic {background-position:0 -18px;}
+span.filter a s.animate {background-position:0 -36px;}
+span.filter a s.video {background-position:0 -54px;}
+span.filter a s.audio {background-position:0 -72px;}
+span.filter a s.all {background-position:0 -92px;}
+span.filter a.sel31 {background-color:#29abe3; color:#fff; border-color:#29abe3; }
+span.filter a.sel31:hover {border-color:#29abe3;}
+span.filter a.sel31 s.file {background-position:-18px 0;}
+span.filter a.sel31 s.pic {background-position:-18px -18px;}
+span.filter a.sel31 s.animate {background-position:-18px -36px;}
+span.filter a.sel31 s.video {background-position:-18px -54px;}
+span.filter a.sel31 s.audio {background-position:-18px -72px;}
+span.filter a.sel31 s.all {background-position:-18px -92px;}
+
+span.filter.microsoft {font-size:12px; padding:0 0px 0 10px; }
+span.filter.microsoft  a{padding:0 1px;}
+span.filter.microsoft  a.sel31.sel_mr{ background: #D24726; color:#fff; border-color:#D24726; }
+span.filter.microsoft  a.sel31.sel_mr:hover {border-color:#29abe3; border-color:#D24726;}
+
+/*leixing end*/
+.timu_mr{ text-align: left;  }
+.timu_mr i{ margin-right: 5px; }
+.timu_mr i img{ width: 22px; height: 21px; }
+.table_2.mr_soft td{padding:0 2px;}
+
+.manu.mall .current {background:#f44336; border-color:#f44336; overflow-x:auto; overflow-y:auto;}
+
+/* ɸѡ 20160624 */
+
+.mbtit{ font-size:16px; color:#d24726; margin:10px; }
+
+.sxBox{ padding:10px; margin:0;   margin-left:1px; border-bottom:1px solid #e4e4e4;}
+
+.sxBox dl{ padding:5px 15px; overflow:auto; zoom:1; font-size:14px; border-left:3px solid #fff;}
+.sxBox dl:hover{ background-color:#f4f4f4; border-left:3px solid #d24726;}
+.sxBox dl dt,.sxBox dl dd{ float:left; display:inline;}
+.sxBox dl dt{ color:#888; padding:5px 0; }
+.sxBox dl dd a{ display:inline-block; padding:5px 10px; border-radius:3px;}
+.sxBox dl dd a:hover{ color:#232a37;}
+.sxBox dl dd a.cur,.sxBox dl dd a.cur:hover{ background-color:#232a37; color:#fff;}
+
+#mb_bj{padding:10px 0 20px 10px; width:730px; height:500px;}
+
+.cr_img ul.tulist.mb{ height:300px; overflow-y:auto;}
+.cr_img ul.tulist.mb li{ width: 225px; height: 190px; margin:10px 5px; float: left; color: #000;}
+.cr_img ul.tulist.mb li img{  width: 210px; height: 140px; }
+.cr_img ul.tulist.mb li span { display: block; text-align: center; height: 30px; line-height: 30px;  }

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>听读作业</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/css/hwfeedback.css">
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<ul class="mui-table-view mui-grid-view">
+		            <li class="mui-table-view-cell" style="width: 32%;">
+		            	<a href="javascript:void(0);">
+		                    <span>
+		                    	已交人数
+		                    </span>
+		                    <div class="mui-media-body">{$homeworksubmitnum}人</div>
+		            	</a>
+		            </li>
+		            <li class="mui-table-view-cell" style="width: 32%;">
+		            	<a href="javascript:void(0);">
+		                    <span>
+		                    	最高分
+		                    </span>
+		                    <div class="mui-media-body">{$homeworkmaxscore}分</div>
+		            	</a>
+		            </li>
+		            <li class="mui-table-view-cell" style="width: 32%;">
+		            	<a href="javascript:void(0);">
+		                    <span>
+		                    	平均分
+		                    </span>
+		                    <div class="mui-media-body">{$homeworkaveragescore}分</div>
+		            	</a>
+		            </li>
+		        </ul>
+			</div>
+			<div class="mui-content-padded" style="font-size:100%;color: #8f8f94;margin-top: 30px;">
+				<h5>作答情况</h5>
+				<ul class="mui-table-view mui-table-view-chevron" style="margin-top: 10px;">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" href="homeworkstudent?homeworkid={$homeworkid}&classid={$classid}">
+							20人已经作答,30人未作答
+						</a>
+				    </li>
+			    </ul>
+		    </div>
+			<div class="mui-content-padded" id="content">
+				<!--<h4>答题卡</h4>-->
+				<div id="wordalound" style="padding-top:10px;display:none;">
+					<font style="margin-bottom:15px;color:black;">单词跟读</font>
+					<div class="flex-container" style="background: white;text-align: left;margin-top:10px;">
+
+				    </div>
+			    </div>
+			    <div id="wordspell" style="padding-top:10px;display:none;">
+					<font style="margin-bottom:15px;color:black;">单词测试</font>
+					<div class="flex-container" style="background: white;text-align: left;margin-top:10px;">
+
+				    </div>
+				</div>
+				<div id="wordchoose" style="padding-top:10px;display:none;">
+					<font style="margin-bottom:15px;color:black;">单词测试</font>
+					<div class="flex-container" style="background: white;text-align: left;margin-top:10px;">
+
+				    </div>
+				</div>
+				<div id="wordrate" style="padding-top:10px;display:none;">
+					<font style="margin-bottom:15px;color:black;">单词测试</font>
+					<div class="flex-container" style="background: white;text-align: left;margin-top:10px;">
+
+				    </div>
+				</div>
+				<div id="textalound" style="padding-top:10px;display:none;">
+					<font style="margin-bottom:15px;color:black;">课文跟读</font>
+					<div class="flex-container" style="background: white;text-align: left;margin-top:10px;">
+
+				    </div>
+				</div>
+				<div id="examsquiz" style="padding-top:10px;display:none;">
+					<font style="margin-bottom:15px;color:black;">听力训练</font>
+					<div class="flex-container" style="background: white;text-align: left;margin-top:10px;">
+
+				    </div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+	    //教师查看的类型
+		var type="1";
+		var homeworkid="{$homeworkid}";
+		var studentid="{$studentid}";
+		var classid="{$classid}";
+		var tqms="{$tqms}";
+	</script>
+	<script src="__PUBLIC__/js/lazyload_2d9c23aa.js" type="text/javascript"></script>
+	<script>
+		LazyLoad(
+			'js',
+			[
+			  "__PUBLIC__/js/mui.min.js",
+			  "__PUBLIC__/js/feedback.js",
+			]
+		);
+	</script>
+</html>

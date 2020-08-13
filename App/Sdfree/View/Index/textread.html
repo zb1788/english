@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="wap-font-scale" content="no">
+        <meta charset="UTF-8">
+        <title>英语同步练</title>
+        <link rel="stylesheet" href="__SUBJECT__/css/currency.css" />
+        <link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+         <link rel="stylesheet" href="__SUBJECT__/css/muitan.css" />
+        <link rel="stylesheet" href="/public/public/css/layer.css" />
+        <script src="/public/public/js/jquery.min.js" type="text/javascript"></script>
+        <script src="/public/public/js/jquery.jplayer.min.js" type="text/javascript"></script>
+        <script src="/public/public/js/TouchSlide.1.1.js" type="text/javascript"></script>
+        <script src="/public/public/js/iscroll-lite.js" type="text/javascript"></script>
+        <script src="/public/public/js/layer.js" type="text/javascript"></script>
+        <script src="__PUBLIC__/js/textread.js" type="text/javascript"></script>
+        <script src="__PUBLIC__/js/enunitajax.js" type="text/javascript"></script>
+        <style>
+            #wrapper {top:88px; bottom: 48px;}
+        </style>
+    </head>
+    <body>
+        <div id="jplayer"></div>
+        <main>
+            <header class="head border-nav">
+                <a class="head-left"><i class="icon-back"></i>返回</a>
+                <a class="head-right"><i class="icon-eye2"></i></a>
+                <h1 class="title" ></h1>
+            </header>
+            <div class="topH4"><span class="fl mL10" id="chapter"></span><span class="fr mR10"><font id="cur"></font>/<font id="count"></font></span></div>
+            <div id="wrapper">
+                <div id="scroller">
+                    <div class="read">
+                        <div id="iScroll" class="iScroll bWhite">
+                            <div class="hd" style="display:none;">
+                                <ul></ul>
+                            </div>
+                            <div class="bd" id="iScroll-bd">
+                                
+                            </div>
+                        </div>     
+                    </div>
+                </div><!--end scroller-->
+            </div><!--end wrapper-->
+            <div class="bottom">
+                <div class="boxCon">
+                    <a id="audioplay" class="btn bYellow02" style="background-color: #00bdc7;" onplay="0">
+                        <i class="icon-uniE60C" style="font-size:1.4em;"></i><font>连读</font>
+                    </a>
+                </div>
+            </div>
+        </main>
+        <div id="tips"></div>
+        <a class="prev" id="prev" style="width:50%;">上一题</a>
+        <a class="next" id="next" style="width:50%;">下一题</a>
+        <!--遮罩的代码-->
+        <div id="over" class="over"></div>
+        <div id="layout" class="layout">
+            <img src="__SUBJECT__/img/2013112931.gif" alt="" />
+        </div>
+        <style>
+            .over {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #f5f5f5;
+                opacity:0.5;
+                z-index: 1000;
+            }
+            .layout {
+                display: block;
+                position: absolute;
+                top: 40%;
+                left: 40%;
+                width: 20%;
+                height: 20%;
+                z-index: 1001;
+                text-align:center;
+            }
+            .layui-m-layer-yourclass {
+                width: 420px;
+                height: 240px;
+                background-color: #81BA25;
+                box-shadow: none;
+                color: #fff;
+            }
+        </style> 
+    </body>
+    <script type="text/javascript">
+     $(function(){
+        $("#jplayer").jPlayer({
+            swfPath: '/public/public/js',
+            wmode: "window",
+            supplied: "mp3",
+            preload: "none",
+            volume: "1"
+        });
+        mp = new myplay();
+        new IScroll("#wrapper",{
+                    momentum:true,
+                    click:true 
+                });
+        var Requests = new Object();
+        Requests = GetRequest();
+        var defaultindex=Requests["defaultindex"]==undefined?0:Requests["defaultindex"];
+        $("#wrapper").resize();
+        //设置标题
+        $(".title").text(decodeURI(Requests["ks_short_name"]));
+        initReadTextList("getTextsDataByUnit",$("#iScroll-bd"));
+         //设置总页数
+        $("#count").text($(".text").length);
+        //返回按钮的事件
+        $(".head-left").click(function(){
+            try{
+                mp.clear();
+                window.location.href="/sdfree/index/enunit";
+            }catch(e){
+                setTip("返回失败");
+            }
+            var Requests = new Object();
+            // Requests = GetRequest();
+            // window.location.href=Requests["urlCallBack"];
+        });
+         //分页
+        var touch=TouchSlide({ 
+            slideCell:"#iScroll",
+            titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+            autoPage:true, //自动分页
+            prevCell : '#prev',
+            nextCell : '#next',
+            defaultIndex:defaultindex,
+            startFun:function(i){
+                $("#cur").text(i+1);
+                $("#cur").attr("pagecur",i);
+                $("#chapter").text($(".text").eq(i).parent().parent().attr("chapter"));
+                try{
+                    try{
+                        mp.clear();
+                    }catch(e){
+                        setTip("停止失败");
+                    }
+                    $("#audioplay").find("font").text("连读");
+                    $("#audioplay").find("i").removeClass("icon-playt").addClass("icon-uniE60C");
+                    $("#audioplay").addClass("stop").removeClass("play");
+                    $(".active").removeClass("active").removeClass("curplay");                          
+                }catch(e){
+                    
+                }
+                //$("#scroller").css('transform','translate(0px, '+($("#scroller").offset().top-88)+'px)');
+            },
+            endFun:function(i){ //高度自适应
+                var bd = document.getElementById("iScroll-bd");
+                var ul= $("#iScroll-bd").find(".text").eq(i).parent();
+
+                //获取屏幕的高度
+                var height=window.screen.height;
+                if(ul.height()<height){
+                    $("#iScroll").css("height",height-48+"px");
+                }else{
+                    $("#iScroll").css("height",ul.height()+"px");
+                }
+                $("#scroller").css("transform","translate(0px, 0px) translateZ(0px)");
+                $("#wrapper").resize();
+                //mp3.setCurpage(i);
+                //mp3.setParentobj($("div.text").eq(i).find("i"));
+                //向上滚动
+            }
+        });
+        //单句点读
+        $("p").live('click',function(){
+            $("#audioplay").addClass("play").removeClass("stop");
+            $("#audioplay").find("font").text("暂停");
+            $("#audioplay").find("i").addClass("icon-playt").removeClass("icon-uniE60C");
+            var index=$(this).index();
+            try{
+                $(".active").removeClass("active").removeClass("curplay");
+            }catch(e){}
+            // $(this).addClass("active");
+            // mp.clear();
+            // mp.play($(this).attr("mp3"));
+            // $(this).addClass("curplay");
+             var pagecur=$("#cur").attr("pagecur");
+            playWordList(pagecur,index);
+        });
+        //读一读监听事件
+                $("#audioplay").click(function(){
+
+                    //console.log(mp3);
+                    var status=$(this).hasClass("play");
+                    var finish=$(this).hasClass("isover");
+                    if(!finish){
+                        if(!status){
+                            $(this).addClass("play").removeClass("stop");
+                            $(this).find("font").text("暂停");
+                            $(this).find("i").removeClass("icon-uniE60C").addClass("icon-playt");
+
+                            var pagecur=$("#cur").attr("pagecur");
+                            var index=$("div.text").eq(pagecur).find(".curplay").index();
+                            if(index==-1){
+                                index=0;
+                            }
+                            // mp3.setParentobj($("div.text").eq(pagecur).find("i"));
+                            console.log(index);
+                            var pagecur=$("#cur").attr("pagecur");
+                            playWordList(pagecur,index);
+                        }else{
+                            try{
+
+                               $(".curplay").removeClass("curplay"); 
+                            }catch(e){
+
+                            }
+                            $(".active").removeClass("active").addClass("curplay");
+                            $(this).addClass("stop").removeClass("play");
+                            $(this).find("font").text("连读");
+                            $("#audioplay").find("i").removeClass("icon-playt").addClass("icon-uniE60C");
+                            try{
+                                //clearTimeout(mp3time);
+                                mp.clear();
+                            }catch(e){
+                                setTip("shibai");
+                            }
+                        }
+                    }else{
+                        window.location.reload();
+                    }
+                });
+                //显示隐藏翻译
+                $(".head-right").click(function(){
+                    if($(this).find("i").hasClass("icon-eye2")){
+                        $(this).find("i").addClass("icon-eye1").removeClass("icon-eye2");
+                        setTip("隐藏所有翻译");
+                        $("span.cn font").hide();
+                        $("#wrapper").resize();
+                    }else{
+                        $(this).find("i").addClass("icon-eye2").removeClass("icon-eye1");
+                        setTip("显示所有翻译");
+                        $("span.cn font").show();
+                        $("#wrapper").resize();
+                    }
+                });
+     }); 
+    </script>
+</html>

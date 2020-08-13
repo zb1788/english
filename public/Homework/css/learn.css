@@ -1,0 +1,128 @@
+.title {
+			margin: 20px 15px 10px;
+			color: #6d6d72;
+			font-size: 15px;
+		}
+		.Bar { 
+			position: relative; 
+			width: 200px;    /* 宽度 */ 
+	border: 1px solid #B1D632; 
+	padding: 1px; 
+	margin-left: 60px;
+	margin-top: 20px;
+}
+.Bar div { 
+	display: block; 
+	position: relative; 
+	background:#00F;/* 进度条背景颜色 */ 
+	color: #333333; 
+	height: 5px; /* 高度 */ 
+	line-height: 20px;  /* 必须和高度一致，文本才能垂直居中 */ 
+}
+
+
+/*播放样式*/
+.play:before {
+	position: absolute;
+	margin-top: -.074em;
+	content: "\f04b";
+	font-family: FontAwesome;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 1.5em;
+}
+.play {
+	position: relative;
+	width: 1.25em;
+	height: 1.25em;
+	float: left;
+	color: blue;
+	cursor: pointer;
+	margin-top: 18px;
+	margin-left: 30px;
+}
+/*题型汇总样式*/
+header span{
+	float: right;
+	position: absolute;
+	right:20px
+}
+/*翻页页码样式*/
+.page{
+	position: absolute;
+	top: 50%;
+	right: 15px;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+/*选择题的选项的样式*/
+ul.choice{
+	margin-top: 30px;
+	background-color: #efeff4;
+}
+ul.choice li a div div {
+	width:30px; 
+	height:30px; 
+	background-color:white; 
+	border-radius:25px;
+	display: inline-block;
+}
+
+ul.choice li a div div span{
+	height:30px; 
+	line-height:30px; 
+	display:block; 
+	color:black; 
+	text-align:center;
+}
+
+/*播放按钮样式*/
+#lanren #audio-btn{
+	width: 44px;
+	height: 44px; 
+	margin:100px auto;
+	background-size: 100% 100%;
+	}
+#lanren .on{
+	background: url('images/music_on.png') no-repeat 0 0;
+	-webkit-animation: rotating 1.2s linear infinite;
+	animation: rotating 1.2s linear infinite;
+	}
+#lanren .off{background: url('images/music_off.png') no-repeat 0 0;}
+@-webkit-keyframes rotating {
+	from{
+		-webkit-transform: rotate(0deg);
+		-moz-transform: rotate(0deg);
+		-ms-transform: rotate(0deg);
+		-o-transform: rotate(0deg);
+    	transform: rotate(0deg);
+	}
+	to{
+		-webkit-transform: rotate(360deg);
+		-moz-transform: rotate(360deg);
+		-ms-transform: rotate(360deg);
+		-o-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@keyframes rotating {
+    from{
+        -webkit-transform: rotate(0deg);
+		-moz-transform: rotate(0deg);
+		-ms-transform: rotate(0deg);
+		-o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+		-moz-transform: rotate(360deg);
+		-ms-transform: rotate(360deg);
+		-o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+
+
+

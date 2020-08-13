@@ -1,0 +1,81 @@
+@charset "gb2312";
+/* CSS Document */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video, input  {
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+html, body, form, fieldset, p, div, h1, h2, h3, h4, h5, h6 {
+    -webkit-text-size-adjust: none;
+}
+
+body{background:#fff;}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+
+a:link {text-decoration:none; color:#555;}
+a:visited {color:#888;}
+a:hover{text-decoration:none;}
+a:active {color:#555;}
+
+a.hong:link,a.hong:visited {text-decoration:none;color:#da0000;}
+a.hong:hover {text-decoration:underline;}
+
+input, button,select {color:#3a3a39; vertical-align:middle;}
+img { vertical-align:middle; }
+button{cursor:pointer;}
+ul,li {list-style:none;}
+input {-webkit-appearance:none;} /*去除input默认样式，用于ios系统*/
+
+/*清除float*/
+.clearfix:after {content: ".";  display:block;  height:0;  clear: both;  visibility: hidden;}
+.clearfix {display:inline-block;}
+* html .clearfix {height:0; }
+.clearfix {display: block; overflow:auto; clear:both; height:0;}
+
+/*头部*/
+.container {background:#fff;}
+header {background:#3cb0e0; height:44px; width:100%; display:block; position:fixed;top:0; left:0; z-index:980; }
+header h1 {color:#fff; font:normal 19px/45px Microsoft YaHei; text-align:center; display:block; margin:0 70px 0 40px; }
+header h1.kcb {text-align:left;  margin:0 70px 0 25px; }
+header h1.ml45 {margin-left:45px;margin-right:45px;}
+header h1.qk9 {margin:0 5px 0 45px;}
+header .option {width:45px; height:45px; position:absolute; left:0; top:0;}
+header .option.r {width:60px; left:auto;right:0; top:0;}
+header .back {width:80px; height:45px; position:absolute; left:5px; top:0;}
+header .back.r {left:auto;right:0; top:0;}
+header .back.mt2 {top:0;}
+header .back a,.back a:visited { width:80px; height:33px; display:block; text-align:left; padding-top:7px; color:#fff; line-height:33px;}
+header .back a img {vertical-align:text-bottom; margin-right:-3px;}
+header .option a,.option a:visited { width:45px; height:45px; display:block; text-align:center; line-height:45px; }
+header .option a.on,header .option a.on:visited { background-color:#870009; border-radius:5px 0 0 0;}
+header .option.r a img {padding-top:12px;}
+header .option.r a.on,header .option.r a.on:visited {border-radius:0 5px 0 0;}
+header .search {position:absolute; right:0; top:0; width:52px; height:45px;}
+header .search a,header .search a:visited {display:block; width:52px; height:45px; text-align:center; line-height:45px;}
+
+header .kc_setup {width:60px; position:absolute; right:5px; top:5px;}
+header .kc_setup a {width:auto; height:32px; padding:0 5px; color:#fff; display:block; text-align:center; line-height:32px;font-size:18px; margin-top:2px; }
+.kc_setup a.tj_ok {color:#87c8e6;font-size:16px;}
+a.ok,a.ok:visited {width:80px; height:32px; padding:0 5px; color:#fff; display:inline-block; text-align:center; line-height:32px; background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #91d0ef), color-stop(0.3, #43a6d7)); border-radius:5px; border:1px solid #1c79a7; box-shadow: 0 1px 2px #8fcdec;}
+
+
+/*错误页面*/
+.error {display:block; width:90%; text-align:center; font-size:18px; line-height:30px; color:#a5a5a5; margin:35% auto 0 auto;}
+.error img {display:block; margin:0 auto; padding-bottom:20px;}
+
+a.fblu {color:#159edc; display:inline-block;}

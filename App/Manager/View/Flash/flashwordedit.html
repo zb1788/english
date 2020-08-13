@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版本编辑</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+<body> 
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="box_top pl_10 f14"><strong>请勾选单词</strong></td> 
+  </tr>
+  <tr>
+    <td class="p5">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+	 <tr><td width="50" align="right">年级：</td>
+              <td><select name="gradeid" class="select" id="gradeid">
+              </select></td>
+      </tr>
+	  <tr>
+	  	<td width="50" align="right">学期：</td>
+	      <td><select name="termid" class="select" id="termid">
+	        <option value="1">上学期</option>
+	        <option value="2">下学期</option>
+	        <option value="3">全一册</option>
+	      </select></td>
+	  </tr>
+	  <tr>
+	  	<td width="50" align="right">版本：</td>
+              <td><select name="versionid" class="select" id="versionid">
+              </select></td>
+	  </tr>
+	  <tr>
+	  	<td width="50" align="right">单元：</td>
+              <td><select name="unitid" class="select" id="unitid">
+              </select></td>
+	  </tr>
+      <tr>
+        <td class="td_right">标题名称：</td>
+        <td>
+          <input type="text" id="title" name="name" value="{$title}" class="input-text lh30" size="40" />
+          <input type="hidden" id="id" value="{$id}">
+        </td>
+      </tr>
+      <tr>
+        <td rowspan="2" class="td_right" id="wordlist2"><span>单&nbsp;&nbsp;词：</br><strong id="checkcount" >{$checkcount}</strong>/<font id="count">{$wordcount}</font>个&nbsp;&nbsp;</td>
+        <td class="wordlist" style="padding-top:0px;"></td>
+      </tr>
+      <tr>
+        <td><input id="checkAll" name="checkAll" type="button"  value="全选" />
+          <input id="checkNot" name="checkNot" type="button"  value="反选" />
+        </td>
+      </tr>
+      </table>
+    </form>
+  <div class="h10"></div>
+    </td> 
+  </tr> 
+</table>
+</div>
+<script type="text/javascript">
+$(function(){
+  $.ajaxSetup({async:false});
+  $('#termid').val(__TERMID__); 
+  $.EBC.setGrade($('#gradeid')); 
+  $("#gradeid").val({$gradeid});
+  $.EBC.setVersion($('#versionid'),$('#gradeid').val());
+  $("#versionid").val({$versionid});
+  $("#termid").val({$termid});
+  $.EBC.setUnit($('#unitid'),$('#gradeid').val(),$('#versionid').val(),$('#termid').val());
+  $("#unitid").val({$unitid});
+  $("#gradeid").change(function(){ 
+    $.EBC.setVersion($('#versionid'),$('#gradeid').val());
+    $.EBC.setUnit($('#unitid'),$('#gradeid').val(),$('#versionid').val(),$('#termid').val());
+  	setTitle($("#unitid").val());
+  	getFlashWordlist();
+  });
+  $("#versionid").change(function(){  
+    $.EBC.setUnit($('#unitid'),$('#gradeid').val(),$('#versionid').val(),$('#termid').val());
+  	setTitle($("#unitid").val());
+  	getFlashWordlist();
+  });
+  $("#termid").change(function(){
+    $.EBC.setUnit($('#unitid'),$('#gradeid').val(),$('#versionid').val(),$('#termid').val());
+  	setTitle($("#unitid").val());
+  	getFlashWordlist();
+  });
+  $("#unitid").change(function(){
+	setTitle($("#unitid").val());
+	getFlashWordlist();
+  });
+  getFlashWordlist();
+  if({$id}!=0)
+  {
+  $("#gradeid").attr("disabled",true);
+	$("#unitid").attr("disabled",true);
+	$("#termid").attr("disabled",true);
+	$("#versionid").attr("disabled",true);
+  }
+  $("#checkAll").click(function(){
+    var count=$("#count").text();
+    $('input[type=checkbox]').attr('checked','checked');
+    $('#checkcount').text(count);
+  });
+  $("#checkNot").click(function () {
+    var count=$("#count").text();
+    var check=$("input[type='checkbox']:checked").length; 
+    $(":checkbox").each(function () {   
+        $(this).attr("checked", !$(this).attr("checked"));   
+    });
+    $('#checkcount').text(parseInt(count)-check);
+  });
+
+  $("input[type='checkbox']").live('click',function(){
+    var count=$("#count").text();
+     if($(this).attr("checked")=='checked'){
+          $('#checkcount').text(parseInt($('#checkcount').text())+1);
+     }else{
+          $('#checkcount').text(parseInt($('#checkcount').text())-1);
+     } 
+  });
+  });
+
+
+function saveEdit(){
+  var id = $('#id').val(); 
+  var title = $('#title').val();     
+  var grade = $('#gradeid').val();
+  var term = $('#termid').val();
+  var version = $('#versionid').val();
+  var unit = $('#unitid').val();
+  var chk_value =[];//定义一个数组    
+  $('input[type="checkbox"]:checked').each(function(){  
+      chk_value.push($(this).val()); 
+      //$(this).removeAttr("checked");
+  }); 
+  var ids= chk_value.join(",");
+  title = $.trim(title);
+  if (title=="") {dialogTips("请填写Flash标题");  return false;};
+  if (ids=="") {dialogTips("请勾选单词"); return false;}
+  var closeflag = true;
+  $.get("../flash/editflashword",{id:id,title:title,unitid:unit,ids:ids,rt:Math.random()},function(data) {
+      if (data.isadd != "1") 
+      {            
+        //dialogNotice(data.msg,30);
+        closeflag = false;   
+      } 
+      else
+      {
+        $("#check").click();
+      }             
+  });
+  return closeflag;
+}
+
+function setTitle(unitid){
+	$("#title").val("");
+	$.get("../Flash/setTitle",{ran:Math.random(),unitid:unitid},function(data){
+		$("#title").val(data.unitname);
+	});
+}
+
+function getFlashWordlist(){
+  $(".wordlist").empty();
+  var unitid = $("#unitid").val(); 
+  var flashid={$id};
+  $.getJSON("../flash/getWordFlashList", {flashid:flashid,unitid:unitid,random:Math.random()}, function(data){
+    var wordlist="";
+	var count=0;
+	var checkcount=0;
+    $.each(data, function(i,val){
+	  count++;
+      if(val.ischecked==1) 
+      {
+	  	checkcount++;
+      	wordlist=wordlist+'<span style="float:left;margin-right:10px;line-height:24px;"><input type="checkbox" name="word" checked="checked" value='+val.id+'>'+val.word+'</span>';
+      }
+      else
+      {
+      	wordlist=wordlist+'<span style="float:left;margin-right:10px;line-height:24px;"><input type="checkbox" name="word" value='+val.id+'>'+val.word+'</span>';
+      } 
+    });
+    $(".wordlist").html(wordlist);
+	$("#count").html(count);
+	$("#checkcount").html(checkcount);
+     });
+}
+</script>
+</body>
+</html>

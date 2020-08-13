@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+<link href="css/css.css" rel="stylesheet" type="text/css" />
+<link href="js/layer-mobile/need/layer.css" rel="stylesheet" type="text/css" />
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    
+    <div class="top" id="top"><img src="images/top.jpg" /></div>
+	<a class="csbtn" id="sign"><img src="images/csbtn.png"></a>
+		<div class="box2">
+				<div class="pad10">
+				<!-- 	<a href="#" class="csbtn"><img src="images/csbtn.png" /></a> -->
+					<div class="mb20"><img src="images/ct_05.jpg" class="img100"/></div>
+					<p id="guize" >登封市教育体育局关于举行登封市小学生口算王决赛的通知 >>><a style="color:#015afe;">查看</a></br></p>
+					</br>
+					<p><a style="color:#e97541" href="http://www.inke.cn/live.html?uid=732033970&liveid=1571218293673347">登封市小学生口算王决赛直播 >>></a><a href="http://www.inke.cn/live.html?uid=732033970&liveid=1571218293673347" style="color:#015afe;">观看</a></br></p>
+				</div>
+		</div>
+		<div class="box3 pad10">
+			<div class="w1200 tcenter">
+				<div class="mb20" style="padding-bottom:20px;"><img src="images/ct_06.jpg" class="img100"/></div>
+					<p><span>1、本次大赛实行“双签到”制度。</span></p>
+					<p><span>现场签到。</span>各校组织学生进入赛场进行现场签到。签到内容确定自己的年级、姓名、账号。是否与签到表上一致。（请学生提前打开优教信使，在“我”的查看核对）如果不一致，请提供参赛姓名、账号。</p>
+					<p><span>活动页面签到。</span>参赛选手登录选手，“登封市口算王决赛”专题活动，点击“我要参赛”。签到成功会显示“已签到”</p>
+					<p><span>2、决赛内容。</span>决赛在优教信使APP手机端“登封市口算王决赛”专题活动进行。决赛内容为2至6年级2019-2020上学期已经学过的教学内容（口算客观题）。参赛选手须在比赛开始前10分钟登录优教信使，进入“登封市口算王决赛”活动页面，近行“活动签到”和赛前热身训练。</p>
+					<p><span>3、A轮淘汰赛。</span>比赛分为A、B两轮。A轮淘汰赛、B轮为决赛。A轮比赛试题共有60道客观题，每题两分，共120分，需要参赛选手在规定时间（30分钟）内完成，得分排名在第31名以后，不再参加B轮比赛。A轮比赛结束半个小时后公布A轮学生所有成绩和排名（成绩相同时，时间较短者排在前面。）</p>
+					<p><span>4、B轮决赛。</span>在A轮比赛的前31名选手有资格进行B轮决赛。B轮比赛试题共有60道客观题，每题两分，共120分。B轮比赛结束半个小时后公布A轮学生所有成绩和排名（成绩相同时，时间较短者排在前面。）
+					最终成绩，依据B轮比赛数据产生口算王、一二三等奖。参参加A轮比赛、未进入B轮选手，总分在60以上获优秀奖。</p>
+					<p><span>5、评定成绩。</span>根据决赛成绩评出2019年度年级“口算王”、学生一二三等奖奖项设置：（共设“口算王”5名、一等奖25名、二等奖50名、三等奖75名、优秀奖及优秀辅导教师若干名若干名，各年级平均分配名额）。获奖学生和优教辅导老师均颁发相应的荣誉证书。奖品另行通知。</p>
+					<p>&nbsp;</p>
+				</div>
+		</div>
+		<div class="clearfix"></div></br>
+        
+	<!--<a href="#top" class="gtop"><img src="images/gtop.jpg" width="40" /></a>-->
+	<div class="bebottom">
+		<a href="javascript:void(0)" id="index" class="cur"><span>竞赛公告</span></a>
+		<a href="javascript:void(0)" id="active"><span>竞赛活动</span></a>
+		<a href="javascript:void(0)" id="rank" ><span>竞赛排名</span></a>
+	</div>
+<script type="text/javascript" src="js/jquery.min.js" ></script>
+<script type="text/javascript" src="js/layer-mobile/layer.js" ></script>
+<script type="text/javascript" src="js/kousuan.js" ></script>
+<style>
+.layui-m-layercont{padding:50px 30px;line-height:22px;text-align:left;max-height:60vh; overflow-y:auto;}
+</style>
+<script> 
+	$(function(){
+        $("#rank").attr("href",rank);
+		getSign(auth);
+		$("#sign").click(function(){
+			  if(!$(this).hasClass("sign")){
+				  if(username != null && truename != null && schoolname != null){
+					userSign(username,truename,schoolname);
+				  }
+			  }else{
+				  layerAlert('已成功签到！');
+			  }
+		})
+       var content='登封市教育体育局关于举行登封市小学生口算王决赛的通知</br>各乡镇区办中心学校，局直各小学：</br>为进一步推进“互联网+教育”的实施，推动我市信息技术与学科教学深度融合，充分利用网上学习空间，促进学生积极参与学习活动，激发学生的学习激情，全面提升学生自主学习能力，提高学生的学科水平和信息素养，培养学生创新精神与实践能力，根据《登封市教育体育局关于在全市小学开展口算王大赛的通知》（登教体明电〔2019〕129号）我市于2019年2019年6月21日——9月21日举办的登封市小学生口算王大赛初赛，共有 121所学校、1051个班级，22480人参赛。现将决赛的相关事宜通知如下：</br>一、决赛时间</br>2019年10月18日（周五）</br>二、决赛地点</br>登封市通达路小学</br>三、决赛选手</br>1.各年级全市个人排名前20名学生直接进入决赛；</br>2.依据全市各学校“口算王”大赛初赛数据，以各乡镇区办中心校，局直各小学为单位在后台选取各单位比赛各年级（2—6年级）第一名参加决赛，如果第一名为全市前20名，向后顺延选取；</br>3.决赛名单将严格按照后台的数据提取，成绩相同时，按完成时间排名。详见附件2。</br>四、学校初赛总结</br>各单位要在初赛结束后一周内进行总结表彰，并以乡镇区办中心校，局直各小学为单位于10月15日前将学校表彰结果（详见附件1）上报登封市教体局电教室（dfycjy@126.com）。</br>五、决赛内容及要求</br>1.决赛在优教信使手机端“口算王”进行，决赛内容为2至6年级2019-2020上学期已经学过的教学内容。根据决赛成绩评出2019年度年级“口算王”、学生一二三等奖和优秀辅导教师。</br>2.参加决赛的选手由各学校负责组织学生参加决赛，选手自备终端设备（手机）并确定网络畅通。</br>3.依据学校初赛数据排名、参赛人数、参赛比、学校总积分、参赛选手决赛情况等综合评定，评选出先进组织单位若干个。</br>';
+		$('#guize').click(function(){
+			layer.open({
+			  content: content,
+			  overflow:'auto',
+			  btn: '确定'
+			});
+		})
+
+	})
+</script>
+</body>
+
+</html>

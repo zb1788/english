@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>版本列表</title>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+    </head>
+    <body>
+        <div class="place"><strong>位置</strong>：首页 &gt; 课文内容管理</div>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="box_top pl_10 f14"><strong>搜索</strong></td> 
+                </tr>
+                <tr>
+                    <td class="pl_5">
+                        <table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                            <tr>
+                                <td width="50" align="right">年级：</td>
+                                <td>
+                                    <select name="gradeid" class="select" id="gradeid"  bid={$gradeid}>
+                                    </select>
+                                </td>
+                                <td width="50" align="right">学期：</td>
+                                <td>
+                                    <select name="termid" class="select" id="termid" bid={$termid}>
+                                    </select>
+                                </td>
+                                <td width="50" align="right">版本：</td>
+                                <td>
+                                    <select name="versionid" class="select" id="versionid" bid={$versionid}> 
+                                    </select>
+                                </td>
+                                <td width="50" align="right">单元：</td>
+                                <td>
+                                    <select name="unitid" class="select" id="unitid"  bid={$unitid}>
+                                    </select>
+                                </td> 
+                            </tr>
+                        </table>
+                        <table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                            <tr>
+                                <td width="50" align="right">小节：</td>
+                                <td>
+                                    <select name="chapterid2" class="select" id="chapterid" bid={$chapterid}></select>
+                                </td>
+                                <td align="right">
+                                    &nbsp;<input type="button" class="btn btn82 btn_search" value="查询" />
+                                </td> 
+                            </tr>
+                        </table>
+                    </td> 
+                </tr> 
+            </table>
+            <div class="h10"></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_10" height="42">
+                        <input id="addword" name="addword" type="button" class="ext_btn ext_btn_submit" value="添加内容" />
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+                <tr>
+                    <th width="31" align="center">&nbsp;</th>
+                    <th width="61">次序</th>
+                    <th width="61">段落</th>
+                    <th width="61">不发音</th>
+                    <th width="432">发音正文</th>
+                    <th width="293">释义</th>
+                    <th width="71">例句&nbsp;<input type="button" name="checkAll" id="checkAll" value="全选" /></th>
+                    <th width="81">发音角色</th>
+                    <th width="81">状态</th>
+                    <th width="256">操作</th>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0"  id="table_demo" style="display:none;"> 
+                <tr class="tr">
+                    <td align="center">1</td>
+                    <td><input name="sortid" type="text" class="input-text lh30" size="3" maxlength="2" /></td>   
+                    <td><input name="sectionid" type="text" class="input-text lh30" size="3" maxlength="2" /></td>
+                    <td align="center"></td>
+                    <td align="left"></td>
+                    <td align="left"></td> 
+                    <td align="center">
+                        <input type="checkbox" value="1" name="isexample">
+                    </td>      
+                    <td>
+                        <select name="voiceid" class="select">
+                            <option value="0">自定义</option>
+                            <option value="1">Kate</option>
+                            <option value="2">Salli</option>
+                        </select>
+                    </td>
+                    <td align="center"></td>       
+                    <td align="left">
+                        &nbsp;
+                        <input type="button" value="修改" class="ext_btn ext_btn_edit" />&nbsp;
+                        <input type="submit" value="MP3" class="ext_btn ext_btn_submit" />&nbsp;
+                        <input type="button" class="ext_btn ext_btn_error" value="禁用" />&nbsp;
+                        <input type="button"  class="ext_btn ext_btn_listen" value="发音" dvideo=""/>&nbsp;<input type="button"  class="ext_btn ext_btn_download" value="下载" dvideo=""/>&nbsp;
+                    </td>
+                </tr>
+            </table>
+            <div class="h5"></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_10" height="42">
+                        <input name="btn_submit" id="btn_submit" type="button" class="ext_btn ext_btn_submit" value="修改次序" />
+                    </td>
+                </tr>            </table> 
+        </div>
+        <div id="jplayer"></div>
+        <script type="text/javascript">
+        var text_mp3_url = "{$Think.config.text_mp3_path}";
+        //获取mp3文件路径
+        function getmp3url(mp3name){
+            //mp3name = mp3name.substr(0,mp3name.length-1);
+            var mp3url = '';
+            mp3url = text_mp3_url+mp3name.substr(0,2)+'/'+mp3name+'.mp3';
+            return mp3url;
+        }
+            $(function() {
+                $.ajaxSetup({async: false});
+                $(".tr:odd").css("background", "#F5F8FA");
+                $('.tr:odd').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#F5F8FA");
+                    }
+                });
+
+                $('.tr:even').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#FFF");
+                    }
+                });
+                var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                $.EBC.inIt('textlist');  //初始化年级学期版本数据
+                dloading.close();
+                $("#unitid").change(function() {  //单元改变后重新获取章节列表
+                    $.EBC.setUnit($('#chapterid'), $('#unitid').val());
+                    getChapterList(1);  
+                });
+
+
+                $(".btn_search").click(function() {     //搜索按钮点击后获取正文列表
+                    getTextList();//获取正文列表
+                });
+
+                $("#addword").click(function() {
+                    editText();//正文添加按钮点击事件
+                });
+
+
+                $("#table_data .ext_btn_submit").live("click", function() {  //课文mp3按钮添加事件
+                    var id = $(this).attr("BID");
+                    var ks_code = $('#unitid').val();
+                    art.dialog.prompt('请输入要课文的MP3的FTP地址', function(val) {
+                        val = $.trim(val);
+                        $.get('../text/textMp3Edit', {id: id, mp3: val,ks_code:ks_code, random: Math.random()}, function(data) {
+                            art.dialog.tips(data.msg);
+                            getTextList();
+                        }, "json");
+                    });
+                });
+
+
+                $("#table_data .ext_btn_edit").live("click", function() {  //正文修改按钮添加事件
+                    var tr = $(this).parents("tr");
+                    var id = $(this).attr("BID");
+                    editText(id);
+                });
+
+
+                $("#btn_submit").click(function()      //正文修改次序按钮点击事件
+                {
+                    var dloading = art.dialog({time: 30, title: '更新中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                    if ($("#table_data tr.tr").length == 0)
+                        return;
+                    var arrjson = [];
+                    var chapterid = $("#chapterid").val();
+                    var ks_code = $('#unitid').val();
+                    $("#table_data tr.tr").each(function() {
+                        var tr = $(this);
+                        var id = tr.find('input[name="sortid"]').attr("BID");
+                        var sortid = tr.find('input[name="sortid"]').val();
+                        var sectionid = tr.find('input[name="sectionid"]').val();
+                        var voiceid = tr.find('select[name="voiceid"]').val();
+                        var obj = {};
+                        obj.chapterid = chapterid;
+                        obj.id = id;
+                        obj.sortid = sortid;
+                        obj.sectionid = sectionid;
+                        obj.voiceid = voiceid;
+                        arrjson.push(obj);
+                    });
+                    $.post("../text/textlistup", {data: JSON.stringify(arrjson),ks_code:ks_code}, function() {
+                        getTextList();
+                        dloading.close();
+                    });
+
+                });
+
+                $("#table_data .ext_btn_error").live("click", function() {  //删除按钮点击事件
+                    var tr = $(this).parents("tr");
+                    var textid = $(this).attr("BID");
+                    var chapterid = $("#chapterid").val();
+                    var ks_code = $('#unitid').val();
+                    art.dialog.confirm('你确定要禁用本条课文吗？', function() {
+                        $.get("../text/textDel", {textid: textid, chapterid: chapterid,ks_code:ks_code, random: Math.random()}, function() {
+                            tr.remove();
+                        });
+
+                    });
+                });
+                $("input[name=isexample]").live("click", function() {  //例句选框点击事件
+
+                    var tr = $(this).parents("tr");
+                    var textid = $(this).attr("BID");
+                    var isexample = $(this).is(":checked") ? $(this).val() : 0;
+                    var ks_code = $('#unitid').val();
+                    $.get("../text/isexample", {textid: textid, isexample: isexample,ks_code:ks_code, random: Math.random()});
+                });
+                $("#jplayer").jPlayer({
+                    swfPath: "js",
+                    wmode: "window",
+                    supplied: "mp3",
+                    preload: "none",
+                    volume: "1"
+                });
+                $("#table_data .ext_btn_download").live("click", function() {  //正文修改按钮添加事件
+                       var mp3 = $(this).attr('dvideo');
+                       mp3 = getmp3url(mp3);
+                      window.open(mp3);
+                                                                                            });
+                $("#table_data .ext_btn_listen").live("click", function() {     //发音按钮点击事件
+                    jpclear();
+                    var mp3 = $(this).attr('dvideo');
+                    if (!mp3) {
+                        alert("请上传音频");
+                    }
+                    else
+                    {
+
+                        mp3 = getmp3url(mp3);
+                        $("#jplayer").jPlayer("setMedia", {
+                            mp3: mp3
+                        }).jPlayer("play");
+                    }
+                });
+
+                $("#checkAll").click(function() {  //例句全选按钮点击事件
+                    $('input[name="isexample"]').attr("checked", "checked").click();
+                    $("#btn_submit").click();
+                });
+            });
+
+            function jpclear() {
+                $("#jplayer").jPlayer("clearMedia");
+                $("#jplayer").jPlayer("stop");
+                $("#jplayer").unbind($.jPlayer.event.ended);
+                $("#jplayer").unbind($.jPlayer.event.progress);
+            }
+        </script>
+    </body>
+</html>

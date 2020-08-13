@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+        <meta name="wap-font-scale" content="no">
+		<title>英语同步练</title>
+		<link rel="stylesheet" href="../css/currency.css" />
+		<link rel="stylesheet" href="../font/fonts.css" />
+		<link rel="stylesheet" href="../css/iscroll.css" />
+		<script type="text/javascript" src="../js/iscroll-lite.js" ></script>
+		<script type="text/javascript" src="../js/demoUtils.js" ></script>
+		<script type="text/javascript" src="../js/TouchSlide.1.1.js" ></script>
+		
+		
+	<script type="text/javascript">
+var myScroll;
+function loaded () {
+	myScroll = new IScroll('#wrapper', { bounceEasing: 'elastic', bounceTime: 0,momentum:true,disablePointer:true,click:true });
+
+    TouchSlide({ slideCell:"#iScroll",
+    switchLoad:"_src",
+    
+        endFun:function(i){ //高度自适应
+            var bd = document.getElementById("iScroll-bd");
+            bd.parentNode.style.height = bd.children[i].children[0].offsetHeight+"px";
+            if(i>0)bd.parentNode.style.transition="200ms";//添加动画效果
+        }
+       
+    } ); myScroll.refresh();
+}
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, isPassive() ? {
+	capture: false,
+	passive: false
+	
+} : false);
+</script>
+<style>
+	#wrapper {top: 85px; bottom: 0;}
+</style>
+
+
+</head>
+<body onload="loaded()">
+<main>
+<header class="head border-nav">
+			<a class="head-left" href="index.html"><i class="icon-back"></i>返回</a>
+			<a class="head-right">生词本</a>
+			<h1 class="title"><!--<a class="qieL cur">学单词</a><a class="qieR">背单词</a>-->Unit Part A</h1>
+					</header>
+					<div class="topH4"><span class="fl mL10"><i class="icon-clock icon-l"></i>已用时：00:29</span><span class="fr mR10"><font class="redFont">7</font>/20</span></div>
+		<section>
+			<div id="wrapper">
+	<div id="scroller">
+<div id="iScroll" class="iScroll bWhite">
+        <div class="tempWrap" ><div class="bd" id="iScroll-bd">
+            <div class="con">
+                <div class="">
+                	<div class="pad10">
+                <div class="playWord pad10">
+                		<h4 class="textH4">选出正确内容</h4>
+                		<i id="pale" onclick="shou()" class="icon-favorite-o coll"></i>
+                		<span class="bFontCenter">English<font class="fonG">[nglish]</font></span>
+                       		<span class="bPlay"><img src="../images/timg.gif" /><a class="btnYuan radius100"><i class="icon-uniE60C actY"></i></a></span>
+</div>	</div><!--end pad10-->
+                <ul class="bdc">
+	<li><a>A.</a>高兴，单词个数</li>
+	<li class="cur"><a>B.</a>高兴，单词个数</li>
+	<li class="error"><a>C.</a>高兴，单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数</li>
+    <li><a>D.</a>高兴，单词个数</li>
+                </ul>
+                <div class="pad10">
+                <!--	<h3 class="textH3">答案</h3>-->
+                <div class="lyWord">
+                	<p class="textBt plr10">正确答案是:A&nbsp;&nbsp;您的答案是:B</p>
+                	<!--<h3 class="textH3 plr10">班级数据</h3>-->
+                	<ul class="bjsj">
+                		<li><p class="textH4">作答次数</p><p class="fontZ">14</p></li>
+                		<li><p class="textH4">正确率</p><p class="fontZ">99%</p></li>
+                		<li><p class="textH4">易错项</p><p class="fontZ">B</p></li>
+                	</ul>
+                	</div>
+                </div>
+                </div>
+                
+            </div>
+            <div class="con" style="display: table-cell; vertical-align: top; width: 327px;">
+                <div class="">
+                	<div class="pad10">
+                <div class="playWord pad10">
+                		<h4 class="textH4">选出正确内容</h4>
+                		<i id="pale" onclick="shou()" class="icon-favorite-o coll"></i>
+                		<span class="bFontCenter">English<font class="fonG">[nglish]</font></span>
+                       		<span class="bPlay"><img src="../images/timg.gif" /><a class="btnYuan radius100"><i class="icon-volume-up actY"></i></a></span>
+</div>	</div><!--end pad10-->
+                <ul class="bdc">
+	<li><a>A.</a>高兴，单词个数</li>
+	<li class="cur"><a>B.</a>高兴，单词个数</li>
+	<li class="error"><a>C.</a>高兴，单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数</li>
+    <li><a>D.</a>高兴，单词个数</li>
+                </ul>
+                <div class="pad10">
+                <!--	<h3 class="textH3">答案</h3>-->
+                <div class="lyWord">
+                	<p class="textBt plr10">正确答案是:A&nbsp;&nbsp;您的答案是:B</p>
+                	<!--<h3 class="textH3 plr10">班级数据</h3>-->
+                	<ul class="bjsj">
+                		<li><p class="textH4">作答次数</p><p class="fontZ">14</p></li>
+                		<li><p class="textH4">正确率</p><p class="fontZ">99%</p></li>
+                		<li><p class="textH4">易错项</p><p class="fontZ">B</p></li>
+                	</ul>
+                	</div>
+                </div>
+                </div>
+            </div>             
+            <div class="con" style="display: table-cell; vertical-align: top; width: 327px;">
+               <div class="">
+                	<div class="pad10">
+                <div class="playWord pad10">
+                		<h4 class="textH4">选出正确内容</h4>
+                		<i id="pale" onclick="shou()" class="icon-favorite-o coll"></i>
+                		<span class="bFontCenter">English<font class="fonG">[nglish]</font></span>
+                       		<span class="bPlay"><img src="../images/timg.gif" /><a class="btnYuan radius100"><i class="icon-volume-up actY"></i></a></span>
+</div>	</div><!--end pad10-->
+                <ul class="bdc">
+	<li><a>A.</a>高兴，单词个数</li>
+	<li class="cur"><a>B.</a>高兴，单词个数</li>
+	<li class="error"><a>C.</a>高兴，单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数单词个数</li>
+    <li><a>D.</a>高兴，单词个数</li>
+                </ul>
+                <div class="pad10">
+                <!--	<h3 class="textH3">答案</h3>-->
+                <div class="lyWord">
+                	<p class="textBt plr10">正确答案是:A&nbsp;&nbsp;您的答案是:B</p>
+                	<!--<h3 class="textH3 plr10">班级数据</h3>-->
+                	<ul class="bjsj">
+                		<li><p class="textH4">作答次数</p><p class="fontZ">14</p></li>
+                		<li><p class="textH4">正确率</p><p class="fontZ">99%</p></li>
+                		<li><p class="textH4">易错项</p><p class="fontZ">B</p></li>
+                	</ul>
+                	</div>
+                </div>
+                </div>
+            </div>                               
+
+        </div></div>
+    </div>
+	</div><!--end scroller-->
+</div><!--end wrapper-->
+<div id="tips"></div>
+</section>
+</main>
+<script>
+	tip = document.getElementById('tips');
+function shou(){
+		pale = document.getElementById('pale');
+		pale.className = 'icon-favorite coll';
+		console.log('sdfsd');
+		tip.innerHTML = '已收藏！ ';
+		tip.style.display = 'block';
+		setTimeout(function(){ 
+		tip.style.display = 'none';
+}, 2000);
+
+	};
+</script>
+</body>
+</html>

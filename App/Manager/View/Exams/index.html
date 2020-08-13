@@ -1,0 +1,1032 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>添加试卷</title>
+<link href="__PUBLIC__/exam/images/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/exam/images/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/exam/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+
+</head>
+<body id="dbody">
+<div id="jplayer"></div>
+<div id="btnbar">
+  <ul class="nav clearfix">
+    <li datarole="field" class="active">试题添加</li>
+    <li datarole="edit">试题内容</li>
+  </ul>
+  <div class="panel panel_field"  style="display:none;">
+    <p>独立大题:</p>
+    <div class="field_drag_add field_stem_single" data-field-type="stem_single"> <span class="ui-icon ui-icon-refresh"></span>大题 </div>
+    <p>组合题:</p>
+    <div class="field_drag_add field_stem_combination" data-field-type="stem_combination"> <span class="ui-icon ui-icon-refresh"></span>组合大题 </div>
+    <div class="field_drag_add field_stem_son" data-field-type="stem_son"> <span class="ui-icon ui-icon-refresh"></span>组合部分</div>
+    <p>小题:</p>
+    <div class="field_drag_add field_question" data-field-type="qunstion_select"> <span class="ui-icon ui-icon-refresh"></span>选择题 </div>
+    <div class="field_drag_add field_question" data-field-type="qunstion_judge"> <span class="ui-icon ui-icon-refresh"></span>判断题 </div>
+    <div class="field_drag_add field_question" data-field-type="qunstion_input"> <span class="ui-icon ui-icon-refresh"></span>填空题 </div>
+    <div class="field_drag_add field_question" data-field-type="qunstion_sort"> <span class="ui-icon ui-icon-refresh"></span>排序题 </div>
+  </div>
+  <div class="panel panel_edit">
+    <ul class="contentedit">
+    </ul>
+  </div>
+</div>
+<div id="container" class="clearfix">
+  <div id="header" class="clearfix">
+    <input id="btn_exam_new" type="button" class="ui-button-text" value="新建试卷"  onclick="javascript:window.location.href='index?examsid=0'"/>
+    <input type="button" value="预览试卷"  id="btn_exam_preview"  />
+    <input id="btn_exam_save" examsid="{$examsid}" type="button" value="保存试卷"  onclick="savepaper();" />
+  </div>
+  <div id="desion">
+    <div id="form_header" style="height:54px;">
+      <p> 考试名称:<span id="form_header_hide" class="ui-state-default ui-corner-all ui-icon ui-icon-carat-1-s"></span><br>
+        <input name="exam_name" id="exam_name" type="text" size="80"  value="{$examname}"/>
+      </p>
+      <p> 音频处理:<br>
+        <input name="tts_type" type="radio" value="1" checked="checked" onclick="javascript:$('.tt').show();$('.upload').hide();"/>系统生成&nbsp;&nbsp;&nbsp;
+        <input name="tts_type" type="radio" value="2" onclick="javascript:$('.tt').hide();$('.upload').show();"/>自助上传
+      </p>
+      <p>应用类型:<br>
+        <input name="exam_type" type="radio" value="1" checked="true" onclick="javascript:$('#isunit').show();$('#ispro').hide();$('#pro_table').hide();"/>同步测试&nbsp;&nbsp;&nbsp;
+        <input name="exam_type" type="radio" value="2" onclick="javascript:$('#isunit').show();$('#ispro').hide();$('#pro_table').hide();"/>课堂训练&nbsp;&nbsp;&nbsp;
+        <input name="exam_type" type="radio" value="3" onclick="javascript:$('#ispro').show();$('#isunit').hide();$('#form_table').hide();"/>真题/模拟
+      </p>
+      <p id="isunit"> 所属单元:<br/>
+        <input name="textfield" id="unit" type="text" size="60" disabled="true" value=""/>
+        <i class="ui-icon ui-icon-circle-arrow-w" onclick="javascript:$('#form_table').toggle();"></i>
+      </p>
+      <table border="0" cellspacing="0" cellpadding="0" class="form_table" style="display:none;" id="form_table">
+        <tr>
+          <td width="50" align="right">年级：</td>
+          <td>
+            <select name="gradeid" class="select" id="gradeid" ></select>
+          </td>
+          <td width="50" align="right">学期：</td>
+          <td>
+            <select name="termid" class="select" id="termid" >
+              <option value="1">上学期</option>
+              <option value="2">下学期</option>
+              <option value="3">全一册</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td width="50" align="right">版本：</td>
+          <td>
+            <select name="versionid" class="select" id="versionid" ></select>
+          </td>
+          <td width="50" align="right">单元：</td>
+          <td>
+            <select name="unitid" class="select" id="unitid" onchange="javascript:$('#unit').val($('#gradeid option:selected').text()+'.'+$('#termid option:selected').text()+'.'+$('#versionid option:selected').text()+'.'+$('#unitid option:selected').text());$('#unit').attr('unitid',$('#unitid option:selected').val());"></select>
+          </td>
+        </tr>
+      </table>
+      <p style="display:none;" id="ispro"> 所属省份:<br>
+        <input name="textfield" id="provice" type="text" disabled="true" size="60"/>
+        <i class="ui-icon ui-icon-circle-arrow-w" onclick="javascript:$('#pro_table').toggle();"></i>
+      </p>
+      <table border="0" cellspacing="0" cellpadding="0" class="form_table" style="display:none;" id="pro_table">
+          <tr>
+            <td width="50" align="right">省份：</td>
+            <td>
+              <select name="proid" class="select" id="proid" onchange="javascript:$('#provice').val($('#proid option:selected').text()+'.'+$('#yearid option:selected').text()+'.'+$('#levelid option:selected').text()+'.'+$('#typeid option:selected').text());$('#provice').attr('proid',$('#proid option:selected').val());$('#provice').attr('yearid',$('#yearid option:selected').val());$('#provice').attr('levelid',$('#levelid option:selected').val());$('#provice').attr('typeid',$('#typeid option:selected').val());">
+                <volist name="provincearr" id="vo">
+                  <option value="{$vo.id}">{$vo.title}</option>
+                </volist>
+              </select>
+            </td>
+            <td width="50" align="right">年份：</td>
+            <td>
+              <select name="yearid" class="select" id="yearid" onchange="javascript:$('#provice').val($('#proid option:selected').text()+'.'+$('#yearid option:selected').text()+'.'+$('#levelid option:selected').text()+'.'+$('#typeid option:selected').text());$('#provice').attr('proid',$('#proid option:selected').val());$('#provice').attr('yearid',$('#yearid option:selected').val());$('#provice').attr('levelid',$('#levelid option:selected').val());$('#provice').attr('typeid',$('#typeid option:selected').val());">
+                <volist name="yeararr" id="vo">
+                   <option value="{$vo.id}">{$vo.title}年</option>
+                </volist>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td width="50" align="right">学段：</td>
+            <td>
+              <select name="levelid" class="select" id="levelid" onchange="javascript:$('#provice').val($('#proid option:selected').text()+'.'+$('#yearid option:selected').text()+'.'+$('#levelid option:selected').text()+'.'+$('#typeid option:selected').text());$('#provice').attr('proid',$('#proid option:selected').val());$('#provice').attr('yearid',$('#yearid option:selected').val());$('#provice').attr('levelid',$('#levelid option:selected').val());$('#provice').attr('typeid',$('#typeid option:selected').val());">
+                <volist name="periodarr" id="vo">
+                   <option value="{$vo.id}">{$vo.title}</option>
+                </volist>
+                
+              </select>
+            </td>
+            <td width="100" align="right">试卷类型：</td>
+            <td>
+              <select name="typeid" class="select" id="typeid" onchange="javascript:$('#provice').val($('#proid option:selected').text()+'.'+$('#yearid option:selected').text()+'.'+$('#levelid option:selected').text()+'.'+$('#typeid option:selected').text());$('#provice').attr('proid',$('#proid option:selected').val());$('#provice').attr('yearid',$('#yearid option:selected').val());$('#provice').attr('levelid',$('#levelid option:selected').val());$('#provice').attr('typeid',$('#typeid option:selected').val());">
+                <volist name="examtypearr" id="vo">
+                   <option value="{$vo.id}">{$vo.title}</option>
+                </volist>
+
+              </select>
+            </td>
+          </tr>
+      </table>
+      <p>显示内容:<br>
+        <textarea name="textarea" id="header_content" cols="70" rows="1"></textarea>
+        <input type="checkbox" value="" checked="checked" />无内容
+      </p>
+      <p class="tt">测试提示音:<br>
+        <textarea name="textarea" cols="50" rows="1" id="ttsexamsbegin"></textarea>
+        <select name="" id="ttsexamsbeginvoice">
+          <option value="1">中男Liang</option>
+        <option value="2">中女Hui</option>
+        <option value="3" selected="selected">美女Kate</option>
+        <option value="4">美女Salli</option>
+        <option value="5">美男Joey</option>
+        <option value="6">英女Bridget</option>
+        <option value="7">英男Brian</option>
+        </select>
+        <img src="__PUBLIC__/exam/images/icon_play.png" class="ting" id="ttsexamsbeginvoicemp3" onclick="splay(this);"/>
+      </p>
+      <p class="upload" style="display:none;">测试提示音:<br>
+        <textarea name="textarea" cols="40" rows="2" id="ttsupexamsbegin"></textarea>
+        <img src="__PUBLIC__/exam/images/icon_play.png" class="ting" onclick="splay(this);"/><br/>             
+        <input name="file" type="button"  class="file" value="上传" onclick="upload(this);"/>
+        
+      </p>
+      <p>停顿设置:<br />
+        <select name="" id="examsstoptimes">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>5</option>
+          <option>10</option>
+          <option>15</option>
+          <option>20</option>
+          <option>25</option>
+          <option>30</option>
+          <option>60</option>
+        </select>秒
+      </p>
+      <p class="tt">播放完成音:<br>
+        <textarea name="textarea" cols="50" rows="1" id="ttsexamsend"></textarea>
+        <select name="" id="ttsexamsendvoice">
+          <option value="1">中男Liang</option>
+        <option value="2">中女Hui</option>
+        <option value="3" selected="selected">美女Kate</option>
+        <option value="4">美女Salli</option>
+        <option value="5">美男Joey</option>
+        <option value="6">英女Bridget</option>
+        <option value="7">英男Brian</option>
+        </select>
+        <img src="__PUBLIC__/exam/images/icon_play.png" id="ttsexamsendvoicemp3" class="ting" onclick="splay(this);"/>
+      </p>
+      <p class="upload" style="display:none;">播放完成音:<br>
+        <textarea name="textarea" cols="40" rows="2" id="ttsupexamsend"></textarea>
+        <img src="__PUBLIC__/exam/images/icon_play.png" class="ting" onclick="splay(this);"/><br/>  
+        <input name="file" type="button"  class="file"  value="上传" onclick="upload(this);"/>
+        
+      </p>
+    </div>
+    <div class="h10 bott_b"></div>
+    <!--<div id="form_exam" class="ui-sortable"> </div>-->
+    <div id="form_exam" class="ui-sortable"> </div>
+    <!--<div id="form_exam" class="ui-sortable"> </div>--> 
+  </div>
+</div>
+
+
+
+<script type="text/javascript" src="__PUBLIC__/js/manager.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/exam/js/jquery-ui.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/ue/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/ue/ueditor.all.js"> </script>  
+<script type="text/javascript" src="__PUBLIC__/js/myueditor.js"></script>
+<script type="text/javascript" src="__PUBLIC__/exam/js/vcom_en_exams.js"></script>
+<script type="text/javascript" src="__PUBLIC__/exam/js/en-exam.js"></script>
+<script type="text/javascript" src="__PUBLIC__/exam/js/jquery.form.js"></script>
+
+<script type="text/javascript">
+$.ajaxSetup({async:false});
+//var ue1 = UE.getEditor('editor1');//ueditor插件
+var ue = UE.getEditor('editor');
+ue.ready(function(){
+    //阻止工具栏的点击向上冒泡
+    $(this.container).click(function(e){
+        e.stopPropagation()
+    })
+});
+$('.content').click(function(e){
+    var $target = $(this);
+    var content = $target.html();
+    var currentParnet = ue.container.parentNode.parentNode;
+    var currentContent = ue.getContent();
+    $target.html('');
+    $target.append(ue.container.parentNode);
+    ue.reset();
+    setTimeout(function(){
+        ue.setContent(content);
+    },200)
+    $(currentParnet).html(currentContent);
+});
+$(document).ready(function() {
+    controlbar();
+    stem_son_list_sortable();
+    question_items_list_sortable();
+    myresize();
+
+		tabselect("field");
+    $(".nav li").click(function() {          
+		 tabselect($(this).attr("datarole"));
+    });
+
+    $("#btn_exam_preview").click(function(){
+        var examsid=$("#btn_exam_save").attr("examsid");
+        art.dialog.open('../../../Listen/yulan?examsid='+examsid,{
+            title:"预览试卷",
+            width:980,
+            height:600,
+            lock:true
+        });
+    });
+});
+
+function tabselect(datarole){
+ 	if(datarole == "field")
+	 {		 
+	 	$('#btnbar .nav li[datarole="field"]').addClass("active"); 
+		$('#btnbar .nav li[datarole="edit"]').removeClass("active");	
+		$("#btnbar .panel_field").show();			
+		$("#btnbar .panel_edit").hide();
+	 }
+	 else
+	 {
+		$('#btnbar .nav li[datarole="field"]').removeClass("active"); 
+		$('#btnbar .nav li[datarole="edit"]').addClass("active");	
+		$("#btnbar .panel_field").hide();
+		$("#btnbar .panel_edit").show();
+	}
+}
+
+
+
+function controlbar() {
+    $(".curedit").removeClass("curedit");
+    $("#form_exam .question_types_label .controlbar a").off('click');
+    $("#form_exam .question_types_label .controlbar a").on('click',
+    function() {
+        switch ($(this).attr("ctrltype")) {
+			case "delete":
+        var id=$(this).attr("id");
+        var flag=$(this).parent().parent().parent().hasClass("question_item")?1:0;
+        //alert($(this).parent().parent().parent().hasClass("question_item"));
+        var obj=$(this).parents("label.question_types_label").parent();
+        art.dialog.confirm('你确定要删除此题吗？', function () {
+          $(obj).remove();
+          if(flag==0){
+            $.getJSON("delStem",{id:id,ran:Math.random()},function(){});
+          }else{
+            $.getJSON("delQuestion",{id:id,ran:Math.random()},function(){});
+          }
+          //$(obj).parent().remove();
+        });
+				break;
+			case "copy":
+				var curobj = $(this).parents("label.question_types_label");
+				if ($(curobj).hasClass("curedit")) {
+					//$(curobj).removeClass("curedit");
+					var obj = $(curobj.parent()).clone(true);
+          //alert($(obj).attr("id")); 
+          question_copy(obj);
+					$(obj).find(".curedit").removeClass("curedit");				
+					$(obj).insertAfter(curobj.parent());
+          
+					//$(curobj).addClass("curedit")
+				} else {
+          var obj = $(curobj.parent()).clone(true);
+          //alert($(obj).attr("id"));
+          question_copy(obj);
+					$(obj).insertAfter(curobj.parent())
+				}
+				break;
+			case "edit":
+         //alert("fasdfasdfa");
+				$(".curedit").removeClass("curedit");
+				var curobj = $(this).parents("label.question_types_label").addClass("curedit");
+				tabselect("edit");				
+				editshow($(this).parents("label.question_types_label").parent().attr('data-field-type'));
+				break;
+			case "collapse":
+				if ($(this).hasClass("collapse_n")) {
+					$(this).parents("label.question_types_label").parent().height(34).css("overflow", "hidden");
+					$(this).removeClass("collapse_n").addClass("collapse_s")
+				} else {
+					$(this).parents("label.question_types_label").parent().height("auto");
+					$(this).removeClass("collapse_s").addClass("collapse_n")
+				}
+				break;
+			default:
+				return;
+        }
+    })
+}
+
+function editshow(itemtype) {
+    var html = "";
+    switch (itemtype) {
+    case "stem_combination":       	
+		   edit_content_add("#stem_edit_template");
+       questionToController("6");
+        break;
+	case "stem_son":       	
+		   edit_content_add("#stem_son_edit_template");
+       questionToController("5"); 
+        break;
+	case "stem_single":       	
+  		edit_content_add("#stem_son_edit_template");
+      questionToController("5");		
+      break;		
+	case "qunstion_select":       	
+		edit_content_add("#qunstion_select_edit_template");
+    $("#btnbar .contentedit .keyword").append($("#key_content").html());
+    questionToController("1");
+    break;
+  case "qunstion_judge":
+    edit_content_add("#qunstion_judge_edit_template");
+    $("#btnbar .contentedit .keyword").append($("#key_content").html());
+    questionToController("2");
+    break;
+  case "qunstion_input":
+    edit_content_add("#qunstion_input_edit_template");
+    $("#btnbar .contentedit .keyword").append($("#key_content").html());
+    questionToController("3");
+    break;
+  case "qunstion_sort":
+    edit_content_add("#qunstion_sort_edit_template");
+    $("#btnbar .contentedit .keyword").append($("#key_content").html());
+    //alert("fasdfasd");
+    questionToController("4");
+    break;    
+  default:
+    return;
+    } 
+	$('#btnbar input[type="button"]').button();
+}
+
+function edit_content_add(strtemplate){
+  $(strtemplate).find(".stem_content").append(ue.container.parentNode);
+  //$target.append(ue.container.parentNode);
+	html = $(strtemplate).html();
+
+	$("#btnbar .contentedit").html(html);
+	//修改听力材料是上传还是添加			  
+	if ($('#form_header input[name="tts_type"]:checked').val() == "1") {
+		html = $("#item_tts_auto_edit_template").html();
+		$("#btnbar .contentedit .tts").append(html);
+
+	}
+	else
+	{
+		html = $("#item_tts_user_edit_template").html();
+		$("#btnbar .contentedit .tts").append(html); 
+	};
+} 
+
+function draghelper(obj) {
+    var r = "<div class=\"field_drag_add\" data-field-add=\"new\" data-field-type=\"";
+    r += $(obj).attr('data-field-type') + "\">" + $(obj).html() + "</div>";
+    return r
+}
+$("#btnbar .panel .field_stem_single,#btnbar .panel .field_stem_combination").draggable({
+    appendTo: "body",
+    connectToSortable: "#form_exam",
+    revert: "invalid",
+    helper: function(event) {
+        return draghelper(this)
+    }
+});
+$("#form_exam").sortable({
+    placeholder: "placehode",
+    axis: "y",
+    items: "div.stem_parent",
+    handle: "label.question_types_label",
+    activate: function(event, ui) {
+        $(".placehode").height(ui.item.height())
+    },
+    stop: function(event, ui) {
+        if (ui.item.attr('data-field-add') == "new") {
+            var html = $("#" + ui.item.attr('data-field-type') + "_show_template").html();
+            ui.item.html(html).removeClass("field_drag_add").removeAttr("style").removeAttr("data-field-add");
+            ui.item.addClass("stem_parent").addClass(ui.item.attr('data-field-type'));
+            if (ui.item.attr('data-field-type') == "stem_combination") {
+                stem_son_list_sortable()
+            } else {
+                question_items_list_sortable()
+            }
+        }
+        controlbar();
+        $(".curedit").removeClass("curedit")
+    }
+});
+$("#btnbar .panel .field_stem_son").draggable({
+    appendTo: "#dbody",
+    connectToSortable: "#form_exam .stem_son_list",
+    revert: "invalid",
+    helper: function(event) {
+        $("#form_exam .stem_son_list").append("<div class=\"stem_son emputyfiled\"></div>");
+        return draghelper(this)
+    }
+});
+function stem_son_list_sortable() {
+    $("#form_exam .stem_son_list").sortable({
+        placeholder: "placehode",
+        axis: "y",
+        items: "div.stem_son",
+        handle: "label.question_types_label",
+        activate: function(event, ui) {
+            $(".placehode").height(ui.item.height())
+        },
+        stop: function(event, ui) {
+            if (ui.item.attr('data-field-add') == "new") {
+                var html = $("#" + ui.item.attr('data-field-type') + "_show_template").html();
+                ui.item.html(html).removeClass("field_drag_add").removeAttr("style").removeAttr("data-field-add");
+                ui.item.addClass("stem_son").addClass(ui.item.attr('data-field-type'));
+                question_items_list_sortable()
+            }
+            controlbar()
+        }
+    })
+}
+$("#btnbar .panel .field_question").draggable({
+    appendTo: "body",
+    connectToSortable: "#form_exam .question_items_list",
+    revert: "invalid",
+    helper: function(event) {
+        return draghelper(this)
+    }
+});
+function question_items_list_sortable() {
+    $("#form_exam .question_items_list").sortable({
+        placeholder: "placehode",
+        axis: "y",
+        items: "div.question_item",
+        handle: "label.question_types_label",
+        activate: function(event, ui) {
+            $(".placehode").height(ui.item.height())
+        },
+        stop: function(event, ui) {
+            if (ui.item.attr('data-field-add') == "new") {
+                var html = $("#" + ui.item.attr('data-field-type') + "_show_template").html();
+                ui.item.html(html).removeClass("field_drag_add").removeAttr("style").removeAttr("data-field-add");
+                ui.item.addClass("question_item")
+            }
+            controlbar()
+        }
+    })
+}
+$(document).ready(function() {
+    myresize();
+    $.EBC.inIt(0);
+    $("#form_header_hide").click(function() {
+        if ($(this).hasClass("ui-icon-carat-1-n")) {
+            $(this).removeClass("ui-icon-carat-1-n").addClass("ui-icon-carat-1-s");
+            $("#form_header").height(55)
+        } else {
+            $(this).removeClass("ui-icon-carat-1-s").addClass("ui-icon-carat-1-n");
+            $("#form_header").height("auto")
+        }
+    })
+    $.getJSON("getExam",{examsid:{$examsid},ran:Math.random()},function(data){
+        var p = Exams.createNew(data);
+        $("#form_exam").html(p.initPaper());
+        stem_son_list_sortable();
+        question_items_list_sortable();
+        controlbar();
+    });
+
+   
+
+});
+$(window).resize(function() {
+    myresize()
+});
+function myresize() {
+    $("#header").css({
+        "left": $("#desion").offset().left
+    })
+	$("#btnbar .panel").height($("#btnbar").height() - 30) ;
+}
+function checkImage()
+{
+  var mydialog;
+            var options = {
+               
+               url:"../Upload/indexexam?ran="+Math.random(),//后台的处理，也就是form里的action
+               type:"POST",
+               dataType:"json", //数据格式，有XML，html，json，默认为文本
+               beforeSubmit : function() {  
+                  mydialog=art.dialog({title:'上传中……',width:130,height:30,opacity:0.3,lock:true});  
+                },
+               success:function(data){
+                  mydialog.close();
+                  // var arr=[];
+                  // arr=msg.split('|');
+                  // var NewFileName=arr[0];
+                  // var OriginName=arr[1];
+                //$('#filename').val(OriginName);
+                  //art.dialog.alert('上传成功！'+NewFileName);
+                  if(data.issuc=='1'){
+                    $("#upload_mp3").attr("mp3",data.msg.savepath+data.msg.savename);
+                    $("#file_uploads").remove();
+                  }else{
+                    alert("上传失败");
+                    $("#file_uploads").remove();
+                  }
+                  
+              //msg为接受后台的反馈信息。将他格式化为文本。也许我的代码的问题，后台返回的一直带有HTML标记的文本，所以我将他格式成文本。
+                 //var msgText = $("<div>"+msg+"</div>").text();
+                 //下面可以根据后台反馈的信息做相应的处理
+               }
+            };
+         $("#form").ajaxSubmit(options);
+         return false;//为了防止刷新
+}
+$("#header input").button();
+
+
+</script>
+
+<!--富文本编辑器模块-->
+<div class="template" id="stem_content">
+  <script  id="editor" type="text/plain" style="width:265px;height:100px;"></script>
+</div>
+
+<!--关键词模块-->
+<div class="template" id="key_content">
+    疑问词:
+    <select class="pro">
+      <volist name="proarr" id="vo">
+        <option value="{$vo.id}">{$vo.title}</option>
+      </volist>
+    </select>
+  </br>
+    话&nbsp;&nbsp;题:
+    <select class="topic">
+      <volist name="topicarr" id="vo">
+        <option value="{$vo.id}">{$vo.title}</option>
+      </volist>
+    </select>
+  </br>
+    技&nbsp;&nbsp;能:
+    <select class="skill">
+      <volist name="skillarr" id="vo">
+        <option value="{$vo.id}">{$vo.title}</option>
+      </volist>
+    </select>
+  </br>
+    难&nbsp;&nbsp;度:
+    <select class="diff">
+      <volist name="diffarr" id="vo">
+        <option value="{$vo.id}">{$vo.title}</option>
+      </volist>
+    </select>
+</div>
+
+
+
+<!--上传模块-->
+<div border="2px" class="template" id="file_upload" style="margin-top:5px;">  
+  <form id="form4" action="../Upload/indexexam" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="file" >
+    <input type="button" name="submit" value="提交" onclick="checkImage();">
+  </form> 
+</div>
+
+
+
+<!--字段模版区域--> 
+<div class="template" id="stem_combination_show_template">
+  <label class="question_types_label">组合大题<div class="controlbar clearfix"><a ctrltype="edit" class="edit" title="编辑"></a><a ctrltype="copy" class="copy" title="复制"></a><a ctrltype="delete" class="delete" title="删除"></a><a ctrltype="collapse" class="collapse_n" title="折叠"></a></div></label>
+  <div class="content_tts"> </div>
+  <div class="content_view"></div>
+  <div class="stem_son_list clearfix"> 
+  </div>
+</div> 
+<div class="template" id="stem_son_show_template">
+  <label class="question_types_label">组合大题-部分
+    <div class="controlbar clearfix">
+      <a ctrltype="edit" class="edit" title="编辑"></a>
+      <a ctrltype="copy" class="copy" title="复制"></a>
+      <a ctrltype="delete" class="delete" title="删除"></a>
+      <a ctrltype="collapse" class="collapse_n" title="折叠"></a>
+    </div>
+  </label>
+  <div class="content_tts">  </div>
+  <div class="content_view"></div>
+  <div class="question_items_list"></div>
+</div> 
+<div class="template" id="stem_single_show_template">
+  <label class="question_types_label">大题
+    <div class="controlbar clearfix">
+      <a ctrltype="edit" class="edit" title="编辑"></a>
+      <a ctrltype="copy" class="copy" title="复制"></a>
+      <a ctrltype="delete" class="delete" title="删除"></a>
+      <a ctrltype="collapse" class="collapse_n" title="折叠"></a>
+    </div>
+  </label>
+  <div class="content_tts">  </div>
+  <div class="content_view"></div>
+  <div class="question_items_list"></div>
+</div> 
+<div class="template" id="qunstion_select_show_template"> 
+  <label class="question_types_label">选择题<font class="tihao"></font>
+    <div class="controlbar clearfix">
+      <a ctrltype="edit" class="edit" title="编辑"></a>
+      <a ctrltype="copy" class="copy" title="复制"></a>
+      <a ctrltype="delete" class="delete" title="删除"></a>
+      <a ctrltype="collapse" class="collapse_n" title="折叠"></a>
+    </div>
+  </label>
+  <div class="content_tts"></div>
+  <div class="content_view"></div>
+  <div class="content_options clearfix">
+    <p>
+      <input name="" type="radio" value="" disabled="disabled" />A.选项A</p>
+    <p>
+      <input name="" type="radio" value="" checked="checked" disabled="disabled" />B.选项B</p>
+    <p>
+      <input name="" type="radio" value=""  disabled="disabled" />C.选项C</p>
+  </div>
+  <div class="answer">答案：B</div>
+</div> 
+<div class="template" id="qunstion_judge_show_template">
+  <label class="question_types_label">判断题<font class="tihao"></font><div class="controlbar clearfix"><a ctrltype="edit" class="edit" title="编辑"></a><a ctrltype="copy" class="copy" title="复制"></a><a ctrltype="delete" class="delete" title="删除"></a><a ctrltype="collapse" class="collapse_n" title="折叠"></a></div></label>
+  <div class="content_tts"></div>
+  <div class="content_view"></div>
+  <div class="content_options">
+    <p>
+      <input name="junge1" type="radio"  disabled="disabled" value="1"/>True</p>
+    <p>
+      <input name="junge1" type="radio"  checked="checked" disabled="disabled" value="0"/>False</p> 
+  </div>
+  <div class="answer">答案：False</div>
+</div> 
+<div class="template" id="qunstion_input_show_template"> 
+  <label class="question_types_label">填空题<font class="tihao"></font><div class="controlbar clearfix"><a ctrltype="edit" class="edit" title="编辑"></a><a ctrltype="copy" class="copy" title="复制"></a><a ctrltype="delete" class="delete" title="删除"></a><a ctrltype="collapse" class="collapse_n" title="折叠"></a></div></label>
+  <div class="content_tts"></div>
+  <div class="content_view"></div>
+  <div class="answer">答案：填空答案</div>
+</div> 
+<div class="template" id="qunstion_sort_show_template"> 
+  <label class="question_types_label">排序题<font class="tihao"></font><div class="controlbar clearfix"><a ctrltype="edit" class="edit" title="编辑"></a><a ctrltype="copy" class="copy" title="复制"></a><a ctrltype="delete" class="delete" title="删除"></a><a ctrltype="collapse" class="collapse_n" title="折叠"></a></div></label>
+  <div class="content_tts"></div>
+  <div class="content_view"></div>
+  <div class="content_options clearfix">
+    <p><strong>A</strong>.<font>内容A</font></p>
+    <p><strong>B</strong>.<font>内容B</font></p>
+    <p><strong>C</strong>.<font>内容C</font></p>
+    <p><strong>D</strong>.<font>内容D</font></p>
+    <p><strong>E</strong>.<font>内容E</font></p>
+  </div>
+  <div class="answer">答案：<span><font>1</font>.<font>A</font></span>&nbsp;<span><font>2</font>.<font>B</font></span>&nbsp;<span><font>3</font>.<font>C</font></span>&nbsp;<span><font>4</font>.<font>D</font></span>&nbsp;<span><font>5</font>.<font>E</font></span></div>
+</div> 
+
+
+
+
+<!--内容编辑模版区域--> 
+<div class="template" id="item_tts_auto_edit_template">  
+	<p class="tt">
+	  <input name="textfield" class="tcontenttype" type="text" size="1" style="width:20px;" />
+    <textarea  class="tcontent" name="textarea" cols="35" rows="1"></textarea><br />
+	  <select name="voiceid" class="ttstype">
+		    <option value="1">中男Liang</option>
+        <option value="2">中女Hui</option>
+        <option value="3" selected="selected">美女Kate</option>
+        <option value="4">美女Salli</option>
+        <option value="5">美男Joey</option>
+        <option value="6">英女Bridget</option>
+        <option value="7">英男Brian</option>
+	  </select>
+	  <select class="ttsstoptime">
+		<option value="0">0秒</option>
+		<option selected="selected" value="1">1秒</option>
+    <option  value="2">2秒</option>
+    <option  value="3">3秒</option>
+    <option  value="4">4秒</option>
+    <option  value="5">5秒</option>
+    <option  value="6">6秒</option>
+    <option  value="7">7秒</option>
+    <option  value="8">8秒</option>
+    <option  value="9">9秒</option>
+    <option  value="10">10秒</option>
+	  </select>
+    <input name="textfield" class="tcontenttype" type="checkbox" style="width:15px;" />
+	  <img src="__PUBLIC__/exam/images/icon_add.png" onclick="voice_add(this);"/>
+    <img src="__PUBLIC__/exam/images/icon_delete.png" onclick="voice_del(this);" />
+    <img src="__PUBLIC__/exam/images/icon_play.png" class="ting" onclick="splay(this);"/>
+	</p>
+</div> 
+<div class="template" id="item_tts_user_edit_template">	
+	<p class="upload">
+    <input name="textfield" class="tcontenttype" type="text" size="1" style="width:20px;" />
+	  <textarea name="textarea" cols="40" rows="2"></textarea><br />          
+	  <img src="__PUBLIC__/exam/images/icon_play.png" class="ting" onclick="splay(this);"/>
+    <input name="file" type="button"  class="file"  value="上传" onclick="upload(this);"/>
+	</p>
+</div>
+
+
+<div class="template" id="stem_edit_template">  
+  <li class="tts">
+  	听力材料:<br />	
+  </li>
+  <li>停顿设置:<br />
+	<select>
+	  <option>1</option>
+	  <option>2</option>
+	  <option>3</option>
+	  <option>5</option>
+	  <option>10</option>
+	  <option>15</option>
+	  <option>20</option>
+	  <option>25</option>
+	  <option>30</option>
+	  <option>60</option>
+	</select>秒
+  </li>
+  <li class="stem_content">显示内容: <br />
+  </li>
+  <li>
+	<input type="button" value="同步内容" questiontype="9" onclick="$('.substr:eq(0)').text('');controllerToQuestion(this);"/><font class="substr"></font>
+  </li>
+</div> 
+
+
+
+<div class="template" id="stem_son_edit_template"> 
+  <li>小题分值:<br />
+	<input name="textfield" type="text" size="1" style="width:30px;" />分
+  </li>
+  <li class="tts">
+  	听力材料:<br />	
+  </li>
+  <li>提示音:<br />
+	<select name="">
+	  <option value="0">无</option>
+	  <option value="1">叮咚</option>
+	</select>
+  </li>
+  <li>停顿设置:<br />
+	<select>
+	  <option value="1">1</option>
+	  <option value="2">2</option>
+	  <option value="3">3</option>
+	  <option value="5">5</option>
+	  <option value="10">10</option>
+	  <option value="15">15</option>
+	  <option value="20">20</option>
+	  <option value="25">25</option>
+	  <option value="30">30</option>
+	  <option value="60">60</option>
+	</select>秒
+  </li>
+  <li>播放次数:<br />
+  <select>
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+  </select>次
+  </li>
+  <li class="stem_content"> 显示内容: <br />
+  </li>
+  <li>
+	    <input type="button" value="同步内容"  questiontype="9" onclick="$('.substr:eq(0)').text('');controllerToQuestion(this);"/><font class="substr"></font>
+  </li>
+</div>
+
+<div class="template" id="qunstion_select_edit_template"> 
+  <li>题号部分:<br />
+    <input name="textfield" type="text" size="10" class="question_num"/>
+    <select name="voiceid" class="ttstype">
+        <option value="1">中男Liang</option>
+        <option value="2">中女Hui</option>
+        <option value="3">美女Kate</option>
+        <option value="4">美女Salli</option>
+        <option value="5">美男Joey</option>
+        <option value="6">英女Bridget</option>
+        <option value="7">英男Brian</option>
+    </select>
+  </li>
+  <li class="tts">听力材料:<br />
+  </li>
+  <li>提示音:<br />
+    <select name="">
+      <option value="0">无</option>
+      <option value="1">叮咚</option>
+    </select>秒
+  </li>
+  <li> 停顿设置:<br />
+    <select>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+      <option value="25">25</option>
+      <option value="30">30</option>
+      <option value="60">60</option>
+    </select>秒
+  </li>
+  <li class="stem_content"> 显示内容: <br />
+  </li>
+  <li class="itmes"> 选项内容:
+    <input name=""  class="intext" type="radio" value="0" checked="checked" onclick="javascript:$(this).parent().find('input[name='textfield']').show();$(this).parent().find('.file').hide();" />文字
+    <input name=""  class="intext" type="radio" value="1" onclick="javascript:$(this).parent().find('input[name='textfield']').hide();$(this).parent().find('.file').show();"/>图片<br />
+    <p>
+      <input name="items"  class="intext" type="radio" value="A" />
+      <input name="textfield" class="wordtext" type="text" size="30" />
+      <input name="upload"  class="file" type="button" value="上传" style="display:none;" onclick="upload(this);" />
+      <img src="__PUBLIC__/exam/images/icon_add.png" width="20" onclick="item_add(this);"/>
+      <img src="__PUBLIC__/exam/images/icon_delete.png" onclick="item_del(this);"/>
+    </p>
+    <p>
+      <input name="items"  class="intext" type="radio" value="B" />
+      <input name="textfield" type="text" size="30" />
+      <input name="upload"  class="file" type="button" value="上传" style="display:none;"onclick="upload(this);" />
+      <img src="__PUBLIC__/exam/images/icon_add.png" onclick="item_add(this);" width="20" />
+      <img src="__PUBLIC__/exam/images/icon_delete.png" onclick="item_del(this);" />
+    </p>
+    <p>
+      <input name="items"  class="intext" type="radio" value="C" />
+      <input name="textfield" type="text" size="30" />
+      <input name="upload"  class="file" type="button" value="上传" style="display:none;" onclick="upload(this);"/>
+      <img src="__PUBLIC__/exam/images/icon_add.png"  onclick="item_add(this);" width="20" />
+      <img src="__PUBLIC__/exam/images/icon_delete.png" onclick="item_del(this);"/>
+    </p>
+  </li>
+  <li>
+    排序方式:<br>
+    <input name="layout" type="radio" value="0"  />竖排&nbsp;&nbsp;&nbsp;
+    <input name="layout" type="radio" value="1" checked="checked"/>横排
+  </li>
+  <li class="keyword"></li>
+  <li>
+    <input type="button" value="同步内容" questiontype="1" onclick="$('.substr:eq(0)').text('');controllerToQuestion(this);"/><font class="substr"></font>
+  </li>
+</div>
+
+<div class="template" id="qunstion_judge_edit_template"> 
+  <li>题号部分:<br />
+    <input name="textfield" type="text" size="10" class="question_num"/>
+    <select name="voiceid" class="ttstype">
+        <option value="1">中男Liang</option>
+        <option value="2">中女Hui</option>
+        <option value="3">美女Kate</option>
+        <option value="4">美女Salli</option>
+        <option value="5">美男Joey</option>
+        <option value="6">英女Bridget</option>
+        <option value="7">英男Brian</option>
+    </select>
+  </li>
+  <li class="tts">听力材料:<br />
+  </li>
+  <li>提示音:<br />
+    <select name="">
+      <option value="0">无</option>
+      <option value="1">叮咚</option>
+    </select>秒
+  </li>
+  <li> 停顿设置:<br />
+    <select>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+      <option value="25">25</option>
+      <option value="30">30</option>
+      <option value="60">60</option>
+    </select>秒
+  </li>
+  <li class="stem_content"> 显示内容: <br />
+  </li>
+  <li class="itmes"> 判断:
+    <input name="judge"  class="intext" type="radio" value="1" />True
+    <input name="judge"  class="intext" type="radio" value="0" checked="checked"/>False
+  </li>
+  <li class="keyword"></li>
+  <li>
+    <input type="button" value="同步内容" questiontype="2" onclick="$('.substr:eq(0)').text('');controllerToQuestion(this);"/><font class="substr"></font>
+  </li>
+</div>
+
+<div class="template" id="qunstion_input_edit_template"> 
+  <li>题号部分:<br />
+    <input name="textfield" type="text" size="10" class="question_num"/>
+    <select name="voiceid" class="ttstype">
+        <option value="1">中男Liang</option>
+        <option value="2">中女Hui</option>
+        <option value="3">美女Kate</option>
+        <option value="4">美女Salli</option>
+        <option value="5">美男Joey</option>
+        <option value="6">英女Bridget</option>
+        <option value="7">英男Brian</option>
+    </select>
+  </li>
+  <li class="tts">听力材料:<br />
+  </li>
+  <li>提示音:<br />
+    <select name="">
+      <option value="0">无</option>
+      <option value="1">叮咚</option>
+    </select>秒
+  </li>
+  <li> 停顿设置:<br />
+    <select>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+      <option value="25">25</option>
+      <option value="30">30</option>
+      <option value="60">60</option>
+    </select>秒
+  </li>
+  <li class="stem_content"> 显示内容: <br />
+  </li>
+  <li class="keyword"></li>
+  <li>
+    <input type="button" value="同步内容" questiontype="3" onclick="$('.substr:eq(0)').text('');controllerToQuestion(this);"/><font class="substr"></font>
+  </li>
+</div>
+
+
+<div class="template" id="qunstion_sort_edit_template"> 
+  <li>题号部分:<br />
+    <input name="textfield" type="text" size="10" class="question_num"/>
+    <select name="voiceid" class="ttstype">
+        <option value="1">中男Liang</option>
+        <option value="2">中女Hui</option>
+        <option value="3">美女Kate</option>
+        <option value="4">美女Salli</option>
+        <option value="5">美男Joey</option>
+        <option value="6">英女Bridget</option>
+        <option value="7">英男Brian</option>
+    </select>
+  </li>
+  <li class="tts">听力材料:<br />
+  </li>
+  <li>提示音:<br />
+    <select name="">
+      <option value="0">无</option>
+      <option value="1">叮咚</option>
+    </select>秒
+  </li>
+  <li> 停顿设置:<br />
+    <select>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+      <option value="25">25</option>
+      <option value="30">30</option>
+      <option value="60">60</option>
+    </select>秒
+  </li>
+  <li class="stem_content"> 显示内容: <br />
+  </li>
+  <li class="itmes"> 选项内容:
+    <input name="items"  class="intext" type="radio" value="0" checked="checked" onclick="javascript:$(this).parent().find('.intext').show();$(this).parent().find('input[name='textfield']').show();$(this).parent().find('.file').hide();"/>文字
+    <input name="items"  class="intext" type="radio" value="1" onclick="javascript:$(this).parent().find('.intext').hide();$(this).parent().find('input[name='textfield']').hide();$(this).parent().find('.file').show();"/>图片</br>
+    <p>
+      <input name="sort" class="tcontenttype" type="text" size="1" style="width:20px;" />&nbsp;
+      <input name="textfield" type="text" size="20" />
+      <input name="upload"  class="file ui-button ui-widget ui-state-default ui-corner-all" type="button" value="上传" style="display:none;" onclick="upload(this);"/>
+      <img src="__PUBLIC__/exam/images/icon_add.png" onclick="line_add(this);" width="20" />
+      <img src="__PUBLIC__/exam/images/icon_delete.png" onclick="line_del(this);"/>
+    </p>
+  </li>
+  <li class="answer"> 答案:<br/>
+    <p>
+      <input name="textfield" class="tcontenttype" type="text" size="1" style="width:20px;" />
+      <input name="textfield" class="tcontenttype" type="text" size="1" style="width:20px;" />
+      <img src="__PUBLIC__/exam/images/icon_add.png" onclick="answer_add(this);" width="20" />
+      <img src="__PUBLIC__/exam/images/icon_delete.png" onclick="answer_del(this);"/>
+    </p>
+  </li>
+  <li class="keyword"></li>
+  <li>
+    <input type="button" value="同步内容" questiontype="4" onclick="$('.substr:eq(0)').text('');controllerToQuestion(this);"/><font class="substr"></font>
+  </li>
+</div>
+
+</body>
+</html>

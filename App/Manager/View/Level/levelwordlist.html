@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>单词游戏</title>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+    </head>
+    <body>
+            <div class="h10"></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border" style="position:fixed;">
+                <tr>
+                    <td class="pl_10" height="42">
+                        <input id="addword" name="addword" type="button" class="ext_btn ext_btn_submit" value="添加单词" />&nbsp;
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data" style="margin-top:44px;">
+                <tr>
+                    <th width="60">次序</th>
+                    <th width="150">单词</th>
+                    <th width="300">释义</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none" id="table_demo"> 
+                <tr class="tr">
+                    <td><input name="sortid" type="text" class="input-text lh30" size="3" maxlength="2" style="text-align: center;"/></td>
+                    <td align="center"></td>
+                    <td align="left">
+                        <select class="select" style="width:300px;">
+
+                        </select>
+                    </td>
+                    <td align="left">
+                        &nbsp;&nbsp;
+                        <input type="button" class="ext_btn ext_btn_error" value="删除" />
+                        <input type="button" class="ext_btn wordmove" value="移动" />  
+                    </td>
+                </tr>
+            </table>
+            <div class="h5"></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_10" height="42">
+                        <input name="btn_submit" id="btn_submit" type="button" class="ext_btn ext_btn_submit" value="修改次序" />
+                    </td>
+                </tr>
+            </table> 
+        </div>
+        <script type="text/javascript">
+
+            $(function() {
+
+                $.ajaxSetup({async: false});
+                $(".tr:odd").css("background", "#F5F8FA");
+                $('.tr:odd').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#F5F8FA");
+                    }
+                });
+
+                $('.tr:even').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#FFF");
+                    }
+                });
+                var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                /**
+                 初始化年级、学期、版本以及单元和单词
+                 **/
+                var Requests = new Object();
+                Requests = GetRequest();
+                var levelid=Requests["levelid"];
+                getLevelWrodList(levelid);
+                dloading.close();              
+                /**
+                 删除按钮单击事件
+                 **/
+                $("#table_data .ext_btn_error").live("click", function() {
+                    var tr = $(this).parents("tr");
+                    var wordid = $(this).attr("bid");
+                    var levelid = $(this).attr("pid");
+                    art.dialog.confirm('你确定要删除这个游戏吗？', function() {
+                        $.get("delLevelWord", {levelid:levelid,wordid:wordid,random: Math.random()},function(data){
+                            getLevelWrodList(levelid);
+                        });
+                    });
+                });
+
+                //单词导入
+                $("#table_data .ext_btn_import").live("click", function() {
+                    var id = $(this).attr("pid");
+                    art.dialog.open('levelwordin?levelid='+id,{
+                        title: "单词上传",
+                        width: 550,
+                        height: 320,
+                        lock: true,
+                        opacity: 0.3,
+                        button: [
+                            {
+                                name: '保存',
+                                callback: function() {
+                                    getLevelWrodList(id);
+                                    return true;
+                                },
+                                focus: true
+                            },
+                            {
+                                name: '关闭',
+                                callback: function() {
+                                    //$("#gradeid").change();
+                                },
+                                focus: false
+                            }
+                        ]
+                    });
+                });
+
+
+                //添加单词
+                $("#addword").click(function(){
+                    art.dialog.open('wordedit?levelid='+levelid,{
+                        title: "添加单词",
+                        width: 550,
+                        height: 120,
+                        lock: true,
+                        opacity: 0.3,
+                        button: [
+                            {
+                                name: '保存',
+                                callback: function() {
+                                    var iframe = this.iframe.contentWindow;
+                                    var re = iframe.addWord();
+                                    if(re){
+                                        getLevelWrodList(levelid);
+                                        return true;
+                                    }else{
+                                        return false;
+                                    }
+                                },
+                                focus: true
+                            },
+                            {
+                                name: '关闭',
+                                callback: function() {
+                                    //$("#gradeid").change();
+                                },
+                                focus: false
+                            }
+                        ]
+                    });
+                });
+
+                //释义变化的监听事件
+                $("#table_data .select").bind("change",function(){
+                    var explainid=$(this).val();
+                    var wordid=$(this).parents("tr").find("input").attr("bid");
+                    $.getJSON("changeGameLevelWordExplainid",{levelid:levelid,wordid:wordid,explainid:explainid,ran:Math.random});
+                })
+
+                //单词互换
+                $("#table_data .wordmove").bind("click",function(){
+                    art.dialog.open('wordmove?levelid='+levelid,{
+                        title: "单词互换",
+                        width: 600,
+                        height: 500,
+                        lock: true,
+                        opacity: 0.3,
+                        button: [
+                            {
+                                name: '保存',
+                                callback: function() {
+                                    getLevelWrodList(levelid);
+                                    return true;
+                                },
+                                focus: true
+                            },
+                            {
+                                name: '关闭',
+                                callback: function() {
+                                    getLevelWrodList(levelid);
+                                },
+                                focus: false
+                            }
+                        ]
+                    });
+                })
+
+                //顺序的修改
+                $("#btn_submit").click(function()      //正文修改次序按钮点击事件
+                {
+                    var dloading = art.dialog({time: 30, title: '更新中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                    if ($("#table_data tr.tr").length == 0)
+                        return;
+                    var arrjson = [];
+                    $("#table_data tr.tr").each(function() {
+                        var tr = $(this);
+                        var id = tr.find('input[name="sortid"]').attr("BID");
+                        var sortid = tr.find('input[name="sortid"]').val();
+                        var obj = {};
+                        obj.id = id;
+                        obj.sortid = sortid;
+                        arrjson.push(obj);
+                    });
+                    $.post("upSortLevelWordList", {data:JSON.stringify(arrjson),levelid:levelid}, function() {
+                        getLevelWrodList(levelid);
+                        dloading.close();
+                    });
+
+                });
+            });
+
+            function getLevelWrodList(levelid){
+                $("#table_data td").parent().remove();
+                $.getJSON("getLevelWordList",{levelid:levelid,ran:Math.random()},function(data){
+                    var i = 0;
+                    if(data!=null&&data!='null'){
+                        $.each(data, function(key, val) {
+                            i++;
+                            var tr = $("#table_demo tr").eq(0).clone();
+                            var td = tr.children('td').eq(0);
+                            td.find("input").val(i);
+                            td = tr.children('td').eq(1);
+                            td.html(val.word);
+                            td = tr.children('td').eq(2);
+                            var wordid=val.wordid;
+                            var explainid=val.explainid;
+                            $.getJSON("getExplainListByWordid",{wordid:wordid,ran:Math.random()},function(datas){
+                                $.each(datas, function(is, vals) {
+                                    $(td).find("select").append($("<option>").val(vals.id).text(vals.explains));
+                                });
+                            })
+                            td.find("select").val(explainid);
+                            tr.find("input").attr("pid",levelid);
+                            tr.find("input").attr("bid",key);
+                            tr.appendTo("#table_data");
+                        });
+                    }
+                    
+                })
+            }
+
+            function upWordsort() {
+                var dloading = art.dialog({time: 30, title: '更新中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                if ($("#table_data tr.tr").length == 0)
+                    return;
+                var arrjson = [];
+                var peroid = $('#peroid').val();
+                $("#table_data tr.tr").each(function() {
+                    var tr = $(this);
+                    var id = tr.find('input[name="sortid"]').attr("BID");
+                    var sortid = tr.find('input[name="sortid"]').val();
+                    var obj = {};
+                    obj.id = id;
+                    obj.sortid = sortid;
+                    arrjson.push(obj);
+                });
+                $.get("listup", {data:JSON.stringify(arrjson),peroid:peroid}, function(result) {
+                    getGameList();
+                    dloading.close();
+                });
+            }
+
+            function GetRequest() {
+                var url = location.search; //获取url中"?"符后的字串
+                var theRequest = new Object();
+                if (url.indexOf("?") != -1) {
+                    var str = url.substr(1);
+                    strs = str.split("&");
+                    for(var i = 0; i < strs.length; i ++) {
+                        theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                    }
+                }
+                return theRequest;
+            }
+
+            function geneQuestion(){
+                var Requests = new Object();
+                Requests = GetRequest();
+                var levelid=Requests["levelid"];
+                var flag=false;
+                var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                $.getJSON("geneLevelQuestion",{levelid:levelid,ran:Math.random()},function(){
+                    alert("试题生成完毕,请到问题列表进行查看");
+                    dloading.close();
+                    flag=true;
+                })
+                return flag;
+            }
+        </script> 
+    </body>
+</html>

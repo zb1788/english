@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <link href="__PUBLIC__/css/mui.min.css" rel="stylesheet"/>
+    <link href="__PUBLIC__/css/wszy.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/swiper/idangerous.swiper.css">
+    <link rel="stylesheet" href="__PUBLIC__/fonts/font-awesome/css/font-awesome.min.css">
+    <style type="text/css">
+    	body{background: #fcfcff;}
+    	.ndis{display:none;}
+    </style>
+</head>
+<body id="exams_quiz">
+  <div id="jplayer"></div>
+		<header class="mui-bar mui-bar-nav">
+      <a class="mui-action-back mui-icon  mui-pull-left" style="padding-top:0px;color: #fff; font: normal 19px/45px Microsoft YaHei;">
+        <img width="20" height="20" src="__PUBLIC__/images/backIco.png" width="20" height="20" />返回
+      </a>
+	    <h1 class="mui-title">作业详情</h1>
+	  </header>
+	  <div class="head01"><i class="fa fa-pencil-square-o fa-lg"></i><span>听力训练</span></div>
+		<!-- <span class="biaoti01 mar_t10"><s>听力训练</s></span> -->
+		<h2 class="leix" >
+      <b>试卷共<strong>1</strong>套，听力试题<strong>{$examsquizcount}</strong>道</b>
+      <span class="yeqian"><strong id="pagenum">{$num+1}</strong>/{$examsquizcount}</span>
+    </h2>
+    <div id="iScroll" class="iScroll bWhite" style="display">
+        <span class="biaoti01 mar_t10"><s>听力训练</s></span>
+        <div class="hd" style="display:none;">
+            <ul></ul>
+        </div>
+        <div class="bd" id="iScroll-bd">
+          <if condition="$homeworkid neq 0" >
+              <volist name="examsquiz" id="vo">
+          			<volist name="vo.stem" id="vc">
+          				<eq name="vc.stem_type" value="1">
+          					<div class="timu pa10 con">
+                      <div>
+          						<h2 style="height: auto;">
+                        <!--这里手机采用的是点击加载播放-->
+          							<span quesid="{$vc.id}" onclick="listen('../../Mobile/Listen/getStemTts',{$vc.id},{$vo.id});">
+                          <a class="edi-qiu03"><i class="fa fa-volume-up fa-2x"></i></a>
+                        </span>
+                        <!--题干-->
+          							<label>{$vc.content}</label><!-- <s>（每个小题读两遍）</s> -->
+          						</h2>
+          					 	<div class="clearfix"></div>
+          						<foreach name="vc.question" item="qu" key="k">
+          						 		<if condition="$qu.typeid eq 1">
+          							 		<div class="tlda examsques choose" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+          								 		<label>{$qu.question_num}</label>
+          									 	<ul>
+          									 		<foreach name="qu.items" item="it" >
+          									 			<if condition="$qu.itemtype eq 0">
+                                    <!--选项如果是文字的问题-->
+          									 			  <li class="mb10">
+                                      <eq name="qu.useranswer" value="$it.flag">
+                                        <i class="fa fa-dot-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                        <else/>
+                                        <i class="fa fa-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                      </eq>
+                                      <font>{$it.flag}</font>.<span>{$it.content}</span>
+                                    </li>
+          									 			<else/>
+                                    <!--选项如果是图片的问题-->
+          									 			  <li class="mb10">
+                                      <eq name="qu.useranswer" value="$it.flag">
+                                        <i class="fa fa-dot-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                        <else/>
+                                        <i class="fa fa-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                      </eq>
+                                      <font>{$it.flag}</font>.<img src="__PUBLIC__/js/loading.gif" data-echo="__IMG__/{$it.content}" width="100px" height="75px"/>
+                                    </li>
+          									 			</if>
+          									 		</foreach>
+          									 	</ul>
+          							    </div>
+          						    </if>
+                          <!--如果是填空试题-->
+          				        <if condition="$qu.typeid eq 2">
+          					 		    <div class="tixing tiankongti" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+          	                  <p class="examsques blank" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">{$qu.question_num}.{$qu.tcontent}</p>
+          	                </div>
+          				        </if>
+                          <!--如果是判断试题-->
+          						    <if condition="$qu.typeid eq 3">
+          							 		<div class="tixing panduanti" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+          									  <p class="examsques juge" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">{$qu.question_num}.{$qu.tcontent}
+                                  <span class="panduantique">
+                                    <i class="fa fa-<eq name='qu.useranswer' value='1'>dot-</eq>circle-o fa-18 panduantique ques" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                    <i class="fa fa-check panduanti" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                  </span>
+                                  <span style="margin-left:20px;" class="panduantique">
+                                    <i class="fa fa-<eq name='qu.useranswer' value='0'>dot-</eq>circle-o fa-18 panduantique ques" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                    <i class="fa fa-times panduanti" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                  </span>
+          									 </p>
+                            </div>
+          						    </if>
+                          <!--如果是排序试题-->
+          						    <if condition="$qu.typeid eq 4">
+          							 		<div class="tixing paixuti examsques sort" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+          										<div class="imgs">
+          											<foreach name="qu.items" item="it" >
+          									 			<if condition="$qu.itemtype eq 0">
+          									 				<p><span>{$it.flag}.{$it.content}</span></p>
+          									 			<else/>
+          									 			  <p><span><img width="100px" height="75px" src="__PUBLIC__/js/loading.gif" data-echo="__IMG__/{$it.content}">{$it.flag}</span></p>
+          									 			</if>
+          									 		</foreach>
+          										</div>
+          			              <div class="clearfix"></div>
+          			              <div class="inputs">
+          			                  <foreach name="qu.que_answer" item="it" key="h">
+          									 			   <span>{$it.answer_num}.
+                                       <input type="text" value="{$qu.useranswer.$h}" class="paixvti" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+                                     </span>
+          									 		  </foreach>
+          			              </div>
+          		              </div>
+          		 			 		 		<div class="h50"></div>
+          						    </if>
+          						 	</foreach>
+                      </div>
+          				    </div>
+          				</eq>
+          				<eq name="vc.stem_type" value="2">
+          					<div class="timu pa10 con">
+                      <div>
+          						<h2 style="height: auto;">
+          							<span quesid="{$vc.id}" onclick="listen('../../Mobile/Listen/getStemTts',{$vc.id},{$vo.id});"><a class="edi-qiu03"><i class="fa fa-volume-up fa-2x"></i></a></span>
+          							<label>{$vc.content}</label><!-- <s>（每个小题读两遍）</s> -->
+          						</h2>
+          						<volist name="vc.stem_children" id="vd">
+          					 	    <div class="clearfix"></div>
+          					 	    <h3 style="height: auto;">
+          					 	    	<!-- <span><a class="edi-qiu03"><i class="fa fa-volume-up fa-2x"></i></a></span> -->
+          								    <label style="width: 100%;margin-left:0px;">{$vd.content}</label><!-- <s>（每个小题读两遍）</s> -->
+          						    </h3>
+          						    <div class="clearfix"></div>
+                          <foreach name="vd.question" item="qu">
+                            <if condition="$qu.typeid eq 1">
+                              <div class="tlda examsques choose" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+                                <label>{$qu.question_num}</label>
+                                <ul>
+                                  <foreach name="qu.items" item="it" key="k">
+                                    <if condition="$qu.itemtype eq 0">
+                                      <li>
+                                        <eq name="qu.useranswer" value="$it.flag">
+                                          <i class="fa fa-dot-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                          <else/>
+                                          <i class="fa fa-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                        </eq>
+                                        <font>{$it.flag}</font>.<span>{$it.content}</span> </li>
+                                    <else/>
+                                      <li>
+                                        <eq name="qu.useranswer" value="$it.flag">
+                                          <i class="fa fa-dot-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                          <else/>
+                                          <i class="fa fa-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                        </eq>
+                                        <font>{$it.flag}</font>.<img width="100px" height="75px" src="__PUBLIC__/js/loading.gif" data-echo="__IMG__/{$it.content}"></li>
+                                    </if>
+                                  </foreach>
+
+                                </ul>
+                              </div>
+                            </if>
+                            <if condition="$qu.typeid eq 2">
+                              <div class="tixing tiankongti" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+                                   <p class="examsques blank" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">{$qu.question_num}.{$qu.tcontent}</p>
+                              </div>
+                            </if>
+                            <if condition="$qu.typeid eq 3">
+                              <div class="tixing panduanti" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+                                 <p class="examsques juge" >{$qu.question_num}.{$qu.tcontent}</p>
+                                   <span class="panduantique">
+                                     <i class="fa fa-<eq name='qu.useranswer' value='1'>dot-</eq>circle-o fa-18 panduantique ques" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                     <i class="fa fa-check panduanti" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                   </span>
+                                   <span style="margin-left:20px;" class="panduantique">
+                                     <i class="fa fa-<eq name='qu.useranswer' value='0'>dot-</eq>circle-o fa-18 panduantique ques" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                     <i class="fa fa-times panduanti" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                   </span>
+                                 </p>
+                              </div>
+                            </if>
+                            <if condition="$qu.typeid eq 4">
+                              <div class="tixing paixuti examsques sort" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+                                <div class="imgs">
+                                  <foreach name="qu.items" item="it" >
+                                    <if condition="$qu.itemtype eq 0">
+                                      <p><span>{$it.flag}.{$it.content}</span></p>
+                                    <else/>
+                                      <p><span><img  width="100px" height="75px" src="__PUBLIC__/js/loading.gif" data-echo="__IMG__/{$it.content}">{$it.flag}</span></p>
+                                    </if>
+                                  </foreach>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="inputs">
+                                  <foreach name="qu.que_answer" item="it" key="h" >
+                                  <span>{$it.answer_num}.<input type="text" queid="{$qu.id}" value="{$qu.useranswer.$h}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></span>
+                                  </foreach>
+                                </div>
+                              </div>
+                            </if>
+                          </foreach>
+
+          						</volist>
+          				  </div>
+                  </div>
+          				</eq>
+          			</volist>
+          		</volist>
+              <div class="timu pa10 con"><div></div></div>
+          </if>
+          <if condition="$homeworkid eq 0" >
+            <div class="timu pa10 con"><div></div></div>
+            <volist name="examsquiz" id="vo">
+              <volist name="vo.stem" id="vc">
+                <eq name="vc.stem_type" value="1">
+
+                  <div class="timu pa10 con">
+                    <div>
+                    <h2 style="height: auto;">
+                      <!--这里手机采用的是点击加载播放-->
+                      <span quesid="{$vc.id}" onclick="listen('../../Mobile/Listen/getStemTts',{$vc.id},{$vo.id});">
+                        <a class="edi-qiu03"><i class="fa fa-volume-up fa-2x"></i></a>
+                      </span>
+                      <!--题干-->
+                      <label>{$vc.content}</label><!-- <s>（每个小题读两遍）</s> -->
+                    </h2>
+                    <div class="clearfix"></div>
+                    <foreach name="vc.question" item="qu" key="k">
+                        <if condition="$qu.typeid eq 1">
+                          <div class="tlda examsques choose" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+                            <label>{$qu.question_num}</label>
+                            <ul>
+                              <foreach name="qu.items" item="it" >
+                                <if condition="$qu.itemtype eq 0">
+                                  <!--选项如果是文字的问题-->
+                                  <li class="mb10">
+                                    <eq name="qu.que_answer.0.answer" value="$it.flag">
+                                      <i class="fa fa-dot-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                      <else/>
+                                      <i class="fa fa-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                    </eq>
+                                    <font>{$it.flag}</font>.<span>{$it.content}</span>
+                                  </li>
+                                <else/>
+                                  <!--选项如果是图片的问题-->
+                                  <li class="mb10">
+                                    <eq name="qu.que_answer.0.answer" value="$it.flag">
+                                      <i class="fa fa-dot-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                      <else/>
+                                      <i class="fa fa-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                    </eq>
+                                    <font>{$it.flag}</font>.<img src="__PUBLIC__/js/loading.gif" data-echo="__IMG__/{$it.content}" width="100px" height="75px">
+                                  </li>
+                                </if>
+                              </foreach>
+
+                            </ul>
+                          </div>
+                        </if>
+                        <!--如果是填空试题-->
+                        <if condition="$qu.typeid eq 2">
+                          <div class="tixing tiankongti" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+                            <p class="examsques blank" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">{$qu.question_num}.{$qu.tcontent}</p>
+                          </div>
+                        </if>
+                        <!--如果是判断试题-->
+                        <if condition="$qu.typeid eq 3">
+                          <div class="tixing panduanti" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+                            <p class="examsques juge" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">{$qu.question_num}.{$qu.tcontent}
+                              <foreach name="qu.que_answer" item="pd">
+                                <if condition="$pd.answer eq 1">
+                                  <span class="panduantique">
+                                    <i class="fa fa-dot-circle-o fa-18 panduantique ques" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                    <i class="fa fa-check panduanti" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                  </span>
+                                  <span style="margin-left:20px;" class="panduantique">
+                                    <i class="fa fa-circle-o fa-18 panduantique ques" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                    <i class="fa fa-times panduanti" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                  </span>
+                                <else/>
+                                  <if condition="$pd.answer eq 0">
+                                    <span class="panduantique">
+                                      <i class="fa fa-circle-o fa-18 panduantique ques" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                      <i class="fa fa-check panduanti" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                    </span>
+                                    <span style="margin-left:20px;" class="panduantique">
+                                      <i class="fa fa-dot-circle-o fa-18 panduantique ques" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                      <i class="fa fa-times panduanti" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                    </span>
+                                  <else/>
+                                    <span class="panduantique">
+                                      <i class="fa fa-circle-o fa-18 panduantique ques" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                      <i class="fa fa-check panduanti" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                    </span>
+                                    <span style="margin-left:20px;" class="panduantique">
+                                      <i class="fa fa-circle-o fa-18 panduantique ques" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                      <i class="fa fa-times panduanti" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                    </span>
+                                  </if>
+                                </if>
+                              </foreach>
+                          </div>
+                        </if>
+                        <!--如果是排序试题-->
+                        <if condition="$qu.typeid eq 4">
+                          <div class="tixing paixuti examsques sort" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+                            <div class="imgs">
+                              <foreach name="qu.items" item="it" >
+                                <if condition="$qu.itemtype eq 0">
+                                  <p><span>{$it.flag}.{$it.content}</span></p>
+                                <else/>
+                                  <p><span><img width="100px" height="75px" src="__PUBLIC__/js/loading.gif" data-echo="__IMG__/{$it.content}">{$it.flag}</span></p>
+                                </if>
+                              </foreach>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="inputs">
+                                <foreach name="qu.que_answer" item="it" >
+                                   <span>{$it.answer_num}.
+                                     <input type="text" value="{$it.answer}" class="paixvti" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+                                   </span>
+                                </foreach>
+                            </div>
+                          </div>
+                          <div class="h50"></div>
+                        </if>
+                      </foreach>
+                    </div>
+                </div>
+                </eq>
+                <eq name="vc.stem_type" value="2">
+                  <div class="timu pa10 con">
+                    <div>
+                    <h2 style="height: auto;">
+                      <span quesid="{$vc.id}" onclick="listen('../../Mobile/Listen/getStemTts',{$vc.id},{$vo.id});"><a class="edi-qiu03"><i class="fa fa-volume-up fa-2x"></i></a></span>
+                      <label>{$vc.content}</label><!-- <s>（每个小题读两遍）</s> -->
+                    </h2>
+                    <volist name="vc.stem_children" id="vd">
+                        <div class="clearfix"></div>
+                        <h3 style="height: auto;">
+                          <!-- <span><a class="edi-qiu03"><i class="fa fa-volume-up fa-2x"></i></a></span> -->
+                            <label style="width: 100%;margin-left:0px;">{$vd.content}</label><!-- <s>（每个小题读两遍）</s> -->
+                        </h3>
+                        <div class="clearfix"></div>
+                        <foreach name="vd.question" item="qu">
+                          <if condition="$qu.typeid eq 1">
+                            <div class="tlda examsques choose" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+                              <label>{$qu.question_num}</label>
+                              <ul>
+                                <foreach name="qu.items" item="it" key="k">
+                                  <if condition="$qu.itemtype eq 0">
+                                    <li>
+                                      <eq name="qu.que_answer.0.answer" value="$it.flag">
+                                        <i class="fa fa-dot-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                        <else/>
+                                        <i class="fa fa-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                      </eq>
+                                      <font>{$it.flag}</font>.<span>{$it.content}</span> </li>
+                                  <else/>
+                                    <li>
+                                      <eq name="qu.que_answer.0.answer" value="$it.flag">
+                                        <i class="fa fa-dot-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                        <else/>
+                                        <i class="fa fa-circle-o fa-18 xuanzeti ques" value="{$it.content}" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                      </eq>
+                                      <font>{$it.flag}</font>.<img width="100px" height="75px" src="__PUBLIC__/js/loading.gif" data-echo="__IMG__/{$it.content}"></li>
+                                  </if>
+                                </foreach>
+
+
+
+                              </ul>
+                            </div>
+                          </if>
+                          <if condition="$qu.typeid eq 2">
+                            <div class="tixing tiankongti">
+                                 <p class="examsques blank" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">{$qu.question_num}.{$qu.tcontent}</p>
+                            </div>
+                          </if>
+                          <if condition="$qu.typeid eq 3">
+                            <div class="tixing panduanti" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+                               <p class="examsques juge" >{$qu.question_num}.{$qu.tcontent}</p>
+                               <foreach name="qu.que_answer" item="pd">
+                                 <if condition="$pd.answer eq 1">
+                                   <span class="panduantique">
+                                     <i class="fa fa-dot-circle-o fa-18 panduantique ques" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                     <i class="fa fa-check panduanti" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                   </span>
+                                   <span style="margin-left:20px;" class="panduantique">
+                                     <i class="fa fa-circle-o fa-18 panduantique ques" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                     <i class="fa fa-times panduanti" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                   </span>
+                                 </if>
+                                 <if condition="$pd.answer eq 0">
+                                     <span class="panduantique">
+                                       <i class="fa fa-circle-o fa-18 panduantique ques" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                       <i class="fa fa-check panduanti" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                     </span>
+                                     <span style="margin-left:20px;" class="panduantique">
+                                       <i class="fa fa-dot-circle-o fa-18 panduantique ques" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                       <i class="fa fa-times panduanti" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                     </span>
+                                </if>
+                                <if condition="$pd.answer neq 0 and $pd.answer neq 1">
+                                     <span class="panduantique">
+                                       <i class="fa fa-circle-o fa-18 panduantique ques" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                       <i class="fa fa-check panduanti" value="1" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                     </span>
+                                     <span style="margin-left:20px;" class="panduantique">
+                                       <i class="fa fa-circle-o fa-18 panduantique ques" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                       <i class="fa fa-times panduanti" value="0" queid="{$qu.id}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></i>
+                                     </span>
+                                </if>
+                              </foreach>
+                            </div>
+                          </if>
+                          <if condition="$qu.typeid eq 4">
+                            <div class="tixing paixuti examsques sort" queid="{$qu.id}"examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}">
+                              <div class="imgs">
+                                <foreach name="qu.items" item="it" >
+                                  <if condition="$qu.itemtype eq 0">
+                                    <p><span>{$it.flag}.{$it.content}</span></p>
+                                  <else/>
+                                    <p><span><img width="100px" height="75px" src="__PUBLIC__/js/loading.gif" data-echo="__IMG__/{$it.content}">{$it.flag}</span></p>
+                                  </if>
+                                </foreach>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="inputs">
+                                <foreach name="qu.que_answer" item="it" key="k" >
+                                <span>{$it.answer_num}.<input type="text" queid="{$qu.id}" value="{$it.answer}" examsid="{$qu.examsid}" quizid="{$qu.quizid}" homeworkid="{$qu.homeworkid}"></span>
+                                </foreach>
+                              </div>
+                            </div>
+                          </if>
+                        </foreach>
+                    </volist>
+                  </div>
+                  </div>
+                </eq>
+
+              </volist>
+            </volist>
+            <div class="timu pa10 con"><div></div></div>
+          </if>
+        </div>
+      </div>
+    </div>
+    <div class="mb50"></div>
+    <div class="ddel">
+      <if condition="$ispre eq '1'">
+	      <a class="last" id="prev" style="width:35%;">上一题</a>
+        <a style="width:30%;" class="publish" onclick="teacher_publish(this);">发布</a>
+	      <a class="next" id="next" style="width:35%;">下一题</a>
+      <else/>
+        <a class="last" id="prev"  style="width:50%;">上一题</a>
+        <a class="next" id="next" style="width:50%;">下一题</a>
+      </if>
+    </div>
+
+</body>
+<script src="__PUBLIC__/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/artDialog.js?skin=blue"></script>
+<script src="__PUBLIC__/js/iframeTools.source.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+<script src="__PUBLIC__/js/hw.js" type="text/javascript"></script>
+<script type="text/javascript" src="__PUBLIC__/js/mobile.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/mp3.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/listen.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/echo.min.js"></script>
+<script type="text/javascript">
+mp.url = "{$Think.config.text_mp3_path}";
+</script>
+<script type="text/javascript" src="__PUBLIC__/js/exams_play.js"></script>
+<script src="__PUBLIC__/js/TouchSlide.1.1.js"></script>
+<script type="text/javascript" charset="UTF-8">
+mui.init();
+</script>
+<script>
+$.ajaxSetup({async:false});
+var homeworkid="{$homeworkid}";
+var source="{$source}";
+var num="{$num}";
+var index=0;
+var eq='{$eq}';
+var wt='{$wt}';
+var isOverdue="{$isOverdue}";
+if(homeworkid=="0"){
+  index=parseInt(num);
+}else{
+  index=parseInt(num)-1;
+}
+//定义教师预览的url以及学生做题的url
+var dohomeworkurl='exams_quiz_finish?homeworkid={$homeworkid}&sso={$sso}&paper_id={$homeworkid}&homeworkId={$ilearid}&studentId={$username}&classId={$classid}&isOverdue={$isOverdue}&batchid={$batchid}&source={$source}&backurl={$backurl}&starttime={$starttime}';
+var previewurl='student_homework?homeworkid={$homeworkid}&sso={$sso}&paper_id={$homeworkid}&homeworkId={$ilearid}&studentId={$username}&classId={$classid}&isOverdue={$isOverdue}&batchid={$batchid}&source={$source}&backurl={$backurl}&callbackURL={$callbackURL}&starttime={$starttime}';
+var teacherprelasturl='word_test?username={$username}&sso={$sso}&ks_code={$ks_code}&ispre={$ispre}&homeworkid={$homeworkid}&num=0&source=1&wa={$wa}&wt={$wt}&ta={$ta}&eq={$eq}';
+TouchSlide({
+  slideCell:"#iScroll",
+  titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+  prevCell : '#prev',
+  nextCell : '#next',
+  pnLoop:false,
+  autoPage:true, //自动分页
+  autoPage:true, //自动分页
+  switchLoad:"_src",
+  defaultIndex:index+1,
+  startFun:function(i){
+    if(homeworkid=="0"){
+      if(i=="0"){
+           if('{$wt}'=='[]'){
+           }else{
+              window.location.href=teacherprelasturl;
+           }
+         }
+    }
+    if(homeworkid=="0"){
+      if((i-1)>=parseInt("{$examsquizcount}")){
+
+         popTheController();
+       }
+     }else{
+       if(i>=parseInt("{$examsquizcount}")){
+        if(source=="0"){
+           //学生做题的url
+           if(isOverdue=='false'){
+             saveans(i-1);
+           }
+
+           window.location.href=dohomeworkurl;
+        }else{
+          //教师预览的url
+           window.location.href=previewurl;
+        }
+     }
+        return;
+    }
+  },
+  endFun:function(i){ //高度自适应
+    clearTimeout(mp3_progress);
+    mp.clear();
+    scrollTo(0, 0);
+    $(".con").css("height","10px");
+    var bd = document.getElementById("iScroll-bd");
+		bd.parentNode.style.height = (bd.children[i].children[0].offsetHeight+10)+"px";
+		if(i>0)bd.parentNode.style.transition="200ms";//添加动画效果
+    Echo.init({
+        offset: 0,//离可视区域多少像素的图片可以被加载
+        throttle: 0,//图片延迟多少毫秒加载(默认250)
+        unload: false,//默认false
+        callback: function(element, op){
+            console.log(element, 'has been', op + 'ed')
+        }
+    });
+    if(homeworkid=="0"){
+      $("#pagenum").text(i);
+    }else{
+      $("#pagenum").text(i+1);
+    }
+
+    if(homeworkid=="0"){
+
+
+    }else{
+      if(i>0){
+        if(homeworkid!="0"){
+          if(source=='0'){
+            if(isOverdue=="false"){
+              saveans(i-1);
+            }
+          }
+        }
+      }
+    }
+    //页面元素初始化
+    if(homeworkid=="0"){
+      if({$examsquizcount}==1){
+        $(".last").text("第一题");
+        if('{$wt}'=='[]'){
+        }else{
+          $(".last").text("预览上一模块");
+        }
+         $(".next").text("完成");
+         $(".next").addClass("cur");
+      }else{
+        if(i==1){
+          $(".last").text("第一题");
+          if(homeworkid=="0"){
+            if('{$wt}'=='[]'){
+            }else{
+              $(".last").text("预览上一模块");
+              $(".next").addClass("cur");
+            }
+          }
+        }else{
+          $(".last").text("上一题");
+        }
+        if((i)=={$examsquizcount}){
+          if(homeworkid=="0"){
+             $(".next").text("完成");
+             $(".next").addClass("cur");
+          }else{
+            if(source=="0"){
+              $(".next").text("作答情况");
+              $(".next").addClass("cur");
+            }else{
+              $(".next").text("完成");
+              $(".next").addClass("cur");
+            }
+          }
+        }else{
+           $(".next").text("下一题");
+        }
+      }
+    }else{
+      if({$examsquizcount}==1){
+        $(".last").text("第一题");
+        if(source=="0"){
+          $(".next").text("作答情况");
+          $(".next").addClass("cur");
+        }else{
+          $(".next").text("完成");
+          $(".next").addClass("cur");
+        }
+      }else{
+        if(i==0){
+          $(".last").text("第一题");
+        }else{
+          $(".last").text("上一题");
+        }
+        if((i+1)=={$examsquizcount}){
+          if(homeworkid=="0"){
+             $(".next").text("完成");
+             $(".next").addClass("cur");
+          }else{
+            if(source=="0"){
+              $(".next").text("作答情况");
+              $(".next").addClass("cur");
+            }else{
+              $(".next").text("完成");
+              $(".next").addClass("cur");
+            }
+          }
+        }else{
+          $(".next").text("下一题");
+        }
+      }
+    }
+  }
+});
+
+$(function(){
+  mui.init();
+  mui.back=function(){
+    if(homeworkid=="0"){
+
+      mp.clear();
+      clearTimeout(mp3_progress);
+      popTheController();
+    }else{
+      clearTimeout(mp3_progress);
+      mp.clear();
+      location.href='{$backurl}?homeworkid={$homeworkid}&paper_id={$homeworkid}&sso={$sso}&homeworkId={$ilearid}&studentId={$username}&classId={$classid}&isOverdue={$isOverdue}&batchid={$batchid}&source={$source}&backurl={$backurl}&callbackURL={$callbackURL}&starttime={$starttime}';
+    }
+  }
+  //单选情况的
+  $(".choose .fa-circle-o").click(function(){
+  	$(this).addClass('fa-dot-circle-o');
+  	$(this).removeClass('fa-circle-o');
+  	$(this).parent("li").siblings('li').find('i').removeClass('fa-dot-circle-o');
+  	$(this).parent("li").siblings('li').find('i').addClass('fa-circle-o');
+  });
+  //判断题的情况
+  $("span.panduantique").click(function(){
+    $(this).parent().find("i.fa.ques").removeClass('fa-dot-circle-o').addClass('fa-circle-o');
+    $(this).find("i.fa.ques").addClass('fa-dot-circle-o');
+  })
+
+});
+//作业发布问题
+var ishttps=document.location.protocol;
+
+function teacher_publish(obj){
+  var ks_code="{$ks_code}";
+  var username="{$username}";
+  var wa='{$wa}';
+  var wt='{$wt}';
+  var ta='{$ta}';
+  var eq='{$eq}';
+  $(obj).attr("disbaled",true);
+  var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+  $.post("teacher_english_publish",{ks_code:ks_code,username:username,wa:wa,wt:wt,ta:ta,eq:eq,ran:Math.random()},function(data){
+      dloading.close();
+
+      var url=ishttps+"//{$tqms}/tqms/mobile/homework/toEnPublishPage.action?username="+data.username+"&paper_id="+data.homeworkid+"&ks_code="+data.ks_code+"&paper_name="+encodeURIComponent(data.name);
+
+      openProgressController(url);
+     
+  });
+}
+//用户提交答案
+function saveans(index){
+    var choose=[];
+    var blank=[];
+    var juge=[];
+    var sort=[];
+    $(".con:eq("+index+")").each(function(key,value){
+      //选择试题
+      $(value).find("div.choose").each(function(k,v){
+          var obj={};
+          var quesid=$(this).attr("queid");
+          var homeworkid=$(this).attr("homeworkid");
+          var examsid=$(this).attr("examsid");
+          var quizid=$(this).attr("quizid");
+          var answer=$(this).find(".fa-dot-circle-o").parent().find("font").text();
+          obj.quesid=quesid;
+          obj.homeworkid=homeworkid;
+          obj.examsid=examsid;
+          obj.quizid=quizid;
+          obj.answer=answer;
+          choose.push(obj);
+      });
+      //填空题
+      $(value).find("div.tixing.tiankongti").each(function(k,v){
+          var obj={};
+          var quesid=$(this).attr("queid");
+          var homeworkid=$(this).attr("homeworkid");
+          var examsid=$(this).attr("examsid");
+          var quizid=$(this).attr("quizid");
+          var answer=[];
+          $(this).find("input[type='text']").each(function(k,v){
+            var ans=$(this).val();
+            answer.push(ans);
+          });
+          obj.quesid=quesid;
+          obj.homeworkid=homeworkid;
+          obj.examsid=examsid;
+          obj.quizid=quizid;
+          obj.answer=answer;
+          blank.push(obj);
+      });
+      //判断题
+      $(value).find("div.tixing.panduanti").each(function(k,v){
+          var obj={};
+          var quesid=$(this).attr("queid");
+          var homeworkid=$(this).attr("homeworkid");
+          var examsid=$(this).attr("examsid");
+          var quizid=$(this).attr("quizid");
+          var answer=$(this).find("i.fa-dot-circle-o").attr("value");
+          if(answer==undefined){
+            answer="";
+          }
+          obj.quesid=quesid;
+          obj.homeworkid=homeworkid;
+          obj.examsid=examsid;
+          obj.quizid=quizid;
+          obj.answer=answer;
+          juge.push(obj);
+      });
+      //排序题
+      $(value).find("div.tixing.paixuti").each(function(k,v){
+          var obj={};
+          var quesid=$(this).attr("queid");
+          var homeworkid=$(this).attr("homeworkid");
+          var examsid=$(this).attr("examsid");
+          var quizid=$(this).attr("quizid");
+          var answer=[];
+          $(this).find("input[type='text']").each(function(k,v){
+            var ans=$(this).val();
+            answer.push(ans);
+          });
+          obj.quesid=quesid;
+          obj.homeworkid=homeworkid;
+          obj.examsid=examsid;
+          obj.quizid=quizid;
+          obj.answer=answer;
+          sort.push(obj);
+      });
+    });
+    $.post("student_answer",{choose:encodeURI(JSON.stringify(choose)),sort:encodeURI(JSON.stringify(sort)),blank:encodeURI(JSON.stringify(blank)),juge:encodeURI(JSON.stringify(juge)),type:'4',ran:Math.random()});
+}
+</script>
+</html>

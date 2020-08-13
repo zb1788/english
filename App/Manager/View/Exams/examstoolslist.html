@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>试卷列表</title>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/DatePicker/WdatePicker.js"></script> 
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/DatePicker/skin/WdatePicker.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/stat.js"></script>
+    </head>
+    <body>
+        <div class="place"><strong>位置</strong>：首页 &gt; 工具&gt; 试卷列表</div>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="box_top pl_10 f14"><strong>搜索</strong></td> 
+                </tr>
+                <tr>
+                    <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                            <tr>
+                                <td width="80" align="right">创建人：</td>
+                                <td>
+                                    <input name="text" type="text" class="input-text lh30" ploceholder="创建人" id="creator">
+                                </td>
+                                <td width="50" align="right">名称：</td>
+                                <td>
+                                    <input name="text" type="text" class="input-text lh30" ploceholder="名称" id="title">
+                                </td>
+                                <td width="50" align="right">状态：</td>
+                                <td>
+                                    <select name="stateid" class="select" id="stateid">
+                                        <option value='-1'>全部</option>
+                                        <option value='0'>创建</option>
+                                        <option value='1'>发布中</option>
+                                        <option value='2'>已发布</option>
+                                    </select>
+                                </td>
+                                <td width="100" align="right">开始时间：</td>
+                                <td>
+                                    <input id="starttime" class="Wdate input-text lh30" type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd'})" value="2015-01-01"/> 
+                                </td>
+                                <td width="100" align="right">结束时间：</td>
+                                <td>
+                                    <input id="endtime" class="Wdate input-text lh30" type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd'})"/>
+                                </td>
+                                <td>
+                                    &nbsp;
+                                    <input type="button" class="btn btn82 btn_search" id="search" value="查询" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td> 
+                </tr> 
+            </table>
+            <div class="h10"></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_10" height="42">
+                        <input name="addchapter" type="button" class="ext_btn ext_btn_submit addchapter"  id="addchapter" value="添加试卷"  />
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table">
+                <tr>
+                    <th width="60" align="center">&nbsp;&nbsp;序号</th>
+                    <th width="300" align="center">名称</th>
+                    <th width="100">创建人</th>
+                    <th width="100">状态</th>
+                    <th align="left">&nbsp;&nbsp;操作</th>
+                </tr>
+            </table>
+            <table width="100%" class="list_demo" style="display:none;"> 
+                <tr class="tr">
+                    <td align="center">1</td>
+                    <td align="left"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="left">
+                        <input type="submit" class="ext_btn ext_btn_submit info"  value="下载"  />
+                        <input type="button" class="ext_btn copy"  value="复制"  />
+                        <input type="button" class="ext_btn ext_btn_success state" name="state" value="重新生成" />
+                        <input type="button" class="ext_btn publish" value="发布"/>
+                        <input type="button" class="ext_btn edit" value="编辑"/>
+                        <input type="button" class="ext_btn ext_btn_error"  value="删除"  />
+                    </td>
+                </tr>
+            </table>
+            <div class="h5"></div>
+        </div>
+        <script type="text/javascript">
+
+            $(function() {
+                $.ajaxSetup({async: false});
+                $(".tr:odd").css("background", "#F5F8FA");
+                $('.tr:odd').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#F5F8FA");
+                    }
+                });
+
+                $('.tr:even').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#FFF");
+                    }
+                });
+                //var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                /**
+                 初始化年级、学期、版本以及单元和单词
+                 **/
+                 //添加音频
+                 $("#addchapter").click(function(){
+                    editExam(0);
+                 })
+
+                 getExamList();
+
+                $("#search").click(function(){
+                    getExamList();
+                });
+
+                //删除试卷
+                $(".ext_btn_error").live("click",function(){
+                     var id = $(this).attr("BID");
+                     art.dialog.confirm("确定要删除此试卷吗?",function(){
+                        $.get("delExamTool",{id:id,ran:Math.random()},function(data){
+                            getExamList();
+                         });
+                     })
+                  });
+
+                //复制试卷
+                $(".ext_btn.copy").live("click",function(){
+                     var id = $(this).attr("BID");
+                     $.get("CopyExamTool",{id:id,ran:Math.random()},function(data){
+                        getExamList();
+                     });
+                  });
+
+                //下载
+                  $(".ext_btn_submit.info").live("click",function(){
+                    var id=$(this).attr("bid");
+                    location.href="downloadmp3?id="+id+"&ran="+Math.random();
+                  });
+                  //修改
+                  $(".ext_btn_success.state").live("click",function(){
+                     var id = $(this).attr("BID");
+                     $.get("changeStat",{id:id,ran:Math.random()},function(data){
+                        getExamList();
+                     });
+                  });
+                  //编辑
+                  $(".edit").live("click",function(){
+                     var id = $(this).attr("BID");
+                     editExam(id);
+                  });
+
+                  //发布
+                  $(".publish").live("click",function(){
+                     var id = $(this).attr("BID");
+                     $.get("publishstates",{id:id,ran:Math.random()},function(data){
+                        getExamList();
+                     });
+                  });
+
+                
+            });
+
+            //添加考试
+            function editExam(id)
+            {
+                art.dialog.open('../Exams/examstools?id='+id+'&ran='+Math.random(),{
+                      title:"编辑音频",
+                      width:700,
+                      height:500,
+                      lock:true,
+                      opacity:0.3,
+                      button: [
+                        {
+                          name: '完成',
+                          callback: function () { 
+                            var iframe = this.iframe.contentWindow;
+                            var re = iframe.saveTTS();
+                            if (re) { getExamList();return true;}
+                            else{return false;}
+                            },
+                          focus: true
+                        },
+                        {
+                          name: '保存',
+                          callback: function () { 
+                            //getUnitExamQuestionsList();
+                            var iframe = this.iframe.contentWindow;     
+                            
+                            var re = iframe.saveTTS();
+                            
+                            return false;
+                          },
+                          focus: true
+                        }
+                      ]
+                    });     
+            }
+
+            //获取考试列表
+            function getExamList(){
+                var creator = $("#creator").val();
+                var title = $("#title").val();
+                var state= $("#stateid").val();
+                var starttime= $("#starttime").val();
+                var endtime= $("#endtime").val();
+                var dloading = art.dialog({time:30,title:'加载中……',width:130,height:30,opacity:0.3,lock:true});
+                $(".list_table td").parents("tr").remove();
+                $.getJSON("../exams/getPaperToolsList", {creator:creator,state:state,title:title,starttime:starttime,endtime:endtime,random:Math.random()}, function(data){
+                  var i = 0;
+                  $.each(data, function(i,val){
+                    i++;
+                    var tr = $(".list_demo tr").eq(0).clone(); 
+                    var td = tr.children('td').eq(0);
+                    td.html(i);
+                    
+                    td = tr.children('td').eq(1);
+                    td.html(val.title);
+                    td = tr.children('td').eq(2);
+                    td.html(val.creator);
+                    td = tr.children('td').eq(3);
+                    var content;
+                    if(val.state=='0'){
+                      content="未生成";
+                    }else if(val.state=='1'){
+                      content="生成中";
+                    }else if(val.state=='2'){
+                      content="已生成";
+                    }
+                    td.html(content);
+                    tr.find("input.ext_btn_submit.info").hide();
+                    tr.find("input.ext_btn_success.state").hide();
+                    tr.find("input.publish").hide();
+                    if(val.state=='2'){
+                        tr.find("input.ext_btn_submit.info").show();
+                    }
+                    if(val.state!='0'){
+                        tr.find("input.ext_btn_success.state").show();
+                    }
+                    if(val.state=='0'){
+                        tr.find("input.publish").show();
+                    }
+                    tr.find("input").attr("bid",val.id);
+                    tr.appendTo(".list_table");
+                  });
+                }); 
+                $(".tr:odd").css("background", "#F5F8FA");
+                dloading.close(); 
+            }
+        </script> 
+    </body>
+</html>

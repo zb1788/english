@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>口算卡</title>
+<link rel="stylesheet" href="__PUBLIC__/style/klxsxmb/path/to/font-awesome/css/font-awesome.min.css">
+<link href="__PUBLIC__/style/klxsxmb/ksk.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="__PUBLIC__/style/klxsxmb/swiper/idangerous.swiper.css">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+	ul.xuan {margin-top: 0;}
+</style>
+</head>
+
+<body>
+
+<header>
+
+            <div class="back"><a href="../Klxsxmb/rank?type=1"><img src="__PUBLIC__/style/klxsxmb/images/backIco.png" width="20" height="20" />返回</a></div>
+            <h1>排名规则</h1>
+			<div class="kc_setup"></div>
+</header>
+<section>
+
+<ul class="gui" style="margin-top: 60px;">
+<li>答对1-3题<span><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing.png"></span></li>
+<li>答对4-7题<span><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing.png"><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing.png"></span></li>
+<li>答对8题<span><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing.png"><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing.png"><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing.png"></span></li>
+<li>答对9-10题<span><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing.png"><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing.png"><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing.png"><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing.png"></span></li>
+<li>答对11-15题<span><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing.png"><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing.png"><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing.png"><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing.png"><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing.png"></span></li>
+</ul>
+            <h3 class="blh">等级规则</h3>
+            <ul class="gui">
+<li>口算新手<span>获得1-50颗星星</span></li>
+<li>口算能手<span>获得51-100颗星星</span></li>
+<li>心算达人<span>获得101-150颗星星</span></li>
+<li>神算子<span>获得151-189颗星星</span></li>
+<li>口算王<span>获得190颗星星</span></li>
+</ul>
+
+</section>
+
+</body>
+<script src="../script/jquery-1.10.1.min.js" type="text/javascript"></script>
+<script src="../script/idangerous.swiper.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+var needHideProgress = false;
+    try{
+        UXinJSInterface.hideProgress();
+    }catch(e){
+        needHideProgress =true;
+    }
+</script>
+<script type="text/javascript">
+	$(".pm_gr p").css({left : $(window).width() / 2 + 60 + "px"})
+
+    $(document).ready(function () {
+var tabsSwiper = new Swiper('.swiper-container',{
+    speed:500,
+    onSlideChangeStart: function(){
+        $(".tabs .on").removeClass('on');
+        $(".tabs li").eq(tabsSwiper.activeIndex).addClass('on');
+    }
+});
+
+$(".tabs li").on('touchstart mousedown',function(e){
+    e.preventDefault()
+    $(".tabs .on").removeClass('on');
+    $(this).addClass('on');
+    tabsSwiper.swipeTo($(this).index());
+});
+
+$(".tabs li").click(function(e){
+    e.preventDefault();
+});
+})
+</script>
+</html>

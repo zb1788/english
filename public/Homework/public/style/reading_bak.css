@@ -1,0 +1,211 @@
+@charset "gb2312";
+/* CSS Document */
+.teacher {clear:both; height:45px; line-height:45px; background:#0096d6; margin-top:15px; overflow:hidden;}
+.teacher ul li {display:block; float:left;}
+.teacher ul li a,.teacher ul li a:visited {color:#fff;font-size:17px; display:block; padding:0 15px;}
+.teacher ul li a.sel,.teacher ul li a:hover {background:#0083ba; text-decoration:none;}
+
+.reading_menu {clear:both; height:40px; line-height:40px; background:#efefef; overflow:hidden; padding:10px 0; margin-bottom:10px;}
+.reading_menu ul {margin:0 auto; display:block;}
+.reading_menu ul li {display:block; float:left;}
+.reading_menu .w980 ul li a,.reading_menu ul li a:visited { background:#fff; color:#888888;font-size:17px; display:block; padding:0 10px; font-size:16px; margin-right:10px;  -moz-border-radius: 3px;    -webkit-border-radius: 3px; border-radius:3px;}
+.reading_menu .w1200 ul li a,.reading_menu ul li a:visited { background:#fff; color:#888888;font-size:17px; display:block; padding:0 20px; font-size:16px; margin-right:10px; -moz-border-radius: 3px;    -webkit-border-radius: 3px; border-radius:3px;}
+.reading_menu ul li a.sel,.reading_menu ul li a:hover {background:#3fc1f8; text-decoration:none; color:#fff;}
+.student w980 ul li a, .student w980 ul li a:visited ,.student w1200 ul li a, .student w1200 ul li a:visited { background:#fff; color:#888888;font-size:17px; display:block; padding:0 10px; font-size:16px; margin-right:10px;  -moz-border-radius: 3px;    -webkit-border-radius: 3px; border-radius:3px;}
+.student ul li a.sel,.student ul li a:hover {background:#11b962; text-decoration:none; color:#fff;}
+
+.rd_m2 {border-top:solid 2px #3fc1f8; border-bottom:solid 1px #efefef; font:16px/40px "Î¢ÈíÑÅºÚ"; background:#f9f9f9; height:40px; }
+.rd_m2 ul ,.rd_m3 ul {margin-left:20px;}
+.rd_m2 ul li a {display:block; float:left; padding:0 10px; text-decoration:none; }
+.rd_m2 ul li a:hover{color:#0096d6;} 
+.rd_m2 ul li a.sel {color:#0096d6;}
+.rd_m3 { font:16px/25px "Î¢ÈíÑÅºÚ";  height:25px; padding:10px 0; }
+.rd_m3 ul li a {display:block; float:left; padding:0 10px; -moz-border-radius: 3px;    -webkit-border-radius: 3px; border-radius:3px; text-decoration:none;}
+.rd_m3 ul li a:hover{ background:#3fc1f8; color:#fff;}
+.rd_m3 ul li a.sel { background:#3fc1f8; color:#fff;}
+
+.rd_middle{width:100%; border:solid 1px #efefef;}
+.w1200 .rd_r { width:895px; _width:880px; float:right;}
+.w980 .rd_r { width:675px; _width:660px; float:right;}
+.rd_l {width:300px; float:left; background:#f9f9f9; padding:20px 0; border-right: solid 1px #efefef;}
+.rd_l ul h1 { height:40px; width:90%; margin:0 auto; font:16px/40px "Î¢ÈíÑÅºÚ"; background:url(../images/teacher/reading_img.png) no-repeat 5px 5px #f17070; color:#fff; text-indent:40px;}
+
+.rd_l ul li {font:14px/35px "Î¢ÈíÑÅºÚ"; text-indent:20px;}
+.rd_l ul li a{text-decoration:none; }
+.rd_l ul li a:hover { color:#999; }
+.rd_zt { width:90%; margin:10px auto;}
+.rd_zt a {display:block; width:100%; height:160px; position:relative; text-indent:0;}
+.rd_zt a img {  width:100%; height:160px;}
+.rd_zt a span { display:block; background:#000; height:25px; line-height:25px; color:#fff; top:135px; left:0;  position:absolute; width:100%; text-indent:10px; filter:alpha(opacity=80); /* IE */ -moz-opacity:0.8; /* Moz + FF */ opacity: 0.8; /* Ö§³ÖCSS3µÄ*/}
+
+/**/
+/*
+.w1200 .askselest {height:40px; *+height:65px; width:360px; border-top:solid 1px #efefef; background:#f4f4f4;}
+.w980 .askselest {height:65px; width:300px; border-top:solid 1px #efefef; background:#f4f4f4;}
+.askselest ul li{ float:left; position:relative; z-index:999; margin-right:5px;}
+*/
+.w980 .rd_sou {width:300px; /*margin-left:350px;*/ margin-top:10px;  border:solid 1px #efefef; height:40px;_height:30px;}
+.w1200 .rd_sou {width:300px; /*margin-left:550px;*/ margin-top:10px;  border:solid 1px #efefef; height:40px; _height:30px;} 
+a.arr3,a.arr3:visited { width:80px; height:38px; line-height:38px; display:inline-block;  text-indent:10px; font-size:13px; color:#555; text-decoration:none; background:#f4f4f4;}
+a.arr3 { float:left;}
+a.arr3.arr_d {background:#fff url(../images/arr_d.png) no-repeat 82% center;}
+a.arr3.arr_u {background:#fff url(../images/arr_u.png) no-repeat 82% center;}
+a.arr3:hover {background-color:#fafafa; text-decoration:none; }
+span.rds{display:block; float:left; line-height:40px;}
+.sou2 {width:155px; height:38px; line-height:38px; padding:0 10px; border:0; border-left:solid 1px #efefef; background:none; float:left; color:#999; _margin-top:-20px; *+margin-top:-20px;}
+.souBtn2 {background:url(../images/teacher/zoom.png) no-repeat center 0; height:38px; width:38px; display:inline-block; cursor:pointer;float:right; border:none;  _margin-top:-20px;  *+margin-top:-20px;}
+.souBtn2:hover {background-position:center -38px; background-color:#6ecef7; _margin-top:-20px;  *+margin-top:-20px;}
+.drop {width:80px; background:#fff; border:1px solid #e4e4e4; display:none; position:absolute; left:0; top:38px;}
+.nr {padding:20px;}
+.nr dl.rr_bod{ border-top:solid 1px #efefef; width:100%; display:block; padding:10px 0;}
+.nr dl.rr_bod dd {width:45px; height:45px; background:url(../images/teacher/ico_bg.png); padding:15px; float:left; }
+.w1200 .nr dl.rr_bod dt {text-indent:10px; padding:10px 0; width:60%;word-break:keep-all; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.w980 .nr dl.rr_bod dt {text-indent:10px; padding:10px 0; width:50%;word-break:keep-all; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nr dl.rr_bod dt span {display:block;}
+.nr dl.rr_bod dt span a.blu ,.srr_zt dl dt a.blu{color:#0096d6; font: 16px/30px "Î¢ÈíÑÅºÚ"; text-decoration:none;}
+.nr dl.rr_bod dt span a.blu:hover {color:#0984b8;}
+.nr dl.rr_bod dt span.gray ,.srr_zt2 dl dt span.gray {color:#aeaeae;}
+.nr dl.rr_bod dd a {display:block; width:42px; height:42px;}
+.rr_btn {width:180px; float:right; margin-top:50px;}
+a.xz { background:#23c973; color:#fff; display:block; width:77px; height:30px; float:left; line-height:30px; margin-right:10px;  -moz-border-radius: 3px;    -webkit-border-radius: 3px; border-radius:3px; text-decoration:none; cursor:pointer;}
+a.xz:hover {background:#14b562;}
+a.xz span {display:block; background:url(../images/img.png) no-repeat -25px -215px; width:25px; height:25px; float:left; margin-left:10px;}
+a.tj { background:#de4a4a;color:#fff; display:block; width:77px; height:30px; float:left; line-height:30px;  -moz-border-radius: 3px;    -webkit-border-radius: 3px; border-radius:3px; text-decoration:none; cursor:pointer;}
+a.tj:hover {background:#cc2f2f;}
+a.tj span {display:block; background:url(../images/img.png) no-repeat -25px -215px; width:25px; height:25px; float:left; margin-left:10px;}
+.w980 .right  {height:60px; padding-left:340px;}
+.w1200 .right  {height:60px; padding-left:540px;}
+
+/*Ñ§Éú*/
+.s_mrtj,.s_qwwd,.s_zrqk {margin-bottom:10px;}
+.s_mrtj h1 ,.s_qwwd h1 ,.s_zrqk h1  {height:40px; font:16px/40px "Î¢ÈíÑÅºÚ"; color:#fff; text-indent:10px;}
+.s_mrtj a {}
+.s_mrtj { width:100%;}
+.s_mrtj a {display:block; width:100%; height:160px; position:relative; text-indent:0;}
+.s_mrtj a img {  width:100%; height:160px;}
+.s_mrtj a span { display:block; background:#000; height:25px; line-height:25px; color:#fff; top:135px; left:0;  position:absolute; width:100%; text-indent:10px; filter:alpha(opacity=80); /* IE */ -moz-opacity:0.8; /* Moz + FF */ opacity: 0.8; /* Ö§³ÖCSS3µÄ*/}
+.s_mrtj p {padding:15px; line-height:25px; background:#eaeaea;}
+.s_qwwd p{padding:15px; line-height:25px;}
+.s_qwwd .daan ul li { width:130px; height:30px; float:left; margin:0 0 10px 10px; cursor:pointer; position:relative; z-index:2;}
+.s_qwwd .daan ul li a {display:block; width:130px; height:30px; background:#093; color:#fff; text-align:center; text-indent:0;}
+.s_qwwd .daan ul li span { width:130px; height:30px; display:block; background:#034020; color:#fff; text-align:center; text-indent:0; position:absolute; top:0; left:0;}
+.s_zrqk {height:300px;}
+.s_zrqk dl {width:130px; height:190px; float:left; margin-left:10px; _margin-left:5px;}
+.s_zrqk dl dd {width:130px; height:190px; padding:5px;}
+.s_zrqk dl dd img {width:120px; height:180px;}
+.s_zrqk dl dt { display:block;}
+.s_zrqk dl dt span {display:block; font: 16px/30px "Î¢ÈíÑÅºÚ"; color:#0096d6; text-align:center;}
+.s_zrqk dl dt a {font: 12px/20px "Î¢ÈíÑÅºÚ"; color:#999; text-decoration:none;}
+.s_zrqk dl dt a.red {color:#e60404;}
+.s_zrqk dl dt a.red:hover {color:#c80000; cursor:pointer;}
+.bztj h1 {height:40px; background:#a2e3ff; font:16px/40px "Î¢ÈíÑÅºÚ"; color:#8a8a8a; text-indent:10px;}
+.bztj ul { display:block;}
+.bztj ul li {float:left; display:block; width:46%; height:auto;  margin-left:20px; _margin-left:10px; margin-top:20px;}
+.bztj ul li a {display:block; width:100%; height:160px; position:relative; text-indent:0;}
+.bztj ul li a img {  width:100%; height:160px;}
+.bztj ul li a span { display:block; background:#000; height:25px; line-height:25px; color:#fff; top:135px; left:0;  position:absolute; width:100%; text-indent:10px; filter:alpha(opacity=80); /* IE */ -moz-opacity:0.8; /* Moz + FF */ opacity: 0.8; /* Ö§³ÖCSS3µÄ*/}
+.bztj ul li p { display:block; font:12px/25px "Î¢ÈíÑÅºÚ"; padding:10px;}
+.rr_textbox1 {width:150px; border:solid 1px #efefef; height:35px; line-height:35px;}
+.srr_sou {width:275px; float:right; padding:10px 0;}
+.srr_zt dl {border-top:solid 1px #efefef; padding:10px 20px; display:block; height:200px;}
+.srr_zt dl dd {width:30%; float:left; display:block; height:auto;}
+.srr_zt dl dd img {width:260px; height:195px; margin:0 auto;}
+.srr_zt3 dl {border-top:solid 1px #efefef; padding:10px 20px; display:block; height:200px;}
+.srr_zt3 dl dd {width:30%; float:left; display:block; height:auto;}
+.srr_zt3 dl dd img {width:200px; height:150px; margin:0 auto;}
+.w980 .srr_zt3 dl dt {width:60%; float:right;}
+.w1200 .srr_zt3 dl dt {width:70%; float:right;}
+.srr_zt3 dl dt span { display:block; margin-bottom:10px;}
+.srr_zt3 dl dt span.zt_nr {color:#999;}
+.srr_zt3 dl dt span a.blu {color:#0096d6; font: 16px/30px "Î¢ÈíÑÅºÚ"; text-decoration:none;}
+.srr_zt3 dl dt span a.blu:hover {color:#0984b8;}
+.w980 .srr_zt dl dt {width:65%; float:right;}
+.w1200 .srr_zt dl dt {width:70%; float:right;}
+.srr_zt dl dt span { display:block; margin-bottom:10px;}
+.srr_zt dl dt span.zt_nr {color:#999;}
+a.red {color:#f00; text-decoration:none;}
+.souBtn3 {background:url(../images/teacher/zoom.png) no-repeat center 0; height:38px; width:38px; display:inline-block; cursor:pointer;float:right; border:none;  _margin-top:-40px;  *+margin-top:-40px;}
+.souBtn3:hover {background-position:center -38px; background-color:#6ecef7; _margin-top:-40px;  *+margin-top:-40px;}
+
+/**/
+.srr_zt2 dl { border-top:solid 1px #efefef; width:100%; display:block; padding:10px 0;}
+.srr_zt2 dl dd {width:8%; float:left; display:block; height:auto;}
+.srr_zt2 dl dd img {width:45px; height:45px; margin:10px;}
+.srr_zt2 dl dt {width:73%; float:right;}
+.srr_zt2 dl dt span { display:block; margin-bottom:10px;}
+.srr_zt2 dl dt span.zt_nr {color:#999;}
+.srr_zt2 dl dt span a.blu {color:#0096d6; font: 16px/30px "Î¢ÈíÑÅºÚ"; text-decoration:none;}
+.srr_zt2 dl dt span a.blu:hover {color:#0984b8;}
+.w980 .right2  {height:60px; padding-left:650px;}
+.w1200 .right2  {height:60px; padding-left:850px;}
+
+/*rr_xw1*/
+.rd_nrr {width:300px; float:right;600px;}
+.w980 .rd_nrl {width:675px; float:left; border:solid 1px #efefef;}
+.w1200 .rd_nrl {width:895px; float:left; border:solid 1px #efefef;}
+.rd_nrl h1 {font:20px/40px "Î¢ÈíÑÅºÚ"; text-align:center; border-bottom:dashed 1px #999; }
+.rd_nrl .rd_wenzi {padding:20px; line-height:25px;}
+.rd_nrl .rd_wenzi span {padding-bottom:20px; display:block; color:#999;}
+.rd_nrl .rd_wenzi span strong { margin-right:20px; display:inline-block; width:auto; color:#CCC;}
+.rd_nrl .rd_wenzi p {text-indent:30px;}
+/**/
+
+.pic_scr {clear:both; width:298px; margin:0 auto; position:relative; overflow:hidden; height:570px; border:1px solid #efefef;}
+.picbox{ width:167px; height:570px; overflow:hidden; position:relative; margin-left:60px; }
+.piclist{ width:167px; overflow:hidden; position:absolute; left:0px; top:0px; height:570px;  }
+.piclist li { width:167px; float:left; border-right:1px solid #efefef; display:block; text-align:center; position:relative;}
+.piclist li a {margin:20px 0; display:block;}
+.piclist li a img { width:167px;}
+a.del { background:url(../images/del.png) no-repeat 0 0; width:20px; height:20px; display:block; position:absolute; top:0; right:0;}
+a.del.qk8 { position:static;}
+a.del:hover {background-position:0 -20px;}
+.pic_scr_modi li a.add_res,a.addIco { background:#fafafa url(../images/add_ico.png) no-repeat center 40%; display:block; width:100%; height:60px; font-size:15px; padding-top:90px; border:1px dashed #e0e0e0;}
+.pic_scr_modi li a.add_res:hover,a.addIco:hover { background-color:#f5f5f5; border-color:#d0d0d0; text-decoration:none; box-shadow:1px 2px 3px #f0f0f0;}
+h3.bt6 {display:block; margin-bottom:10px; position:relative;}
+.block2 {display:block; padding:5px 0;}
+
+.piclist li span {display:block; padding-top:5px;overflow:hidden; max-height:60px; line-height:20px;}
+.piclist li .tjCon { position:absolute; top:130px; height:35px; line-height:35px; background:#000; display:block; width:240px; opacity:.5; filter:alpha(opacity=50); -moz-opacity:0.5;}
+a.tjBtn3,a.tjBtn3:visited {position:absolute; top:136px; right:19px; display:inline-block; padding:3px 10px; color:#555; background:#f8f8f8; border-radius:3px;}
+a.tjBtn3:hover {background-color:#e0e0e0; color:#222; text-decoration:none;}
+div.tjB2 {display:none;}
+
+
+
+a.og_prev {background-image:url(../images/arr2.png); background-repeat:no-repeat; width:40px; height:42px; position:absolute; top:250px;}
+a.og_next {background:url(../images/arr2.png) 0px -81px no-repeat; width:40px; height:42px; position:absolute; top:250px; left:240px;}
+
+/*rr_tt*/
+.tt_hd { height:30px; line-height:30px; padding:10px 20px; }
+.w980 a.tt_tup{width:980px; height:200px; display:block; background:url(../../img/bbs_r2_c1.jpg); }
+.w1200 a.tt_tup{width:1200px; height:200px; display:block; background:url(../../img/bbs_r2_c1.jpg); }
+.tt_hd span {font:16px/20px "Î¢ÈíÑÅºÚ"; color:#11b962;}
+.tt_hd a {display: block; float:right; padding:5px 15px; color:#fff; height:20px; font:14px/20px "Î¢ÈíÑÅºÚ";  margin:0 5px;}
+.tt_hd a.tt_fh {background:#23c973;}
+.tt_hd a.tt_tj span{display:block; width:20px; height:20px; background:url(../images/img.png) -54px -218px no-repeat; float:left;}
+.tt_hd a.tt_sc span{display:block; width:22px; height:20px; background:url(../images/img.png) -27px -219px no-repeat; float:left;}
+.tt_hd a.tt_tj {background:#e87613;}
+.tt_hd a.tt_sc {background:#0096d6;}
+.tt_dao { font:14px/30px "Î¢ÈíÑÅºÚ";border:solid 1px #11b962; }
+.w980 .tt_dao p { text-indent:30px; vertical-align:middle; padding:10px 20px; display:block; width:840px; float:right;}
+.w1200 .tt_dao p { text-indent:30px; vertical-align:middle; padding:10px 20px; display:block; width:1040px; float:right;}
+.tt_dao span {display:block; background:#11b962; color:#fff; width:90px; height:80px; float:left; font-size:30px; font-weight:bold;}
+.tt_dao span strong {font-size:50px; line-height:80px;}
+.tt_nr dl {height:80px; border-bottom:dashed 1px #efefef; padding:10px;}
+.tt_nr dl dd {width:45px; height:45px; background:url(../images/teacher/ico_bg.png); padding:15px; float:left; text-align:center; }
+.tt_nr dl dd a {font-size:30px; line-height:45px; color:#0b934c; border:solid 2px #d2d2d2; padding:0 10px; text-decoration:none;}
+.tt_nr dl dt a.tt_xi {color:#11b962; display:block; font-size:16px; height:40px; line-height:30px; text-decoration:none;}
+.tt_nr dl dt a.tt_xi:hover {color:#0b934c;}
+.tt_nr dl dt a span.tt_bo {display:inline-block; background:url(../images/student/img.png) -41px -281px no-repeat; width:30px; height:30px; margin-left:10px;}
+.w980 .tt_nr dl dt {float:right; width:850px; display:block; line-height:25px; }
+.w1200 .tt_nr dl dt {float:right; width:1080px; display:block;}
+.dapop {padding:10px 20px;}
+.dapop h1 {color:#14b469; font:16px/25px "Î¢ÈíÑÅºÚ";}
+.pop_zt a {display:block; width:100%; height:160px; position:relative; text-indent:0;}
+.pop_zt a img {  width:100%; height:160px;}
+.pop_zt a span { display:block; background:#000; height:25px; line-height:25px; color:#fff; top:135px; left:0;  position:absolute; width:100%; text-indent:10px; filter:alpha(opacity=80); /* IE */ -moz-opacity:0.2; /* Moz + FF */ opacity: 0.2; /* Ö§³ÖCSS3µÄ*/}
+.pop_zt p { display:block; font:12px/25px "Î¢ÈíÑÅºÚ"; padding:10px;}
+.s_mrtj h1 span.zz ,.s_qwwd h1 span.zz ,.s_zrqk h1 span.zz ,.bztj h1 span.zz {background: url(../images/teacher/reading_img.png) no-repeat; width:30px; height:30px; display:block; float:left; margin:0; padding:0; margin-top:5px; margin-left:5px;}
+.s_mrtj h1 {background:#de8ac7;}
+.s_zrqk h1 {background:#4fbdec;}
+.s_qwwd h1 ,.bztj h1{background:#50cc8c;}

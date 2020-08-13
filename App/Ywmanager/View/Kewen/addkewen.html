@@ -1,0 +1,416 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>课程列表</title>
+<style>
+ .page{width:auto;height:25px; margin:auto; line-height:25px;}
+ .page a{display:block; height:25px; padding:0px 6px; border:solid 1px #e7e7e7; border-radius:3px; color:#333; font-family:'微软雅黑'; font-size:13px; text-align:center; text-decoration:none;float:left; margin-right:10px;min-width:20px;}
+ .page a:hover, .page a.this{background:#f7f7f7; font-weight:bold}
+</style>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jPlayer/dist/jplayer/jquery.jplayer.min.js"></script>
+</head>
+<body>
+<div class="place"><strong>位置</strong>：首页 &gt; 课文添加</div>
+<div class="container">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+	  <tr>
+	    <td class="box_top pl_10 f14"><strong id="ks_name"></strong>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" id="back" value="返回" class="ext_btn ext_btn_listen" /></td>
+	  </tr>
+	</table>
+	<div class="h5"></div>
+	<table border="0" cellspacing="0" cellpadding="0" class="form_table">
+		<tr>
+			<td>
+                <if condition="$style eq 3">
+                <input type="button" id="addpinyin" value="添加拼音" class="ext_btn ext_btn_success" />
+                </if>
+				<input type="button" id="addKecheng" value="添加课文" class="ext_btn ext_btn_submit" />
+			</td>
+		</tr>
+	</table>
+  <if condition="$style eq 3">
+  <div class="h5"></div>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="box_top pl_10 f14" width="80"><strong>拼音：</strong></td>
+    <td id="pys"></td>
+  </tr>
+  </table>
+  </if>
+  <div class="h5"></div>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="box_top pl_10 f14"><strong>课文</strong></td>
+  </tr>
+  </table>
+	<div class="h5"></div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+	  <tr>
+	    <th width="60">次序</th>
+	    <th width="280">标题</th>
+	    <th>管理</th>
+	  </tr>
+	</table>
+	<div class="h5"></div>
+	<div class="page"></div>
+</div>
+<div class="h5"></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="42"><input id="btn_submit" type="button" class="ext_btn ext_btn_submit" value="保存次序" /></td>
+  </tr>
+</table>
+
+<table style="display:none;" id="demo">
+  <tr class="tr">
+    <td><input name="sortid" type="text" class="input-text lh30" size="3" maxlength="2" /></td>
+    <td align="left">字</td>
+    <td align="left">
+      &nbsp;<input type="button" name="edit" class="ext_btn ext_btn_success" value="编辑" />
+      <input type="button" name="ting" value="试听" class="ext_btn ext_btn_listen" />
+      <if condition="$style neq 3">
+      <input type="button" name="js" value="词语解释" class="ext_btn ext_btn_submit" />
+      </if>
+      <if condition="$style eq 2">
+      <input type="button" name="fy" value="课文翻译" class="ext_btn ext_btn_submit" />
+      </if>
+      <input type="button" name="del" value="删除" class="ext_btn ext_btn_error" />
+    </td>
+  </tr>
+</table>
+<div id="jplayer"></div>
+</body>
+</html>
+<script type="text/javascript">
+var pagesize=10;
+$(function(){
+  $.ajaxSetup({async:false});
+  var ks_name = '{$ks_name}';
+  $("#ks_name").html(ks_name);
+  pagelist(1,pagesize);
+});
+
+$('#back').click(function(){
+	history.go(-1);
+});
+
+//添加拼音
+$('#addpinyin').click(function(){
+    var ks_code = '{$ks_code}';
+    var myDialog = $.dialog.open("tags?ks_code="+ks_code, {
+        id : 'verson_edit',
+        title : '添加拼音',
+        window : 'top',
+        width : 951,
+        height : 238,
+        lock : true,
+        opacity : 0.3,
+        button : [
+                {
+                    name : '保存',
+                    callback : function() {
+                        var iframe = this.iframe.contentWindow;
+                        var chk_value = [];
+                        $('input[name="tags"]:checked', iframe.document)
+                                .each(function() {
+                                    chk_value.push($(this).val());
+                                });
+                        var ids = chk_value.join("|");
+                        if (ids == "") {
+                            dialogTips("请选择关键字");
+                            return false;
+                        }
+                        // alert(ids);
+                        //处理选择的音频
+                        addPinyin(ids);
+                        return true;
+                    },
+                    focus : true
+                }, {
+                    name : '关闭',
+                    callback : function() {
+                        return true;
+                    },
+                    focus : false
+                } ]
+    });
+})
+
+function addPinyin(ids){
+  var ks_code = '{$ks_code}';
+  $.get('../Kewen/addPinyinToData',
+    {
+      ran:Math.random(),
+      ids:ids,
+      ks_code:ks_code
+    },function(data){
+      queryPinyin();
+    })
+}
+
+//查询拼音
+function queryPinyin(){
+  var ks_code = '{$ks_code}';
+  $.get('../Kewen/queryPinyin',
+    {
+      ran:Math.random(),
+      ks_code:ks_code
+    },function(data){
+      $('#pys').html(data);
+    })
+}
+
+
+
+//添加课程
+$('#addKecheng').click(function(){
+	var ks_code = '{$ks_code}';
+    var ks_name = '{$ks_name}';
+    var style = '{$style}';
+	var myDialog = $.dialog.open('addkeweninfo?option=add&ks_code='+ks_code+'&style='+style+'&ks_name='+ks_name+'&ran='+Math.random(),{
+		title:'添加课文（'+ks_name+'）',
+		window : 'top',
+		width : 1000,
+		height : 500,
+		lock : true,
+		opacity : 0.3,
+		button : [
+				 {
+				 	name:'保存',
+					callback:function(){
+						var iframe = this.iframe.contentWindow;
+						var re = iframe.savedata();//调用窗口的方法
+						if(re==false){
+							art.dialog.alert('添加失败！');
+						}
+						pagelist(1,pagesize);
+						return re;
+					},
+					focus:true
+				 },
+				 {
+					name : '关闭',
+					callback : function() {
+						return true;
+					},
+					focus : false
+				} ]
+	});
+});
+
+$('input[name="edit"]').live('click',function(){
+	var ks_code = '{$ks_code}';
+    var ks_name = '{$ks_name}';
+	var id=$(this).attr('bid');//课程id
+    var style = '{$style}';
+	var myDialog = $.dialog.open('addkeweninfo?option=edit&id='+id+'&ks_code='+ks_code+'&style='+style+'&ran='+Math.random(),{
+		title:'修改课文（'+ks_name+'）',
+		window : 'top',
+		width : 1000,
+		height : 500,
+		lock : true,
+		opacity : 0.3,
+		button : [
+				 {
+				 	name:'保存',
+					callback:function(){
+						var iframe = this.iframe.contentWindow;
+						var re = iframe.savedata();//调用窗口的方法
+						if(re==false){
+							art.dialog.alert('添加失败！');
+						}
+						pagelist(1,pagesize);
+						return re;
+					},
+					focus:true
+				 },
+				 {
+					name : '关闭',
+					callback : function() {
+						return true;
+					},
+					focus : false
+				} ]
+	});
+});
+
+//翻译管理
+$('input[name="fy"]').live('click',function(){
+    var textid = $(this).attr('bid');
+    var myDialog = $.dialog.open('fanyi?bid='+textid+'&ran='+Math.random(),{
+        title:'翻译管理',
+        window : 'top',
+        width : 1000,
+        height : 500,
+        lock : true,
+        opacity : 0.3,
+        button : [
+                 {
+                    name : '关闭',
+                    callback : function() {
+                        return true;
+                    },
+                    focus : false
+                } ]
+    });
+})
+//词语解释
+$('input[name="js"]').live('click',function(){
+    var textid = $(this).attr('bid');
+    var myDialog = $.dialog.open('jieshi?bid='+textid+'&ran='+Math.random(),{
+        title:'词语解释',
+        window : 'top',
+        width : 1000,
+        height : 500,
+        lock : true,
+        opacity : 0.3,
+        button : [
+                 {
+                    name : '关闭',
+                    callback : function() {
+                        return true;
+                    },
+                    focus : false
+                } ]
+    });
+})
+
+
+
+//删除课程
+$('input[name="del"]').live('click',function(){
+	var id=$(this).attr('bid');//课程id
+	var aa=$(this).parent().parent();
+	if($.dialog.confirm('确定删除？',function(){
+		$.get('../Kewen/delText',{ran:Math.random(),id:id},function(data){
+			$(aa).remove();
+		});
+	}));
+});
+
+//保存排序
+ $("#btn_submit").click(function()
+  {
+    var dloading = art.dialog({time:30,title:'更新中……',width:130,height:30,opacity:0.3,lock:true});
+    // if($("#table_data tr.tr").length == 0)return;
+    var arrjson =[];
+    $("#table_data tr.tr").each(function(){
+      var tr =$(this);
+      var id = tr.find('input[name="sortid"]').attr("BID");
+      var sortid = tr.find('input[name="sortid"]').val();
+      var obj = {};
+      obj.id = id;
+      obj.sortid = sortid;
+      arrjson.push(obj);
+    });
+    $.get("../Kewen/upTextSort",{data:JSON.stringify(arrjson)},function(){
+      pagelist(1,pagesize);
+      dloading.close();
+      art.dialog.alert("排序保存成功");
+    });
+
+  });
+
+  //试听
+  $('input[name="ting"]').live("click",function() {
+        $(this).parent().parent().siblings().find('.ext_btn_listen').val('试听');
+    var mp3 = $(this).attr('url');
+    var title = $(this).parent().prev().html();
+    if(!mp3){art.dialog.alert("请上传音频");}
+    else
+    {
+         mp3 = "../../uploadsyw/kewenvoice/" + mp3;
+         playVideo(title,mp3);
+        // if($(this).val()=='试听'){
+        //     $(this).val('停止');
+        //     jpstart(mp3);
+        // }else{
+        //     $(this).val('试听');
+        //     jpclear();
+        // }
+    }
+  });
+
+//播放弹出页面
+function playVideo(filename,filestore){
+    var url='';
+    var width='';
+    var height='';
+
+    url='playmp3';
+    width=220;
+    height=220;
+
+    var myDialog = art.dialog.open(url+'?filename='+filename+'&filepath='+filestore+'&random='+Math.random(),{
+        id:'mate_edit',
+        title:filename,
+        window:'top',
+        width:width,
+        height:height,
+        padding:0,
+        lock:true,
+        opacity:0.3
+      });
+}
+
+
+//分页查询
+ function pagelist(pageCurrent,page_size){
+ 	var ks_code = '{$ks_code}';
+  queryPinyin();
+ 	$.get("../Kewen/fenyeText",
+ 			{
+ 			  ran:Math.random(),
+ 			  pageCurrent:pageCurrent,
+ 			  page_size:page_size,
+ 			  ks_code:ks_code
+ 			},
+ 			function(data){
+			$(".page").empty();
+			$('.list_table tr:not(:first)').remove();
+			$.each(data,function(k,v){
+				$('.page').html(k);
+				$.each(v,function(k,v){
+					var tr=$('#demo').children('tbody').children('tr').eq(0).clone();
+					tr.children('td').eq(0).find('input').val(k+1);
+					tr.children('td').eq(1).html(v.title);
+                    tr.find('input').attr('bid',v.id);
+					tr.find('input').attr('url',v.url);
+					tr.appendTo('.list_table');
+				});
+			});
+ 			$("#SelectPages").change(function(){
+ 				 pagelist($("#SelectPages").val(),page_size);
+ 				 });
+ 		})
+ }
+
+
+function jpclear() {
+  $("#jplayer").jPlayer("clearMedia");
+  $("#jplayer").jPlayer("stop");
+  $("#jplayer").unbind($.jPlayer.event.ended);
+  $("#jplayer").unbind($.jPlayer.event.progress);
+}
+
+function jpstart(mp3){
+	$("#jplayer").jPlayer({
+    swfPath: "js",
+    wmode: "window",
+    supplied: "mp3",
+    preload: "none",
+    volume: "1"
+  });
+	$("#jplayer").jPlayer("setMedia", {
+	    mp3: mp3
+	}).jPlayer("play");
+}
+
+</script>

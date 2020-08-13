@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>丰泽区微课评选</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/public/Elearn/fengze/css/sytle.css" />
+	    <script type="text/javascript" src="/public/public/js/jquery-1.11.2.min.js" ></script>
+	    <script src="https://static.smartfengze.com/common/js/common/cstoon-jssdk.js"></script>
+	     <script type="text/javascript" src="/public/Elearn/fengze/js/html5media.min.js" ></script>
+	    <script type="text/javascript" src="/public/Elearn/fengze/js/play.js" ></script>
+	</head>
+	<style type="text/css">
+    .toupiao p{line-height: 22px; margin: 0 10px 0;text-align: left}
+    .main_block{min-height: 0px;}
+	</style>
+	<body>
+		<header class="ztTop"></header>
+		<section class="main_block">
+			<div class="keInfo">
+				<div class="keTop">
+                <div class="shutiao"></div>
+					<h4>{$title}</h4>
+				</div>
+				<div class="clearfix"></div>
+				<div class="keMain">
+					<div class="keMainLeft ">
+						<div class="video">
+							<video id="video_player" class="bofang"   controls="controls" poster="{$pic}" preload="auto"  controlsList="nodownload">
+							</video>
+						</div>
+						
+
+				  </div>
+					
+				</div>
+			</div>
+            
+		</section>
+    <div class="keMainRight main_block">
+        <div class="shutiao2"></div>
+        <div class="keTop">
+          <div class="shutiao"></div>
+          <h4>姓名：{$user_name}</h4>
+        </div>
+        <h4>学校：{$schoolname}</h4>
+      <h4>{$remark}</h4>
+         <!-- <p><span>2019年11月18日</span></p>
+         <p style=" text-align:center; background:#ebebeb; height:45px; line-height:45px; ">微课简介</p>
+       
+						<p>汽车在望不到边际的高原上奔驰，扑入你的视野的，是黄绿错综的一条大毡子。扑入你的视野的，是黄绿错综的一条大毡子。车在望不到边际的高原上奔驰，扑入你的视野的不到边际的高原上奔驰，扑入你的视野的，是黄绿错综的一条大毡子。黄的是....</p> -->
+	</div>
+
+		<div class="toupiao">
+			<p><b>温馨提示：</b>为保障评选活动有序进行，视频点播环节仅在APP内有效。</p>
+		<a id="share" onclick="video_share('{$course_id}');" class="btn_yellow" href="javascript:;">分享</a><a id="download" onclick="app_download();" class="btn_yellow" href="javascript:;" style="display: none;">下载i丰泽app，查看更多优质微课</a>
+		
+		</div>
+
+
+	</body>
+</html>
+<script type="text/javascript">
+//http://plshenan.czbanbantong.com/youjiao/doMutiplePlay.do?jsoncallback=jQuery1830658771147380957_1585220296889&rcode=20180921231436796144195386074&userName=4101018888880041&filterType=2&outType=1&_=1585220296988
+var video_code = "{$video_code}";
+  $(function(){
+   if(window.navigator.userAgent.indexOf("innoApp") > -1){
+   	    $("#download").hide();
+		$("#share").show();
+	}else{
+		$("#share").hide();
+		$("#download").show();
+	}
+	videoPlay(video_code);
+
+  });
+
+</script>
+<script type="text/javascript" src="https://cms.czbanbantong.com/A01/lib/defaultstyle/2015yjt/jxlt/res/script/baidu.js" ></script>

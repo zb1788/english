@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <title>ksk</title>
+  <link href=__PUBLIC__/game/static_ksk/css/app.css rel=stylesheet>
+  <script>
+    var domain = '__RESOURCE__/uploadklx/klxsx/';
+    var voiceArr;
+    var count;
+  </script>
+</head>
+
+<body>
+  <div id=app></div>
+  <script type=text/javascript src=__PUBLIC__/game/static_ksk/js/manifest.js></script>
+  <script type=text/javascript src=__PUBLIC__/game/static_ksk/js/vendor.js></script>
+  <script type=text/javascript src=__PUBLIC__/game/static_ksk/js/app.js></script>
+  <script>
+    //优信下载完成调用函数
+    function onAudioPlayStatus(status) {
+      if (0 == status) {
+        // alert("下載成功");
+        count++;
+        if (count < voiceArr.length)
+          UXinJSInterfaceSpeech.playAudio(
+            domain + "nan/" + voiceArr[count] + ".mp3"
+          );
+      } else {
+        // alert("下載出錯");
+      }
+    }
+  </script>
+</body>
+
+</html>

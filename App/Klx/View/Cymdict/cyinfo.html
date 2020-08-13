@@ -1,0 +1,297 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>优教信使-成语词典</title>
+<link href="__PUBLIC__/dict/css/zj.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="__PUBLIC__/dict/css/font-awesome.min.css">
+<link href="__PUBLIC__/dict/css/yj.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/dict/js/jquery.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/artDialog/jquery.artDialog.js?skin=default" type="text/javascript"></script>
+<script src="__PUBLIC__/js/iframeTools.js" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+</head>
+
+<body>
+<div data-role="page">
+<header>
+<div data-role="header">
+	<div class="back"><a <if condition='$source eq 0'>href="classfycy?id={$classfyid}&jiegou={$jiegou}&suoyin={$suoyin}"<else/>href="search?flag={$flag}&name={$name}&name1={$name1}&name2={$name2}&name3={$name3}&name4={$name4}"</if>><img src="__PUBLIC__/dict/images/backIco.png" width="20" height="20" />返回</a></div>
+         <h1>成语词典</h1>
+	<div class="kc_setup"><!-- <a class="shou" href="javascript:void(0);" onclick="share();">分享</a> --></div>
+</div>
+<span class="line"></span>
+</header>
+<div data-role="content" class="cy_nr">
+<div class="souq">
+	<ul>
+		<li id="jq" class="on" onClick="javascript;">查询</li>
+		<li id="mh" onClick="javascript">位置查询</li>
+	</ul>
+	<span class="tu02"><img src="__PUBLIC__/dict/images/xb2.png" /></span>
+	<div class="clearfix"></div>
+</div>
+<div class="sousou">
+	<a data-role="button" class="but_y" href="javascript:void(0)" onclick="cysearch(0);"><span>检索</span></a>
+	<input type="text" value=""  placeholder="输入汉字或字母" class="sou01">
+</div>
+<div class="sousou1" style="display:none;">
+	<input type="text" class="sou04" placeholder="" maxlength="1">
+	<input type="text" class="sou04" placeholder="" maxlength="1">
+	<input type="text" class="sou04" placeholder="" maxlength="1">
+	<input type="text" class="sou04" placeholder="" maxlength="1">
+	<a data-role="button" class="but_y" href="javascript:void(0)" onclick="cysearch(1);"><span>检索</span></a>
+</div>
+<div class="syxx">
+<h3>{$cyname}</h3>
+<h4>{$cypinyin}</h4>
+<dl>
+<notempty name="cyjieshi">
+<dd>【成语解释】</dd>
+<dt>{$cyjieshi}</dt>
+</notempty>
+<notempty name="cydiangu">
+<dd>【成语典故】</dd>
+<dt>{$cydiangu}</dt>
+</notempty>
+<notempty name="cycycd">
+<dd>【常用程度】</dd>
+<dt>{$cycycd}</dt>
+</noempty>
+<notempty name="cygqsc">
+<dd>【感情色彩】</dd>
+<dt>{$cygqsc}</dt>
+</notempty>
+<notempty name="cyjinyici">
+<dd>【近义词】</dd>
+<dt>{$cyjinyici}</dt>
+</notempty>
+<notempty name="cyfanyici">
+<dd>【反义词】</dd>
+<dt>{$cyfanyici}</dt>
+</notempty>
+<notempty name="cyjiegou">
+<dd>【成语结构】</dd>
+<dt>{$cyjiegou}</dt>
+</notempty>
+<notempty name="cycsnd">
+<dd>【产生年代】</dd>
+<dt>{$cycsnd}</dt>
+</notempty>
+<notempty name="cygushi">
+<dd>【成语故事】</dd>
+<dt>{$cygushi}</dt>
+</notempty>
+</dl>
+
+</div>
+</div>
+
+<div data-role="footer"></div>
+</div>
+</body>
+<script>
+$("#jq").click(function(){
+$(this).addClass("on");
+$(this).siblings().removeClass("on");
+$(".sousou").css("display","block");
+$(".sousou1").css("display","none");
+$(".sousou1").find("input").val("");
+})
+$("#mh").click(function(){
+$(this).addClass("on");
+$(this).siblings().removeClass("on");
+$(".sousou1").css("display","block");
+$(".sousou").css("display","none");
+$(".sousou").find("input").val("");
+})
+
+function cysearch(flag){
+	  var suo01=$(".sou01").val();
+    var suo02=$(".sou04:eq(0)").val();
+    var suo03=$(".sou04:eq(1)").val();
+    var suo04=$(".sou04:eq(2)").val();
+    var suo05=$(".sou04:eq(3)").val();
+		var cflag=false;
+		if(suo01==""&&suo02==""&&suo03==""&&suo04==""&&suo05==""){
+			return;
+		}else{
+			if(suo01!=""){
+				if ((!suo01.match(/[^\u4e00-\u9fa5]/g)||!suo01.match(/[^\a-\z\A-\Z]/g)))
+				{
+					cflag=true;
+				}else{
+					cflag=false;
+				}
+			}else{
+				if(suo02!=""){
+					if ((!suo02.match(/[^\u4e00-\u9fa5]/g)))
+					{
+						cflag=true;
+					}else{
+						if(suo03!=""){
+							if ((!suo03.match(/[^\u4e00-\u9fa5]/g)))
+							{
+								cflag=true;
+							}else{
+								if(suo04!=""){
+									if ((!suo04.match(/[^\u4e00-\u9fa5]/g)))
+									{
+										cflag=true;
+									}else{
+										if(suo05!=''){
+											if ((!suo05.match(/[^\u4e00-\u9fa5]/g)))
+										 {
+											 cflag=true;
+										 }else{
+												cflag=false;
+												art.dialog.alert("请输入汉字");
+												return false;
+										 }
+										}
+									}
+								}else{
+									if(suo05!=''){
+										if ((!suo05.match(/[^\u4e00-\u9fa5]/g)))
+									 {
+										 cflag=true;
+									 }else{
+											cflag=false;
+											art.dialog.alert("请输入汉字");
+											return false;
+									 }
+									}
+								}
+							}
+						}else{
+							if(suo04!=""){
+								if ((!suo04.match(/[^\u4e00-\u9fa5]/g)))
+								{
+									cflag=true;
+								}else{
+									if(suo05!=''){
+										if ((!suo05.match(/[^\u4e00-\u9fa5]/g)))
+									 {
+										 cflag=true;
+									 }else{
+											cflag=false;
+											art.dialog.alert("请输入汉字");
+											return false;
+									 }
+									}
+								}
+							}else{
+								if(suo05!=''){
+									if ((!suo05.match(/[^\u4e00-\u9fa5]/g)))
+								 {
+									 cflag=true;
+								 }else{
+										cflag=false;
+										art.dialog.alert("请输入汉字");
+										return false;
+								 }
+								}
+							}
+						}
+
+					}
+				}else{
+					if(suo03!=""){
+						if ((!suo03.match(/[^\u4e00-\u9fa5]/g)))
+						{
+							cflag=true;
+						}else{
+							if(suo04!=""){
+								if ((!suo04.match(/[^\u4e00-\u9fa5]/g)))
+								{
+									cflag=true;
+								}else{
+									if(suo05!=''){
+										if ((!suo05.match(/[^\u4e00-\u9fa5]/g)))
+									 {
+										 cflag=true;
+									 }else{
+											cflag=false;
+											art.dialog.alert("请输入汉字");
+											return false;
+									 }
+									}
+								}
+							}else{
+								if(suo05!=''){
+									if ((!suo05.match(/[^\u4e00-\u9fa5]/g)))
+								 {
+									 cflag=true;
+								 }else{
+										cflag=false;
+										art.dialog.alert("请输入汉字");
+										return false;
+								 }
+								}
+							}
+						}
+					}else{
+						if(suo04!=""){
+							if ((!suo04.match(/[^\u4e00-\u9fa5]/g)))
+							{
+								cflag=true;
+							}else{
+								if(suo05!=''){
+									if ((!suo05.match(/[^\u4e00-\u9fa5]/g)))
+								 {
+									 cflag=true;
+								 }else{
+										cflag=false;
+										art.dialog.alert("请输入汉字");
+										return false;
+								 }
+								}
+							}
+						}else{
+							if(suo05!=''){
+								if ((!suo05.match(/[^\u4e00-\u9fa5]/g)))
+							 {
+									cflag=true;
+							 }else{
+									cflag=false;
+									art.dialog.alert("请输入汉字");
+									return false;
+							 }
+							}
+						}
+					}
+				}
+			}
+			if(cflag){
+				location.href="search?name="+suo01+"&name1="+suo02+"&name2="+suo03+"&name3="+suo04+"&name4="+suo05+"&flag="+flag;
+			}else{
+				art.dialog.alert("请输入汉字");
+				return false;
+			}
+		}
+}
+
+function share(){
+	//判断是否有字
+	var suo01=$(".sou01").val();
+	var suo02=$(".sou04:eq(0)").val();
+	var suo03=$(".sou04:eq(1)").val();
+	var suo04=$(".sou04:eq(2)").val();
+	var suo05=$(".sou04:eq(3)").val();
+	var content="";
+	var cyname="{$cyname}";
+	var url="";
+	if(cyname!=''||cyname!=undefined){
+		content="“成语词典”太好用了，我已经学会“"+cyname+"”成语了！";
+
+	}else{
+    content="“成语词典”太好用了，我已经学会好多成语了！";
+	}
+	url="/Klx/Cydict/index";
+	var source=1;
+	$.getJSON("../Dictm/share",{url:url,content:content,source:source,ran:Math.random()},function(){
+		art.dialog.alert("分享成功");
+	});
+}
+</script>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="__PUBLIC__css/fonts.css" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__css/nav.css" rel="stylesheet">
+	<link href="__PUBLIC__css/style.css" rel="stylesheet">	
+<script type="text/javascript" src="__PUBLIC__js/jquery.min.js"></script>  
+<script src="__PUBLIC__js/main.js"></script>
+ <script type="text/javascript" src="__PUBLIC__/js/listen.js"></script>
+ <script>
+ var suburl = "{:U('listen/show_exams_list_zt')}";
+ </script>
+</head>
+
+<body>
+<header>
+	<div class="l fl"><a href="{:U('index/index')}"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">中高考专题</div>
+    <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+                <li><a href="{:U('index/wordbook')}"><i class="icon-heart"></i><font class="wordcount">{$wordbcount}</font></a></li>
+                <li><a href="{:U('index/record')}"><i class="icon-list-alt"></i><font class="recordcount">{$recordcount}</font></a></li>
+                <li><a href="{:U('index/index')}"><i class="icon-evil"></i>学习中心</a></li>
+                <li><a href="{:U('index/course')}"><i class="icon-pencil-square"></i><b>课程设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section class="screen">
+	<ul class="tab"><li><a id="zt1" href="javascript:changelevel(1);" class="cur" ztlevel="1">中考</a></li><li><a id="zt2" href="javascript:changelevel(2);" ztlevel="2">高考</a></li></ul> 
+    <div class="sxBox">
+        <dl id="zttype"><dt>类型：</dt><dd><a href="javascript:;" zttypeid="0" class="cur" >全部</a><a href="javascript:;"  zttypeid="1">模拟</a><a href="javascript:;"  zttypeid="2">真题</a></dd></dl>
+        <dl id="ztyear"><dt>年份：</dt><dd><a href="javascript:;" yearkey="all" class="cur">全部</a>
+		<volist name="ztyear" id="ztyear">
+				<a href="javascript:;" yearkey="{$ztyear.year}">{$ztyear.year}</a>
+		</volist>
+		</dd></dl>
+        <dl id="ztprovince"><dt>省份：</dt><dd><a href="javascript:;" provinceid="all" class="cur">全部</a>
+		<volist name="ztprovince" id="ztprovince">
+		<a href="javascript:;" provinceid="{$ztprovince.id}">{$ztprovince.name}</a>
+				
+	  </volist>
+		</dd></dl>
+    </div>
+	<div class="boxCon"><a href="javascript:;" class="btn bDefault" id="l_zt_sub">确定</a></div>
+</section>
+
+</body>
+</html>

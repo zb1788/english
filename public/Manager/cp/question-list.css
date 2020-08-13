@@ -1,0 +1,358 @@
+@charset "utf-8";
+
+html, body {
+	position: relative;
+	/* -webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-ms-font-smoothing: antialiased;
+	-o-font-smoothing: antialiased;
+	font-smoothing: antialiased; */
+}
+
+#page-qlist {
+	
+}
+
+body.web-clip {
+	/* overflow-y: scroll; */
+	
+}
+
+.web-clip  #page-qlist {
+	padding-bottom: 39px;
+}
+
+#page-qlist .q-list>li:nth-of-type(even){
+	background-color: #f8fcff;
+}
+
+.q-list .q-item {
+	width: 100%;
+	position: relative;
+	color: #434A54;
+	display: table;
+	font-size: 13px;
+	padding: 10px 0;
+	border-bottom: 1px dashed #CCD1D9;
+	-webkit-transition: all 0.15s ease-in-out 0s;
+	transition: all 0.15s ease-in-out 0s;
+}
+
+.q-list .q-item.selected {
+	border-color: #1198f6;
+	background-color: #F5F7FA;
+	/* background-image: -moz-linear-gradient(top, #FFF, #F5F7FA);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#FFF),
+		to(#F5F7FA));
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF,
+		endColorstr=#F5F7FA);
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF,endColorstr=#F5F7FA)"; */
+}
+
+.q-list .q-item.frozen {
+	pointer-events: none;
+	cursor: not-allowed;
+	filter: alpha(opacity = 65);
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	opacity: .65;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.q-item pre {
+	color: #434A54;
+}
+
+.q-item>div {
+	display: table-cell;
+}
+
+.q-item>div.check-wrap {
+	width: 1%;
+	white-space: nowrap;
+	vertical-align: top;
+	text-align: center;
+}
+
+.q-item>div.q-data {
+	position: relative;
+	z-index: 2;
+	float: left;
+	width: 100%;
+	margin-bottom: 0;
+	padding: 10px 25px 10px 15px;
+}
+
+/************ 下拉菜单 begin *****************/
+.q-item .btn-contextmenu {
+	position: absolute;
+	padding: 0px;
+	padding-top: 20px;
+	width: 40px;
+	height: 37px;
+	right: 0;
+	top: 0;
+	color: #6B737C;
+	cursor: pointer;
+	z-index: 10;
+}
+
+.q-item .btn-contextmenu:hover {
+	color: #434A54;
+}
+/************ 下拉菜单 end *****************/
+
+/************ 选择框 begin *****************/
+.q-item .pure-checkbox {
+	width: 40px;
+	height: 100%;
+	z-index: 100;
+	margin: 0;
+	cursor: pointer;
+}
+
+.q-item .pure-checkbox>div {
+	border: 1px solid #AFC6DA;
+	color: #FFF;
+	margin: 12px auto;
+}
+
+.q-item .pure-checkbox.selected>div {
+	border: 1px solid #009EE7;
+}
+
+.q-item.frozen .pure-checkbox.selected>div {
+	border: 1px solid #656D78;
+	background-color: #656D78;
+	box-shadow: none;
+}
+
+/************ 选择框 end *****************/
+
+/************ 选题模式下操作工具bar begin **************/
+.q-item .select-toolbar-wrap {
+	position: absolute;
+	display: block;
+	right: 16px;
+	top: 4px;
+	color: #AAB2BD;
+	font-size: 13px;
+	z-index: 5;
+}
+
+.q-item .q-sub-item .select-toolbar-wrap {
+	top: 15px;
+}
+
+.q-item .select-toolbar-wrap>.input-point-wrap {
+	
+}
+
+.q-item .select-toolbar-wrap .point-form {
+	width: 84px;
+	display: inline-block;
+}
+
+.q-item .select-toolbar-wrap .point-form .input-point {
+	color: #ffa400;
+	width: 60px;
+	text-align: center;
+	display: inline-block;
+	border-radius: 2px;
+	padding: 0 4px;
+	height: 28px;
+	margin-top: -1px;
+}
+
+.q-item .select-toolbar-wrap .btn-remove {
+	padding: 0 10px;
+	z-index: 23;
+	position: relative;
+	display: inline-block;
+	color: #AAB2BD;
+	font-size: 14px;
+	border-left: 1px solid #E6E9ED;
+}
+
+.q-item .select-toolbar-wrap .btn-remove:hover {
+	color: #E9573F;
+}
+
+.q-item .select-toolbar-wrap .set-language-wrap{
+	width: 200px;
+}
+
+.q-item .select-toolbar-wrap .btn-language-selecter{
+	border: 1px solid #37BC9B;
+	color: #37BC9B;
+	background-color: #FFF;
+}
+/************ 选题模式下操作工具bar end *****************/
+
+/************ 题目内容 begin **************/
+.q-item .q-sequence {
+	color: #37BC9B;
+	font-size: 1em;
+	font-weight: bold;
+}
+
+.q-item .q-sequence:after {
+	content: "、";
+}
+
+.q-item .label-skill {
+	background-color: #E6E9ED;
+	padding: 1px 9px;
+	border-radius: 4px;
+}
+
+.q-item .label-skill:before {
+	font-size: 0.9em;
+	color: #AAB2BD;
+	content: "技能："
+}
+
+.q-item .label-skill.no-skill {
+	filter: alpha(opacity = 65);
+	opacity: .65;
+}
+
+.q-item .label-skill.no-skill:before {
+	content: "未指定技能";
+}
+
+.q-item .q-title {
+	font-size: 1.1em;
+}
+
+.q-item.selected .q-title, .q-item.selected .q-title>pre {
+	color: #009EE7;
+}
+
+/******** media list begin *****************/
+.q-item .list-title-media {
+	
+}
+
+.q-item .list-title-media .media-item {
+	display: table-row;
+	border-radius: 4px;
+}
+
+.q-item .list-title-media .media-item .item-sequence {
+	font-size: 1em;
+	padding: 0 10px;
+	font-weight: bold;
+	color: #CCD1D9;
+}
+
+.q-item .list-title-media .media-item>div {
+	display: table-cell;
+	padding: 5px;
+	background-color: #F5F7FA;
+}
+
+.q-item .list-title-media .media-label, .q-item .list-title-media .media-limit
+	{
+	color: #656D78;
+	border-radius: 3px;
+	padding: 3px 10px;
+	border: 1px dashed transparent;
+}
+
+.q-item .list-title-media .btn-play {
+	padding: 3px 10px;
+}
+
+/******** media list end *****************/
+.q-item .q-options-wrap {
+	display: table;
+	font-size: 1.1em;
+	clear: both;
+}
+
+.q-item .q-option {
+	clear: both;
+	position: relative;
+	border-radius: 4px;
+	padding: 6px 12px;
+	margin-bottom: 5px;
+	border: 1px solid #E6E9ED;
+	transition: all 0.15s ease-in-out 0s;
+	-webkit-transition: all 0.15s ease-in-out 0s;
+}
+
+.q-item.selected .q-option {
+	border: 1px solid #CCD1D9;
+}
+
+.q-item .q-option .q-choice-icon {
+	display: table-cell;
+	vertical-align: middle;
+	opacity: 0.65;
+	cursor: default;
+}
+
+.q-item .q-option .q-option-content {
+	display: table-cell;
+	padding-left: 10px;
+	min-width: 250px;
+}
+
+.q-item .q-answer {
+	clear: both;
+	border-left: 4px solid #37BC9B;
+	padding: 0 10px;
+	font-size: 1em;
+}
+
+.q-item .q-answer pre {
+	color: #656D78;
+	font-size: 1em;
+}
+
+.q-item .q-answer .q-ans-label {
+	font-size: 0.9em;
+	margin-bottom: 10px;
+	color: #AAB2BD;
+}
+
+.q-sub-item {
+	border: 1px solid #ccd1d9;
+	border-radius: 2px;
+	position: relative;
+	margin-left: 30px;
+	margin-right: -10px;
+	padding: 20px;
+	background-color: #FEFEFE;
+	margin-bottom: 10px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.125);
+}
+
+/************ 题目内容 end *******************/
+/************ 分页 begin *******************/
+.q-pagination {
+	padding-top: 50px;
+	padding-bottom: 50px;
+	background-color: #F5F7FA;
+}
+
+.web-clip .q-pagination {
+	background-color: #FAFAFA;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 40px;
+	padding: 2px 0 0 0;
+	border-top: 1px solid #CCD1D9;
+	z-index: 20;
+	-webkit-transition: all 0.15s ease-in-out 0s;
+	transition: all 0.15s ease-in-out 0s;
+}
+
+/************ 分页 end *******************/

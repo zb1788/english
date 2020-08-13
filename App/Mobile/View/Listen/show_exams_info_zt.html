@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+        <title>英语同步练</title>
+        <link href="__PUBLIC__css/fonts.css" rel="stylesheet" type="text/css">
+        <link href="__PUBLIC__css/style.css" rel="stylesheet">
+        <script src="__PUBLIC__js/TouchSlide.1.1.js"></script>
+        <script type="text/javascript" src="__PUBLIC__js/jquery.min.js"></script>
+        <script src="__PUBLIC__js/main.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/listen.js"></script>
+
+    </head>
+    <script>
+        var papernum = {$papernum};
+        var exams_mp3_url = "{$Think.config.exams_mp3_path}";
+    </script>
+    <body>
+        <header>
+            <div id="jplayer"></div>
+            <div class="l fl"><a href="{:U('listen/index_zt')}"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+            <div class="c fl">中高考专题</div>
+            <!-- <include file="Public/studyrecord" /> -->
+            <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+                <li><a href="{:U('index/wordbook')}"><i class="icon-heart"></i><font class="wordcount">{$wordbcount}</font></a></li>
+                <li><a href="{:U('index/record')}"><i class="icon-list-alt"></i><font class="recordcount">{$recordcount}</font></a></li>
+                <li><a href="{:U('index/index')}"><i class="icon-evil"></i>学习中心</a></li>
+                <li><a href="{:U('index/course')}"><i class="icon-pencil-square"></i><b>课程设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+        </header>
+        <section class="wordbook">
+            <div class="wbBtn bLine"><p id="total_score" examsid="{$examsid}" unitid="{$unitid}" total_score="{$total_score}">{$exams_info[0].name}</p><p id="papernum"></p></div>
+        </section>
+
+        <section class="listen">
+            <div id="iScroll" class="iScroll bWhite">
+                <div class="hd">
+                    <ul></ul>
+                </div>
+                <div class="bd" id="iScroll-bd">
+                    <foreach name="paper_info" item="paper_info" key="k" > <!--循环一套试卷的每个大题开始-->
+                        <div class="con">
+                            <ul>
+                                <div class="tiCon">
+                                    <h3 class="active"><a href="javascript:;" type="paper" paperid="{$paper_info.id}" mp3url="{$paper_info.mp3}" astoptime="{$paper_info.astoptime}" repeat="{$paper_info.readtimes}" quenum="{$paper_info.quenum}" onclick="listen_play({$paper_info.id})">{$paper_info.papersort}{$paper_info.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}<i class="icon-volume-up"></i></a></h3>
+
+                                    <eq name = "paper_info.classid" value="1"><!--大题的题干是独立大题-->
+                                    <foreach name ="paper_info.que_info" item="que" key="quekey"><!--循环每个大题里的小题开始-->
+                                        <eq name = "que.examdaid" value="1"><!--如果这个小题是选择题-->
+                                        <div class="que showanswer showtl show" typeid="1" queid="{$que.id}" tlid="{$que.id}" score="{$que.score}" mp3url="{$que.mp3}" parentid="{$paper_info.id}" trueanswer="{$que.trueanswer}">
+                                            <eq name = "que.itemtype" value="1"><!--如果这个选择题的选项是文字-->
+                                            <dl class="xuanzeti">
+
+                                                <neq name="que.tcontent" value=""> <!--如果这个选择题有题干-->
+                                                <dt>{$quekey+1}.{$que.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}</dt>
+
+                                                <else /><!--如果这个选择题没有题干-->
+                                                <dt class="notitle">{$quekey+1}.</dt>
+                                                </neq>
+                                                <foreach name ="que.items" item="items" key="itemkey"><!--循环这个选择题下的选项-->
+
+                                                    <dd><input name="{$que.id}" type="radio" value="{$items.flag}"/>{$items.flag}.<span><a href="javascript:;" onclick="change_radio({$que.id},{$itemkey});">{$items.content|str_replace='<p>','',###|str_replace='</p>','',###}</a></span></dd>
+
+                                                </foreach>
+                                            </dl>
+                                            </eq>
+                                            <eq name = "que.itemtype" value="2"><!--如果这个选择题的选项是图片-->
+                                            <div class="tixing paixuti">
+                                                <neq name="que.tcontent" value=""> <!--如果这个选择题有题干-->
+                                                <dt>{$quekey+1}.{$que.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}</dt>
+
+                                                <else /><!--如果这个选择题没有题干-->
+                                                <dt class="notitle">{$quekey+1}.</dt>
+                                                </neq>
+                                                <div class="imgs">
+                                                    <volist name="que.items" id="items" key="itemkey"><!--循环这个选择题下的选项-->							                <p><span><a href="javascript:;" onclick="change_radio({$que.id},{$itemkey});"><img src="/uploads/{$items.content}"/></a><input name="{$que.id}" type="radio" value="{$items.flag}"> {$items.flag}</span></p>
+                                                    </volist>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            </eq>
+                                            <div class="tips" style="display: none">
+                                                <p class="txt"><i class="icon-smile"></i>正确答案：
+                                                <volist name="que.answer" id="answer" key="answerkey">
+                                                    <eq name="que.answertotal" value="1">
+                                                    {$answer.answer}
+                                                    <else />
+                                                    {$answerkey}.{$answer.answer}
+                                                    </eq>
+                                                </volist>  
+                                                </p>
+                                            </div>
+                                            <div class="cailiao" style="display: none">
+                                                <h4>听力材料<a href="javascript:;" onclick="listen_vcontent_play('{$que.tlclmp3}');"  mp3url="{$que.tlclmp3}"><i class="icon-volume-up"></i></a></h4>
+                                                <volist name="que.tlclcontent" id="tlcl" key="tlclrkey">
+                                                    <p>{$tlcl.vcontent}</p>
+                                                </volist>
+                                            </div>
+                                            <neq name="que.acontent" value="">
+                                            <div class="jiexi" style="display: none">
+                                                解析：{$que.acontent}
+                                            </div>
+                                            </neq>
+                                        </div>
+                                        </eq>
+                                        <eq name = "que.examdaid" value="2"><!--如果这个小题是填空题-->
+                                        <div class="que showanswer showtl show" typeid="2" queid="{$que.id}" tlid="{$que.id}" score="{$que.score}" mp3url="{$que.mp3}" parentid="{$paper_info.id}" trueanswer="{$que.trueanswer}">
+                                            <div class="tixing tiankongti">
+                                                <p>{$que.tcontent|str_replace='<p>','',###|str_replace='</p>','',###|preg_replace="[##.*?##]","<input type='text' size='8'>",###}</p>
+                                            </div>
+                                            <div class="tips" style="display: none">
+
+                                                <p class="txt"><i class="icon-smile"></i>正确答案：
+                                                <volist name="que.answer" id="answer" key="answerkey">
+                                                    <eq name="que.answertotal" value="1">
+                                                    {$answer.answer}
+                                                    <else />
+                                                    {$answerkey}.{$answer.answer}
+                                                    </eq>
+                                                </volist>  
+                                                </p>
+                                            </div>
+                                            <div class="cailiao" style="display: none">
+                                                <h4>听力材料:<a href="javascript:;" onclick="listen_vcontent_play('{$que.tlclmp3}');"  mp3url="{$que.tlclmp3}"><i class="icon-volume-up"></i></a></h4>
+                                                <volist name="que.tlclcontent" id="tlcl" key="tlclrkey">
+                                                    <p>{$tlcl.vcontent}</p>
+                                                </volist>
+                                            </div>
+                                            <neq name="que.acontent" value="" >
+                                            <div class="jiexi" style="display: none">
+                                                解析：{$que.acontent}
+                                            </div>
+                                            </neq>
+                                        </div>
+                                        </eq>
+                                        <eq name = "que.examdaid" value="3"><!--如果这个小题是判断题-->
+                                        <div class="que showanswer showtl show" typeid="3" queid="{$que.id}" tlid="{$que.id}" score="{$que.score}" mp3url="{$que.mp3}" parentid="{$paper_info.id}" trueanswer="{$que.trueanswer}">
+                                            <div class="tixing panduanti">		
+                                                <p>{$quekey+1}.{$que.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}<span><input name="{$que.id}" type="radio" value="1"><i class="icon-checkmark"></i></span><span><input name="{$que.id}" type="radio" value="0"><i class="icon-cancel"></i></span></p>
+                                            </div>
+                                            <div class="tips" style="display: none">
+
+                                                <p class="txt"><i class="icon-smile"></i>正确答案：
+                                                <volist name="que.answer" id="answer" key="answerkey">
+                                                    <eq name="que.answertotal" value="1">
+													<eq name="answer.answer" value="1">
+                                                    √
+													<else />
+													×
+													</eq>
+                                                    <else />
+													<eq name="answer.answer" value="1">
+                                                    {$answerkey}.√
+													<else />
+														{$answerkey}.×
+													</eq>
+                                                    </eq>
+                                                </volist>  
+                                                </p>
+                                            </div>
+                                            <div class="cailiao" style="display: none">
+                                                <h4>听力材料:<a href="javascript:;" onclick="listen_vcontent_play('{$que.tlclmp3}');"  mp3url="{$que.tlclmp3}"><i class="icon-volume-up"></i></a></h4>
+                                                <volist name="que.tlclcontent" id="tlcl" key="tlclrkey">
+                                                    <p>{$tlcl.vcontent}</p>
+                                                </volist>
+                                            </div>
+                                            <neq name="que.acontent" value="">
+                                            <div class="jiexi" style="display: none">
+                                                <p>解析：{$que.acontent}</p>
+                                            </div>
+                                            </neq>
+                                        </div>
+                                        </eq><!--如果这个小题是判断题结束-->
+                                        <eq name = "que.examdaid" value="4"><!--如果这个小题是排序题-->
+                                        <div class="que showanswer showtl show" typeid="4" queid="{$que.id}" tlid="{$que.id}" score="{$que.score}" mp3url="{$que.mp3}" parentid="{$paper_info.id}" trueanswer="{$que.trueanswer}">
+                                            <div class="tixing paixuti">
+                                                <div class="imgs">
+                                                    <volist name="que.items" id="items" key="itemkey"><!--循环这个选择题下的选项-->
+                                                        <eq name = "que.itemtype" value="1">
+                                                        <p><span>{$items.flag}.{$items.content}</p></span>
+                                                        <else />
+                                                        <p><span>{$items.flag}.<img src="/uploads/{$items.content}"/></span></p>
+                                                        </eq>
+                                                    </volist>
+
+
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="inputs">
+                                                    <volist name="que.items" id="items" key="itemkey"><!--循环这个选择题下的选项-->
+                                                        <span>{$itemkey}.<input type="text" name="{$que.id}"></span>
+                                                    </volist>
+                                                </div>
+                                            </div>
+                                            <div class="tips" style="display: none">
+
+                                                <p class="txt"><i class="icon-smile"></i>正确答案：
+                                                <volist name="que.answer" id="answer" key="answerkey">
+                                                    <eq name="que.answertotal" value="1">
+                                                    {$answer.answer}
+                                                    <else />
+                                                    {$answerkey}.{$answer.answer}
+                                                    </eq>
+                                                </volist>  
+                                                </p>
+                                            </div>
+                                            <div class="cailiao" style="display: none">
+                                                <h4>听力材料:<a href="javascript:;" onclick="listen_vcontent_play('{$que.tlclmp3}');"  mp3url="{$que.tlclmp3}"><i class="icon-volume-up"></i></a></h4>
+                                                <volist name="que.tlclcontent" id="tlcl" key="tlclrkey">
+                                                    <p>{$tlcl.vcontent}</p>
+                                                </volist>
+                                            </div>
+                                            <neq name="que.acontent" value="">
+                                            <div class="jiexi" style="display: none">
+                                                <p>解析：{$que.acontent}</p>
+                                            </div>
+                                            </neq>
+                                        </div>				
+                                        </eq><!--如果这个小题是排序题结束-->
+
+
+                                    </foreach>
+                                    </eq><!--独立大题结束-->
+                                    <eq name = "paper_info.classid" value="2"><!--大题的题干短文大题-->
+                                    <foreach name ="paper_info.que_info" item="que" key="quekey">
+                                        <div class="showtl que show" tlid="{$que.id}" mp3url="{$que.mp3}" parentid="{$paper_info.id}">
+                                            <neq name="que.tcontent" value="">
+                                            <h4 style="padding-top:10px;" class="que">{$quekey+1}.{$que.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}</h4>
+                                            <else />	
+                                            </neq>
+                                            <foreach name ="que.duanwen_info" item="quedw" key="quedwkey">
+                                                <eq name = "quedw.examdaid" value="1"><!--如果这个小题是选择题-->
+                                                <div class="showanswer show" typeid="1" queid="{$quedw.id}" score="{$quedw.score}" trueanswer="{$quedw.trueanswer}">
+                                                    <eq name = "quedw.itemtype" value="1"><!--如果这个选择题的选项是文字-->
+                                                    <dl class="xuanzeti">
+
+                                                        <eq name="que.tcontent" value="">
+                                                        <neq name="quedw.tcontent" value=""> <!--如果这个选择题有题干-->
+                                                        <dt>{$quedwkey+1}.{$quedw.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}</dt>
+                                                        <else /><!--如果这个选择题没有题干-->
+                                                        <dt class="notitle">{$quedwkey+1}.</dt>
+                                                        </neq>
+                                                        <else />
+                                                        <neq name="quedw.tcontent" value=""> <!--如果这个选择题有题干-->
+                                                        <dt>({$quedwkey+1}) {$quedw.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}</dt>
+                                                        <else /><!--如果这个选择题没有题干-->
+                                                        <dt class="notitle">({$quedwkey+1}).</b>
+                                                        </neq>
+                                                        </eq>
+                                                        <volist name="quedw.items" id="dwitems" key="dwitemkey"><!--循环这个选择题下的选项-->
+
+                                                            <dd><input name="{$quedw.id}" type="radio" value="{$dwitems.flag}">{$dwitems.flag}.<span><a href="javascript:;" onclick="change_radio({$quedw.id},{$dwitemkey-1});">{$dwitems.content|str_replace='<p>','',###|str_replace='</p>','',###}</a></span></dd>
+
+                                                        </volist>
+                                                    </dl>
+                                                    </eq>
+                                                    <eq name = "quedw.itemtype" value="2"><!--如果这个选择题的选项是图片-->
+                                                    <div class="tixing paixuti">
+                                                        <neq name="quedw.tcontent" value=""> <!--如果这个选择题有题干-->
+                                                        <dt>({$quedwkey+1}).{$quedw.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}</dt>
+                                                        <else /><!--如果这个选择题没有题干-->
+                                                        <dt class="notitle">({$quedwkey+1}).</b>
+                                                        </neq>
+                                                        <div class="imgs">
+                                                            <volist name="quedw.items" id="items" key="dwitemkey"><!--循环这个选择题下的选项-->							                <p><span><a href="javascript:;" onclick="change_radio({$quedw.id},{$dwitemkey-1});"><img src="/uploads/{$dwitems.content}"/></a><input name="{$quedw.id}" type="radio" value="{$dwitems.flag}"> {$dwitems.flag}</span></p>
+                                                            </volist>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    </eq>
+                                                    <div class="tips" style="display: none">
+
+                                                        <p class="txt"><i class="icon-smile"></i>正确答案：
+                                                        <volist name="quedw.answer" id="dwanswer" key="dwanswerkey">
+                                                            <eq name="quedw.answertotal" value="1">
+                                                            {$dwanswer.answer}
+                                                            <else />
+                                                            {$dwanswerkey}.{$dwanswer.answer}
+                                                            </eq>
+                                                        </volist>  
+                                                        </p>
+                                                    </div>     
+                                                </div>
+                                                </eq>
+                                                <eq name = "quedw.examdaid" value="2"><!--如果这个小题是填空题-->
+                                                <div class="showanswer show" typeid="2" queid="{$quedw.id}" score="{$quedw.score}" trueanswer="{$quedw.trueanswer}">
+                                                    <div class="tixing tiankongti">
+                                                        <p>{$quedwkey+1}.{$quedw.tcontent|str_replace='<p>','',###|str_replace='</p>','',###|preg_replace="[##.*?##]","<input type='text' size='8'>",###}</p>
+                                                    </div>
+                                                    <div class="tips" style="display: none">
+
+                                                        <p class="txt"><i class="icon-smile"></i>正确答案：
+                                                        <volist name="quedw.answer" id="dwanswer" key="dwanswerkey">
+                                                            <eq name="quedw.answertotal" value="1">
+                                                            {$dwanswer.answer}
+                                                            <else />
+                                                            {$dwanswerkey}.{$dwanswer.answer}
+                                                            </eq>
+                                                        </volist>  
+                                                        </p>
+                                                    </div> 
+                                                </div>
+                                                </eq><!--如果这个小题是填空题结束-->
+                                                <eq name = "quedw.examdaid" value="3"><!--如果这个小题是判断题-->
+                                                <div class="showanswer show" typeid="3" queid="{$quedw.id}" score="{$quedw.score}" trueanswer="{$quedw.trueanswer}">
+                                                    <div class="tixing panduanti">
+                                                        <p>{$quedwkey+1}.{$quedw.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}<span><input name="{$quedw.id}" type="radio" value="1"><i class="icon-checkmark"></i></span><span><input name="{$quedw.id}" type="radio" value="0"><i class="icon-cancel"></i></span></p>
+                                                    </div>
+                                                    <div class="tips" style="display: none">
+
+                                                        <p class="txt"><i class="icon-smile"></i>正确答案：
+                                                        <volist name="quedw.answer" id="dwanswer" key="dwanswerkey">
+                                                            <eq name="quedw.answertotal" value="1">
+                                                            {$dwanswer.answer}
+                                                            <else />
+                                                            {$dwanswerkey}.{$dwanswer.answer}
+                                                            </eq>
+                                                        </volist>  
+                                                        </p>
+                                                    </div>    
+                                                </div>			
+                                                </eq><!--如果这个小题是判断题结束-->
+                                                <eq name = "quedw.examdaid" value="4"><!--如果这个小题是排序题-->
+                                                <div class="showanswer show" typeid="4" queid="{$quedw.id}" score="{$quedw.score}" trueanswer="{$quedw.trueanswer}">
+                                                    <div class="tixing paixuti">
+                                                        <div class="imgs">
+                                                            <volist name="quedw.items" id="dwitems" key="dwitemkey"><!--循环这个选择题下的选项-->
+                                                                <eq name = "quedw.itemtype" value="1">
+                                                                <p><span>{$dwitems.flag}.{$dwitems.content}</p></span>
+                                                                <else />
+                                                                <p><span>{$dwitems.flag}.<img src="/uploads/{$dwitems.content}"/></span></p>
+                                                                </eq>
+                                                            </volist>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                        <div class="inputs">
+                                                            <volist name="quedw.items" id="dwitems" key="dwitemkey"><!--循环这个选择题下的选项-->
+                                                                <span>{$dwitemkey}.<input type="text" name="{$quedw.id}"></span>
+                                                            </volist>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tips" style="display: none">
+
+                                                        <p class="txt"><i class="icon-smile"></i>正确答案：
+                                                        <volist name="quedw.answer" id="dwanswer" key="dwanswerkey">
+                                                            <eq name="quedw.answertotal" value="1">
+                                                            {$dwanswer.answer}
+                                                            <else />
+                                                            {$dwanswerkey}.{$dwanswer.answer}
+                                                            </eq>
+                                                        </volist>  
+                                                        </p>
+                                                    </div>    
+                                                </div>
+
+                                                </eq><!--如果这个小题是排序题结束-->
+                                            </foreach>
+                                            <div class="cailiao" style="display: none">
+                                                <h4>听力材料:<a href="javascript:;" onclick="listen_vcontent_play('{$que.tlclmp3}');"  mp3url="{$que.tlclmp3}"><i class="icon-volume-up"></i></a></h4>
+                                                <volist name="que.tlclcontent" id="tlcl" key="tlclrkey">
+                                                    <p>{$tlcl.vcontent}</p>
+                                                </volist>
+                                            </div>
+                                            <neq name="que.acontent" value="">
+                                            <div class="jiexi" style="display: none">
+                                                解析：{$que.acontent}
+                                            </div>
+                                            </neq>
+                                        </div>
+										<h3></h3>
+                                    </foreach>
+                                    </eq>
+
+                                    <eq name="k" value="$papernum-1">
+                                    <div class="boxCon" id="submit"><p><a href="javascript:show_score();" class="btn bBlue">提交答案</a></p></div>
+                                    </eq>
+                                </div>
+                            </ul>
+                        </div>
+                    </foreach><!--循环一套试卷的每个大题结束-->
+
+                </div>
+            </div> 
+        </section>
+
+
+        <script type="text/javascript">
+            $(function() {
+                ListenLoad();
+            });
+
+        </script>
+    </body>
+</html>

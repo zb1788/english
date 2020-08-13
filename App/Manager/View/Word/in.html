@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>版本列表</title>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/uploadify/jquery.uploadify.min.js"></script> 
+        <link href="__PUBLIC__/js/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div class="place"><strong>位置</strong>：首页 &gt; 单词批量添加</div>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="box_top pl_10 f14">
+                        <strong>单词批量添加</strong>
+                        <!--<span class="pl_10">
+                          <input id="btn_addunit" name="btn_addunit" type="button" class="ext_btn ext_btn_submit pl_10" value="添加单元" />
+                        </span>-->
+                    </td> 
+                </tr>
+                <tr>
+                    <td class="p5">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+                            <tr>
+                                <td class="td_right">添加方式：</td>
+                                <td>
+                                    <input type="radio" checked="checked" name="status" value="1" />在线批量填写&nbsp;&nbsp;
+                                    <input type="radio" name="status" value="2" />导入Excel文件</td>
+                            </tr>    
+                        </table>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table" id="table_input"> 
+                            <tr>
+                                <td class="td_right">选择年级：</td>
+                                <td>
+                                    <select name="gradeid" class="select" id="gradeid">
+
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_right">选择学期：</td>
+                                <td>
+                                    <select name="termid" class="select" id="termid">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_right">选择版本：</td>
+                                <td>
+                                    <select name="versionid" class="select" id="versionid"></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_right">所属单元：</td>
+                                <td>
+                                    <select name="unitid" class="select" id="unitid"></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_right">单词列表：</td>
+                                <td>
+                                    <table border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <textarea name="wordlist" id="wordlist" cols="30" class="textarea"></textarea>
+                                            </td>
+                                            <td valign="bottom">
+                                                <p class="red">格式：单词，是否重点单词<br />
+                                                    示例：book,是<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;look at me ,否</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_right">&nbsp;</td>
+                                <td>
+                                    <input type="submit" id="btn_data" name="button" class="btn btn82 btn_save2" value="提交" />
+                                </td>
+                            </tr>
+                        </table>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table" id="table_excel"> 
+                            <tr>
+                                <td class="td_right">选择Excel：</td>
+                                <td id="tdinfo" class=""></td>
+                            </tr>
+                            <tr>
+                                <td class="td_right">&nbsp;</td>
+                                <td>
+                                    <div id="queue"></div>
+                                    <input id="file_upload" name="file_upload" type="file" multiple="false">
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_right">&nbsp;</td>
+                                <td>
+                                    <input type="submit" name="btn_excel" id="btn_excel" class="btn btn82 btn_save2" value="提交" />
+                                    <input type="hidden" id="filename" name="filename" /></td>
+                            </tr>
+                        </table> 
+                        <div class="h10"></div>
+                    </td> 
+                </tr> 
+            </table>
+        </div>
+        <script type="text/javascript">
+            $(function() {
+                $.ajaxSetup({async: false});
+                $("#btn_excel").hide();
+                $('#table_excel').hide();
+                $('input[name="status"]').click(function() {  //界面内容展示状态
+                    if ($(this).val() == 1) {
+                        $('#table_input').show();  // 在线批量填写展示
+                        $('#table_excel').hide();//excel导入界面隐藏
+
+                    } else {
+                        $('#table_input').hide();// 在线批量填写隐藏
+                        $('#table_excel').show();//excel导入界面展示
+                    }
+                    ;
+                });
+                $.EBC.inIt();//进行年级、学期、版本以及单元下拉框内容初始化
+                $("#btn_data").click(function()     //在线批题填写提交按钮点击事件
+                {
+                    if ($("#unitid").find("option:selected").attr("isunit") == 1) {
+                        art.dialog.alert("所选单元为非章节目录，请重新选择");
+                        return false;
+                    }
+                    var unitid = $("#unitid").val();
+                    var wordlist = $("#wordlist").val();
+                    if ($.trim(unitid) != "" && 　$.trim(wordlist) != "") {
+                        //alert(unitid);
+                        $.get("../word/addmulti", {wordlist: wordlist, unitid: unitid, random: Math.random()}, function(data) {
+                            if (data.issuc) {
+                                art.dialog.alert("成功保存<b>" + data.sucnum + "</b>行<br>" + data.msg);
+                            } else
+                            {
+                                art.dialog.alert("成功保存<b>" + data.sucnum + "</b>行");
+                                $("#wordlist").val('');
+                            }
+                        }, "json");
+                    } else {
+                        art.dialog.alert("请选择单元及填写导入单词信息！");
+                    }
+                });
+                //文件上传插件初始化开始
+                $('#file_upload').uploadify({
+                    'height': 30,
+                    'width': 120,
+                    'buttonText': '上传EXCEL', //选择按钮显示的字符
+                    'multi': false, //是否允许同时选择多个(false一次只允许选中一张图片)
+                    'method': 'post',
+                    'formData': {
+                        'folder': './uploads',
+                        'fileext': 'png'
+                    },
+                    'swf': '__PUBLIC__/js/uploadify/uploadify.swf',
+                    'uploader': '../upload',
+                    'fileTypeExts': '*.xls;*.xlsx', //允许的后缀
+                    'fileTypeDesc': 'Excel Files', //允许的格式，详见文档
+                    'onUploadSuccess': function(file, data, response)
+                    {
+                        //上传成功后的触发事件  
+                        var obj = eval("(" + data + ")");
+                        if (obj.issuc == 1)
+                        {
+                            $('#' + file.id).find('.data').html('上传完毕');
+                            $("#tdinfo").html("【" + obj.msg.name + '】文件已上传，请点击导入EXCEL数据');
+                            $("#filename").val('uploads/' + obj.msg.savepath + obj.msg.savename);
+                            $("#btn_excel").show();
+                        }
+                        else
+                        {
+                            $("#tdinfo").html("【" + obj.msg + '】文件已上传，请点击导入EXCEL数据');
+                        }
+                        ;
+                    }
+                });
+                //文件上传插件初始化结束
+
+                $("#btn_excel").click(function() //excel表导入按钮点击事件
+                {
+                    $("#btn_excel").hide();
+                    var excel = $("#filename").val();
+                    var dloading = art.dialog({time: 30, title: '导入中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                    $.get("../word/importword", {filename: excel, random: Math.random()}, function(data) {
+                        dloading.close();
+                        if (data.iserr)
+                        {
+                            art.dialog.alert("导入失败<b>" + data.sucnum + "</b>行<br>" + data.errmsg);
+                        }
+                        else
+                        {
+                            art.dialog.alert("成功导入<b>" + data.sucnum + "</b>行<br>" + data.errmsg);
+                            $("#tdinfo").html("");
+                            $("#filename").val("");
+                        }
+                    });
+                });
+            });
+        </script> 
+    </body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="__PUBLIC__css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="__PUBLIC__css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<header>
+	<div class="l fl"><a href="{:U('index/index')}"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">听力训练</div>
+    <include file="Public/studyrecord" />
+</header>
+<script type="text/javascript" src="__PUBLIC__js/jquery.min.js"></script>  
+<script src="__PUBLIC__js/main.js"></script>
+<script type="text/javascript">
+      //  $.ajaxSetup({async:false});
+            $(function() { 
+                var stemarr = '';
+            $.getJSON("listenshow",{examsid:814},function(data){
+                stemarr = data[0]['stem'];
+
+                alert(stemarr[0]['id']);
+            })   
+            });
+</script>
+
+
+</body>
+</html>

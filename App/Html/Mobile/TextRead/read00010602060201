@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <title>英语同步练</title>
+    <link href="/public/Mobile//css/fonts.css" rel="stylesheet" type="text/css">
+    <link href="/public/Mobile//css/style.css" rel="stylesheet">
+    <script src="/public/Mobile//js/TouchSlide.1.1.js"></script>
+	<script type="text/javascript" src="/public/Mobile//js/jquery.min.js"></script>  
+	<script src="/public/Mobile//js/jquery.cookie.js" type="text/javascript"></script> 
+</head>
+
+<body>
+<header>
+    <div class="l fl"><a href="/mobile/textread/index"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">读课文</div>
+    <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+               <!--  <li><a href="/mobile/index/wordbook"><i class="icon-heart"></i><font class="wordcount"></font></a></li>
+                <li><a href="/mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount"></font></a></li> -->
+                <li><a href="/mobile/index/index"><i class="icon-evil"></i>学习中心</a></li>
+                <li><a href="/mobile/index/course"><i class="icon-pencil-square"></i><b>版本设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<section class="wordbook">
+    <div class="wbBtn bLine" bid="00010602060201"><p>Unit1 Part A</p><p><font class="curindex">1</font>/5</p></div> 
+</section>
+
+<section class="read">
+    <div id="iScroll" class="iScroll bWhite">
+        <div class="hd" style="display:none;">
+            <ul></ul>
+        </div>
+        <div class="bd" id="iScroll-bd">
+            <div class="con">
+            	<ul>
+                    <div class="text">
+                       <h3 class="active"></h3>
+                            <p class="active"><span class="en" ></span></p>
+                    </div>
+                </ul>
+            </div>
+            <div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>A Let's talk</a></h3>
+                           <p class="active" bid="936">
+                                    <span class="en" mid="719E83A28B75E257285CCB05D005415F">
+                                        Zhang Peng&nbsp;:&nbsp;When do you finish class in the morning?                                    </span>
+                                    <span class="ch" style="">
+                                        Zhang Peng&nbsp;:&nbsp;你们上午的课几点结束？                                    </span>
+                                </p><p class="active" bid="936">
+                                    <span class="en" mid="4003BBF9D198916F4CE659BF9546E613">
+                                        Pedro&nbsp;:&nbsp;We finish class at 1 o’clock. Then we eat lunch at home.                                    </span>
+                                    <span class="ch" style="">
+                                        Pedro&nbsp;:&nbsp;我们一点钟结束上午的课。然后在家吃午饭。                                    </span>
+                                </p><p class="active" bid="936">
+                                    <span class="en" mid="1F396512230B797268D5815ACD850E8D">
+                                        Zhang Peng&nbsp;:&nbsp;Wow! When do you go back to school after lunch?                                    </span>
+                                    <span class="ch" style="">
+                                        Zhang Peng&nbsp;:&nbsp;哇！午饭后你们什么时候返回学校？                                    </span>
+                                </p><p class="active" bid="936">
+                                    <span class="en" mid="F059E65EE4201CCE1BBD6C051D776B6B">
+                                        Pedro&nbsp;:&nbsp;At 2:30. Classes start at 3 o’clock.                                    </span>
+                                    <span class="ch" style="">
+                                        Pedro&nbsp;:&nbsp;两点半返回学校。三点上课。                                    </span>
+                                </p><p class="active" bid="936">
+                                    <span class="en" mid="CD556185D4127899FC53C27478CB01F9">
+                                        Zhang Peng&nbsp;:&nbsp;When do you usually eat dinner in Spain?                                    </span>
+                                    <span class="ch" style="">
+                                        Zhang Peng&nbsp;:&nbsp;你们在西班牙通常什么时候吃晚饭？                                    </span>
+                                </p><p class="active" bid="936">
+                                    <span class="en" mid="D9238DE9C30C9C2EC8FEF1745D507A17">
+                                        Pedro&nbsp;:&nbsp;Usually at 9:30 or 10 o’clock.                                    </span>
+                                    <span class="ch" style="">
+                                        Pedro&nbsp;:&nbsp;通常在九点半或者十点。                                    </span>
+                                </p><p class="active" bid="936">
+                                    <span class="en" mid="2CEBFB74A2BE9ACB5B97A106F5C763C3">
+                                        Zhang Peng&nbsp;:&nbsp;Wow! That’s too late！                                    </span>
+                                    <span class="ch" style="">
+                                        Zhang Peng&nbsp;:&nbsp;哇！那太迟了吧！                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>A Let's talk-Role-play</a></h3>
+                           <p class="active" bid="937">
+                                    <span class="en" mid="EDC35179804DF22A3F64AD3B526022D0">
+                                        Amy&nbsp;:&nbsp;When do you get up?                                    </span>
+                                    <span class="ch" style="">
+                                        Amy&nbsp;:&nbsp;你什么时候起床？                                    </span>
+                                </p><p class="active" bid="937">
+                                    <span class="en" mid="6EC839C7A621602970D41AEA5E5F8535">
+                                        Wu Yifan&nbsp;:&nbsp;I get up at 5 o'clock.                                    </span>
+                                    <span class="ch" style="">
+                                        Wu Yifan&nbsp;:&nbsp;我五点钟起床。                                    </span>
+                                </p><p class="active" bid="937">
+                                    <span class="en" mid="F48D9FFEDA80D4CAA629C4C727012DDF">
+                                        Mike&nbsp;:&nbsp;When do you go to bed?                                    </span>
+                                    <span class="ch" style="">
+                                        Mike&nbsp;:&nbsp;你什么时候上床睡觉？                                    </span>
+                                </p><p class="active" bid="937">
+                                    <span class="en" mid="20615ECA8F8E7B9E12022CC29075B2B5">
+                                        Chen Jie&nbsp;:&nbsp;At 6 o'clock in the morning. I work at night.                                    </span>
+                                    <span class="ch" style="">
+                                        Chen Jie&nbsp;:&nbsp;在早上六点钟。我在晚上工作。                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>A Let's learn</a></h3>
+                           <p class="active" bid="938">
+                                    <span class="en" mid="8CCBD5CAC0D08E6968F4B880836CEB3C">
+                                        Zhang Peng&nbsp;:&nbsp;When do you do morning exercises?                                    </span>
+                                    <span class="ch" style="">
+                                        Zhang Peng&nbsp;:&nbsp;你什么时候做早操？                                    </span>
+                                </p><p class="active" bid="938">
+                                    <span class="en" mid="95EE9614979F065548427626DFA4637D">
+                                        Pedro&nbsp;:&nbsp;At 7 o'clock.                                    </span>
+                                    <span class="ch" style="">
+                                        Pedro&nbsp;:&nbsp;七点钟。                                    </span>
+                                </p><p class="active" bid="938">
+                                    <span class="en" mid="21CADC06A49C7DE5C40B148495B00E57">
+                                        &nbsp;do morning exercises                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;做早操                                    </span>
+                                </p><p class="active" bid="938">
+                                    <span class="en" mid="07085F8587EABA77013A496D09728839">
+                                        &nbsp;eat breakfast                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;吃早饭                                    </span>
+                                </p><p class="active" bid="938">
+                                    <span class="en" mid="243A5BDCB0A1D5A4030A3F0B4147AA6C">
+                                        &nbsp;have … class                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;上……课                                    </span>
+                                </p><p class="active" bid="938">
+                                    <span class="en" mid="D941AD884702B9266326D0B569535974">
+                                        &nbsp;play sports                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;进行体育运动                                    </span>
+                                </p><p class="active" bid="938">
+                                    <span class="en" mid="8470E0F3BB032CD790783213E76A7467">
+                                        &nbsp;eat dinner                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;吃晚饭                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>A Ask and write</a></h3>
+                           <p class="active" bid="939">
+                                    <span class="en" mid="EC334308843280DDC9317EE6C60BD2A3">
+                                        Zoom&nbsp;:&nbsp;When do you get up?                                    </span>
+                                    <span class="ch" style="">
+                                        Zoom&nbsp;:&nbsp;你什么时候起床？                                    </span>
+                                </p><p class="active" bid="939">
+                                    <span class="en" mid="2C641B709226F1ED4BB4009280513AC4">
+                                        Zip&nbsp;:&nbsp;I get up at 6 a.m.                                    </span>
+                                    <span class="ch" style="">
+                                        Zip&nbsp;:&nbsp;我早上六点起床。                                    </span>
+                                </p><p class="active" bid="939">
+                                    <span class="en" mid="C6C39A7EAB17FF1E6FCA10AD3171A692">
+                                        &nbsp;get up                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;起床                                    </span>
+                                </p><p class="active" bid="939">
+                                    <span class="en" mid="7B952A6C395F6F796009D195496C3D79">
+                                        &nbsp;do morning exercises                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;做早操                                    </span>
+                                </p><p class="active" bid="939">
+                                    <span class="en" mid="BD1D0BD3E7A66203BC1C2682C85A369F">
+                                        &nbsp;eat breakfast                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;吃早饭                                    </span>
+                                </p><p class="active" bid="939">
+                                    <span class="en" mid="3B4D8366A6551EC99AF5B95BF2BB20DF">
+                                        &nbsp;have … class                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;上……课                                    </span>
+                                </p><p class="active" bid="939">
+                                    <span class="en" mid="972F2B4E103166780D1AF82E37CF3378">
+                                        &nbsp;eat lunch                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;吃午饭                                    </span>
+                                </p><p class="active" bid="939">
+                                    <span class="en" mid="77F9B11EEF7D11927AF8D1A0580AB78B">
+                                        &nbsp;play sports                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;进行体育运动                                    </span>
+                                </p><p class="active" bid="939">
+                                    <span class="en" mid="1A061FB169ACDCEA76662E4197FA44FA">
+                                        &nbsp;eat dinner                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;吃晚饭                                    </span>
+                                </p><p class="active" bid="939">
+                                    <span class="en" mid="2F65F99B6D199A6B155E0D89CD2F8718">
+                                        &nbsp;go to bed                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;上床睡觉                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>A Let's spell</a></h3>
+                           <p class="active" bid="940">
+                                    <span class="en" mid="51C628573B6DA43A89B0308C451CBE78">
+                                        &nbsp;Read, listen and chant.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;读一读，听一听，唱一唱。                                    </span>
+                                </p><p class="active" bid="940">
+                                    <span class="en" mid="A3194FFFCDC2AC66D1FC7BDFE51EEC7C">
+                                        &nbsp;cl-[kl]: clean clock class clever                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;cl发[kl]：打扫 钟表 班级 聪明的                                    </span>
+                                </p><p class="active" bid="940">
+                                    <span class="en" mid="8BFCF7FBB47E7092C434E4BF1BC2013B">
+                                        &nbsp;pl-[pl]: plate eggplant please play                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;pl发[pl]：盘子 茄子 请 玩                                    </span>
+                                </p><p class="active" bid="940">
+                                    <span class="en" mid="208779C98E6C62BA56EB4A641208CF66">
+                                        &nbsp;Please clean your plate.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;请清洗你的盘子。                                    </span>
+                                </p><p class="active" bid="940">
+                                    <span class="en" mid="8D88AA4E7E02EC4396F223DFEE8C0E52">
+                                        &nbsp;Please clean your plate.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;请清洗你的盘子。                                    </span>
+                                </p><p class="active" bid="940">
+                                    <span class="en" mid="C83FC6FE4727818C9BD4F99C6C6726BF">
+                                        &nbsp;No more eggplant.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;不要茄子。                                    </span>
+                                </p><p class="active" bid="940">
+                                    <span class="en" mid="54FA662808C943AFC3B681C93A8985BD">
+                                        &nbsp;No more peas.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;也不要豌豆。                                    </span>
+                                </p><p class="active" bid="940">
+                                    <span class="en" mid="7591B79B8906016ABDF23E9E6D74206B">
+                                        &nbsp;So clean your plate,                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;请清洗你的盘子。                                    </span>
+                                </p><p class="active" bid="940">
+                                    <span class="en" mid="02B5C0FF8C0F95B8255C7B5673CEEBA9">
+                                        &nbsp;Please, please, please.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;请，请，请。                                    </span>
+                                </p><p class="active" bid="940">
+                                    <span class="en" mid="B5905283DB8DF942B794C9A41A68576D">
+                                        &nbsp;Let's chant.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;唱一唱。                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div> 
+            <div class="con">
+            	<ul>
+                    <div class="text">
+                       <h3 class="active"></h3>
+                            <p class="active"><span class="en" >fasdfasdfasdfasd</span></p>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    TouchSlide( { slideCell:"#iScroll",
+    titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+    autoPage:true, //自动分页
+    defaultIndex:1,
+    endFun:function(i){ //高度自适应
+    	    mp.clear();
+            $(".wbBtn font").text(i);
+            $(".tips").hide();
+            var bd = document.getElementById("iScroll-bd");
+            bd.parentNode.style.minHeight = window.screen.availHeight+100+"px";
+            document.getElementsByClassName("con")[i].getElementsByClassName("text")[0].style.minHeight=window.screen.availHeight+"px";
+            bd.scrollTop="20px";
+            if(i>0)bd.parentNode.style.transition="200ms";
+
+             if((i-1)==5)
+            {
+                $(".wbBtn.bLine p:eq(1)").hide(); 
+                $(".con:last span").text("正在加载下一单元......");
+                var indexn="1";
+                var unitcount="1";
+            
+                
+                unitcount=parseInt(unitcount)-1;
+                if(indexn!=unitcount)
+                {
+                   window.location.href="/mobile/textread/read/indexn/1/indexp/-1/model/tm/flag/0";
+                }
+                else
+                {
+                   $(".con:last span").text("您已经背诵到最有一个单元了，恭喜你已经学完本册书籍");
+                   return false;
+                }
+            }
+            
+            if(i>0)
+            {
+              $('.text:eq('+i+') h3').click();
+            }
+            
+            if((i)==5){$(".tips").show();}
+            if((i)==0)
+            {
+            	$(".wbBtn.bLine p:eq(1)").hide();            	
+          	    var indexp="-1";
+            	if(indexp!='-1')
+            	{
+            	   $(".con:eq(0) span").text("正在加载上一单元......");
+                   window.location.href="/mobile/textread/read/indexn/1/indexp/-1/model/tm/flag/1"; 
+                }
+            	else
+            	{
+               	   $(".con:eq(0) span").text("这里是第一单元，向左开始读课文");
+               	   return false;
+                }
+            }
+
+           
+         }
+    } );</script>
+</section>
+
+<section class="tips" style-"display:none;">
+    <p class="txt">已经到最后一段课文了，向左滑动进入下一个单元。</p>
+</section>
+<div id="jplayer"></div> 
+ 
+
+<script src="/public/Mobile//js/main.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.cookie.js"></script>
+
+<script type="text/javascript"> 
+$(".tips").hide();
+mp = new Mplay();
+var unitid="00010602060201";
+var textcount=$(".con").length;
+mp.index=0;
+mp.url = "en.czbanbantong.com:8081/yylmp3/mp3_text/";
+var wordbcount=parseInt();
+var recordcount=parseInt();
+$(function() {
+    $(".dropdown a:eq(0) .wordcount").text($.cookie("engm_wordbook_count"));
+    $(".dropdown a:eq(1) .recordcount").text($.cookie("engm_record_count"));
+    //$('.ch').hide(); 
+    $('h3').removeClass('active');
+    $('p').removeClass('active');
+   // $(document).on('click', '.text h3', function() {
+    $('.text h3').click(function(){
+    	mp.clear();
+        $(this).addClass("active");
+        var pdom=$(this).nextAll('p');
+        var ind=$(this).parents().prevAll().length-4;
+        mp.index = pdom.index()-1;
+        mp.repeat = 1;
+        twordplay(".text:eq("+ind+")  p","span.en","active",1,1);
+    });
+
+    //$(document).on('click', '.text p', function() {
+    $('.text p').click(function(){
+    	mp.clear();
+        mp.index = $(this).index()-1;
+        mp.repeat = 1;
+        var ind=$(this).parents().prevAll().length-4;
+        twordplay(".text:eq("+ind+")  p","span.en","active",1,1);
+        $(this).parent().find("h3").addClass("active");
+    });
+});
+
+//获取mp3文件路径
+function getmp3url(mp3name){
+    //mp3name = mp3name.substr(0,mp3name.length-1);
+    var mp3url = '';
+    var quespeed = 1;
+    //if(examstts_type == 1){           //系统生成
+        if(quespeed == 0){
+            mp3name = mp3name+'s';
+        }
+        else if(quespeed == 2){
+            mp3name = mp3name+'q';
+        }
+    //}
+    mp3url = mp.url+mp3name.substr(0,2)+'/'+mp3name+'.mp3';
+    return mp3url;
+}
+
+
+function twordplay(pdom,cdom,cclass,repeat,timeoutnum)
+{
+    var allnum =  $(pdom).length; 
+    var carindex = mp.index;
+    //$(pdom).find("span.ch").hide();
+    //$(pdom).removeClass(cclass);
+    $(pdom + ":eq(" + carindex + ")").addClass(cclass);
+    var $word = $(pdom + ":eq(" + carindex + ")").find(cdom);
+    var mp3  = $word.attr("mid");
+    $word.addClass(cclass);
+    //$(pdom + ":eq(" + carindex + ")").find("span.ch").show();
+    if (carindex < allnum) {
+
+        mp.play(getmp3url(mp3));
+        $("#jplayer").bind($.jPlayer.event.ended,function (event) {
+            if (mp.repeat >= repeat) 
+            {mp.index = mp.index + 1; mp.repeat = 1;}
+            else
+            {mp.repeat = mp.repeat + 1};                
+            setTimeout(function(){twordplay(pdom,cdom,cclass,repeat,timeoutnum);}, timeoutnum * 1000); 
+        });
+    }
+    else
+    {
+        mp.index = 0;
+        $(".boxCon").show();
+        $word.removeClass(cclass);
+        var chapterid=$(pdom).attr("bid");
+        $.get("/mobile/textread/study_text_record",{unitid:unitid,chapterid:chapterid},function(data){
+            var recordcount=$(".dropdown a:eq(1) .recordcount").text();
+            $(".dropdown a:eq(1) .recordcount").text(parseInt(recordcount)+parseInt(data.add));
+            $.cookie("engm_record_count",parseInt($.cookie("engm_record_count"))+parseInt(data.add));
+        });
+      
+    } 
+}
+
+function Mplay(){ 
+   $("#jplayer").jPlayer({
+        swfPath: "",
+        wmode: "window",
+        supplied: "mp3",
+        preload: "none",
+        volume: "1"
+    });
+
+    var oplay = new Object();  
+    oplay.index = 0;
+    oplay.url = "";
+    oplay.repeat = 1;
+
+    oplay.play = function(mp3){  
+        oplay.clear();
+        $("#jplayer").jPlayer("setMedia", {mp3:mp3}).jPlayer("play");
+    };
+
+    oplay.clear = function(){       
+        $("#jplayer").jPlayer("stop");
+        $("#jplayer").jPlayer("clearMedia");
+        //$("#jplayer").data("SpeakMP3Value", "0");  
+        $("#jplayer").unbind($.jPlayer.event.ended);
+        $("#jplayer").unbind($.jPlayer.event.progress);
+    };
+    return oplay;  
+}
+
+
+function  BodyScroll(curpos){
+  var container = $("html,body"); 
+  var pos_y = $(curpos).offset().top-300;
+  $("html,body").animate({scrollTop:pos_y},100);//1000是ms,也可以用slow代替
+}
+</script>
+</body>
+</html>

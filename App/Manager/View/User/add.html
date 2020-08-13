@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版本编辑</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+<body> 
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="box_top pl_10 f14"><strong>添加用户</strong></td> 
+  </tr>
+  <tr>
+    <td class="p5">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+      <tr>
+        <td class="td_right">账号：</td>
+        <td>
+          <input type="text" id="username" name="username" class="input-text lh30" size="20" value="" />
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">密码：</td>
+        <td><input type="text" id="pwd" name="pwd" value="" class="input-text lh30" size="40" /></td>
+      </tr>
+       <tr>
+        <td class="td_right">真实姓名：</td>
+        <td><input type="text" id="truename" name="truename" value="" class="input-text lh30" size="40" /></td>
+      </tr>
+         <tr>
+        <td class="td_right">启用：</td>
+        <td><input type="radio" name="ifuse" value="1" checked />是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="ifuse" value="0" />否</td>
+      </tr>
+      <tr>
+        <td class="td_right">超管：</td>
+        <td><input type="radio" name="ifadmin" value="1"/>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="ifadmin" value="0" checked />否</td>
+      </tr>
+   
+      </table>
+
+  <div class="h10"></div>
+    </td> 
+  </tr> 
+</table>
+</div>
+<script type="text/javascript">  
+
+function saveuser(){
+ $.ajaxSetup({async:false});
+  var username = $("#username").val(); 
+  var pwd = $("#pwd").val(); 
+  var truename = $("#truename").val(); 
+  if ($.trim(username) == "") {
+    dialogTips('账号不能为空');
+    return false;
+  }
+  if ($.trim(pwd) == "") {
+    dialogTips('密码不能为空');
+    return false;
+  }
+  if ($.trim(truename) == "") {
+    dialogTips('真实姓名不能为空');
+    return false;
+  }
+  var ifuse = $('input[name="ifuse"]:checked').val();
+  var ifadmin = $('input[name="ifadmin"]:checked').val();
+   var closeflag = true;
+ 
+  $.getJSON("../user/useradd", {username:username,pwd:pwd,truename:truename,ifuse:ifuse,ifadmin:ifadmin,random:Math.random()}, function(result){
+   
+    if (result.resultflag == '0') {
+      // alert(result.resultflag);
+      dialogNotice("系统提示",result.errorinfo,30);
+      closeflag = false;
+      
+    }
+    else{
+    closeflag = true;
+    }
+  }); 
+ // alert(closeflag);
+  return closeflag;
+}
+</script> 
+</body>
+</html>

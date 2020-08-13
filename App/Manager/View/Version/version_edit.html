@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版本编辑</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+<body> 
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="p5">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+      <tr>
+        <td class="td_right">版本全称：</td>
+        <td><input type="text" id="unitname" name="unitname"  class="input-text lh30" size="40" value="{$detail_name}" /></td>
+      </tr>
+       <tr>
+        <td class="td_right">版本简称：</td>
+        <td>
+          <input type="text" id="unitalias" name="unitalias" class="input-text lh30" size="20" value="{$detail_name_short}" />
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">显示顺序：</td>
+        <td>
+          <input type="text" id="sortid" name="sortid"  class="input-text lh30" size="10" value="{$sortid}"/>
+          <input type="hidden" name="id" id="id" value="{$id}" ></td>
+      </tr>
+      </table>
+  <div class="h10"></div>
+    </td> 
+  </tr> 
+</table>
+</div>
+<script type="text/javascript">  
+$(function(){ 
+  $.ajaxSetup({async:false});
+ // var dloading = art.dialog({time:30,title:'加载中……',width:130,height:30,opacity:0.3,lock:true});
+});
+
+function saveUnitEdit(){
+  var id = $("#id").val(); 
+  var unitalias = $.trim($("#unitalias").val());
+  if (unitalias == "") {
+    art.dialog.alert('请填写单元简称');
+    return false;
+  }
+  var unitname = $.trim($("#unitname").val());
+  if (unitname == "") {
+    art.dialog.alert('请填写单元全称');
+    return false;
+  }
+  var sortid = $.trim($("#sortid").val());
+  var closeflag = true; 
+  $.getJSON("versionotheredit", {id:id,unitalias:unitalias,unitname:unitname,sortid:sortid,random:Math.random()}, function(data){
+    dialogNotice("添加成功","",30);
+    closeflag = true;
+  }); 
+  return closeflag;
+}
+</script> 
+</body>
+</html>

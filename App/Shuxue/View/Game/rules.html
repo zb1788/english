@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta charset="UTF-8">
+  <title>口算卡</title>
+  <link rel="stylesheet" href="__PUBLIC__/game/css/ksk.css" />
+  <link rel="stylesheet" href="__PUBLIC__/game/font/fonts.css" />
+
+</head>
+
+<body>
+  <header class="head">
+    <a class="head-left" href="javascript:goGenre();">
+      <i class="icon-back"></i>返回</a>
+    <h1></h1>
+  </header>
+  <section>
+    <div class="mT50">
+      <div class="gztop">
+        <img src="__PUBLIC__/game/images/ksk/dcgbt.png">
+      </div>
+      <div class="pad10">
+        <div class="gzMiddle">
+          <h2>1、闯关规则：</h2>
+          <p>1）依学期规划知识训练模块，每个模块下至少有3个关卡。</p>
+          <p>2）可任意选择知识模块进行闯关训练。</p>
+          <p>3）打开模块闯关，首关默认解锁，依顺序闯关解锁进行挑战。</p>
+          <p>4）每关在规定时间内，至少做对12道才可进入下一关。</p>
+          <p>5）完成闯关，即可查看排名，也可分享转发。</p>
+          <h2>2、优币奖励：</h2>
+          <p>1）每关闯关成功，按正确答题数1对1进行优币奖励（每日对同一关卡重复闯关，按本关卡总题数为上限）；闯关失败，无奖励。</p>
+          <p>2）完成闯关，转发分享每次可获取1优币奖励。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+<script type="text/javascript" src="__PUBLIC__/game/common.js"></script>
+<script>
+  var gradeCode = GetQueryString('gradeid');
+  var subjectid = GetQueryString('subjectid');
+  var moduleid = GetQueryString('moduleid');
+  var urlCallBack = GetQueryString('urlCallBack');
+
+  function goGenre_bak() {
+    window.location.href = "genre?gradeid=" + gradeCode + '&subjectid=' + subjectid + '&moduleid=' + moduleid +
+      '&urlCallBack=' + encodeURIComponent(urlCallBack);
+  }
+
+  function goGenre() {
+    window.location.href = "index?gradeid=" + gradeCode + '&subjectid=' + subjectid + '&moduleid=' + moduleid +
+      '&backUrl=' + encodeURIComponent(urlCallBack);
+  }
+</script>
+
+</html>

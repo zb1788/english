@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版本列表</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+</head>
+<body>
+<div class="place"><strong>位置</strong>：首页 &gt; 优教通域名管理</div>
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="42"><input name="按钮" id="btn_add" type="button" class="ext_btn ext_btn_submit" value="添加域名" /></td>
+     <td class="pl_5">
+     <table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                            <tr>
+                                <td width="50" align="right">省份：</td>
+                                <td>
+                                    <select name="provice" class="select" id="provice" >
+
+                                    </select>
+                                </td>
+                                
+                                <td>
+                                    &nbsp;
+                                    <input type="button" class="btn btn82 btn_search" value="查询" /></td>
+                                  </tr></table></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+  <tr>
+    <th width="50" align="center">序号</th>
+    <th width="200">域名</th>
+    <th width="150">ip</th>
+    <th width="50">类型</th>
+    <th width="150">省份</th>
+    <th width="50">区域码</th>
+    <th>操作</th>
+  </tr> 
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none" id="table_demo"> 
+  <tr class="tr">
+    <td align="center">1</td>
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="left">
+      &nbsp;&nbsp; 
+      <input type="button" class="ext_btn ext_btn_edit" value="编辑"   />&nbsp;&nbsp;
+      <input type="button" class="ext_btn ext_btn_error" value="禁用" />       
+    </td>
+  </tr>
+</table>
+<div class="h5"></div>
+
+</div>
+<script type="text/javascript">
+var querytype = 0;
+$(function(){ 
+    $.ajaxSetup({async:false});
+    var dloading = art.dialog({time:30,title:'加载中……',width:130,height:30,opacity:0.3,lock:true});   
+    getyjtlist(querytype);
+    dloading.close();
+   
+    $("#btn_add").click(function()
+    {
+      yjtdomainadd(0);
+    });
+   
+    $("#table_data .ext_btn_edit").live("click",function(){
+      var yjtid = $(this).attr("BID");
+      yjtdomainedit(yjtid);
+    });
+    $.getJSON('../user/getyjtprovice',{},function(result){
+      $.each(result, function(i, value) {
+          $('#provice').append($("<option>").val(value.c2).text(value.c2));
+      });
+    });
+
+    $(".btn_search").click(function() {
+        querytype = 1;
+        getyjtlist(querytype);
+    });
+  });
+
+  $("#table_data .ext_btn_error").live("click",function(){
+    var tr = $(this).parents("tr");
+    var yjtid = $(this).attr("BID");
+    art.dialog.confirm('你确定要禁用这个域名吗？', function () {
+      $.get("../user/upyjt_domain",{id:yjtid,random:Math.random()},function(data){
+        //prompt(data);
+        getyjtlist(querytype);
+      });
+      
+    });
+  });
+
+function getyjtlist(type)
+{  
+    var dloading = art.dialog({time:30,title:'加载中……',width:130,height:30,opacity:0.3,lock:true});  
+     $("#table_data td").parents("tr").remove();
+     var c2=0;
+     if(type != '0'){
+        c2 = $.trim($('#provice').val());
+     }
+    $.getJSON("../user/getyjtlist", {type:type,c2:c2,random:Math.random()}, function(data){
+      //alert(data.length);
+      var i = 0;
+      $.each(data, function(i,val){
+        i++;
+        var tr = $("#table_demo tr").eq(0).clone(); 
+        var td = tr.children('td').eq(0);
+       // alert(val.username);
+        td.html(i);
+        td = tr.children('td').eq(1);
+        td.html(val.title);
+        td = tr.children('td').eq(2);
+        td.html(val.c1);
+        td = tr.children('td').eq(3);
+        td.html(val.remark);
+        td = tr.children('td').eq(4);
+        td.html(val.c2);
+        td = tr.children('td').eq(5);
+        td.html(val.c3);
+        tr.find("input").attr("BID",val.id);
+        tr.appendTo("#table_data");
+      });
+    }); 
+    $(".tr:odd").css("background", "#F5F8FA");
+    dloading.close(); 
+ 
+}
+
+function yjtdomainadd(id){
+  var myDialog = $.dialog.open('../user/yjtadd?random=' + Math.random(),{
+      id:'user_add',
+      title:'添加域名',
+      window:'top',
+      width:520,
+      height:270,
+      lock:true,
+      opacity:0.3,
+      button: [
+        {
+          name: '保存',
+          callback: function () {  
+            var iframe = this.iframe.contentWindow;     
+            var re = iframe.saveuser();
+            //alert(re);
+            if (re) {
+              getyjtlist(querytype);
+            }
+            
+            return re;
+          },
+          focus: true
+        },
+        {
+          name: '关闭',
+          callback: function () { 
+          },
+          focus: false
+        }
+      ]
+    });
+}
+
+
+function yjtdomainedit(id){
+  var myDialog = $.dialog.open('../user/yjtedit?id='+id+'&random=' + Math.random(),{
+      id:'user_edit',
+      title:'修改域名',
+      window:'top',
+      width:520,
+      height:270,
+      lock:true,
+      opacity:0.3,
+      button: [
+        {
+          name: '保存',
+          callback: function () {  
+            var iframe = this.iframe.contentWindow;     
+            var re = iframe.saveuser();
+            //alert(re);
+            getyjtlist(querytype);
+            return re;
+          },
+          focus: true
+        },
+        {
+          name: '关闭',
+          callback: function () { 
+          },
+          focus: false
+        }
+      ]
+    });
+}
+</script> 
+</body>
+</html>

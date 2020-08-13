@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="wap-font-scale" content="no">
+		<meta charset="UTF-8">
+		<title>英语同步练</title>
+		<link rel="stylesheet" href="__SUBJECT__/css/currency.css" />
+        <link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/require.js" ></script>
+		<style>
+			#wrapper {top: 45px;}
+		</style>
+	</head>
+	<body>
+		<main>
+			<header class="head border-nav">
+				<a class="head-left" href="javascript:void(0);"><i class="icon-back"></i>返回</a>
+				<!-- <a class="head-right"><i class="icon-share"></i></a> -->
+				<h1 class="title">班级得分榜</h1>
+			</header>
+			<section>
+				<div id="wrapper">
+					<div id="scroller">
+						
+					</div><!--end scroller-->
+				</div><!--end wrapper-->
+			</section>
+		</main>
+	<div id="over" class="over"></div>
+    <div id="layout" class="layout">
+        <img src="__SUBJECT__/img/2013112931.gif" alt="" />
+    </div>
+    <style>
+        .over {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f5f5f5;
+            opacity:0.5;
+            z-index: 1000;
+        }
+        .layout {
+            display: block;
+            position: absolute;
+            top: 40%;
+            left: 40%;
+            width: 20%;
+            height: 20%;
+            z-index: 1001;
+            text-align:center;
+        }
+    </style> 
+</body>
+<script type="text/javascript">
+    require.config({
+        paths: {
+            "classrank": "__SUBJECT__/js/classrank",
+            "iscroll":"__PUBLIC__/js/iscroll-lite",
+        },
+        shim: {
+            "iscroll": {
+                exports:"IScroll"
+            }
+    　　},
+        waitSeconds: 0
+    });
+    require(["classrank","iscroll"], function(classrank,IScroll){
+        $(function(){
+            var Requests = new Object();
+            Requests = GetRequest();
+            //初始化单词列表
+            classrank.initRankList(decodeURIComponent(Requests["dataurl"]),$("#scroller"));
+            perface();
+            //滑动问题
+            new IScroll("#wrapper",{
+                momentum:true,
+                click:true 
+            });
+            $("#wrapper").resize();
+            //返回按钮的事件
+            $(".head-left").click(function(){
+                var Requests = new Object();
+                Requests = GetRequest();
+                //decodeURIComponent(urlCallBack)
+                window.location.href=((Requests["callbackURL"]));
+            });
+        })
+    });
+	</script>	
+</html>

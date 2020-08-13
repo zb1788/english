@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>版本列表</title>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+    </head>
+    <body>
+        <div class="place"><strong>位置</strong>：首页 &gt; 版本图片管理</div>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="box_top pl_10 f14"><strong>搜索</strong></td>
+                </tr>
+                <tr>
+                    <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                            <tr>
+<!--                                 <td width="50" align="right">学科：</td>
+                                <td>
+                                    <select name="versionid" class="select" id="subject">
+                                    <option value="0001">语文</option>
+                                    <option value="0003">英语</option>
+                                    </select>
+                                </td> -->
+                                <td width="50" align="right">年级：</td>
+                                <td>
+                                    <select name="gradeid" class="select" id="gradeid">
+                                        <option value="0001">一年级</option>
+                                        <option value="0002">二年级</option>
+                                        <option value="0003">三年级</option>
+                                        <option value="0004">四年级</option>
+                                        <option value="0005">五年级</option>
+                                        <option value="0006">六年级</option>
+                                        <option value="0007">七年级</option>
+                                        <option value="0008">八年级</option>
+                                        <option value="0009">九年级</option>
+                                    </select>
+                                </td>
+                                <td width="50" align="right">学期：</td>
+                                <td>
+                                    <select name="termid" class="select" id="termid">
+                                    <option value="0001">上学期</option>
+                                    <option value="0002">下学期</option>
+                                    </select>
+                                </td>
+<!--                                 <td>
+                                    &nbsp;<input type="button" class="btn btn82 btn_search" value="查询" />
+                                </td> -->
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+    <div class="h5"></div>
+    <table border="0" cellspacing="0" cellpadding="0" class="form_table">
+        <tr>
+            <td>
+                <input type="button" id="addKecheng" value="添加版本" class="ext_btn ext_btn_submit" />
+            </td>
+        </tr>
+    </table>
+            <div class="h10"></div>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+                <tr>
+                    <th width="60" align="center">次序</th>
+
+                    <th width="150">版本名称</th>
+                    <th width="300">版本图片</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none" id="table_demo">
+                <tr class="tr">
+                    <td align="center"></td>
+                    <td></td>
+                    <td align="center"></td>
+
+                    <td align="left">
+                        &nbsp;&nbsp;
+                        <input type="button" class="ext_btn ext_btn_edit" value="修改图片"   />&nbsp;&nbsp;
+                        <input type="button" name="del" class="ext_btn ext_btn_error" value="删除"   />&nbsp;&nbsp;
+
+                    </td>
+                </tr>
+            </table>
+            <div class="h5"></div>
+
+        </div>
+        <script type="text/javascript">
+            $(function() {
+                $.ajaxSetup({async: false});
+                $(".tr:odd").css("background", "#F5F8FA");
+                $('.tr:odd').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#F5F8FA");
+                    }
+                });
+
+                $('.tr:even').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#FFF");
+                    }
+                });
+                var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                // $.EBC.inIt('vimglist');
+                getversionimg();
+                dloading.close();
+                $("#table_data .ext_btn_edit").live("click", function() { //编辑按钮点击事件
+                    var imgid = $(this).attr("BID");
+                    var pic = $(this).attr("Bpic");
+                    var version = $(this).attr("version");
+                    editversionimg(imgid,pic,version,'edit');
+                });
+				$('.btn_search').click(function(){
+					getversionimg();
+				});
+            });
+
+
+$('#addKecheng').click(function(){
+    editversionimg(0,'','','add');
+});
+
+
+$('#gradeid').change(function(){
+    getversionimg();
+})
+
+$('#termid').change(function(){
+    getversionimg();
+})
+// $('#subject').change(function(){
+//     getversionimg();
+// })
+//删除
+$('input[name="del"]').live('click',function(){
+    var id=$(this).attr('BID');//课程id
+    var aa=$(this).parent().parent();
+    if($.dialog.confirm('确定删除？',function(){
+        $.get('../Version/delversion',{ran:Math.random(),id:id},function(data){
+            $(aa).remove();
+        });
+    }));
+});
+
+
+function getversionimg(){
+    var gradeid = $("#gradeid").val();
+    var termid = $("#termid").val();
+    var subject = '{$r_subject}';
+     var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+    $("#table_data td").parents("tr").remove();
+    $.getJSON("../version/getVersionimg", {r_grade:gradeid,r_volume:termid,r_subject:subject,random: Math.random()}, function(data) {
+
+        $.each(data, function(i, val) {
+
+            var tr = $("#table_demo tr").eq(0).clone();
+            var td = tr.children('td').eq(0);
+            td.html(i+1);
+
+            td = tr.children('td').eq(1);
+            td.html(val.version_name);
+            td = tr.children('td').eq(2);
+            if(val.pic_path == null){
+                var picpath = '__PUBLIC__/images/zw.png';
+            }else{
+                var picpath = '../../'+val.pic_path;
+            }
+            td.html('<img src="'+picpath+'" width="180" height="255"/>');
+            tr.find("input").attr("BID", val.id);
+            tr.find("input").attr("Bpic", val.pic_path);
+            tr.find("input").attr("version", val.r_version);
+            tr.appendTo("#table_data");
+        });
+    });
+    $(".tr:odd").css("background", "#F5F8FA");
+    dloading.close();
+
+}
+
+function editversionimg(imgid,pic,version,type){
+ var r_grade = $('#gradeid').val();
+ var r_volume = $('#termid').val();
+ var title = '';
+ if(type == 'add'){
+    title = '添加图片';
+ }else{
+    title = '修改图片';
+ }
+
+
+
+  var myDialog =$.dialog.open('version_img_update?pic='+pic+'&type='+type+'&version='+version,
+  {
+    id:'explains_update',
+    title:title,
+    window:'top',
+    width:500,
+    height:330,
+    lock:true,
+    opacity:0.3,
+    button: [
+      {
+        name: '保存',
+        callback: function () {
+          var iframe = this.iframe.contentWindow;
+          var pic=$('#filename',iframe.document).attr('value');
+          var version=$('#version',iframe.document).attr('value');
+          var r_subject='{$r_subject}';
+          var closeflag = true;
+              $.get("../version/version_img_update_action?rt=" + Math.random(),{imgid:imgid,r_grade:r_grade,r_volume:r_volume,r_version:version,pic:pic,type:type,r_subject:r_subject},function(data) {
+              if ($.trim(String(data)) != "1") {
+                // alert("系统提示","更新失败，请与管理员联系",30);
+                closeflag = true;
+              }
+              else{
+                art.dialog.alert("保存成功" ,30);
+                //location.reload();
+                getversionimg();
+              }
+          });
+          return closeflag;
+        },
+        focus: true
+      },
+      {
+        name: '关闭',
+        callback: function () {
+          //location.reload();
+          getversionimg();
+          return true;
+        },
+        focus: false
+      }
+    ]
+  });
+}
+
+        </script>
+    </body>
+</html>

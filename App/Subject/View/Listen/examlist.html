@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="wap-font-scale" content="no">
+		<meta charset="UTF-8">
+		<title>英语同步练</title>
+		<link rel="stylesheet" href="__SUBJECT__/css/currency.css" />
+        <link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+        <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css" />
+        <link rel="stylesheet" href="__PUBLIC__/css/layer.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/require.js" ></script>
+		<style>
+			#wrapper {top:40px; bottom: 0px;}
+		</style>
+	</head>
+	<body>
+		<main>
+			<header class="head border-nav">
+				<a class="head-left"><i class="icon-back"></i>返回</a>
+				<a class="head-right" style="display:none;"><i class="icon-clock"></i></a>
+				<h1 class="title"></h1>
+			</header>
+			<!-- <div class="bLine padTop45">
+				<ul class="wb"><li><a href="#"><p>共有单词20个</p></a></li></ul>
+			</div> -->
+			<section>
+				<div id="wrapper">
+					<div id="scroller">
+						<ul class="wb bWhite iStudy" id="iStudy">
+					    	
+					    </ul>
+					</div><!--end scroller-->
+				</div><!--end wrapper-->
+				<div id="tips02"></div>
+				<div id="tips"></div>
+			</section>
+		</main>
+	<!--遮罩的代码-->
+		<div id="over" class="over"></div>
+	    <div id="layout" class="layout">
+	    	<img src="__SUBJECT__/img/2013112931.gif" alt="" />
+	    </div>
+	    <style>
+			.over {
+	            display: block;
+	            position: absolute;
+	            top: 0;
+	            left: 0;
+	            width: 100%;
+	            height: 100%;
+	            background-color: #f5f5f5;
+	            opacity:0.5;
+	            z-index: 1000;
+	        }
+	        .layout {
+	            display: block;
+	            position: absolute;
+	            top: 40%;
+	            left: 40%;
+	            width: 20%;
+	            height: 20%;
+	            z-index: 1001;
+	            text-align:center;
+	        }
+		</style> 
+	</body>
+	<script type="text/javascript">
+	var ks_name = "{$ks_name}";
+	    require.config({
+	　paths: {
+　　　　　　"listenunit": "__SUBJECT__/js/listenunit",
+　　　　	"iscroll":"__PUBLIC__/js/iscroll-lite",
+			"layer":"__PUBLIC__/js/layer",
+	　　　},
+	  shim: {
+　　　　　　"iscroll": {
+　　　　　　　　exports:"iscroll"
+　　　　　　}
+	　　},
+        waitSeconds: 0
+	});
+	require(["listenunit","iscroll","layer"], function(listenunit,IScroll,layer){
+	        
+	        //设置标题
+			new IScroll("#wrapper",{
+                momentum:true,
+                click:true 
+            });
+            $("#wrapper").resize();
+	        //setTitle($(".title"));
+            $(".title").text(ks_name);
+			//初始化客场单元的列表展示
+			listenunit.getExamsListData("getExamList",$("#iStudy"));
+			//滑动问题
+        	$("#wrapper").resize();
+        	perface();
+	        $(".head-left").click(function(){
+	        	var Requests = new Object();
+				Requests = GetRequest();
+				if(Requests["backUrl"] !='' && Requests["backUrl"] != null){
+					window.location.href=Requests["backUrl"];
+				}
+				else{
+					window.location.href=Requests["urlCallBack"];
+				}
+	        	
+	        });
+
+	    });
+	</script>
+</html>

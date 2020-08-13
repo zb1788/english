@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>添加文言</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+</head>
+<body>
+<div class="container">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list_table">
+        <tr>
+            <td>
+                名称：
+            </td>
+            <td>
+                <input type="text" id="title" class="input-text" size="10" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                类型：
+            </td>
+            <td>
+              <input type="radio" name="zici" value="1" checked/>字
+              <input type="radio" name="zici" value="2" onclick="checkWu();"/>词
+            </td>
+        </tr>
+        <tr>
+            <td>
+                颜色：
+            </td>
+            <td>
+              <input type="radio" name="color" value="3" checked/>无
+              <input type="radio" name="color" value="1" onclick="checkZi();"/>绿色
+              <input type="radio" name="color" value="2" onclick="checkZi();"/>蓝色
+            </td>
+		</tr>
+	</table>
+	<p style="color:red;">绿色:（会写课后田字格）</p>
+	<p style="color:red;">蓝色：(会认课后双栏线)</p>
+	<p style="color:red;">无：（不在课文中展示）</p>
+</div>
+
+
+</body>
+</html>
+<script type="text/javascript">
+$.ajaxSetup({async:false});
+$(function(){
+	if('{$type}' == 'edit'){
+		$('#title').val('{$data["name"]}');
+		$('input[name=zici]').val(['{$data["type"]}']);
+		$('input[name=color]').val(['{$data["color"]}']);
+	}
+});
+
+function checkWu(){
+    $('input[name=color]').val([3]);
+}
+
+function checkZi(){
+    $('input[name=zici]').val([1]);
+}
+
+function savedata(){
+		var title=$('#title').val();
+		var type=$('input[name="zici"]:checked').val();
+		var color=$('input[name="color"]:checked').val();
+
+		var flag=false;
+
+
+        if(type == 2 && color != 3){
+            art.dialog.alert('词的颜色只能是无!');
+            return false;
+        }
+
+
+		if(title==''){
+			art.dialog.alert('名称不能为空！',function(){
+				$('#title').focus();
+			});
+			return false;
+		}else{
+		$.get('../Kewen/addtype',
+			{ran:Math.random(),
+			 id:'{$id}',
+			 title:title,
+			 type:type,
+			 option:'{$type}',
+			 color:color
+			},
+			function(data){
+				if(data=='已存在'){
+					flag=false;
+				}else{
+					flag=true;
+				}
+			});
+			return flag;
+		}
+
+}
+
+
+</script>

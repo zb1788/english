@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>拖动</title>
+    <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+    <style>
+        h2 {
+            font-size: 20px;
+            color: #0d88c1;
+        }
+
+        div#left,
+        div#right {
+            width: 120px;
+            float: left;
+            margin: 10px 100px 10px 25px;
+            height: 400px;
+            background-color: #dddddd;
+            border: 1px solid #000;
+            overflow-y: auto;
+        }
+
+        div label {
+            font-size: 10px;
+            font-weight: bold;
+            width: 100%;
+            display: inline-block;
+            padding: 4px 0;
+            text-align: center;
+            margin: 0px 0 2px 0;
+            color: #fff;
+            background-color: #0d88c1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 左边元素框 -->
+    <div>
+        <select class="select" id="select1" style="width:120px;margin: 10px 100px 10px 25px;">
+            <volist name="levellist" id="vo">
+                <option value="{$vo.id}">{$vo.name}</option>
+            </volist>
+        </select>
+        <select class="select" id="select2" style="width:120px;margin: 10px 100px 10px 25px;">
+            <volist name="levellist" id="vo">
+                <option value="{$vo.id}">{$vo.name}</option>
+            </volist>
+        </select>
+    </div>
+    <div>
+        <div id="left">
+            <label draggable="true">index1</label>
+            <label draggable="true">index2</label>
+            <label draggable="true">index3</label>
+            <label draggable="true">index4</label>
+            <label draggable="true">index5</label>
+            <label draggable="true">index6</label>
+            <label draggable="true">index7</label>
+        </div>
+        
+        <!-- 右边元素框 -->
+        <div id="right">
+            
+        </div>
+    </div>
+    <script>
+        $(function(){
+            $.ajaxSetup({async:false});
+            var moveItem = document.getElementsByTagName('label');
+            $("#select1").change(function(){
+                var levelid=$(this).val();
+                $("#left").empty();
+                 $.getJSON("getLevelWordList",{levelid:levelid,ran:Math.random()},function(data){
+                    var i = 0;
+                    if(data!=null&&data!='null'){
+                        $.each(data, function(key, val) {
+                            $("#left").append($('<label draggable="true" bid="'+key+'">'+val.word+'</label>'))
+                        });
+                    }
+
+                    for (let i = 0; i < moveItem.length; i++) {
+                        //动态设置label元素id
+                        moveItem[i].setAttribute('id', 'label' + i);
+                        moveItem[i].ondragstart = function (ev) {
+                            //dataTransfer.setData() 方法设置被拖数据的数据类型和值
+                            ev.dataTransfer.setData("Text", this.id);
+                        };
+                    }
+                    
+                })
+            })
+            $("#select1").val("{$levelid}");
+            $("#select2").val("{$levelid}");
+            $("#select1").change();
+
+            $("#select2").change(function(){
+                var levelid=$(this).val();
+                $("#right").empty();
+                 $.getJSON("getLevelWordList",{levelid:levelid,ran:Math.random()},function(data){
+                    var i = 0;
+                    if(data!=null&&data!='null'){
+                        $.each(data, function(key, val) {
+                            $("#right").append($('<label draggable="true" bid="'+key+'">'+val.word+'</label>'))
+                        });
+                    }
+                    for (let i = 0; i < moveItem.length; i++) {
+                        //动态设置label元素id
+                        moveItem[i].setAttribute('id', 'label' + i);
+                        moveItem[i].ondragstart = function (ev) {
+                            //dataTransfer.setData() 方法设置被拖数据的数据类型和值
+                            ev.dataTransfer.setData("Text", this.id);
+                        };
+                    }
+                    
+                })
+            })
+
+            
+
+            //左－〉右
+            document.getElementById('right').ondragover = function (ev) {
+                ev.preventDefault(); //阻止向上冒泡
+            }
+            document.getElementById('right').ondrop = function (ev) {
+                ev.preventDefault();
+                var id = ev.dataTransfer.getData('Text');
+                var elem = document.getElementById(id); //当前拖动的元素
+                var bid=document.getElementById(id).getAttribute("bid");
+                var newlevel=document.getElementById("select1").value;
+                var oldlevel=document.getElementById("select2").value;
+                if(newlevel==oldlevel){
+                    alert("不能向同一关移动单词");return false;
+                }
+                $.getJSON("changeLevelWord",{newlevel:newlevel,oldlevel:oldlevel,bid:bid,direct:'l',ran:Math.random()});
+                var toElem = ev.toElement.id; //放置位置
+                if (toElem == 'right') {
+                    //如果为container,元素放置在末尾
+                    this.appendChild(elem);
+                } else {
+                    //如果为container里的元素，则插入该元素之前
+                    this.insertBefore(elem, document.getElementById(toElem));
+                }
+            }
+
+
+            //右－〉左
+            document.getElementById('left').ondragover = function (ev) {
+                ev.preventDefault(); //阻止向上冒泡
+            }
+            document.getElementById('left').ondrop = function (ev) {
+                ev.preventDefault();
+                var id = ev.dataTransfer.getData('Text');
+                var elem = document.getElementById(id);
+                var bid=document.getElementById(id).getAttribute("bid");
+                var newlevel=document.getElementById("select1").value;
+                var oldlevel=document.getElementById("select2").value;
+                if(newlevel==oldlevel){
+                    alert("不能向同一关移动单词");return false;
+                }
+                $.getJSON("changeLevelWord",{newlevel:newlevel,oldlevel:oldlevel,bid:bid,direct:'r',ran:Math.random()});
+                var toElem = ev.toElement.id;
+                if (toElem == 'left') {
+                    //如果为container,元素放置在末尾
+                    this.appendChild(elem);
+                } else {
+                    //如果为container里的元素，则插入该元素之前
+                    this.insertBefore(elem, document.getElementById(toElem));
+                }
+            }
+
+            
+
+        })
+    </script>
+</body>
+
+</html>

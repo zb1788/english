@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>课程内容管理</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+</head>
+<body>
+<div class="container">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+        <tr>
+        <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+          <tr>
+            <td>类型：</td>
+            <td>
+              <select class="select" name="" id="type">
+                <option value="1">会写</option>
+                <option value="2">会读</option>
+                <option value="3">生词</option>
+              </select>
+            </td>
+            <td width="50" align="right">生字：</td>
+            <td>
+              <input type="text" id="zi" name="szi" class="input-text" size="10" maxlength="10" />
+            </td>
+            <td>
+              &nbsp;<input type="button" id="btn_so" name="btn_so" class="btn btn82 btn_search" value="查询" /></td>
+          </tr>
+        </table>
+        </td>
+        </tr>
+    </table>
+    <div class="h5"></div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border" id="dataedit">
+      <tr>
+        <td class="box_top pl_10 f14"><strong>基本信息</strong></td>
+      </tr>
+      <tr>
+        <td class="p5">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+          <tr>
+            <td>
+                <table width="100%" height="90" class="list_table" id="info">
+                    <tr>
+                        <td>qi</td>
+                        <td>七</td>
+                        <td><input type="button" id="addword" value="选择组词" class="ext_btn ext_btn_submit" /></td>
+                    </tr>
+                    <tr>
+                        <td>qi</td>
+                        <td>七</td>
+                        <td>组词</td>
+                    </tr>
+                </table>
+            </td>
+            <td align="left">
+                &nbsp;<input type="button" id="btn_addnew"  name="btn_addnew" class="btn btn82 btn_add" value="添加" />
+            </td>
+          </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+
+
+</div>
+
+<!--
+                    <tr>
+                        <td width="72">qi</td>
+                        <td width="72">qi</td>
+                    </tr>
+                    <tr>
+                        <td width="72">七</td>
+                        <td width="72">七</td>
+                    </tr>
+-->
+
+
+</body>
+</html>
+<script type="text/javascript">
+$.ajaxSetup({async:false});
+$(function(){
+})
+
+//查询
+$("#btn_so").click(function(){
+    var type = $('#type').val();
+    var zi = $('#zi').val();
+    var len = zi.length;
+    if(type == 1||type == 2){
+        if(len>1){
+            art.dialog.alert('只能输入单个汉字');
+            return false;
+        }
+    }
+    $.get('../Kewen/getPinyin',
+        {
+            type:type,
+            zi:zi,
+            ran:Math.random()
+        },
+        function(data){
+
+        })
+})
+
+
+
+//保存课文内容
+function savedata(){
+    var ue = UE.getEditor('editor');//ueditor插件
+    var tncontent=ue.getContent();//获取编辑器内容
+    var title=$('#title').val();
+    var ks_code= '{$ks_code}';
+    var issuc=$('#issuc').val();
+    var filename=$("#filename").val();
+    var filepath=$('#filepath').val();
+    var option = '{$option}';
+    var style = '{$style}';
+
+    //alert(tncontent);
+    if(tncontent==''){
+        art.dialog.alert('课文内容不能为空!');
+        return false;
+    }else if(title==''){
+        art.dialog.alert('课文标题不能为空！');
+        return false;
+    }else if(filepath==''){
+            art.dialog.alert('上传失败，请重新上传！');
+            return false;
+    }else{
+        $.post('../Kewen/addKewenToText',
+        {
+            ran:Math.random(),
+            ks_code:ks_code,
+            tncontent:tncontent,
+            title:title,
+            filename:filename,
+            filepath:filepath,
+            type:style,
+            option:option,
+            id:'{$id}'
+
+        },
+        function(data){
+
+        });
+    }
+    return true;
+}
+
+</script>

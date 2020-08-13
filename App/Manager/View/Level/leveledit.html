@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版本列表</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+<style>
+  ul{overflow: hidden;width:100%;}
+  ul li{width:20%;float:left;}
+</style>
+</head>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+  <tr>
+    <td class="td_right">标题:</td>
+    <td>
+      <textarea cols="60" rows="8" id="edit_encontent" style="margin-left:10px;">{$name}</textarea>
+    </td>
+  </tr>
+  <tr>
+    <td class="td_right">单词数:</td>
+    <td>
+      <select class="select" id="perwordnum" style="margin-left:10px;">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="td_right">学段:</td>
+    <td>
+      <ul style="text-align:left;">
+        <li style="float:left;margin-left:10px;"><input type="radio" class="peroid" name="input peroid" value="0" <if condition="$peroid eq '0'">checked='true'</if>/>小学</li>
+        <li style="float:left;margin-left:10px;"><input type="radio" class="peroid" name="input peroid" value="1" <if condition="$peroid eq '1'">checked='true'</if>/>初中</li>
+        <li style="float:left;margin-left:10px;"><input type="radio" class="peroid" name="input peroid" value="2" <if condition="$peroid eq '2'">checked='true'</if>/>高中</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="td_right">年级:</td>
+    <td>
+      <ul style="text-align:left;">
+        <li style="float:left;margin-left:10px;">
+          <input type="checkbox" class="grade" name="input grade" bid="0" value="0001" qid="{$grades|substr=0,1}"/>一年级
+        </li>
+        <li style="float:left;margin-left:10px;">
+          <input type="checkbox" class="grade" name="input grade" bid="0" value="0002" qid="{$grades|substr=1,1}"/>二年级
+        </li>
+        <li style="float:left;margin-left:10px;">
+          <input type="checkbox" class="grade" name="input grade" bid="0" value="0003" qid="{$grades|substr=2,1}"/>三年级
+        </li>
+        <li style="float:left;margin-left:10px;">
+          <input type="checkbox" class="grade" name="input grade" bid="0" value="0004" qid="{$grades|substr=3,1}"/>四年级
+        </li>
+        <li style="float:left;margin-left:10px;">
+          <input type="checkbox" class="grade" name="input grade" bid="0" value="0005" qid="{$grades|substr=4,1}"/>五年级
+        </li>
+        <li style="float:left;margin-left:10px;">
+          <input type="checkbox" class="grade" name="input grade" bid="0" value="0006" qid="{$grades|substr=5,1}"/>六年级
+        </li>
+        <li style="float:left;margin-left:10px;">
+          <input type="checkbox" class="grade" name="input grade" bid="1" value="0007" qid="{$grades|substr=6,1}"/>七年级
+        </li>
+        <li style="float:left;margin-left:10px;">
+          <input type="checkbox" class="grade" name="input grade" bid="1" value="0008" qid="{$grades|substr=7,1}"/>八年级
+        </li>
+        <li style="float:left;margin-left:10px;">
+          <input type="checkbox" class="grade" name="input grade" bid="1" value="0009" qid="{$grades|substr=8,1}"/>九年级
+        </li>
+        <li style="float:left;margin-left:10px;">
+          <input type="checkbox" class="grade" name="input grade" bid="2" value="0010" qid="{$grades|substr=9,1}"/>高中
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="td_right">题型:</td>
+    <td>
+      <ul style="text-align:left;">
+        <volist name="queslist" id="vo">
+          <li style="float:left;margin-left:10px;">
+            <input type="checkbox" class="questype" name="input questype" value="{$vo.cindex}" bid="{$vo.ischecked}"/>{$vo.remark}
+          </li>
+        </volist>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="td_right">备选题型:</td>
+    <td>
+      <ul style="text-align:left;">
+        <volist name="queslist" id="vo">
+          <li style="float:left;margin-left:10px;">
+            <input type="radio" class="backupquestype" name="input backupquestype" qid="{$vo.ischecked}" value="{$vo.id}" bid="{$vo.id}"/>{$vo.remark}
+          </li>
+        </volist>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+$(function(){
+  var gameid="{$gameid}";
+  var backupquestypes="{$backupquestypes}";
+  var perwordnum="{$perwordnum}";
+  $("#perwordnum").val(perwordnum);
+  $("input.grade[qid='1']").attr("checked",true);
+  $("input.questype[bid='1']").attr("checked",true);
+  $("input.backupquestype[qid='1']").attr("disabled",true);
+  $("input.backupquestype[bid='"+backupquestypes+"']").attr("checked",true);
+  //标题响应事件
+  $("#edit_encontent").bind('keyup',function(){
+    editName(gameid);
+  })
+
+  //学段响应事件
+  $(".peroid").bind('change',function(){
+    //将学段的选中
+    var peroid=$(".peroid:checked").val();
+    $(".grade[bid='"+peroid+"']").attr("checked",true);
+    changePeroid(gameid,changeGrade);
+  })
+
+  //年级响应事件
+  $(".grade").bind("change",function(){
+    changeGrade(gameid);
+  })
+
+  //题型响应事件
+  $(".questype").bind('change',function(){
+    var questype=$(this).val();
+    if($(this).is(":checked")){
+      $(".backupquestype[value='"+questype+"']").attr("checked",false);
+      $(".backupquestype[value='"+questype+"']").attr("disabled",true);
+      changeBackupQuestype(gameid);
+    }else{
+      $(".backupquestype[value='"+questype+"']").attr("disabled",false);
+    }
+    changeQuestype(gameid);
+  })
+
+  //备选题型响应事件
+  $(".backupquestype").bind('change',function(){
+    changeBackupQuestype(gameid);
+  })
+
+  //单词个数响应事件
+  $("#perwordnum").bind('change',function(){
+    changeWordNum(gameid);
+  })
+});
+
+//编辑标题
+function editName(gameid){
+  var content=$("#edit_encontent").val();
+  $.getJSON('changeName',{name:content,gameid:gameid,ran:Math.random()});
+}
+
+//改变学段
+function changePeroid(gameid,callback){
+  var peroid=$(".peroid:checked").val();
+  $.getJSON('changePeroid',{gameid:gameid,peroid:peroid,ran:Math.random()},function(){
+    if(typeof callback == 'function'){
+      callback(gameid);
+    }
+  })
+}
+//改变单词个数
+function changeWordNum(gameid){
+  var perwordnum=$("#perwordnum").val();
+  $.getJSON('changePerWordNum',{perwordnum:perwordnum,gameid:gameid,ran:Math.random()});
+}
+
+//改变年级
+function changeGrade(gameid){
+  var gradeids="";
+  $('input.grade').each(function(key,val){
+    if($(val).is(":checked")){
+      gradeids=gradeids+"1";
+    }else{
+      gradeids=gradeids+"0";
+    }
+  })
+  $.getJSON('changeGrades',{grades:gradeids,gameid:gameid,ran:Math.random()});
+}
+
+//改变题型
+function changeQuestype(gameid){
+  var questypes="";
+  $('input.questype').each(function(key,val){
+    if($(val).is(":checked")){
+      questypes=questypes+$(val).val()+"|";
+    }
+  })
+
+  $.getJSON('changeGameQuestype',{questypes:questypes,gameid:gameid,ran:Math.random()});
+}
+
+//改变备选题型
+function changeBackupQuestype(gameid){
+  var questypes="";
+  $('input.backupquestype').each(function(key,val){
+    if($(val).is(":checked")){
+      questypes=$(val).val();
+    }
+  })
+  $.getJSON('changeGameBackupQuestype',{questypes:questypes,gameid:gameid,ran:Math.random()});
+}
+</script>
+</body>
+</html>
+

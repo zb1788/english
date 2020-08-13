@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>菜单</title> 
+        <script language="JavaScript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <link href="__PUBLIC__/style/menu.css" rel="stylesheet" type="text/css" />
+        <script  type="text/javascript">
+            $(function() {
+                //导航切换
+                $(".menuson li").click(function() {
+                    $(".menuson li.active").removeClass("active")
+                    $(this).addClass("active");
+                });
+
+                $('.title').click(function() {
+                    var $ul = $(this).next('ul');
+                    $('dd').find('ul').slideUp();
+                    if ($ul.is(':visible')) {
+                        $(this).next('ul').slideUp();
+                    } else {
+                        $(this).next('ul').slideDown();
+                    }
+                });
+            })
+        </script>
+    </head>
+    <body>
+        <div class="lefttop"><span></span>功能菜单</div>
+        <dl class="leftmenu">
+        <if condition="$Think.session.adminuser neq 'zhangbo'">
+            <dd>
+                <div class="title"><span></span>同步信息管理</div>
+                <ul class="menuson">
+                    <li><cite></cite><a href="{:U('word/check')}" target="mainFrame">单词存在验证</a><i></i></li>
+                    <li><cite></cite><a href="{:U('word/in')}" target="mainFrame">批量添加单词</a><i></i></li>
+                    <li><cite></cite><a href="{:U('word/list')}" target="mainFrame">同步单词管理</a><i></i></li>
+                    <li><cite></cite><a href="{:U('text/in')}" target="mainFrame">批量导入课文</a><i></i></li>
+                    <li><cite></cite><a href="{:U('text/chapter_list')}" target="mainFrame">同步课文管理</a><i></i></li>
+                    <li><cite></cite><a href="{:U('unit/list')}" target="mainFrame">单元信息管理</a><i></i></li>
+                    <li><cite></cite><a href="{:U('version/list')}" target="mainFrame">版本信息管理</a><i></i></li>
+					<li><cite></cite><a href="{:U('version/imglist')}" target="mainFrame">版本图片管理</a><i></i></li>
+					<li><cite></cite><a href="{:U('Questions/list')}" target="mainFrame">互动训练管理</a><i></i></li>
+                    <!--                <li><cite></cite><a href="{:U('flash/flashwordlist')}" target="mainFrame">单词动画管理</a><i></i></li>
+                                                    <li><cite></cite><a href="{:U('flash/flashtextlist')}" target="mainFrame">课文动画管理</a><i></i></li>
+                                                    <li><cite></cite><a href="{:U('Unit/check')}" target="mainFrame">中心库版本核对</a><i></i></li>-->
+                </ul>
+            </dd>
+            <dd>
+                <div class="title"><span></span>听力试卷管理</div>
+                <ul class="menuson">
+                    <li><cite></cite><a href="{:U('exam/unitexam')}" target="mainFrame">单元检测试卷</a><i></i></li>
+                    <li><cite></cite><a href="{:U('exam/topicexam')}" target="mainFrame">考试真题试卷</a><i></i></li>
+					<li><cite></cite><a href="{:U('exam/exams_stat')}" target="mainFrame">考试试卷统计</a><i></i></li>
+                    <if condition="$Think.session.ifadmin eq 1">
+                      <li><cite></cite><a href="{:U('exams/examstoolslist')}" target="mainFrame">试卷音频生成工具</a><i></i></li>
+                    </if>
+                </ul>
+            </dd>
+          <!--   <dd>
+                <div class="title"><span></span>听力题库管理</div>
+                <ul class="menuson">
+                    <li><cite></cite><a href="{:U('exam/base_questions_list')}" target="mainFrame">单项小题管理</a><i></i></li>
+                    <li><cite></cite><a href="{:U('exam/combine_questions_list')}" target="mainFrame">短文大题管理</a><i></i></li>
+                </ul>
+            </dd> -->
+            <dd>
+                <div class="title"><span></span>基础信息管理</div>
+                <ul class="menuson">
+                    <li><cite></cite><a href="{:U('user/pwdmgr')}" target="mainFrame">登陆密码修改</a><i></i></li> 
+                    <!--				<li><cite></cite><a href="{:U('flash/flashuserpiclist')}" target="mainFrame">课文角色管理</a><i></i></li>-->
+                    <if condition="$Think.session.ifadmin eq 1">
+                        <!--                <li><cite></cite><a href="{:U('version/list')}" target="mainFrame">教材版本管理</a><i></i></li>-->
+                        <li><cite></cite><a href="{:U('user/list')}" target="mainFrame">人员信息设置</a><i></i></li> 
+                    </if>
+                </ul>
+            </dd>
+             <if condition="$Think.session.ifadmin eq 1">
+            <dd>
+                <div class="title"><span></span>字典管理</div>
+                <ul class="menuson">
+                    <li><cite></cite><a href="{:U('user/yearlist')}" target="mainFrame">年份管理</a><i></i></li>
+                    <li><cite></cite><a href="{:U('user/provincelist')}" target="mainFrame">省份管理</a><i></i></li>
+                    <li><cite></cite><a href="{:U('user/keywordlist')}" target="mainFrame">听力关键词管理</a><i></i></li>
+                    
+                </ul>
+            </dd>
+             </if>
+             <else />
+              <dd>
+                <div class="title"><span></span>优教通域名管理</div>
+                <ul class="menuson">
+                    <li><cite></cite><a href="{:U('user/yjtmar')}" target="mainFrame">优教通域名管理</a><i></i></li>
+                </ul>
+            </dd>
+            </if>
+        </dl>
+    </body>
+</html>

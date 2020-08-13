@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="wap-font-scale" content="no">
+        <meta charset="UTF-8">
+        <title>英语同步练</title>
+        <link rel="stylesheet" href="__SUBJECT__/css/currency.css" />
+        <link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+        <link rel="stylesheet" href="__PUBLIC__/css/layer.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/muitan.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/mui.min.js" ></script>
+        <script type="text/javascript" src="__PUBLIC__/js/require.js" ></script>
+        <style>
+            #wrapper {top:88px; bottom: 48px;}
+            li.cur p span{
+                color: #00bdc7;
+            }
+        </style>
+    </head>
+<body>
+    <main>
+        <header class="head border-nav">
+            <a class="head-left"><i class="icon-back"></i>返回</a>
+            <a class="head-right" href="javascript:void(0);">生词本</a>
+            <h1 class="title"></h1>
+        </header>
+        <div class="model bLine"><span class="list"><a class="cur"><i class="icon-uniE616"></i>图文</a></span><span class="list"><a><i class="icon-uniE609"></i>列表</a></span></div>
+        <!--图文模式-->
+        <section id="imagemodel" >
+            <div class="image" style="bottom: 0;overflow-y: auto;">
+                <div>
+                    <div id="iScroll" class="iScroll bWhite" style="margin-top: 100px;">
+                                <div class="hd" style="display:none;">
+                                    <ul><li>1</li><li class="">2</li><li class="">3</li></ul>
+                                </div>
+
+                        <div class="bd" id="iScroll-bd" style="margin-top:100px;">
+                            
+                        </div>
+                    </div>
+                </div><!--end scroller-->
+            </div><!--end wrapper-->
+        </section>
+        <div class="qieEye">
+            <i id="reword" class="icon-eye2"></i>
+        </div>
+        <div id="dialog2" title="显示单词">
+                <p>显示所有单词</p>
+        </div>
+
+        <!--列表模式-->
+        <section id="listmodel" >
+            <div id="wrapper">
+                <div id="scroller">
+                    <ul class="wb bWhite iStudy" id="lStudy">
+                    
+                    </ul>
+                </div><!--end scroller-->
+            </div><!--end wrapper-->
+        </section>
+        
+        <div class="bottom">
+            <div class="boxCon">
+                <a id="audioplay" class="btn bYellow02" style="background-color: #00bdc7;display:none;" >
+                    <i class="icon-uniE60C" style="font-size:1.4em;"></i><font>连读</font>
+                </a>
+            </div>
+        </div>
+    </main>
+    <div id="tips"></div>
+    <!-- <a class="prev" id="prev" style="width:50%;" style="display:none;">上一题</a>
+    <a class="next" id="next" style="width:50%;" style="display:none;">下一题</a> -->
+    <!--遮罩的代码-->
+    <div id="over" class="over"></div>
+    <div id="layout" class="layout">
+        <img src="__SUBJECT__/img/2013112931.gif" alt="" />
+    </div>
+    <style>
+        .over {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f5f5f5;
+            opacity:0.5;
+            z-index: 1000;
+        }
+        .layout {
+            display: block;
+            position: absolute;
+            top: 40%;
+            left: 40%;
+            width: 20%;
+            height: 20%;
+            z-index: 1001;
+            text-align:center;
+        }
+        .cur{
+            background-color: oldlace;
+        }
+
+        body{background:#fff}
+    </style> 
+</body>
+<script type="text/javascript">
+    var mp3wordlist="";
+    require.config({
+        paths: {
+            "learnword": "__SUBJECT__/js/learnword",
+            "touchslide": "__PUBLIC__/js/TouchSlide.1.1",
+            "iscroll":"__PUBLIC__/js/iscroll-lite",
+            "layer":"__PUBLIC__/js/layer",
+        },
+        shim: {
+            "iscroll": {
+                exports:"IScroll"
+            },
+            "touchslide": {
+                exports:"touchslide"
+            },
+            "layer": {
+                exports:"layer"
+            }
+        },
+        waitSeconds: 0
+    });
+    require(["learnword",'touchslide',"iscroll","layer"], function(learnword,touchslide,IScroll,layer){
+        $(function(){
+            //设置标题
+            $(".title").text(decodeURI(Requests["ks_short_name"]));
+            //setTitle($(".title"));
+            //初始化单词列表
+            learnword.initStudyList("getWordsDataByUnit",$("#lStudy"),$("#iScroll-bd"));
+            //滑动问题
+            var myScroll=new IScroll("#wrapper",{
+                momentum:true,
+                click:true 
+            });
+            //设置高度
+            $("#listmodel").hide();
+            var defaultIndex=0;
+            TouchSlide({ 
+                slideCell:"#iScroll",
+                titCell:".hd li",    
+                autoPage:true, //自动分页
+                effect:"left",
+                prevCell : '#prev',
+                nextCell : '#next',
+                defaultIndex:defaultIndex,
+                startFun:function(i){
+                    var bd = document.getElementById("iScroll-bd");
+                    if($("#iScroll-bd").height()<$(window).height()-88-46){
+                        bd.style.height=$(window).height()-40+"px";
+                    }
+                },
+                endFun:function(i){ //高度自适应
+                    //进行显示单词事件的注册
+                    $(".displayword").click(function(){
+                        $(this).parent().find("span").show();
+                        $(this).hide();
+                        var name=$(this).attr("mp3name");
+                       try{UXinJSInterfaceSpeech.stopAudio();}catch(e){};
+                       try{mp3.setUse(0);UXinJSInterfaceSpeech.playAudio(name);}catch(e){setTip('请升级到最新的优信');}
+                        
+                    });
+                    defaultIndex=defaultIndex+1;
+                    //clearTimeout();
+                    try{
+                        UXinJSInterfaceSpeech.stopAudio();
+                    }catch(e){
+                        setTip("请升级到最新的优信");
+                    }
+                    //判断当前是播放状态还是什么状态
+                    var status=$("#audioplay").hasClass("play");
+                    mp3.setCurindex(i);
+                    console.log($(".con").eq(i).find(".alound"));
+                    try{
+                        if(mp3.getPlaystatus()==0){
+                            $(".con").eq(i).find(".icc-song").click();
+                        }
+                    }catch(e){
+
+                    }
+                    
+                    // var bd = document.getElementById("iScroll-bd");
+                    // bd.parentNode.style.height = bd.children[i].children[0].offsetHeight+"px";
+                    // if(i>0)bd.parentNode.style.transition="200ms";//添加动画效果
+                }
+            });
+            perface();
+            //单词收藏问题
+            $("p.collect").click(function(){
+                var wordid=$(this).attr("wordid");
+                var ks_code=Requests["ks_code"];
+                var action=$(this).find("a").hasClass("cur01")?"del":"add";
+                if(action=="add"){
+                    $(this).find("a").addClass("cur01");
+                    $(this).find("a").html('<i class="icon-favorite"></i>已收藏');
+                    //修改列表中的收藏的样式
+                    $("#listmodel").find("p[wordid='"+wordid+"']").find("a").addClass("cur01");
+                    $("#listmodel").find("p[wordid='"+wordid+"']").find("a").html('<i class="icon-favorite"></i>已收藏');
+                }else if(action=="del"){
+                    console.log($(this).find("a"));
+                    $(this).find("a").removeClass("cur01");
+                    $(this).find("a").html('<i class="icon-favorite-o"></i>收藏');
+                    $("#listmodel").find("p[wordid='"+wordid+"']").find("a").removeClass("cur01");
+                    $("#listmodel").find("p[wordid='"+wordid+"']").find("a").html('<i class="icon-favorite-o"></i>收藏');
+                }
+                var source="wordread";
+                //表示的是收藏数据这里进行的是ajax异步跟新
+                $.ajax({
+                    type:'GET',
+                    url:"../Word/setWordBook",
+                    data:{wordid:wordid,action:action,ks_code:ks_code,source:source,ran:Math.random()},
+                    dataType:'json',
+                    context:$(this),
+                    complete:function(){
+                        hideloading();
+                    }
+                });
+            });
+            //生词本跳转
+            $(".head-right").click(function(){
+                try{
+                    UXinJSInterfaceSpeech.stopAudio();
+                }catch(e){
+                    setTip("请升级到最新的优信");
+                }
+                window.location.href="../User/vocabulary?callBackUrl=Word/wordstudy&ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"]+"&ks_short_name="+Requests["ks_short_name"];
+            })
+            //返回按钮的事件
+            $(".head-left").click(function(){
+                try{
+                    UXinJSInterfaceSpeech.stopAudio();
+                }catch(e){
+                    setTip("请升级到最新的优信");
+                }
+                window.location.href="wordunit?moduleid="+Requests["moduleid"];
+            })
+            //点击图文模式的点击事件
+            $(".list").bind("click",function(){
+                $(this).parent().find("a").removeClass("cur");
+                $(this).find("a").toggleClass("cur");
+                var index=$(this).index();
+                $("section").hide();
+                $("section").eq(index).show();
+                if(index==0){
+                    $(".qieEye").show();
+                    try{
+                           $("#listmodel li.cur").addClass("curplay").removeClass("cur"); 
+                       }catch(e){
+
+                       }
+                    $("#audioplay").addClass("stop").removeClass("play");
+                    //$(this).find("font").text("暂停");
+                    $("#audioplay").hide();
+                    try{
+                        clearTimeout(mp3time);
+                        UXinJSInterfaceSpeech.stopAudio();
+                    }catch(e){
+
+                    }
+                    var defaultIndex=mp3.getCurindex();
+                    defaultIndex=defaultIndex-1;
+                    if(defaultIndex==-1){
+                        defaultIndex=0;
+                    }
+                    mp3.setListstyle(1);
+                }else{
+                    $(".qieEye").hide();
+                    mp3.setPlaylist(mp3wordlist);
+                    $("#audioplay").show();
+                    $("#audioplay").find("font").text("连读");
+                    var status=$(this).hasClass("play");
+                    if(status){
+                        var curindex=mp3.getCurindex();
+                        $("#listmodel").find("li").eq(curindex).addClass("cur");
+                    }
+                    mp3.setListstyle(0);
+                    mp3.setParentobj($("#listmodel p.icon i"));
+                }
+            })
+
+            $("#reword").click(function(){
+                if($(this).hasClass("icon-eye2")){
+                    $(this).addClass("icon-eye1").removeClass("icon-eye2");
+                    setTip("隐藏所有单词");
+                    //$(".displayword").show();
+                    $(".worddisplay").hide();
+                    // $(".wordremark").hide();
+                    // $(".wordexpl").hide();
+                }else{
+                    $(this).addClass("icon-eye2").removeClass("icon-eye1");
+                    setTip("显示所有单词");
+                    //$(".displayword").hide();
+                    $(".worddisplay").show();
+                    // $(".wordremark").show();
+                    // $(".wordexpl").show();
+                }
+            })
+            
+            $("#audioplay").click(function(){
+                mp3.setPlaylist(mp3wordlist);
+                mp3.setUse(1);
+                //判断是什么状态
+                var status=$(this).hasClass("play");
+
+                //如果是正在播放
+                if(status){
+                    //需要暂停播放
+                    $(this).addClass("stop").removeClass("play");
+                    $(this).find("font").text("连读");
+                     $(this).find("i").addClass("icon-uniE60C").removeClass("icon-playt");
+                    $("#listmodel li.cur").addClass("curplay").removeClass("cur");
+                    clearTimeout(mp3time);
+                    try{
+                        UXinJSInterfaceSpeech.stopAudio();
+                    }catch(e){
+                        setTip("请升级到最新的优信");
+                    }
+                }else{
+                    //则从cur开始进行播放如果没有的话 直接列表进行播放
+                    $(this).addClass("play").removeClass("stop");
+                    $(this).find("font").text("暂停");
+                    $(this).find("i").addClass("icon-playt").removeClass("icon-uniE60C");
+                    var li=$("#listmodel li.curplay").length;
+                    var index=$("#listmodel li.curplay").index();
+                    if(li==0){
+                        $("#listmodel").find("li").eq(0).addClass("cur");
+                        index=0;
+                    }else{
+                        $("#listmodel").find("li.curplay").eq(0).addClass("cur").removeClass("curplay");
+                    }
+                    mp3.setParentobj($("#listmodel li"));
+                    mp3.setCurPlaytimes();
+                    mp3.playWordList(index,0,1);
+                }
+            });
+        })
+    });
+</script>
+</html>

@@ -1,0 +1,14 @@
+
+<div class="boxCon readBox">
+    <foreach name="chapter_list" item="chapter_list">
+    <dl class="readCon">
+        <a href="javascript:show_text_info('{$unitid}',{$key});">
+            <img src="__Himg__icon_reading.png">
+            <dt>{$chapter_list.chapter}</dt>
+            <dd>{$chapter_list.studynum}人完成</dd>
+        </a>
+    </dl>
+    </foreach>
+    <div class="clearfix"></div>            
+</div>         
+<div class="bk10"></div>   

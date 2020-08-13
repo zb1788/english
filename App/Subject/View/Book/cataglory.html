@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta charset="UTF-8">
+        <meta name="wap-font-scale" content="no">
+        <title>原声绘本</title>
+        <link rel="stylesheet" href="__SUBJECT__/book/css/currency.css" />
+        <link rel="stylesheet" href="__SUBJECT__/book/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/book/css/iscroll.css" />
+        <script type="text/javascript" src="__SUBJECT__/book/js/iscroll-lite.js" ></script>
+        <script type="text/javascript" src="__SUBJECT__/book/js/demoUtils.js" ></script>
+        <script type="text/javascript" src="__PUBLIC__/js/require.js" ></script>
+        <style>
+            #wrapper {top: 45px; bottom:0px;overflow-y: auto;}
+            ul.fen2 {padding: 5px;}
+
+            .fen2 li {width: 50%; float: left; padding: 5px;}
+            .fen2 li:nth-child(2n+1){clear: both;}
+            .boxS {display: block; background: #fcfcfc; box-shadow: 1px 1px 5px #ccc;}
+            .boxS:after {clear: both; content: ""; display: block;}
+            .hbimg {height: 0; padding-top: 80%;}
+            .hbimg img.img100 {position: absolute; top: 0; left: 0 right:0; bottom: 0;}
+            .hbimg >span {position: absolute; text-shadow: 1px 1px 3px #666; height: 40px; font-size: 0.8em; line-height: 40px; display: block; width: 100%; color: #fff; bottom: 0; box-sizing: border-box; padding: 0 5px; overflow: hidden ; text-overflow: ellipsis; white-space: nowrap;
+            background: -webkit-linear-gradient(top, rgba(0,0,0,0.1)0%, rgba(0,0,0,0.2)50%, rgba(0,0,0,0.1)98%);/* Safari、Chrome */
+            background: -o-linear-gradient(bottom, rgba(0,0,0,0.1)0%, rgba(0,0,0,0.2)50%, rgba(0,0,0,0.1)98%);/* Opera */
+            background: -moz-linear-gradient(bottom, rgba(0,0,0,0.1)0%, rgba(0,0,0,0.2)0%, rgba(0,0,0,0.1)98%);/* Firefox */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1)0%, rgba(0,0,0,0.2)50%, rgba(0,0,0,0.1)98%); }
+            .hb-jb {position: absolute; top: 5px; left: 0; background: #00bdc7; color: #fff; font-size: 0.6em; padding: 3px 5px; border-radius:0 10px 10px 0 ;}
+            .hbwz {padding: 5px 0;}
+            .hbwz h6 {line-height: 1.4em; font-size: 0.6em; padding: 0 5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+            .w60 {width: 60px;}
+            .table >* {vertical-align: middle;}
+            .hbBtn {display: inline-block; border-radius: 8px; background: #00AFB8; color: #fff; font-size:0.8em; line-height: 2em; padding: 0 10px;}
+        </style>
+        <script type="text/javascript">
+            // 是否支持orientationchange事件
+            var mql = window.matchMedia('(orientation: portrait)');
+            console.log(mql);
+            function handleOrientationChange(mql) {
+                if(mql.matches) {
+                    console.log('portrait');  // 竖屏
+                    try{
+                        $("#scroller").height($(document).height()-44+"px");
+                    }catch(e){
+
+                    }
+                    console.log('portrait');  // 竖屏
+                }else {
+                    
+                    try{
+                        $("#scroller").height($(document).height()-44+"px");
+                    }catch(e){
+
+                    }
+                    console.log('landscape'); // 横屏
+                }
+            }
+            // 输出当前屏幕模式
+            handleOrientationChange(mql);
+            // 监听屏幕模式变化
+            mql.addListener(handleOrientationChange);
+        </script>
+    </head>
+<body>
+<main>
+<header class="head border-nav">
+    <a class="head-left" href="javascript:void(0);"><i class="icon-back"></i>返回</a>
+    <h1 class="title">原声绘本</h1>
+</header>
+<section>        
+    <div id="wrapper">
+        <div id="scroller">
+            <div class=" afterBorder4">
+                <div class=" backGfff pad10 lieX">
+                    <div class="table mB10">
+                        <div class="lieL"><a class="cu">年级:</a></div>
+                        <div class="lieR" id="ztgrade">
+                            
+                        </div>
+                    </div>
+                    <div class="table mB10">
+                        <em class="lieL"><a class="cu">类型:</a></em>
+                        <div class="lieR" id="ztyear">
+                            
+                        </div>
+                    </div>
+                    <div class="table pad3">
+                        <div class="lieL"><a class="cu">主题:</a></div>
+                        <div class="lieR" id="zttheme">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hbrk">
+                <ul class="fen2" id="content">
+                    
+                </ul>
+            </div>
+        </div><!--end scroller-->
+    </div><!--end wrapper-->
+</section>
+<div id="tips"></div>
+<!-- <a class="prev" id="prev" style="width:50%;" style="display:none;">上一题</a>
+<a class="next" id="next" style="width:50%;" style="display:none;">下一题</a> -->
+<!--遮罩的代码-->
+<div id="over" class="over"></div>
+<div id="layout" class="layout">
+    <img src="__SUBJECT__/img/2013112931.gif" alt="" />
+</div>
+<style>
+    .over {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #f5f5f5;
+        opacity:0.5;
+        z-index: 1000;
+    }
+    .layout {
+        display: block;
+        position: absolute;
+        top: 40%;
+        left: 40%;
+        width: 20%;
+        height: 20%;
+        z-index: 1001;
+        text-align:center;
+    }
+    .cur{
+        background-color: oldlace;
+    }
+
+    body{background:#fff}
+</style> 
+</main>
+</body>
+<script type="text/javascript">
+    var first=1;
+    require.config({
+    　paths: {
+　　　　　　"booklist": "__SUBJECT__/js/booklist",
+　　　　    "iscroll":"__PUBLIC__/js/iscroll-lite",
+            "layer":"__PUBLIC__/js/layer",
+    　　　},
+      shim: {
+　　　　　　"iscroll": {
+　　　　　　　　exports:"iscroll"
+　　　　　　}
+    　　},
+        waitSeconds: 0
+    });
+    require(["booklist","iscroll","layer"], function(booklist,IScroll,layer){
+            first=Requests["first"];
+            var gradeid=Requests["gradeid"];
+            if(first==undefined){
+                if(gradeid=='0001'||gradeid=='0002'){
+                    first=1;
+                }else if(gradeid=='0003'||gradeid=='0004'){
+                    first=57;
+                }else if(gradeid=='0005'||gradeid=='0006'){
+                    first=3;
+                }
+            }
+            var type=0;
+            //设置标题
+            $(".title").text("绘本");
+            //$("#wrapper").height($(document).height());
+            //初始化客场单元的列表展示
+            booklist.initTopicList("getCata","getBookList",0,$("#ztgrade"),$("#ztyear"),$("#zttheme"),$("#content"),type);
+            perface();
+            //滑动问题
+            $(".head-left").click(function(){
+                Requests = GetRequest();
+                window.location.href=Requests["backUrl"];
+            });
+        });
+</script>
+</html>

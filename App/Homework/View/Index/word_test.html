@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <link href="__PUBLIC__/css/mui.min.css" rel="stylesheet"/>
+    <link href="__PUBLIC__/css/wszy.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/swiper/idangerous.swiper.css">
+    <link rel="stylesheet" href="__PUBLIC__/fonts/font-awesome/css/font-awesome.min.css">
+    <style type="text/css">
+    	body{background: #fcfcff;}
+      .ndis{display:none;}
+.zy-key a {
+    display: inline-block;
+    margin: 5px 10px 0 0;
+    width: 30%px;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    text-align: center;
+    font-size: 16px!important;
+}
+.zy-key a.btn_gray, .zy-key a.btn_gray:visited {
+    /* color: #11B962; */
+}
+.zy-key a {
+    display: inline-block;
+    margin: 0 30px 0 0;
+    width: 60px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    text-align: center;
+    font-size: 16px!important;
+}
+.zy-key a.btn_gray {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 12px;
+    display: inline-block;
+    padding: 0 10px;
+    margin-top:3px;
+    border-radius: 3px;
+    background-color: #efefef;
+}
+.zy-key a.btn_green {
+    color: #fff;
+}
+a.cur{
+  border-color: red;
+}
+
+.zy-key a.btn_green {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 12px;
+    color: #fff;
+    display: inline-block;
+    padding: 0 10px;
+    border-radius: 3px;
+    background-color: #23c973;
+}
+.zy-key a, .zy-key a.visited {
+    blr: expression(this.onFocus=this.blur());
+    outline: none;
+    text-decoration: none;
+    color: #555;
+}
+user agent stylesheeta:-webkit-any-link {
+    color: -webkit-link;
+    text-decoration: underline;
+    cursor: auto;
+}
+    </style>
+</head>
+<body id="word_test">
+  <header class="mui-bar mui-bar-nav">
+      <a class="mui-action-back mui-icon  mui-pull-left" style="padding-top:0px;color: #fff; font: normal 19px/45px Microsoft YaHei;">
+        <img width="20" height="20" src="__PUBLIC__/images/backIco.png" width="20" height="20" />返回
+      </a>
+	    <h1 class="mui-title">作业详情</h1>
+	</header>
+	<div class="head01"><i class="fa fa-pencil-square-o fa-lg"></i><span>单词测试</span></div>
+	<h2 class="leix">
+        <b>单词<strong>{$wordtestcount}</strong>个，测试习题<strong>{$wordtestcountd}</strong>道</b>
+        <span class="yeqian"><strong id="pagenum">{$num+1}</strong>/{$wordtestcountd}</span>
+  </h2>
+  <div id="iScroll" class="iScroll bWhite" style="display">
+    <span class="biaoti01 mar_t10"><s>单词测试</s></span>
+      <div class="hd" style="display:none;">
+          <ul></ul>
+      </div>
+      <div class="bd" id="iScroll-bd">
+        <if condition="$homeworkid neq 0" >
+          <foreach name="wordtest" item="vo" key="k" >
+              <foreach name="vo" item="vc" key="kc" >
+                <if condition="$vc.typeid neq '2'">
+                  <div class="pretimu con" >
+                    <div class="timu pa10 " typeid="{$vc.typeid}" quesid="{$vc.id}"  wordid="{$vc.wordid}" typeid="{$vc.typeid}">
+                        <if condition="$vc.typeid eq '0'">
+                          <h2>{$vc.explains}<span class='mp3play'><a class="edi-qiu03" mp3="{$vc.mp3}"><i class="fa fa-volume-up fa-2x"></i></a></span></h2>
+                        </if>
+                        <if condition="$vc.typeid eq '1'">
+                          <h2>{$vc.word}<span class='mp3play'><a class="edi-qiu03" mp3="{$vc.mp3}"><i class="fa fa-volume-up fa-2x"></i></a></span></h2>
+                        </if>
+                        <ul class="bdc">
+                            <li class="choose <if condition='$vc.stuanswer eq A'>cur</if>" type="2" quesid="{$vc.id}" answer="A" wordid="{$vc.wordid}"><a>A.</a>{$vc.option_a}</li>
+                            <li class="choose <if condition='$vc.stuanswer eq B'>cur</if>" type="2" quesid="{$vc.id}" answer="B" wordid="{$vc.wordid}"><a>B.</a>{$vc.option_b}</li>
+                            <li class="choose <if condition='$vc.stuanswer eq C'>cur</if>" type="2" quesid="{$vc.id}" answer="C" wordid="{$vc.wordid}"><a>C.</a>{$vc.option_c}</li>
+                        </ul>
+                    </div>
+                  </div>
+                </if>
+                <if condition="$vc.typeid eq '2'">
+                  <div class="pretimu con">
+                    <div class="timu pa10 " typeid="{$vc.typeid}" quesid="{$vc.id}"  wordid="{$vc.wordid}" typeid="{$vc.typeid}">
+                        <h2>{$vc.explains}<span class='mp3play'><a class="edi-qiu03" mp3="{$vc.mp3}"><i class="fa fa-volume-up fa-2x"></i></a></span></h2>
+                        <div class="tixing paixuti">
+                          <div class="inputs mui-text-center" quesid="{$vc.id}" answer="A" wordid="{$vc.wordid}" typeid="{$vc.typeid}">
+                            {$vc.answer}
+                            <span class="zy-back" onclick="deluserinput(this);"><img style="background:black;width:30px;height:30px;" src="__PUBLIC__/images/backIco.png" /></span>
+                          </div>
+                          <div class="zy-key  mui-text-center">
+                            {$vc.option_a}
+                          </div>
+                       </div>
+                    </div>
+                  </div>
+                </if>
+              </foreach>
+          </foreach>
+        </if>
+        <if condition="$homeworkid eq 0" >
+          <foreach name="wordtest" item="vo" key="k" >
+              <foreach name="vo" item="vc" key="kc" >
+                <if condition="$vc.typeid neq '2'">
+                  <div class="pretimu con" >
+                    <div class="timu pa10">
+                      <if condition="$vc.typeid eq '0'">
+                        <h2>{$vc.explains}<span class='mp3play'><a class="edi-qiu03" mp3="{$vc.mp3}"><i class="fa fa-volume-up fa-2x"></i></a></span></h2>
+                      </if>
+                      <if condition="$vc.typeid eq '1'">
+                        <h2>{$vc.word}<span class='mp3play'><a class="edi-qiu03" mp3="{$vc.mp3}"><i class="fa fa-volume-up fa-2x"></i></a></span></h2>
+                      </if>
+                        <ul class="bdc">
+                            <li class="choose <if condition='$vc.answer eq A'>cur</if>"><a>A.</a>{$vc.option_a}</li>
+                            <li class="choose <if condition='$vc.answer eq B'>cur</if>"><a>B.</a>{$vc.option_b}</li>
+                            <li class="choose <if condition='$vc.answer eq C'>cur</if>"><a>C.</a>{$vc.option_c}</li>
+                        </ul>
+                    </div>
+                  </div>
+                </if>
+                <if condition="$vc.typeid eq '2'">
+                  <div class="pretimu con" >
+                    <div class="timu pa10">
+                        <h2>{$vc.explains}<span class='mp3play'><a class="edi-qiu03" mp3="{$vc.mp3}"><i class="fa fa-volume-up fa-2x"></i></a></span></h2>
+                        <div class="clearfix"></div>
+                        <div class="tixing paixuti">
+                          <div class="inputs mui-text-center">
+                            {$vc.answer}
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="zy-key mui-text-center">
+                              {$vc.option_a}
+                          </div>
+                    		</div>
+                    </div>
+                  </div>
+                </if>
+              </foreach>
+          </foreach>
+
+        </if>
+        <div class="pretimu con" ></div>
+      </div>
+
+  </div>
+  <div class="mb50"></div>
+  <div class="ddel">
+    <if condition="$ispre eq '1'">
+      <a class="last" id="prev" style="width:35%;">上一题</a>
+      <a style="width:30%;" class="publish" onclick="teacher_publish(this);">发布</a>
+      <a class="next" id="next" style="width:35%;">下一题</a>
+    <else/>
+      <a class="last" id="prev" style="width:50%;">上一题</a>
+      <a class="next" id="next" style="width:50%;">下一题</a>
+    </if>
+  </div>
+  <div id="jplayer">&nbsp;</div>
+</body>
+<script src="__PUBLIC__/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/artDialog.js?skin=blue"></script>
+<script src="__PUBLIC__/js/iframeTools.source.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/hammer.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/mobile.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/mp3.js"></script>
+<script src="__PUBLIC__/js/TouchSlide.1.1.js"></script>
+<script>
+$.ajaxSetup({async:false});
+var homeworkid="{$homeworkid}";
+var source="{$scource}";
+var homeworkid="{$homeworkid}";
+var source="{$source}";
+//定义教师预览的url以及学生做题的url
+var dohomeworkurl='word_test_finish?homeworkid={$homeworkid}&paper_id={$homeworkid}&homeworkId={$ilearid}&studentId={$username}&classId={$classid}&isOverdue={$isOverdue}&batchid={$batchid}&source={$source}&sso={$sso}&backurl={$backurl}&starttime={$starttime}';
+var previewurl='student_homework?homeworkid={$homeworkid}&paper_id={$homeworkid}&homeworkId={$ilearid}&studentId={$username}&classId={$classid}&isOverdue={$isOverdue}&batchid={$batchid}&source={$source}&backurl={$backurl}&sso={$sso}&callbackURL={$callbackURL}&starttime={$starttime}';
+var teacherprenexturl='exams_quiz?username={$username}&sso={$sso}&ks_code={$ks_code}&ispre={$ispre}&homeworkid={$homeworkid}&num=0&souece=0&wa={$wa}&wt={$wt}&ta={$ta}&eq={$eq}';
+var eq='{$eq}';
+//拼写题的样式控制
+$(".inputs").each(function(){
+  $(this).find("a:eq(0)").addClass("cur");;
+});
+//分页插件
+TouchSlide({
+  slideCell:"#iScroll",
+  titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+  autoPage:true, //自动分页
+  prevCell : '#prev',
+	nextCell : '#next',
+  pnLoop:false,
+  switchLoad:"_src",
+  defaultIndex:{$num},
+  startFun:function(i){
+    if(i=={$wordtestcountd}){
+        if(homeworkid=="0"){
+            if(eq=='[]'){
+              popTheController();
+            }else{
+               window.location.href=teacherprenexturl;
+            }
+         }else{
+          if(source=="0"){
+             //学生做题的url
+             saveans(i-1);
+             window.location.href=dohomeworkurl;
+          }else{
+            //教师预览的url
+             window.location.href=previewurl;
+          }
+         }
+        return;
+    }
+  },
+  endFun:function(i){ //高度自适应
+    // var bd = document.getElementById("iScroll");
+		// bd.parentNode.style.height = bd.children[i].children[0].offsetHeight+"px";
+		// if(i>0)bd.parentNode.style.transition="200ms";//添加动画效果
+    mp.clear();
+    clearTimeout(mp3_progress);
+    $("#pagenum").text(i+1);
+    if(i>0){
+      if(homeworkid!="0"){
+        if(source=='0'){
+          saveans(i-1);
+        }
+      }
+    }
+    if(i==0){
+      $(".last").text("第一题");
+    }else{
+      $(".last").text("上一题");
+    }
+    //页面元素初始化
+    if({$wordtestcountd}==1){
+      if(homeworkid=="0"){
+        if(eq=='[]'){
+          $(".next").text("完成");
+          $(".next").addClass("cur");
+        }else{
+          $(".next").text("预览下一模块");
+          $(".next").addClass("cur");
+        }
+      }else{
+        if(source=="0"){
+          $(".next").text("作答情况");
+          $(".next").addClass("cur");
+        }else{
+          $(".next").text("完成");
+          $(".next").addClass("cur");
+        }
+      }
+    }else{
+      if((i+1)=={$wordtestcountd}){
+        if(homeworkid=="0"){
+          if(eq=='[]'){
+            $(".next").text("完成");
+            $(".next").addClass("cur");
+          }else{
+            $(".next").text("预览下一模块");
+            $(".next").addClass("cur");
+          }
+        }else{
+          if(source=="0"){
+            $(".next").text("作答情况");
+            $(".next").addClass("cur");
+          }else{
+            $(".next").text("完成");
+            $(".next").addClass("cur");
+          }
+        }
+      }else{
+        $(".next").text("下一题");
+      }
+    }
+  }
+});
+//页面进行初始化
+$(function(){
+    mui.init();
+    //返回按钮的单击事件
+    mui.back=function(){
+      var homeworkid="{$homeworkid}";
+      if(homeworkid=="0"){
+        mp.clear();
+        popTheController();
+      }else{
+        mp.clear();
+        window.location.href='{$backurl}?homeworkid={$homeworkid}&sso={$sso}&paper_id={$homeworkid}&homeworkId={$ilearid}&studentId={$username}&classId={$classid}&isOverdue={$isOverdue}&batchid={$batchid}&source={$source}&backurl={$backurl}&callbackURL={$callbackURL}&starttime={$starttime}';
+      }
+    }
+    //选择试题点击事件
+    $(".choose").click(function(){
+      var homeworkid="{$homeworkid}";
+      if(homeworkid!='0'){
+        $(this).parent().find("li").removeClass("cur");
+        $(this).addClass("cur");
+      }
+    });
+    //播放点击事件
+    $(".mp3play").click(function(){
+      var mp3=$(this).find("a").attr("mp3");
+      mp.url="/yylmp3/mp3_word/";
+      //alert(mp.url+mp3);
+      mp.play(mp.url +  mp3);
+    });
+});
+//单词测试提交
+function saveans(index){
+    var test=[];
+    //查案这个第几个试题
+    $(".timu:eq("+index+")").each(function(key,value){
+
+      var typeid=$(this).attr("typeid");
+      var obj={};
+      var quesid=$(this).attr("quesid");
+      var wordid=$(this).attr("wordid");
+      var typeid=$(this).attr("typeid");
+      var homeworkid="{$homeworkid}";
+      obj.quesid=quesid;
+      obj.typeid=typeid;
+      obj.wordid=wordid;
+      obj.homeworkid=homeworkid;
+      //选择试题的保存
+      if(typeid!='2'){
+        var answer=$(this).find("li.cur").attr("answer");
+        if($(this).find("li.cur").attr("answer")==undefined){
+          answer="";
+        }
+        obj.answer=answer;
+        test.push(obj);
+      }else{
+        //拼写试题的保存
+        var answer="";
+        var i=0;
+        $(this).find(".inputs a").each(function(k1,v1){
+          var text=$(this).html();
+           if($(this).html()=="&nbsp;"){
+             text="";
+           }
+           answer=answer+","+text;
+        });
+        obj.answer=answer;
+        test.push(obj);
+      }
+    });
+    //window.location.href="http://en.czbanbantong.com/homework/index/student_answer?data="+encodeURI(JSON.stringify(test);
+    $.post("student_answer",{data:encodeURI(JSON.stringify(test)),type:'2',ran:Math.random()});
+}
+
+
+//作业发布问题
+var ishttps=document.location.protocol;
+function teacher_publish(obj){
+  var ks_code="{$ks_code}";
+  var username="{$username}";
+  var wa='{$wa}';
+  var wt='{$wt}';
+  var ta='{$ta}';
+  var eq='{$eq}';
+  $(obj).attr("disbaled",true);
+  var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+  $.post("teacher_english_publish",{ks_code:ks_code,username:username,wa:wa,wt:wt,ta:ta,eq:eq,ran:Math.random()},function(data){
+      dloading.close();
+
+      var url=ishttps+"//{$tqms}/tqms/mobile/homework/toEnPublishPage.action?username="+data.username+"&paper_id="+data.homeworkid+"&ks_code="+data.ks_code+"&paper_name="+encodeURIComponent(data.name);
+      //alert(url);
+
+      openProgressController(url);
+      
+  });
+}
+function deluserinput(obj){
+   //并且将li进行前置
+   var index=getindex($(obj).parent().find("a"),"cur");
+   $(obj).parent().find("a.cur").html("&nbsp;");
+   $(obj).parent().parent().find("div.zy-key").find("a[index="+(index)+"]").removeClass("btn_green").addClass("btn_gray");
+   $(obj).parent().parent().find("div.zy-key").find("a[index="+(index)+"]").attr("index","");
+   if(index>0){
+     $(obj).parent().find("a").removeClass("cur");
+     $(obj).parent().find("a:eq("+(index-1)+")").addClass("cur");
+   }else{return;}
+}
+
+//获取当前的是第几道试题
+function getindex(obj,attr){
+  var index=-1;
+  var reind=0;
+  $(obj).each(function(){
+    index=index+1;
+    if($(this).hasClass(attr)){
+      reind=index;
+    }
+  });
+  return reind;
+}
+//手机获取焦点
+function afocus(obj){
+  $(obj).parent().find("a").removeClass("cur");
+  $(obj).addClass("cur");
+}
+//手机拼写试题点击输入
+function px(obj){
+  if($(obj).hasClass("btn_gray")&&$(obj).parents(".tixing").find(".inputs a.cur").length>0){
+    var text=$(obj).text();
+    //获取是第几个
+    var index=getindex($(obj).parent().parent().find("div.inputs").find("a"),"cur");
+    $(obj).parent().find("a[index='"+index+"']").removeClass("btn_green").addClass("btn_gray");
+    $(obj).parent().parent().find("div.inputs").find("a.cur").attr("index",index);
+    $(obj).attr("index",index);
+    $(obj).parent().parent().find("div.inputs").find("a.cur").html(text);
+    $(obj).removeClass("btn_gray").addClass("btn_green");
+    if($(obj).parent().parent().find("a.cur").next("a").length>0){
+      afocus($(obj).parent().parent().find("div.inputs").find("a.cur").next("a"));
+    }
+  }
+}
+</script>
+</html>

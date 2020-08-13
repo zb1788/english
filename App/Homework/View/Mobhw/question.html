@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="wap-font-scale" content="no">
+		<link href="__PUBLIC__/css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		.mui-card .mui-control-content {
+			padding: 10px;
+		}
+		.mui-control-content {
+			min-height: 50px;
+		}
+	</style>
+
+	<body>
+		<div class="mui-content">
+		    <div>
+				<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+					<li class="mui-table-view-cell">
+						<h4 >
+							2015年河南省中招考试
+							<span class="mui-pull-right" id="quesnum">
+								<strong style="color:red;font-size:1.5em;" id="quesindex">{$index+1}</strong>/{$quescount}
+							</span>
+						</h4>
+						
+					</li>
+				</ul>
+			</div>
+			<div class="content" id="content">
+				
+			</div>	
+		</div>
+		<script type="text/javascript" src="__PUBLIC__/js/mui.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/websql.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/learn.js"></script>
+		<script type="text/javascript">
+		    getRespose('getQuestion',"网络请求出错请等会儿再试试",0);
+			websqlOpenDB();
+			websqlCreatTable("question");
+		</script>
+	</body>
+
+</html>

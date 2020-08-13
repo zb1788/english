@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+    <TITLE>下载课时工具</TITLE>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="__PUBLIC__/tree/css/demo.css" type="text/css">
+    <link rel="stylesheet" href="__PUBLIC__/tree/css/metroStyle/metroStyle.css" type="text/css">
+    <script type="text/javascript" src="__PUBLIC__/tree/js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/tree/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/tree/js/jquery.ztree.excheck.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/tree/js/jquery.ztree.exedit.js"></script>
+    <SCRIPT type="text/javascript">
+        var data=[];
+        var setting = {
+            async: {
+                enable: true,
+                url: getUrl
+            },
+            check: {
+                enable: true
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            view: {
+                expandSpeed: ""
+            },
+            callback: {
+                beforeExpand: beforeExpand,
+                onAsyncSuccess: onAsyncSuccess,
+                onAsyncError: onAsyncError,
+                onCheck:onCheck
+            }
+        };
+
+        var zNodes =[
+            <volist name="versions" id="version">
+                { id:"v_{$version.detail_code}", pId:0, name:"{$version.detail_name}",isParent:true,nocheck:false,enable:false},
+            </volist> 
+        ];
+        var log, className = "dark",
+        startTime = 0, endTime = 0, perCount = 100, perTime = 100;
+        
+        function getUrl(treeId, treeNode) {
+            var curCount = (treeNode.children) ? treeNode.children.length : 0;
+            var getCount = (curCount + perCount) > treeNode.count ? (treeNode.count - curCount) : perCount;
+            var param = "id="+treeNode.id+"&count="+getCount;
+            return "getNodesForBigData?" + param;
+        }
+        function beforeExpand(treeId, treeNode) {
+            if (!treeNode.isAjaxing) {
+                startTime = new Date();
+                treeNode.times = 1;
+                ajaxGetNodes(treeNode, "refresh");
+                return true;
+            } else {
+                alert("zTree 正在下载数据中，请稍后展开节点。。。");
+                return false;
+            }
+        }
+        function onAsyncSuccess(event, treeId, treeNode, msg) {
+            if (!msg || msg.length == 0) {
+                return;
+            }
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+            totalCount = treeNode.count;
+            if (treeNode.children.length < totalCount) {
+                setTimeout(function() {ajaxGetNodes(treeNode);}, perTime);
+            } else {
+                treeNode.icon = "";
+                zTree.updateNode(treeNode);
+                zTree.selectNode(treeNode.children[0]);
+                endTime = new Date();
+                var usedTime = (endTime.getTime() - startTime.getTime())/1000;
+                className = (className === "dark" ? "":"dark");
+                showLog("[ "+getTime()+" ]&nbsp;&nbsp;treeNode:" + treeNode.name );
+                showLog("加载完毕，共进行 "+ (treeNode.times-1) +" 次异步加载, 耗时："+ usedTime + " 秒");
+            }
+        }
+        function onAsyncError(event, treeId, treeNode, XMLHttpRequest, textStatus, errorThrown) {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            alert("异步获取数据出现异常。");
+            treeNode.icon = "";
+            zTree.updateNode(treeNode);
+        }
+        function ajaxGetNodes(treeNode, reloadType) {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            if (reloadType == "refresh") {
+                treeNode.icon = "__PUBLIC__/tree/css/zTreeStyle/img/loading.gif";
+                zTree.updateNode(treeNode);
+            }
+            zTree.reAsyncChildNodes(treeNode, reloadType, true);
+        }
+        function showLog(str) {
+            if (!log) log = $("#log");
+            log.append("<li class='"+className+"'>"+str+"</li>");
+            if(log.children("li").length > 4) {
+                log.get(0).removeChild(log.children("li")[0]);
+            }
+        }
+        function getTime() {
+            var now= new Date(),
+            h=now.getHours(),
+            m=now.getMinutes(),
+            s=now.getSeconds(),
+            ms=now.getMilliseconds();
+            return (h+":"+m+":"+s+ " " +ms);
+        }
+
+        $(document).ready(function(){
+            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+
+        });
+
+        function onCheck(e,treeId,treeNode){
+            var treeObj=$.fn.zTree.getZTreeObj("treeDemo"),
+            nodes=treeObj.getCheckedNodes(true),
+            data=[];
+            for(var i=0;i<nodes.length;i++){
+                data.push(nodes[i].id);
+                $("#exports").attr("data",escape(JSON.stringify(data)));
+            }
+            
+        }
+
+        //导出时间
+        //
+        function c_downLoad(arg) {
+            var downLoad = {
+                url: arg.url,
+                dataModel: arg.dataModel
+            }
+            downLoad.init = function () {
+                var form = $("<form>");//定义一个form表单
+                form.attr("style", "display:none");
+                form.attr("target", "");
+                form.attr("method", "post");
+                form.attr("action", downLoad.url);//URL
+                var arrFile = downLoad.dataModel;
+                if (downLoad.dataModel != null) {
+                    var input = $("<input>");
+                    input.attr("type", "hidden");
+                    input.attr("name", "arrFile");
+                    input.attr("value", arrFile);
+                    form.append(input);
+                }
+                $("body").append(form);//将表单放置在web中
+                form.submit();//表单提交 
+                form.remove();//移除该临时元素
+            }
+            return downLoad;
+        }
+
+        function exports(obj){
+            var data=$(obj).attr("data");
+            console.log(data);
+            var arg={};
+            arg.url='export';
+            arg.dataModel=data;
+            
+            if(data==""){return false;}
+            var u = c_downLoad(arg);
+            u.init();
+        }
+    </SCRIPT>
+</HEAD>
+
+<BODY>
+<div class="content_wrap">
+    <p>请选中最后一级再进行下载，点击导出下载课时包,下载过程会比较慢 请耐心等待，尽量一两个单元下载</p>
+    <div class="zTreeDemoBackground left">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+    <button id="exports" onclick="javascript:exports(this);" data="">导出</button>
+</div>
+</BODY>
+</HTML>

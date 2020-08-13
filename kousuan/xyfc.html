@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+<link href="css/css.css" rel="stylesheet" type="text/css" />
+<link href="js/layer-mobile/need/layer.css" rel="stylesheet" type="text/css" />
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    
+    <div class="top" id="top"><img src="images/top.jpg" /></div>
+	
+	<div class="box4 pad10">
+		<div class="qiemd" >
+			<ul id="circle">
+				<li class="on" id="0">A轮排名</li>
+				<li id="1">B轮排名</li>
+				<li id="2">获奖名单</li>
+				<div class="clearfix"></div>
+			</ul>
+		</div>
+	<div class="mb20"><img src="images/ct_08.jpg" class="img100"/></div>
+    <div style=" background: #fff;">                                         
+   	<div class="qieA" id="qieA"><span class="cur" id="0002">二年级</span><span id="0003">三年级</span><span id="0004">四年级</span><span id="0005">五年级</span><span id="0006">六年级</span></div>
+     <table class="bdlist" id="getresult">
+	 </table>
+    </div>
+
+ </div>
+	<a href="#top" class="gtop"><img src="images/gtop.jpg" width="40" /></a>
+	<div class="bebottom">
+		<a href="javascript:void(0)" id="index" ><span>竞赛公告</span></a>
+		<a href="javascript:void(0)" id="active"><span>竞赛活动</span></a>
+		<a href="javascript:void(0)" id="rank"  class="cur"><span>竞赛排名</span></a>
+	</div>
+<script type="text/javascript" src="js/jquery.min.js" ></script>
+<script type="text/javascript" src="js/layer-mobile/layer.js" ></script>
+<script type="text/javascript" src="js/kousuan.js" ></script>
+<script>
+    var gradeid='0002';
+	var type=0;
+	$(document).ready(function(){
+		 getSign(auth);
+		 $("#rank").attr("href",rank);
+		 $("#index").attr("href",index);
+		 checkTimeResult(gradeid,type);
+	});
+    
+    $("#circle li").click(function(){
+	  $(this).siblings().removeClass('on');
+	  $(this).addClass('on');
+	  type=$(this).attr("id");
+	  checkTimeResult(gradeid,type);
+	});
+
+	$(".qieA span").click(function(){
+	  $(this).siblings().removeClass('cur');
+	  $(this).addClass('cur');
+	  gradeid=$(this).attr("id");
+	  checkTimeResult(gradeid,type);
+	});
+
+	
+</script>
+</body>
+
+</html>

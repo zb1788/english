@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Flash列表</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+</head>
+<body>
+<div class="place"><strong>位置</strong>：首页 &gt; 课文Flash动画列表</div>
+ 
+<div class="container">
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+        <tr>
+          <td class="box_top pl_10 f14"><strong>搜索</strong></td>
+        </tr>
+        <tr>
+          <td class="pl_5">
+            <table border="0" cellspacing="0" cellpadding="0" class="form_table">
+            <tr>
+              <td width="50" align="right">年级：</td>
+              <td><select name="gradeid" class="select" id="gradeid">
+              </select></td>
+              <td width="50" align="right">学期：</td>
+              <td><select name="termid" class="select" id="termid">
+                <option value="1">上学期</option>
+                <option value="2">下学期</option>
+                <option value="3">全一册</option>
+              </select></td>
+              <td width="50" align="right">版本：</td>
+              <td><select name="versionid" class="select" id="versionid">
+              </select></td>
+              <td width="50" align="right">单元：</td>
+              <td><select name="unitid" class="select" id="unitid">
+              </select></td>
+              <td>&nbsp;&nbsp;<input type="button" class="btn btn82 btn_search" id="check" value="查询" /></td>
+            </tr>
+          </table>
+           
+        </tr>
+      </table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="42">
+      <input name="按钮" id="addflash" BID="0" type="button" class="ext_btn ext_btn_submit" value="添加Flash" />
+    </td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+  <tr>
+    <th width="30">&nbsp;</th>
+    <th width="200">Flash标题</th>
+    <th width="400">对应章节</th>
+    <th width="100">状态</th>
+    <th >操作</th>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_demo" style="display:none;"> 
+  <tr class="tr">
+    <td>&nbsp;</td>
+    <td align="left">&nbsp;</td>
+    <td align="left">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="left">&nbsp;
+    <input type="button"  class="ext_btn btn_edit" value="编辑" bid=""/>&nbsp;
+    <input type="button" class="ext_btn ext_btn_error" value="删除" bid=""/>&nbsp;   
+    <a href="../Flash/flashdown" target="_blank" class="ext_btn ext_btn_submit btn_down">下载</a>&nbsp;
+    <input type="button" class="ext_btn ext_btn_success btn_reset" value="重置" />&nbsp;
+    </td>
+  </tr>
+</table>
+</div> 
+<script type="text/javascript">  
+  
+$(function(){
+  $.ajaxSetup({async:false});
+   $(".tr:odd").css("background", "#F5F8FA");
+  $('.tr:odd').live('hover',function(event){
+    if(event.type=='mouseenter'){
+      $(this).css("background-color", "#E5EBEE");
+    }else{
+      $(this).css("background-color", "#F5F8FA");
+    }
+  });
+
+  $('.tr:even').live('hover',function(event){
+    if(event.type=='mouseenter'){
+      $(this).css("background-color", "#E5EBEE");
+    }else{
+      $(this).css("background-color", "#FFF");
+    }
+  });
+  $('#termid').val(__TERMID__); 
+  $.EBC.setGrade($('#gradeid')); 
+  $.EBC.setVersion($('#versionid'),$('#gradeid').val());
+  $.EBC.setUnit($('#unitid'),$('#gradeid').val(),$('#versionid').val(),$('#termid').val());
+  list();
+  $("#gradeid").change(function(){ 
+    $.EBC.setVersion($('#versionid'),$('#gradeid').val());
+    $.EBC.setUnit($('#unitid'),$('#gradeid').val(),$('#versionid').val(),$('#termid').val());
+  });
+  $("#versionid").change(function(){  
+    $.EBC.setUnit($('#unitid'),$('#gradeid').val(),$('#versionid').val(),$('#termid').val());
+  });
+  $("#termid").change(function(){
+    $.EBC.setUnit($('#unitid'),$('#gradeid').val(),$('#versionid').val(),$('#termid').val());
+  });
+ 
+  $("#addflash").click(function() {   
+    edit(0);  
+  });
+
+  $(".btn_edit").live("click",function() {   
+    edit($(this).attr("BID")); 
+  });
+
+  $(".btn_reset").live("click",function() {   
+    var flashid = $(this).attr("BID");
+    $.get("../flash/flashreset",{flashid:flashid,random:Math.random()},function(){
+      list();
+    });
+    art.dialog.tips('重置成功..', 0.5);
+  });
+  $("#table_data .ext_btn_error").live("click",function(){
+    var tr = $(this).parents("tr");
+    var flashid = $(this).attr("BID");
+    art.dialog.confirm('你确定要删除此Flash吗？', function () {
+      $.get("../flash/falshTextDel",{flashid:flashid,random:Math.random()},function(){
+        tr.remove();
+      });
+    });
+  }); 
+  $("#check").click(function(){
+    list();
+  });
+});
+
+function list()
+{
+  var grade=$("#gradeid").val();
+  var term=$("#termid").val();
+  var version=$("#versionid").val();
+  var unit=$("#unitid").val();
+  if(grade&&term&&version&&unit){
+    $.getJSON("../Flash/getFlashTextList", {unit:unit,r:Math.random()}, function(data){
+      $("#table_data td").parents("tr").remove();
+      if(data=='0')
+      {
+        $("#table_data").hide();
+        $("#result").html("对不起此单元下没有Flash请添加").show();
+      }
+      else
+      {
+        $("#table_data").show();
+        var i = 1;
+        $.each(data,function(key,value){
+          // //text=text+'<tr align="center"><td width="20%" align="center">'+i+'</td><td width="60%">'+value.word+'</td><td></td></tr>';
+          var tr = $("#table_demo tr").eq(0).clone();
+          var td = tr.children('td').eq(0);
+          td.html(i);        
+          td = tr.children('td').eq(1);
+          td.html(value.title);
+          td = tr.children('td').eq(2);                   
+          td.html(value.chapterlist);
+
+          td = tr.children('td').eq(3);   
+          if (value.flag == 0) {
+            td.html("<span class='red'>待生成</span>");
+            tr.find("input.btn_reset").hide();
+            tr.find("a.btn_down").hide();
+          } else{
+            td.html("已生成");
+            tr.find("a").attr("href","{:C('CONST_FLASH_PATH')}" + "T"+value.id + ".zip");
+          } 
+          tr.find("input").attr("BID",value.id); 
+          tr.appendTo("#table_data");
+          i++;
+        }); 
+      }
+    });
+  }
+
+}
+
+function edit(vid)
+{
+  var unit=$("#unitid").val();
+  var version=$("#versionid").val();
+  var term=$("#termid").val();
+  var grade=$("#gradeid").val();
+  var myDialog = $.dialog.open('../Flash/flashtextedit?gradeid='+grade+'&versionid='+version+'&termid='+term+'&unitid='+unit+'&id=' + vid,{
+    id:'verson_edit',
+    title:'添加FLASH的章节',
+    window:'top',
+    width:600,
+    height:450,
+    lock:true,
+    opacity:0.3,
+    button: [
+      {
+        name: '保存',
+        callback: function () {  
+          var iframe = this.iframe.contentWindow; 
+          var re=iframe.saveEdit();
+          //alert(re);
+          var closeflag=true;
+          if(!re) {return false;}
+          if (vid == 0) {            
+            art.dialog.confirm('添加成功，是否继续添加', function () {
+              edit(vid);   
+              closeflag =  false;   
+            }, function () { 
+              //location.reload();
+              $("#check").click();
+              closeflag =  true;   
+            });
+          }else{
+              $("#check").click();
+          } 
+          return closeflag;
+        },
+        focus: true
+      },
+      {
+        name: '关闭',
+        callback: function () {
+          return true; 
+        },
+        focus: false
+      }
+    ]
+  });
+}  
+</script>
+</body>
+</html>

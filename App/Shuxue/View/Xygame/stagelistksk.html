@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="wap-font-scale" content="no">
+  <meta charset="UTF-8">
+  <title>英语同步练</title>
+  <link rel="stylesheet" href="__PUBLIC__/game/stage/style/css/cssNew.css" />
+  <link rel="stylesheet" href="__PUBLIC__/game/stage/style/font/fonts.css" />
+  <script type="text/javascript" src="__SUBJECT__/react/js/jquery.min.js"></script>
+  <script type="text/javascript" src="__SUBJECT__/react/js/performance.js"></script>
+  <script type="text/javascript" src="__SUBJECT__/react/js/common.js"></script>
+  <script type="text/javascript">
+    var datasource = "__PUBLIC__";
+    var subject = "__SUBJECT__";
+
+    function checkLocalStorage() {
+      if (!window.localStorage) {
+        mui.toast("您的手机不支持预览功能");
+        return false;
+      }
+    }
+
+    /**
+     * 存储内容到localStorage
+     * 【主要】如果是json格式需要encodeURI(JSON.stringify(value)),取的时候decodeURI(value)
+     * @param {[String]} name  [名称]
+     * @param {[String]} value [值]
+     */
+    function setLocalStorage(name, value) {
+      checkLocalStorage();
+      window.localStorage.setItem(name, value);
+    }
+
+    function getLocalStorage(name) {
+      checkLocalStorage();
+      var value = window.localStorage.getItem(name);
+      return decodeURI(value);
+    }
+
+    var playurl = 'playksk?genreid=' + getLocalStorage('sx_genreid') +
+      '&gradeid=' +
+      getLocalStorage('sx_gradeid') +
+      '&subjectid=' + getLocalStorage('sx_subjectid') + '&moduleid=' + getLocalStorage('sx_moduleid') + '&urlCallBack=' +
+      encodeURIComponent(Requests[
+        'urlCallBack']) + '&type=1';
+
+    var backurl =
+      'genre?gradeid=' + getLocalStorage('sx_gradeid') + '&subjectid=' + getLocalStorage('sx_subjectid') + '&moduleid=' +
+      getLocalStorage('sx_moduleid') + '&urlCallBack=' + encodeURIComponent(Requests[
+        'urlCallBack']);
+    var sx_title = getLocalStorage('sx_title');
+  </script>
+</head>
+
+<body>
+  <main id="example">
+
+  </main>
+  <script type="text/javascript" src="__PUBLIC__/game/stage/js/math.js"></script>
+</body>
+<script type="text/javascript">
+  $.windowbox = {
+    //定义一个方法aa 
+    aa: function () {
+      $(window).width() > $(window).height() && $('.deTanImg').css({
+        'left': '30%',
+        'right': '30%'
+      })
+    },
+    //定义一个方法bb 
+    bb: function () {
+      $(window).width() < $(window).height() && $('.deTanImg').css({
+        'left': '10%',
+        'right': '10%'
+      })
+    },
+  }
+  $.windowbox.aa();
+  $.windowbox.bb();
+  $(window).resize(function () {
+    $.windowbox.aa();
+    $.windowbox.bb();
+  })
+</script>
+<script type="text/javascript" src="__ROOTPATH__/public/js/unitlog.js"></script>
+
+</html>

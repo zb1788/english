@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<meta name="wap-font-scale" content="no">
+		<title>英语同步练</title>
+		<link rel="stylesheet" href="__ELEARN__css/weike.css" />
+		<link rel="stylesheet" href="__ELEARN__font/fonts.css" />
+		<link rel="stylesheet" href="__ELEARN__css/iscroll.css" />
+		<script type="text/javascript" src="__PUBLIC__/js/require.js" data-main="__ELEARN__/js/main" ></script>
+<style>
+	#wrapper {top: 200px; bottom: 70px;}
+</style>
+</head>
+<body>
+<div id="over" class="over"></div>
+	    <div id="layout" class="layout">
+	    <img src="__ELEARN__/images/layout.gif" alt="" />
+</div>
+<main>
+<header class="head border-nav">
+			<a class="head-left" href="javascript:;"><i class="icon-back"></i>返回</a>
+			<eq name="isterm" value="1">
+			<a class="head-right" onclick="javascript:window.location.href='setbook?app_id={$app_id}&subject_code={$subject_code}&version_id={$version_id}&backUrl={$backUrl}'">换教材</a>
+		    </eq>
+			<h1 class="title">{$app_name}</h1>
+					</header>
+					<div class="mT45 classTop backGfff afterBorder8">
+						
+							
+								<span class="fl pad10"><img src="__RESOURCE__{$r_pic}" /></span>
+								<span class="fr pad10">
+									<h2>{$h2name}</h2>
+									<neq name="r_version_name" value=""><h3 class="textH3">{$r_version_name}</h3></neq>
+									<neq name="r_remark" value=""><h5 class="textH4">{$r_remark}</h5></neq>
+									<!--<a class="aBtn bDefault"><i class="icon-ddown"></i><b>下载</b></a>-->
+								    <p class="textP"><!-- <strong>背单词秘籍</strong><i class="icon-uniF005"></i><i class="icon-uniF005"></i><i class="icon-uniF005"></i><i class="icon-uniF005"></i><i class="icon-uniF005"></i><br /> -->{$app_drumbeating}</p>
+								</span>
+							
+						
+					</div>
+		<div id="iScroll" class="iScroll bWhite">
+        <div class="hd qie_b fen3">
+        <ul class="tabs">
+                 <li class="on" hidefocus="true" >目录</li>
+                <li hidefocus="true" >简介</li>
+                <!-- <li hidefocus="true" >评价</li> -->
+		</ul></div>
+        <div class="tempWrap" >
+        	<div class="bd" id="iScroll-bd" style="width: 981px; position: relative; overflow: hidden; padding: 0px; margin: 0px; transition-duration: 200ms; -webkit-transition-duration: 200ms; -webkit-transform: translate(0px, 0px) translateZ(0px);">
+            <eq name="isunit" value="1">
+            <eq name="unit_type" value="0">
+            <div class="con">
+                <ul>
+                    <div class="overYz">
+			<ul class="classList">
+			<volist name="unitlist" id="unitvo">
+				<eq name="unitvo.is_click" value="1">
+					<h2 onclick="list(this)"><s></s>{$unitvo.name}</h2>
+					<else/>
+					<gt name="unitvo.learn_num" value="0">
+					<!-- <li class="ture"><s></s><span class="fl">Unit1 PartA</span><span class="fr fonG">已练习<i class="icon-right"></i></span></li> -->
+					<li class="ture" app_id="{$app_id}" version_id="{$version_id}" subject_code="{$subject_code}" unit_id={$unitvo.id} title="{$unitvo.name}" isterm="{$isterm}" isunit="{$isunit}"><s></s><span class="fl">{$unitvo.name}</span><span class="fr fonG">已学习<i class="icon-right"></i></span></li>
+					<else/>
+					<li app_id="{$app_id}" version_id="{$version_id}" subject_code="{$subject_code}" unit_id={$unitvo.id} title="{$unitvo.name}" isterm="{$isterm}" isunit="{$isunit}"><s></s><span class="fl">{$unitvo.name}</span><span class="fr fonG"><i class="icon-right"></i></span></li>
+					</gt>
+				</eq>
+			</volist>
+			</ul></div>
+			<div class="height50"></div>
+                </ul>
+            </div>
+            <else/>
+              <div class="con backGfff">
+				<ul class="splist">
+					<volist name="unitlist" id="unitvo">
+					 <eq name="unitvo.is_click" value="0">
+						<li><a href="course?app_id={$app_id}&version_id={$version_id}&subject_code={$subject_code}&isterm={$isterm}&isunit={$isunit}&unit_id={$unitvo.id}&backUrl={$backUrl}&title={$unitvo.name}"><div class="img pad10"><span><img src="__RESOURCE__{$unitvo.pic}"><!-- <em class="twz">{$unitvo.name}</em> --></span></div>
+							<div class="nr"><p class="textP3">{$unitvo.name}</p>
+								<!-- <p class="clear"><span class="xing"><label>评价：</label><i class="icon-uniF005"></i><i class="icon-uniF005"></i><i class="icon-uniF005"></i><i class="icon-uniF006"></i><i class="icon-uniF006"></i></span><span class="fontb redFont">免费</span></p> -->
+							</div>
+						
+					</a>
+					</li>
+					</eq>
+					</volist>
+					<div class="height50"></div>
+					</ul>
+			   </div>
+        </eq>
+        <else/>
+            <div class="con backGfff">
+				<ul class="splist video">
+					<volist name="courselist" id="vo">
+						<li videocode="{$vo.video_code}" <gt name="vo.learn_num" value="0">class="ture"</gt>><div class="img pad10 videoplay" videocode="{$vo.video_code}" isspecial="{$isspecial}" bid="{$vo.id}" title="{$app_name}" videotitle="{$vo.title}"><span><img src="__RESOURCE__{$vo.pic}"><gt name="vo.learn_num" value="0"><em class="twz">已学习</em></gt></span></div>
+							<div class="nr"><p class="textP3 videoplay" videocode="{$vo.video_code}" isspecial="{$isspecial}" bid="{$vo.id}" title="{$app_name}" videotitle="{$vo.title}">{$vo.title}</p>
+								<!-- <p class="clear"><span class="fontb redFont">免费体验</span></p> -->
+								<p class="btt"><a class="aBtn bBlue videoplay" videocode="{$vo.video_code}" isspecial="{$isspecial}" bid="{$vo.id}" title="{$app_name}" videotitle="{$vo.title}">学一学</a><eq name="isspecial" value="0"><gt name="vo.q_num" value="0"><a class="aBtn bPink" href="/Elearn/question/index?app_id={$app_id}&course_id={$vo.id}
+				&backUrl={$backUrl}&videotitle={$vo.title}&course_back=/Elearn/index/index">练一练</a></gt></eq> </p>
+							</div>
+						</li>
+					
+					</volist>
+					<div class="height50"></div>
+				</ul>
+
+			   </div>
+        </eq>
+            <div class="con">
+                <ul>
+
+                    <div class="overYz">
+<div class="ms-jj">
+			<h2>适用对象：</h2>
+			<ul>
+			<volist name="app_object" id="object">
+			<li><span class="mui-badge mui-badge-danger">{$key+1}</span>{$object}</li>
+			</volist>
+			</ul>
+			<h2>培养目标：</h2>
+			<ul>
+			<volist name="app_target" id="target">
+			<li><span class="mui-badge mui-badge-warning">{$key+1}</span>{$target}</li>
+			</volist>
+			</ul>
+			<h2>课程特色：</h2>
+
+			<img src="__RESOURCE__{$pic_feat}" />
+			<h2>课程大纲：</h2>
+			<img src="__RESOURCE__{$pic_content}" />
+			<h2>课程名师：</h2>
+			<img src="__RESOURCE__{$pic_teac}" />
+		</div>
+							</div>
+					<div class="height50"></div>
+                </ul>
+                
+            </div>             
+            <div class="con">
+            	<ul>
+
+                    
+<div class="ms-ping pingxx">
+			<ul>
+			<volist name="pingjia" id="vo">
+			<li><span class="toux"><img src="__ELEARN__img/tou.png"></span>
+					<div class="ping">
+						<p><label>{$vo.truename}</label>
+						<span class="xing"><em>评价：</em>
+						<for start="1" end="6">
+							<egt name="vo.score" value="$i">
+								<i class="icon-uniF005"></i>
+							<else/>
+							<i class="icon-uniF006"></i>
+							</egt>
+						</for>
+						</span></p>
+						<p>{$vo.content}</p>
+  <p class="clear"><span class="time">{$vo.evaluate_time}</span></p>
+					</div>
+				</li>
+			</volist>
+			</ul>
+			<div class="height50"></div>
+		</div>
+            	</ul>
+            </div>                               
+
+        </div></div>
+    </div>
+<a href="/Elearn/index/ping?app_id={$app_id}&backUrl={$backUrl}&app_name={$app_name}" class=" pos-bottom btn-bottom" id="pl" style="display: none;"><span>去评价</span></a>
+<script type="text/javascript">
+var pls_url="{$pls_url}";
+var userName = "{$username}";
+var app_moduleid = "{$app_moduleid}";
+var ishttps=document.location.protocol;
+require(['zepto.min','enElearn','TouchSlide.1.1'],function($){
+	$(function(){
+		hideloading();
+		var Request = new Object();
+        	Request = GetRequest();
+		TouchSlide({ slideCell:"#iScroll",
+	       endFun:function(i){ //高度自适应
+	          var bd = document.getElementById("iScroll-bd");
+	          bd.parentNode.style.height = bd.children[i].children[0].offsetHeight+"px";
+	          bd.parentNode.style.width = "100%";
+	           if(i>0)bd.parentNode.style.transition="200ms";//添加动画效果
+	           //console.log(i);
+	           if(i >1){
+	           	 $('#pl').show();
+	           }
+	           else{
+	           	$('#pl').hide();
+	           }
+	       }
+    	});
+    	$(".tabs li").on('touchstart mousedown',function(e){
+		    $(".tabs .on").removeClass('on');
+		    $(this).addClass('on');
+		});
+		// href="course_show?app_id={$app_id}&course_id={$vo.id}&title={$title}&backUrl={$backUrl}"
+		$('.videoplay').click(function(){
+			var isspecial = $(this).attr('isspecial');
+			var course_id = $(this).attr('bid');
+			var ks_name = $(this).attr('videotitle');
+			//alert(isspecial);
+			if(isspecial == 0){
+				$.getJSON(ishttps+"//"+pls_url+"/youjiao/doMutiplePlay.do?jsoncallback=?",
+			      {
+			        rcode:$(this).attr('videocode'),
+			        userName:userName,
+			        filterType:2,
+			        outType:1
+			      },
+			      function(data){
+			      	//console.log(data.jsonList[0].list[0].path);
+			      	//console.log(course_id);
+			      	$.get('saveLearnRecord',{app_id:Request["app_id"],course_id:course_id},function(result){
+			      		$.get('/Subject/Public/setUserModuleUnitLog',{ks_code:0,moduleid:app_moduleid,ks_name:ks_name},function(){
+			      			window.location.href= data.jsonList[0].list[0].path;
+			      		});
+			      		
+			      	});
+			      	
+			      });
+			}
+			else{
+				window.location.href="course_show?app_id="+Request["app_id"]+"&course_id="+$(this).attr('bid')+"&title="+$(this).attr('title')+"&backUrl="+Request["backUrl"]+"&course_back=/Elearn/index/index";
+			}
+			
+		});
+		
+		$('ul.classList li').bind('click',function(){
+			window.location.href = "/Elearn/index/course?app_id="+$(this).attr('app_id')+"&version_id="+$(this).attr('version_id')+"&subject_code="+$(this).attr('subject_code')+"&unit_id="+$(this).attr('unit_id')+"&isterm="+$(this).attr('isterm')+"&isunit="+$(this).attr('isunit')+"&title="+$(this).attr('title')+"&backUrl="+Request["backUrl"];
+		});
+		
+		$(".head-left").click(function(){
+	    		window.location.href=Request["backUrl"];
+	    });
+	});
+});
+    
+
+</script>
+</main>
+<!--遮罩的代码-->
+</body>
+</html>

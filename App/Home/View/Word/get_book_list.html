@@ -1,0 +1,46 @@
+<eq name="postype" value = "0">
+<div class="titleCon">
+    <div class="fl"><h2>生词本</h2><span>（共<b class="cRed">{$word_total}</b>个单词，进行到第<b id="curindex" class="cRed">0</b>个）</span><a href="#" class="playBtn none"></a></div>
+    <div class="fr  none"><a href="javascript:;" class="aBtn cur"><i class="fa fa-reback"></i>&nbsp;生词跟读</a><a href="javascript:show_wordbook_list('{$curunitid}',4,{$curunitpos},{$wordpage});" class="aBtn bgcBlue"><i class="fa fa-pencil"></i>&nbsp;练习一下</a><a href="/word" class="aBtn bgcBlue"><i class="fa fa-reback"></i>&nbsp;返回到单词学习</a></div>
+    <div class="clearfix"></div>
+</div>
+<div class="boxCon">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="listWord">
+           <foreach name="wordlist" item="wordlist" key="k" >
+        <tr>
+            <td width="15" align="right"><i class="fa fa-play-circle cur"></i></td>
+            <eq name = "wordlist.ukmark" value="">
+            <td class="f18" width="285" colSpan=2>{$k+1}. {$wordlist.word}</td>   
+            <else/>
+            <td class="f18" width="165">{$k+1}. {$wordlist.word}</td>
+            <td width="120">[{$wordlist.ukmark}]</td> 
+            </eq >
+            <td width="220">{$wordlist.morphology}{$wordlist.explains}</td>
+            <td width="30" align="center"><a class="sound_single none " mp3url="{$Think.config.word_mp3_path}{$wordlist.usmp3}" unitid="{$curunitid}" wordid = "{$wordlist.wordid}">&nbsp;</a></td>
+            <td width="90" align="center"><a href="javascript:;" class="aBtn none delBtn" onclick=" delBook({$wordlist.wordid},'{$curunitid}',{$postype},{$curunitpos},{$wordpage});"><i class="fa fa-times"></i>&nbsp;移出</a></td>
+        </tr>
+          </foreach>
+
+    </table>                       
+</div>
+</eq>
+<!--单词听写模板解析开始-->
+<eq name="postype" value = "4">
+<div class="titleCon">
+    <div class="fl"><h2>同步单词</h2><span>（本次测试的是生词本里的单词）</span></div>
+    <div class="fr  none"><a href="javascript:show_wordbook_list('{$curunitid}',0,{$curunitpos},{$wordpage});" class="aBtn bgcBlue"><i class="fa fa-pencil"></i>&nbsp;生词跟读</a><a href="javascript:;" class="aBtn cur"><i class="fa fa-reback"></i>&nbsp;练习一下</a><a href="/word" class="aBtn bgcBlue"><i class="fa fa-reback"></i>&nbsp;返回到单词学习</a></div>
+    <div class="clearfix"></div>
+</div>
+<div class="boxCon">
+    <div class="tingxie">
+        <h2>单词听写，每个单词读两遍，<span>（共<b class="cRed">{$word_total}</b>个单词，进行到第<b id="curindex" class="cRed">0</b>个）</span><a class="playBtn none">&nbsp;</a></h2>
+        <ul class="listInput">
+          <foreach name="wordlist" item="wordlist" key="k" >
+            <li><span>{$k+1}、</span><input name="dictation_input" unitid="{$curunitid}" wordid="{$wordlist.wordid}" mp3url="{$Think.config.word_mp3_path}{$wordlist.usmp3}" trueword="{$wordlist.word}" type="text" value="" /><big><i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;{$wordlist.word}</big></li>
+            </foreach>
+            <li><a href="javascript:;" class="none" id="dictation">听写完成</a></li>
+        </ul>
+    </div>                         
+</div>
+</eq>
+<!--单词听写模板解析结束-->

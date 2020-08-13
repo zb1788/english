@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户管理</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<style>
+ .page{width:auto;height:25px; margin:auto; line-height:25px;}
+ .page a{display:block; height:25px; padding:0px 6px; border:solid 1px #e7e7e7; border-radius:3px; color:#333;
+ font-family:'微软雅黑'; font-size:13px; text-align:center; text-decoration:none;float:left;margin-right:10px;min-width:20px;}
+ .page a:hover, .page a.this{background:#f7f7f7; font-weight:bold}
+</style>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript"
+    src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script language="javascript">
+var page_size=15;
+$(document).ready(function(){
+    pagelist(1,page_size);
+})
+
+
+//删除用户
+$('input[name="del"]').live('click',function(){
+  var id = $(this).attr('bid');
+  delUser(id);
+});
+function delUser(id){
+    if($.dialog.confirm('确定删除？',function(){
+    $.get('../User/delUser',{ran:Math.random(),id:id},function(result){
+        if(result=='ok'){
+            var pageCurrent=$("#current_page").val();
+            pagelist(pageCurrent,page_size);
+            }else{
+                  $.dialog({
+                      content:'操作失败',
+                      lock:true,
+                      opacity:0.3,
+                      width:180,
+                      height:45,
+                      ok:function(){}
+                    });
+                }
+        })
+    })
+    );
+}
+//添加用户
+function addUserInfo(){
+      var pageCurrent=$("#current_page").val();
+      var page_size=15;
+      var myDialog = $.dialog.open('useradd',{
+          id:'unit_edit',
+          title:'用户添加',
+          window:'top',
+          width:500,
+          height:250,
+          lock:true,
+          opacity:0.3,
+          button: [
+            {
+              name: '保存',
+              callback: function () {
+                var iframe = this.iframe.contentWindow;
+                var re = iframe.addData();
+                if(re==true){
+                    pagelist(pageCurrent,page_size);
+                }
+                return re;
+              },
+              focus: true
+            },
+            {
+              name: '关闭',
+              callback: function () {
+              },
+              focus: false
+            }
+          ]
+        });
+    }
+//修改密码
+$('input[name="edit"]').live('click',function(){
+  var id = $(this).attr('bid');
+  editUserInfo(id);
+});
+function editUserInfo(id){
+      var pageCurrent=$("#current_page").val();
+      var page_size=15;
+      var myDialog = $.dialog.open('edituser?id='+id,{
+          id:'unit_edit',
+          title:'密码修改',
+          window:'top',
+          width:500,
+          height:260,
+          lock:true,
+          opacity:0.3,
+          button: [
+            {
+              name: '保存',
+              callback: function () {
+                var iframe = this.iframe.contentWindow;
+                var re = iframe.addData();
+                if(re==true){
+                    pagelist(pageCurrent,page_size);
+                }
+                return re;
+              },
+              focus: true
+            },
+            {
+              name: '关闭',
+              callback: function () {
+              },
+              focus: false
+            }
+          ]
+        });
+    }
+//分页展示
+function pagelist(pageCurrent,page_size){
+    $.get("../User/getuser",
+        {
+        pageCurrent:pageCurrent,
+        page_size:page_size,
+        },
+        function(data){
+          $('.list_table tr:not(:first)').remove();
+          $('.page').empty();
+          $.each(data,function(k,v){
+            $('.page').html(k);
+            $.each(v,function(kk,vv){
+              var tr = $("#table_demo tr").eq(0).clone();
+              tr.children('td').eq(0).html(kk+1);
+              tr.children('td').eq(1).html(vv.username);
+              tr.children('td').eq(2).html(vv.ifadmin==1?'管理员':'用户');
+              tr.children('td').find('input').attr('bid',vv.id);
+              if('{$Think.session.ifadmin}' != 1){
+                tr.children('td').find('input').eq(1).remove();
+                tr.children('td').find('input').eq(1).remove();
+              }
+              tr.appendTo($('.list_table'));
+            })
+          })
+        })
+}
+
+//重置密码为123456
+$('input[name="chongzhi"]').live('click',function(){
+  var id = $(this).attr('bid');
+  reSet(id);
+});
+function reSet(id){
+    $.post("../User/resetPasswd",
+            {
+                id:id,
+                ran:Math.random()
+            },
+            function(data){
+                $.dialog({
+                      content:'重置成功',
+                      lock:true,
+                      opacity:0.3,
+                      width:180,
+                      height:45,
+                      ok:function(){}
+                    });
+                })
+}
+
+
+
+</script>
+</head>
+<body>
+    <div class="place">
+        <strong>位置</strong>：首页 &gt; 用户管理
+    </div>
+    <div class="container">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0"
+            class="box_border">
+            <tr>
+                <td class="box_top pl_10 f14">用户管理</td>
+                <td align="right" class="box_top pl_10 f14"><span class="pl_10">
+                <if condition="$Think.session.ifadmin eq 1">
+                  <input name="按钮" type="button" class="ext_btn ext_btn_submit" value="添加用户" onclick="addUserInfo()"/>
+                </if>
+                 </span></td>
+            </tr>
+        </table>
+
+
+
+
+<div class="h5"></div>
+<div id="fenye">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list_table">
+    <tr>
+    <th width="5%">序号</th>
+    <th width="10%">用户名</th>
+    <th width="13%">角色</th>
+    <th width="24%">管理</th>
+    </tr>
+</table>
+</div>
+<div class="h5"></div>
+<div class="page"></div>
+
+</div>
+
+<table id="table_demo" style="display:none;">
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>
+        <input type="button" name="edit"  class="ext_btn ext_btn_submit" value="修改密码" >&nbsp;&nbsp;
+        <input type="button" name="chongzhi"  class="ext_btn ext_btn_success" value="重置密码" >&nbsp;&nbsp;
+        <input type="button" name="del" class="ext_btn ext_btn_error" value="删除" >&nbsp;&nbsp;
+    </td>
+  </tr>
+</table>
+</body>
+</html>

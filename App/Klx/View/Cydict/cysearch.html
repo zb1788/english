@@ -1,0 +1,48 @@
+      
+<div class="t02"></div>
+<div class="nr">
+<ul class="suoyin02">
+</ul>
+<div class="page" id="pages"></div>
+</div>
+<div class="bline"></div>
+<include file="Common/content"/>  
+<!-- 页脚-->
+<script type="text/javascript">
+$(function(){
+  $.ajaxSetup({async:false}); 
+  pagelist(1,10);
+  
+  //getClassfyCy({$id});
+ // test(1,50,26);
+});
+
+function pagelist(pageCurrent,page_size){
+    var name1=$("#locationsearch").parent().find("input").eq(0).val();
+    var name2=$("#locationsearch").parent().find("input").eq(1).val();
+    var name3=$("#locationsearch").parent().find("input").eq(2).val();
+    var name4=$("#locationsearch").parent().find("input").eq(3).val();
+    var name =$("#hanzisearch").parent().find("input").val();
+    $(".suoyin02").empty();
+    $('.page').empty();
+    $.post("cysearchlist",{flag:"{$flag}",pageCurrent:pageCurrent,page_size:page_size,name1:name1,name2:name2,name3:name3,name4:name4,name:name,ran:Math.random()},function(data){
+      var data=eval("("+data+")");
+      var content="";
+      $.each(data,function(key,value){
+        $('.page').html(key);
+        $.each(value,function(key,value){
+          
+          content=content+"<li><h3>"+value.cyname+value.cypinyin+"</h3> <p> 解释: "+value.cyjieshi+"</p><p> 标签 ：";
+          $.each(value.keyword,function(k,v){
+            content=content+"<a href=' javascript:void(0);' onclick='getindexinfo("+v.classfyid+");'> "+v.classfyname+"</a>";
+          });
+          content=content+"</p><a href=' javascript:void(0);' onclick='getcyinfo("+value.id+");' class='more02'>查看详情</a></li>";
+        });
+         //content=content+"<script>$('#SelectPages').change(function(){var eachnums=$('#eachnums').val();var curnum=$(this).val();pagelist(curnum,eachnums);});<\script>";
+		 $(".suoyin02").append(content);
+     });
+  });
+
+  }
+
+</script>

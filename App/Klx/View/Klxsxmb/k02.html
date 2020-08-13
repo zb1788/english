@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>口算卡</title>
+<link rel="stylesheet" href="../path/to/font-awesome/css/font-awesome.min.css">
+<link href="../style/ksk.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="../style/swiper/idangerous.swiper.css">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+	ul.xuan {margin-top: 0;}
+</style>
+</head>
+
+<body>
+
+<header>
+
+            <div class="back"><a href="zz_zxzl.html"><img src="../images/backIco.png" width="20" height="20" />返回</a></div>
+            <h1></h1>
+			<div class="kc_setup"><a class="shou" href="javascript:void(0);">排名</a></div>
+</header>
+<section>
+<div class="wrap" style="margin-top: 50px;">
+    <div class="qie_b bff">
+            <ul class="tabs">
+                <li class="on ll" hidefocus="true" >最新发布</li>
+                <li class="rr" hidefocus="true" >关注排行</li>
+    <!--            <li hidefocus="true" >我的作品</li>-->
+            </ul>
+      </div>
+<div class="clearfix"></div>
+        <div class=" swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+            <div class="content-slide">
+<ul class="xuan">
+<li><a href="#"><i><img src="../images/ksk/xuan01.png"><b><img src="../images/ksk/xing.png"><img src="../images/ksk/xing.png"><img src="../images/ksk/xing.png"><img src="../images/ksk/xing.png"><img src="../images/ksk/xing.png"></b></i><p>5以内的加法</p></a></li>
+<li><a href="#"><i><img src="../images/ksk/xuan01.png"><b><img src="../images/ksk/xing.png"><img src="../images/ksk/xing.png"></b></i><p>5以内的加法</p></a></li>
+<li><a href="#"><i><img src="../images/ksk/xuan01.png"><b><img src="../images/ksk/xing.png"><img src="../images/ksk/xing.png"></b></i><p>5以内的加法</p></a></li>
+<li><a href="#"><i><img src="../images/ksk/xuan02.png"></i><p>5以内的加法</p></a></li>
+<li><a href="#"><i><img src="../images/ksk/xuan02.png"></i><p>5以内的加法</p></a></li>
+<li><a href="#"><i><img src="../images/ksk/xuan02.png"></i><p>5以内的加法</p></a></li>
+<li><a href="#"><i><img src="../images/ksk/xuan02.png"></i><p>5以内的加法</p></a></li>
+<li><a href="#"><i><img src="../images/ksk/xuan02.png"></i><p>5以内的加法</p></a></li>
+</ul>
+</div>
+
+			</div><!--end swiper-slide-->
+       <div class="swiper-slide" style="overflow-y:auto;">
+            <div class="content-slide">
+<ul class="xuan">
+<li><a href="#"><i><img src="../images/ksk/xuan01.png"><b><img src="../images/ksk/xing.png"><img src="../images/ksk/xing.png"><img src="../images/ksk/xing.png"><img src="../images/ksk/xing.png"><img src="../images/ksk/xing.png"></b></i><p>5以内的加法</p></a></li>
+<li><a href="#"><i><img src="../images/ksk/xuan01.png"><b><img src="../images/ksk/xing.png"><img src="../images/ksk/xing.png"></b></i><p>5以内的加法</p></a></li>
+<li><a href="#"><i><img src="../images/ksk/xuan01.png"><b><img src="../images/ksk/xing.png"><img src="../images/ksk/xing.png"></b></i><p>5以内的加法</p></a></li>
+<li><a href="#"><i><img src="../images/ksk/xuan02.png"></i><p>5以内的加法</p></a></li>
+<li><a href="#"><i><img src="../images/ksk/xuan02.png"></i><p>5以内的加法</p></a></li>
+<li><a href="#"><i><img src="../images/ksk/xuan02.png"></i><p>5以内的加法</p></a></li>
+<li><a href="#"><i><img src="../images/ksk/xuan02.png"></i><p>5以内的加法</p></a></li>
+<li><a href="#"><i><img src="../images/ksk/xuan02.png"></i><p>5以内的加法</p></a></li>
+</ul>
+                </div>            </div><!--swiper-slide-->
+             </div><!--end swiper-wrapper-->
+            </div><!--end swiper-container-->
+            </div><!--end wrap-->
+</section>
+
+</body>
+<script src="../script/jquery-1.10.1.min.js" type="text/javascript"></script>
+<script src="../script/idangerous.swiper.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(".pm_gr p").css({left : $(window).width() / 2 + 60 + "px"})
+
+    $(document).ready(function () {
+var tabsSwiper = new Swiper('.swiper-container',{
+    speed:500,
+    var H=$(".content-slide").eq(0).height();
+$(".swiper-wrapper").css('height', H+'px');
+$(".swiper-slide").css('height', H+'px');
+},
+    onSlideChangeStart: function(){
+        $(".tabs .on").removeClass('on');
+        $(".tabs li").eq(tabsSwiper.activeIndex).addClass('on');
+    }
+});
+
+$(".tabs li").on('touchstart mousedown',function(e){
+    e.preventDefault()
+    $(".tabs .on").removeClass('on');
+    $(this).addClass('on');
+    tabsSwiper.swipeTo($(this).index());
+});
+
+$(".tabs li").click(function(e){
+    e.preventDefault();
+});
+})
+</script>
+</html>

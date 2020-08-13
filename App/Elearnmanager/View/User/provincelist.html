@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>版本列表</title>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+    </head>
+    <body>
+        <div class="place"><strong>位置</strong>：首页 &gt; 省份管理</div>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_10" height="42"><input name="按钮" id="btn_add" type="button" class="ext_btn ext_btn_submit" value="添加省份" /></td>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+                <tr>
+                    <th width="50" align="center"></th>
+                    <th width="50" align="center">序号</th>
+                    <th width="200">省份</th>
+                    <th>操作</th>
+                </tr> 
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none" id="table_demo"> 
+                <tr class="tr">
+                    <td align="center">1</td>
+                    <td align="center"><input type="text" name="sortid" type="text" class="input-text lh30" size="3" maxlength="2"></td>
+                    <td align="center"></td>
+                    <td align="left">
+                        &nbsp;&nbsp; 
+                        <input type="button" class="ext_btn ext_btn_edit" value="编辑"   />&nbsp;&nbsp;
+                        <input type="button" class="ext_btn ext_btn_error" value="禁用" />       
+                    </td>
+                </tr>
+            </table>
+            <div class="h5"></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_10" height="42">
+                        <input name="btn_submit" id="btn_submit" type="button" class="ext_btn ext_btn_submit" value="修改次序" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript">
+            $(function() {
+                $.ajaxSetup({async: false});
+                var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                getDictionaryList('province');
+                dloading.close();
+
+                $("#btn_add").click(function()//添加省份
+                {
+                    editDictionary(0, '', 'province');
+                });
+
+                $("#table_data .ext_btn_edit").live("click", function() {  //编辑省份
+                    var id = $(this).attr("BID");
+                    var tr = $(this).parents("tr");
+                    td = tr.children('td').eq(2);
+                    name = td.html();
+                    td = tr.children('td').eq(3);
+                    remark = td.html();
+                    editDictionary(id, name, 'province');
+                });
+
+            });
+
+            $("#btn_submit").click(function()  //修改顺序
+            {
+                var dloading = art.dialog({time: 30, title: '更新中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                if ($("#table_data tr.tr").length == 0)
+                    return;
+                var arrjson = [];
+                $("#table_data tr.tr").each(function() {
+                    var tr = $(this);
+                    var id = tr.find('input[name="sortid"]').attr("BID");
+                    var sortid = tr.find('input[name="sortid"]').val();
+                    var obj = {};
+                    obj.id = id;
+                    obj.sortid = sortid;
+                    arrjson.push(obj);
+                });
+                $.post("../user/dictionarylistup", {data: JSON.stringify(arrjson)}, function() {
+                    getDictionaryList('province');
+                    dloading.close();
+                });
+
+            });
+            $("#table_data .ext_btn_error").live("click", function() {  //删除省份
+                var tr = $(this).parents("tr");
+                var userid = $(this).attr("BID");
+                art.dialog.confirm('你确定要禁用此省份吗吗？', function() {
+                    $.get("../User/deldictionary", {id: userid, random: Math.random()}, function(data) {
+                        //prompt(data);
+                        getDictionaryList('province');
+                    });
+
+                });
+            });
+            function getDictionaryList(type)   //获取省份列表
+            {
+                var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                $("#table_data td").parents("tr").remove();
+                $.getJSON("../user/getdictionarylist", {dict_type:type,random: Math.random()}, function(data) {
+                    //alert(data.length);
+                    var i = 0;
+                    $.each(data, function(i, val) {
+                        i++;
+                        var tr = $("#table_demo tr").eq(0).clone();
+                        var td = tr.children('td').eq(0);
+                        // alert(val.username);
+                        td.html(val.sortid);
+                        var td = tr.children('td').eq(1);
+                        // alert(val.username);
+                        td.find("input").val(val.sortid);
+                        td = tr.children('td').eq(2);
+                        td.html(val.title);
+                        tr.find("input").attr("BID", val.id);
+                        tr.appendTo("#table_data");
+                    });
+                });
+                $(".tr:odd").css("background", "#F5F8FA");
+                dloading.close();
+
+            }
+            function editDictionary(id, name, type)   //添加/编辑省份
+            {
+                var dict_name = '';
+                if (type == 'year')
+                    dict_name = '年份';
+                if (type == 'province')
+                    dict_name = '省份';
+                if (type == 'que_key1')
+                    dict_name = '疑问词';
+                if (type == 'que_key2')
+                    dict_name = '话题';
+                if (type == 'que_key3')
+                    dict_name = '技能';
+                art.dialog.prompt(dict_name + '名称', function(val) {
+                    val = $.trim(val);
+                    if (val != "") {
+                        $.get('../User/editdictionary', {id: id, name: val, dict_type: type, random: Math.random()}, function(data) {
+                           getDictionaryList('province');
+                        });
+                    }
+                }, name);
+            }
+        </script> 
+    </body>
+</html>

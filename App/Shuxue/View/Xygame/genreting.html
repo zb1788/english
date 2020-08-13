@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport"
+    content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta charset="UTF-8">
+  <title>口算卡</title>
+  <link rel="stylesheet" href="__PUBLIC__/game/css/ksk.css" />
+  <link rel="stylesheet" href="__PUBLIC__/game/font/fonts.css" />
+  <script type="text/javascript" src="__PUBLIC__/game/zepto.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/game/common.js"></script>
+</head>
+
+<body>
+  <header class="head">
+    <a class="head-left" href="javascript:backToIndex();">
+      <i class="icon-back"></i>返回</a>
+    <h1 id="grade"></h1>
+    <a class="head-right" href="javascript:void(0);"></a>
+  </header>
+  <section>
+    <div class="mT50">
+      <ul class="ksList">
+      </ul>
+    </div>
+
+  </section>
+  <script>
+    var gradeCode = GetQueryString('gradeid');
+    var subjectid = GetQueryString('subjectid');
+    var moduleid = GetQueryString('moduleid');
+    var urlCallBack = GetQueryString('backUrl');
+    if (urlCallBack == null){
+      urlCallBack = GetQueryString('urlCallBack');
+    }
+    subjectid = '0002';
+
+    $(function () {
+      $('#grade').html(getGradeName(gradeCode));
+      getGenre();
+    });
+
+    function goIndex() {
+      // window.location.href = 'index?gradeid=' + gradeCode + '&subjectid=0002&moduleid=' + moduleid;
+      window.location.href = 'index?gradeid=' + gradeCode + '&subjectid=0002&moduleid=' + moduleid + '&backUrl=' +
+        encodeURIComponent(urlCallBack);
+      // UXinJSInterface.closeWebView();
+    }
+
+    function goRules() {
+      window.location.href = 'rules?gradeid=' + gradeCode + '&subjectid=0002&moduleid=' + moduleid + '&backUrl=' +
+        encodeURIComponent(urlCallBack);
+    }
+
+    function backToIndex() {
+      if (urlCallBack == null) {
+        window.location.href = window.location.protocol + '//www.czbanbantong.com';
+      } else {
+        window.location.href = decodeURIComponent(urlCallBack);
+      }
+
+    }
+
+    //开始闯关
+    function goPlay(stageid, title) {
+      $.ajax({
+        type: 'get',
+        url: '../Game/addUserStage',
+        data: {
+          ran: Math.random(),
+          stageid: stageid,
+          genreid: stageid,
+          isTing: 1
+        },
+        dataType: 'json',
+        success: function (data) {
+          setLocalStorage('sx_title', title);
+          setLocalStorage('sx_genreid', stageid);
+          setLocalStorage('sx_gradeid', gradeCode);
+          setLocalStorage('sx_subjectid', subjectid);
+          setLocalStorage('sx_moduleid', moduleid);
+
+
+          var playurl = 'playksk?genreid=' + stageid + '&stageid=' + stageid + '&gradeid=' + gradeCode +
+            '&subjectid=' + subjectid + '&moduleid=' + moduleid + '&urlCallBack=' + encodeURIComponent(
+              urlCallBack) +
+            '&type=2&userstageid=' + data.userstageid;
+			$.get('/Subject/Public/setUserModuleUnitLog',{ks_code:0,moduleid:moduleid,ks_name:title},function(){
+			      window.location.href = playurl;
+			});
+          
+          // window.UXinJSInterface.openProgressController(url);
+        },
+        error: function (e) {
+
+        }
+      })
+    }
+
+    function getGenre() {
+      $.ajax({
+        type: 'get',
+        url: '../Game/getGenresByTing',
+        data: {
+          gradeid:gradeCode,
+          ran: Math.random(),
+        },
+        dataType: 'json',
+        success: function (data) {
+          var html = '';
+          $.each(data, function (k, v) {
+            html += '<li class="newJb" onclick="goPlay(' + v.id + ',\'' + v.name + '\'' + ')">';
+            html += '<a class="table">';
+            html += '<span class="w50 pad5">';
+            if (v.status == -1) {
+              var imgurl = '__PUBLIC__/game/images/ksk/xuan02.png';
+            } else if (v.status == 1 || v.status == 0) {
+              var imgurl = '__PUBLIC__/game/images/ksk/xuan03.png';
+            } else {
+              var imgurl = '__PUBLIC__/game/images/ksk/xuan01.png';
+            }
+            html += '<img src="' + imgurl + '" class="img100" />';
+            html += '</span>';
+            html += '<span>' + v.name + '</span>';
+            html += '</a>';
+            html += '</li>';
+          })
+          $('.ksList').html(html);
+        },
+        error: function (e) {
+
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>

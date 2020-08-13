@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>口算卡</title>
+<link rel="stylesheet" href="__PUBLIC__/style/klxsxmb/path/to/font-awesome/css/font-awesome.min.css">
+<link href="__PUBLIC__/style/klxsxmb/ksk.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/js/jquery.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/artDialog/jquery.artDialog.js?skin=default" type="text/javascript"></script>
+<script src="__PUBLIC__/js/iframeTools.js" type="text/javascript"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/yjt_properties.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+	body{background: url(__PUBLIC__/style/klxsxmb/images/ksk/bg.png) ;}
+	header {background: #36a1a0;}
+</style>
+</head>
+
+<body>
+
+<header>
+
+            <div class="back"><a href="../Klxsxmb/lists?grade={$grade}&type={$type}"><img src="__PUBLIC__/style/klxsxmb/images/backIco.png" width="20" height="20" />返回</a></div>
+            <h1></h1>
+
+</header>
+<section>
+<div class="chengji">
+	<h2>{$str}</h2>
+<p><img src="__PUBLIC__/style/klxsxmb/images/ksk/bg_da.png"></p>
+<span class="star">
+<for start="0" end="$star">
+    <i><img src="__PUBLIC__/style/klxsxmb/images/ksk/xing02.png"></i>
+</for>
+</span>
+<div class="clearfix"></div>
+<h3>用时：{$usetime}秒</h3>
+<h3>U币：{$ubi}个</h3>
+<h3>答对：{$right}个     答错：{$wrong}个</h3>
+<a class="btn_ye" href="javascript:void(0);">晒成绩</a>
+<a class="btn_qi" href="../Klxsxmb/start?id={$bid}&type={$type}&geshi={$geshi}">重新练习</a>
+</div>
+</section>
+
+
+<script type="text/javascript">
+var needHideProgress = false;
+	try{
+		UXinJSInterface.hideProgress();
+	}catch(e){
+		needHideProgress =true;
+	}
+</script>
+<script>
+//晒成绩
+$(".btn_ye").click(function(){
+
+	//alert(userarea);return false;
+	var username=$.cookie('username');
+	var area=$.cookie('localAreaCode');
+
+	//var ilearn=mapObj[area]['ilearn'];
+	//var tms=mapObj[area]['tms'];
+
+	 var ilearn = window.location.protocol+'//'+$.cookie('ilearnip');
+	 var tms = window.location.protocol+'//'+$.cookie('tmsip');
+	//alert(ilearn);return false;
+
+    var domain = window.location.host;
+	var url_c=window.location.protocol+'//'+domain+'/Klx/Klxsx/index';
+	// (area=='1.')?url_c='http://'+document.domain+'/Klx/Klxsx/index':url_c;
+	var content='小伙伴们，我在快乐学习-口算卡练习<a href="'+url_c+'" target="_blank">《'+'{$name}'+'》</a>中获得了'+'{$star}'+'颗星,快来向我挑战吧！';
+
+	var classidList,truename,schoolId;
+
+    art.dialog({
+      title:'晒成绩',
+      content:content,
+      opacity:0.3,
+      lock:true,
+      button:[
+      {
+        name:'分享',
+        callback:function(){
+			$.getJSON(tms+'/tms/interface/queryStudent.jsp?jsoncallback=?',{queryType:'byNames',usernames:username},function(data){
+				if (data.rtnArray[0].schoolId == '') {
+					return false;
+				}
+				else {
+					classidList = data.rtnArray[0].schoolClassId;
+					truename = data.rtnArray[0].realname;
+					schoolId = data.rtnArray[0].schoolId;
+
+					// var url_c='http://en.czbanbantong.com/Klx/Klxsx/index';
+					// (area=='1.')?url_c='http://enzz.zzedu.net.cn/Klx/Klxsx/index':url_c;
+
+					//var content='小伙伴们，我在快乐学习-口算卡练习《'+kcmc+'》中获得了'+'{$star}'+'颗星,班级排名第'+paiming+'位,快来向我挑战吧！<a href="'+url_c+'" target="_blank">点击参与</a>';
+					//var content='小伙伴们，我在快乐学习-口算卡练习《'+'{$name}'+'》中获得了'+'{$star}'+'颗星,快来向我挑战吧！<a href="'+url_c+'" target="_blank">点击参与</a>';
+
+					// var content='小伙伴们，我在快乐学习-口算卡练习<a href="'+url_c+'" target="_blank">《'+'{$name}'+'》</a>中获得了'+'{$star}'+'颗星,快来向我挑战吧！';
+					var param={'classidList':classidList,'username':username,'truename':truename,'schoolId':schoolId,'says.content':content,'says.infourl':url_c,"says.windowtype":"1"};
+					$.ajax({
+							type :'GET',
+							url : ilearn+'/exportInterface/share.action',
+							data : param,
+							dataType : 'jsonp',
+							success : function(data) {
+								//alert(data.success);
+								if(data.success==true){
+									art.dialog.alert('分享成功！');
+								}else{
+									art.dialog.alert('分享失败！');
+								}
+							},
+							error : function() {
+
+							}
+						});
+
+				}
+			});
+        },
+        focus:true
+      },
+      {
+        name:'取消',
+        callback:function(){
+          //默认关闭弹窗
+        },
+        focus:true
+      }
+      ]
+    });
+
+
+
+
+});
+
+</script>
+</body>
+
+</html>

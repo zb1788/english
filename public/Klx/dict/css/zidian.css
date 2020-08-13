@@ -1,0 +1,111 @@
+@charset "utf-8";
+
+/* CSS Document */
+
+*{ margin:0; padding:0; x-srcolling:none;}
+body{ font:normal 13px "微软雅黑"; background-color:#fff6ea; }
+ol,ul,li{ list-style:none; }
+.clearfix{ clear:both;}
+a{ text-decoration:none;}
+/*-------------------------------*/
+.head{ background:url(../images/head.png) no-repeat center top;
+		height:359px;}
+.search{ width:900px; height:300px; margin:0 auto; }
+.search p{ display:block; float:right; margin-top:250px;
+           background:#999; width:350px; height:30px; 
+		   border-radius:5px;
+		   padding:5px;}
+input.search_T{ width:275px; padding:6px 0px 6px 10px; float:left;  outline:0px;}
+input.search_B{background:#e3b16a; padding:4px 10px; font:bold 16px "微软雅黑"; 
+			   vertical-align:middle; cursor:pointer;               
+			   color:#733200; float:right; width:60px; border:none;}
+input.search_B:hover{ background:#f1c96f;}
+.Z_center{}
+.section{ width:1000px; 
+          background-color:#fff2d9;
+		  border-right:34px solid #e3b16a; 
+		  border-left:34px solid #e3b16a; 
+		  margin:0 auto;
+		  height:auto;
+		  padding-top:30px;}
+.s_top{ background:url(../images/zi.png) no-repeat center top ;
+        height:288px;}
+.rig{ width:250px; border:0px solid #ccc; height:250px; float:left; margin-left:100px;}
+.lef{ width:500px; 
+	  height:auto; 
+	  max-height:230px;
+	  float:right; 
+	  margin-right:75px;
+	  margin-top:20px; overflow:hidden;}
+.lef p{ font:normal 18px/40px "微软雅黑";color:#733200;}
+.s_center{ }
+.s_center h2{height:45px; padding-left:10px;margin:20px 20px 10px; }
+.s_center h2 a{ width:130px; height:43px; 
+				background:url(../images/button.png) no-repeat; 
+			    float:left;
+				font:bold 16px/45px "微软雅黑";
+				color:#fff;
+				text-align:center;}
+
+.s_center h2 a:hover{ background:url(../images/but.png) no-repeat;}
+a.cur{ background:url(../images/but.png) no-repeat !important; width:130px; height:43px; }
+.wenzi{ border:3px solid #e3b16a; width:900px; margin:0 auto; height:auto;font-size:14px;line-height:25px;letter-spacing:3px;color:#333;width:870px;padding:10px 15px;}
+.wenzi p{ margin:10px; font-size:15px; line-height:30px;}
+.chazi{ border-top:2px solid #e3b16a; width:900px; margin:0 auto; height:auto; }
+.chazi2{  width:900px; margin:0 auto; height:auto; }
+.chazi p{ margin:10px 10px 10px 0px; font-size:15px; line-height:30px; }
+
+.s_bottom{ margin-top:60px; border-top:3px solid #8f6409;}
+.s_bottom p{ font:bold 18px/55px  "微软雅黑"; 
+			color:#fff; display:block; 
+			text-align:center;
+			background:url(../images/qita.png) no-repeat center top;
+			height:60px;
+			margin-top:-30px; }
+
+.s_other{ margin-top:30px; margin-left:30px; display:inline-block;}
+.s_other ul li{ float:left; margin-right:15px; padding:10px; background:url(../images/bei.png) no-repeat; }
+.s_other ul li img{ height:160px; }
+.s_other ul li a{ width:200px; overflow:hidden; display:block;}
+.s_other ul li span{ text-align:center; display:block; font-size:16px; margin-top:20px; color:#8f6409;}
+
+.di{ background:#04ccb7; height:150px;}
+.di p{  display:block;}
+
+.dibu { width:980px; margin:0 auto; padding:20px 0px; color:#fff;} 
+.dibu span{ margin-top:20px; display:block; line-height:24px;}
+.dibu p a{ color:#fff; font-size:15px;}
+.dibu p{ margin-top:10px;}
+.dibu  a img{ background:#fff; display:block; float:right; padding:5px; width:100px;}
+
+
+/*----------------------------------*/
+.cz{  border-bottom:1px dashed #e3b16a; display:inline-block; }
+.cz li{ float:left; margin:10px 10px 10px 0px;}
+.cz li a{ padding:8px 0px; background:#fff; border:1px dashed #ccc; 
+          border-radius:5px; color:#333;  display:block; width:63px; text-align:center;}
+.cz li a:hover{ background:#FC9;}
+
+/*----------------------------------*/
+.js{  border-bottom:1px dashed #e3b16a; display:inline-block; }
+.js li{ float:left; margin:10px 10px 10px 0px;}
+.js li a{ padding:8px 0px;
+          border-radius:5px; color:#333;  display:block; width:63px; text-align:center;}
+.js li a:hover{ background:#cc9966;}
+
+.li_selected{ background:#cc9966;}
+
+/*----------------------------------*/
+.mx{display:inline-block; }
+.mx li{ float:left; margin:10px 10px 10px 0px;}
+.mx li a{ padding:8px 0px; background:#fff; border:1px dashed #ccc; 
+          border-radius:5px; color:#333;  display:block; width:63px; text-align:center;}
+.mx li a:hover{ background:#FC9;}
+
+
+
+
+
+
+
+

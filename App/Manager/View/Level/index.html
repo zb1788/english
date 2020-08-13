@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"> 
+    <title>词汇包编辑</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/jquery.typeahead.css">
+    <script type="text/javascript" src="__PUBLIC__/js/Sortable.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="__PUBLIC__/book/js/jquery.tmpl.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.typeahead.js"></script>
+    <style>
+    	th{
+    		color: #fff;
+		    background-color: #555;
+		    border: 1px solid #555;
+		    font-size: 12px;
+		    padding: 3px;
+		    vertical-align: middle;
+		    text-align: center;
+    	}
+    	td{
+    		text-align: center;
+    	}
+    	span.tncontent{
+    		display:block;
+    	}
+    	span.choice{
+    		display:block;
+    	}
+    	.answer{
+    		color:red;
+    		font-style:italic;
+    	}
+    </style>
+</head>
+<script type="text/javascript">
+	var gameid="{$gameid}";
+	var grades="{$grades}";
+</script>
+<body>
+	<div id="jplayer"></div>
+	<div class="container" style="width:95%;">
+    	<div class="row" >
+			<form role="form" class="col-xs-12" >
+				<div class="form-group">
+					<label for="name">名称</label>
+					<input type="text" class="form-control" id="name"  value="{$name}"  placeholder="请输入名称">
+				</div>
+
+				<div class="form-group">
+					<label for="name">学段</label>
+				    <div class="">
+				      <div class="radio">
+				        <label>
+				          <input type="radio" name="peroid" value="0" <if condition="$peroid eq '0'">checked='true'</if>>小学
+				        </label>
+				        <label>
+				          <input type="radio" name="peroid" value="1" <if condition="$peroid eq '1'">checked='true'</if>>初中
+				        </label>
+				        <label>
+				          <input type="radio" name="peroid" value="2" <if condition="$peroid eq '2'">checked='true'</if>>高中
+				        </label>
+				      </div>
+				    </div>
+			    </div>
+
+			    <div class="form-group">
+					<label for="name">适配年级</label>
+				    <div class="">
+				      <div class="checkbox">
+				        <label>
+				          <input type="checkbox" name="grade" >一年级
+				        </label>
+				        <label>
+				          <input type="checkbox" name="grade" >二年级
+				        </label>
+				        <label>
+				          <input type="checkbox" name="grade" >三年级
+				        </label>
+				        <label>
+				          <input type="checkbox" name="grade" >四年级
+				        </label>
+				        <label>
+				          <input type="checkbox" name="grade" >五年级
+				        </label>
+				        <label>
+				          <input type="checkbox" name="grade" >六年级
+				        </label>
+				        <label>
+				          <input type="checkbox" name="grade" >七年级
+				        </label>
+				        <label>
+				          <input type="checkbox" name="grade" >八年级
+				        </label>
+				        <label>
+				          <input type="checkbox" name="grade" >九年级
+				        </label>
+				        <label>
+				          <input type="checkbox" name="grade" >高中
+				        </label>
+				      </div>
+				    </div>
+			    </div>
+
+			    <div class="form-group">
+					<label for="name">关卡</label>
+					<div class="">
+						<span id="levellists" class="list-group">
+							
+						</span>
+					    <button type="button" class="btn btn-default btn-sm" id="addlevel"  title="添加关卡"><span class="glyphicon glyphicon-plus"></span></button>
+					    <div class="modal fade" id="levelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  
+							<div class="modal-dialog">  
+								<div class="modal-content">  
+								  <div class="modal-header">  
+								    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>  
+								    <h4 class="modal-title">关卡</h4>  
+								  </div>  
+								  <div class="modal-body">  
+								    <p><input type="text" class="form-control" id="levelname" placeholder="关卡名称"></p>
+								  </div>  
+								  <div class="modal-footer">  
+								    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
+								    <button type="button" class="btn btn-primary" id="leveladd">添加</button>  
+								  </div>  
+								</div><!-- /.modal-content -->  
+							</div><!-- /.modal-dialog -->  
+						</div><!-- /.modal -->  
+					</div>
+				</div>
+
+				<div class="form-group">
+					<table class="table">
+					    <thead>
+					      	<tr>
+						        <th>单词</th>
+						        <th>释义</th>
+						        <th>试题</th>
+						        <th>题型</th>
+						        <th>关卡</th>
+						        <th>操作</th>
+					    	</tr>
+					    </thead>
+					    <tbody id="queslist" class="list-group">
+							
+					    </tbody>
+					</table>
+				</div>
+				<div class="form-group">
+					<button type="button" class="btn btn-default" data-toggle="modal" id="editword">添加单词</button>
+					<div class="modal fade" id="wordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  
+						<div class="modal-dialog">  
+							<div class="modal-content">  
+							  <div class="modal-header">  
+							    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>  
+							    <h4 class="modal-title">单词</h4>  
+							  </div>  
+							  <div class="modal-body">  
+							    <p>单词:<input type="text" class="form-control" id="addword" placeholder="输入单词" style="display:inline;width:40%;"></p>
+							    <p>释义:<select id="explains" class="form-control" style="width:40%;display: inline;"></select></p>
+							  </div>  
+							  <div class="modal-footer">  
+							    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
+							    <button type="button" class="btn btn-primary" id="wordadd">添加</button>  
+							  </div>  
+							</div><!-- /.modal-content -->  
+						</div><!-- /.modal-dialog -->  
+					</div><!-- /.modal -->  
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  
+		<div class="modal-dialog">  
+			<div class="modal-content">  
+			  <div class="modal-header">  
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>  
+			    <h4 class="modal-title">提示</h4>  
+			  </div>  
+			  <div class="modal-body">  
+			    <p class="alert alert-warning">确定要删除吗?</p>
+			  </div>  
+			  <div class="modal-footer">  
+			    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
+			    <button type="button" class="btn btn-primary" id="delete">删除</button>  
+			  </div>  
+			</div><!-- /.modal-content -->  
+		</div><!-- /.modal-dialog -->  
+	</div><!-- /.modal -->
+	<!--编辑试题的样式-->
+	<div class="modal fade" id="editQuestionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  
+		<div class="modal-dialog">  
+			<div class="modal-content">  
+			  <div class="modal-header">  
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>  
+			    <h4 class="modal-title">试题编辑</h4>  
+			  </div>  
+			  <div class="modal-body">  
+				    <label for="name">题干</label>
+				    <textarea class="form-control tncontent" rows="3"></textarea>
+			  </div>
+			  <div class="modal-body">  
+				    <label for="name">选项</label>
+				    <div id="items">
+					    <p>
+					    	<label>
+        						<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>A、
+    						</label>
+					    	<input type="text" class="form-control" id="addword" placeholder="输入单词" style="display:inline;width:40%;">
+					    	<span class="glyphicon glyphicon-plus additem" title="添加" bid=""></span>
+					    	<span class="glyphicon glyphicon-remove removeitem" title="删除"  bid=""></span>
+					    </p>
+					    <p>
+					    	<label>
+        						<input type="radio" name="optionsRadios" id="optionsRadios2" value="option1" checked>B、
+    						</label>
+					    	<input type="text" class="form-control" id="addword" placeholder="输入单词" style="display:inline;width:40%;">
+					    	<span class="glyphicon glyphicon-plus additem" title="添加"  bid=""></span>
+					    	<span class="glyphicon glyphicon-remove removeitem" title="删除"  bid=""></span>
+					    </p>
+					    <p>
+					    	<label>
+        						<input type="radio" name="optionsRadios" id="optionsRadios3" value="option1" checked>C、
+    						</label>
+					    	<input type="text" class="form-control" id="addword" placeholder="输入单词" style="display:inline;width:40%;">
+					    	<span class="glyphicon glyphicon-plus additem" title="添加"  bid=""></span>
+					    	<span class="glyphicon glyphicon-remove removeitem" title="删除"  bid=""></span>
+					    </p>
+					</div>
+			  </div>
+			  <div class="modal-body">  
+				    <label for="name">解析</label>
+				    <div class="checkbox" style="display:inline;">
+					    <label>
+					      <input type="checkbox" id="exampleanslysis">是否辨析
+					    </label>
+					    <form id="form-car_v1" name="form-car_v1">
+						    <div class="typeahead__container">
+						        <div class="typeahead__field">
+						            <span class="typeahead__query">
+						                <input class="js-typeahead-car_v1" name="car_v1[query]" type="search" id="titlesearch" placeholder="Search" autocomplete="off">
+						            </span>
+						            <span class="typeahead__button">
+						                <button type="submit">
+						                    <i class="typeahead__search-icon"></i>
+						                </button>
+						            </span>
+						 
+						        </div>
+						    </div>
+						</form>
+					</div> 
+				    <textarea class="form-control analysis" rows="5"></textarea>
+
+			  </div>
+			  <div class="modal-footer">  
+			    <button type="button" class="btn btn-default" data-dismiss="modal" id="cacleQuestion">取消</button>  
+			    <button type="button" class="btn btn-primary" id="editQuestion">修改</button>  
+			  </div>  
+			</div><!-- /.modal-content -->  
+		</div><!-- /.modal-dialog -->  
+	</div><!-- /.modal -->
+
+	<!-- loading -->
+	<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop='static'>
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title" id="myModalLabel">提示</h4>
+	      </div>
+	      <div class="modal-body">
+	        请稍候。。。
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</body>
+<script id="levellist" type="text/x-jquery-tmpl">
+	<button type="button" class="btn btn-default list-group-item" style="width:10%;float: left;" title="关卡1" type="0" bid="${id}"><font>${name}</font>
+		<span class="badge" {{if quesnum==0}}style="background-color:red;"{{/if}}>${quesnum}</span>
+		<span class="glyphicon glyphicon-edit" title="编辑" type="0" bid="${id}"></span>
+		<span class="glyphicon glyphicon-remove" title="删除" type="0" bid="${id}"></span>
+	</button>
+</script>
+<script type="text/javascript" src="__PUBLIC__/js/level.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.ajaxSetup({async: false});
+	//初始化适配年级
+	$.each($("input[name='grade']"),function(k,v){
+		var ischecked=grades.substr(k,1);
+		if(ischecked==1){
+			$(v).attr("checked",true);
+		}
+	})
+
+	var list = document.getElementById("levellists");
+	var sortable = new Sortable(list, {
+	    onUpdate: function (evt) {
+	        //向后台进行ajax异步请求
+	        var arr=[];
+	        $("#levellists .list-group-item").each(function(k,v){
+	        	var temp={}
+	        	var bid=$(this).attr("bid");
+	        	temp.id=bid;
+	        	temp.sortid=k;
+	        	arr.push(temp);
+	        })
+	        $.post("levelListUp",{data:JSON.stringify(arr),ran:Math.random()});
+	    }
+	});
+	//new Sortable(list); // That's all.
+
+	//试题的顺序进行拖动
+	var lists = document.getElementById("queslist");
+	var sortables = new Sortable(lists, {
+	    onUpdate: function (evt) {
+	        //向后台进行ajax异步请求
+	        var levelid=$("#levellists .active").attr("bid");
+	        var arr=[];
+	        $("#queslist .glyphicon.glyphicon-remove").each(function(k,v){
+	        	var temp={}
+	        	var bid=$(this).attr("bid");
+	        	temp.id=bid;
+	        	temp.sortid=k;
+	        	arr.push(temp);
+	        })
+	        $.post("upSortQuestions",{levelid:levelid,data:JSON.stringify(arr),ran:Math.random()});
+	    }
+	});
+    
+
+	$("#jplayer").jPlayer({
+        swfPath: "js",
+        wmode: "window",
+        supplied: "mp3",
+        preload: "none",
+        volume: "1"
+    });
+
+	//填充关卡
+	$("#loading").modal("show");
+	getLevelsList(gameid);
+
+	//如果有第一个关卡那么就进行点击
+	//试题的填充
+	$("#levellists button").on("click",function(){
+		$("#loading").modal("show");
+		$(".active").removeClass("active");
+		$(this).addClass("active");
+		var levelid=$(this).attr("bid");
+		getQuestionsList(levelid);
+		$("#loading").modal("hide");
+	})
+
+	try{
+		if($("#levellists button").length>0){
+			$("#levellists button").eq(0).click();
+		}
+	}catch(e){
+		alert("fasdfasd");
+
+	}
+
+	$("#loading").modal("hide");
+
+
+	
+	//关卡事件
+	$("#addlevel").click(function(){
+		//查找目前添加的是第几关
+		var len=$("#levellists .list-group-item").length+1;
+		var levelname=Arabia_To_SimplifiedChinese(len);
+		$("#levelname").val("第"+levelname+"关");
+		$("#leveladd").attr("bid",0);
+		$("#levelModal").modal("show");
+	})
+
+	$("#leveladd").click(function(){
+		//关卡名称的添加
+		var name=$("#levelname").val();
+		var id=$(this).attr("bid");
+		$("#levelModal").modal("hide");
+		$.getJSON("editLevel",{id:id,name:name,gameid:gameid,ran:Math.random()})
+		window.location.reload()
+		//getLevelsList(gameid);
+	})
+
+	//学段的点击修改
+	$("input[name='peroid']").on("click",function(e){
+		var peroid=$(this).val();
+		$.getJSON("changePeroid",{gameid:gameid,peroid:peroid,ran:Math.random()});
+		e.stopPropagation();
+	})
+
+	//适配年级的点击修改
+	$("input[name='grade']").on("click",function(e){
+		var grades="";
+		$.each($("input[name='grade']"),function(k,v){
+			if($(v).is(":checked")){
+				grades=grades+"1";
+			}else{
+				grades=grades+"0";
+			}
+		});
+		$.getJSON("changeGrades",{gameid:gameid,grades:grades,ran:Math.random()});
+		e.stopPropagation();
+	})
+
+	//关卡的编辑
+	$("#levellists").on("click",".glyphicon-edit",function(e){
+		$(".active").removeClass("active");
+		$(this).addClass("active");
+		var name=$(this).parents("button").find("font").text();
+		var id=$(this).attr("bid");
+		$("#levelname").val(name);
+		$("#leveladd").attr("bid",id);
+		$("#levelModal").modal("show");
+		e.stopPropagation();
+	})
+
+	//关卡的删除
+	$("#levellists").on("click",".glyphicon-remove",function(){
+		$(".active").removeClass("active");
+		$(this).addClass("active");
+		$("#deleteModal").modal("show");
+		e.stopPropagation();
+	})
+
+	//点击播放音频
+	$(document).on("click",".glyphicon-headphones",function(){
+		var mp3=$(this).attr("mp3");
+		console.log(mp3);
+		$("#jplayer").jPlayer("setMedia", {
+            mp3: mp3
+        }).jPlayer("play");
+	})
+
+	//删除操作
+	$("#delete").click(function(){
+		var type=$(".active").attr("type");
+		var id=$(".active").attr("bid");
+		$("#deleteModal").modal("hide");
+		$.getJSON("deleteElement",{type:type,id:id,ran:Math.random()});
+		if(type==0){
+			getLevelsList(gameid);
+		}else if(type==1){
+
+		}
+		e.stopPropagation();
+	})
+
+	//名称修改进行的刷新
+	$("#name").bind("keyup",function(){
+		var name=$(this).val();
+		$.getJSON("changeName",{gameid:gameid,name:name,ran:Math.random()});
+	})
+
+	//编辑单词
+	$("#editword").click(function(){
+		$("#addword").attr("bid","");
+		$("#addword").val("");
+		$("#explains").empty();
+		$("#wordModal").modal("show");
+	})
+
+	//添加单词
+	$("#wordadd").click(function(){
+		var wordid=$("#addword").attr("bid");
+		var levelid=$("#levellists .active").attr("bid");
+		var explainid=$("#explains").val();
+		$("#wordModal").modal("hide");
+		//添加单词进行数据的展示
+		$.getJSON("editWord",{gameid:gameid,levelid:levelid,wordid:wordid,explainid:explainid,ran:Math.random()});
+		$("#levellists .active").find(".badge").text(parseInt($("#levellists .active").find(".badge").text())+1);
+		$("#levellists .active").click();
+	});
+
+	//输入单词进行的释义的联动
+	$("#addword").on("keyup",function(){
+		var name=$(this).val();
+		var option="";
+		$.getJSON("getWordExplains",{name:name,ran:Math.random()},function(data){
+			$.each(data,function(key,value){
+				$("#addword").attr("bid",value.base_wordid);
+				option=option+"<option value='"+value.id+"'>"+value.explains+"</option>";
+			})
+		})
+		$("#explains").html(option);
+	})
+
+
+	//试题刷新
+	$("#queslist").on("click",".glyphicon-refresh",function(){
+	    var id=$(this).attr("bid");
+		var questype=$(this).parents("tr").find("select.questype").val();
+		var levelid=$("#levellists button.active").attr("bid");
+		$.getJSON("refreshQuestion",{levelid:levelid,id:id,questype:questype,ran:Math.random()});
+		getQuestionsList(levelid);
+
+	});
+
+	//试题刷新
+	$("#queslist").on("click",".glyphicon-remove",function(){
+		var id=$(this).attr("bid");
+		var levelid=$("#levellists button.active").attr("bid");
+		$.getJSON("delQuestion",{levelid:levelid,id:id,ran:Math.random()});
+		$("#loading").modal("show");
+		getQuestionsList(levelid);
+		$("#levellists .active").find(".badge").text(parseInt($("#levellists .active").find(".badge").text())-1);
+		if(parseInt($("#levellists .active").find(".badge").text())==0){
+			$("#levellists .active").find(".badge").attr("style","background-color:red;");
+		}
+		$("#loading").modal("hide");
+	})
+
+	//试题编辑
+	$("#queslist").on("click",".glyphicon-edit",function(){
+		$('#loading').modal('show');
+		$("#titlesearch").val("");
+		$("#editQuestionModal #titlesearch").attr("bid",0);
+		$("#titlesearch").parents("form").hide();
+		var id=$(this).attr("bid");
+		var levelid=$("#levellists button.active").attr("bid");
+		var items="";
+		$.getJSON("getQuestion",{levelid:levelid,id:id,ran:Math.random()},function(data){
+			$("#editQuestionModal .tncontent").html(data.tncontent);
+			$("#editQuestionModal .tncontent").attr("bid",data.wordid);
+			$("#editQuestionModal .tncontent").attr("explainid",data.explainid);
+			$("#editQuestionModal .tncontent").attr("questype",data.questype);
+			$("#editQuestionModal .analysis").html(data.analysis);
+			if(data.questype==1){
+				$("#editQuestionModal .tncontent").parent().hide();
+			}
+			$("#editQuestionModal #items").empty();
+			if(data.items.length>0){
+				$.each(data.items,function(k,v){
+					items=items+'<p>';
+				    items=items+'	<label>';
+				    if(v.flag==data.answer){
+				    	items=items+'		<input type="radio" name="optionsRadios" class="answer" value="option1" checked>';
+				    }else{
+				    	items=items+'		<input type="radio" name="optionsRadios" class="answer" value="option1">';
+				    }
+				    
+					items=items+'	</label>';
+					items=items+'、<input type="text" class="form-control flag"  style="display:inline;width:7%;" value="'+v.flag+'">';
+					if(v.typeid=='0'){
+						items=items+'<img width="40px" height="40px" src="" class="img" style="display:none;">';
+						items=items+'<button type="button" class="btn btn-primary uploadfy" style="display:none;">图片上传</button>';
+					    items=items+'<input type="text" class="form-control content"  placeholder="输入选项" style="display:inline;width:40%;" value="'+v.content+'">';
+					}else{
+						items=items+'<img width="40px" height="40px" src="../../game/pic/"'+v.content+'" class="img" >';
+						items=items+'<button type="button" class="btn btn-primary uploadfy">图片上传</button>';
+					    items=items+'<input type="text" class="form-control content"  placeholder="输入选项" style="display:inline;width:40%;" value="">';
+					}
+				    items=items+'<span class="glyphicon glyphicon-plus additem" title="添加" bid=""></span>';
+				    items=items+'<span class="glyphicon glyphicon-remove delitem" title="删除"  bid=""></span>';
+				    items=items+'<span class="glyphicon glyphicon-font itemtype" title="选项类型"  bid=""></span>';
+				    //glyphicon glyphicon-picture
+				    items=items+'</p>';
+				})
+			}else{
+				items=items+'<p>';
+			    items=items+'	<label>';
+			    items=items+'		<input type="radio" name="optionsRadios" class="answer" value="option1">';
+				items=items+'	</label>';
+				items=items+'、<input type="text" class="form-control flag"  style="display:inline;width:7%;" value="">';
+				items=items+'<img width="40px" height="40px" src="" class="img" style="display:none;">';
+				items=items+'<button type="button" class="btn btn-primary uploadfy" style="display:none;">图片上传</button>';
+			    items=items+'<input type="text" class="form-control content"  placeholder="输入选项" style="display:inline;width:40%;" value="">';
+			    items=items+'<span class="glyphicon glyphicon-plus additem" title="添加" bid=""></span>';
+			    items=items+'<span class="glyphicon glyphicon-remove delitem" title="删除"  bid=""></span>';
+			    items=items+'<span class="glyphicon glyphicon-font itemtype" title="选项类型"  bid=""></span>';
+			    //glyphicon glyphicon-picture
+			    items=items+'</p>';
+			}
+			
+			$("#exampleanslysis").attr("checked",false);
+			$("#editQuestionModal #items").html(items);
+
+		});
+		$('#loading').modal('hide');
+		$("#editQuestionModal").modal("show");
+	})
+
+	//题型的改变
+	$("#queslist").on("change",".questype",function(){
+		var questype=$(this).val();
+		var id=$(this).parents("tr").find(".glyphicon-edit").attr("bid");
+		var levelid=$("#levellists button.active").attr("bid");
+		if(questype==9||questype==10){
+			$.getJSON("getQuestion",{levelid:levelid,id:id,ran:Math.random()},function(data){
+				$("#editQuestionModal .tncontent").html("");
+				$("#editQuestionModal .tncontent").attr("bid",id);
+				$("#editQuestionModal .tncontent").attr("explainid",data.explainid);
+				$("#editQuestionModal .tncontent").attr("questype",questype);
+				$("#editQuestionModal #items").empty();
+				var items="";
+				items=items+'<p>';
+			    items=items+'	<label>';
+			    items=items+'		<input type="radio" name="optionsRadios" class="answer" value="option1">';
+				items=items+'	</label>';
+				items=items+'、<input type="text" class="form-control flag"  style="display:inline;width:7%;" value="">';
+				items=items+'<img width="40px" height="40px" src="" class="img" style="display:none;">';
+				items=items+'<button type="button" class="btn btn-primary uploadfy" style="display:none;">图片上传</button>';
+			    items=items+'<input type="text" class="form-control content"  placeholder="输入选项" style="display:inline;width:40%;" value="">';
+			    items=items+'<span class="glyphicon glyphicon-plus additem" title="添加" bid=""></span>';
+			    items=items+'<span class="glyphicon glyphicon-remove delitem" title="删除"  bid=""></span>';
+			    items=items+'<span class="glyphicon glyphicon-font itemtype" title="选项类型"  bid=""></span>';
+				items=items+'</p>';
+				$("#exampleanslysis").attr("checked",false);
+				$("#editQuestionModal #items").html(items);
+				$("#editQuestionModal #titlesearch").html("");
+				$("#editQuestionModal #titlesearch").hide();
+				$("#editQuestionModal .analysis").html("");
+				$("#editQuestionModal #titlesearch").attr("bid",0);
+				$("#editQuestionModal").modal("show");
+
+			});
+			
+			//$(this).parents("tr").find(".glyphicon-plus").show();
+		}else{
+			$(this).parents("tr").find(".glyphicon-plus").hide();
+			$.getJSON("refreshQuestion",{levelid:levelid,id:id,questype:questype,ran:Math.random()});
+			var quescount=parseInt($("#levellists button.active").find(".badge").text());
+			$("#levellists button.active").find(".badge").html(quescount+1);
+			$("#levellists button.active").find(".badge").attr("style","");
+			getQuestionsList(levelid);
+		}
+		
+	})
+
+	//关卡的改变
+	$("#queslist").on("change",".level",function(){
+		var alevelid=$(this).val();
+		var id=$(this).parents("tr").find(".glyphicon-refresh").attr("bid");
+		var blevelid=$("#levellists button.active").attr("bid");
+		$.getJSON("changeLevel",{blevelid:blevelid,id:id,alevelid:alevelid,ran:Math.random()});
+		getQuestionsList(blevelid);
+		$("#levellists button[bid="+alevelid+"]").find(".badge").text(parseInt($("#levellists button[bid="+alevelid+"]").find(".badge").text())+1);
+		$("#levellists .active").find(".badge").text(parseInt($("#levellists .active").find(".badge").text())-1);
+	})
+
+	//意思的改变
+	$("#queslist").on("change",".wordexplain",function(){
+		var explainid=$(this).val();
+		var id=$(this).parents("tr").find(".glyphicon-refresh").attr("bid");
+		var levelid=$("#levellists button.active").attr("bid");
+		var questype=$(this).parents("tr").find(".questype").val();
+		$.getJSON("changeWordExplain",{levelid:levelid,id:id,explainid:explainid,questype:questype,ran:Math.random()});
+		getQuestionsList(blevelid);
+	})
+
+	//试题的编辑
+	$("#editQuestion").click(function(){
+		var levelid=$("#levellists button.active").attr("bid");
+		var id=$("#editQuestionModal .tncontent").attr("bid");
+		var explainid=$("#editQuestionModal .tncontent").attr("explainid");
+		var questype=$("#editQuestionModal .tncontent").attr("questype");
+		var tncontent=$("#editQuestionModal .tncontent").val();
+		var analysis=$("#editQuestionModal .analysis").val();
+		var title=$("#editQuestionModal #titlesearch").val();
+		var anaid=$("#editQuestionModal #titlesearch").attr("bid");
+		//选项
+		var items=[];
+		$("#editQuestionModal #items p").each(function(key,value){
+			var temp={};
+			temp.flag=$(value).find("input.flag").val();
+			temp.content=$(value).find("input.content").val();
+			temp.ischecked=$(value).find("input.answer").is(":checked")?1:0;
+			temp.typeid=$(value).find(".itemtype").hasClass("glyphicon-font")?0:1;
+			items.push(temp);
+		})
+		$("#editQuestionModal").modal("hide");
+		$('#loading').modal('show');
+		$.get("editQuestion",{title:title,anaid:anaid,questype:questype,explainid:explainid,tncontent:tncontent,analysis:analysis,id:id,levelid:levelid,items:JSON.stringify(items),ran:Math.random()});
+		$('#loading').modal('hide');
+		getQuestionsList(levelid);
+	})
+
+	//试题的取消
+	$("#cacleQuestion").click(function(){
+		var levelid=$("#levellists button.active").attr("bid");
+		getQuestionsList(levelid);
+	})
+
+	//选项的添加和删除以及选项类型
+	$("#editQuestionModal").on("click",".additem",function(){
+		var flag=$(this).parent().find(".itemtype").hasClass("glyphicon-font");
+		var content="";
+		if(flag){
+			content='<p><label><input type="radio" name="optionsRadios" class="answer" value="option1"></label>、<input type="text" class="form-control flag" style="display:inline;width:7%;" value=""><img width="40px" height="40px" src="" class="img" style="display:none;"><button type="button" class="btn btn-primary uploadfy" style="display:none;">图片上传</button><input type="text" class="form-control content" placeholder="输入选项" style="display:inline;width:40%;" value=""><span class="glyphicon glyphicon-plus additem" title="添加" bid=""></span><span class="glyphicon glyphicon-remove delitem" title="删除" bid=""></span><span class="glyphicon glyphicon-font itemtype" title="选项类型"  bid=""></span></p>';
+		}else{
+			content='<p><label><input type="radio" name="optionsRadios" class="answer" value="option1"></label>、<input type="text" class="form-control flag" style="display:inline;width:7%;" value=""><img width="40px" height="40px" src="" class="img"><button type="button" class="btn btn-primary uploadfy">图片上传</button><input type="text" class="form-control content" placeholder="输入选项" style="display:none;width:40%;"  value=""><span class="glyphicon glyphicon-plus additem" title="添加" bid=""></span><span class="glyphicon glyphicon-remove delitem" title="删除" bid=""></span><span class="glyphicon glyphicon-picture itemtype" title="选项类型"  bid=""></span></p>';
+		}
+		
+		$(content).insertAfter($(this).parents("p"));
+	})
+
+	$("#editQuestionModal").on("click",".delitem",function(){
+		$(this).parents("p").remove();
+	})
+
+	$("#editQuestionModal").on("click",".itemtype",function(){
+		var flag=$(this).hasClass("glyphicon-font");
+		if(flag){
+			$(this).parent().parent().find(".itemtype").removeClass("glyphicon-font").addClass("glyphicon-picture");
+			$(this).parent().parent().find("button").show();
+			$(this).parent().parent().find("img").show();
+			$(this).parent().parent().find(".content").hide();
+		}else{
+			$(this).parent().parent().find(".itemtype").removeClass("glyphicon-picture").addClass("glyphicon-font");
+			$(this).parent().parent().find("button").hide();
+			$(this).parent().parent().find("img").hide();
+			$(this).parent().parent().find(".content").show();
+			$(this).parent().parent().find(".content").attr("style","display:inline;width:40%;");
+		}
+	})
+
+	//图片上传
+	$("#editQuestionModal").on("click",".uploadfy",function(){
+		$(this).parents("#items").find(".active").removeClass("active");
+		$(this).parent().find("img").addClass("active");
+        art.dialog.open('upload?ran='+Math.random(), {
+            title: "上传图片",
+            width: 600,
+            height: 600,
+            lock: true,
+            opacity: 0.3,
+            button: [
+
+                    {
+                        name: '关闭',
+                        callback: function() {
+                            var filename = art.dialog.data('filename'); // 读取子窗口返回的数据
+                            console.log(filename);
+                            if(filename!=undefined){
+                            	$("#items img.active").attr("src","../../uploads/game/pic/"+filename);
+                            	$("#items img.active").attr("filename",filename);
+                            }
+                        },
+                        focus: false
+                    }
+                ]
+        });
+	})
+
+	//是否辨析
+	$("#exampleanslysis").click(function(){
+		var flag=$(this).is(":checked");
+		if(flag){
+			$("#titlesearch").parents("form").show();
+		}else{
+			$("#titlesearch").parents("form").hide();
+		}
+	})
+
+	//搜索
+	$.typeahead({
+	    input: '.js-typeahead-car_v1',
+	    minLength: 1,
+	    order: "asc",
+	    offset: true,
+	    hint: true,
+
+	    source: {
+	        anatitle: {
+	            ajax: {
+	                type: "GET",
+	                url: "getAnalysisByTitle",
+	            }
+	        }
+	    },
+	    emptyTemplate: 'No result for "{{query}}"',
+	    callback: {
+	        onClick: function (node, a, item, event) {
+	        	var title=item.display;
+
+	        	$.getJSON("getAnalyByTitle",{title:title},function(data){
+	        		$("#editQuestionModal").find(".analysis").html(data.content);
+	        		$("#editQuestionModal").find("#titlesearch").attr("bid",data.id);
+	        	})
+	 
+	            console.log(node)
+	            console.log(a)
+	            console.log(item)
+	            console.log(event)
+	 
+	            console.log('onClick function triggered');
+	 
+	        },
+	        onSubmit: function (node, form, item, event) {
+	 
+	            console.log(node)
+	            console.log(form)
+	            console.log(item)
+	            console.log(event)
+	 
+	            console.log('onSubmit override function triggered');
+	 
+	        }
+	    }
+	});
+})
+
+//阿拉伯数字大小写
+//阿拉伯数字转换为简写汉字
+function Arabia_To_SimplifiedChinese(Num) {
+    for (i = Num.length - 1; i >= 0; i--) {
+        Num = Num.replace(",", "")//替换Num中的“,”
+        Num = Num.replace(" ", "")//替换Num中的空格
+    }    
+    if (isNaN(Num)) { //验证输入的字符是否为数字
+        //alert("请检查小写金额是否正确");
+        return;
+    }
+    //字符处理完毕后开始转换，采用前后两部分分别转换
+    part = String(Num).split(".");
+    newchar = "";
+    //小数点前进行转化
+    for (i = part[0].length - 1; i >= 0; i--) {
+        if (part[0].length > 10) {
+            //alert("位数过大，无法计算");
+            return "";
+        }//若数量超过拾亿单位，提示
+        tmpnewchar = ""
+        perchar = part[0].charAt(i);
+        switch (perchar) {
+            case "0":  tmpnewchar = "零" + tmpnewchar;break;
+            case "1": tmpnewchar = "一" + tmpnewchar; break;
+            case "2": tmpnewchar = "二" + tmpnewchar; break;
+            case "3": tmpnewchar = "三" + tmpnewchar; break;
+            case "4": tmpnewchar = "四" + tmpnewchar; break;
+            case "5": tmpnewchar = "五" + tmpnewchar; break;
+            case "6": tmpnewchar = "六" + tmpnewchar; break;
+            case "7": tmpnewchar = "七" + tmpnewchar; break;
+            case "8": tmpnewchar = "八" + tmpnewchar; break;
+            case "9": tmpnewchar = "九" + tmpnewchar; break;
+        }
+        switch (part[0].length - i - 1) {
+            case 0: tmpnewchar = tmpnewchar; break;
+            case 1: if (perchar != 0) tmpnewchar = tmpnewchar + "十"; break;
+            case 2: if (perchar != 0) tmpnewchar = tmpnewchar + "百"; break;
+            case 3: if (perchar != 0) tmpnewchar = tmpnewchar + "千"; break;
+            case 4: tmpnewchar = tmpnewchar + "万"; break;
+            case 5: if (perchar != 0) tmpnewchar = tmpnewchar + "十"; break;
+            case 6: if (perchar != 0) tmpnewchar = tmpnewchar + "百"; break;
+            case 7: if (perchar != 0) tmpnewchar = tmpnewchar + "千"; break;
+            case 8: tmpnewchar = tmpnewchar + "亿"; break;
+            case 9: tmpnewchar = tmpnewchar + "十"; break;
+        }
+        newchar = tmpnewchar + newchar;
+    }   
+    //替换所有无用汉字，直到没有此类无用的数字为止
+    while (newchar.search("零零") != -1 || newchar.search("零亿") != -1 || newchar.search("亿万") != -1 || newchar.search("零万") != -1) {
+        newchar = newchar.replace("零亿", "亿");
+        newchar = newchar.replace("亿万", "亿");
+        newchar = newchar.replace("零万", "万");
+        newchar = newchar.replace("零零", "零");      
+    }
+    //替换以“一十”开头的，为“十”
+    if (newchar.indexOf("一十") == 0) {
+        newchar = newchar.substr(1);
+    }
+    //替换以“零”结尾的，为“”
+    if (newchar.lastIndexOf("零") == newchar.length - 1) {
+        newchar = newchar.substr(0, newchar.length - 1);
+    }
+    return newchar;
+}
+</script>
+</html>

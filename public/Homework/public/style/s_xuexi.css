@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*学生端同步学习*/
+
+ul.class-task-tests.tbyx li{ width:150px; }
+ul.class-task-tests.tbyx li p{ height:35px; line-height:35px; width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+
+
+.tbxx{margin-bottom: 20px;}
+.tbxx ul{ background: #eee;}
+.tbxx ul li{ width:29.9%; margin: 0; text-align: center; border-right: 1px solid #ddd; background: #eee;}
+.w980 .tbxx ul li{ width:28.8%;}
+
+a.yx_xz { width:22px; height:22px; background: #38C77D; border-radius: 50px;  display:block;position:absolute; top:-5px; right:0; color: #fff;  }
+.error_btn { margin: 20px 0;}
+.error_btn li{ margin:  10px auto; width: 80%;}
+.error_btn li a,.error_btn li a:visited{border: 1px dashed #23c973; background: #fff; color: #23c973; font-weight: bold; padding: 10px 20px; display: block; border-radius: 5px ; font-size: 14px; line-height: 22px;  height: 22px; }
+.error_btn li a:hover,.error_btn li a.sel{ background:#23c973;  border: 1px dashed #23c973; color: #fff; text-decoration: none; }
+.error_btn li a font{color:#ff0000;}
+.error_btn li a:hover font,.error_btn li a.sel font{color:#fff000;}
+
+/*表格样式*/
+.zuoye{margin:10px 20px;}
+.table_zypm {clear:both;text-align:center;border-collapse:collapse; border-spacing:0;background:#fff; }
+.table_zypm td{white-space:normal;word-break:break-all;border-bottom:1px solid #f6f6f6;height:35px;line-height:35px;overflow:hidden;padding:5px 6px; font-size: 14px;}
+.table_zypm .tit2 {height:40px;line-height:40px;background:#EAFDF3;color:#555;cursor:default;padding:0 6px;font-weight:bold;}
+.table_zypm .tit2 td {border:none;}
+.table_zypm td i,.table_zypm td a i{ font-size: 20px;}
+.table_zypm td span.pm_ico{ background: #ff0000; width: 20px; height: 20px; display: block; text-align: center; line-height: 20px; color: #fff; border-radius: 5px;}
+
+.num_red,.num_gray {background:url(../images/teacher/img.png) no-repeat 0 -530px; width:20px; height:26px; line-height:18px;  text-align:center; color:#fff; ;}
+.num_gray {background-position:-20px -530px;}
+
+.table_zypm td span.pm_pho img{ border: 1px solid #ddd; width:55px; height: 55px; padding: 2px; border-radius: 5px; }
+
+.pm_1 td,.pm_2 td,.pm_3 td,.pm_3 td a i,.pm_2 td a i,.pm_1 td a i{ color:#ff6600; font-size: 20px;}
+.pm_1 td,.pm_1 td i,.pm_1 td a i { font-size: 26px; color:#ff0000;}
+.pm_2 td,.pm_2 td i,.pm_2 td  a i{ font-size:22px;}
+

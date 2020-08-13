@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<link rel="stylesheet" type="text/css" href="__Hjs__deviceMob/style/yj.css"/>
+<link rel="stylesheet" type="text/css" href="__Hjs__deviceMob/style/zj.css" />
+<link rel="stylesheet" type="text/css" href="__Hjs__deviceMob/style/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="__Hjs__deviceMob/style/ktxl.css"/>
+<link rel="stylesheet" type="text/css" href="__Hjs__deviceMob/style/deviceMob.css"/>
+<script type="text/javascript" src="__Hjs__deviceMob/script/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__Hjs__deviceMob/script/mobile.js" ></script>
+<script type="text/javascript" src="__Hjs__deviceMob/script/qimg.js" ></script>
+<script type="text/javascript" src="__Hjs__deviceMob/script/TouchSlide.1.1.js"></script>
+<script type="text/javascript" src="__Pjs__jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="__Hjs__deviceMob/script/ctFeedBack.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+header .kc_setup {
+	width: 100px;
+}
+
+header h1.ml60 {
+	margin-right: 100px;
+}
+
+.lyl_ti {
+	margin-top: 60px;
+}
+body{overflow: hidden;}
+</style>
+<script type="text/javascript">
+function getHttpUrl(url) {
+    url = url.replace(/https/g, "http");
+   // url = url.replace(/:8081/g, ":8080");
+    url = url.replace(/:8443/g, ":8080");
+    return url;
+     // body...
+ }
+var exams_mp3_url = "__resource_path__mp3_exam/";
+var word_mp3_url = "__resource_path__mp3_word/";
+var word_pic_url = "__resource_path__pic_word/";
+var text_mp3_url = "__resource_path__mp3_text";
+var resource_path = "__resource_path__";
+var from_platform = "{$from_platform}";
+var classId = "{$def_classId}";
+var classname = "{$def_classname}";
+var examsid = "{$examsid}";
+var StudentInfo = {};
+var Baseurl = '';
+var ListenConter = Baseurl + '/device/';//听力训练控制器访问地址
+var questionInfo = [];//试题列表的数组
+var showstr = '';
+var mp = '';
+var studentNum = '';
+var tmsurl = "{$tmsurl}";
+var callbackURL = "{$callbackURL}";
+exams_mp3_url = getHttpUrl(exams_mp3_url);
+word_mp3_url = getHttpUrl(word_mp3_url);
+text_mp3_url = getHttpUrl(text_mp3_url);
+$(function() {
+	hideClass();
+	$('.kcsz').click(function(){
+		hideClass();
+	});
+	$(".kc_setup").children('a').click(function(){
+		$(".bjj").show();
+		$('.kcsz').show();
+	});
+	$("#jplayer").jPlayer({
+			swfPath: '__Pjs__',
+			wmode: "window",
+			supplied: "mp3",
+			preload: "none",
+			volume: "1"
+		});
+	mp = new myplay();
+	getStudentInfo(classId);
+});
+hideLoading();
+function changeClass(){
+	hideClass();
+	var el=$(this),aid=el.attr('aid');
+	classname=el.text();
+	if(classId!=aid){
+		el.parent().find('.on').removeClass('on');
+		el.addClass('on');
+		classId=aid;
+		getStudentInfo(classId);
+
+	}
+}
+function urlback(){
+		 //popTheController();
+		 mp.clear();
+    	 clearTimeout(mp3_progress);
+    	 //window.location.href = callbackURL;
+		 UXinJSInterface.closeWebView();
+
+}
+</script>
+</head>
+<body>
+<div id="jplayer"></div>
+		<div class="container" id="paper">
+		<header>
+			<h1 class="ml60">听力训练</h1>
+			<div class="back">
+				<a href="javascript:urlback();"><img src="__Hjs__deviceMob/images/backIco.png"
+					width="20" height="20" />返回</a>
+			</div>
+			<div class="kc_setup">
+				<a href="javascript:;">班级切换</a>
+            </div>
+		</header>
+		<div class="la_title">
+			<p>您可以切换班级，查看每道题的训练结果</p>
+			<div class="la_replay">
+				<div class="dq_banji" >
+					<span style="border-bottom: none;color: #555 !important;">{$exams[0].name}</span>
+					<span id="classinfo"></span>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		
+		<div class="bd">
+			
+			
+		</div>
+	</div>
+	
+	<div class="tips"></div>
+	<div class="ddel2">
+		<a class="last" id="prev" href="javascript:;">上一题</a> <a class="next"
+			id="next" href="javascript:;">下一题</a>
+	</div>
+<div class="bjj">
+	<div class="img_tip"></div>
+	<div class="ban_box" style="display:block;" id="classlist">
+		
+			<foreach name ="classInfo" item="classInfo" key="key">
+				<a href="javascript:;" aid="{$classInfo.classId}" onclick="changeClass.call(this);" class="on">{$classInfo.className}</a>
+			</foreach>
+	</div>
+</div>	
+<div class="kcsz" style="display:block;"></div>
+</body>
+</html>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?20a850a66d2dc66caf13ae75384199ef";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>

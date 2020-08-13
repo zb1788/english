@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>菜单</title>
+<script language="JavaScript" src="__PUBLIC__/js/jquery.min.js"></script>
+<link href="__PUBLIC__/style/menu.css" rel="stylesheet" type="text/css" />
+<script  type="text/javascript">
+$(function(){
+	//导航切换
+	$(".menuson li").click(function(){
+		$(".menuson li.active").removeClass("active")
+		$(this).addClass("active");
+	});
+
+	$('.title').click(function(){
+		var $ul = $(this).next('ul');
+		$('dd').find('ul').slideUp();
+		if($ul.is(':visible')){
+			$(this).next('ul').slideUp();
+		}else{
+			$(this).next('ul').slideDown();
+		}
+	});
+})
+</script>
+</head>
+<body>
+    <div class="lefttop"><span></span>功能菜单</div>
+    <dl class="leftmenu">
+		<dd>
+        	<div class="title"><span></span>语文信息管理</div>
+            <ul class="menuson">
+                <li><cite></cite><a href="{:U('Kewen/kewen')}" target="mainFrame">课文和生字管理</a><i></i></li>
+            </ul>
+        </dd>
+        <dd>
+            <div class="title"><span></span>基础字词管理</div>
+            <ul class="menuson">
+                <li><cite></cite><a href="{:U('Base/zi')}" target="mainFrame">基础字库管理</a><i></i></li>
+                <li><cite></cite><a href="{:U('Base/ci')}" target="mainFrame">基础词库管理</a><i></i></li>
+            </ul>
+        </dd>
+        <dd>
+            <div class="title"><span></span>版本信息管理</div>
+            <ul class="menuson">
+                <li><cite></cite><a href="../version/list" target="mainFrame">版本信息管理</a><i></i></li>
+                <li><cite></cite><a href="../Version/imglist?r_subject=0001" target="mainFrame">版本图片管理</a><i></i></li>
+            </ul>
+        </dd>
+        <dd>
+            <div class="title"><span></span>用户管理</div>
+            <ul class="menuson">
+                <li><cite></cite><a href="{:U('User/index')}" target="mainFrame">用户管理</a><i></i></li>
+            </ul>
+        </dd>
+    </dl>
+</body>
+</html>

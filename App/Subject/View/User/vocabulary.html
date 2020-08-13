@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="wap-font-scale" content="no">
+		<meta charset="UTF-8">
+		<title>英语同步练</title>
+		<link rel="stylesheet" href="__SUBJECT__/css/currency.css" />
+        <link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/require.js" ></script>
+		<style>
+			#wrapper {top:88px; bottom:48px;}
+		</style>
+	</head>
+	<body>
+		<main>
+			<header class="head border-nav">
+				<a class="head-left" href="javascript:void(0);"><i class="icon-back"></i>返回</a>
+				<h1 class="title">生词本</h1>
+			</header>
+			<!-- <div class="downM" id="downT" style="display:none;">
+				<ul><li id="randtest">随机测验</li><li>分组测验</li></ul>
+			</div> -->
+
+			<div class="bLine padTop45">
+				<ul class="wb">
+					<li>
+						<div class="check" id="all" style="width:5px;">
+							<div class="check-box"><i></i></div>
+						</div>
+						<p style="line-height:40px;padding:0 20px;">共有单词<font id="wordcount">0</font>个</p>
+					</li>
+				</ul>
+			</div>
+			<section>
+				<div id="wrapper">
+					<div id="scroller">
+						<ul class="wb bWhite iStudy" id="iStudy">
+					    	
+					    </ul>
+					</div><!--end scroller-->
+				</div><!--end wrapper-->
+				<div class="bottom">
+				    <div class="boxCon"><a href="javascript:void(0);" id="start" class="btn bYellow02"><i class="icon-uniE607"></i>开始测试</a></div>
+				</div>
+				<div id="tips02"></div>
+			</section>
+			<div id="tips"></div>
+		</main>
+	<!--遮罩的代码-->
+		<div id="over" class="over"></div>
+	    <div id="layout" class="layout">
+	    	<img src="__SUBJECT__/img/2013112931.gif" alt="" />
+	    </div>
+	    <style>
+			.over {
+	            display: block;
+	            position: absolute;
+	            top: 0;
+	            left: 0;
+	            width: 100%;
+	            height: 100%;
+	            background-color: #f5f5f5;
+	            opacity:0.5;
+	            z-index: 1000;
+	        }
+	        .layout {
+	            display: block;
+	            position: absolute;
+	            top: 40%;
+	            left: 40%;
+	            width: 20%;
+	            height: 20%;
+	            z-index: 1001;
+	            text-align:center;
+	        }
+		</style> 
+	</body>
+	<script type="text/javascript">
+	    require.config({
+	    　paths: {
+	　　　　　　"userrecord": "__SUBJECT__/js/vocabulary",
+				"iscroll":"__PUBLIC__/js/iscroll-lite",
+	　　　　},
+        	waitSeconds: 0
+	    });
+	    require(["userrecord","iscroll"], function(userrecord,IScroll){
+	    	var storage=window.localStorage;
+	    	storage.removeItem("book_recite");
+	        userrecord.initRecordList("getVocabularyList",$("#iStudy"));
+	        //滑动问题
+	        new IScroll("#wrapper",{
+	            momentum:true,
+	            click:true 
+	        });
+	        $("#wrapper").resize();
+	        perface();
+	        $(".head-left").click(function(){
+	        	var Requests = new Object();
+        		Requests = GetRequest();
+	        	window.location.href="../"+Requests["callBackUrl"]+"?ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"]+"&ks_short_name="+Requests["ks_short_name"]+"&urlCallBack="+Requests["urlCallBack"];
+	        });
+	        //设置测试类型顶
+	        $(".head-right").click(function(){
+	        	var tip = document.getElementById('tips02');
+				var downT = document.getElementById('downT');
+				if( downT.style.display==='block') {
+					downT.style.display = 'none';
+				}
+				else{
+					downT.style.display = 'block';
+				}
+	        });
+	        //开始进行测试
+	        $("#start").click(function(){
+	        	storage.removeItem("book_recite");
+	            //添加数据
+	            var arr=[];
+	            var checkbox=$("#iStudy").find(".checkedBox");
+	            if(checkbox.length==0){
+	            	setTip("请选择之后进行测试");
+	            }else{
+	            	$.each(checkbox,function(key,value){
+	            		var temp={};
+	            		temp.id=$(value).attr("wordid");
+	            		temp.isword=$(value).attr("isword");
+	            		temp.ks_code=$(value).attr("ks_code");
+	            		arr.push(temp);
+	            	});
+	            	console.log(arr);
+	            	storage.setItem("book_recite",encodeURI(JSON.stringify(arr)));
+	            	window.location.href="bookrecite?callBackUrl="+encodeURIComponent(document.location.href); 
+	            } 
+	            
+	        });
+
+	        //全选按钮的点击事件
+	        $("#all").click(function(){
+	        	if($(this).find(".check-box").hasClass("checkedBox")){
+	        		$(this).find(".check-box").removeClass("checkedBox");
+	        		$("#iStudy").find(".check-box").removeClass("checkedBox");
+	        	}else{
+	        		$(this).find(".check-box").addClass("checkedBox");
+	        		$("#iStudy").find(".check-box").addClass("checkedBox");
+	        	}
+	        })
+	        //随机测试的函数
+	        
+	    });
+	</script>
+</html>

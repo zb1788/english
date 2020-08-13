@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="__PUBLIC__css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="__PUBLIC__css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<header>
+	<div class="l fl"><a href="{:U('listen/index')}"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">听力训练</div>
+    <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+                <li><a href="{:U('index/wordbook')}"><i class="icon-heart"></i><font class="wordcount">{$wordbcount}</font></a></li>
+                <li><a href="{:U('index/record')}"><i class="icon-list-alt"></i><font class="recordcount">{$recordcount}</font></a></li>
+                <li><a href="{:U('index/index')}"><i class="icon-evil"></i>学习中心</a></li>
+                <li><a href="{:U('index/course')}"><i class="icon-pencil-square"></i><b>课程设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section class="study iListen">
+	<h2>{$vgt_name}</h2>
+	
+	<foreach name="exmaslist" item="vo" >
+	<dl class="listen_list">
+    	<a href="../Examlisten/examsquiz?unitid={$vo.ks_code}&examsid={$vo.id}&isOverdue=false"> 
+        	<dt>{$key+1}.{$vo.name}</dt>
+            <!-- <dd><p>已完成用时<span>10:04</span>，得分<span>80</span>，错误<span>3</span>题</p></dd> -->
+        </a>
+    </dl>
+	</foreach>
+</section>
+
+
+<script type="text/javascript" src="__PUBLIC__js/jquery.min.js"></script>  
+<script src="__PUBLIC__js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+
+<foreach name="unitinfo" item="unitinfo" key="k" >
+    <li><a href="javascript:;" curnum="{$k}" unitid="{$unitinfo.id}" onclick="show_chapter_list({$unitinfo.id},{$k});">{$unitinfo.unitalias}<b>></b></a></li>
+</foreach>

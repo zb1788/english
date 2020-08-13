@@ -1,0 +1,431 @@
+/*@media only screen and(min-width:320px) and (max-width:)  {*/
+
+/*}*/
+
+
+
+@media only screen and (min-width: 320px) and (max-width:568px) {
+    .section01,.section02,.contentInfo,.contentInfo02,.contentInfo03{
+        max-width:100%;
+    }
+    .section01 .leftTitle {
+        max-width:50%;
+    }
+    .section01 .rightLesson{
+        max-width:50%;
+    }
+
+    .section01 .rightLesson img{
+        max-width:67%;
+    }
+    .section01 .leftTitle img{
+        max-width:88%;
+    }
+    .section02 img{
+        max-width:78%;
+    }
+
+  /*  .contentList ul li span,.contentList02 ul li span,.contentList00 ul li span,.contentList03 ul li span,.contentList04 ul li span{
+        width:77%!important;
+    }*/
+    .contentList04 ul li span, .contentList03 ul li span, .contentList00 ul li span, .contentList02 ul li span{
+        width:74%!important;
+        font-size:16px!important;
+    }
+   .contentList01 ul li span{
+     width:100%!important;
+ }
+    .contentInfo .topTitle h4 span,.contentInfo02 .topTitle h4 span,.contentInfo00 .topTitle h4 span,.contentInfo01 .topTitle h4 span,
+    .contentInfo04 .topTitle h4 span {
+        font-size:17px!important;
+    }
+    .contentInfo01 .topTitle{
+        padding-bottom:234px!important;
+    }
+    .contentInfo04 .topTitle{
+        padding-bottom:400px!important;
+    }
+    /*.contentInfo03 .topTitle{*/
+        /*padding-bottom:348px!important;*/
+    /*}*/
+  .contentInfo03 .topTitle,.contentInfo02 .topTitle{
+        padding-bottom:348px!important;
+    }
+    .contentInfo00 .topTitle{
+        padding-bottom:412px!important;
+    }
+    .contentList02 ul,.contentList01 ul,.contentList00 ul,.contentList03 ul{
+        padding:25px 0 0 0!important;
+    }
+    .contentList04 ul{
+        padding:82px 0 0 0!important;
+    }
+    .contentList04 ul li span{
+        font-size:17px!important;
+    }
+  /*  .contentList04,.contentList03,.contentList02,.contentList01,.contentList00{
+        left:14px!important;
+    }*/
+   /* .contentList04 ul li span,.contentList03 ul li span,.contentList02 ul li span,.contentList01 ul li span,
+    .contentList00 ul li span{
+        font-size:16px!important;
+    }*/
+    .contentList00,.contentList01,.contentList02,.contentList03,.contentList04{
+        left:15px!important;
+    }
+      .contentInfo03 .topTitle h4 span{
+        font-size:17px!important;
+    }
+    .contentList03 ul{
+        padding:50px 0 0 0!important;
+    }
+}
+@media only screen and (min-width: 360px) and (max-width:640px) {
+    .section01,.section02,.contentInfo,.contentInfo02,.contentInfo03,.contentInfo00{
+        max-width:100%;
+    }
+    .section01 .leftTitle {
+        max-width:50%;
+    }
+    .section01 .rightLesson{
+        max-width:50%;
+    }
+
+    .section01 .rightLesson img{
+        max-width:67%;
+    }
+    .section01 .leftTitle img{
+        max-width:88%;
+    }
+    .section02 img{
+        max-width:78%;
+    }
+    .contentList00{
+        left:16px!important;
+    }
+
+    .contentList01 ul li span{
+        width:77%!important;
+    }
+    .contentInfo .topTitle h4 span,.contentInfo02 .topTitle h4 span,.contentInfo00 .topTitle h4 span,.contentInfo01 .topTitle h4 span,
+    .contentInfo04 .topTitle h4 span,.contentInfo03 .topTitle h4 span
+    {
+        font-size:17px!important;
+    }
+    .contentInfo01 .topTitle{
+          padding-bottom:232px!important;
+      }
+    .contentInfo00 .topTitle{
+        padding-bottom:392px!important;
+    }
+    .contentInfo02 .topTitle{
+        padding-bottom:316px!important;
+    }
+    .contentInfo03 .topTitle{
+        padding-bottom:350px!important;
+    }
+    .contentInfo04 .topTitle{
+        padding-bottom:390px!important;
+    }
+    .contentList02 ul,.contentList01 ul,.contentList00 ul{
+        padding:25px 0 0 0!important;
+    }
+    .contentList03 ul{
+        padding:26px 0 0 0!important;
+    }
+    .contentList04 ul{
+        padding:50px 0 0 0!important;
+    }
+    .contentList04 ul li span{
+        font-size:17px!important;
+    }
+    .contentList04{
+        left:20px!important;
+    }
+    .contentList04 ul li span, .contentList03 ul li span, .contentList00 ul li span, .contentList02 ul li span{
+        width:74%!important;
+    }
+    .contentList01 ul li span{
+        width:100%!important;
+    }
+    .contentList03{
+        top:20px!important;
+    }
+
+}
+@media only screen and (min-width:375px) and (max-width: 667px) {
+
+    .contentInfo00 .topTitle{
+        padding-bottom:364px!important;
+    }
+}
+@media only screen and (min-width: 384px) and (max-width: 640px){
+    .contentInfo03 .topTitle{
+         padding-bottom:324px!important;
+     }
+    .contentInfo00 .topTitle{
+        padding-bottom:340px!important;
+    }
+}
+@media only screen and (min-width: 411px) and (max-width: 823px){
+    .contentInfo00 .topTitle{
+        padding-bottom:320px!important;
+    }
+}
+@media only screen and (min-width: 412px) and (max-width: 736px) {
+    .contentInfo00 .topTitle{
+        padding-bottom:310px!important;
+    }
+    .contentInfo03 .topTitle{
+        padding-bottom:330px!important;
+    }
+    .contentInfo01 .topTitle{
+        padding-bottom:198px!important;
+    }
+}
+@media only screen and (min-width: 414px) and (max-width: 736px) {
+    .contentInfo01 .topTitle{
+        padding-bottom:194px!important;
+    }
+    .contentInfo00 .topTitle{
+        padding-bottom:320px!important;
+    }
+}
+@media only screen and (min-width:600px) and (max-width:960px)  {
+    .contentInfo00 .topTitle{
+        padding-bottom:314px!important;
+    }
+    .contentList04 ul li span{
+        font-size:22px!important;
+    }
+}
+@media only screen and (min-width:760px) and (max-width:1024px)  {
+    .section01,.section02,.contentInfo{
+        max-width:100%;
+    }
+    .section01 .leftTitle {
+        max-width:50%;
+        margin-right:100px;
+    }
+    .section01 .rightLesson{
+        max-width:50%;
+    }
+
+    .section01 .rightLesson img{
+        max-width:98%;
+    }
+    .section01 .leftTitle img{
+        max-width:92%;
+    }
+    .contentList£¬.contentList02{
+        left:38px!important;
+    }
+    .footerList{
+        width:90%;
+        margin:0 auto;
+        padding-bottom:20px;
+        overflow:hidden;
+    }
+    .footerList ul li {
+        float: left;
+        width: 40%;
+        margin-left: 46px!important;
+        padding-bottom: 16px;
+    }
+    .contentInfo .topTitle h4 span,.contentInfo01 .topTitle h4 span,.contentInfo02 .topTitle h4 span{
+        font-size:28px!important;
+    }
+    .contentList ul li span,.contentList01 ul li span,.contentList02 ul li span{
+        font-size:30px!important;
+        width:86%!important;
+    }
+    .contentList01 ul li span{
+        width:99%!important;
+    }
+    .contentList ul li img,.contentList02 ul li img{
+        width:12%!important;
+    }
+    .footerList ul li img{
+        width:100%!important;
+    }
+    .contentInfo .topTitle{
+        padding-bottom:390px!important;
+    }
+    .contentInfo02 .topTitle{
+        padding-bottom:492px!important;
+    }
+    .contentList,.contentList01,.contentList02{
+        top:32px!important;
+        /*left:48px!important;*/
+    }
+    .section02 img{
+        width:58%!important;
+    }
+    .contentList02,.contentList01{
+        left:40px!important;
+        top:36px!important;
+    }
+   /* .contentInfo01{
+        padding-bottom:320px!important;
+    }*/
+    .contentInfo02 .topTitle{
+        padding-bottom:490px!important;
+    }
+    .contentInfo01 .topTitle{
+        padding-bottom:410px!important;
+    }
+    .contentList01 ul li{
+        padding-left:20px!important;
+    }
+    .contentList04 ul li{
+        padding-left:20px!important;
+    }
+    .contentList02 ul,.contentList01 ul,.contentList04 ul{
+        padding:40px 0 0 0!important;
+    }
+    .contentInfo00 .topTitle{
+        padding-bottom:300px!important;
+    }
+    .contentInfo03 .topTitle{
+        padding-bottom:350px!important;
+    }
+    .contentList03,.contentList00{
+        left:34px!important;
+    }
+.contentList03 ul li span,.contentList00 ul li span,.contentList04 ul li span{
+        font-size:22px!important;
+    }
+    .contentList03 ul li span{
+        width:88%!important;
+    }
+    .contentList00 ul li img{
+        vertical-align:bottom!important;
+    }
+    .contentList03 ul{
+        padding:36px 0 0 0!important;
+    }
+    .contentInfo04 .topTitle{
+        padding-bottom:400px!important;
+    }
+    .contentList04{
+        left:34px!important;
+    }
+    .contentList00 ul li span{
+        width:88%!important;
+    }
+    .contentList04 ul li span{
+        font-size:28px!important;
+    }
+    .contentInfo00 .topTitle{
+        padding-bottom:364px!important;
+    }
+}
+@media only screen and (min-width:1024px) and (max-width:1366px)  {
+    .section01,.section02,.contentInfo{
+        max-width:100%;
+    }
+    .section01 .leftTitle {
+        max-width:50%;
+        margin-right:100px;
+    }
+    .section01 .rightLesson{
+        max-width:50%;
+    }
+
+    .section01 .rightLesson img{
+        max-width:98%;
+    }
+    .section01 .leftTitle img{
+        max-width:92%;
+    }
+    .contentList£¬.contentList02{
+        left:38px!important;
+    }
+    .footerList{
+        width:90%;
+        margin:0 auto;
+        padding-bottom:20px;
+        overflow:hidden;
+    }
+    .footerList ul li {
+        float: left;
+        width: 40%;
+        margin-left: 58px!important;
+        padding-bottom: 16px;
+
+    }
+    .contentInfo .topTitle h4 span,.contentInfo01 .topTitle h4 span,.contentInfo02 .topTitle h4 span{
+        font-size:28px!important;
+    }
+    .contentList ul li span,.contentList01 ul li span,.contentList02 ul li span{
+        font-size:30px!important;
+        width:86%!important;
+    }
+    .contentList ul li img,.contentList02 ul li img{
+        width:7%!important;
+    }
+    .footerList ul li img{
+        width:100%!important;
+    }
+    .contentInfo .topTitle{
+        padding-bottom:390px!important;
+    }
+    .contentInfo02 .topTitle{
+        padding-bottom:492px!important;
+    }
+    .contentList,.contentList01,.contentList02{
+        top:32px!important;
+        /*left:48px!important;*/
+    }
+    .section02 img{
+        width:50%!important;
+    }
+    .contentList02,.contentList01{
+        left:40px!important;
+        top:36px!important;
+    }
+
+    .contentInfo02 .topTitle{
+        padding-bottom:390px!important;
+    }
+    .contentInfo01 .topTitle{
+        padding-bottom:270px!important;
+    }
+    .contentList02 ul,.contentList01 ul{
+        padding:40px 0 0 0!important;
+    }
+    .contentList00 ul li{
+        padding-left:30px!important;
+    }
+    .contentInfo00 .topTitle{
+        padding-bottom:286px!important;
+    }
+    .contentList00{
+        left:50px!important;
+    }
+    .contentList00 ul li span,.contentList03 ul li span{
+        font-size:22px!important;
+    }
+    .contentList00 ul li img{
+        vertical-align:bottom!important;
+    }
+    .contentInfo03 .topTitle h4 span{
+        font-size:24px!important;
+    }
+    .contentInfo03 .topTitle{
+        padding-bottom:328px!important;
+    }
+    .contentList04{
+        left:46px!important;
+    }
+    .contentList00 ul li span{
+        width:92%!important;
+    }
+    .contentList04 ul li span{
+        font-size:28px!important;
+    }
+    .contentInfo00 .topTitle{
+        padding-bottom:328px!important;
+    }
+}
+

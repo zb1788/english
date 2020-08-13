@@ -1,0 +1,306 @@
+<include file="Base/header" />
+<body>
+<div class="place"><strong>位置</strong>：首页 &gt; 考试真题试卷列表</div>
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="box_top pl_10 f14"><strong>搜索</strong></td> 
+  </tr>
+  <tr>
+    <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+      <tr>
+      <td width="50" align="right">省份：</td>
+        <td>
+          <select name="provinceid" class="select" id="provinceid">
+            <volist name="provincearr" id="vo">
+                <option value="{$vo.id}">{$vo.title}</option>
+            </volist>
+          </select>
+        </td>
+        <td width="50" align="right">学段：</td>
+        <td>
+          <select name="levelid" class="select" id="levelid">
+            <volist name="periodarr" id="vo">
+                <option value="{$vo.id}">{$vo.title}</option>
+            </volist>
+          </select>
+        </td>
+        <td width="50" align="right">类型：</td>
+        <td>
+          <select name="typeid" class="select" id="typeid">
+            <volist name="examtypearr" id="vo">
+                <option value="{$vo.id}">{$vo.title}</option>
+            </volist>
+          </select>
+      </td>
+        
+        <td width="50" align="right">状态：</td>
+        <td>
+        <select name="select3" class="select" id="stateid">
+          <option value="1">编辑中</option>
+          <option value="2">已完成待发</option>
+      	  <option value="3">已生成待审</option>
+      	  <option value="4">发布完成</option>
+        </select>
+        </td>
+      </tr>
+    </table></td> 
+  </tr> 
+</table>
+<div class="h10"></div> 
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="42">
+        <input name="按钮" type="button" class="ext_btn ext_btn_submit add" value="添加考试" />&nbsp;</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table">
+  <tr>
+    <th width="30" align="center">&nbsp;</th>
+    <th width="30">次序</th>
+    <th width="60">年级</th>
+    <th width="60">类型</th>
+    <th width="80">年份</th>
+    <th width="150">试卷名称</th>
+    <th width="80">状态</th>
+    <th align="left">&nbsp;&nbsp;操&nbsp;作</th>
+  </tr>
+</table>
+<div class="h5"></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="42">
+    	<input name="按钮2" type="button" class="ext_btn ext_btn_submit" id="save" value="保存修改" /></td>
+  </tr>
+</table>
+<table class="list_demo" style="display:none;">
+	<tr class="tr">
+    <td align="center">1</td>
+    <td><input name="sortid" type="text" class="input-text" size="3" maxlength="2" style="width:24px" /></td>
+    <td>初中</td>
+    <td>模拟</td>
+    <td>2014</td>
+    <td>Unit1 Look at me!</td>
+    <td>&nbsp;</td>
+    <td align="left">
+      <input type="submit" class="ext_btn ext_btn_submit info"  value="详细"  />
+  	  <input type="button" class="ext_btn ext_btn_success state" name="state" value="复制" />
+  	  <input type="button" class="ext_btn edit" value="修改"/>
+      <input type="button" class="ext_btn ext_btn_error" value="删除" />
+	    <input type="button"  class="ext_btn ext_btn_submit preview" value="预览试卷" />
+	   </td>
+    </tr>
+</table> 
+</div> 
+<script type="text/javascript">  
+$(function(){ 
+  $.ajaxSetup({async:false});
+ // var dloading = art.dialog({time:30,title:'加载中……',width:130,height:30,opacity:0.3,lock:true});
+ //初始化年级、学期以及版本基本信息
+  $(".tr:odd").css("background", "#F5F8FA");
+  $('.tr:odd').live('hover',function(event){
+    if(event.type=='mouseenter'){
+      $(this).css("background-color", "#E5EBEE");
+    }else{
+      $(this).css("background-color", "#F5F8FA");
+    }
+  });
+
+  $('.tr:even').live('hover',function(event){
+    if(event.type=='mouseenter'){
+      $(this).css("background-color", "#E5EBEE");
+    }else{
+      $(this).css("background-color", "#FFF");
+    }
+  });
+  /**
+  初始化年级、学期、版本以及单元和单词
+  **/
+
+  //$.EBC.setProvince($("#provinceid"));
+  //$("#state").val({$state});
+  getExamList();
+  //dloading.close();
+  /**
+  初始化年级、学期、版本下拉框联动
+  **/
+  $("#provinceid").change(function(){
+	  getExamList();
+  });
+  $("#typeid").change(function(){
+    getExamList();
+  });
+  
+  $("#levelid").change(function(){
+    getExamList();
+  });
+  
+  $("#stateid").change(function(){
+    getExamList();
+  });
+  //添加
+  $(".ext_btn_submit.add").click(function(){  
+    editExam();
+  });
+  //详情
+  $(".ext_btn_submit.info").live("click",function(){
+  	var id=$(this).attr("bid");
+  	var gradeid=$("#gradeid").val();
+  	var unitid = $("#unitid").val();
+  	var versionid=$("#versionid").val();
+  	var termid=$("#termid").val();
+  	var stateid=$("#state").val();
+    window.open("../exams/index?ran="+Math.random()+"&examsid="+id);
+  });
+  //修改
+  $(".edit").live("click",function(){
+  	 var tr = $(this).parents("tr");
+     var id = $(this).attr("BID");
+     td = tr.children('td').eq(6);
+     var exam = td.html();
+     editExam(id,exam);
+  });
+  //复制
+  $(".state").live("click",function(){
+     var id = $(this).attr("BID");
+	 $.getJSON("../Exam/examsCopy",{id:id,ran:Math.random()},function(data){
+		  getExamList();
+	 });
+  });
+  //删除
+  $(".ext_btn_error").live("click",function(){
+  	 var tr = $(this).parents("tr");
+     var id = $(this).attr("BID");
+	   art.dialog.confirm("确定要删除吗?",function(){
+	   $.get('../Exams/delExam',{id:id,random:Math.random()},function(data){
+	 	  $(tr).remove();
+      getExamList();
+      },"json");
+	  });
+  });
+  //预览试卷
+  $(".preview").live("click",function(){
+  var examsid=$(this).attr("bid"); 
+    art.dialog.open('../../../Listen/yulan?examsid='+examsid,{
+        title:"预览试卷",
+        width:980,
+        height:600,
+        lock:true
+    });
+  });
+  //保存修改
+  $("#save").click(function()
+  {  
+    var dloading = art.dialog({time:30,title:'更新中……',width:130,height:30,opacity:0.3,lock:true});  
+    if($(".list_table tr.tr").length == 0)return;
+    var arrjson =[];  
+    $(".list_table tr.tr").each(function(){
+      var tr =$(this); 
+      var id = tr.find('input[name="sortid"]').attr("BID");
+      var sortid = tr.find('input[name="sortid"]').val(); 
+      var obj = {};
+      obj.id = id;
+      obj.sortid = sortid;  
+      arrjson.push(obj);       
+    });
+    $.getJSON("../exam/listUpExam",{data:JSON.stringify(arrjson)},function(data){
+      getExamList();
+      dloading.close();
+    });
+    
+  });
+  
+
+  
+});
+//添加考试
+function editExam(id,exam)
+{
+	var provinceid=$("#provinceid").val();
+	var levelid=$("#levelid").val();
+	var stateid=$("#stateid").val();
+	var typeid=$("#typeid").val();
+	art.dialog.open('../Exam/topicexam_add?provinceid='+provinceid+'&levelid='+levelid+'&stateid='+stateid+'&typeid='+typeid+'&id='+id,{
+	      title:"修改小题内容",
+	      width:445,
+	      height:292,
+	      lock:true,
+	      opacity:0.3,
+	      button: [
+	        {
+	          name: '保存',
+	          callback: function () { 
+	            var iframe = this.iframe.contentWindow;     
+	            var re = iframe.editExam();
+	            if (re) { getExamList();return true;}
+	            else{return false;}
+	            },
+	          focus: true
+	        },
+	        {
+	          name: '关闭',
+	          callback: function () { 
+	            //getUnitExamQuestionsList();
+	          },
+	          focus: false
+	        }
+	      ]
+	    });		
+}
+
+//获取考试列表
+function getExamList(){
+	var provinceid = $("#provinceid").val();
+  var typeid=$("#typeid").val();
+  var levelid=$("#levelid").val();
+	var stateid= $("#stateid").val();
+  var dloading = art.dialog({time:30,title:'加载中……',width:130,height:30,opacity:0.3,lock:true});
+	$(".list_table td").parents("tr").remove();
+    $.getJSON("../exam/getTopicExamList", {provinceid:provinceid,typeid:typeid,levelid:levelid,stateid:stateid,random:Math.random()}, function(data){
+      var i = 0;
+      $.each(data, function(i,val){
+        i++;
+        var tr = $(".list_demo tr").eq(0).clone(); 
+        var td = tr.children('td').eq(0);
+        td.html(i);
+	    	td = tr.children('td').eq(1);
+        td.find('input').val(i);
+
+        td = tr.children('td').eq(2);
+        td.html(val.levelid);
+
+        td = tr.children('td').eq(3);
+        td.html(val.typeid); 
+
+        td = tr.children('td').eq(4);
+        td.html(val.year);
+        td = tr.children('td').eq(5);
+        td.html(val.name);
+        td = tr.children('td').eq(6);
+        td.attr("bid",val.state);
+        var content;
+        if(val.state=='1'){
+        	content="编辑中";
+        }else if(val.state=='2'){
+        	content="已完成待发";
+        }else if(val.state=='3'){
+        	content="已生成待审";
+        }else if(val.state=='4'){
+        	content="发布完成";tr.find(".info").hide();
+        }
+        td.html(content);
+        tr.find("input").attr("BID",val.id); 
+        if(val.mp3time){
+        	tr.find("input").attr("mp3","1");
+        }else{
+        	tr.find("input").attr("mp3","0");
+        }
+		    tr.find("input[name='state']").attr("state",val.state);
+        tr.appendTo(".list_table");
+      });
+    }); 
+    dloading.close(); 
+}
+</script> 
+</body>
+</html>

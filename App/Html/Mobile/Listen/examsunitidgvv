@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="/public/Mobile/css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="/public/Mobile/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<header>
+	<div class="l fl"><a href="/Mobile/index/index"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">听力训练</div>
+    	<div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+                <li><a href="/Mobile/index/wordbook"><i class="icon-heart"></i><font class="wordcount">0</font></a></li>
+                <li><a href="/Mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount">0</font></a></li>
+                <li><a href="/Mobile/index/index"><i class="icon-evil"></i>学习中心</a></li>
+				<li><a href="/Mobile/index/course"><i class="icon-pencil-square"></i><b>课程设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section class="study iListen">
+	<h2>..</h2>
+	  
+</section>
+
+
+<script type="text/javascript" src="/public/Mobile/js/jquery.min.js"></script>  
+<script src="/public/Mobile/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+.numkeyboard { width: 750px; border: 1px solid #ddd; line-height: 40px; height: 40px; margin: 20px auto; text-indent: 1em; }
+#keyboard_5xbogf8c, #keyboard_5xbogf8c li { list-style: none; margin: 0; padding: 0; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+#keyboard_5xbogf8c { display:none; z-index: 10; width: 9.30em; height: auto; overflow: hidden; background: rgba(158,180,185,1); /*background: -webkit-gradient(linear, 0 50%, 100% 0, from( rgba(158,180,185,1)), to(rgba(169,156,173,1)), color-stop(50%, rgba(222,157,193,1))); background: linear-gradient(60deg, rgba(158,180,185,1), rgba(222,157,193,1) 50%, rgba(169,156,173,1) 100%);*/ padding-left: 0.1em; border-radius: 0.05em; padding-top: 0.1em; box-shadow: 0 0.05em 0.1em rgba(0,0,0,.5);  font-size: 100px;  -webkit-text-size-adjust: none; }
+#keyboard_5xbogf8c_left { position: absolute; width: 0.2em; height: 0.2em; font-size: 1em; top: 0em; left: 0em; cursor: nw-resize; }
+#keyboard_5xbogf8c_right { position: absolute; width: 0.2em; height: 0.2em; font-size: 1em; top: 0em; right: 0em; cursor: ne-resize; }
+#keyboard_5xbogf8c ::after { content: ""; display: table; clear: both; }
+#keyboard_5xbogf8c li { position: relative; font-family: arial, "Vrinda"; width: 3.29em; height: 2.8em; line-height: 2.8em; background-color: rgba(255,255,255,.8); border-radius: 0.2em; float: left; text-align: center; font-size: 0.25em; vertical-align: text-top; margin-right: 0.4em; margin-bottom: 0.4em; box-shadow: 0 0.2em 0.4em rgba(0,0,0,.5); cursor: pointer; position: relative; overflow: visible; }
+#keyboard_5xbogf8c li:active { box-shadow: inset 0 0.04em 0 rgba(0,0,0,.5); top: 0.08em; }
+#keyboard_5xbogf8c li:nth-child(20),#keyboard_5xbogf8c li:nth-child(28),#keyboard_5xbogf8c li:nth-child(29),#keyboard_5xbogf8c li:nth-child(30),#keyboard_5xbogf8c li:nth-child(31){ background: rgba(188,188,188,.5); font-size: 0.20em;  height: 3.5em; line-height: 3.5em; border-radius: 0.25em; margin-right: 0.5em; margin-bottom: 0.5em; box-shadow: 0 0.25em 0.5em rgba(0,0,0,.5); }
+
+#keyboard_5xbogf8c li:nth-child(20){ width: 5em;}
+#keyboard_5xbogf8c li:nth-child(11) { margin-left: 1.56em; }
+#keyboard_5xbogf8c li:nth-child(19) { margin-right: 0.96em; }
+
+#keyboard_5xbogf8c li:nth-child(28) { box-sizing: border-box; padding-top: 0.6em; }
+#keyboard_5xbogf8c li:nth-child(28) span { display: block; line-height: 0.6;width: 5em; }
+#keyboard_5xbogf8c li:nth-child(29) { box-sizing: border-box; padding-top: 0.6em; }
+#keyboard_5xbogf8c li:nth-child(29) span { display: block; line-height: 0.6; }
+#keyboard_5xbogf8c li:nth-child(32) { width: 30em; }
+

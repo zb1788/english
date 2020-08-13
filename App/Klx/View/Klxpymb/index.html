@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>远教信使-成语词典</title>
+<link rel="stylesheet" href="__PUBLIC__/style/klxszM/path/to/font-awesome/css/font-awesome.min.css">
+<link href="__PUBLIC__/style/klxpymb/xpy.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/js/jquery.min.js" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+
+<header>
+
+            <div class="back"><a href="javascript:backToIndex();"><img src="__PUBLIC__/style/klxpymb/backIco.png" width="20" height="20" />返回</a></div>
+            <h1>学拼音</h1>
+			<div class="kc_setup"><a class="shou" href="javascript:void(0);"></a></div>
+<span class="line"></span>
+</header>
+<ul class="kk_db">
+<li><a href="../Klxpymb/info?id=1"><span class="img"><img src="__PUBLIC__/style/klxpymb/05.jpg" /></span><div class="lieb"><h3>声母</h3><span>【看、听、读、写】帮你快速识记拼音字母</span></div><i class="fa fa-chevron-right"></i><div class="clearfix"></div></a></li>
+<li><a href="../Klxpymb/info?id=2"><span class="img"><img src="__PUBLIC__/style/klxpymb/05.jpg" /></span><div class="lieb"><h3>韵母</h3><span>【看、听、读、写】帮你快速识记拼音字母</span></div><i class="fa fa-chevron-right"></i><div class="clearfix"></div></a></li>
+</ul>
+
+
+<script>
+var urlCallBack = GetQueryString('backUrl');
+function backToIndex(){
+    if(urlCallBack == null){
+        window.location.href='http://www.czbanbantong.com';
+    }else{
+        window.location.href=urlCallBack;
+    }
+}
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  decodeURI(unescape(r[2])); return null;
+}
+</script>
+</body>
+
+</html>

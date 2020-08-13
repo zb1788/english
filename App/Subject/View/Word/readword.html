@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="wap-font-scale" content="no">
+		<meta charset="UTF-8">
+		<title>英语同步练</title>
+        <link rel="stylesheet" href="__SUBJECT__/css/currency.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/boxing.css" />
+        <link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+        <link rel="stylesheet" href="__PUBLIC__/css/layer.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/require.js" ></script>
+        <style>
+        	#wrapper {top: 85px; bottom:40px;}
+        </style>
+    </head>
+    <body>
+        <main>
+            <header class="head border-nav">
+        		<a class="head-left"><i class="icon-back"></i>返回</a>
+        		<a class="head-right">生词本</a>
+        		<h1 class="title"></h1>
+            </header>
+        	<div class="topH4">
+                <span class="fl mL10"><i class="icon-clock icon-l"></i>已用时：<font id="timer">00:00</font></span>
+                <span class="fr mR10"><font class="redFont" id="cur"></font>/<font id="count"></font></span>
+            </div>
+        	<section>
+                <div id="wrapper">
+                    <div id="scroller">
+                        <div id="iScroll" class="iScroll bWhite">
+                            <div class="bd" id="iScroll-bd">
+                            </div>
+                        </div>
+                    </div><!--end scroller-->
+                </div><!--end wrapper-->
+                <div class="courseBtn">
+                    <a class="fenT"  href="javascript:void(0);" style="width: 100%;background-color: #999;">提交</a>
+                </div>
+                <div id="tips"></div>
+            </section>
+        </main>
+    <!--遮罩的代码-->
+        <div id="over" class="over"></div>
+        <div id="layout" class="layout">
+            <img src="__SUBJECT__/img/2013112931.gif" alt="" />
+        </div>
+        <style>
+            .over {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #f5f5f5;
+                opacity:0.5;
+                z-index: 1000;
+            }
+            .layout {
+                display: block;
+                position: absolute;
+                top: 40%;
+                left: 40%;
+                width: 20%;
+                height: 20%;
+                z-index: 1001;
+                text-align:center;
+            }
+        </style> 
+    </body>
+    <script type="text/javascript">
+        var subjectsource="__SUBJECT__";
+        var page=0;
+        var interid=0;
+        require.config({
+        　paths: {
+                "readword": "__SUBJECT__/js/readword",
+                "touchslide": "__PUBLIC__/js/TouchSlide.1.1",
+                "iscroll":"__PUBLIC__/js/iscroll-lite",
+                "layer":"__PUBLIC__/js/layer",
+            },
+            shim: {
+                "iscroll": {
+                    exports:"IScroll"
+                },
+                "touchslide": {
+                    exports:"touchslide"
+                },
+                "layer": {
+                    exports:"layer"
+                }
+            },
+            waitSeconds: 0
+        });
+        require(["readword",'touchslide','iscroll',"layer"], function(readword,touchslide,IScroll,layer){
+            $(function(){
+                //滑动问题
+                new IScroll("#wrapper",{
+                    momentum:true,
+                    click:true 
+                });
+                $("#wrapper").resize();
+                var Requests = new Object();
+                Requests = GetRequest();
+                $(".title").text(decodeURI(Requests["chaptername"]));
+                //这是时间
+                setTimer(0,$("#timer"));
+                var playlist=[];
+                //初始化
+                readword.initTextList("../Text/getTextsDataByChapter",$("#iScroll-bd"));
+                //$("#wrapper").resize();
+                perface();
+                //返回跳转
+                $(".head-left").click(function(){
+                    var Requests = new Object();
+                    Requests = GetRequest();
+                    layer.open({
+                        anim: 'up'
+                        ,style: 'border:none; color:#666;'
+                        ,content:"您放弃本次作答吗？"
+                        ,btn: ['继续', '放弃']
+                        ,yes: function(index){
+                            //设置放弃标志
+                            layer.closeAll();
+                        }
+                        ,no: function(index){
+                           $.ajax({
+                                type:'GET',
+                                url:'../User/setUserReadOver',
+                                context:$('body')
+                            });
+                            try{
+                                  UXinJSInterfaceSpeech.stopAudio();  
+                            }catch(e){
+
+                            }
+                            window.location.href="../Word/readchapter?ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"]+"&ks_short_name="+Requests["ks_short_name"]+"&urlCallBack="+encodeURIComponent(Requests["urlCallBack"]);
+                        }          
+                    });
+                })
+
+                //生词本跳转
+                $(".head-right").click(function(){
+                    var Requests = new Object();
+                    Requests = GetRequest();
+                    layer.open({
+                        anim: 'up'
+                        ,style: 'border:none;color:#666;'
+                        ,content:"查看生词本将导致本地作答失效，建议您提交之后再去查看"
+                        ,btn: ['残忍放弃', '继续作答']
+                        ,yes: function(index){
+                            $.ajax({
+                                type:'GET',
+                                url:'../User/setUserReadOver',
+                                context:$('body')
+                            });
+                            try{
+                                  UXinJSInterfaceSpeech.stopAudio();  
+                            }catch(e){
+
+                            }
+                           window.location.href="../User/vocabulary?callBackUrl=Word/readchapter&ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"]+"&ks_short_name="+Requests["ks_short_name"]+"&urlCallBack="+Requests["urlCallBack"];
+                           //window.location.href="../Word/readchapter?ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"];
+                        }
+                        ,no: function(index){
+                           
+                        }          
+                    });
+                })
+
+                //朗读按钮绑定事件
+                $(".alound").live('click',function(e){
+                    if($(this).parents(".readli").find(".recordtime").hasClass("iplay")){
+                        setTip("正在录音，请稍后在播放");
+                        return false;
+                    }
+                    mp3.setUse(0);
+                    var mp3url=$(this).attr("mp3");
+                    //判断函数是否存在
+                    var exitstatus=isExitsFunction("UXinJSInterfaceSpeech.playAudio");
+                    if(exitstatus==-1){
+                        setTip("请下载优教信使客户端");
+                    }else if(exitstatus==1){
+                        //判断是什么状态
+                        var status=$(this).find(".cPlay").hasClass("iplay");
+                        if(status){
+                            $(this).find(".cPlay").addClass("istop").removeClass("iplay");
+                            try{
+                                UXinJSInterfaceSpeech.stopAudio();  
+                            }catch(e){
+                                setTip("请升级到最新的客户端");
+                            }
+                        }else{
+                            try{
+                                $(this).find(".cPlay").addClass("iplay").removeClass("istop");
+                                //$(this).parent().find("img").attr("src","__SUBJECT__/img/timg.gif");
+                                //$("img.curimg").removeClass("curimg");
+                                //$(this).parent().find("img").addClass("curimg");
+                                UXinJSInterfaceSpeech.playAudio(mp3url);
+                            }catch(e){
+                                setTip("请升级到最新的客户端");
+                            }
+                        }
+                    }else{
+                        setTip("使用最新的客户端进行播放");
+                    }
+                });
+
+                //录音按钮的绑定事件
+                $(".record").live('click',function(){
+                    try{
+                          UXinJSInterfaceSpeech.stopAudio();  
+                    }catch(e){
+
+                    }
+                    //查询次数够不够
+                    var readtimes=$(".recorecur").attr("readtimes");
+                    if(readtimes==0){
+                        setTip("您已经使用完3次测评机会");
+                        return false;
+                    }
+                    record.init($(this).find("i"),"icon-ico-yuyin","icon-playt");
+                    var exitstatus=isExitsFunction("UXinJSInterfaceSpeech.recordReset");
+                    if(exitstatus==-1){
+                        setTip("请下载优教信使客户端");
+                    }else{
+                        var status=$(this).find("i").hasClass("icon-ico-yuyin");
+                        if(status){
+                            $(".readli").eq(page).find(".cPlay").addClass("istop").removeClass("iplay");
+                            window.UXinJSInterfaceSpeech.recordReset();
+                            //显示录音的样式
+                            $(this).parents(".playWord").find(".recordtime").show();
+                            //时间开始计数
+                            $('.recorecur .recordtime a').html("00:00");
+                            interid=setTimer(0,$('.recorecur .recordtime a'));
+                            $('.recorecur .luyinD').hide();
+                            $('.recorecur .recordtime').show();
+                            $(this).parents(".playWord").find(".recordtime").addClass("iplay").removeClass("istop");
+                            record.start();
+                        }else{
+                            $(this).parents(".playWord").find(".recordtime").addClass("istop").removeClass("iplay");
+                            window.clearInterval(interid);
+                            $('.recorecur .recordtime').hide();
+                            $('.recorecur .luyinD').show();
+                            //$('.recorecur .luyinD').html("请点击录音");
+                            $(this).parents(".playWord").find(".recordtime").hide();
+                            record.stop();
+                        }
+                    }  
+                })
+
+                //提交口语作业
+                $(".fenT").click(function(){
+                    if(!$(this).hasClass("finish")){
+                        return false;
+                    }
+                    layer.open({
+                        anim: 'up'
+                        ,style: 'border:none; color:#666;'
+                        ,content:"您确认提交吗？"
+                        ,btn: ['是', '否']
+                        ,yes: function(index){
+                            try{
+                                  UXinJSInterfaceSpeech.stopAudio();  
+                            }catch(e){
+
+                            }
+                           window.location.href="../Word/readresult?ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"]+"&chapterid="+Requests["chapterid"]+"&chaptername="+encodeURI(Requests["chaptername"])+"&ks_short_name="+Requests["ks_short_name"]+"&urlCallBack="+encodeURIComponent(Requests["urlCallBack"]);
+                        }
+                        ,no: function(index){
+                           
+                        }          
+                    });    
+                })
+
+            })
+        });
+    </script> 
+</html>

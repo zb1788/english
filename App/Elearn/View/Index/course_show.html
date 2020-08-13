@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<meta name="wap-font-scale" content="no">
+		<title>英语同步练</title>
+		<link rel="stylesheet" href="__ELEARN__css/weike.css" />
+		<link rel="stylesheet" href="__ELEARN__font/fonts.css" />
+		<script type="text/javascript" src="__PUBLIC__/js/require.js" data-main="__ELEARN__/js/main" ></script>
+</head>
+<body>
+<div id="over" class="over"></div>
+	    <div id="layout" class="layout">
+	    <img src="__ELEARN__/images/layout.gif" alt="" />
+</div>
+<main>
+<header class="head border-nav">
+			<a class="head-left" href="{$course_back}?app_id={$app_id}&version_id={$version_id}&subject_code={$subject_code}&isterm={$isterm}&isunit={$isterm}&unit_id={$unit_id}&backUrl={$backUrl}&title={$title}"><i class="icon-back"></i>返回</a>
+			<h1 class="title">{$videotitle}</h1>
+			<!-- <a class="head-right"><i class="icon-share01"></i></a> -->
+					</header>
+	
+<div class="backGfff mT45">
+	
+	<div class="bofang">
+		<a href="javascript:;" id="videoplay" videocode="{$code}">
+		<img src="__RESOURCE__{$pic}" class="img100"/><i class="icon-play-right"></i><div class="clearfix"></div>
+		</a>
+	</div>
+	<div class="">
+		<h2 class="textH6">作文要求：</h2>
+		<ul class="textList">
+		<volist name="yaoqiulist" id="yaoqiuvo">
+		<li><a href="claim_show?id={$yaoqiuvo.id}&app_id={$app_id}&course_id={$course_id}
+				&title={$title}&backUrl={$backUrl}&course_back={$course_back}"><span class="biao">{$key+1}</span>{$yaoqiuvo.content}</a></li>
+		</volist>	
+		</ul>
+			<h2 class="textH6">习作范文：</h2>
+			<ul class="textList">
+			<volist name="fanwenlist" id="fanwenvo">
+		<li><a href="essay_show?id={$fanwenvo.id}&app_id={$app_id}&course_id={$course_id}
+				&title={$title}&backUrl={$backUrl}&course_back={$course_back}"><span class="biao yello">{$key+1}</span>{$fanwenvo.content}</a></li>
+		</volist>
+		</ul>
+	</div>
+</div>
+
+</main>
+</body>
+</html>
+<script type="text/javascript">
+var pls_url="{$pls_url}";
+var userName = "{$username}";
+var app_moduleid = "{$app_moduleid}";
+var unit_id = "{$unit_id}";
+var videotitle = "{$videotitle}";
+var app_id = "{$app_id}";
+var course_id = "{$course_id}";
+var version_id = "{$course_id}";
+var ishttps=document.location.protocol;
+require(['zepto.min','enElearn'],function($){
+	$(function(){
+		hideloading();
+		$('#videoplay').bind('click',function(){
+			$.getJSON(ishttps+"//"+pls_url+"/youjiao/doMutiplePlay.do?jsoncallback=?",
+		      {
+		        rcode:$(this).attr('videocode'),
+		        userName:userName,
+		        filterType:2,
+		        outType:1
+		      },
+		      function(data){
+		      	//console.log(data.jsonList[0].list[0].path);
+		      	$.get('saveLearnRecord',{app_id:app_id,version_id:version_id,unit_id:unit_id,course_id:course_id},function(result){
+			      		$.get('/Subject/Public/setUserModuleUnitLog',{ks_code:unit_id,moduleid:app_moduleid,ks_name:videotitle},function(){
+			      			window.location.href= data.jsonList[0].list[0].path;
+			      		});
+			 	});
+		      });
+		});
+	});
+
+});
+</script>

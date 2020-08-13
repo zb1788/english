@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <link href="__PUBLIC__/css/mui.min.css" rel="stylesheet"/>
+    <link href="__PUBLIC__/css/wszy.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/swiper/idangerous.swiper.css">
+    <link rel="stylesheet" href="__PUBLIC__/fonts/font-awesome/css/font-awesome.min.css">
+    <style type="text/css">
+    	body{background: #fcfcff;}
+    	.ndis{display:none;}
+    </style>
+</head>
+<body id="text_alound">
+	<div class="head01"><i class="fa fa-pencil-square-o fa-lg"></i><span>课文跟读</span></div>
+	<h2 class="leix">{$vc.chapter}<span class="yeqian"><strong id="pagenum">1</strong>/{$textreadcount}</span></h2>
+	<volist name="textread" id="vo">
+		<volist name="vo.text" id="vc">
+			<div class="timu pa10 bortop1 ndis">
+<!-- 				<span class="tm_tup edi-w60"><img src="img/tup.jpg"></span> -->
+				<span class="tm_wz ">{$vc.encontent}</span>
+				<h3>{$vc.cncontent}</h3>
+				<div class="posr">
+					<div class="fen3 edi-dc-left03">
+						<span class="mp3play"><a class="btn-bo bo01 edi-yuan" mp3="{$vc.mp3}"><i class="fa fa-volume-up fa-18"></i></a></span>
+				    </div>
+				    <div class="edi-dc-right03"><s class="edi-deng">平均分:<empty name="vo.average">0<else/>{$vo.average}</empty>分</s></div>
+				</div>
+
+			</div>
+
+		</volist>
+	</volist>
+
+	<div class="ddel">
+          <a class="last" style="width:50%;">上一题</a>
+          <a class="next" style="border:0;">下一题</a>
+    </div>
+        <div id="jplayer"></div>
+</body>
+<script src="__PUBLIC__/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="__PUBLIC__/js/uxin.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/mobile.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/mp3.js"></script>
+<script>
+$(function(){
+  mui.init({
+    gestureConfig:{
+    swipe: true
+    }
+  });
+  //返回按钮的单击事件
+  mui.back=function(){
+    var homeworkid="{$homeworkid}";
+    if(homeworkid=="0"){
+      mp.clear();
+      popTheController();
+    }else{
+      mp.clear();
+      window.location.href='class_homework_feedback?homeworkid={$homeworkid}&paper_id={$homeworkid}&homeworkId={$Think.session.ilearid}&studentId={$Think.session.username}&classId={$Think.session.classid}&isOverdue={$Think.session.isOverdue}&batched={$Think.session.batched}&source={$source}&backurl={$backurl}';
+    }
+  }
+});
+	//进行上一页和下一页的切换滑动的时候使用滑动插件
+  var clickNum=0;
+	$(".bortop1").addClass("ndis");
+  $(".bortop1:eq("+{$num}+")").removeClass("ndis");
+  $(".bortop1:eq("+{$num}+")").addClass("cur");
+  $("#pagenum").html(parseInt("{$num}")+1);
+  //上一页和下一页的单击事件
+	$(".next").click(function(){
+       mp.clear();
+       next();
+	});
+	$(".last").click(function(){
+       mp.clear();
+       last();
+	});
+
+  //滑动事件
+  mui("#text_alound").on('swipeleft','.bortop1',function(){
+    mp.clear();
+    next();
+  });
+  mui("#text_alound").on('swiperight','.bortop1',function(){
+    mp.clear();
+    //查找bortop1前面的元素的个数
+    last();
+  });
+  $(".record").click(function(){
+     if(clickNum%2==0){
+       //alert($(this).parent().parent().parent().find(".tm_wz").text());
+         commitAction($(this).parent().parent().parent().find(".tm_wz"),5);
+         $(".last").unbind("click");
+         $(".next").unbind("click");
+         //进行音频的上传
+     }else{
+         commitAction($(this),6);
+         commitAction($(this),12);
+         var result=commitAction($(this),8);
+         if(result=='null'||result==null){
+          $(this).parent().parent().find(".edi-dc-right03 s").html("0");
+         }else{
+          //alert(parseFloat(result));
+            $(this).parent().parent().find(".edi-dc-right03 s").html(Math.round(parseFloat(result)*20));
+         }
+         var mp3=$("#jplayer").attr("upmp3");
+         //alert(mp3+"aaaaaa");
+         $.post("student_answer",{mp3:mp3},function(data){
+            $(".last").bind("click",function(){
+                last();
+            });
+            $(".next").bind("click",function(){
+              next();
+            });
+         });
+
+
+     }
+     clickNum=clickNum+1;
+   });
+
+    mp.url = "{$Think.config.text_mp3_path}";
+  $(".mp3play").click(function(){
+    var mp3=$(this).find("a").attr("mp3").substr(0,2)+"/"+$(this).find("a").attr("mp3")+".mp3";
+    mp.url="http://192.168.151.206/yylmp3/mp3_text/";
+    //alert(mp.url+mp3);
+    mp.play(mp.url +  mp3);
+  });
+
+	function getindex(obj,attr){
+	  var index=-1;
+	  var reind=0;
+      $(obj).each(function(){
+      	index=index+1;
+        if($(this).hasClass(attr)){
+          reind=index;
+        }
+      });
+      return reind;
+	}
+  //下一题
+  function next(){
+    //查找bortop1前面的元素的个数
+       var index=getindex($(".bortop1"),"cur");
+       if((index+1)<$(".bortop1").length){
+        $(".bortop1").removeClass("cur");
+        $(".bortop1").removeClass("ndis");
+        $(".bortop1").addClass("ndis");
+      $(".bortop1:eq("+(index+1)+")").removeClass("ndis");
+      $(".bortop1:eq("+(index+1)+")").addClass("cur");
+      $("#pagenum").html(index+2);
+       }else{
+
+       }
+  }
+
+  //上一题
+  function last(){
+    //查找bortop1前面的元素的个数
+       var index=getindex($(".bortop1"),"cur");
+       if(index-1>=0){
+         $(".bortop1").removeClass("cur");
+         $(".bortop1").removeClass("ndis");
+         $(".bortop1").addClass("ndis");
+       $(".bortop1:eq("+(index-1)+")").removeClass("ndis");
+       $(".bortop1:eq("+(index-1)+")").addClass("cur");
+       $("#pagenum").html(index);
+       }else{
+
+       }
+
+  }
+</script>
+
+</html>

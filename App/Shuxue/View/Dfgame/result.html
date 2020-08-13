@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="wap-font-scale" content="no">
+  <title>排名规则</title>
+  <link rel="stylesheet" href="__PUBLIC__/game/css/currNew.css" />
+  <link rel="stylesheet" href="__PUBLIC__/game/font/fonts.css" />
+
+
+  <style>
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    #tips {
+      background-color: #333;
+      font-size: 14px;
+      display: none;
+      width: 90%;
+      left: 2%;
+      text-align: center;
+      color: #fff;
+      border-radius: 5px;
+      opacity: .82;
+      padding: 10px;
+      position: fixed;
+      top: 45%;
+      z-index: 99999;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="cgbg">
+    <a class="cgclose" href="javascript:backParent();"></a>
+    <div class="slbg">
+      <img src="__PUBLIC__/game/images/newimg/slbg.jpg" width="100%" height="100%" />
+    </div>
+    <div class="slkuang">
+      <div class="posR">
+        <img id="img" src="" class="img100" />
+        <span class="yb" style="display:none;">优币+
+          <font id="ubnum"></font>
+        </span>
+      </div>
+    </div>
+
+    <div class="bta" style="display:none;">
+      <a class="" id="curStage">
+        <button class="btnSj" onclick="playAgain();">再次闯关</button>
+      </a>
+      <a class="" id="nextStage">
+        <button class="btnSj" onclick="playNext(this);">闯下一关</button>
+      </a>
+      <a class="" id="shareBtn">
+        <button class="btnSj" onclick="share();">炫耀一下</button>
+      </a>
+      <a class="" id="wrongView">
+        <button class="btnSj" onclick="openWrong();">查看错题</button>
+      </a>
+      <a class="">
+        <button class="btnSj" onclick="goRank();">查看排行榜</button>
+      </a>
+    </div>
+  </div>
+  <div id="tips"></div>
+  <script type="text/javascript" src="__PUBLIC__/game/zepto.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/game/TouchSlide.1.1.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/game/common.js"></script>
+  <script>
+    $.windowbox = {
+      aa: function () {
+        $('.cgbg').css({
+          'width': $(window).width(),
+          'height': $(window).height(),
+        })
+        if ($(window).width() > $(window).height()) {
+          $('.cgbg').addClass('hpX');
+        } else {
+          $('.cgbg').removeClass('hpX');
+        }
+      }
+    }
+    $.windowbox.aa();
+    $(window).resize(function () {
+      $.windowbox.aa();
+    })
+  </script>
+  <script>
+    var moduleid = GetQueryString('moduleid'); //当前moduleid
+    var genreid = GetQueryString('genreid'); //当前关卡stageid
+    var stageid = GetQueryString('stageid'); //当前关卡stageid
+    var gradeid = GetQueryString('gradeid'); //当前关卡年级id
+    var subjectid = GetQueryString('subjectid'); //当前关卡学科id
+    var rightNum = GetQueryString('rightNum'); //对的数量
+    var userstageid = GetQueryString('userstageid'); //闯关是否成功
+    var type = GetQueryString('type'); //1口算2听算
+    var total = GetQueryString('total'); //总题目数
+    var urlCallBack = GetQueryString('urlCallBack'); //总题目数
+    var debug = GetQueryString('debug'); //总题目数
+    var ub;
+
+    //提示信息
+    function setTip(content) {
+      var tip = document.getElementById("tips");
+      tip.innerHTML = content;
+      tip.style.display = "block";
+      setTimeout(function () {
+        tip.style.display = "none";
+      }, 3000);
+    }
+
+    $(function () {
+      // checkHasNextStage(resolve, reject);
+      // getResult();
+      new Promise(checkHasNextStage).then(function (result) {
+        // console.log('成功：' + result);
+        getResult();
+      }).catch(function (reason) {
+        // console.log('失败：' + reason);
+        getResult();
+      })
+
+    })
+
+    //获取闯关结果
+    function getResult() {
+      var percent = rightNum / total;
+      //80%正确率表示闯关成功
+      if (percent >= 0.8) {
+        //闯关成功
+        var status = 1;
+        $('#curStage').hide();
+        $('#shareBtn').show();
+        $('#wrongView').hide();
+        $('#img').attr('src', '__PUBLIC__/game/images/newimg/slkuang.png');
+        $('.yb').hide();
+      } else {
+        //闯关失败
+        var status = 0;
+        $('#curStage').show();
+        $('#nextStage').hide();
+        $('#shareBtn').hide();
+        $('#wrongView').show();
+        $('#img').attr('src', '__PUBLIC__/game/images/newimg/slerror.png');
+        $('.yb').hide();
+      }
+
+      // alert(status + '/' + type + '/' + stageid + '/' + userstageid);
+      // return false;
+      $.ajax({
+        type: 'get',
+        url: '../Dfgame/getResult',
+        data: {
+          status: status,
+          type: type,
+          stageid: stageid,
+          userstageid: userstageid,
+          rightNum: rightNum,
+          ran: Math.random()
+        },
+        dataType: 'json',
+        success: function (data) {
+          // setTip(data.msg);
+          $('#ubnum').html(data.ub);
+          ub = data.ub;
+          if (data.ub == 0) {
+            $('.yb').hide();
+          } else {
+            $('.yb').show();
+          }
+          if (data.subjectid == '0002') {
+            //如果是数学，则没有错题本
+            $('#wrongView').hide();
+          }
+          $('.bta').show();
+          checkUserGenreStatus();
+        },
+        error: function (e) {
+          //alert('errr');
+		  setTip('获取积分失败');
+        }
+      })
+    }
+
+    //每做一次关卡,就更新下总分类的状态（防止后期增加关卡导致分类状态不准确）
+    function checkUserGenreStatus() {
+      $.ajax({
+        type: 'get',
+        url: '../Dfgame/checkUserGenreStatus',
+        data: {
+          type: type,
+          stageid: stageid,
+          ran: Math.random()
+        },
+        dataType: 'json',
+        success: function (data) {
+
+        },
+        error: function (e) {
+
+        }
+      })
+    }
+
+    //检查是否有下一关
+    function checkHasNextStage(resolve, reject) {
+      $.ajax({
+        type: 'get',
+        url: '../Dfgame/checkHasNextStage',
+        data: {
+          ran: Math.random(),
+          stageid: stageid,
+          type: type
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.code == 0) {
+            //没有下一关
+            $('#nextStage').hide();
+            resolve(0);
+          } else {
+            $('#nextStage').children('button').attr('stageid', data.msg);
+            $('#nextStage').show();
+            reject(1);
+          }
+        },
+        error: function (e) {}
+      })
+    }
+
+
+    function goPlay(subjectid, gradeid, title, userstageid, stageid) {
+      if (subjectid != '0002') {
+        //其他学科
+        var playurl = 'play?genreid=' + genreid +
+          '&gradeid=' + gradeid + '&subjectid=' + subjectid + '&moduleid=' + moduleid +
+          '&type=1&userstageid=' + userstageid + '&stageid=' + stageid +
+          "&urlCallBack=" +
+          encodeURIComponent(urlCallBack);
+      } else {
+        //数学
+        var playurl = 'playksk?genreid=' + genreid +
+          '&gradeid=' +
+          gradeid +
+          '&subjectid=' + subjectid + '&moduleid=' + moduleid + '&type=' + type + '&userstageid=' + userstageid +
+          '&stageid=' +
+          stageid +
+          "&urlCallBack=" +
+          encodeURIComponent(urlCallBack);
+      }
+      window.location.href = playurl;
+    }
+
+    //重新闯关
+    function playAgain() {
+      $.ajax({
+        type: 'get',
+        url: '../Dfgame/addUserStage',
+        data: {
+          stageid: stageid,
+          genreid: genreid,
+          gradeid:gradeid,
+          ran: Math.random()
+        },
+        dataType: 'json',
+        success: function (data) {
+          goPlay(data.subjectid, gradeid, data.name, data.userstageid, stageid);
+        },
+        error: function (e) {
+
+        }
+      })
+    }
+
+    //闯下一关
+    function playNext(obj) {
+      var NextStageid = $(obj).attr('stageid');
+      if (type == 2) {
+        genreid = NextStageid;
+        var isTing = 1;
+      } else {
+        var isTing = 0;
+      }
+      $.ajax({
+        type: 'get',
+        url: '../Dfgame/addUserStage',
+        data: {
+          stageid: NextStageid,
+          genreid: genreid,
+          isTing: isTing,
+          ran: Math.random()
+        },
+        dataType: 'json',
+        success: function (data) {
+          goPlay(data.subjectid, data.gradeid, data.name, data.userstageid, NextStageid);
+        },
+        error: function (e) {
+
+        }
+      })
+    }
+
+    //查看错题本，本关卡的错题
+    function openWrong() {
+      var wrongurl = window.location.protocol + '//' + window.location.host + '/Shuxue/Game/play?genreid=' + genreid +
+        '&iswrong=1' +
+        "&urlCallBack=" +
+        encodeURIComponent(urlCallBack);
+      if (debug) {
+        window.location.href = wrongurl;
+      }
+      // window.UXinJSInterface.openProgressController(wrongurl);
+      // window.UXinJSInterface.openPortraitProgressController(wrongurl);
+      window.location.href = wrongurl;
+    }
+
+    function share() {
+      if (moduleid == 62) {
+        var modulename = '我是猜歌王';
+        var modulepic = 'wscgw';
+        var n = 7;
+        if (ub == 0) {
+          var title = '我在《' + modulename + '》猜歌刷题，快来一起学习！';
+        } else {
+          var title = '我在《' + modulename + '》获得' + ub + '优币，等你来挑战！';
+        }
+        var desc = '趣味学习帮你轻松提升音乐文化素养，在线闯关刷题就送优币，还等什么，最新排行榜等你来刷新！';
+      } else if (moduleid == 61) {
+        var modulename = '基础闯关';
+        var modulepic = 'jccg';
+        var n = 8;
+        if (ub == 0) {
+          var title = '我在《' + modulename + '》刷题，快来一起学习！';
+        } else {
+          var title = '我在《' + modulename + '》获得' + ub + '优币，等你来挑战！';
+        }
+        var desc = '趣味学习帮你轻松掌握知识点，在线闯关刷题就送优币，还等什么，最新排行榜等你来刷新！';
+      } else if (moduleid == 60) {
+        var modulename = '历史真题大闯关';
+        var modulepic = 'ztdcg';
+        var n = 9;
+        if (ub == 0) {
+          var title = '我在《' + modulename + '》刷题，快来一起学习！';
+        } else {
+          var title = '我在《' + modulename + '》获得' + ub + '优币，等你来挑战！';
+        }
+        var desc = '趣味闯关还能拿优币？没错，只要你闯关越多，优币也会越多！还等什么，更多优币等你来拿！';
+      } else if (moduleid == 63) {
+        var modulename = '口算王';
+        var modulepic = 'kswnew';
+        var n = '10';
+        if (ub == 0) {
+          var title = '我在《' + modulename + '》刷题，快来一起学习！';
+        } else {
+          var title = '我在《' + modulename + '》获得' + ub + '优币，等你来挑战！';
+        }
+        var desc = '趣味学习帮你轻松掌握知识点，在线闯关刷题就送优币，还等什么，最新排行榜等你来刷新！';
+      } else if (moduleid == 75) {
+        var modulename = '考点闯关';
+        var modulepic = 'kdcg';
+        var n = '11';
+        if (ub == 0) {
+          var title = '我在《' + modulename + '》刷题，快来一起学习！';
+        } else {
+          var title = '我在《' + modulename + '》获得' + ub + '优币，等你来挑战！';
+        }
+        var desc = '趣味学习帮你轻松掌握知识点，在线闯关刷题就送优币，还等什么，最新排行榜等你来刷新！';
+      } else if (moduleid == 76) {
+        var modulename = '地理真题大闯关';
+        var modulepic = 'dlztdcg';
+        var n = 9;
+        if (ub == 0) {
+          var title = '我在《' + modulename + '》刷题，快来一起学习！';
+        } else {
+          var title = '我在《' + modulename + '》获得' + ub + '优币，等你来挑战！';
+        }
+        var desc = '趣味闯关还能拿优币？没错，只要你闯关越多，优币也会越多！还等什么，更多优币等你来拿！';
+      } else if (moduleid == 82) {
+        var modulename = '政治真题大闯关';
+        var modulepic = 'zzztdcg';
+        var n = 9;
+        if (ub == 0) {
+          var title = '我在《' + modulename + '》刷题，快来一起学习！';
+        } else {
+          var title = '我在《' + modulename + '》获得' + ub + '优币，等你来挑战！';
+        }
+        var desc = '趣味闯关还能拿优币？没错，只要你闯关越多，优币也会越多！还等什么，更多优币等你来拿！';
+      }
+      else if (moduleid == 84) {
+        var modulename = '听算王';
+        var modulepic = 'tsw';
+        var n = 12;
+        if (ub == 0) {
+          var title = '我在《' + modulename + '》刷题，快来一起学习！';
+        } else {
+          var title = '我在《' + modulename + '》获得' + ub + '优币，等你来挑战！';
+        }
+        var desc = '趣味闯关还能拿优币？没错，只要你闯关越多，优币也会越多！还等什么，更多优币等你来拿！';
+      }
+      var iconUrl = window.location.protocol + '//' + window.location.host + '/public/public/images/' + modulepic +
+        '.png';
+
+      $.ajax({
+        type: 'get',
+        url: '../Game/getLocalareacode',
+        dataType: 'json',
+        data: {
+          ran: Math.random()
+        },
+        success: function (data) {
+          var pageUrl = window.location.protocol + '//' + window.location.host + '/share/new/html/index' + n +
+            '.html?localareacode=' +
+            data.localareacode + '&modulepic=' + modulepic + '&modulename=' + modulename;
+          try {
+            UXinJSInterfaceSpeech.webShare(title, iconUrl, pageUrl, desc);
+          } catch (e) {
+            setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+          }
+        },
+        error: function (e) {
+
+        }
+      })
+    }
+
+    //去排行榜
+    function goRank() {
+      var rankurl = window.location.protocol + '//' + window.location.host +
+        '/Yuwen/Text/totalrank?apptype=4&interfaceurl=/Shuxue/Game/getTotalRank?genreid=' + genreid;
+      // window.location.href = "../../Yuwen/Text/totalrank";
+      // window.location.href = rankurl;
+      if (debug) {
+        window.location.href = rankurl;
+      }
+      // window.location.href = rankurl;
+      window.UXinJSInterface.openProgressController(rankurl);
+      // window.UXinJSInterface.openPortraitProgressController(rankurl);
+    }
+
+    function getQueryStringNew(name, url) {
+      var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+      var r = url.substr(1).match(reg);
+      if (r != null) {
+        return unescape(r[2]);
+      }
+      return null;
+    }
+
+    function backParent() {
+      var title = getLocalStorage("sx_title");
+      if (subjectid == '0002') {
+        if (type == 1) {
+		/**
+          var backToStageUrl =
+            "stagelistksk?genreid=" +
+            genreid +
+            "&gradeid=" +
+            getLocalStorage('sx_gradeid') +
+            "&subjectid=" +
+            getLocalStorage('sx_subjectid') +
+            "&moduleid=" +
+            getLocalStorage('sx_moduleid') +
+            "&urlCallBack=" +
+            encodeURIComponent(urlCallBack) +
+            "&ks_short_name=" +
+            encodeURI(encodeURI(title));
+		 */
+			var backToStageUrl = urlCallBack
+        } else {
+          var backToStageUrl = 'genreting?gradeid=' +
+            gradeid +
+            "&subjectid=" +
+            subjectid +
+            "&moduleid=" +
+            moduleid +
+            "&urlCallBack=" +
+            encodeURIComponent(urlCallBack);
+        }
+      } else {
+	  /**
+        var backToStageUrl =
+          "stagelist?genreid=" +
+          genreid +
+          "&gradeid=" +
+          getLocalStorage('sx_gradeid') +
+          "&subjectid=" +
+          getLocalStorage('sx_subjectid') +
+          "&moduleid=" +
+          getLocalStorage('sx_moduleid') +
+          "&urlCallBack=" +
+          encodeURIComponent(urlCallBack) +
+          "&ks_short_name=" +
+          encodeURI(encodeURI(title));
+		*/
+		  var backToStageUrl = urlCallBack
+      }
+
+      window.location.href = backToStageUrl;
+    }
+  </script>
+
+  <script type="text/javascript">
+    $('.cgbg').css({
+      'width': $(window).width(),
+      'height': $(window).height(),
+    })
+    if ($(window).width() > $(window).height()) {
+      $('.cgbg').addClass('hpX');
+    }
+  </script>
+</body>
+
+</html>

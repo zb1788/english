@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+		<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="wap-font-scale" content="no">
+		<meta charset="UTF-8">
+		<title>英语同步练</title>
+		<link rel="stylesheet" href="/public/Subject/css/currency.css" />
+		<link rel="stylesheet" href="/public/Subject/font/fonts.css" />
+		<link rel="stylesheet" href="/public/Subject/css/iscroll.css" />
+		<style>
+			#wrapper {top: 44px;}
+		</style>
+	</head>
+<body>
+	<main>
+		<header class="head border-nav">
+			<a class="head-left" href="/sdfree/"><i class="icon-back"></i>返回</a>
+			<h1 class="title">必考交际用语</h1>
+		</header>
+		<div id="wrapper">
+			<div id="scroller">
+				<div class="classTop backGfff afterBorder8" id="bookinfo">
+					
+				</div>	
+				<ul class="classList" id="unit">
+					
+				</ul>
+			</div><!--end scroller-->
+		</div><!--end wrapper-->
+	</main>
+	<div id="tips"></div>
+	<!--遮罩的代码-->
+	<div id="over" class="over"></div>
+    <div id="layout" class="layout">
+    	<img src="/public/Subject/img/2013112931.gif" alt="" />
+    </div>
+    <style>
+		.over {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f5f5f5;
+            opacity:0.5;
+            z-index: 1000;
+        }
+        .layout {
+            display: block;
+            position: absolute;
+            top: 40%;
+            left: 40%;
+            width: 20%;
+            height: 20%;
+            z-index: 1001;
+            text-align:center;
+        }
+	</style> 
+</body>
+<script type="text/javascript" src="/public/public/js/zepto.min.js"></script>
+<script type="text/javascript" src="/public/public/js/iscroll-lite.js"></script>
+<script type="text/javascript" src="/public/public/js/enajax.js"></script>
+<script type="text/javascript">
+	var page="{$page}";
+	//文件主要是进行不同体型的展示
+    var request=GetRequest();
+    var moduleid=request["moduleid"];
+    $(function(){
+    	$.ajax({
+	        type:'GET',
+	        url:"getEnUnitData",
+	        data:{moduleid:moduleid},
+	        async:true,
+	        dataType:'json',
+	        success: function(data){
+	            //遮罩消失
+	            hideloading();
+
+	            if(data.bookinfo!=null){
+	            	//初始化版本信息
+		            var bookinfo='<span class="fl pad10"><img src="/public/Subject/images/jjyy.jpg" id="bookimg" />';
+		            bookinfo=bookinfo+'</span>';
+		            bookinfo=bookinfo+'<span class="fr pad10">';
+		            bookinfo=bookinfo+'    <h2 class="textH2">中考必考交际用语240句</h2>';
+		            bookinfo=bookinfo+'    <h3 class="textH3">共16个单元</h3>'
+		            //bookinfo=bookinfo+'    <h5 class="textH4">2012年9月版</h5>';
+		            bookinfo=bookinfo+'    <p class="textP">';
+		            //bookinfo=bookinfo+'        <strong>背单词秘籍</strong>';
+		            bookinfo=bookinfo+'        <i class="icon-uniF005"></i>';
+		            bookinfo=bookinfo+'        <i class="icon-uniF005"></i>';
+		            bookinfo=bookinfo+'        <i class="icon-uniF005"></i>';
+		            bookinfo=bookinfo+'        <i class="icon-uniF005"></i>';
+		            bookinfo=bookinfo+'        <i class="icon-uniF005"></i>';
+		            bookinfo=bookinfo+'        <br />熟记必考交际用语240句，初中英语考试全通关。该产品所推金句涵盖初中阶段全部重点交际用语。话题紧扣课程大纲，句子个个经典，让学生“口袋英语轻松背，中考成绩倍倍增”。该产品分为16个单元，每个单元含15个金句。';
+		            bookinfo=bookinfo+'    </p>';
+		            bookinfo=bookinfo+'</span>';
+		            $("#bookinfo").html(bookinfo);
+		            //$(".title").html(data.ways.title);
+		            var unit="";
+		            var len=0;
+		            $.each(data,function(k,v){
+		            	//console.log(v);
+		                //基础模块的添加
+		                var attrarr=[];
+		                var kcount=parseInt(k)+1;
+		                var temp={};
+		                if(v.is_unit=="1"){
+		                	len=len+1;
+		                    temp.id="title";
+		                    temp.val=v.ks_name;
+		                    attrarr.push(temp);
+		                    var h2 =initDom("<h2></h2>",attrarr);
+		                    h2.html(kcount+"&nbsp;"+v.ks_name);
+		                    $("#unit").append(h2);
+		                	//unit=unit+'<h2 title="'+v.ks_name+'">'+v.ks_name+'</h2>';
+		                }else if(v.is_unit=="0"){
+		                	len=len+1;
+		                    temp.id="class";
+		                    temp.val="true";
+		                    attrarr.push(temp);
+		                    temp={};
+		                    temp.id="bid";
+		                    temp.val=v.ks_code;
+		                    attrarr.push(temp);
+		                    temp={};
+		                    temp.id="bstyle";
+		                    temp.val=v.style;
+		                    attrarr.push(temp);
+		                    temp={};
+		                    temp.id="count";
+		                    temp.val=v.count;
+		                    attrarr.push(temp);
+		                    if(v.count==null||v.count==undefined||parseInt(v.count)==0){
+		                    	temp={};
+			                    temp.id="style";
+			                    temp.val="display:none;";
+			                    attrarr.push(temp);
+		                    }
+		                    temp={};
+		                    temp.id="title";
+		                    temp.val=v.ks_name;
+		                    attrarr.push(temp);
+		                    var li =initDom("<li></li>",attrarr);
+		                    li.bind("click",function(){
+		                        var ks_code=$(this).attr("bid");
+		                        var count=$(this).attr("count");
+		                        var title=$(this).attr("title");
+		                        var request=GetRequest();
+		                        var bstyle=$(this).attr("bstyle");
+		                        if(count!=null&&count!=undefined&&parseInt(count)>0){
+		              
+		                            	window.location.href="textread?ks_code="+ks_code+"&moduleid="+request["moduleid"]+"&ks_short_name="+title+"&urlCallBack="+encodeURIComponent(window.location.href);
+		                        }else{
+		                            setTip("这个单元下面没有资源");
+		                        }  
+		                    });
+		                    $("#unit").append(li);
+		                    attrarr=[];
+		                    var s =initDom("<s></s>",attrarr);
+		                    li.append(s);
+		                    attrarr=[];
+		                    temp={};
+		                    temp.id="class";
+		                    temp.val="fl";
+		                    attrarr.push(temp);
+		                    temp={};
+		                    temp.id="style";
+		                    var count=v.count;
+		                    if(count!=null&&count!=undefined&&parseInt(count)>0){
+		                        if(parseInt(v.userdata)==0){
+		                            temp.val="position: absolute;left: 0px;right: 80px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;";
+		                        }else{
+		                            temp.val="position: absolute;left: 0px;right: 80px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color:#269bd7;";
+		                        }
+		                    }else{
+		                        temp.val="display:none;position: absolute;left: 0px;right: 80px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color:#aaa;";
+
+		                    }
+		                    // if(parseInt(v.userdata)==0){
+		                    // 	temp.val="position: absolute;left: 0px;right: 80px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;";
+		                    // }else{
+		                    // 	temp.val="position: absolute;left: 0px;right: 80px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color:#269bd7;";
+		                    // }
+		                    attrarr.push(temp);
+		                    temp={};
+		                    temp.id="title";
+		                    temp.val=v.ks_name;
+		                    attrarr.push(temp);
+		                    var span =initDom("<span></span>",attrarr);
+		                    span.html(kcount+"&nbsp;"+v.ks_name);
+		                    li.append(span);
+		                    attrarr=[];
+		                    temp={};
+	                        if(v.count!=null&&v.count!=undefined&&parseInt(v.count)>0){
+	                            temp.id="class";
+	                            temp.val="fr fonG";
+	                        }
+	                        attrarr.push(temp);
+	                        span =initDom("<span></span>",attrarr);
+	                        // if(v.count!=null&&v.count!=undefined&&parseInt(v.count)>0){
+	                        //     if(v.isdo!='0'){
+	                        //         span.html(v.isdo+'人次学习<i class="icon-right"></i>');
+	                        //     }else{
+	                        //         span.html('<i class="icon-right"></i>');
+	                        //     }
+	                        // }else{
+	                        //     span.html('&nbsp;');
+	                        // }
+	                        span.html('<i class="icon-right"></i>');
+		                    li.append(span);
+		                }
+		            });
+					
+	            }else{
+	            	var attrarr=[];
+	                var temp={};
+	                var li =initDom("<li></li>",attrarr);
+	                li.text("请使用“选教材”选择您需要的年级、版本");
+					$("#unit").append(li);
+					$("#bookinfo").hide();
+	            }
+
+	            //滑动问题
+		        new IScroll("#wrapper",{
+		        	momentum:true,
+		        	click:true 
+		        });
+		        $("#wrapper").resize(); 
+	        },
+	        error:function(xhr,type){
+
+	        }
+	    })
+		
+		//perface();
+
+
+        $(".head-left").click(function(){
+        	var Requests = new Object();
+            Requests = GetRequest();
+            window.location.href=Requests["backUrl"];
+        })
+    })
+</script>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<link rel="stylesheet" type="text/css" href="__Hjs__deviceMob/style/yj.css"/>
+<link rel="stylesheet" type="text/css" href="__Hjs__deviceMob/style/zj.css" />
+<link rel="stylesheet" type="text/css" href="__Hjs__deviceMob/style/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="__Hjs__deviceMob/style/deviceMob.css"/>
+<script type="text/javascript" src="__Hjs__deviceMob/script/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__Hjs__deviceMob/script/mobile.js" ></script>
+<script type="text/javascript" src="__Hjs__deviceMob/script/qimg.js" ></script>
+<script type="text/javascript" src="__Hjs__deviceMob/script/TouchSlide.1.1.js"></script>
+<script type="text/javascript" src="__Pjs__jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="__Hjs__deviceMob/script/deviceMob.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<style type="text/css">
+	* {
+		  word-break: break-all;
+		  word-wrap: break-word;
+		}
+		.bd {
+			margin-bottom: 10px;
+		}
+	.font_red,.font_green {
+		display: inline-block;
+	}
+	
+	.fa-star {
+		color: #ffc90d;
+	}
+	body {overflow: hidden;}
+	.lyl_da a{padding-left: 20px;}
+	.q{
+	  padding-left: 20px;
+	  margin-right: 10px;
+	}
+	.arcontent {overflow: auto;height: 100%;}
+	.fx_shu,.fx_xuan {margin-bottom: 50px;}
+	</style>
+<script type="text/javascript">
+function getHttpUrl(url) {
+    url = url.replace(/https/g, "http");
+   // url = url.replace(/:8081/g, ":8080");
+    url = url.replace(/:8443/g, ":8080");
+    return url;
+     // body...
+ }
+var protocol = window.location.protocol;
+var exams_mp3_url = "__resource_path__mp3_exam/";
+var word_mp3_url = "__resource_path__mp3_word/";
+var word_pic_url = "__resource_path__pic_word/";
+var text_mp3_url = "__resource_path__mp3_text";
+var resource_path = "__resource_path__";
+var from_platform = "{$from_platform}";
+var callbackURL = "{$callbackURL}";
+var examsid = "{$examsid}";
+exams_mp3_url = getHttpUrl(exams_mp3_url);
+word_mp3_url = getHttpUrl(word_mp3_url);
+text_mp3_url = getHttpUrl(text_mp3_url);
+	(function($){
+		$.apply = function(o, c, defaults){
+		    if(defaults){
+		        $.apply(o, defaults);
+		    }
+		    if(o && c && typeof c == 'object'){
+		        for(var p in c){
+		            o[p] = c[p];
+		        }
+		    }
+		    return o;
+		};
+	})(jQuery);
+	$(function() {
+		$("#jplayer").jPlayer({
+			swfPath: '__Pjs__',
+			wmode: "window",
+			supplied: "mp3",
+			preload: "none",
+			volume: "1"
+		});
+		mp = new myplay();
+		var storeids=[];
+		var heightData=[];
+		function addTouch(){
+			var maxHeight=$(window).height()-35;
+			 TouchSlide({ slideCell:"#qContent",
+				prevCell:'#prev',
+				nextCell:'#next',
+				pnLoop:false,
+				startFun:function(){
+					mp.clear();
+					clearTimeout(timecode);
+					mp.queindex = 0;
+
+				},
+				endFun:function(i,c){
+					$(this.prevCell+','+this.nextCell).removeClass('no');
+					if(i==0){
+						$(this.prevCell).addClass('no');
+					}
+					if((c-i) == 1){
+						$(this.nextCell).addClass('no');
+					}
+					mp.repeat = 1; //默认播放次数
+    				mp.curpeat = 1;//当前播放到第几次
+    				mp.clear();
+    				clearTimeout(mp3_progress);
+    				//console.log('sss='+i);
+    				$('.sound_single').removeClass('active');
+					$('.sound_single:eq('+i+')').unbind('click').click(function(){     //音频播放事件
+				            clearTimeout(mp3_progress);
+				            if($(this).hasClass('active')){
+				                mp.pause();
+				                $(this).removeClass('active');
+				            }
+				            else{
+				                $(this).addClass('active');
+				               // console.log('aaa='+i);
+				                question_init(i);
+				            }
+				    });
+				}
+			});
+			$('article').height(maxHeight);
+			hideLoading();
+		}
+		loadQuestions(function() {
+			addTouch();
+		});
+	});
+	function urlback(){
+		 //popTheController();
+		 mp.clear();
+    	 clearTimeout(mp3_progress);
+    	 //window.location.href = callbackURL;
+		 UXinJSInterface.closeWebView();
+
+	}
+	window.onunload=function(){
+   		mp.clear();
+    	clearTimeout(mp3_progress);
+	}
+</script>
+</head>
+<body>
+<div id="jplayer"></div>
+	<div class="container" id="qContent">
+	   <header>
+            <h1 class="ml60">{$exams[0].name}</h1>
+            <div class="back">
+			<a href="javascript:urlback();"><img src="__Hjs__deviceMob/images/backIco.png" width="20" height="20">返回</a>
+			</div>
+        </header>
+			<div class="bd">
+<!-- 			<article>      
+				<div class="arcontent">       
+				<div class="lyl_ti">                               
+				<span class="fright"><a class="font_red s20">1</a>/9</span>       
+				<h3>单项选择题</h3>                        
+				</div>       
+				<div class="lyl_da">       
+				</div>                
+				<div class="fx_xuan">
+				</div>                                              
+				</div>      
+			</article> -->
+</div>
+</div><!--end container-->
+	<div class="tips"></div>
+	<div class="mb50"></div>
+	<div class="ddel2">
+		<a class="last" id="prev" href="javascript:;">上一题</a><a class="next" id="next" href="javascript:;">下一题</a>
+	</div>
+</body>
+</html>

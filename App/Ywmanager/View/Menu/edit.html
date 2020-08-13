@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>添加修改</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript">
+
+$(function(){
+  var type = "{$types}";
+  if(type=="edit"){
+    showinfo();
+  }
+})
+function showinfo(){
+  var  bid = $('#bid').val();
+  $.get('../Menu/getModelInfo',{ran:Math.random(),bid:bid}, function(data){
+    $('#modelname').val(data[0].title);
+    $('#modelurl').val(data[0].url);
+    $('#modelstyle').val(data[0].style);
+    $('#modeltype').val(data[0].type);
+    $('#modelremark').val(data[0].remark);
+  });
+}
+
+
+function addData(){
+    $.ajaxSetup({async:false});
+    var modelname=$("#modelname").val();
+    var modelurl=$("#modelurl").val();
+    var modelstyle=$("#modelstyle").val();
+    var modeltype=$("#modeltype").val();
+    var modelremark=$("#modelremark").val();
+
+    var type = $('#types').val();
+    var bid = $('#bid').val();
+    var flag = false;
+    if (modelname==""){
+        $.dialog({
+              content:'模块名不能为空',
+              lock:true,
+              opacity:0.3,
+              width:160,
+              height:45,
+              ok:function(){}
+            });
+        document.baseForm.modelname.focus();
+        return false;
+        }else if(modelurl==""){
+            $.dialog({
+                  content:'模块地址不能为空',
+                  lock:true,
+                  opacity:0.3,
+                  width:160,
+                  height:45,
+                  ok:function(){}
+                });
+            document.baseForm.modelurl.focus();
+            return false;
+            }else if(modelstyle==""){
+                $.dialog({
+                      content:'模块样式不能为空',
+                      lock:true,
+                      opacity:0.3,
+                      width:160,
+                      height:45,
+                      ok:function(){}
+                    });
+                document.baseForm.modelstyle.focus();
+                return false;
+                }else if(modeltype==""){
+                    $.dialog({
+                          content:'模块type不能为空',
+                          lock:true,
+                          opacity:0.3,
+                          width:180,
+                          height:45,
+                          ok:function(){}
+                        });
+                    document.baseForm.modeltype.focus();
+                    return false;
+                    }else{
+                    $.get('../Menu/addModelToDb',
+                        {
+                        modelname:modelname,
+                        modelurl:modelurl,
+                        modelstyle:modelstyle,
+                        modeltype:modeltype,
+                        modelremark:modelremark,
+                        type:type,
+                        bid:bid,
+                        ran:Math.random()
+                        },function(data){
+                          if (data=="ok"){
+                              flag = true;
+                              }else{
+                                  $.dialog({
+                                      content:'已存在',
+                                      lock:true,
+                                      opacity:0.3,
+                                      width:160,
+                                      height:45,
+                                      ok:function(){}
+                                    });
+                                  flag=false;
+                                  }
+                        });
+                        return flag;
+                    }
+
+}
+</script>
+</head>
+<body>
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="p5">
+  <form name="baseForm" action="wordadd_list.html" method="get">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+      <tr>
+        <td class="td_right">模块名：</td>
+        <td>
+            <input type="text" id="modelname" name="modelname" value="" class="input-text lh30" style="width:300px;" size="10" />
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">模块地址：</td>
+        <td>
+            <input type="text" id="modelurl" name="modelurl" value="" class="input-text lh30" style="width:300px;" size="10" />
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">模块style：</td>
+        <td>
+            <input type="text" id="modelstyle" name="modelstyle" value="" class="input-text lh30" style="width:300px;" size="10" />
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">模块type：</td>
+        <td>
+            <input type="text" id="modeltype" name="modeltype" value="" class="input-text lh30" style="width:300px;" size="10" />
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">模块备注：</td>
+        <td>
+            <textarea name="modelremark" id="modelremark" style="width:300px;" rows="5"></textarea>
+        </td>
+      </tr>
+      </table>
+      <input type="hidden" name="types" id="types" value="{$types}" />
+      <input type="hidden" name="bid" id="bid" value="{$bid}" />
+    </form>
+  <div class="h10"></div>
+    </td>
+  </tr>
+</table>
+</div>
+
+</body>
+</html>

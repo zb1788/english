@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版本编辑</title>
+<link href="__PUBLIC__/js/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/uploadify/jquery.uploadify.min.js"></script> 
+<body> 
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="box_top pl_10 f14"><strong>请勾选单词</strong></td> 
+  </tr>
+  <tr>
+    <td class="p5">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+	 <tr><td width="50" align="right">年级：</td>
+              <td><select name="gradeid" class="select" id="gradeid">
+              </select></td>
+      </tr>
+	  <tr>
+	  	<td width="50" align="right">学期：</td>
+	      <td>
+          <select name="termid" class="select" id="termid">
+  	        <option value="1">上学期</option>
+  	        <option value="2">下学期</option>
+  	        <option value="3">全一册</option>
+	        </select>
+      </td>
+	  </tr>
+	  <tr>
+	  	<td width="50" align="right">版本：</td>
+              <td><select name="versionid" class="select" id="versionid">
+              </select></td>
+	  </tr>
+	  <tr>
+        <td width="100" align="right">上传头像：</td>
+        <td>
+          <div id="queue"></div>
+          <input id="file_upload" name="file_upload" type="file" multiple="false">
+         </td>
+	  </tr>
+      </table>
+  <div class="h10"></div>
+    </td> 
+  </tr> 
+</table>
+</div>
+<script type="text/javascript">
+var user=[];
+$(function(){
+  $.ajaxSetup({async:false});
+  $.EBC.setGrade($('#gradeid')); 
+  $("#gradeid").val({$gradeid});
+  $.EBC.setVersion($('#versionid'),$('#gradeid').val());
+  $("#versionid").val({$versionid});
+  $("#termid").val({$termid});
+  $.EBC.setUnit($('#unitid'),$('#gradeid').val(),$('#versionid').val(),$('#termid').val());
+  $("#gradeid").change(function(){ 
+    $.EBC.setVersion($('#versionid'),$('#gradeid').val());
+  });
+  $("#termid").change(function(){
+    $.EBC.setUnit($('#unitid'),$('#gradeid').val(),$('#versionid').val(),$('#termid').val());
+  });
+  $('#file_upload').uploadify({
+    'height'    :30,
+    'width'     :120,
+    'buttonText': '上传EXCEL',  //选择按钮显示的字符
+    'multi'     : true,   //是否允许同时选择多个(false一次只允许选中一张图片)
+    'method'    : 'post',
+    'swf'       : '__PUBLIC__/js/uploadify/uploadify.swf',
+    'uploader'  : '../Upload/index?ver='+Math.random(),
+    'fileTypeExts': '*.jpg;*.gif;*.png', //允许的后缀
+    'fileTypeDesc': 'Picture Files', //允许的格式，详见文档
+    'onUploadSuccess' : function(file, data, response) 
+    {
+      var userpic={};
+      //上传成功后的触发事件  
+      var obj=eval("("+data+")");
+      if (obj.issuc == 1) 
+      {
+        alert(obj.msg.name);
+        $('#' + file.id).find('.data').html(' 上传完毕');
+        userpic.name=obj.msg.name;
+        $("#tdinfo").html("【" + obj.msg.name + '】文件已上传，请点击导入EXCEL数据');  
+        $("#filename").val('uploads/'+obj.msg.savepath + obj.msg.savename);
+        userpic.path=(obj.msg.savepath + obj.msg.savename);
+        $("#btn_excel").show();
+        user.push(userpic);
+      }
+      else
+      {
+        $("#tdinfo").html("【" + obj.msg + '】文件已上传，请点击导入EXCEL数据');   
+      };
+    }
+  });
+
+
+  });
+
+
+function saveEdit(){
+  var id = $('#id').val();    
+  var grade = $('#gradeid').val();
+  var term = $('#termid').val();
+  var version = $('#versionid').val();
+  var closeflag = true;
+  $.get("../flash/editflashuserpic",{id:id,gradeid:grade,termid:term,versionid:version,user:JSON.stringify(user),rt:Math.random()},function(data) {
+      $("#check").click();            
+  });
+  return closeflag;
+}
+
+
+</script>
+</body>
+</html>

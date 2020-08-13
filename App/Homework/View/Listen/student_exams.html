@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>优教班班通-听读作业</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link href="__PUBLIC__/public/style/common.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/test_paper.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/Test_paper/style/ks_exam.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/font_quan.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/keyboard.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/mystyle.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+
+<script src="__PUBLIC__/public/script/artDialog.js?skin=default_green"></script>
+<script src="__PUBLIC__/public/script/test_paper.js"></script>
+<script src="__PUBLIC__/public/script/keyboard.js"></script>
+<script src="__COMMON__/js/jquery.tmpl.js"></script> 
+<!-- <script type="text/javascript" src="__PUBLIC__/js/template.js"></script> -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+<script src="__COMMON__/js/en.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/pcmp3play.js?s"></script>
+</head>
+<body class="bg_stu ">
+<!--begin w1200-->
+<div class="w980" >
+  <div class="clearfix"></div>
+  <div class="test_con" >
+    <h1 class="dbt1">{$exams_name}</h1>
+    <span></span>
+    <div class="test" id="topone">
+      <div class="te_tab">
+   <a href="javascript:void(0);" name="eq" class="aBtn cur" selecttype="examsquiz">听力训练</a>
+      </div>
+      <div class="test content">
+      <div class="homework examsquiz"></div>
+      </div>
+    </div>
+   
+
+    <!--end shiti-->
+
+    <div class="clearfix"></div>
+  </div>
+  <!-- 代码 开始 -->
+</div>
+<font id="num" style="display:none;">0</font>
+<!--end w1200-->
+<div class="scrollsidebar" id="scrollsidebar" >
+    <div class="side_content">
+      <div class="side_list">
+        <div class="side_title">答题卡<a title="隐藏" class="close_btn"><span>关闭</span></a></div>
+        <div class="side_center" >
+       
+          <p><a href="#" class=" btn_green" onclick="savePaper();">暂存答案</a></p>
+          <p><a href="javascript:;" class=" btn_green submit" onclick="sumbitPaper();">提交</a></p>
+       
+           <h1>{$eqcardtitle}</h1>
+          <ul id="cardeq">  
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+    <div class="show_btn"><span>在线答题卡</span></div>
+  </div> 
+</div>
+<!--t提交弹出层-->
+<div id="tj_pop" style="display:none;">
+  <div class="popContent">
+    <h5>答案已提交，正在批改中，请稍侯...</h5>
+  </div>
+  <!--end popContent-->
+</div>
+<div id="zy_ts" class="zy_ts" style="display:none;text-align: center;"><h2 style="margin-top:5px;"><img src="__PUBLIC__/images/gongxi.jpg" width="70" height="70"  alt=""/></h2><h1 style="font-size:2.0em;">太棒了！</h1><h1 style="font-size:2.0em;margin-top:5px;">训练做完了！</h1><div class="clearfix"></div>
+</div>
+<div id="zy_ts2" class="zy_ts" style="display:none;text-align: center;"><h2 style="margin-top:5px;"><img src="__PUBLIC__/images/gongxi.jpg" width="70" height="70"  alt=""/></h2><h1 style="font-size:2.0em;">答案已经保存！</h1><div class="clearfix"></div>
+</div>
+<div id="jplayer"></div>
+<include file="template"/>
+</body>
+</html>
+<script src="__PUBLIC__public/script/common.js"></script>
+<script type="text/javascript">
+var examsmp3url = "__RESOURCE__mp3_exam/";
+var word_pic_url = "__RESOURCE__pic_word/";
+var wordmp3url = "__RESOURCE__mp3_word/";
+var textmp3url = "__RESOURCE__mp3_text/";
+var classid = "{$classid}";
+var username = "{$username}";
+var examsid = "{$examsid}";
+var tms = "{$tms}";
+var p = en.createNew(examsid);
+
+var arraynum = new Array('一、','二、','三、','四、','五、','六、');
+
+function sumbitPaper(){
+  artDialog(
+      {
+          top:'10%',
+          content:'检查下是否有未做完的试题，点击【确定】按钮提交！',
+          lock:true,
+          style:'succeed noClose'
+      },
+      function(){
+        $.getJSON("../listen/stupublish",{paper_id:examsid,studentid:username,classid:classid,source:1,tms:tms,ran:Math.random()},function(data){
+         $(".submit").attr("disabled",true);
+          art.dialog({
+              margin:5,
+              width:450,
+              height:200,
+              title:'',
+              content:$('#zy_ts').get(0),
+              lock:true,
+              time:2,
+              opacity: 0.2,
+              close:function(){
+                 //var url=interfaceServiceURL;
+                 // location.href=url;
+                location.reload();
+              }
+          });
+        });
+      },
+      function(){
+          return true;
+      }
+  );
+}
+function savePaper(){
+  artDialog(
+      {
+          top:'10%',
+          content:'检查下是否有未做完的试题，点击【确定】按钮暂存答案！',
+          lock:true,
+          style:'succeed noClose'
+      },
+      function(){
+        $(".submit").attr("disabled",true);
+          art.dialog({
+              margin:5,
+              width:450,
+              height:200,
+              title:'',
+              content:$('#zy_ts2').get(0),
+              lock:true,
+              time:2,
+              opacity: 0.2,
+              close:function(){
+                  //var url=interfaceServiceURL;
+                  //location.href=url;
+              }
+          });
+      },
+      function(){
+          return true;
+      }
+  );
+}
+
+//听力训练单题保存
+function save_stu_exams(obj){
+  var examsid = $(obj).attr('examsid');
+  var quizid = $(obj).attr('quizid');
+  var questionid = $(obj).attr('questionid');
+  var answerid = $(obj).attr('answerid');
+  var useranswer = $(obj).attr('useranswer');
+  var typeid = $(obj).attr('typeid');
+  $('a[option='+questionid+']').removeClass('btn_green').addClass('btn_gray');
+  $(obj).removeClass('btn_gray').addClass('btn_green');
+
+  $.getJSON('../listen/setUseranswer',{username:username,classid:classid,typeid:typeid,questionid:questionid,examsid:examsid,answerid:answerid,useranswer:useranswer,ran:Math.random()},function(result){
+    $('#eqcard'+questionid).addClass('complete');
+   });
+}
+function onTopClick(questionid) {
+    $(".te_tab a.aBtn[name=eq]").click();
+    window.location.href = "#top"+questionid;
+}
+$(function(){
+  $("#scrollsidebar").fix({
+    float : 'right',  //default.left or right
+    //minStatue : true,
+    skin : 'green', //default.gray or blue
+    durationTime : 600
+  });
+  $.getJSON("../Listen/getStuExaminfo",{examsid:examsid,classid:classid,username:username,ran:Math.random},function(data){
+           examsdata = data;
+           $("#tmpleqquestion").tmpl(data).appendTo(".examsquiz");
+           $('#tmpleqcard').tmpl(data).appendTo($('#cardeq'));
+  });
+});
+</script>
+<script>
+var ishttps=document.location.protocol;
+var script=document.createElement("script");
+script.type="text/javascript";
+script.src=ishttps+"//{$main}/script/common.jsp";
+document.getElementsByTagName('head')[0].appendChild(script);
+</script>

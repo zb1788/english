@@ -1,0 +1,142 @@
+<include file="Base/header"/>
+<body>
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border" style="top:0px;">
+  <tr>
+    <td class="box_top pl_10 f14"><strong>搜索</strong></td> 
+  </tr>
+  <tr>
+    <td class="pl_5">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="form_table">
+      <tr>
+        <td width="50" align="right">题型：</td>
+        <td width="50">
+	        <select name="select" class="select" id="questype">
+	          <option value="1">选择题</option>
+	          <option value="2">填空题</option>
+	          <option value="3">判断题</option>
+			  <option value="4">排序题</option>
+	        </select>
+        </td>
+        <td width="79" align="right">难易程度：</td>
+        <td width="100">
+        	<select name="select3" class="select" id="complexity">
+	            <option value="1">容易</option>
+	            <option value="2">适中</option>
+				<option value="3">较难</option> 
+            </select>
+		</td>
+        <td width="80" rowspan="3">&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="button" name="button" class="btn btn82 btn_search" value="查询" />
+		</td>
+		<td width="98" rowspan="3"><input type="button" name="button" style="margin-left:10px;" class="btn btn82 btn_save2" value="返回" />
+		</td>
+      </tr>
+      <tr>
+        <td align="right">年级：</td>
+        <td colspan="3" width="100">
+        	<volist name="grade" id="vo">
+		    	<span style="display:inline-block;"><input type="checkbox" name="grade" value='{$vo.id}'/>{$vo.name}&nbsp;&nbsp;</span>
+			</volist>
+		</td>
+      </tr>
+      <tr>
+        <td align="right">关键词：</td>
+        <td colspan="3">
+        	<input type="text" name="keyname" class="input-text lh30" size="40" />
+            <!-- <input type="button" value="选择"  class="ext_btn" /> --></td>
+        </tr>
+    </table></td> 
+  </tr> 
+</table>
+<div class="h5"></div> 
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="36">
+    	<input name="paperid" type="hidden" value="{$paperid}"/>
+		<input name="classid" type="hidden" value="{$classid}"/>
+      <if condition="$classid neq 2">
+        <input name="按钮" type="button" class="ext_btn ext_btn_submit ques" value="添加小题" />
+	  <else />
+	    <input name="按钮" type="button" class="ext_btn ext_btn_submit para" value="添加短文题" />
+	  </if>
+	  </td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table">
+  <tr>
+    <th width="30" align="center">&nbsp;</th>
+    <th width="150">年级</th>
+    <th width="150">关键词</th>
+    <th width="300">试题</th>
+    <th width="" align="left">&nbsp;&nbsp;&nbsp;操&nbsp;作</th>
+  </tr>
+</table>
+<div class="h5"></div>
+<div class="page"></div>
+<include file="Base/common" />
+</div> 
+<script type="text/javascript">
+var pagesize=5; 
+$(function(){
+	//单题的情况下下拉框不可选
+	$("#questype").val({$questype});
+	if({$complexity}!='0'){
+		$("#complexity").val({$complexity});
+	}
+	$("#questype").attr("disabled",true);
+	//查询按钮响应单击事件
+    $(".btn_search").click(function(){
+	  	pagelist({$currentpage},page_size);
+	});
+	//选择按钮响应事件
+	$(".choose").live("click",function(){
+		var ch=$(this);
+		var classid={$classid};
+		var paperid={$paperid};
+		var questionsid=$(this).attr("bid");
+		if($(this).val()=="取消")
+		{
+			$(ch).val("选择");
+			$(this).removeClass("ext_btn_error");
+			$.getJSON("../Exam/removeBaseFromExam",{classid:classid,questionsid:questionsid,paperid:paperid,ran:Math.random()},function(data){
+				pagelist(1,page_size);
+		    });
+			
+		}else{
+			$.getJSON("../Exam/fromBaseToExam",{classid:classid,questionsid:questionsid,paperid:paperid,ran:Math.random()},function(data){
+				pagelist(1,page_size);
+		    });
+		}
+	});
+	//查看小题按钮响应单击事件
+	  $(".childquesedit").live('click',function(){
+	  	  var complexity=$("#complexity").val();
+		  art.dialog.open('../Exam/child_questions_list?flag=3&questype={$questype}&qid='+$(this).attr("bid"),{
+		      title:"试题内容",
+		      width:500,
+		      height:300,
+		      lock:true, 
+          });
+	  });
+	//添加小题响应事件
+	$(".ques").click(function(){
+		var complexity=$("#complexity").val();
+		var currentpage=$("#current_page").val();
+		location.href='../Exam/base_questions_add?flag={$flag}&type=1&classid={$classid}&paperid={$paperid}&questype={$questype}&examsid={$examsid}&complexity='+complexity+'&currentpage='+currentpage;
+	});
+	//添加短文题响应事件
+	$(".para").click(function(){
+		var complexity=$("#complexity").val();
+		var currentpage=$("#current_page").val();
+		location.href='../Exam/combine_questions_add?flag={$flag}&classid={$classid}&paperid={$paperid}&questype={$questype}&examsid={$examsid}&complexity='+complexity+'&currentpage='+currentpage;
+	});
+	//保存按钮跳转
+	$(".btn_save2").click(function(){
+			location.href='../Exam/unitexam_questions_list?flag={$flag}&classid={$classid}&paperid={$paperid}&questype={$questype}&examsid={$examsid}';
+	});
+	$(".btn_search").click();
+});
+</script>  
+</body>
+</html>

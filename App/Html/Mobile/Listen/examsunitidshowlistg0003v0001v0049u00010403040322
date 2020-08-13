@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="/public/Mobile/css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="/public/Mobile/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<header>
+	<div class="l fl"><a href="/mobile/listen/index"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">听力训练</div>
+    <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+                <li><a href="/mobile/index/wordbook"><i class="icon-heart"></i><font class="wordcount"></font></a></li>
+                <li><a href="/mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount"></font></a></li>
+                <li><a href="/mobile/index/index"><i class="icon-evil"></i>学习中心</a></li>
+                <li><a href="/mobile/index/course"><i class="icon-pencil-square"></i><b>课程设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section class="study iListen">
+	<h2>三年级.人教PEP.上学期</h2>
+	
+	<dl class="listen_list">
+    	<a href="../Examlisten/examsquiz?unitid=00010403040322&examsid=84&isOverdue=false"> 
+        	<dt>1.郑州市中原区2014-2015学年第一学期期末水平测试（PEP三上）</dt>
+            <!-- <dd><p>已完成用时<span>10:04</span>，得分<span>80</span>，错误<span>3</span>题</p></dd> -->
+        </a>
+    </dl><dl class="listen_list">
+    	<a href="../Examlisten/examsquiz?unitid=00010403040322&examsid=101&isOverdue=false"> 
+        	<dt>2.郑州市惠济区2014-2015学年度上学期期末学业水平测试试卷</dt>
+            <!-- <dd><p>已完成用时<span>10:04</span>，得分<span>80</span>，错误<span>3</span>题</p></dd> -->
+        </a>
+    </dl><dl class="listen_list">
+    	<a href="../Examlisten/examsquiz?unitid=00010403040322&examsid=382&isOverdue=false"> 
+        	<dt>3.郑州市二七区2014-2015学年第一学期期末水平测试（PEP三上）</dt>
+            <!-- <dd><p>已完成用时<span>10:04</span>，得分<span>80</span>，错误<span>3</span>题</p></dd> -->
+        </a>
+    </dl><dl class="listen_list">
+    	<a href="../Examlisten/examsquiz?unitid=00010403040322&examsid=590&isOverdue=false"> 
+        	<dt>4.郑州市管城区2014-2015学年第一学期期末水平测试卷（PEP三上）</dt>
+            <!-- <dd><p>已完成用时<span>10:04</span>，得分<span>80</span>，错误<span>3</span>题</p></dd> -->
+        </a>
+    </dl><dl class="listen_list">
+    	<a href="../Examlisten/examsquiz?unitid=00010403040322&examsid=668&isOverdue=false"> 
+        	<dt>5.郑州市上街区2014-2015学年第一学期期末水平测试卷（PEP三上）</dt>
+            <!-- <dd><p>已完成用时<span>10:04</span>，得分<span>80</span>，错误<span>3</span>题</p></dd> -->
+        </a>
+    </dl><dl class="listen_list">
+    	<a href="../Examlisten/examsquiz?unitid=00010403040322&examsid=745&isOverdue=false"> 
+        	<dt>6.新郑市2014-2015学年第一学期期末考试调研卷</dt>
+            <!-- <dd><p>已完成用时<span>10:04</span>，得分<span>80</span>，错误<span>3</span>题</p></dd> -->
+        </a>
+    </dl><dl class="listen_list">
+    	<a href="../Examlisten/examsquiz?unitid=00010403040322&examsid=758&isOverdue=false"> 
+        	<dt>7.新密市2014-2015学年上学期期末教学质量检测试卷</dt>
+            <!-- <dd><p>已完成用时<span>10:04</span>，得分<span>80</span>，错误<span>3</span>题</p></dd> -->
+        </a>
+    </dl><dl class="listen_list">
+    	<a href="../Examlisten/examsquiz?unitid=00010403040322&examsid=768&isOverdue=false"> 
+        	<dt>8.巩义市2014-2015学年度上学期期末考试试卷</dt>
+            <!-- <dd><p>已完成用时<span>10:04</span>，得分<span>80</span>，错误<span>3</span>题</p></dd> -->
+        </a>
+    </dl><dl class="listen_list">
+    	<a href="../Examlisten/examsquiz?unitid=00010403040322&examsid=775&isOverdue=false"> 
+        	<dt>9.登封市2014-2015学年上学期期末学业水平测试卷（PEP三上）</dt>
+            <!-- <dd><p>已完成用时<span>10:04</span>，得分<span>80</span>，错误<span>3</span>题</p></dd> -->
+        </a>
+    </dl></section>
+
+
+<script type="text/javascript" src="/public/Mobile/js/jquery.min.js"></script>  
+<script src="/public/Mobile/js/main.js"></script>
+</body>
+</html>

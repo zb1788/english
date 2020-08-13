@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>版本列表</title>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+        <style>
+        #page a{
+            display: block;
+            float: left;
+            width: 30px;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 30px;
+        }
+        #page span{
+            display: block;
+            float: left;
+            width: 30px;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 30px;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="box_top pl_10 f14"><strong>搜索</strong></td> 
+                </tr>
+                <tr>
+                    <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                            <tr>
+                                <td width="80" align="right">关键词：</td>
+                                <td>
+                                    <input id="keys" name="keys" type="text" class="input-text lh30" size="23"  />
+                                </td>
+                                <td>
+                                    &nbsp;
+                                    <input type="button" class="btn btn82 btn_search" value="查询" /></td>
+                            </tr>
+                        </table>
+                    </td> 
+                </tr> 
+            </table>
+            <div class="h10"></div>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+                <tr>
+                    <th width="30" align="center" style="display:none;"><input id="all" type="checkbox"/></th>
+                    <th width="200">单词</th>
+                    <th width="300">释义</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none" id="table_demo"> 
+                <tr class="tr">
+                    <td align="center" style="display:none;"><input type="checkbox" class="tras"/></td> 
+                    <td></td>
+                    <td align="left">
+                        
+                    </td>
+                    <td align="left">
+                        &nbsp;&nbsp;
+                        <input type="button" class="ext_btn add" value="添加" />       
+                    </td>
+                </tr>
+            </table>
+            <div class="page" id="page"></div>
+            <div class="h5"></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border" style="display:none;">
+                <tr>
+                    <td class="pl_10" height="42">
+                        <input name="btn_submit" id="btn_submit" type="button" class="ext_btn ext_btn_submit" value="批量添加" />
+                    </td>
+                </tr>
+            </table> 
+        </div>
+        <script type="text/javascript">
+
+            $(function() {
+                $.ajaxSetup({async: false});
+                $(".tr:odd").css("background", "#F5F8FA");
+                $('.tr:odd').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#F5F8FA");
+                    }
+                });
+
+                $('.tr:even').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#FFF");
+                    }
+                });
+                
+
+                $(".btn_search").click(function() {
+                    var name=$("#keys").val();
+                    if(name==""){
+                        alert("请输入要查询的单词");return;
+                    }
+                    var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+
+                    getWordList(name,0);
+                    dloading.close();
+                });
+
+                document.onkeydown = function (e) {  
+                    if (!e) e = window.event;  
+                    if ((e.keyCode || e.which) == 13) {  
+                         $(".btn_search").click();
+                    }  
+                }  
+
+                $("#table_data .add").live("click", function() {
+                    var obj=$(this);
+                    var tr = $(this).parents("tr");
+                    var wordid = $(this).attr("BID");
+                    var explainsid=$(this).parents("tr").find(".exp").val();
+                    var pageid = "{$pageid}";
+                    $.get("setPageWord", {id: wordid,pageid:pageid,explainsid:explainsid,random: Math.random()},function(){
+                        //$(obj).hide();
+                    });
+                });
+                
+
+            });
+            function getWordList(name,page){
+                $("#table_data .tr").empty();
+                $.getJSON("getBaseWordList",{name:name,page:page,ran:Math.random()},function(data){
+                    var i = 0;
+                    $.each(data.list, function(i, val) {
+                        i++;
+                        var tr = $("#table_demo tr").eq(0).clone();
+                        td = tr.children('td').eq(0);
+                        var input = td.children('input');
+                        input.attr("bid",val.id);
+                        td = tr.children('td').eq(1);
+                        td.html(val.word);
+                        td = tr.children('td').eq(2);
+                        var select="<select class='select exp'>";
+                        $.each(val.explains,function(k,v){
+                            select=select+"<option value='"+v.id+"'>"+v.explains+"</option>";
+                        })
+                        select=select+"</select>";
+                        td.html(select);
+                        tr.find("input").attr("BID", val.id);
+                        tr.appendTo("#table_data");
+                    });
+                    $("#page").html(data.page);
+                })   
+            }
+        </script> 
+    </body>
+</html>

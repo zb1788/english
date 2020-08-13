@@ -1,0 +1,178 @@
+<div class="titleCon">
+    <div class="fl"><h2 id="total_score" examsid="{$examsid}" unitid="{$unitid}" total_score="{$total_score}">听力训练：{$exams_info[0].name}</h2><a href="javascript:;" class="playBtn none"></a><span id="timeinfo"> &nbsp;&nbsp;&nbsp;总分:<font color="red">{$total_score}</font>分&nbsp;&nbsp;</span></div>
+    <div class="fr  none"><a href="javascript:ShowHide_TLCL(1);" class="aBtn cur" id="tlst1">听力试题</a><a href="javascript:ShowHide_TLCL(2);" class="aBtn" id="tlst2">听力材料</a><a id="goback" href="javascript:;" class="aBtn">返回</a></div>
+	<div class="fl" id="timer" timenum = "{$exams_info[0].examtime}">时间{$exams_info[0].examtime}分钟</div>
+    <div class="clearfix"></div>
+</div>
+  <div class="speed">速度：<input name="speed" type="radio" value="0"><label>慢速</label><input name="speed" type="radio" value="1" checked><label>正常</label><input name="speed" type="radio" value="2"><label>快速</label></div>
+<div class="boxCon">
+	<foreach name="paper_info" item="paper_info" key="k" > <!--循环一套试卷的每个大题开始-->
+		<eq name = "paper_info.classid" value="0"><!--大题的题干是注释-->
+			<div class="tiCon" type="paper" paperid="{$paper_info.id}" mp3url="{$paper_info.mp3}" astoptime="{$paper_info.astoptime}" repeat="{$paper_info.readtimes}">
+			<h3>{$paper_info.tcontent|str_replace='<br/>','',###}</h3>
+			<div class="clearfix"></div>
+			</div>
+		 </eq><!--大题的题干不是注释-->
+		 <eq name = "paper_info.classid" value="1"><!--大题的题干是独立大题-->
+			<div class="tiCon" type="paper" paperid="{$paper_info.id}" mp3url="{$paper_info.mp3}" astoptime="{$paper_info.astoptime}" repeat="{$paper_info.readtimes}" quenum="{$paper_info.quenum}">
+			<h3>{$paper_info.papersort}{$paper_info.tcontent|str_replace='<br/>','',###}</h3> <!--显示大题的题干-->
+			<foreach name ="paper_info.que_info" item="que" key="quekey"><!--循环每个大题里的小题开始-->
+				<eq name = "que.classid" value="1"><!--如果这个小题是独立题型开始-->
+					<eq name = "que.examdaid" value="1"><!--如果这个小题是选择题-->
+						<div class="que showanswer showtl" typeid="1" queid="{$que.id}" tlid="{$que.id}" score="{$que.score}" mp3url="{$que.mp3}" parentid="{$paper_info.id}">
+						<eq name = "que.itemtype" value="1"><!--如果这个选择题的选项是文字-->
+							<dl class="ti_xuanze">
+							<else /><!--如果这个选择题的选项是图片-->
+							<dl class="ti_xuanze ti_tupian">
+						 </eq>
+						<neq name="que.tcontent" value=""> <!--如果这个选择题有题干-->
+							<dt>{$quekey+1}.{$que.tcontent|str_replace='<p>','',###|str_replace='</p>','',###|preg_replace="[#.*?#]","_____",###}</dt>
+							
+							<else /><!--如果这个选择题没有题干-->
+							<b>{$quekey+1}.</b>
+						</neq>
+						<foreach name ="que.items" item="items" key="itemkey"><!--循环这个选择题下的选项-->
+							 <eq name = "que.itemtype" value="1"><!--如果这个选择题的选项是文字-->
+								<dd><input name="{$que.id}" type="radio" value="{$items.content}">{$items.flag}.<span>{$items.content|str_replace='<p>','',###|str_replace='</p>','',###}</span></dd>
+								<else /><!--如果这个选择题的选项是图片-->
+								<dd><img src="/uploads/{$items.content}"><span><input name="{$que.id}" type="radio" value="{$items.content}">{$items.flag}</span></dd>
+							</eq>
+						</foreach><!--循环这个选择题下的选项结束-->
+						 </dl>
+						 </div>
+							<div class="clearfix"></div>
+					</eq><!--如果这个小题选择题结束-->
+					<eq name = "que.examdaid" value="2"><!--如果这个小题是填空题-->
+					<div class="que showanswer showtl" typeid="2" queid="{$que.id}" tlid="{$que.id}" score="{$que.score}" mp3url="{$que.mp3}" parentid="{$paper_info.id}">
+							<ul class="ti_tiankong">
+						<li>{$que.tcontent|str_replace='<p>','',###|str_replace='</p>','',###|preg_replace="[##.*?##]","<input type='text'>",###}</li>
+							</ul>
+							<div class="clearfix"></div>
+						</div>
+					</eq><!--如果这个小题是填空题结束-->
+					<eq name = "que.examdaid" value="3"><!--如果这个小题是判断题-->
+					<div class="que showanswer showtl" typeid="3" queid="{$que.id}" tlid="{$que.id}" score="{$que.score}" mp3url="{$que.mp3}" parentid="{$paper_info.id}">
+							<ul class="ti_panduan">
+						<li>{$quekey+1}.{$que.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}<span><input name="{$que.id}" type="radio" value="1">√</span><span><input name="{$que.id}" type="radio" value="0">×</span></li>
+							</ul>
+							<div class="clearfix"></div>
+							</div>
+					</eq><!--如果这个小题是判断题结束-->
+					<eq name = "que.examdaid" value="4"><!--如果这个小题是排序题-->
+					<div class="que showanswer showtl" typeid="4" queid="{$que.id}" tlid="{$que.id}" score="{$que.score}" mp3url="{$que.mp3}" parentid="{$paper_info.id}">
+							<ul class="ti_list">
+								<volist name="que.items" id="items" key="itemkey"><!--循环这个选择题下的选项-->
+									<eq name = "que.itemtype" value="1">
+									<li>{$items.flag}.{$items.content}</li>
+                                       <else />
+                                      <li>{$items.flag}.<img src="/uploads/{$items.content}"/></li>
+                                     </eq>
+								</volist>
+							</ul>
+                             <div class="clearfix"></div>
+							<ul class="ti_paixu">
+								<volist name="que.items" id="items" key="itemkey"><!--循环这个选择题下的选项-->
+									<li>{$itemkey}.<input type="text" name="{$que.id}"></li>
+								</volist>
+							</ul>
+							</div>
+							<div class="clearfix"></div>
+							
+							
+					</eq><!--如果这个小题是排序题结束-->
+				</eq><!--如果这个小题是独立题型结束-->
+			</foreach><!--循环每个大题里的小题结束-->
+			</div>
+		</eq><!--大题的题干是独立题-->	
+		<eq name = "paper_info.classid" value="2"><!--大题的题干短文大题-->
+			<div class="tiCon" type="paper" mp3url="{$paper_info.mp3}" astoptime="{$paper_info.astoptime}" paperid="{$paper_info.id}" repeat="{$paper_info.readtimes}">
+			<h3>{$paper_info.papersort}{$paper_info.tcontent|str_replace='<br/>','',###}</h3>
+			<foreach name ="paper_info.que_info" item="que" key="quekey">
+			<div class="showtl que" tlid="{$que.id}" mp3url="{$que.mp3}" parentid="{$paper_info.id}">
+				<neq name="que.tcontent" value="">
+					<h3 class="que">{$quekey+1}.{$que.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}</h3>
+				<else />	
+				</neq>
+				<foreach name ="que.duanwen_info" item="quedw" key="quedwkey">
+						<!--循环这个短文题下的所有小题-->
+						 <eq name = "quedw.examdaid" value="1"><!--如果这个小题是选择题-->
+						 <div class="showanswer" typeid="1" queid="{$quedw.id}" score="{$quedw.score}">
+							<eq name = "quedw.itemtype" value="1"><!--如果这个选择题的选项是文字-->
+								<dl class="ti_xuanze">
+								<else />
+								<dl class="ti_xuanze ti_tupian"><!--如果这个选择题的选项是图片-->
+							</eq>
+							<eq name="que.tcontent" value="">
+								<neq name="quedw.tcontent" value=""> <!--如果这个选择题有题干-->
+									<dt>{$quedwkey+1}.{$quedw.tcontent|str_replace='<p>','',###|str_replace='</p>','',###|preg_replace="[#.*?#]","_____",###}</dt>
+									<else /><!--如果这个选择题没有题干-->
+									<b>{$quedwkey+1}.</b>
+								</neq>
+								<else />
+								<neq name="quedw.tcontent" value=""> <!--如果这个选择题有题干-->
+									<dt>({$quedwkey+1}) {$quedw.tcontent|str_replace='<p>','',###|str_replace='</p>','',###|preg_replace="[#.*?#]","_____",###}</dt>
+									<else /><!--如果这个选择题没有题干-->
+									<b>({$quedwkey+1}) </b>
+								</neq>
+							 </eq>
+							<volist name="quedw.items" id="dwitems" key="dwitemkey"><!--循环这个选择题下的选项-->
+								<eq name = "quedw.itemtype" value="1"><!--如果这个选择题的选项是文字-->
+									<dd><input name="{$quedw.id}" type="radio" value="{$dwitems.content}">{$dwitems.flag}.<span>{$dwitems.content|str_replace='<p>','',###|str_replace='</p>','',###}</span></dd>
+									<else /><!--如果这个选择题的选项是图片-->
+								   <dd><img src="/uploads/{$dwitems.content}"><span><input name="{$quedw.id}" type="radio" value="{$dwitems.content}">{$dwitems.flag}</span></dd>
+								</eq>
+							</volist>
+							</dl>
+							</div>
+							<div class="clearfix"></div>
+						 </eq><!--如果这个小题是选择题结束-->
+						 <eq name = "quedw.examdaid" value="2"><!--如果这个小题是填空题-->
+						 <div class="showanswer" typeid="2" queid="{$quedw.id}" score="{$quedw.score}">
+							<ul class="ti_tiankong word">
+							<li>{$quedwkey+1}.{$quedw.tcontent|str_replace='<p>','',###|str_replace='</p>','',###|preg_replace="[##.*?##]","<input type='text'>",###}</li>
+							</ul>
+						 </div>
+						<div class="clearfix"></div>
+						 </eq><!--如果这个小题是填空题结束-->
+						 <eq name = "quedw.examdaid" value="3"><!--如果这个小题是判断题-->
+						<div class="showanswer" typeid="3" queid="{$quedw.id}" score="{$quedw.score}">
+						<ul class="ti_panduan">
+							<li>{$quedwkey+1}.{$quedw.tcontent|str_replace='<p>','',###|str_replace='</p>','',###}<span><input name="{$quedw.id}" type="radio" value="1">√</span><span><input name="{$quedw.id}" type="radio" value="0">×</span></li>
+								</ul>
+							</div>
+						<div class="clearfix"></div>			
+						 </eq><!--如果这个小题是判断题结束-->
+						 <eq name = "quedw.examdaid" value="4"><!--如果这个小题是排序题-->
+						 <div class="showanswer" typeid="4" queid="{$quedw.id}" score="{$quedw.score}">
+							<ul class="ti_list">
+							
+								<volist name="quedw.items" id="dwitems" key="dwitemkey"><!--循环这个选择题下的选项-->
+                                    <eq name = "quedw.itemtype" value="1">
+									<li>{$dwitems.flag}.{$dwitems.content}</li>
+                                       <else />
+                                      <li>{$dwitems.flag}.<img src="/uploads/{$dwitems.content}"/></li>
+                                     </eq>
+								</volist>
+							</ul>
+							
+                            <div class="clearfix"></div>
+							<ul class="ti_paixu">
+								<volist name="quedw.items" id="dwitems" key="dwitemkey"><!--循环这个选择题下的选项-->
+									<li>{$dwitemkey}.<input type="text" name="{$quedw.id}"></li>
+								</volist>
+							</ul>
+						</div>
+							<div class="clearfix"></div>
+						 </eq><!--如果这个小题是排序题结束-->
+				</foreach>
+				</div>
+			</foreach>
+			</div>
+		</eq>
+	</foreach><!--循环一套试卷的每个大题结束-->
+
+<div class="submit"><a href="javascript:void(0)" onclick="exams_sumbit()" class="aBtn" id="tj">提交答案</a></div>
+</div>
+<div class="bk10"></div> 
+
+

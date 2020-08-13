@@ -1,0 +1,59 @@
+@charset "gb2312";
+/* CSS Document */
+
+body {background:#fff;}
+body.noBg {background-image:none;}
+
+.header.noBg {background:none; height:auto;}
+.logo.stu {margin:38px 0 0 0; }
+.logo.stu .nianji {background:url(../images/student/s_img.png) no-repeat 0 0; width:105px; height:50px; line-height:44px; position:absolute; right:20px; top:-20px; font-size:17px; color:#fff; display:block; text-align:center; text-indent:9px;}
+.adv_top {width:300px; height:80px; float:left; margin:20px 0 0 40px;}
+.nav_kt {clear:both;}
+.nav_kt ul {}
+.nav_kt ul li {display:block; float:left; width:160px; height:60px; margin:0 1px; }
+.nav_kt ul li a {background:url(../images/student/s_img.png) no-repeat 0 -51px; display:block; width:160px; height:60px; color:#fff; font-size:20px; line-height:54px; text-align:center;}
+.nav_kt ul li a:hover {text-decoration:none; background-position:0 -111px;}
+.nav_kt ul li a.sel_kt {background-position:0 -111px;}
+.owl {background:url(../images/student/maotouying.png) no-repeat; width:75px; height:75px; display:block; position:absolute; right:-100px; top:100px;}
+
+.bg_bolang {background:url(../images/student/bolang1.jpg) repeat-x bottom center; height:324px; padding-top:10px; margin-top:10px;}
+.w980 a.ms01 {background:url(../images/zwzd/zwzd_t01.png) no-repeat bottom center; top:10px;height:78px; line-height:45px;}
+.w980 a.ms01 span{ font-size:25px;} 
+.w980 a.ms02 { top:89px; left:0; width:230px; height:230px; overflow:hidden; background-position:bottom center; }
+a.ms02 img{ }
+.w980 a.ms03 { top:220px; left:170px; height:95px; overflow:hidden; border-radius:5px;}
+.w980 a.ms04 {top:220px; left:170px; height:70px; overflow:hidden;}
+.w980 a.ms04 b {font-size:13px;}
+.jdwt span a,.jdwt span a:visited { background:#26c7cf; border:1px dashed #4fe6ee; padding:0 5px; text-indent:0; color:#fff; border-radius:3px; font-size:14px;  }
+.jdwt span a:hover {color:#fff; background-color:#00a7b1; }
+.jdwt ul {border: dashed 1px #60e1e8; border-radius:5px; color:#fff;}
+.jdwt li { height:25px; overflow:hidden;}
+a.ck { width:auto; background:#11b962; border-radius:3px; padding:0 10px; text-decoration:none; color:#fff; }
+a.ck:hover {color:#f4f4f4; background:#0fa155; }
+
+.flash_bar { top:auto; left:85px; z-index:3;}
+
+.w980 .r_pic {width:340px; height:270px; background:#fff; border-radius:5px; margin-top:25px;}
+.w980 .frame {width:340px; height:auto; padding:0;}
+.w980 .pic_top{ width:620px;}
+.w980 .focus {width:620px; float:left;}
+.w980 .jdwt {left:310px;}
+.w980 .askbt {width:340px; font-size:17px; line-height:22px; border-radius:5px 5px 0 0; *margin-bottom:-3px; background:#fff;}
+.w980 .ask {width:300px; margin-left:10px; height:100px; overflow-y:hidden; text-indent:0; border:1px solid #efefef; padding:10px; *margin:0; *width:319px;}
+.w980 .askselest {width:322px; padding-top:5px; margin:0 10px; text-indent:5px; height:40px;}
+.w980 a.w360 {width:322px; margin:10px; text-indent:0; text-align:center; border-radius:3px;}
+a.jifen {width:170px; overflow:hidden; font-size:12px; margin-left:5px;}
+.w980 .askbt .ssin { left:190px; cursor:pointer; width:80px;}
+
+.askselest ul li{ margin-right:0;}
+a.arr3,a.arr3:visited { width:70px; text-indent:5px; }
+.w80 {width:70px; }
+
+dl.w33 dd {padding:0 10px; height:25px; overflow:hidden;}
+dl.w33 { padding-bottom:10px;}
+.w980 dl.w33 dt p {width:190px; height:100px; float:right; text-indent:15px;line-height:25px;}
+ul.menu li {margin-right:0; margin-left:5px;}
+.drop a,.drop a:visited { letter-spacing:0; font-size:13px; height:32px; line-height:32px; }
+.drop.w80 {width:70px;left:5px;}
+.fenNum {color:#f60; width:50px; overflow:hidden; display:block; float:right; text-indent:0;}
+a.w65, a.w65:visited{ border-radius:3px; }

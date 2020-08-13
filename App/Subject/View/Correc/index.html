@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<meta name="wap-font-scale" content="no">
+		<title>批改报告</title>
+		<link rel="stylesheet" href="__SUBJECT__/correc/css/currency.css" />
+		<link rel="stylesheet" href="__SUBJECT__/correc/font/fonts.css" />
+<style>
+	body {background: #fcfcfc;}
+	.dialog1 { top: 10%;}
+	.dialog1 p {padding:3px; text-align: center;}
+</style>
+<script type="text/javascript" src="__PUBLIC__/js/zepto.min.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/enajax.js" ></script>
+
+</head>
+<body>
+<main>
+<span style="display: none;" id="truecontent">{$truecontent}</span>
+<header class="head">
+			<a class="head-left" href="javascript:goback();"><i class="icon-back"></i>返回</a>
+			<h1 class="title">智课作文</h1>
+			<a href="writing_result?type={$type}" class="head-right">批改记录</a>
+</header>
+<section>
+	<h1 class="mt45 textH6">输入作文内容后，点“智课批改”进行批改。</h1>
+	<h2 class="textH2 bTop">作文内容输入</h2>
+	<div class="pad10">
+	<div class="textIn" contenteditable='true' id="photo">提醒：1.请输入作文内容；2.也可以点<i class="icon-camera"></i>拍照识别导入作文内容；拍照时，尽量将作文内容全部放置到镜头下；3.拍照识别后，请核实作文内容再提交。</div>
+</div>
+<a href="javascript:;"  area="photo" class="paizhao"><i class="icon-camera"></i></a>
+<div class="h50"></div>
+</section>
+<section class="courseBtn"><a href="#" id="drTan" class="btn"><i class="icon-correct04"></i> 智课批改</a></section>
+</section>
+	<div id="tips"></div>
+<div class="brg" id="bg"></div>
+<div class="bload">
+<div class="loadEffect">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+</div></div>
+
+<div style="position: absolute; top: 0; left: 0; right: 0;">
+<div class="cloud"><i class="icon-yumao"></i><span>正在批改中，请稍后..</span></div></div>
+<div class="dialog1" id="dialog1">
+	<h2>提示</h2>
+	<div class="diNr">
+	<p>你确定要提交作文测评吗？</p>
+</div>
+<div class="btn_d tCenter"><a class="cancelwritng">取消</a><a class="btyes writing">确定</a></div>
+</div>
+<div class="dialog1" id="dialog2">
+<img class="img35" src="__SUBJECT__/correc/images/cuo.png" />
+	<h2>图片识别失败</h2>
+	<div class="diNr">
+	<p>1.在一张纸内写完文章</p>
+	<p>2.一个单词不要分成两行写</p>
+	<p>3.单词写错，尽量涂黑</p>
+	<p>4.尽量不要在拼音纸上写</p>
+	<p>5.图片清晰，不能模糊</p>
+</div>
+<div class="btn_d tCenter"><a class="cancelimg">取消</a><a class="btyes imgsubmit">确定</a></div>
+</div>
+<div class="dialog1" id="dialog3">
+<img class="img35" src="__SUBJECT__/correc/images/dui.png" />
+	<h2>图片识别成功</h2>
+	<div class="diNr">
+	<p>图片内容已经成功识别转为文字，请您核对信息后再提交。</p>
+</div>
+<div class="btn_d tCenter"><a class="succseimg">我知道了</a>
+</div>
+</main>
+</body>
+</html>
+<script type="text/javascript">
+   var type = "{$type}";
+   var id = "{$id}";
+   var issubmit = "{$issubmit}";
+   var content = "{$content}";
+   //alert(content);
+   var shtml=$('.textIn').html();
+   if(issubmit == 0 && content != ''){
+   	  	$('.textIn').html($('#truecontent').text());
+   }
+   if(id >0){
+   	$('.textIn').html($('#truecontent').text());
+   }
+   $('.textIn').focus(function(){
+		if($(this).html() == shtml){
+			$(this).html("");
+		}	
+	})
+	$('.textIn').blur(function(){
+		if($(this).html() == ''){
+			var ss = $(this).html();
+			ss==""&&$(this).html(shtml);
+		}
+		else{
+			if($('.textIn').html() != shtml && $.trim($('.textIn').html()) != ''){
+				 content = $('.textIn').text();
+				$.ajax({
+						dataType:'json',
+					url:'/Subject/Correc/tempcontent',
+					type : 'post',
+					data : {
+						'content':content
+						
+					},
+					success : function(json) {
+						
+					}
+				});
+			}
+		}
+			
+	});
+	
+ function usePhoto(area, base64Str){
+	    var msg='';
+	    //alert($('#testimg').attr('src'));
+	    //$('#testimg').attr('src',base64Str);
+		$('.bload').show();
+		$('.brg').show();
+			$.ajax({
+				dataType:'json',
+				url:'/Subject/Correc/curl_post',
+				type : 'post',
+				data : {
+					'token':'UJbVHIXwKF3ca4JOQtLqLo1ajsebRv6c',
+					'imgbase64' : base64Str,
+					'isOneLine':'0'
+				},
+				success : function(json) {
+					$('.bload').hide();
+					$('.brg').hide();
+					if (json.code == 0) {
+						$('#dialog3').css('left',($(window).width() - 280)/2)
+						$('#dialog3').show();
+	    				$('#bg').show();
+						$(".textIn").html(json.data.text);
+					
+					} else {
+						//setTip("无法识别图片中的内容！");
+						$('#dialog2').css('left',($(window).width() - 280)/2)
+					    $('#dialog2').show();
+					    $('#bg').show();
+					}
+				}
+			});
+	}
+	
+	
+var setTip=function(content){
+    var tip = document.getElementById('tips');
+    tip.innerHTML = content;
+    tip.style.display = 'block';
+    setTimeout(function(){ 
+        tip.style.display = 'none';
+    }, 3000);
+}
+$(function(){
+	//拍照
+	$('.paizhao').click(function(){
+	var area = $('.paizhao').attr("area");
+	UXinJSInterface.selectPhoto(area);
+	//alert('cc');
+	});
+	//返回
+	$('.head-left').click(function(){
+		if($('.textIn').html() != shtml && $.trim($('.textIn').html()) != ''){
+			var content = $('.textIn').text();
+			$.ajax({
+					dataType:'json',
+				url:'/Subject/Correc/tempcontent',
+				type : 'post',
+				data : {
+					'content':content
+					
+				},
+				success : function(json) {
+					window.location.href= '/Subject/Correc/entrance?gradeid={$gradeid}&backUrl={$backUrl}';
+				}
+			});
+		}
+		else{
+			window.location.href= '/Subject/Correc/entrance?gradeid={$gradeid}&backUrl={$backUrl}';
+		}
+	});
+
+	$('#drTan').click(function(){
+		if($('.textIn').html() == shtml || $.trim($('.textIn').html()) == ''){
+			setTip("请输入要批改的作文内容！");
+		}
+		else{
+			$('#dialog1').css('left',($(window).width() - 280)/2)
+		    $('#dialog1').show();
+		    $('#bg').show();
+		}
+	});
+	//批改
+	$('.writing').click(function(){
+		$('.dialog1').hide();
+	    $('#bg').hide();
+		$('.cloud').show();
+		$('.brg').show();
+		$.ajax({
+				dataType:'json',
+				url:'/Subject/Correc/writing',
+				type : 'post',
+				data : {
+					'content':$(".textIn").text(),
+					'type' : type,
+					'id':id,
+					'submittype':0
+				},
+				success : function(json) {
+					$('.cloud').hide();
+					$('.brg').hide();
+						window.location.href= 'baogao?id='+json.id+'&gradeid={$gradeid}&backUrl={$backUrl}';
+				}
+			});
+	});
+	$('.cancelwritng').click(function(){
+		$('#dialog1').hide();
+	    $('#bg').hide();
+	});	
+	$('.cancelimg').click(function(){
+		$('#dialog2').hide();
+	    $('#bg').hide();
+	});
+	$('.imgsubmit').click(function(){
+		$('#dialog2').hide();
+	    $('#bg').hide();
+	});
+	$('.cancelwritng').click(function(){
+		$('#dialog1').hide();
+	    $('#bg').hide();
+	});
+	$('.succseimg').click(function(){
+		$('#dialog3').hide();
+	    $('#bg').hide();
+	});
+})
+
+</script>
+<script type="text/javascript" src="__PUBLIC__/js/unitlog.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/performance.js" ></script>

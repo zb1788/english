@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>应用列表</title>
+       <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div class="place"><strong>位置</strong>：首页 &gt; 微课内容管理</div>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="box_top pl_10 f14">微课内容编辑&nbsp;&nbsp;<input name="btn_submit_goback" id="btn_submit_goback" type="button" class="ext_btn ext_btn_submit" value="返回视频列表" /></td> 
+                </tr>
+                <tr>
+                    <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                            <tr>
+                                <td width="70" align="right">所属学科：</td>
+                                <td>
+                                    <select name="subjectlist" class="select" id="subjectlist" onchange="reloadsubject();" disabled >
+                                      
+                                    </select>&nbsp;&nbsp;
+                                    微课应用：
+                                    <select name="applist" class="select" id="applist" onchange="reloadapplist();" disabled>
+                                      
+                                    </select>
+                                </td>
+                          
+                                <!-- <td>
+                                    &nbsp;
+                                    <input type="button" class="btn btn82 btn_search" value="查询" /></td>
+                                <td>
+                                    &nbsp;
+                                    <input type="button" class="btn btn82 btn_add" value="添加" /></td> -->
+                            </tr>
+      <tr>
+        <td class="td_right">版本学期：</td>
+        <td>
+            <input type="checkbox" name="isterm" <eq name="isterm" value="1">checked</eq> disabled />&nbsp;<eq name="isterm" value="1">有<else/>无</eq>&nbsp;&nbsp;
+          
+        </td>
+      </tr>
+      <eq name="isterm" value="1">
+      <tr>
+      <td class="td_right">选择版本：</td>
+      <td>
+          <select name="versionlist" class="select" id="versionlist" onchange="unitlist();" >
+                                      
+         </select>
+      </td>
+      </tr>
+    </eq>
+      <tr>
+        <td class="td_right">单元目录：</td>
+        <td>
+          <input type="checkbox" name="isunit" <eq name="isunit" value="1">checked</eq> disabled />&nbsp;<eq name="isunit" value="1">有<else/>无</eq>&nbsp;<input type="radio" name="unittype" value="0" <eq name="unit_type" value="0">checked</eq> disabled />&nbsp;文字列表&nbsp;<input type="radio" name="unittype" value="1" <eq name="unit_type" value="1">checked</eq> disabled />&nbsp;图片列表
+        </td>
+        
+      </tr>
+      <eq name="isunit" value="1">
+      <tr>
+      <td class="td_right">选择单元：</td>
+      <td>
+          <select name="unitlist" class="select" id="unitlist" >
+                                      
+         </select>
+      </td>
+      </tr>
+    </eq>
+       <tr>
+        <td class="td_right">特殊类型：</td>
+        <td>
+          <input type="checkbox" name="isspecial" value="1" <eq name="isspecial" value="1">checked</eq> disabled/>&nbsp;<eq name="isspecial" value="1">有&nbsp;<select name="special" class="select" id="special" disabled><else/>无</eq> 
+          </select>
+        </td>
+        
+      </tr>
+      <tr>
+        <td class="td_right">外接来源：</td>
+        <td>
+          <input type="checkbox" name="issource" value="1" <eq name="issource" value="1">checked</eq> disabled />&nbsp;<eq name="issource" value="1">有&nbsp;<select name="source" class="select" id="source" disabled><else/>无</eq> 
+          </select>
+        </td>
+        
+      </tr>
+      <tr>
+        <td class="td_right">视频名称：</td>
+        <td>
+          <input type="text" id="coursename" name="coursename" class="input-text lh30" size="70" value="{$course_title}" />&nbsp;(<strong><font color="red">*</font></strong>)&nbsp;&nbsp;<input type="button" class="ext_btn ext_btn_submit videosearch"   value="查询" />
+        </td>
+      </tr>
+        <tr>
+        <td class="td_right">视频编码：</td>
+        <td>
+          <input type="text" id="coursecode" name="coursecode" class="input-text lh30" size="40" value="{$course_code}" disabled />&nbsp;(<strong><font color="red">*</font></strong>)&nbsp;&nbsp;<input type="button" class="ext_btn ext_btn_submit videoplay"   value="预览" />
+        </td>
+      </tr>
+       <tr>
+        <td class="td_right">缩略图：</td>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table" id="table_excel"> 
+                <tr>
+                    <td width="100px">
+                        <div id="queue"></div>
+                         <input name="btn_submit" id="btn_que_add" type="button" class="ext_btn ext_btn_submit " value="上传图片" onclick="imgupload('#myimg','#filename')" />
+                    </td>
+                    <td align="left">
+                        <img src="/{$course_pic}" id="myimg" width="100" height="100"/ style="border:1px solid #CCC; padding:2px;" >
+                        <input type="hidden" id="filename" name="filename" value="{$course_pic}" />&nbsp;(<strong><font color="red">240*160</font></strong>)
+                    </td>
+                </tr>
+            </table> 
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">缩略大图：</td>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table" id="table_excel"> 
+                <tr>
+                    <td width="100px">
+                        <div id="queue"></div>
+                         <input name="btn_submit" id="btn_que_add" type="button" class="ext_btn ext_btn_submit " value="上传图片" onclick="imgupload('#myimg2','#filename2')" />
+                    </td>
+                    <td align="left">
+                        <img src="/{$course_big_pic}" id="myimg2" width="100" height="100"/ style="border:1px solid #CCC; padding:2px;" >
+                        <input type="hidden" id="filename2" name="filename2" value="{$course_big_pic}" />&nbsp;(<strong><font color="red">800*533 语文作文专用</font></strong>)
+                    </td>
+                </tr>
+            </table> 
+        </td>
+      </tr>
+  
+         <tr><td></td><td align="left">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                 
+                    <tr>
+                     <td width="200"></td>
+                        <td>
+                                        &nbsp;
+                            <input type="button" class="btn btn82 btn_save2" value="修改" /></td>
+                        </tr>
+                       
+            </table>
+  </td></tr>
+                        </table>
+                    </td> 
+                </tr> 
+            </table>
+            
+        </div>
+  <div id="edit_tx2" class="edit_tx2" style="display: none;">
+  <iframe id="uploadPhoto" src="{:U('imageupload/index')}" width="100%" style="height:420px; text-align: center;"  frameborder="0" scrolling="no"></iframe>
+</div>
+        <script type="text/javascript">
+       var subject_code = "{$subject_code}";
+       var app_id = "{$app_id}";
+       var course_id = "{$course_id}";
+       var isterm = "{$isterm}";
+       var isunit = "{$isunit}";
+       var gradestr = "{$gradestr}";
+       var special_code = "{$special_code}";
+       var source_code = "{$source_code}";
+       var isspecial = "{$isspecial}";
+       var issource = "{$issource}";
+       var version_id = "{$version_id}";
+       var unit_id = "{$unit_id}";
+       function reloadsubject(){
+              window.location.href="/Elearnmanager/classapp/app_course_add?subject_code="+$('#subjectcode').val();
+            }
+      function reloadapplist(){
+        window.location.href="/Elearnmanager/classapp/app_course_add?app_id="+$('#applist').val();
+      }
+      function unitlist(){
+         if(isunit == 1 && isterm == 1){
+          $.EBC.setUnit($('#unitlist'),$('#versionlist').val(),unit_id,'version');
+        }
+        else if(isunit == 1 && isterm == 0){
+            $.EBC.setUnit($('#unitlist'),$('#applist').val(),unit_id,'app');
+          }
+      }
+            $(function() {
+                $.ajaxSetup({async: false});
+                $.EBC.setSubject($('#subjectlist'),subject_code,1);
+
+                $.EBC.setAppname($('#applist'),subject_code,app_id);
+                if(isspecial == 1){
+                    $.EBC.setSpecial($('#special'),special_code);
+                }
+                if(issource == 1){
+                    $.EBC.setSource($('#source'),source_code);
+                }
+                
+                //$.EBC.setGrade($('#getgrade'),gradestr,'checkbox');
+                if(isterm == 1){
+                     $.EBC.setVersion($('#versionlist'),subject_code,app_id,version_id);
+                }
+                unitlist();
+                $('#btn_submit_goback').click(function(){
+                  window.location.href="/Elearnmanager/classapp/app_course_list?subject_code="+subject_code+"&version_id="+version_id+"&app_id="+app_id+"&unit_id="+unit_id;
+                });
+                
+
+                $('.btn_save2').click(function(){
+                  SaveCourse(course_id);
+               });
+                $('.videosearch').click(function(){
+                  resSelect();
+               });
+                $('.videoplay').click(function(){
+                  videoplay();
+               });
+            });
+            function resSelect(){
+              var myDialog=$.dialog.open('resSelectFromCCM',{
+                id:'resSelect',
+                title:'资源选择',
+                window:'top',
+                width:927,
+                height:623,
+                lock:true,
+                opacity:0.3
+              });
+            }
+            function insertFileinfo(title,r_code){
+               $('#coursename').val(title);
+               $('#coursecode').val(r_code);
+               
+            }
+            function videoplay(){
+              var myDialog=$.dialog.open('videoplay?code='+$('#coursecode').val(),{
+                id:'resSelect',
+                title:'视频预览',
+                window:'top',
+                width:750,
+                height:480,
+                lock:true,
+                opacity:0.3
+              });
+            }
+        </script> 
+    </body>
+</html>

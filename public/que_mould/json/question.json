@@ -1,0 +1,57 @@
+[{
+		"id": "1430",
+		"stemid": "486",
+		"question_num": "1",
+		"typeid": "1",
+		"tcontent": "",
+		"acontent": "",
+		"itemtype": "1",
+		"display": "1",
+		"tips": "1",
+		"stoptimes": "5",
+		"papertitle": "<p>\u4e00\u3001\u542c\u4e0b\u9762\u4e94\u6bb5\u5bf9\u8bdd\uff0c\u9009\u62e9\u4e0e\u4f60\u542c\u5230\u7684\u5185\u5bb9\u76f8\u7b26\u7684\u56fe\u7247\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e00\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)",
+		"question_playtimes": "1",
+		"question_score": "1.0",
+		"stem_type": "1",
+		"stem_id": "486",
+		"que_key4": "\u5bb9\u6613",
+		"isObjective": true,
+		"items": [{
+			"flag": "A",
+			"content": "https:\/\/resen.czbanbantong.com\/yylmp3\/uploads\/201512\/565fb8c55a4d1.jpg",
+			"reply_num": 0
+		}, {
+			"flag": "B",
+			"content": "https:\/\/resen.czbanbantong.com\/yylmp3\/uploads\/201512\/565fb8d82a5fa.jpg",
+			"reply_num": 0
+		}, {
+			"flag": "C",
+			"content": "https:\/\/resen.czbanbantong.com\/yylmp3\/uploads\/201512\/565fb8e053d6b.jpg",
+			"reply_num": 0
+		}],
+		"itemsoption": [{
+			"flag": "A"
+		}, {
+			"flag": "B"
+		}, {
+			"flag": "C"
+		}],
+		"trueanswer": [{
+			"trueanswer": "B",
+			"answer_num": "1",
+			"questionsid": "1430"
+		}],
+		"mp3list": [{
+			"mp3": "https:\/\/resen.czbanbantong.com\/yylmp3\/mp3_exam\/9D\/9DD1DDB3A5EE87B3510FE938ED47D669.mp3",
+			"stoptime": "1"
+		}, {
+			"mp3": "https:\/\/resen.czbanbantong.com\/yylmp3\/mp3_exam\/18\/188EF84EBC5F8DB3C510BB29D646BC4A.mp3",
+			"stoptime": "1"
+		}],
+		"tts_content": "<p>W:Can you dance, Jill?<\/p><p>M:Yes, I can. I like dancing very much.<\/p>",
+		"anMapsHis": "{}",
+		"accuracy": 0,
+		"average": 0,
+		"mp3type": 4,
+		"from_platform": "exams"
+	}]

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="wap-font-scale" content="no">
+		<meta charset="UTF-8">
+		<title>听读作业</title>
+		<link rel="stylesheet" href="css/currency.css" />
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/londing.css" />
+		<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
+		<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
+		<script type="text/javascript" src="js/TouchSlide.1.1.js"></script>
+		<script type="text/javascript" src="js/mobile.js"></script>
+		<script type="text/javascript" src="js/examsquiz.js"></script>
+		<style>
+			.wsgray{
+				font-family: Muiicons;
+				padding-left:0px;
+				margin-left:0px;
+				margin-top:10px;
+				display:inline-block;
+				padding: 0;
+				width: 50px;
+				height: 50px;
+				border-radius: 20px;
+				text-align: center;
+				border: solid 1px transparent;
+				line-height: 50px;
+			}
+
+			.wgray{
+				background-color: #f7f7f7;
+				box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+				color: #a7a7a7;
+			}
+
+			.wgreen{
+				background-color: #2bc8a0;
+				box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #2bc8a0;
+				color: white;
+			}
+			.daH1 {    margin: 0!important;    padding: 0!important;-webkit-margin-before: 0!important;-webkit-margin-after: 0!important;}
+			.con ,.con ul,#iScroll-bd{ margin: 0!important;    padding: 0!important;-webkit-margin-before: 0!important;-webkit-margin-after: 0!important; box-sizing: border-box;}
+		</style>
+		<script type="text/javascript">
+			//初始化参数
+			var Requests = new Object();
+            Requests = GetRequest();
+			var pageindex=0;
+			var quescount=0;
+			var issubmit="";
+			var type="0";
+			var title="";
+			var index="0";
+			//console.log(Requests["index"]);
+			index = Requests["index"] == undefined ? index : Requests["index"];
+			var questions="";
+			var questionscard="";
+            var curindex=index;
+            var resultJosn={"name":"\u542c\u529b\u8bad\u7ec3","num":20,"examsid":89,"examsname":"Unit1 \u5355\u5143\u542c\u529b\u6d4b\u8bd5\uff08\u4e00\uff09","tqms":"tqmstest.yjt361.com","ks_code":"00010802060202","username":"0","truename":"\u80e1\u6653\u6500","saveurl":"http:\/\/enhxp.czbanbantong.com\/Home\/Device\/batchSaveAnswer","questions":[{"name":"\u542c\u529b\u8bad\u7ec3","id":"1430","contentid":"1430","itemtype":"1","question_playtimes":"1","index":1,"count":20,"type":5,"typeid":"1","stemid":"486","parentid":"0","display":"1","questype":0,"encontent":"","cncontent":"","stemcontent":"<p>\u4e00\u3001\u542c\u4e0b\u9762\u4e94\u6bb5\u5bf9\u8bdd\uff0c\u9009\u62e9\u4e0e\u4f60\u542c\u5230\u7684\u5185\u5bb9\u76f8\u7b26\u7684\u56fe\u7247\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e00\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)","remark":"","answer":"B","tts":[{"before":"W","content":"Can you dance, Jill?","playmp3":"mp3_pic\/9DD1DDB3A5EE87B3510FE938ED47D669.mp3","stoptime":"1"},{"before":"M","content":"Yes, I can. I like dancing very much.","playmp3":"mp3_pic\/188EF84EBC5F8DB3C510BB29D646BC4A.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"mp3_pic\/565fb8c55a4d1.jpg","iserror":0},{"flag":"B","content":"mp3_pic\/565fb8d82a5fa.jpg","iserror":1},{"flag":"C","content":"mp3_pic\/565fb8e053d6b.jpg","iserror":0}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1431","contentid":"1431","itemtype":"1","question_playtimes":"1","index":2,"count":20,"type":5,"typeid":"1","stemid":"486","parentid":"0","display":"1","questype":0,"encontent":"","cncontent":"","stemcontent":"<p>\u4e00\u3001\u542c\u4e0b\u9762\u4e94\u6bb5\u5bf9\u8bdd\uff0c\u9009\u62e9\u4e0e\u4f60\u542c\u5230\u7684\u5185\u5bb9\u76f8\u7b26\u7684\u56fe\u7247\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e00\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)","remark":"","answer":"B","tts":[{"before":"M","content":"Do you like playing tennis?","playmp3":"mp3_pic\/02EA9A22F6A85C519E8A5DC0496D42FC.mp3","stoptime":"1"},{"before":"W","content":"Yes, I do. But I can\u2019t play it very well.","playmp3":"mp3_pic\/999F492E070BB6142C911B2A59BEC3C0.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"mp3_pic\/565fc7a57ab88.jpg","iserror":0},{"flag":"B","content":"mp3_pic\/565fd0c82f8e0.jpg","iserror":1},{"flag":"C","content":"mp3_pic\/565fc811970f5.jpg","iserror":0}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1432","contentid":"1432","itemtype":"1","question_playtimes":"1","index":3,"count":20,"type":5,"typeid":"1","stemid":"486","parentid":"0","display":"1","questype":0,"encontent":"","cncontent":"","stemcontent":"<p>\u4e00\u3001\u542c\u4e0b\u9762\u4e94\u6bb5\u5bf9\u8bdd\uff0c\u9009\u62e9\u4e0e\u4f60\u542c\u5230\u7684\u5185\u5bb9\u76f8\u7b26\u7684\u56fe\u7247\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e00\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)","remark":"","answer":"A","tts":[{"before":"M","content":"What do you like to do?","playmp3":"mp3_pic\/C36E172FAFAB1FDDEBA2242D1C7F5845.mp3","stoptime":"1"},{"before":"W","content":"I like taking a walk in the park after supper","playmp3":"mp3_pic\/6BDF983CB1775F681A55809FAED3CAAD.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"mp3_pic\/565fd36ef1b4a.jpg","iserror":1},{"flag":"B","content":"mp3_pic\/565fd377dec79.jpg","iserror":0},{"flag":"C","content":"mp3_pic\/565fd381c051b.jpg","iserror":0}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1433","contentid":"1433","itemtype":"1","question_playtimes":"1","index":4,"count":20,"type":5,"typeid":"1","stemid":"486","parentid":"0","display":"1","questype":0,"encontent":"","cncontent":"","stemcontent":"<p>\u4e00\u3001\u542c\u4e0b\u9762\u4e94\u6bb5\u5bf9\u8bdd\uff0c\u9009\u62e9\u4e0e\u4f60\u542c\u5230\u7684\u5185\u5bb9\u76f8\u7b26\u7684\u56fe\u7247\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e00\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)","remark":"","answer":"C","tts":[{"before":"M","content":"Let\u2019s play basketball.","playmp3":"mp3_pic\/0740917899501703295FAFD2EA2F61B0.mp3","stoptime":"1"},{"before":"W","content":"OK.","playmp3":"mp3_pic\/2010F2C7AC9650D570AF8ABA7F76649F.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"mp3_pic\/565fd40670644.jpg","iserror":0},{"flag":"B","content":"mp3_pic\/565fd42b367bf.jpg","iserror":0},{"flag":"C","content":"mp3_pic\/565fd444a70b8.jpg","iserror":1}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1434","contentid":"1434","itemtype":"1","question_playtimes":"1","index":5,"count":20,"type":5,"typeid":"1","stemid":"486","parentid":"0","display":"1","questype":0,"encontent":"","cncontent":"","stemcontent":"<p>\u4e00\u3001\u542c\u4e0b\u9762\u4e94\u6bb5\u5bf9\u8bdd\uff0c\u9009\u62e9\u4e0e\u4f60\u542c\u5230\u7684\u5185\u5bb9\u76f8\u7b26\u7684\u56fe\u7247\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e00\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)","remark":"","answer":"B","tts":[{"before":"M","content":"Cathy\u2019s brother likes swimming very much.","playmp3":"mp3_pic\/DAE1A54DC8BC03219DF56A348E61FD30.mp3","stoptime":"1"},{"before":"W","content":"I like swimming, too.","playmp3":"mp3_pic\/44B241045FA0F7A533AEF0403808416C.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"mp3_pic\/565fd60c63cab.jpg","iserror":0},{"flag":"B","content":"mp3_pic\/565fd614ea242.jpg","iserror":1},{"flag":"C","content":"mp3_pic\/565fd61f95b30.jpg","iserror":0}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1435","contentid":"1435","itemtype":"0","question_playtimes":"2","index":6,"count":20,"type":5,"typeid":"1","stemid":"487","parentid":"0","display":"0","questype":0,"encontent":"","cncontent":"","stemcontent":"<p>\u4e8c\u3001\u542c\u4e0b\u97625\u4e2a\u53e5\u5b50\uff0c\u9009\u62e9\u6070\u5f53\u7684\u7b54\u8bed\u3002\u6bcf\u4e2a\u53e5\u5b50\u8bfb\u4e24\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)","remark":"","answer":"C","tts":[{"before":"W","content":"Can you play the trumpet?","playmp3":"mp3_pic\/AD5D08B8B4A04E05B3C909DEDE458365.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"Thank you.","iserror":0},{"flag":"B","content":"No, not very well.","iserror":0},{"flag":"C","content":"Yes, I can.","iserror":1}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1436","contentid":"1436","itemtype":"0","question_playtimes":"2","index":7,"count":20,"type":5,"typeid":"1","stemid":"487","parentid":"0","display":"0","questype":0,"encontent":"","cncontent":"","stemcontent":"<p>\u4e8c\u3001\u542c\u4e0b\u97625\u4e2a\u53e5\u5b50\uff0c\u9009\u62e9\u6070\u5f53\u7684\u7b54\u8bed\u3002\u6bcf\u4e2a\u53e5\u5b50\u8bfb\u4e24\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)","remark":"","answer":"A","tts":[{"before":"W","content":"What club do you want to join?","playmp3":"mp3_pic\/9E872858470FD7229A7ADCAF9CA47008.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"The swimming club.","iserror":1},{"flag":"B","content":"I like the club.","iserror":0},{"flag":"C","content":"I join two clubs.","iserror":0}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1437","contentid":"1437","itemtype":"0","question_playtimes":"2","index":8,"count":20,"type":5,"typeid":"1","stemid":"487","parentid":"0","display":"0","questype":0,"encontent":"","cncontent":"","stemcontent":"<p>\u4e8c\u3001\u542c\u4e0b\u97625\u4e2a\u53e5\u5b50\uff0c\u9009\u62e9\u6070\u5f53\u7684\u7b54\u8bed\u3002\u6bcf\u4e2a\u53e5\u5b50\u8bfb\u4e24\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)","remark":"","answer":"B","tts":[{"before":"W","content":"Can I help you?","playmp3":"mp3_pic\/6F603EAC0FE0FAF838D60D339EAE1191.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"Yes, you can.","iserror":0},{"flag":"B","content":"Yes, please.","iserror":1},{"flag":"C","content":"You\u2019re welcome.","iserror":0}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1438","contentid":"1438","itemtype":"0","question_playtimes":"2","index":9,"count":20,"type":5,"typeid":"1","stemid":"487","parentid":"0","display":"0","questype":0,"encontent":"","cncontent":"","stemcontent":"<p>\u4e8c\u3001\u542c\u4e0b\u97625\u4e2a\u53e5\u5b50\uff0c\u9009\u62e9\u6070\u5f53\u7684\u7b54\u8bed\u3002\u6bcf\u4e2a\u53e5\u5b50\u8bfb\u4e24\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)","remark":"","answer":"C","tts":[{"before":"W","content":"Are you a musician?","playmp3":"mp3_pic\/2E519B766F2C390FF705F460B91DEB0C.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"No, I don\u2019t.","iserror":0},{"flag":"B","content":"No, I can\u2019t.","iserror":0},{"flag":"C","content":"Yes, I am.","iserror":1}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1439","contentid":"1439","itemtype":"0","question_playtimes":"2","index":10,"count":20,"type":5,"typeid":"1","stemid":"487","parentid":"0","display":"0","questype":0,"encontent":"","cncontent":"","stemcontent":"<p>\u4e8c\u3001\u542c\u4e0b\u97625\u4e2a\u53e5\u5b50\uff0c\u9009\u62e9\u6070\u5f53\u7684\u7b54\u8bed\u3002\u6bcf\u4e2a\u53e5\u5b50\u8bfb\u4e24\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)","remark":"","answer":"C","tts":[{"before":"W","content":"What\u2019s that in the picture?","playmp3":"mp3_pic\/3AE93551F466FEF61D3369523930D59A.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"It\u2019s Peter.","iserror":0},{"flag":"B","content":"It\u2019s Peter\u2019s.","iserror":0},{"flag":"C","content":"It\u2019s Peter\u2019s violin.","iserror":1}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1440","contentid":"1440","itemtype":"0","question_playtimes":"2","index":11,"count":20,"type":5,"typeid":"1","stemid":"488","parentid":"0","display":"0","questype":0,"encontent":"<p>What club does Bob want to join?<\/p>","cncontent":"","stemcontent":"<p>\u4e09\u3001\u8bf7\u542c\u4e0b\u9762\u4e94\u6bb5\u5bf9\u8bdd\uff0c\u6bcf\u6bb5\u5bf9\u8bdd\u540e\u6709\u4e00\u4e2a\u5c0f\u9898\uff0c\u4ece\u9898\u4e2d\u6240\u7ed9\u7684A\u3001B\u3001C\u4e09\u4e2a\u9009\u9879\u4e2d\u9009\u51fa\u6700\u4f73\u9009\u9879\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e24\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)","remark":"","answer":"C","tts":[{"before":"W","content":"Hi, Bob. What club do you want to join?","playmp3":"mp3_pic\/B474B275A7563753D2D0553973DFED8E.mp3","stoptime":"1"},{"before":"M","content":"I want to join the soccer club.","playmp3":"mp3_pic\/77D54EC781E60FA927FF83FF8D9784A0.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"He wants to join the swimming club.","iserror":0},{"flag":"B","content":"He wants to join the sports club.","iserror":0},{"flag":"C","content":"He wants to join the soccer club.","iserror":1}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1441","contentid":"1441","itemtype":"0","question_playtimes":"2","index":12,"count":20,"type":5,"typeid":"1","stemid":"488","parentid":"0","display":"0","questype":0,"encontent":"<p>Can Bill swim?<\/p>","cncontent":"","stemcontent":"<p>\u4e09\u3001\u8bf7\u542c\u4e0b\u9762\u4e94\u6bb5\u5bf9\u8bdd\uff0c\u6bcf\u6bb5\u5bf9\u8bdd\u540e\u6709\u4e00\u4e2a\u5c0f\u9898\uff0c\u4ece\u9898\u4e2d\u6240\u7ed9\u7684A\u3001B\u3001C\u4e09\u4e2a\u9009\u9879\u4e2d\u9009\u51fa\u6700\u4f73\u9009\u9879\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e24\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)","remark":"","answer":"B","tts":[{"before":"W","content":"Hi, Bill. Can you swim?","playmp3":"mp3_pic\/FFE3ACDD687C57899CEED7237F448300.mp3","stoptime":"1"},{"before":"M","content":"Yes, I can.","playmp3":"mp3_pic\/4F26D71F33F32ED1F2BB2EA2DA709AC2.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"He can swim.","iserror":0},{"flag":"B","content":"Yes, he can.","iserror":1},{"flag":"C","content":"No, he can\u2019t.","iserror":0}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1442","contentid":"1442","itemtype":"0","question_playtimes":"2","index":13,"count":20,"type":5,"typeid":"1","stemid":"488","parentid":"0","display":"0","questype":0,"encontent":"<p>What can Tina do?<\/p>","cncontent":"","stemcontent":"<p>\u4e09\u3001\u8bf7\u542c\u4e0b\u9762\u4e94\u6bb5\u5bf9\u8bdd\uff0c\u6bcf\u6bb5\u5bf9\u8bdd\u540e\u6709\u4e00\u4e2a\u5c0f\u9898\uff0c\u4ece\u9898\u4e2d\u6240\u7ed9\u7684A\u3001B\u3001C\u4e09\u4e2a\u9009\u9879\u4e2d\u9009\u51fa\u6700\u4f73\u9009\u9879\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e24\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)","remark":"","answer":"A","tts":[{"before":"M","content":"Tina, what can you do?","playmp3":"mp3_pic\/5575DCD5E8EF2BFA80100164AC167520.mp3","stoptime":"1"},{"before":"W","content":"I can play chess.","playmp3":"mp3_pic\/9B4FE33F0EA3DE1E045A38C070F96490.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"She can play chess.","iserror":1},{"flag":"B","content":"She can play the violin.","iserror":0},{"flag":"C","content":"Yes, she can.","iserror":0}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1443","contentid":"1443","itemtype":"0","question_playtimes":"2","index":14,"count":20,"type":5,"typeid":"1","stemid":"488","parentid":"0","display":"0","questype":0,"encontent":"<p>What can the girl do?<\/p>","cncontent":"","stemcontent":"<p>\u4e09\u3001\u8bf7\u542c\u4e0b\u9762\u4e94\u6bb5\u5bf9\u8bdd\uff0c\u6bcf\u6bb5\u5bf9\u8bdd\u540e\u6709\u4e00\u4e2a\u5c0f\u9898\uff0c\u4ece\u9898\u4e2d\u6240\u7ed9\u7684A\u3001B\u3001C\u4e09\u4e2a\u9009\u9879\u4e2d\u9009\u51fa\u6700\u4f73\u9009\u9879\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e24\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)","remark":"","answer":"B","tts":[{"before":"M","content":"Can you play the piano?","playmp3":"mp3_pic\/CB49ABA596A7440AA3DBD64274C132BD.mp3","stoptime":"1"},{"before":"W","content":"No, I can\u2019t. But I can play the violin.","playmp3":"mp3_pic\/FF9330783E4D6FAC59ECFE8566462F23.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"She can play the piano.","iserror":0},{"flag":"B","content":"She can play the violin.","iserror":1},{"flag":"C","content":"She can play football.","iserror":0}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1444","contentid":"1444","itemtype":"0","question_playtimes":"2","index":15,"count":20,"type":5,"typeid":"1","stemid":"488","parentid":"0","display":"0","questype":0,"encontent":"<p>What does the boy like?<\/p>","cncontent":"","stemcontent":"<p>\u4e09\u3001\u8bf7\u542c\u4e0b\u9762\u4e94\u6bb5\u5bf9\u8bdd\uff0c\u6bcf\u6bb5\u5bf9\u8bdd\u540e\u6709\u4e00\u4e2a\u5c0f\u9898\uff0c\u4ece\u9898\u4e2d\u6240\u7ed9\u7684A\u3001B\u3001C\u4e09\u4e2a\u9009\u9879\u4e2d\u9009\u51fa\u6700\u4f73\u9009\u9879\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e24\u904d\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51715\u5206)","remark":"","answer":"A","tts":[{"before":"W","content":"Do you like singing?","playmp3":"mp3_pic\/379A8CD0362288BA4E50687B52683568.mp3","stoptime":"1"},{"before":"M","content":"No, I don\u2019t. I like drawing.","playmp3":"mp3_pic\/CC6F206EC64BE8831172F06D4E20AE7E.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"He likes drawing.","iserror":1},{"flag":"B","content":"He likes singing.","iserror":0},{"flag":"C","content":"He can draw.","iserror":0}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1445","contentid":"1445","itemtype":"0","question_playtimes":"2","index":16,"count":20,"type":5,"typeid":"1","stemid":"490","parentid":"489","display":"0","questype":1,"encontent":"<p>Can Jenny swim?<\/p>","cncontent":"<p>\u56db\u3001\u542c\u4e0b\u9762\u4e24\u6bb5\u5bf9\u8bdd\uff0c\u6bcf\u6bb5\u5bf9\u8bdd\u540e\u6709\u4e24\u4e2a\u6216\u4e09\u4e2a\u5c0f\u9898\uff0c\u4ece\u9898\u4e2d\u6240\u7ed9\u7684A\u3001B\u3001C\u4e09\u4e2a\u9009\u9879\u4e2d\u9009\u51fa\u6700\u4f73\u9009\u9879\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e24\u904d\u3002<\/p>","stemcontent":"<p>\u542c\u7b2c\u4e00\u6bb5\u5bf9\u8bdd\uff0c\u5b8c\u6210\u4e0b\u9762\u4e24\u4e2a\u5c0f\u9898\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51712\u5206)","remark":"","answer":"B","tts":[{"before":"M","content":"Hi, Jenny. What club do you want to join?","playmp3":"mp3_pic\/61804596171114C330372F065C2FDC59.mp3","stoptime":"1"},{"before":"W","content":"I don\u2019t know.","playmp3":"mp3_pic\/76159C8D7CF7C932555006C474512A96.mp3","stoptime":"1"},{"before":"M","content":"Can you swim?","playmp3":"mp3_pic\/39CDF2EAA21F54912696E5C10C42034A.mp3","stoptime":"1"},{"before":"W","content":"No, I can\u2019t. But I like singing and dancing.","playmp3":"mp3_pic\/287410410218F5537CAA25AAAFCEA715.mp3","stoptime":"1"},{"before":"M","content":"Well, you can join the music club.","playmp3":"mp3_pic\/36E54B0828DC71AD6E2CA39B0B1DC4D2.mp3","stoptime":"1"},{"before":"W","content":"Sounds good. What about you, Bob?","playmp3":"mp3_pic\/DA69600F880BB4B48C2952B4727144A3.mp3","stoptime":"1"},{"before":"M","content":"I like playing basketball and swimming. I want to join the basketball club.","playmp3":"mp3_pic\/A8435E2BDEA3EC7D24A568F4E997354C.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"Yes, she can.","iserror":0},{"flag":"B","content":"No, she can\u2019t.","iserror":1},{"flag":"C","content":"Yes, she can't.","iserror":0}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1446","contentid":"1446","itemtype":"0","question_playtimes":"2","index":17,"count":20,"type":5,"typeid":"1","stemid":"490","parentid":"489","display":"0","questype":1,"encontent":"<p>What club does Bob want to join?<\/p>","cncontent":"<p>\u56db\u3001\u542c\u4e0b\u9762\u4e24\u6bb5\u5bf9\u8bdd\uff0c\u6bcf\u6bb5\u5bf9\u8bdd\u540e\u6709\u4e24\u4e2a\u6216\u4e09\u4e2a\u5c0f\u9898\uff0c\u4ece\u9898\u4e2d\u6240\u7ed9\u7684A\u3001B\u3001C\u4e09\u4e2a\u9009\u9879\u4e2d\u9009\u51fa\u6700\u4f73\u9009\u9879\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e24\u904d\u3002<\/p>","stemcontent":"<p>\u542c\u7b2c\u4e00\u6bb5\u5bf9\u8bdd\uff0c\u5b8c\u6210\u4e0b\u9762\u4e24\u4e2a\u5c0f\u9898\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51712\u5206)","remark":"","answer":"B","tts":[{"before":"M","content":"Hi, Jenny. What club do you want to join?","playmp3":"mp3_pic\/61804596171114C330372F065C2FDC59.mp3","stoptime":"1"},{"before":"W","content":"I don\u2019t know.","playmp3":"mp3_pic\/76159C8D7CF7C932555006C474512A96.mp3","stoptime":"1"},{"before":"M","content":"Can you swim?","playmp3":"mp3_pic\/39CDF2EAA21F54912696E5C10C42034A.mp3","stoptime":"1"},{"before":"W","content":"No, I can\u2019t. But I like singing and dancing.","playmp3":"mp3_pic\/287410410218F5537CAA25AAAFCEA715.mp3","stoptime":"1"},{"before":"M","content":"Well, you can join the music club.","playmp3":"mp3_pic\/36E54B0828DC71AD6E2CA39B0B1DC4D2.mp3","stoptime":"1"},{"before":"W","content":"Sounds good. What about you, Bob?","playmp3":"mp3_pic\/DA69600F880BB4B48C2952B4727144A3.mp3","stoptime":"1"},{"before":"M","content":"I like playing basketball and swimming. I want to join the basketball club.","playmp3":"mp3_pic\/A8435E2BDEA3EC7D24A568F4E997354C.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"The sports club.","iserror":0},{"flag":"B","content":"The basketball club.","iserror":1},{"flag":"C","content":"The music club.","iserror":0}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1447","contentid":"1447","itemtype":"0","question_playtimes":"2","index":18,"count":20,"type":5,"typeid":"1","stemid":"491","parentid":"489","display":"0","questype":1,"encontent":"<p>Can Lingling play football?<\/p>","cncontent":"<p>\u56db\u3001\u542c\u4e0b\u9762\u4e24\u6bb5\u5bf9\u8bdd\uff0c\u6bcf\u6bb5\u5bf9\u8bdd\u540e\u6709\u4e24\u4e2a\u6216\u4e09\u4e2a\u5c0f\u9898\uff0c\u4ece\u9898\u4e2d\u6240\u7ed9\u7684A\u3001B\u3001C\u4e09\u4e2a\u9009\u9879\u4e2d\u9009\u51fa\u6700\u4f73\u9009\u9879\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e24\u904d\u3002<\/p>","stemcontent":"<p>\u542c\u7b2c\u4e8c\u6bb5\u5bf9\u8bdd\uff0c\u5b8c\u6210\u4e0b\u9762\u4e09\u4e2a\u5c0f\u9898\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51713\u5206)","remark":"","answer":"A","tts":[{"before":"M","content":"Lingling, can you play football?","playmp3":"mp3_pic\/D9C90A76F37EF31222B9843E02CCF481.mp3","stoptime":"1"},{"before":"W","content":"Yes, I can. I can play football and I can play tennis. But I can\u2019t play basketball.","playmp3":"mp3_pic\/6F455BB3EBCF4319811683D6EAAE53D9.mp3","stoptime":"1"},{"before":"M","content":"Can you ride a horse?","playmp3":"mp3_pic\/54E868366C47EF11ABB578FFECE7A962.mp3","stoptime":"1"},{"before":"W","content":"No, I can\u2019t. But I can swim.","playmp3":"mp3_pic\/21B0E0D94B5F452E2087742D887194CA.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"Yes, she can.","iserror":1},{"flag":"B","content":"No, she can\u2019t.","iserror":0},{"flag":"C","content":"We have no idea.","iserror":0}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1448","contentid":"1448","itemtype":"0","question_playtimes":"2","index":19,"count":20,"type":5,"typeid":"1","stemid":"491","parentid":"489","display":"0","questype":1,"encontent":"<p>What sport can\u2019t Lingling do?<\/p>","cncontent":"<p>\u56db\u3001\u542c\u4e0b\u9762\u4e24\u6bb5\u5bf9\u8bdd\uff0c\u6bcf\u6bb5\u5bf9\u8bdd\u540e\u6709\u4e24\u4e2a\u6216\u4e09\u4e2a\u5c0f\u9898\uff0c\u4ece\u9898\u4e2d\u6240\u7ed9\u7684A\u3001B\u3001C\u4e09\u4e2a\u9009\u9879\u4e2d\u9009\u51fa\u6700\u4f73\u9009\u9879\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e24\u904d\u3002<\/p>","stemcontent":"<p>\u542c\u7b2c\u4e8c\u6bb5\u5bf9\u8bdd\uff0c\u5b8c\u6210\u4e0b\u9762\u4e09\u4e2a\u5c0f\u9898\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51713\u5206)","remark":"","answer":"B","tts":[{"before":"M","content":"Lingling, can you play football?","playmp3":"mp3_pic\/D9C90A76F37EF31222B9843E02CCF481.mp3","stoptime":"1"},{"before":"W","content":"Yes, I can. I can play football and I can play tennis. But I can\u2019t play basketball.","playmp3":"mp3_pic\/6F455BB3EBCF4319811683D6EAAE53D9.mp3","stoptime":"1"},{"before":"M","content":"Can you ride a horse?","playmp3":"mp3_pic\/54E868366C47EF11ABB578FFECE7A962.mp3","stoptime":"1"},{"before":"W","content":"No, I can\u2019t. But I can swim.","playmp3":"mp3_pic\/21B0E0D94B5F452E2087742D887194CA.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"She can\u2019t play tennis.","iserror":0},{"flag":"B","content":"She can\u2019t play basketball.","iserror":1},{"flag":"C","content":"She can\u2019t swim.","iserror":0}]},{"name":"\u542c\u529b\u8bad\u7ec3","id":"1449","contentid":"1449","itemtype":"0","question_playtimes":"2","index":20,"count":20,"type":5,"typeid":"1","stemid":"491","parentid":"489","display":"0","questype":1,"encontent":"<p>Can Lingling ride a horse?<\/p>","cncontent":"<p>\u56db\u3001\u542c\u4e0b\u9762\u4e24\u6bb5\u5bf9\u8bdd\uff0c\u6bcf\u6bb5\u5bf9\u8bdd\u540e\u6709\u4e24\u4e2a\u6216\u4e09\u4e2a\u5c0f\u9898\uff0c\u4ece\u9898\u4e2d\u6240\u7ed9\u7684A\u3001B\u3001C\u4e09\u4e2a\u9009\u9879\u4e2d\u9009\u51fa\u6700\u4f73\u9009\u9879\u3002\u6bcf\u6bb5\u5bf9\u8bdd\u8bfb\u4e24\u904d\u3002<\/p>","stemcontent":"<p>\u542c\u7b2c\u4e8c\u6bb5\u5bf9\u8bdd\uff0c\u5b8c\u6210\u4e0b\u9762\u4e09\u4e2a\u5c0f\u9898\u3002<\/p>(\u6bcf\u5c0f\u98981\u5206\uff0c\u51713\u5206)","remark":"","answer":"C","tts":[{"before":"M","content":"Lingling, can you play football?","playmp3":"mp3_pic\/D9C90A76F37EF31222B9843E02CCF481.mp3","stoptime":"1"},{"before":"W","content":"Yes, I can. I can play football and I can play tennis. But I can\u2019t play basketball.","playmp3":"mp3_pic\/6F455BB3EBCF4319811683D6EAAE53D9.mp3","stoptime":"1"},{"before":"M","content":"Can you ride a horse?","playmp3":"mp3_pic\/54E868366C47EF11ABB578FFECE7A962.mp3","stoptime":"1"},{"before":"W","content":"No, I can\u2019t. But I can swim.","playmp3":"mp3_pic\/21B0E0D94B5F452E2087742D887194CA.mp3","stoptime":"1"}],"audiobaseroot":"resen.czbanbantong.com\/yylmp3\/mp3_exam\/","items":[{"flag":"A","content":"Yes, she can.","iserror":0},{"flag":"B","content":"No, she can.","iserror":0},{"flag":"C","content":"No, she can\u2019t.","iserror":1}]}]};
+		</script>
+	</head>
+	<body>
+		<main>
+			<header class="head border-nav">
+				<!-- <a class="head-left" href="javascript:try{clearTimeout(mp3_progress);}catch(e){console.log(e);}try{mp.pause();mp.clear();}catch(e){console.log(e);}UXinJSInterface.popTheController();"><i class="icon-back"></i></a>
+				<a class="head-right"><i class="icon-share"></i></a> -->
+				<h1 class="title examsname"></h1>
+			</header>
+			<section>
+				<div class="pad050" style="overflow:hidden;">
+					<div class="box">
+						<div class="datiLeft">
+							<h1 class="dth1"><i class="icon-shijuan"></i>答题卡</h1>
+							<div class="lfl flY" id="card">
+								<!--直接将数据查询出来进行模板展示-->
+								<script id="questioncard" type="text/x-jquery-tmpl">
+								    <h2 class="btH2 afterBorder">${name}（${num}）</h2>
+									<div class="clear afterBorder">
+										<div class="dtk pad10">
+											{{each(i,lang ) questions}}
+												<span class="load-container load8">
+													<div class=""></div>
+													{{if lang.score !=null}}
+														<a href="javascript:void(0);" class="ball t2 bGreen">${i + 1}</a>
+													{{else}}
+														<a href="javascript:void(0);" class="ball t2 bGray">${i + 1}</a>
+													{{/if}}
+												</span>
+											{{/each}}
+										</div>
+									</div>
+								</script>
+							</div>
+							<div class="bbt">
+								<!-- <a class="bBtn">暂存</a> -->
+								<a class="bBtn" id="submithomework">提交</a>
+							</div>						</div><!--end left-->
+						<div class="datiRight">
+							<div class="posR">
+								<div id="iScroll" class="iScroll">
+									<div class="bd" id="iScroll-bd">
+
+									</div>
+								</div>
+								<div class="h50"></div>
+								<div class="bbtR">
+								<!-- 	<div class="fl">
+										<span class="dabble">
+											<a class="cBtn record" id="tan"><i class="icon-yuyin"></i>录音</a>
+											<a class="cBtn myrecord"><i class="icon-shengyin"></i>我的录音</a>
+										</span>
+									</div> -->
+									<div class="fr">
+										<span class="dabble">
+											<button class="prev cBtn" id="wpre"><i class="icon-left"></i>上一题</button>
+											<button class="next cBtn" id="wnxt">下一题<i class="icon-right"></i></button>
+										</span>
+									</div>
+								</div>
+								<!-- <div class="opBottom"></div> -->
+							</div>
+						</div>
+						<!--end right-->
+					</div>
+				</div>
+			</section>
+			<div id="bg" style="display: none;"></div>
+			<!--英语天天练pad模板文件-->
+<!--听力训练选择题模板其中issubmit表示是否提交进行答案的判断[${lang.score}题]-->
+<script id="tmplecquestion" type="text/x-jquery-tmpl">
+<div class="con" name="${type}">
+    <ul>
+      <h1 class="daH1">
+        <div class="fl">${name}</div>
+        <div class="fr greenFont">当前：第<font class="qusdindex">${index}</font>题/${count}题</div>
+      </h1>
+    <div class="backGfff border-nav timu radius8">
+      <div class="tigan" style="margin-top:10px;margin-left:10px;font-family: times;text-align:left;font-size:0.8em;color: #8f8f94;">{{html stemcontent}}</div>
+      <div class="center sanT mb20">
+        <img src="images/sy_left.png" />
+        <img src="images/sy.png" class="read"/>
+        <img src="images/sy_right.png" />
+      </div>
+      <div class="tigan" style="margin-top:10px;margin-left:10px;font-family: times;text-align:left;font-size:0.8em;color: #8f8f94;">{{html cncontent}}</div>
+      <div class="mb20 center quLine">{{html encontent}}</div>
+      <div class="zy-xuan">
+        {{each(i,item) items}}
+          {{if itemtype=='0'}}
+           <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}"><span class="ball">${item.flag}</span>${item.content}</p>
+          {{else}}
+          <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}"><span class="ball" style="background: vertical-align: middle;">${item.flag}</span><img height="90px" width="120px" style="display: inline;vertical-align: middle;" src="${item.content}"></p>
+          {{/if}}
+        {{/each}}
+      </div>
+    </div>
+  </ul>
+</div>
+</script>
+<!--听力训练判断题模板其中issubmit表示是否提交进行答案的判断[${lang.score}题]-->
+<script id="tmpletquestion" type="text/x-jquery-tmpl">
+<div class="con" name="${type}">
+    <ul>
+      <h1 class="daH1">
+        <div class="fl">${name}</div>
+        <div class="fr greenFont">当前：第<font class="qusdindex">${index}</font>题/${count}题</div>
+      </h1>
+    <div class="backGfff border-nav timu radius8">
+      <div class="tigan" style="margin-top:10px;margin-left:10px;font-family: times;text-align:left;font-size:0.8em;color: #8f8f94;">{{html stemcontent}}</div>
+      <div class="center sanT mb20">
+        <img src="../..images/sy_left.png" />
+        <img src="../..images/sy.png" class="read"/>
+        <img src="../..images/sy_right.png" />
+      </div>
+      <div class="tigan" style="margin-top:10px;margin-left:10px;font-family: times;text-align:left;font-size:0.8em;color: #8f8f94;">{{html cncontent}}</div>
+      <div class="mb20 center quLine">{{html encontent}}</div>
+      <div class="zy-xuan">
+        {{each(i,item) items}}
+          <p class="zyp" type="${type}"  bid="${id}" iserror="${item.iserror}" flag="${item.flag}" contentid="${contentid}" score="1" typeid="${typeid}"><span class="ball">${item.flag}</span>${item.content}</p>
+        {{/each}}
+      </div>
+    </div>
+  </ul>
+</div>
+</script>
+<!--英汉互译做作业-->
+<!--作业模板-->
+<script id="tmplquestion" type="text/x-jquery-tmpl">
+      {{if type==0}}
+        {{tmpl "#tmplwaquestion"}}
+      {{/if}}
+      {{if type==1}}
+        {{tmpl "#tmplwtquestion"}}
+      {{/if}}
+      {{if type==2}}
+        {{tmpl "#tmplwlquestion"}}
+      {{/if}}
+      {{if type==3}}
+        {{tmpl "#tmplwsquestion"}}
+      {{/if}}
+      {{if type==4}}
+        {{tmpl "#tmpltaquestion"}}
+      {{/if}}
+      {{if type==5}}
+        {{if typeid==1}}
+          {{tmpl "#tmplecquestion"}}
+        {{/if}}
+        {{if typeid==3}}
+          {{tmpl "#tmpletquestion"}}
+        {{/if}}
+      {{/if}}    
+</script>
+
+
+
+
+			<div id="jplayer"></div>
+			<div id="tanS" class="tanshow radius8">
+				<h1 class="tanH1"><i class="icon-light"></i>思路点拨<span class="fr" id="close"><i class="icon-cuo"></i></span></h1>
+				<div class="pad30">
+					<p class="tanNr">5. 点击“交作业”按钮，系统自动判断试题是否已全部完成，如未完成，提示：您还有X道试题未作答，提交之后将不能作答！如已完成，提示：作业提交后，答案将不可修改，确认提交点击确认；点击提交，提交当前的网上作业，并返回至网上作业列表页面；</p>
+					<p class="tanNr">5. 点击“交作业”按钮，系统自动判断试题是否已全部完成，如未完成，提示：您还有X道试题未作答，提交之后将不能作答！如已完成，提示：作业提交后，答案将不可修改，确认提交点击确认；点击提交，提交当前的网上作业，并返回至网上作业列表页面；</p>
+
+				</div>
+			</div>
+		</main>
+		
+	</body>
+
+</html>
+

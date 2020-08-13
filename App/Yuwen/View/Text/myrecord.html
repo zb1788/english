@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+        <meta name="wap-font-scale" content="no">
+		<title>语文快乐学</title>
+		<link rel="stylesheet" href="__PUBLIC__/css/ywcurr.css" />
+		<link rel="stylesheet" href="__PUBLIC__/font/fonts.css" />
+		<link rel="stylesheet" href="__PUBLIC__/css/iscroll.css" />
+		<script type="text/javascript" src="__PUBLIC__/js/zepto.min.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__/js/demoUtils.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__/js/TouchSlide.1.1.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__/js/ywcommon.js" ></script>
+<style>
+
+</style>
+
+
+</head>
+<body>
+<main>
+<header class="head border-nav">
+			<a class="head-left" href="javascript:goback();"><i class="icon-back"></i>返回</a>
+			<h1 class="title"></h1>
+					</header>
+		<section>
+
+     <div id="leftTabBox" class="tabBox">
+				<div class="hd qie_b fen3">
+
+            <ul>
+                <li class="on" hidefocus="true">我的录音</li>
+                <li hidefocus="true">同学录音</li>
+                <li hidefocus="true">其他</li>
+		</ul>
+				</div>
+				<div class="bd mT85">
+						<ul>
+							<div class="overYY pad10">
+<ul id="myrecord">
+<!-- 我的录音 -->
+</ul>
+</div>
+</ul>
+
+						<ul>
+							<div class="overYY pad10">
+					<ul id="mysiblings">
+						<!-- 同学录音 -->
+					</ul>
+							</div>
+						</ul>
+						<ul>
+							<div class="overYY pad10">
+							<ul id="myother">
+							<!-- 其他人录音 -->
+							</ul>
+							</div>
+						</ul>
+				</div>
+			</div>
+			<script type="text/javascript">
+//			TouchSlide({ slideCell:"#leftTabBox" });
+			</script>
+			<script type="text/javascript">
+    TouchSlide( { slideCell:"#leftTabBox",
+
+    } );</script>
+
+</section>
+<div id="tips"></div>
+<div id="mask"></div>
+<div class="dialog2">
+	<h2>确定要删除录音吗</h2>
+	<div class="btn_d"><a id="fangqi">确定</a><a id="fanhui">取消</a></div>
+</div>
+</main>
+<script>
+var respath = '__RESOURCE__';
+var recordpath = '__RECORD__';
+var baseNetUrl = respath;
+var recordNetUrl = recordpath;
+var kewenNetUrl = respath+'/uploadsyw/kewenvoice/';
+
+var ks_code = GetQueryString('ks_code');
+var backurl = GetQueryString('backurl');
+var index = GetQueryString('index');
+var mp3;
+var downloadJson;
+// $('.zan').click(function(){
+// 		$(this).removeClass('zan').addClass('zan-on');
+// 	$(this).children('i').removeClass('icon-favorite-o').addClass('icon-favorite');
+// 	$('#tips').html('已点赞').show();
+// 	setTimeout(function(){
+// 		$('#tips').hide()
+// }, 2000);
+// })
+getRecordList();
+
+$('.overYY').height($(window).height()-90);
+$('.overYz').height($(window).height()-160);
+
+
+function getRecordList(){
+	$.get('../Text/selectVoice',
+		{
+			ran:Math.random(),
+			ks_code:ks_code
+		},function(data){
+			$('#myrecord').html(getList(data.my,1));
+			$('#mysiblings').html(getList(data.siblings,2));
+			$('#myother').html(getList(data.other),2);
+			// downloadJson = downloadJson.trimStr(',');
+			// downloadJson += ']';
+            // setTimeout("downloadAudio()",500);
+		})
+}
+
+function downloadAudio(url){
+    mp3 = new player(eval('('+downloadJson+')'),url);
+    mp3.downloadList();
+}
+
+function getList(data,type){
+	var RecordHtml = '';
+	$.each(data,function(k,v){
+        if(type == 1){
+            var delHtml = '<i bid="'+v.id+'" filepath="'+v.filepath+'" onclick="delClick(this)" class="icon-del"></i>';
+        }else{
+            var delHtml = '';
+        }
+
+        if(v.ispraise == 1){
+            var praiseHtml = 'icon-favorite';
+        }else{
+            var praiseHtml = 'icon-favorite-o';
+        }
+		RecordHtml += '<li class="lyList"><h3 class="lyH3 afterBorder"><span class="fl"><img class="toux radius100" src="__PUBLIC__/images/toux.jpg" /></span><span class="font08 spanM">'+v.username+'</span><span class="fr yingFont">'+showRecordType(v.type)+'</span></h3><div class="tabBox afterBorder"><div class="pad10"><span class="left"><a name="beg" class="btnY02 radius100 mR10"><i class="icon-playk" bid="'+v.id+'" name="playbutton" onclick="playKewenLuyin(this);" url="'+v.filepath.getBaseName()+'" isfirst="1"></i></a><a name="end" class="btnY02 radius100 mR10" style="display:none;"><i class="icon-playt" bid="'+v.id+'" name="playbutton" onclick="playKewenLuyin(this);" url="'+v.filepath.getBaseName()+'" isfirst="1"></i></a></span><span class="left d1">'+v.filename+'<h4 class="textH4">'+v.addtime+'</h4></span></div></div><h3 class="lyH3"><span class="fl font08"><font>'+v.listencount+'</font>次收听</span><span class="fr tubL10">'+delHtml+'<strong class="zan-on"><i bid="'+v.id+'" onclick="praiseClick(this)" class="'+praiseHtml+'"></i><font>'+v.praise+'</font></strong></span></h3></li>';
+			// downloadJson += '{"name":"'+v.filepath.getBaseName()+'","size":"10","format":"mp3","url":"'+recordNetUrl+v.filepath+'"},';
+	});
+
+    if(data == ''){
+        RecordHtml = '<li class="lyList"><h3 class="lyH3 afterBorder">暂无录音</h3></li>';
+    }
+	return RecordHtml;
+}
+
+
+function showRecordType(type){
+	if(type == 1){
+		return '背诵';
+	}else{
+		return '朗读';
+	}
+}
+
+//点赞
+function praiseClick(obj){
+	var bid = $(obj).attr('bid');
+    if($(obj).hasClass('icon-favorite')){
+        $(obj).prop('class','icon-favorite-o');
+    }else{
+        $(obj).prop('class','icon-favorite');
+    }
+	$.get('../Text/checkUserLike',
+		{
+			recordid:bid,
+			ran:Math.random()
+		},function(data){
+			$(obj).next('font').html(data.praise);
+		})
+}
+//删除
+function delClick(obj){
+	$('#mask').show();
+	$('.dialog2').show();
+	//取消
+	$('#fanhui').click(function(){
+		$('#mask').hide();
+		$('.dialog2').hide();
+	})
+	//确定删除
+	$('#fangqi').click(function(){
+		var bid = $(obj).attr('bid');
+        var filepath = $(obj).attr('filepath');
+		var aa = $(obj).parent().parent().parent();
+        var ul = $(aa).parent();
+		$.get('../Text/delVoice',
+			{
+				ran:Math.random(),
+				id:bid,
+                filepath:filepath
+			},function(data){
+				$(aa).remove();
+                if($(ul).children('li').length == 0){
+                    var html = '<li class="lyList"><h3 class="lyH3 afterBorder">暂无录音</h3></li>';
+                    $(ul).html(html);
+                }
+		});
+		$('#mask').hide();
+		$('.dialog2').hide();
+	})
+
+}
+
+
+//播放课文录音
+function playKewenLuyin(obj){
+    var bid = $(obj).attr('bid');
+    var url = $(obj).attr('url');
+    var isfirst = $(obj).attr('isfirst');
+
+    if($(obj).hasClass('icon-playk')){
+        //开始播放
+        $('a[name=end]').hide();
+        $('a[name=beg]').show();
+        $('i[name=playbutton].icon-playk').attr('isfirst',1);
+        $(obj).parent().hide();
+        $(obj).parent().next().show();
+
+        if(isfirst == 1){
+            //第一次播放
+            try{
+                downloadJson = '[{"name":"'+url.getBaseName()+'","size":"10","format":"mp3","url":"'+recordNetUrl+url+'"}]';
+                downloadAudio(url);
+                // var netLuyin = recordNetUrl+url;
+                // UXinJSInterfaceSpeech.playAudio(this.list.getBaseName());
+                // mp3 = new player(url,'luyin');
+                // mp3.playSingle();
+            }catch(err){
+                setTip("升级到最新版本的优信");
+            }
+            $(obj).attr('isfirst','0');
+            addListenCount(bid);
+            var nowCount = $(obj).parent().parent().parent().parent().next('h3').find('font').eq(0).html();
+            nowCount++;
+             $(obj).parent().parent().parent().parent().next('h3').find('font').eq(0).html(nowCount);
+        }else{
+            //暂停后继续播放
+            $(obj).attr('isfirst','0');
+            try{
+                mp3.resumeAudio();
+            }catch(err){
+                setTip("升级到最新版本的优信");
+            }
+        }
+    }else if($(obj).hasClass('icon-playt')){
+        //暂停播放
+        $('a[name=end]').hide();
+        $('a[name=beg]').show();
+        $(obj).parent().hide();
+        $(obj).parent().prev().show();
+        try{
+            mp3.pauseAudio();
+        }catch(err){
+            setTip("升级到最新版本的优信");
+        }
+    }
+}
+
+function addListenCount(id){
+	$.get('../Text/addListenCount',
+		{
+			ran:Math.random(),
+			id:id
+		},function(data){
+
+		});
+}
+
+
+function goback(){
+    try{
+        UXinJSInterfaceSpeech.stopAudio();
+    }catch(err){
+
+    }
+	location.href=backurl+"?index="+index+"&ks_code="+ks_code;
+}
+</script>
+</body>
+</html>

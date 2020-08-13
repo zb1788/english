@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版本列表</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jPlayer/dist/jplayer/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/uploadify/jquery.uploadify.min.js"></script>
+<link href="__PUBLIC__/js/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="place"><strong>位置</strong>：首页 &gt; 词语信息管理</div>
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="box_top pl_10 f14"><strong>搜索</strong></td>
+  </tr>
+  <tr>
+    <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+      <tr>
+        <td width="50" align="right">词语：</td>
+        <td>
+          <input type="text" id="ci" name="ci" class="input-text" size="10"  />
+        </td>
+        <td>
+          &nbsp;<input type="button" id="btn_so" name="btn_so" class="btn btn82 btn_search" value="查询" /></td>
+<!--
+        <td>
+          &nbsp;<input type="button" id="btn_addnew"  name="btn_addnew" class="btn btn82 btn_add" value="添加" />
+        </td>
+-->
+      </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+<div class="h5"></div>
+<div id="msginfo" class="red"></div>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border" style="display:none" id="table_add">
+  <tr>
+    <td class="box_top pl_10 f14">
+      <strong>词语信息</strong>&nbsp;&nbsp;
+      <input type="submit" id="btn_addpinyin" value="添加词语" class="ext_btn ext_btn_submit" />
+    </td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" style="display:none" id="table_data">
+  <tr>
+    <th width="200">词语</th>
+    <th width="200">拼音</th>
+    <th>同义词</th>
+    <th>反义词</th>
+    <th width="120">操作</th>
+  </tr>
+</table>
+<table style="display:none" id="table_demo">
+  <tr class="tr">
+    <td align="center">1</td>
+    <td align="center">1</td>
+    <td align="center">1</td>
+    <td align="center">1</td>
+    <td align="center">
+    <input type="button" class="ext_btn ext_btn_success btn_edit" value="编辑" />
+	<input type="button" class="ext_btn" name="mp3"  value="试听" />
+    </td>
+  </tr>
+</table>
+</div>
+<div id="jplayer"></div>
+
+<script type="text/javascript">
+$(function(){
+  $.ajaxSetup({async:false});
+});
+
+
+$(function(){
+  $("#msginfo").show();
+  $("#msginfo").html("请搜索你要编辑的词语或者添加新的词语！");
+});
+
+
+
+// 播放音频
+$('input[name="mp3"]').live('click',function(){
+    jpclear();
+    var mp3 = $(this).attr('url');
+    var arr= new Array();
+    arr = mp3.split("|");
+    if(arr.length == 1){
+      var path = '../../uploadsyw/zipinyin/'+mp3+'.mp3';
+      jpstart(path);
+    }else{
+      play(arr);
+    }
+
+
+})
+
+//连续播放
+function play(mp3arr){
+     var num=0;
+     var total=mp3arr.length;
+     jpstart('../../uploadsyw/zipinyin/'+mp3arr[num]);
+     $("#jplayer").bind($.jPlayer.event.ended, function(event) {
+        num++;
+        if(num<total){
+             jpstart('../../uploadsyw/zipinyin/'+mp3arr[num]);
+        }
+      });
+}
+
+
+$(function(){
+
+
+  /*添加按钮事件*/
+  $("#btn_so").click(function(){
+    var ci = $("#ci").val();
+    if (!ci) {
+      art.dialog.alert('新输入你要搜索的词语！');
+      return;
+    };
+    var len = ci.length;
+    if(len==1){
+        art.dialog.alert('不能输入单个汉字');
+        return false;
+    }
+    $.getJSON("../Base/ciinfo", {ci:ci,random:Math.random()}, function(data){
+      if(data.iserr)
+      {
+         $("#msginfo").show();
+         $("#table_add").show();
+         $("#table_data").hide();
+         $("#msginfo").html("未找到相关词语的信息！");
+         art.dialog.alert("未找到相关词语的信息！");
+      }
+      else
+      {
+        $("#table_add").hide();
+        $("#msginfo").hide();
+        getZiyin();
+      }
+    });
+  });
+
+
+
+  //添加词语
+  $("#btn_addpinyin").click(function(){
+      editZiyin(0);
+  });
+
+  $("#table_data .btn_edit").live("click",function(){
+    var id = $(this).attr("BID");
+    editZiyin(id);
+  });
+
+
+
+});
+
+
+
+
+
+
+//增加编辑
+function editZiyin(type){
+  var ci = $("#ci").val();
+  var dialog = art.dialog.open('../Base/ciyinedit?ci='+ci+'&id='+type , {
+    id:'ziyinedit',
+    title:'【' +　ci + '】词语信息',
+    window:'top',
+    width:620,
+    height:400,
+    lock:true,
+    opacity:0.3,
+    ok: function () {
+      var iframe = this.iframe.contentWindow;
+      var re = iframe.saveZiyin();
+      if(re){
+        getZiyin();
+      }
+      return re;
+    },
+    cancel: function () {
+      return true;
+    },
+  });
+}
+
+
+function getZiyin()
+{
+  var ci = $("#ci").val();
+  $("#table_data").show();
+  $("#table_data td").parents("tr").remove();
+
+
+  $.getJSON("../Base/ciinfo", {ci:ci,random:Math.random()}, function(data){
+        var tr = $("#table_demo tr").eq(0).clone();
+
+        var td = tr.children('td').eq(0);
+        td.html(data.ciinfo.ci);
+
+        td = tr.children('td').eq(1);
+        td.html(data.ciinfo.pinyin);
+
+        td = tr.children('td').eq(2);
+        td.html(data.ciinfo.tongyici);
+
+        td = tr.children('td').eq(3);
+        td.html(data.ciinfo.fanyici);
+
+        tr.find("input").attr("BID",data.ciinfo.id);
+        tr.find("input[name='mp3']").attr("url",data.ciinfo.voice);
+        tr.appendTo("#table_data");
+  });
+
+}
+
+/**
+ * jPlayer的用法
+ */
+//停止播放
+function jpclear() {
+  $("#jplayer").jPlayer("clearMedia");
+  $("#jplayer").jPlayer("stop");
+  $("#jplayer").unbind($.jPlayer.event.ended);
+  $("#jplayer").unbind($.jPlayer.event.progress);
+}
+//开始播放
+function jpstart(mp3){
+	$("#jplayer").jPlayer({
+    swfPath: "js",
+    wmode: "window",
+    supplied: "mp3",
+    preload: "none",
+    volume: "1"
+  });
+	$("#jplayer").jPlayer("setMedia", {
+	    mp3: mp3
+	}).jPlayer("play");
+}
+
+
+
+
+
+
+
+
+/*文件上传*/
+$(function() {
+  $('#file_upload').uploadify({
+    'height'    :30,
+    'width'     :120,
+    'buttonText': '上传笔顺SWF',  //选择按钮显示的字符
+    'multi'     : false,   //是否允许同时选择多个(false一次只允许选中一张图片)
+    'method'    : 'post',
+    'formData'  : {
+      'folder'  : './uploadsyw',
+      'fileext': 'png'
+    },
+    'swf'       : '__PUBLIC__/js/uploadify/uploadify.swf?ver=' + Math.random(),
+    'uploader'  : '../upload/uploadfiles',
+    'fileTypeExts': '*.swf', //允许的后缀
+    'fileTypeDesc': 'Flash Files', //允许的格式，详见文档
+    'onUploadSuccess' : function(file, data, response)
+    {
+      //上传成功后的触发事件
+      var obj=eval("("+data+")");
+      if (obj.issuc == 1)
+      {
+        $('#' + file.id).find('.data').html(' 上传完毕');
+        $("#upinfo").html("【" + obj.msg.name + '】文件已上传，请点击导入EXCEL数据');
+        $("#bihuaswf").val('uploadsyw/'+obj.msg.savename);
+      }
+      else
+      {
+        $("#tdinfo").html("【" + obj.msg + '】');
+      };
+    }
+  });
+});
+</script>
+</body>
+</html>

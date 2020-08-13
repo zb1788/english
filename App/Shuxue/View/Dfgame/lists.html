@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="wap-font-scale" content="no">
+  <title></title>
+  <link rel="stylesheet" href="__PUBLIC__/game/css/ksk.css" />
+  <link rel="stylesheet" href="__PUBLIC__/game/css/ksknew.css" />
+  <link rel="stylesheet" href="__PUBLIC__/game/font/fonts.css" />
+  <!-- <link rel="stylesheet" href="__PUBLIC__/game/css/iscroll.css" /> -->
+  <style>
+    #wrapper {
+      position: absolute;
+      top: 45px;
+      bottom: 0px;
+      left: 0;
+      right: 0;
+      overflow-y: auto;
+    }
+
+    .touch {
+      background: #efefef !important;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="head border-nav">
+    <a class="head-left" href="javascript:backToIndex();">
+      <i class="icon-back"></i>返回</a>
+    <h1 class="title"></h1>
+    <a class="head-right" onclick="share()">分享</a>
+  </header>
+  <section>
+    <div id="wrapper" class="backGef">
+      <div id="scroller">
+        <div class="pad10">
+          <ul class="xzList">
+            <!--
+            <li>
+              <span class="jbJing">精</span>
+              <a href="new_file.html" class="table">
+                <div class="tableL">
+                  <img src="../images/ico/04.png" class="img100" />
+                </div>
+                <div class="pad0-10">
+                  <h3 class="texttH3">人教高中必修一</h3>
+                  <h4 class="textH4">
+                    <font class="blueFont02">1111词</font>（共15关）
+                    <span class="fr">进行中</span>
+                  </h4>
+                  <h6 class="textH4">943859人正在闯关学习</h6>
+                </div>
+              </a>
+            </li>
+            <li>
+              <span class="jbDang">当前</span>
+              <a href="new_file.html" class="table">
+
+                <div class="tableL">
+                  <img src="../images/ico/04.png" class="img100" />
+                </div>
+                <div class="pad0-10">
+                  <h3 class="texttH3">人教高中必修一</h3>
+                  <h4 class="textH4">
+                    <font class="blueFont02">1111词</font>（共15关）
+                    <span class="fr">进行中</span>
+                  </h4>
+                  <h6 class="textH4">9438人正在闯关学习</h6>
+                </div>
+              </a>
+            </li>
+            <li>
+              <span class="jbJing">精</span>
+              <a href="new_file.html" class="table">
+                <div class="tableL">
+                  <img src="../images/ico/04.png" class="img100" />
+                </div>
+                <div class="pad0-10">
+                  <h3 class="texttH3">人教高中必修一</h3>
+                  <h4 class="textH4">
+                    <font class="blueFont02">1111词</font>
+                    <font>15/19关</font>
+                    <span class="fr yinFont">已通过</span>
+                  </h4>
+                  <h6 class="textH4">943853人正在闯关学习</h6>
+                </div>
+              </a>
+            </li>
+            <li>
+              <span class="jbJing">精</span>
+              <a href="new_file.html" class="table">
+                <div class="tableL">
+                  <img src="../images/ico/04.png" class="img100" />
+                </div>
+                <div class="pad0-10">
+                  <h3 class="texttH3">人教高中必修一</h3>
+                  <h4 class="textH4">
+                    <font class="blueFont02">1111词</font>（共15关）</h4>
+                  <h6 class="textH4">943853人正在闯关学习</h6>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="new_file.html" class="table">
+                <div class="tableL">
+                  <img src="../images/ico/04.png" class="img100" />
+                </div>
+                <div class="pad0-10">
+                  <h3 class="texttH3">人教高中必修一</h3>
+                  <h4 class="textH4">
+                    <font class="blueFont02">1111词</font>（共15关）</h4>
+                  <h6 class="textH4">943853人正在闯关学习</h6>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="new_file.html" class="table">
+                <div class="tableL">
+                  <img src="../images/ico/04.png" class="img100" />
+                </div>
+                <div class="pad0-10">
+                  <h3 class="texttH3">人教高中必修一</h3>
+                  <h4 class="textH4">
+                    <font class="blueFont02">1111词</font>（共15关）</h4>
+                  <h6 class="textH4">943853人正在闯关学习</h6>
+                </div>
+              </a>
+            </li>
+          -->
+          </ul>
+        </div>
+      </div>
+      <!--end scrolloer-->
+    </div>
+    <!--end wrapper-->
+
+  </section>
+  <script type="text/javascript" src="__PUBLIC__/game/jquery.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/game/iscroll-lite.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/game/common.js"></script>
+
+
+
+  <script type="text/javascript">
+    var myScroll;
+    $('.nianjia-t li').click(function () {
+      $('.nianji22').toggleClass('grade-w-roll')
+    })
+  </script>
+  <script type="text/javascript">
+    $(document).on("touchstart", ".xzList li", function (e) {
+      $(this).addClass('touch');
+    })
+    $(document).on("touchmove", ".xzList li", function (e) {
+      if ($(this).hasClass("touch")) $(this).removeClass("touch");
+    });
+    $(document).on("touchend", ".xzList li", function (e) {
+      if ($(this).hasClass("touch")) $(this).removeClass("touch");
+    });
+  </script>
+
+  <script>
+    var gradeid = GetQueryString('gradeid');
+    var subjectid = GetQueryString('subjectid');
+    var termid = GetQueryString('termid');
+    var moduleid = GetQueryString('moduleid');
+
+    var debug = GetQueryString('debug');
+
+    var urlCallBack = GetQueryString('backUrl');
+
+
+    function backToIndex() {
+      if (urlCallBack == null) {
+        window.location.href = window.location.protocol + '//www.czbanbantong.com';
+      } else {
+        window.location.href = decodeURIComponent(urlCallBack);
+      }
+    }
+
+
+    $(function () {
+      localStorage.clear();
+      setGradeTermSubject(gradeid, subjectid, termid);
+    });
+
+
+
+    function setGradeTermSubject(gradeid, subjectid, termid) {
+      $.ajax({
+        type: 'get',
+        url: '../Game/setGradeTermSubject',
+        data: {
+          ran: Math.random(),
+          gradeid: gradeid,
+          subjectid: subjectid,
+          termid: termid
+        },
+        dataType: 'json',
+        success: function (data) {
+          getGenre();
+        },
+        error: function (e) {
+
+        }
+      })
+    }
+
+    function goGenre(genreid, title) {
+      setLocalStorage('sx_title', title);
+      setLocalStorage('sx_genreid', genreid);
+      setLocalStorage('sx_gradeid', gradeid);
+      setLocalStorage('sx_subjectid', subjectid);
+      setLocalStorage('sx_moduleid', moduleid);
+
+
+      var backToStageList = window.location.protocol + '//' + window.location.host + '/Shuxue/Game/stagelist?genreid=' +
+        genreid +
+        '&gradeid=' +
+        gradeid + '&subjectid=' + subjectid + '&moduleid=' + moduleid + '&urlCallBack=' + encodeURIComponent(
+          urlCallBack);
+      var url = backToStageList + '&title=' + encodeURI(encodeURI(title)) + '&ks_short_name=' + encodeURI(
+        encodeURI(
+          title));
+
+      if (debug) {
+        window.location.href = url;
+      }
+
+      window.location.href = url;
+      // window.UXinJSInterface.openProgressController(url);
+    }
+
+    function getQueryStringNew(name, url) {
+      var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+      var r = url.substr(1).match(reg);
+      if (r != null) {
+        return unescape(r[2]);
+      }
+      return null;
+    }
+
+    function getGenre() {
+      $.ajax({
+        type: 'get',
+        url: '../Game/getGenres',
+        data: {
+          ran: Math.random(),
+        },
+        dataType: 'json',
+        success: function (data) {
+          var html = '';
+		  if(data.length == 0){
+			html = '该年级下没有相关资源，请切换到其他年级使用';
+		  }
+		  else{
+			$.each(data, function (k, v) {
+				html += '<li onclick="goGenre(' + v.id + ',\'' + v.name + '\');">';
+				html += '<span class="jbJing">精</span>';
+				html += '<a class="table">';
+				html += '<div class="tableL">';
+				html += '<img src="' + v.pic + '" class="img100"/>';
+				html += '</div>';
+				html += '<div class="pad0-10">';
+				html += '<h3 class="texttH3">' + v.name + '</h3>';
+				html += '<h4 class="textH4">';
+				html += '<font class="blueFont02">' + v.total + '个知识点</font>';
+				if (v.status == -1) {
+				  html += '<span class="fr">未开始</span>';
+				} else if (v.status == 0 || v.status == 1) {
+				  html += '<span class="fr">进行中</span>';
+				} else if (v.status == 2) {
+				  html += '<span class="fr">已完成</span>';
+				}
+				html += '</h4>';
+				html += '<h6 class="textH4">' + v.studynum + '人正在闯关学习</h6>';
+				html += '</div>';
+				html += '</a>';
+				html += '</li>';
+			});
+		  }
+          
+          $('.xzList').html(html);
+          // myScroll = new IScroll('#wrapper', {
+          //   mouseWheel: true,
+          //   click: true
+          // });
+        },
+        error: function (e) {
+
+        }
+      })
+    }
+
+
+    function share() {
+      if (moduleid == 62) {
+        var modulename = '我是猜歌王';
+        var modulepic = 'wscgw';
+        var n = 7;
+        var title = '《' + modulename + '》马上猜歌，你就是下一个猜歌王！';
+        var desc = '完整收录教材名家、名曲、名作，在线闯关猜歌名，帮助孩子音乐文化素养提升，丰富课余文化生活！';
+      } else if (moduleid == 61) {
+        var modulename = '基础闯关';
+        var modulepic = 'jccg';
+        var n = 8;
+        var title = '《' + modulename + '》趣味闯关帮您轻松强化知识点！';
+        var desc = '基础知识记不牢、热点题型总失分？不用急，化学基础闯关让你轻松刷题强化知识点！';
+      } else if (moduleid == 60) {
+        var modulename = '历史真题大闯关';
+        var modulepic = 'ztdcg';
+        var n = 9;
+        var title = '《' + modulename + '》全新闯关刷题体验，让你轻松掌握知识点！';
+        var desc = '最贴合版本教材知识点关卡设置、闯关模式生动有趣，优币闯关在线送，排行榜等你来刷新！';
+      } else if (moduleid == 75) {
+        var modulename = '考点闯关';
+        var modulepic = 'kdcg';
+		var n = '11';
+		var title = '《' + modulename + '》全新闯关刷题体验，让你轻松掌握知识点！';
+        var desc = '最贴合版本教材知识点关卡设置、闯关模式生动有趣，优币闯关在线送，排行榜等你来刷新！';
+        
+      } else if (moduleid == 76) {
+        var modulename = '地理真题大闯关';
+        var modulepic = 'dlztdcg';
+        var n = 9;
+        var title = '《' + modulename + '》全新闯关刷题体验，让你轻松掌握知识点！';
+        var desc = '最贴合版本教材知识点关卡设置、闯关模式生动有趣，优币闯关在线送，排行榜等你来刷新！';
+        
+      } else if (moduleid == 82) {
+        var modulename = '政治真题大闯关';
+        var modulepic = 'zzztdcg';
+        var n = 9;
+        var title = '《' + modulename + '》全新闯关刷题体验，让你轻松掌握知识点！';
+        var desc = '最贴合版本教材知识点关卡设置、闯关模式生动有趣，优币闯关在线送，排行榜等你来刷新！';
+        
+      }
+      var iconUrl = window.location.protocol + '//' + window.location.host + '/public/public/images/' + modulepic +
+        '.png';
+
+      $.ajax({
+        type: 'get',
+        url: '../Game/getLocalareacode',
+        dataType: 'json',
+        data: {
+          ran: Math.random()
+        },
+        success: function (data) {
+          var pageUrl = window.location.protocol + '//' + window.location.host + '/share/new/html/index' + n +
+            '.html?localareacode=' +
+            data.localareacode + '&modulepic=' + modulepic + '&modulename=' + modulename;
+          try {
+            UXinJSInterfaceSpeech.webShare(title, iconUrl, pageUrl, desc);
+          } catch (e) {
+            setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+          }
+        },
+        error: function (e) {
+
+        }
+      })
+    }
+  </script>
+
+</body>
+
+</html>

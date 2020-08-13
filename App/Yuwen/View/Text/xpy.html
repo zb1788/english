@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta charset="UTF-8">
+        <meta name="wap-font-scale" content="no">
+        <title>快乐学拼音</title>
+        <link rel="stylesheet" href="__PUBLIC__/css/currency.css" />
+        <link rel="stylesheet" href="__PUBLIC__/font/fonts.css" />
+        <link rel="stylesheet" href="__PUBLIC__/css/xpy.css" />
+        <link rel="stylesheet" href="__PUBLIC__/css/iscroll.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/zepto.min.js" ></script>
+        <script type="text/javascript" src="__PUBLIC__/js/demoUtils.js" ></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iscroll-lite.js" ></script>
+
+    <script type="text/javascript">
+var urlCallBack = GetQueryString('backUrl');
+var respath = '__RESOURCE__';
+var xpyUrl = respath+'/uploadsyw/xpy/';
+
+$(function(){
+    getRecord();
+});
+
+var myScroll;
+function loaded () {
+    myScroll = new IScroll('#wrapper', {click:'ture' });
+}
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, isPassive() ? {
+    capture: false,
+    passive: false
+    } : false);
+
+function backToIndex(){
+    if(urlCallBack == null){
+        window.location.href=window.location.protocol+'//www.czbanbantong.com';
+    }else{
+        window.location.href=decodeURIComponent(urlCallBack);
+    }
+
+}
+/**
+ * 获取地址栏参数
+ * 【注意】传递参数的时候使用encodeURI(encodeURI(content)),取的时候decodeURI(value)
+ * @param {[String]} name [参数名称]
+ */
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  decodeURI(unescape(r[2])); return null;
+}
+
+
+function show(obj){
+    if($(obj).hasClass('onf')){
+        //学习过了
+    }else{
+        $(obj).addClass('onf');
+        var index = $('.pad10 a').index(obj);
+        submitRecord(index);
+    }
+
+    var mp4 = $(obj).attr('info');
+    var html = $(obj).html();
+    submitInfo(html);
+    var url = xpyUrl+mp4;
+	url = url.replace(/https/g, "http");
+	url = url.replace(/:8443/g, ":8080");
+    location.href=url;
+}
+
+
+function submitInfo(info){
+    $.ajax({
+            url: '../../Subject/Public/setUserModuleUnitLog',
+            data: {ran:Math.random(),ks_code:0,moduleid:55,ks_name:info},
+            // datatype: "json",
+            type: 'get',
+            async: false,
+            success: function (data) {   //成功后回调
+
+            },
+            error: function(e){    //失败后回调
+                // alert(e);
+            },
+            beforeSend: function(){  //发送请求前调用，可以放一些"正在加载"之类额话
+                // alert("正在加载");
+            }
+    });
+}
+
+function getRecord(){
+    $.ajax({
+            url: '../Text/getMyRecord',
+            data: {ran:Math.random()},
+            // datatype: "json",
+            type: 'get',
+            success: function (data) {   //成功后回调
+                $.each(data,function(k,v){
+                    $('.pad10').find('a').eq(v.py).addClass('onf');
+                });
+            },
+            error: function(e){    //失败后回调
+                // alert(e);
+            },
+            beforeSend: function(){  //发送请求前调用，可以放一些"正在加载"之类额话
+                // alert("正在加载");
+            }
+    });
+}
+
+
+function submitRecord(index){
+    $.ajax({
+            url: '../Text/addPyRecord',
+            data: {ran:Math.random(),index:index},
+            // datatype: "json",
+            type: 'get',
+            async: false,
+            success: function (data) {   //成功后回调
+
+            },
+            error: function(e){    //失败后回调
+                // alert(e);
+            },
+            beforeSend: function(){  //发送请求前调用，可以放一些"正在加载"之类额话
+                // alert("正在加载");
+            }
+    });
+}
+</script>
+
+
+
+</head>
+<body onload="loaded()">
+<main>
+<header class="head border-nav">
+            <a class="head-left" href="javascript:backToIndex();"><i class="icon-back"></i>返回</a>
+            <h1 class="title">快乐学拼音</h1>
+                    </header>
+        <section>
+            <div id="wrapper">
+    <div id="scroller">
+<div class="pad10">
+    <ul class="pinyin">
+        <h2 class="pyH2"><label>韵母表</label></h2>
+        <li><label>单</label>
+        <a class="pyBtn" onclick="show(this)" info="a.mp4">a</a>
+        <a class="pyBtn" onclick="show(this)" info="o.mp4">o</a>
+        <a class="pyBtn" onclick="show(this)" info="e.mp4">e</a>
+        <a class="pyBtn" onclick="show(this)" info="i.mp4">i</a>
+        <a class="pyBtn" onclick="show(this)" info="u.mp4">u</a>
+        <a class="pyBtn" onclick="show(this)" info="v.mp4">ü</a>
+        </li>
+        <li><label>复</label>
+        <a class="pyBtn" onclick="show(this)" info="ai.mp4">ai</a>
+        <a class="pyBtn" onclick="show(this)" info="ei.mp4">ei</a>
+        <a class="pyBtn" onclick="show(this)" info="ui.mp4">ui</a>
+        <a class="pyBtn" onclick="show(this)" info="ao.mp4">ao</a>
+        <a class="pyBtn" onclick="show(this)" info="ou.mp4">ou</a>
+        <a class="pyBtn" onclick="show(this)" info="iu.mp4">iu</a>
+        <a class="pyBtn" onclick="show(this)" info="ie.mp4">ie</a>
+        <a class="pyBtn" onclick="show(this)" info="ve.mp4">üe</a>
+        <a class="pyBtn" onclick="show(this)" info="er.mp4">er</a>
+        </li>
+        <li><label>鼻</label>
+        <a class="pyBtn" onclick="show(this)" info="an.mp4">an</a>
+        <a class="pyBtn" onclick="show(this)" info="en.mp4">en</a>
+        <a class="pyBtn" onclick="show(this)" info="in.mp4">in</a>
+        <a class="pyBtn" onclick="show(this)" info="un.mp4">un</a>
+        <a class="pyBtn" onclick="show(this)" info="vn.mp4">ün</a>
+        <a class="pyBtn" onclick="show(this)" info="ang.mp4">ang</a>
+        <a class="pyBtn" onclick="show(this)" info="eng.mp4">eng</a>
+        <a class="pyBtn" onclick="show(this)" info="ing.mp4">ing</a>
+        <a class="pyBtn" onclick="show(this)" info="ong.mp4">ong</a>
+        </li>
+    </ul>
+    <ul class="pinyin">
+        <h2 class="pyH2"><label>声母表</label></h2>
+        <li>
+        <a class="pyBtn" onclick="show(this)" info="b.mp4">b</a>
+        <a class="pyBtn" onclick="show(this)" info="p.mp4">p</a>
+        <a class="pyBtn" onclick="show(this)" info="m.mp4">m</a>
+        <a class="pyBtn" onclick="show(this)" info="f.mp4">f</a>
+        <a class="pyBtn" onclick="show(this)" info="d.mp4">d</a>
+        <a class="pyBtn" onclick="show(this)" info="t.mp4">t</a>
+        <a class="pyBtn" onclick="show(this)" info="n.mp4">n</a>
+        <a class="pyBtn" onclick="show(this)" info="l.mp4">l</a>
+        </li>
+        <li>
+        <a class="pyBtn" onclick="show(this)" info="g.mp4">g</a>
+        <a class="pyBtn" onclick="show(this)" info="k.mp4">k</a>
+        <a class="pyBtn" onclick="show(this)" info="h.mp4">h</a>
+        <a class="pyKong">&nbsp;</a>
+        <a class="pyBtn" onclick="show(this)" info="j.mp4">j</a>
+        <a class="pyBtn" onclick="show(this)" info="q.mp4">q</a>
+        <a class="pyBtn" onclick="show(this)" info="x.mp4">x</a>
+        </li>
+        <li>
+        <a class="pyBtn" onclick="show(this)" info="zh.mp4">zh</a>
+        <a class="pyBtn" onclick="show(this)" info="ch.mp4">ch</a>
+        <a class="pyBtn" onclick="show(this)" info="sh.mp4">sh</a>
+        <a class="pyBtn" onclick="show(this)" info="r.mp4">r</a>
+        <a class="pyBtn" onclick="show(this)" info="z.mp4">z</a>
+        <a class="pyBtn" onclick="show(this)" info="c.mp4">c</a>
+        <a class="pyBtn" onclick="show(this)" info="s.mp4">s</a>
+        <a class="pyBtn" onclick="show(this)" info="y.mp4">y</a>
+        <a class="pyBtn" onclick="show(this)" info="w.mp4">w</a>
+        </li>
+    </ul>
+        <div class="clearfix"></div></div>
+    </div><!--end scroller-->
+</div><!--end wrapper-->
+
+</section>
+
+</main>
+</body>
+</html>

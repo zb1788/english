@@ -1,0 +1,85 @@
+<!doctype html>
+<!--
+	作者：305039273@qq.com
+	时间：2016-07-04
+	描述：秦国勇
+-->
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>英语同步练</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="__PUBLIC__/css/mui.min.css" rel="stylesheet" />
+		<link href="__PUBLIC__/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="__PUBLIC__/css/learn.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!--侧滑菜单容器-->
+		<header class="mui-bar mui-bar-nav" style="text-align:center;">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+			<a class="mui-icon  mui-icon-flag  mui-pull-right" id="summary"></a>
+			<h3 id="time" style="padding-top:5px;">00:00</h3>
+		</header>
+		<script src="__PUBLIC__/js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/update.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/learn.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		    //mui框架进行初始化
+			mui.init({
+				swipeBack: false,
+				statusBarBackground: '#f7f7f7',
+				gestureConfig: {
+					doubletap: true
+				},
+				subpages: [{
+					id: 'question',
+					url: 'question?index={$index}&quescount={$quescount}',
+					styles: {
+						top: '45px',
+						bottom: 0,
+						bounce: 'vertical'
+					}
+				}]
+			});
+			//进行时间的读秒
+			var c=0;  
+			function timedCount(){
+				var min=0,secs=0;
+				var value="";
+			    min = parseInt(c / 60);// 分钟数  
+			    if(min<10){
+			    	value=value+"0"+min;
+			    }else{
+			    	value=value+min;
+			    }
+			    secs = c % 60;
+			    if(secs<10){
+			    	value=value+":0"+secs;
+			    }else{
+			    	value=value+":"+secs;
+			    }
+			    document.getElementById('time').innerHTML =value;
+			    c=c+1  ;
+			}
+			setInterval("timedCount()",1000) ;
+			
+			//选择试题的选中样式问题
+			document.getElementById("summary").addEventListener('tap', function() {
+				var webview = mui.openWindow({
+					url:'summary?quescount={$quescount}',
+					show:{
+				      autoShow:true,
+				      aniShow:"slide-in-bottom",
+				      duration:500
+				   }
+				});
+			});
+			
+//			window.addEventListener('refresh', function(e) {  
+//		        location.reload();
+//		    }) 
+		</script>
+	</body>
+</html>
+</html>

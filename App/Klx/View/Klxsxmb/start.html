@@ -1,0 +1,790 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>口算卡</title>
+<link rel="stylesheet" href="__PUBLIC__/style/klxsxmb/path/to/font-awesome/css/font-awesome.min.css">
+<link href="__PUBLIC__/style/klxsxmb/ksk.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/js/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jPlayer/dist/jplayer/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/yjt_properties.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+.daan{
+border:solid 1px #fff;
+display:inline-block;
+width:45px;
+height:33px;
+line-height:33px;
+background: #fff;
+text-align:center;
+vertical-align: middle;
+}
+
+.currentnow{
+border:solid 1px #e7e7e7;
+background: #ffffff;
+}
+a.redeay {display: block;width: 80px; height: 80px; background:#56c1c0; color: #fff; font-size: 1.2em; font-weight: bold; line-height: 80px; text-align: center; border-radius: 40px; -moz-border-radius:40px; -webkit-border-radius:40px; margin: 20px auto 0;}
+a.redeay:hover,a.redeay:visited {background: #39a8a7;}
+
+.fenshuw {width:100px;}
+.tips {background-color:#333; display:block; position:fixed; bottom:50%; left:3%; color:#fff; border-radius:5px; opacity:.92; padding:10px; width:90%; display:none; box-shadow: 1px 1px 5px #555; text-align:center; z-index:1000;}
+.tips img {vertical-align: text-top;}
+</style>
+</head>
+
+<body>
+
+<header>
+
+            <div class="back"><a class="bacc"><img src="__PUBLIC__/style/klxsxmb/images/backIco.png" width="20" height="20" />返回</a></div>
+            <h1><font id="time">60</font>秒</h1>
+			<div class="kc_setup"><a class="shou" href="javascript:void(0);"><i id="laba" class="fa fa-volume-up fa-lg" style="display:none"></i></a></div>
+</header>
+
+<section>
+<div class="pan" style="display:none;"><i id="wrongflag" class="fa fa-remove fa-lg"></i><i id="rightflag" class="fa fa-check fa-lg"></i></div>
+<div class="content">
+    <div class="time"><span></span><i></i></div>
+    <h5 class="yeq"><font id="jindu">1</font>/15</h5>
+    <!-- <button class="begdt"  style="width:100px;height:40px;">开始答题</button> -->
+    <a class="redeay">开 始</a>
+    <!--正常 1-->
+    <div class="timu" id="style1" style="display:none;"><span id="style11"><font id="shizi">7+4</font>=</span><div class="daan" id="answer" >( )</div></div>
+    <!--分数 2 -->
+    <div class="timuf" id="style2" style="display:none;">
+        <div id="style22"><span style="width:20px;"><b style="width:20px;line-height:40px;"><font id="fenzi_1"></font></b><s></s><b style="width:20px;line-height:40px;"><font id="fenmu_1"></font></b></span><strong><font id="fuhao"></font></strong><span style="width:20px;"><b style="width:20px;line-height:40px;"><font id="fenzi_2"></font></b><s></s><b style="width:20px;line-height:40px;"><font id="fenmu_2"></font></b></span><strong>=</strong></div><span><b>(<div class="daan" id="fenzi_3" onclick="qiehuanShuru(this);"></div>)</b><s></s><b>(<div class="daan" id="fenmu_3" onclick="qiehuanShuru(this);"></div>)</b></span>
+        <div class="clearfix"></div>
+    </div>
+    <!--余数 3 -->
+    <div class="timu" id="style3" style="display:none;">
+        <span id="style33"><font id="shizi1">7+4</font>=</span>(<div class="daan" id="yushu1" onclick="qiehuanShuru(this);"></div>)...(<div class="daan" id="yushu2" onclick="qiehuanShuru(this);"></div>)
+    </div>
+</div>
+</section>
+      <div id="bg"></div>
+    <div class="zit_box" style="display:none">
+    <span >你还有题目未做完，确定提交吗？</span>
+    <a class="zit_cancel" style="border-left:0; width:150px">取消</a><a class="zit_close">确定</a>
+    </div>
+
+    <div class="keyboard">
+<div class="tm_next" style="display:none;"><a href="javascript:void(0);"  class="nn" isUse="1" ><!--<img src="../images/ksk/next.png">-->下一题</a></div>
+<table border="1" cellspacing="0" cellpadding="0" >
+<tr><td><a val="1" name="tijiao" onclick="userSubmit(this);">1</a></td><td><a val="2" name="tijiao" onclick="userSubmit(this);">2</a></td><td><a val="3" name="tijiao" onclick="userSubmit(this);">3</a></td><td class="zz"><a val="+" name="tijiao">+</a></td></tr>
+<tr><td><a val="4" name="tijiao" onclick="userSubmit(this);">4</a></td><td><a val="5" name="tijiao" onclick="userSubmit(this);">5</a></td><td><a val="6" name="tijiao" onclick="userSubmit(this);">6</a></td><td class="zz"><a val="-" name="tijiao">-</a></td></tr>
+<tr><td><a val="7" name="tijiao" onclick="userSubmit(this);">7</a></td><td><a val="8" name="tijiao" onclick="userSubmit(this);">8</a></td><td><a val="9" name="tijiao" onclick="userSubmit(this);">9</a></td><td class="zz"><a val="*" name="tijiao">×</a></td></tr>
+<tr><td><a val="0" name="tijiao" onclick="userSubmit(this);">0</a></td><td><a val="." name="tijiao" onclick="userSubmit(this);">.</a></td><td><a val="bac" name="tijiao" onclick="userSubmit(this);"><i class="bac"><img src="__PUBLIC__/style/klxsxmb/images/ksk/bac.png"></i></a></td><td class="zz"><a val="/" name="tijiao">÷</a></td></tr>
+</table>
+</div>
+<div class="tips"></div>
+
+<div id="jplayer"></div>
+<script type="text/javascript">
+var needHideProgress = false;
+    try{
+        UXinJSInterface.hideProgress();
+    }catch(e){
+        needHideProgress =true;
+    }
+</script>
+<script type="text/javascript">
+
+$.ajaxSetup({async:false});
+var t;
+if('{$type}'==1){
+    var time=60;//倒计时
+    var totaltime=60;
+}else{
+    if('{$geshi}'==2){
+       //分数
+       var time=180;//倒计时
+       var totaltime=180;
+    }else{
+       var time=180;//倒计时
+       var totaltime=180;
+    }
+
+}
+var count=0;
+var array=[];//存储试题信息
+var arrAnswer=[];//存储答案信息
+var usetime=0;//用时
+var total_eq=15;//题目总数
+var tmpcount=14;
+var right=0;
+var wrong=0;
+var tmpstr='';
+
+//var mp3arrFirst = [];
+//var userarea=$.cookie('areaId');
+//alert(userarea);
+//var uburl=mapObj[userarea]['ub'];
+var uburl=$.cookie('ubip');
+
+
+
+$(function(){
+    $("#jplayer").jPlayer({
+    swfPath: "__PUBLIC__/js",
+    wmode: "window",
+    supplied: "mp3",
+    preload: "none",
+    volume: "1"
+    });
+    $('#time').html(totaltime);
+
+
+});
+
+$('.redeay').click(function(){
+    $.get('../Klxsxmb/getinfo', {
+            ran: Math.random(),
+            bid: '{$bid}'
+        }, function(data){
+            $.each(data, function(k, v){
+                //alert(v.equation);
+                //array.push(v.equation);
+                var tmp={};
+                tmp.id=v.id;
+                tmp.name=v.equation;
+                array.push(tmp);
+            });
+
+        });
+        if('{$type}'==1){
+            if('{$geshi}'==1){
+                $("#shizi").html(array[0].name);
+                $('#style1').show();
+                $('#style2').hide();
+                $('#style3').hide();
+            }else if('{$geshi}'==2){
+                $('.timuf').removeClass('fenshuw');
+                var strs=strFormat(array[0].name);
+                var strarray=[];
+                strarray=strs.split(',');
+                $('#fenzi_1').html(strarray[0]);
+                $('#fenmu_1').html(strarray[1]);
+                $('#fenzi_2').html(strarray[2]);
+                $('#fenmu_2').html(strarray[3]);
+                $('#fuhao').html(strarray[4]);
+
+                $('#fenmu_3').addClass('currentnow');
+                $('#style1').hide();
+                $("#style2").show();
+                $('#style3').hide();
+            }else{
+                $("#shizi1").html(array[0].name);
+                $('#yushu1').addClass('currentnow');
+                $('#style1').hide();
+                $('#style2').hide();
+                $('#style3').show();
+            }
+        }else{
+            $("#laba").show();
+            //alert('aa');
+            //听算
+            if('{$geshi}'==1){
+                $("#shizi").html(array[0].name);
+
+                //var mp3arr=chaifen(array[0].name,1);//获取MP3数组
+                mp3arr=getmp3(array[0].name);//获取MP3数组
+
+                $('#style1').show();
+                $('#style11').hide();
+                $('#style2').hide();
+                $('#style3').hide();
+
+
+            }else if('{$geshi}'==2){
+                $('.timuf').addClass('fenshuw');
+                mp3arr=getmp3(array[0].name);
+                var strs=strFormat(array[0].name);
+                var strarray=[];
+                strarray=strs.split(',');
+                $('#fenzi_1').html(strarray[0]);
+                $('#fenmu_1').html(strarray[1]);
+                $('#fenzi_2').html(strarray[2]);
+                $('#fenmu_2').html(strarray[3]);
+                $('#fuhao').html(strarray[4]);
+
+                $('#fenmu_3').addClass('currentnow');
+                $('#style1').hide();
+                $("#style2").show();
+                $("#style22").hide();
+                $('#style3').hide();
+            }else{
+                mp3arr=getmp3(array[0].name);
+                $("#shizi1").html(array[0].name);
+                $('#style1').hide();
+                $('#style2').hide();
+                $('#style3').show();
+                $('#style33').hide();
+                $('#yushu1').addClass('currentnow');
+            }
+            //setTimeout(function(){play(mp3arr);},1000);
+            play(mp3arr);
+
+        }
+        $('.redeay').hide();
+        $('.tm_next').show();
+        showTime();
+});
+
+
+//用于ios无法自动加载音频
+// function stFirstPlay(){
+//     play(mp3arrFirst);
+// }
+
+// 切换答案输入框
+// $('.daan').live('click',function(){
+//     $('.daan').removeClass('currentnow');
+//     $(this).addClass('currentnow');
+// });
+function qiehuanShuru(obj){
+    $('.daan').removeClass('currentnow');
+    $(obj).addClass('currentnow');
+}
+
+
+
+
+//用户输入
+
+function userSubmit(obj){
+    if('{$geshi}'==1){
+        var type=1;
+    }else if('{$geshi}'==2){
+        var type=2;
+    }else{
+        var type=3;
+    }
+    submit(obj,type);
+}
+
+// $('a[name="tijiao"]').live('click',function(){
+//     //var type=$('a[name="suan"].cur1').attr('type');//获取当前算式类型：1普通算式2分数3余数
+//     if('{$geshi}'==1){
+//         var type=1;
+//     }else if('{$geshi}'==2){
+//         var type=2;
+//     }else{
+//         var type=3;
+//     }
+//     submit(this,type);
+// });
+
+//用户输入答案
+function submit(obj,type){
+    var val=$(obj).attr('val');
+    if(val=='+'||val=='-'||val=='*'||val=='/'||val=='('||val==')'){
+        return false;
+    }
+    var str='';
+    var str1='';
+    if(type==1){
+        str=$('#answer').html();
+        str = str.replace('(','');
+        str = str.replace(')','');
+        str = str.replace(' ','');
+        //alert(str.length);
+        if(val=='bac'){
+                str = str.substr(0,(str.length-1));
+        }else{
+            if(checkAnswer(str)){
+                str +=val;
+            }
+        }
+        //$('#answer').html(str);
+        str = '('+str+')';
+        $('#answer').html(str);
+    }else if(type==2){
+        str=$('.currentnow').html();
+        if(val=='bac'){
+                str='';
+        }else{
+            if(checkAnswer(str)){
+                str +=val;
+            }
+        }
+
+        $('.currentnow').html(str);
+
+    }else{
+        str=$('.currentnow').html();
+        if(val=='bac'){
+                str='';
+        }else{
+            if(checkAnswer(str)){
+                str +=val;
+            }
+        }
+        $('.currentnow').html(str);
+
+    }
+
+
+}
+
+
+//验证用户输入
+function checkAnswer(str){
+    //如果长度超过10位不能输入
+    if(str.length>=6){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+
+//不能连续点下一体，间隔1秒
+$('.nn').click(function(){
+    var flag = $('.nn').attr("isUse");
+    //alert(flag);
+    if(flag==1){
+        tijiao();
+        $('.nn').attr("isUse","0");
+        setTimeout(function(){$('.nn').attr("isUse","1");},1000);
+    }
+    //$('.nn').attr("disabled","true");
+
+});
+
+
+//提交
+function tijiao(){
+
+//setTimeout(function(){$('.tm_next').removeAttr("disabled");},1000);
+count++;
+if(count<15){
+var bili=Math.round((count+1)/15*100);
+
+ if (/i(Phone|P(o|a)d)/.test(navigator.userAgent)) {
+        //苹果
+        $('.time span').css('width',(bili-1)+'%');
+        bili = bili - 11;
+        $('.time i').css('left',(bili-3)+'%');
+    }else{
+        //安卓
+        $('.time span').css('width',(bili-1)+'%');
+        $('.time i').css('left',(bili-5)+'%');
+    }
+}
+$('#jindu').html(count+1);//进度
+
+if ('{$geshi}' == 1) {
+
+    var answer=$('#answer').html();
+    answer = answer.replace('(','');
+    answer = answer.replace(')','');
+    // alert(count);
+    // alert(array[count-1].name)
+    var str_name = array[count-1].name;
+    //str_name = str_name.replace('×','*');
+    str_name = str_name.replace(new RegExp('×',"gm"),'*');
+    //str_name = str_name.replace('÷','/');
+    str_name = str_name.replace(new RegExp('÷',"gm"),'/');
+
+
+    if(str_name.indexOf('.')<0){
+        var result=eval(str_name);
+    }else{
+        //小数,木前只是一位小数
+        var result=Number(eval(str_name).toFixed(1));
+    }
+
+    if(answer==result&&answer!=''){
+        right++;
+        tmpstr+='r';
+        jpstart('__RESOURCE__/uploadklx/klxsx/yes.mp3');
+        $('#rightflag').show();
+        $('#wrongflag').hide();
+    }else{
+        if(answer!=''){
+            wrong++;
+        }
+        tmpstr+='|';
+        jpstart('__RESOURCE__/uploadklx/klxsx/no.mp3');
+        $('#rightflag').hide();
+        $('#wrongflag').show();
+        //alert(wrong);
+        //alert('0');
+    }
+    $('.content').hide();
+    $('.pan').show();
+    if(count<15){
+        if('{$type}'==2){
+            var mp3arr=getmp3(array[count].name);
+            $("#jplayer").bind($.jPlayer.event.ended, function(event) {
+                    $("#jplayer").unbind($.jPlayer.event.ended);
+                    play(mp3arr);
+              });
+        }
+
+        $("#shizi").html(array[count].name);
+
+        //清除答案
+        $('#answer').html('( )');
+        $('#yushu1').html('');
+        $('#yushu2').html('');
+        $('#fenzi_3').html('');
+        $('#fenmu_3').html('');
+
+        setTimeout(function(){$('.content').show();$('.pan').hide();},500);
+    }else{
+        $('.time span').css('width','100%');
+        $('.time i').css('left','97%');
+
+        usetime=$('#time').html();//取出用时
+        usetime=totaltime-usetime;
+        setTimeout(function(){location.href='../Klxsxmb/result?uburl='+uburl+'&right='+right+'&wrong='+wrong+'&tmpstr='+tmpstr+'&usetime='+usetime+'&bid={$bid}&type={$type}&geshi={$geshi}&grade={$grade}&name={$name}';},500);
+    }
+
+}
+else if ('{$geshi}' == 2) {
+    //目前只适合同分母的算法
+    var fenzi_1=$('#fenzi_1').html();
+    var fenmu_1=$('#fenmu_1').html();
+    var fenzi_2=$('#fenzi_2').html();
+    var fenmu_2=$('#fenmu_2').html();
+    var fenzi_3=$('#fenzi_3').html();
+    var fenmu_3=$('#fenmu_3').html();
+    var fuhao=$('#fuhao').html();
+
+    var fenzi_total=fenzi_1+fuhao+fenzi_2;
+    var fenmu_total=fenmu_1;
+    //alert(eval(fenzi_total));
+    //alert(fenzi_1+''+fenzi_2+''+fenzi_total+'='+fenzi_3);
+    if(fenzi_3==eval(fenzi_total)&&fenmu_3==fenmu_total&&fenzi_3!=''&&fenmu_3!=''){
+        right++;
+        tmpstr+='r';
+        jpstart('__RESOURCE__/uploadklx/klxsx/yes.mp3');
+        $('#rightflag').show();
+        $('#wrongflag').hide();
+    }else{
+        if(fenzi_3!=''&&fenmu_3!=''){
+            wrong++;
+        }
+        tmpstr+='|';
+        jpstart('__RESOURCE__/uploadklx/klxsx/no.mp3');
+        $('#rightflag').hide();
+        $('#wrongflag').show();
+    }
+    $('.content').hide();
+    $('.pan').show();
+    $('.daan').removeClass('currentnow');
+    if(count<15){
+        $('#fenmu_3').addClass('currentnow');
+        if('{$type}'==2){
+            var mp3arr=getmp3(array[count].name);
+             $("#jplayer").bind($.jPlayer.event.ended, function(event) {
+                    $("#jplayer").unbind($.jPlayer.event.ended);
+                    play(mp3arr);
+              });
+        }
+
+        var strs=strFormat(array[count].name);
+        var strarray=[];
+        strarray=strs.split(',');
+        $('#fenzi_1').html(strarray[0]);
+        $('#fenmu_1').html(strarray[1]);
+        $('#fenzi_2').html(strarray[2]);
+        $('#fenmu_2').html(strarray[3]);
+        $('#fuhao').html(strarray[4]);
+
+        //清除答案
+        $('#answer').html('( )');
+        $('#yushu1').html('');
+        $('#yushu2').html('');
+        $('#fenzi_3').html('');
+        $('#fenmu_3').html('');
+        setTimeout(function(){$('.content').show();$('.pan').hide();},500);
+    }else{
+        $('.time span').css('width','100%');
+        $('.time i').css('left','97%');
+
+        usetime=$('#time').html();//取出用时
+        usetime=totaltime-usetime;
+        setTimeout(function(){location.href='../Klxsxmb/result?uburl='+uburl+'&right='+right+'&wrong='+wrong+'&tmpstr='+tmpstr+'&usetime='+usetime+'&bid={$bid}&type={$type}&geshi={$geshi}&grade={$grade}&name={$name}';},500);
+    }
+
+}else{
+    if('{$type}'==2){
+        var mp3arr=getmp3(array[count].name);
+         $("#jplayer").bind($.jPlayer.event.ended, function(event) {
+                    $("#jplayer").unbind($.jPlayer.event.ended);
+                    play(mp3arr);
+              });
+    }
+    var yushu1=$('#yushu1').html();
+    var yushu2=$('#yushu2').html();
+    var str=array[count-1].name;
+    str1=str.replace('÷','/');
+    var result1=parseInt(eval(str1));
+    str2=str.replace('÷','%');
+    var result2=parseInt(eval(str2));
+
+    if(yushu1==result1&&yushu2==result2&&yushu1!=''&&yushu2!=''){
+        right++;
+        jpstart('__RESOURCE__/uploadklx/klxsx/yes.mp3');
+        $('#rightflag').show();
+        $('#wrongflag').hide();
+        //alert('1');
+    }else{
+        if(yushu1!=''&&yushu2!=''){
+            wrong++;
+        }
+        jpstart('__RESOURCE__/uploadklx/klxsx/no.mp3');
+        $('#rightflag').hide();
+        $('#wrongflag').show();
+        //alert('0');
+    }
+    $('.content').hide();
+    $('.pan').show();
+    $('.daan').removeClass('currentnow');
+    if(count<15){
+        $('#yushu1').addClass('currentnow');
+        $("#shizi1").html(array[count].name);
+        //清除答案
+        $('#answer').html('( )');
+        $('#yushu1').html('');
+        $('#yushu2').html('');
+        $('#fenzi_3').html('');
+        $('#fenmu_3').html('');
+        setTimeout(function(){$('.content').show();$('.pan').hide();},500);
+    }else{
+        $('.time span').css('width','100%');
+        $('.time i').css('left','97%');
+
+        usetime=$('#time').html();//取出用时
+        usetime=totaltime-usetime;
+        setTimeout(function(){location.href='../Klxsxmb/result?uburl='+uburl+'&right='+right+'&wrong='+wrong+'&tmpstr='+tmpstr+'&usetime='+usetime+'&bid={$bid}&type={$type}&geshi={$geshi}&grade={$grade}&name={$name}';},500);
+    }
+
+}
+
+
+
+
+}
+
+
+var flags = 0;
+ function start(){
+    //alert('aa');
+    var text = document.getElementById("time");
+    if (!flags)
+    {
+        //alert('a');
+        text.style.color = "#d04949";
+        text.style.background = "#fff266";
+        flags = 1;
+    }else{
+        //alert('b');
+        text.style.color = "";
+        text.style.background = "";
+        flags = 0;
+    }
+    setTimeout("start()",1000);
+ }
+
+
+function showTime(){
+        time-=1;
+        if(time<=10){
+           // var text = document.getElementById("time");
+           // text.style.color = "red";
+           // text.style.background = "#0000ff";
+           start();
+        }
+        $('#time').html(time);
+        if (time==0){
+            // usetime=$('#time').html();//取出用时
+            // usetime=totaltime-usetime;
+
+            $('.tips').html("<img src='__PUBLIC__/images/no_ico.png' width='20' height='20' />&nbsp;时间到！");
+            $('.tips').fadeIn(300).delay(1000).fadeOut(300);
+
+
+
+            // $(".redeay").html("<img src='images_ico.png' width='20' height='20' />&nbsp;这里是提示语");
+            // $('.redeay').html('很遗憾，时间到了！');
+            // $('.redeay').show();
+            // $('#style1').hide();
+            // $('#style2').hide();
+            // $('#style3').hide();
+            //return false;
+             setTimeout(function(){location.href='../Klxsxmb/result?uburl='+uburl+'&right='+right+'&wrong='+wrong+'&tmpstr='+tmpstr+'&usetime='+totaltime+'&bid={$bid}&type={$type}&geshi={$geshi}&grade={$grade}&name={$name}';},2000);
+            //location.href='../Klxsxmb/result?uburl='+uburl+'&right='+right+'&wrong='+wrong+'&tmpstr='+tmpstr+'&usetime='+totaltime+'&bid={$bid}&type={$type}&geshi={$geshi}&grade={$grade}&name={$name}';
+            return false;
+        }else{
+            t=setTimeout("showTime()",1000);
+        }
+
+
+}
+
+//分数拆分
+function strFormat(str){
+    var array1=[];
+    var array2=[];
+    var array3=[];
+    var fuhao='';
+    if(str.indexOf("+")>0){
+        array1=str.split('+');
+        fuhao='+';
+    }else{
+        array1=str.split('-');
+        fuhao='-';
+    }
+
+    array2=array1[0].split('/');
+    array3=array1[1].split('/');
+    return array2[0]+','+array2[1]+','+array3[0]+','+array3[1]+','+fuhao;
+}
+
+
+
+//获取式子的mp3
+function getmp3(str){
+    //var str='5×7';
+    //alert(str);
+    var mp3=[];
+    var str1='';
+    for(i=0;i<str.length;i++){
+        if(!isNaN(Number(str.charAt(i)))){
+            str1=str1+str.charAt(i);
+        }else{
+            //alert(str1);
+            mp3.push(str1+'.mp3');
+            if(str.charAt(i)=='+'){
+                str1='jia.mp3';
+            }else if(str.charAt(i)=="-"){
+                str1='jian.mp3';
+            }else if(str.charAt(i)=="×"){
+                str1='cheng.mp3';
+            }else if(str.charAt(i)=="÷"){
+                str1='chu.mp3';
+            }else if(str.charAt(i)=='.'){
+                str1='dian.mp3';
+            }else if(str.charAt(i)=='/'){
+                str1='fen.mp3';
+            }
+            // alert(str1);
+            mp3.push(str1);
+            str1='';
+        }
+        if(i==(str.length-1)){
+            //alert(str1);
+            mp3.push(str1+'.mp3');
+        }
+
+    }
+if (!Array.prototype.indexOf)
+{
+  Array.prototype.indexOf = function(elt /*, from*/)
+  {
+    var len = this.length >>> 0;
+
+    var from = Number(arguments[1]) || 0;
+    from = (from < 0)
+         ? Math.ceil(from)
+         : Math.floor(from);
+    if (from < 0)
+      from += len;
+    for (; from < len; from++)
+    {
+      if (from in this &&
+          this[from] === elt)
+        return from;
+    }
+    return -1;
+  };
+}
+    if(mp3.indexOf('fen.mp3')>0){
+        var nownum=mp3.indexOf('fen.mp3');
+        //alert(nownum);
+        var up=mp3[nownum-1];
+        mp3[nownum-1]=mp3[nownum+1];
+        mp3[nownum+1]=up;
+
+        mp3[nownum]='fen1.mp3';
+    }else{
+        //alert('cc');
+    }
+
+    if(mp3.indexOf('fen.mp3')>0){
+        var nownum=mp3.indexOf('fen.mp3');
+        //alert(nownum);
+        var up=mp3[nownum-1];
+        mp3[nownum-1]=mp3[nownum+1];
+        mp3[nownum+1]=up;
+    }
+    var tmpstr=mp3.join('|');
+    tmpstr=tmpstr.replace('fen1.mp3','fen.mp3');
+
+    mp3=tmpstr.split('|');
+
+    return mp3;
+
+}
+
+function play(mp3arr){
+     var num=0;
+     var total=mp3arr.length;
+     //jpstart('../../uploadklx/klxsx/nan/1.mp3');
+     jpstart('__RESOURCE__/uploadklx/klxsx/nan/'+mp3arr[num]);
+     $("#jplayer").bind($.jPlayer.event.ended, function(event) {
+        num++;
+        if(num<total){
+            //alert(num);
+            //alert(mp3arr[num]);
+             jpstart('__RESOURCE__/uploadklx/klxsx/nan/'+mp3arr[num]);
+        }
+      });
+}
+
+//开始播放
+function jpstart(mp3){
+    $("#jplayer").jPlayer("setMedia", {
+    mp3: mp3
+    }).jPlayer("play");
+
+}
+
+
+
+
+
+
+$(function () {
+    $("a.bacc").click(function () {
+        $("#bg").css({
+            display: "block", height: $(document).height()
+        });
+        var $box = $('.zit_box');
+        $box.css({
+            //设置弹出层距离左边的位置
+            left: ($("body").width() - $box.width()) / 2 + "px",
+            //设置弹出层距离上面的位置
+            top: ($(window).height() - $box.height()) / 2 + $(window).scrollTop() + "px",
+            display: "block"
+        });
+    });
+    //点击关闭按钮的时候，遮罩层关闭
+    $(".zit_cancel").click(function () {
+        $("#bg,.zit_box").css("display", "none");
+    });
+    $(".zit_close").click(function () {
+        $("#bg,.zit_box").css("display", "none");
+        history.go(-1);
+    });
+});
+</script>
+</body>
+
+</html>

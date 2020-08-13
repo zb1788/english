@@ -1,0 +1,68 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<meta name="wap-font-scale" content="no">
+		<title>原声绘本</title>
+        <link rel="stylesheet" href="__SUBJECT__/book/css/huiben.css" />
+        <link rel="stylesheet" href="__SUBJECT__/book/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/book/css/iscroll.css" />
+        <script type="text/javascript" src="__SUBJECT__/book/js/iscroll-lite.js" ></script>
+        <script type="text/javascript" src="__SUBJECT__/book/js/demoUtils.js" ></script>
+		<style>
+			.tupBox {position: fixed;    background: #ebf7f6; top: 45px; bottom: 70px; width: 100%; line-height: 100%;}
+			#dimg100 { margin:auto; vertical-align: middle;}
+			.hbr-bottom {position: fixed; bottom: 0; left: 0; right: 0; height: 70px;}
+			.hbr-bottom a.laabtn {display:block; text-align: center; border-radius: 8px; background: #00AFB8; color: #fff; font-size:1em; line-height: 2.6em; width: 90%; margin: 0 auto; padding: 0 10px;}
+		</style>
+	</head>
+	<body>
+		<main>
+			<header class="head border-nav">
+				<a class="head-left"><i class="icon-back"></i>返回</a>
+				<h1 class="title">原声绘本</h1>
+			</header>
+			<section>
+				<div class="tupBox">
+					<img src="{$pic}" class="img100" id="dimg100"/>
+				</div><!--end scroller-->
+				<div class="hbr-bottom"><a class="laabtn">开始阅读</a></div>
+			</section>
+		</main>
+	</body>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js" ></script>
+	<script type="text/javascript" src="__PUBLIC__/js/enajax.js" ></script>
+	<script type="text/javascript">
+		$(function(){
+			$(".head-left").click(function(){
+				//进行ajax请求
+				window.location.href='cataglory?first={$first}&second={$second}&third={$third}&viewtype=0'+'&backUrl='+encodeURIComponent(Requests["backUrl"]);
+			})
+
+			$(".laabtn").click(function(){
+				$.getJSON("setUserBook",{id:Requests["id"],ran:Math.random()},function(data){
+					window.location.href='book?id={$id}&first={$first}&second={$second}&third={$third}&batchid='+data.id+'&backUrl='+encodeURIComponent(Requests["backUrl"]);
+				})
+			})
+
+
+			$.windowbox = { 
+				aa: function(){ 
+				winB = $(window).width()/($(window).height()-120);
+				tupB = $('#dimg100').width()/$('#dimg100').height();
+				if ($(window).width()>640){
+				winB>tupB&&$('#dimg100').height($(window).height()/1.14-120).width('auto').css('margin-top','0px');
+				winB<=tupB&&$('#dimg100').width($(window).width()).height('auto').css('margin-top',($('.tupBox').height()-$('#dimg100').height())/2);
+				}else{
+				winB>tupB&&$('#dimg100').height($(window).height()-120).width('auto').css('margin-top','0px');;
+				winB<=tupB&&$('#dimg100').width($(window).width()).height('auto').css('margin-top',($('.tupBox').height()-$('#dimg100').height())/2);
+				}
+				}
+				}
+				$.windowbox.aa();
+			$(window).resize(function () {     
+					$.windowbox.aa();
+				})
+		})
+	</script>
+</html>

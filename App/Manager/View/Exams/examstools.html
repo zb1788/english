@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>添加试卷</title>
+<link href="__PUBLIC__/exam/images/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/exam/images/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/exam/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/template.js"></script>
+
+
+</head>
+<body id="dbody">
+    <div id="jplayer"></div>
+    <div class="container">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border" style="margin-top:10px;">
+            <tr>
+                <td class="box_top pl_10 f14" align="center"><strong>标题:</strong><input name="text" id="title" type="text" class="input-text lh400" style="width:400px;" ploceholder="输入标题" value="{$title}" examsid="{$id}"></td> 
+            </tr>
+        </table>
+        <div id="content" style="margin-top:20px;">
+            
+        </div>
+    </div>
+    <script id="template" type="text/html">
+         {{each list as value i}}
+            <div>  
+                <p class="tt" style="margin-left:20px;">
+                    <textarea  class="tncontent" name="textarea" cols="70" rows="2">{{value.tncontent}}</textarea>
+                    <select name="voiceid" class="voiceid" autocomplete="off">
+                        <option value="1" {{if value.voiceid=='1'}}selected="selected"{{/if}}>中男Liang</option>
+                        <option value="2" {{if value.voiceid=='2'}}selected="selected"{{/if}}>中女Hui</option>
+                        <option value="3" {{if value.voiceid=='3'}}selected="selected"{{/if}}>美女Kate</option>
+                        <option value="4" {{if value.voiceid=='4'}}selected="selected"{{/if}}>美女Salli</option>
+                        <option value="5" {{if value.voiceid=='5'}}selected="selected"{{/if}}>美男Joey</option>
+                        <option value="6" {{if value.voiceid=='6'}}selected="selected"{{/if}}>英女Bridget</option>
+                        <option value="7" {{if value.voiceid=='7'}}selected="selected"{{/if}}>英男Brian</option>
+                    </select>
+                    <select class="ttsstoptime" autocomplete="off">
+                        <option value="0" {{if value.ttsstoptime=='0'}}selected="selected"{{/if}}>0秒</option>
+                        <option  value="1" {{if value.ttsstoptime=='1'}}selected="selected"{{/if}}>1秒</option>
+                        <option  value="2" {{if value.ttsstoptime=='2'}}selected="selected"{{/if}}>2秒</option>
+                        <option  value="3" {{if value.ttsstoptime=='3'}}selected="selected"{{/if}}>3秒</option>
+                        <option  value="4" {{if value.ttsstoptime=='4'}}selected="selected"{{/if}}>4秒</option>
+                        <option  value="5" {{if value.ttsstoptime=='5'}}selected="selected"{{/if}}>5秒</option>
+                        <option  value="6" {{if value.ttsstoptime=='6'}}selected="selected"{{/if}}>6秒</option>
+                        <option  value="7" {{if value.ttsstoptime=='7'}}selected="selected"{{/if}}>7秒</option>
+                        <option  value="8" {{if value.ttsstoptime=='8'}}selected="selected"{{/if}}>8秒</option>
+                        <option  value="9" {{if value.ttsstoptime=='9'}}selected="selected"{{/if}}>9秒</option>
+                        <option  value="10" {{if value.ttsstoptime=='10'}}selected="selected"{{/if}}>10秒</option>
+                        <option  value="10" {{if value.ttsstoptime=='15'}}selected="selected"{{/if}}>15秒</option>
+                        <option  value="10" {{if value.ttsstoptime=='20'}}selected="selected"{{/if}}>20秒</option>
+                        <option  value="10" {{if value.ttsstoptime=='30'}}selected="selected"{{/if}}>30秒</option>
+                        <option  value="10" {{if value.ttsstoptime=='60'}}selected="selected"{{/if}}>60秒</option>
+                    </select>
+                    <select class="repeat" autocomplete="off">
+                        <option  value="1" {{if value.repeat=='1'}}selected="selected"{{/if}}>1遍</option>
+                        <option  value="2" {{if value.repeat=='2'}}selected="selected"{{/if}}>2遍</option>
+                        <option  value="3" {{if value.repeat=='3'}}selected="selected"{{/if}}>3遍</option>
+                        <option  value="4" {{if value.repeat=='4'}}selected="selected"{{/if}}>4遍</option>
+                    </select>
+                    <img src="__PUBLIC__/exam/images/icon_add.png" onclick="voice_add(this);"/>
+                    <img src="__PUBLIC__/exam/images/icon_delete.png" onclick="voice_del(this);" />
+                    <img src="__PUBLIC__/exam/images/icon_play.png" class="ting" onclick="splay(this);"/>
+                </p>
+            </div>
+         {{/each}}
+    </script>
+    <script type="text/javascript">
+        $.ajaxSetup({async:false});
+        
+
+        var id="{$id}";
+        //使用模板进行渲染
+        $(function(){
+            getTTS(id);
+        });
+
+
+        //音频的添加和删除
+        function voice_add(obj){
+            $(obj).parents(".tt").parent().addClass("cur");
+            var data={"list":[{"tncontent":"","voiceid":3,"ttsstoptime":3}]};
+            var html = template('template', data);
+            $(html).insertAfter($(obj).parents(".tt").parent());
+            $("div.cur").removeClass("cur");
+        }
+        function voice_del(obj){
+            //查询是否就剩一个
+            var len=$("p.tt").length;
+            if(len>1){
+                $(obj).parent().remove();
+            }
+        }
+        function getTTS(){
+            var id=$("#title").attr("examsid");
+            $("#content").empty();
+            $.get("getexamstoolslist",{id:id,ran:Math.random},function(data){
+                var html = template('template', data);
+                document.getElementById('content').innerHTML = html;
+            })
+        }
+
+        function saveTTS(){
+            //进行音频的保存
+            var title=$("#title").val();
+            var id=$("#title").attr("examsid");
+            var data=[];
+            $("p.tt").each(function(k,v){
+                var temp={};
+                var tncontent=$(this).find(".tncontent").val();
+                var voiceid=$(this).find(".voiceid").val();
+                var ttsstoptime=$(this).find(".ttsstoptime").val();
+                var repeat=$(this).find(".repeat").val();
+                temp.tncontent=tncontent;
+                temp.voiceid=voiceid;
+                temp.ttsstoptime=ttsstoptime;
+                temp.repeat=repeat;
+                data.push(temp);
+            });
+            var ret=0;
+            $("#content").html("");
+            $("#content").html("数据正在保存中.......");
+            $.post("examstoolsedit",{id:id,title:title,data:JSON.stringify(data),ran:Math.random()},function(data){
+                $("#title").attr("examsid",data.examsid);
+                getTTS(id);
+                ret=1;
+            });
+            return ret;
+        }
+
+        //试听
+        function splay(obj){
+          var mp3="";
+          //系统生成
+          var audiocontent=$(obj).parent().find("textarea").val();
+          if(audiocontent==""){alert("请输入音频内容!");return;}
+          var voiceid=$(obj).parent().find("select").val();
+          mp3=play(audiocontent,voiceid);
+          if(mp3==""){alert("音频生成忙碌请稍后再试!");return;}
+          AudioPerform("http://192.168.151.206/voicetemp/"+mp3);  
+        }
+
+        //听力试听
+        function play(content,voiceid) {
+            var result="";
+            $.post("../Exams/ting",{ran:Math.random(),content:content,voiceid:voiceid},function(data){
+              result=data.msg;
+           });
+            return result;
+
+        }
+        function AudioPerform(audiopath) {
+            var ua = navigator.userAgent.toLowerCase();
+            if (ua.match(/msie ([\d.]+)/)) {
+                jQuery('#jplayer').html('<object classid="clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95"><param name="AutoStart" value="1" /><param name="Src" value="' + audiopath + '" /></object>');
+            }
+            else if (ua.match(/firefox\/([\d.]+)/)) {
+                //            jQuery('#alert_sound').html('<embed src="' + audiopath + '" type="audio/wav" hidden="true" loop="false" mastersound></embed>');
+                jQuery('#jplayer').html('<audio autoplay="autoplay"><source src="' + audiopath + '" type="audio/wav"/><source src="$!{TempletPath}images/ring.wav" type="audio/mpeg"/></audio>');
+            }
+            else if (ua.match(/chrome\/([\d.]+)/)) {
+                jQuery('#jplayer').html('<audio src="' + audiopath + '" type="audio/wav" autoplay=”autoplay” hidden="true"></audio>');
+            }
+            else if (ua.match(/opera.([\d.]+)/)) {
+                jQuery('#jplayer').html('<embed src="' + audiopath + '" hidden="true" loop="false"><noembed><bgsounds src=' + audiopath + '></noembed>');
+            }
+            else if (ua.match(/version\/([\d.]+).*safari/)) {
+                jQuery('#jplayer').html('<audio src="' + audiopath + '" type="audio/wav" autoplay=”autoplay” hidden="true"></audio>');
+            }
+            else {
+                jQuery('#jplayer').html('<embed src="' + audiopath + '" type="audio/wav" hidden="true" loop="false" mastersound></embed>');
+            }
+        }
+    </script>
+</body>
+</html>

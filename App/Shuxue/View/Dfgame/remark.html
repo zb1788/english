@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="wap-font-scale" content="no">
+  <title></title>
+  <link rel="stylesheet" href="__PUBLIC__/game/css/ksk.css" />
+  <link rel="stylesheet" href="__PUBLIC__/game/css/ksknew.css" />
+  <link rel="stylesheet" href="__PUBLIC__/game/font/fonts.css" />
+  <link rel="stylesheet" href="__PUBLIC__/game/css/iscroll.css" />
+  <style>
+    #wrapper {
+      top: 50px;
+      bottom: 100px;
+      left: 5px;
+      right: 5px;
+      width: auto;
+    }
+
+    #die {
+      bottom: 100px;
+      left: 5px;
+      right: 5px;
+    }
+  </style>
+</head>
+
+<body class="bbBlue">
+  <header>
+    <div class="pad10-0">
+      <a class="guan">
+        <i class="icon-cuo02"></i>
+      </a>
+    </div>
+  </header>
+  <section>
+    <div id="wrapper">
+      <div id="scroller">
+        <div class="cgnr">
+
+        </div>
+      </div>
+      <!--end scrolloer-->
+    </div>
+    <!--end wrapper-->
+    <div id="die"></div>
+    <div class="bottom center padB20">
+      <a class="btnS" href="javascript:goPlay();">开始闯关</a>
+    </div>
+    <div class="dcTizi"></div>
+  </section>
+  <script type="text/javascript" src="__PUBLIC__/game/jquery.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/game/iscroll-lite.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/game/common.js"></script>
+  <script type="text/javascript">
+    var myScroll;
+    myScroll = new IScroll('#wrapper', {
+      mouseWheel: true,
+      click: true
+    });
+  </script>
+
+  <script>
+    var stageid = GetQueryString('stageid');
+    var userstageid = GetQueryString('userstageid');
+    var type = GetQueryString('type');
+    var urlCallBack = GetQueryString('urlCallBack');
+    if (urlCallBack == null) {
+
+    }
+
+    $(function () {
+      getRemark();
+
+    });
+
+    function getRemark() {
+      $.ajax({
+        type: 'get',
+        url: '../Game/getRemark',
+        data: {
+          ran: Math.random(),
+          stageid: stageid
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.remark == '') {
+            window.location.href = 'playnew?stageid=' + stageid + '&userstageid=' + userstageid + '&type=' + type;
+          } else {
+            $('.cgnr').html(data.remark);
+          }
+        },
+        error: function (e) {
+
+        }
+      })
+    }
+
+    //点击开始闯关
+    function goPlay() {
+      window.location.href = 'playnew?stageid=' + stageid + '&userstageid=' + userstageid + '&type=' + type;
+    }
+  </script>
+</body>
+
+</html>

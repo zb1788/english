@@ -1,0 +1,39 @@
+<HTML> 
+
+<HEAD> 
+<TITLE>答题器接收器</TITLE>
+<script language="JavaScript" for="VcomAQTool" event="OnReady()">
+	document.getElementById("span_info").innerHTML = VcomAQTool.GetDeviceInfo();
+	Start();
+</script>
+<script language="JavaScript" for="VcomAQTool" event="OnGetKey(id,key)">
+//alert(key);
+	document.getElementById("span1").innerHTML = id +":" +String.fromCharCode(key)+"["+key+"]<br>"+document.getElementById("span1").innerHTML;
+</script>
+<script language="JavaScript" for="VcomAQTool" event="OnGetKeys(id,keys)">
+
+	document.getElementById("span2").innerHTML = id +":" + keys+"<br>"+document.getElementById("span2").innerHTML;
+</script>
+<script language="javascript"> 
+function Stop() 
+{ 
+	VcomAQTool.Stop();
+}
+function Start() 
+{ 
+	VcomAQTool.Start();
+} 
+</script>
+</HEAD> 
+
+<BODY> 
+<OBJECT id="VcomAQTool" align="CENTER" WIDTH=0 HEIGHT=0 classid="clsid:3c782736-05fa-43a4-af03-b7aa96876d99"></OBJECT><br>
+<input type="button" value="开始" id="btnStart" onclick="Start();"></input>
+<input type="button" value="停止" id="btnStop" onclick="Stop();"></input>
+<br><br><span id="span_info"> </span><br>
+<br>
+<br><br>
+每次：<span id="span1"> </span><br>
+复合：<span id="span2"> </span><br>
+</BODY> 
+</HTML>

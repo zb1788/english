@@ -1,0 +1,14 @@
+li {
+    list-style-type:none;
+    padding:10px 5px 0 5px;
+    /*position:relative*/
+}
+
+li span {
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    display:inline-block;
+    padding:3px 8px;
+    text-decoration:none
+}

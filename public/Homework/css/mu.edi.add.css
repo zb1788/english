@@ -1,0 +1,57 @@
+.mui-btn,
+button,
+input[type=button],
+input[type=reset],
+input[type=submit] {
+	padding: 6px 6px!important;
+	}
+.mui-btn-blue,
+.mui-btn-primary,
+input[type=submit] {
+	border: 1px solid #3cb0e0!important;
+	background-color: #3cb0e0!important;}
+.mui-btn-block {
+	font-size: 0.8em!important;/*?????*/
+	width: 25%!important;
+	padding: 5px 0px!important;}
+.mui-btn .mui-badge {
+	margin: -2px 4px -2px -4px!important;
+}
+.mui-bar {
+	background-color: #3cb0e0!important;
+}
+.mui-bar .mui-title{color: #fff;
+	font: normal 19px/45px Microsoft YaHei;}
+.mui-bar .mui-icon {
+	font-size:100%!important;
+	line-height: 33px;}
+.mui-table-view-inverted .mui-table-view-cell:after {
+	left: 0px!important;}
+.mui-table-view-cell:after {
+		left: 0px!important;
+}
+.mui-radio input[type=radio]:checked:before {
+	color: #159edc!important;}
+/*wszyadd*/
+
+@media only screen and (min-width: 100px) and (max-width: 320px) {
+	h2.tishi {
+		background: #efefef;
+		height: 35px;
+		font: normal 12px/35px Microsoft YaHei;
+		color: #999;
+		text-align: center;
+		margin: 0;
+	}
+}
+
+@media only screen and (min-width: 321px) and (max-width: 1000px) {
+	h2.tishi {
+		background: #efefef;
+		height: 35px;
+		font: normal 14px/35px Microsoft YaHei;
+		color: #999;
+		text-align: center;
+		margin: 0;
+	}
+}

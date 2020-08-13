@@ -1,0 +1,126 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/*使用流程*/
+.liucheng {background:#e8e8e8; min-height:340px; padding:15px 0;}
+.liucheng h1 {background:url(../images/login/bt.png) repeat-x; height:40px; line-height:40px; text-align:center; margin-top:15px; }
+.liucheng h1 font {font-size:27px; background:#e8e8e8; color:#333; display:inline-block; padding:0 20px;}
+.liucheng dl {width:270px; display:block; float:left; margin:15px;}
+.liucheng .w980 dl {width:215px;}
+.liucheng dt {width:100px; height:100px; margin:0 auto; display:block;}
+.liucheng .w980 dt {width:80px; height:80px;}
+.liucheng dt a {display:block; width:100px; height:100px; display:block; margin:0 auto; background-image:url(../images/mingshi/ms_lc.png); background-repeat:no-repeat; }
+.liucheng dt a:hover{
+	-webkit-transition: all .3s linear 0s;
+    -moz-transition: all .3s linear 0s;
+    -ms-transition: all .3s linear 0s;
+    outline: none;
+    star: expression(this.onFocus=this.blur());
+	}
+
+.liucheng .w980 dt a {width:80px; height:80px; background-image:url(../images/mingshi/ms_cl_980.png); }
+.liucheng dt a.ico1_lc {background-position:0 0;}
+.liucheng dt a.ico2_lc {background-position:0 -100px;}
+.liucheng dt a.ico3_lc {background-position:0 -200px;}
+.liucheng dt a.ico4_lc {background-position:0 -300px;}
+.liucheng dt a.ico1_lc:hover {background-position:-100px 0;}
+.liucheng dt a.ico2_lc:hover {background-position:-100px -100px;}
+.liucheng dt a.ico3_lc:hover {background-position:-100px -200px;}
+.liucheng dt a.ico4_lc:hover {background-position:-100px -300px;}
+
+.liucheng .w980  dt a.ico1_lc {background-position:0 0;}
+.liucheng .w980  dt a.ico2_lc {background-position:0 -80px;}
+.liucheng .w980  dt a.ico3_lc {background-position:0 -160px;}
+.liucheng .w980  dt a.ico4_lc {background-position:0 -240px;}
+.liucheng .w980  dt a.ico1_lc:hover {background-position:-80px 0;}
+.liucheng .w980  dt a.ico2_lc:hover {background-position:-80px -80px;}
+.liucheng .w980  dt a.ico3_lc:hover {background-position:-80px -160px;}
+.liucheng .w980  dt a.ico4_lc:hover {background-position:-80px -240px;}
+
+.liucheng dd.bt3 {font-size:21px; color:#333; display:block; text-align:center; line-height:50px;}
+.liucheng .w980 dd.bt3 {font-size:20px;}
+.liucheng dd.intro {font-size:15px; color:#777; line-height:25px;}
+.liucheng .w980 dd.intro {font-size:14px;}
+
+.ys img{ width:100%; height:auto;}
+.m1{ width:915px; float:left;}
+.m2{ width:265px; float:right;}
+.w980 .m1{ width:705px; float:left;}
+.w980 .m2{ width:265px; float:right;}
+.mstj h1{ border-bottom:1px solid #E7E7E7; line-height:40px; font-size:18px; font-weight: 600;} 
+.mstj h1 span a{ font-size:12px; color:#999;}
+.m2 h1{ font-size:16px; line-height:40px;}
+.m2 .zb h1 a{ padding:2px 10px 2px 30px; background:#EB7604 url(../images/mingshi/rz.png) 6px center no-repeat; font-size:16px;}
+.m2 .zb h1 a:hover{ background:#ff6600 url(../images/mingshi/rz.png) 6px center no-repeat;}
+
+.m-coursebox { margin: 10px 0 0 0; background: #f8f8f8; border: 1px solid #ddd; height: 38px; }
+.m-coursebox  ul li a{width: 88px; float:left;  border-right: 1px solid #ddd;   height: 38px;  line-height: 38px;  text-align: center;  font-size: 14px;  border-left: none;  margin: 0;}
+.m-coursebox  ul li a.cur{  background: #fff;  color:#28bf9a; font-weight:bold;  border-right: 1px solid #ddd;}
+.m-coursebox  ul li.cur a,	.m-coursebox  ul li:hover a{ color:#28bf9a;}
+.m-coursebox span{ margin:10px 10px; font-size:12px;}
+.w980 .m-coursebox  ul li a{width: 75px;}
+
+.ms_teacher{}
+.ms_teacher dl{ float:left; width:32%; margin:1% 1% 1% 0; }
+.ms_teacher dl:hover{ background:#f8f8f8; cursor:pointer; }
+.ms_teacher dt{ float:left; width:107px; height:113px;}
+.ms_teacher dt img{ width:107px; height:113px;}
+.w980 .ms_teacher dt { width:80px; height:auto;}
+.w980 .ms_teacher dt img{ width:80px; height:auto;}
+.ms_teacher dd{ float:right; margin-left:10px; width:56%; line-height:22px;}
+.w980 .ms_teacher dd{ float:right; margin-left:10px; width:60%;}
+.ms_teacher dd.tit a,.ms_teacher dd.tit { font-size:16px; line-height:30px; margin-bottom:10px; color:#000;}
+.w980 .ms_teacher dd.tit a,.ms_teacher dd.tit { font-size:14px; margin-bottom:10px; line-height:22px; }
+.ms_teacher dd{ font-size:12px; }
+.ms_teacher dd span{ color:#999; display:inline-block; width:60px;}
+.w980 .ms_teacher dl{ margin:15px 0%; }
+
+.huikuang{ border:1px solid #ddd;}
+.h500{ height:420px; padding:10px 5px; }
+.h290{ height:220px; padding:10px 5px;}
+.w980 .h500{ height:400px; padding:10px 5px; }
+.dongtai dl{ padding:10px 5px; clear:both; height:65px; border-bottom:1px dashed #ddd;}
+.w980 .dongtai dl{ height:60px;  }
+.dongtai dl.last{ border-bottom:none;}
+.dongtai dl dt{ float:left;}
+.dongtai dl dt img{ border-radius:50px; }
+.dongtai dl dt img:hover{ background: #000; opacity: .7; }
+.dongtai dl dd{ float:left; text-align:left; color:#999; padding-left:10px; font-size:12px; width:160px;}
+
+.dongtai dl dd.tit a{ font-size:14px;  }
+.dongtai dl dd.tit{ margin-bottom: 15px; }
+.w980 .dongtai dl dd{ width:120px;}
+.dongtai dl dd em{ font-style: normal; margin-right: 3px; }
+   
+.live-list {}
+.live-list .list-wrapper {  padding:0 15px; height: 220px; overflow: auto; overflow-y: hidden }
+.live-list .list-wrapper.hover { overflow-y: auto }
+.live-list .list-wrapper .week-title { position: relative; line-height: 18px; left: -20px }
+.live-list .list-wrapper .week-title .icon { display: inline-block; width: 9px; height: 9px; border: solid 2px transparent; -webkit-border-radius: 9px; -moz-border-radius: 9px; border-radius: 9px; background-color: #fff }
+.live-list .list-wrapper .week-title .title { font-size: 14px; display: inline-block; padding-right: 5px; -webkit-border-radius: 0 3px 3px 0; -moz-border-radius: 0 3px 3px 0; border-radius: 0 3px 3px 0; margin-left: 5px }
+.live-list .list-wrapper .week-title.hide { display: none }
+.live-list .list-wrapper .week-list { margin-top: 7px }
+.live-list .list-wrapper .now-week .icon { border-color: #f95710 }
+.live-list .list-wrapper .now-week .title { color: #f95710 }
+.live-list .list-wrapper .now-week .triangle { border-right: 8px solid #f95710 }
+
+.live-list .list-wrapper .next-week { margin-top: 11px }
+.live-list .list-wrapper .next-week .icon { border-color: #28bf9a }
+.live-list .list-wrapper .next-week .title { color: #28bf9a }
+.live-list .list-liner { border-left: solid 1px #ddd; padding-left: 15px; min-height: 180px }
+.live-list .week-list .week-item { margin: 5px 0; font-size: 12px; color: #333; -webkit-transition: all .3s; -o-transition: all .3s; -moz-transition: all .3s; transition: all .3s; cursor: pointer; overflow: hidden; position: relative }
+.live-list .week-list .week-item .link-wrapper { display: block }
+.live-list .week-list .week-item .course-img { display: none; float: left }
+.live-list .week-list .week-item .course-name { display: block; padding: 1px 0; overflow: hidden }
+.live-list .week-list .week-item .course-time { display: inline-block; margin-right: 10px }
+.live-list .week-list .week-item .time1 { color: #999; opacity: 1; filter: alpha(opacity=100) }
+.live-list .week-list .week-item .time { display: none }
+.live-list .week-list .week-item .hotpic { margin-left: 10px }
+.live-list .week-list .week-item.active .course-img { display: block }
+.live-list .week-list .week-item.active .course-time { width: 87px; height: 22px; position: absolute; left: 0; bottom: 0; background-color: #222; color: #fff; padding: 0 5px; opacity: .6; filter: alpha(opacity=60) }
+.live-list .week-list .week-item.active .time { display: block; width: 87px; text-align: center; position: absolute; left: 0; bottom: 0; color: #fff; z-index: 1 }
+.live-list .week-list .week-item.active .time1 { display: none }
+.live-list .week-list .week-item.active .course-name { color: #6d6d6d; height: 54px; line-height: 22px; padding: 5px 10px; background: #f7f7f7 }
+
+.js_adv{ background:url(../../img/mingshi/jiaoshi.jpg) center no-repeat; height:240px; margin-top:20px;}

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta charset="UTF-8">
+	<meta name="wap-font-scale" content="no">
+	<title>快乐学语文</title>
+	<link rel="stylesheet" href="__PUBLIC__/css/ywcurr.css" />
+	<link rel="stylesheet" href="__PUBLIC__/font/fonts.css" />
+	<link rel="stylesheet" href="__PUBLIC__/css/muitan.css" />
+	<script type="text/javascript" src="__PUBLIC__/js/zepto.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/mui.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/demoUtils.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/TouchSlide.1.1.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/ywcommon.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/text.js"></script>
+
+	<style>
+		.tts {
+			z-index: 999;
+			color: #999;
+			display: none;
+			top: 30%;
+			height: 100px;
+			position: fixed;
+			text-align: center;
+			font-size: 14px;
+			width: 100%;
+		}
+
+		#masG02 {
+			width: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			background: #fff;
+			opacity: .1;
+			z-index: 12;
+			display: none;
+		}
+	</style>
+
+
+</head>
+
+<body class="backGfff">
+	<main>
+		<header class="head border-nav">
+			<a class="head-left" href="javascript:backToIndex();">
+				<i class="icon-back"></i>返回</a>
+			<h1 class="title"></h1>
+		</header>
+		<section>
+
+			<div id="leftTabBox" class="tabBox">
+				<div class="hd qie_b">
+
+					<ul id="istab" style="display:none;">
+						<li class="on" hidefocus="true">汉语拼音</li>
+						<li hidefocus="true">儿歌</li>
+					</ul>
+				</div>
+				<div class="bd mT85">
+					<ul>
+						<div class="overYY">
+							<div class="pinY">
+								<div class="tabB">
+									<img id="bishun" src="__RESOURCE__/uploadsyw/pinyinpic/bishun/b.png"
+										class="img100 dz" />
+								</div>
+								<div class="tabQ plr10">
+									<!-- a o e -->
+								</div>
+							</div>
+
+							<h2 class="textH3 plr10">跟我写</h2>
+							<img id="write" src="__RESOURCE__/uploadsyw/pinyinpic/write/b.png" class="img100" />
+							<h2 class="textH3 plr10">跟我读</h2>
+							<div id="read"></div>
+						</div>
+					</ul>
+
+					<ul id="content" style="display:none;">
+						<div class="overYz">
+							<div class="ywBook kw pad10">
+								<!--kw 是课文  ss是诗词-->
+								<!-- 课文内容 -->
+								<div id="contentInfo"></div>
+							</div>
+						</div>
+						<!--
+<div class="bottom zz01">
+    <div id="bt01">
+    <span class="fen3"><a id="luyin" onclick="showTab();" class="btnY02 radius100"><i class="icon-ico-yuyin actY"></i></a></span>
+        <span class="fen3"><a class="btnY02 radius100"><i class="icon-playk actY" isfirst="1" name="playbutton" onclick="playKewen(this);"></i></a></span>
+<span class="fen3"><a class="btnY02 radius100"><i backurl="py" onclick="goMyrecord(this);" class="icon-uniE609 actY"></i></a></span>
+</div>
+
+
+<div id="bt02" style="display: none;" class="pad10">
+    <h2 class="textH3 bTextCenter">准备录音</h2>
+    <p class="yingFont bTextCenter load"><i class="icon-ico-dian"></i><i class="icon-ico-dian"></i><i class="icon-ico-dian"></i></p>
+</div>
+<div id="bt03" style="display: none">
+<h4 class="luing"><div class="CCyin"><div style="animation-play-state: running;"></div><div style="animation-play-state: running;"></div><div style="animation-play-state: running;"></div><div style="animation-play-state: running;"></div></div><font id="ttt"></font><span bnum="0" id="timestr" class="plr10">00:00</span><div class="CCyin"><div style="animation-play-state: running;"></div><div style="animation-play-state: running;"></div><div style="animation-play-state: running;"></div><div style="animation-play-state: running;"></div></div></h4>
+    <div class="clear mB20">
+        <span class="fen3"><a onclick="fangqi()" class="btnx yingFont"><i class="icon-error03 actY"></i></a></span>
+        <span class="fen3"><a class="btnYuan radius100 " onclick="zanting()"><i id="zanting" class="icon-ico-yuyin actY"></i></a></span>
+<span class="fen3"><a class="btnx yingFont" onclick="chengg()"><i class="icon-correct03 actY"></i></a></span>
+</div>
+</div>
+</div>
+-->
+
+
+					</ul>
+
+				</div>
+			</div>
+
+		</section>
+		<div id="mask" onclick="maskClick(this);"></div>
+		<div class="tts">
+			<p>背不出？
+				<br />点击暂停按钮可看全文哦</p>
+		</div>
+		<div id="masGfff"></div>
+		<div class="tanDb" style="display: none">
+			<a href="#" onclick="bei(1)">
+				<span class="btnYuan fonts bYellow radius100">背</span>
+				<b>我要背诵</b>
+			</a>
+			<a href="#" onclick="bei(2)">
+				<span class="btnYuan fonts radius100">读</span>
+				<b>我要朗读</b>
+			</a>
+		</div>
+		<div class="dialog2">
+			<h2>确定要放弃录音吗</h2>
+			<div class="btn_d">
+				<a onclick="fangqiVoice();" id="fangqi">确定</a>
+				<a onclick="continuVoice();" id="fanhui">取消</a>
+			</div>
+		</div>
+		<div class="bottomTan">
+			<div class="backGef clear">
+				<a id="qd" onclick="closeClick();" class="fr btnB01 yingFont">关闭</a>
+			</div>
+			<div class="pad10">
+				<h3 class="textH3 greenFont bTextCenter">恭喜，录制成功</h3>
+				<h3 class="textH3 greenFont bTextCenter">您可以试听后上传录音</h3>
+				<p>
+					<a class="wcBtn radius100">
+						<i class="icon-playk" name="playbutton" id="shiting" isfirst="1"
+							onclick="listenVoice(this);"></i>
+					</a>
+					<a href="#" class="btn bDefault" id="uploadAudio" onclick="uploadVoice();">上传录音</a>
+				</p>
+			</div>
+		</div>
+	</main>
+	<!-- 字的详细信息弹出页 -->
+	<div id="popover_zi" class="mui-popover">
+		<ul class="mui-table-view">
+			<div class="ywJie radius8 pad10">
+				<span class="w80">
+					<label id="zi">浙</label>
+				</span>
+				<span class="wz">
+					<p onclick="playzi(this);">拼音：【
+						<font id="py">zhe</font>】
+						<a id="fy">
+							<i class="icon-uniE60C"></i>
+						</a>
+					</p>
+					<p>部首：
+						<font id="bushou">彡</font>
+					</p>
+					<p>词语：
+						<font id="wordlist">词语</font>
+					</p>
+				</span>
+			</div>
+		</ul>
+	</div>
+	<!-- 选择弹出层 -->
+	<div id="popover_select" class="mui-popover">
+		<ul class="mui-table-view">
+			<div class="ywJie radius8 pad10">
+				<h2>请选择</h2>
+				<dl class="xz">
+					<dd class="beforeBorder">
+						<a>
+							<span class="fl">1.
+								<font>耕田</font>
+							</span>
+							<!-- <span class="fr">注释</span> -->
+						</a>
+					</dd>
+					<dd class="beforeBorder">
+						<a>
+							<span class="fl">2.
+								<font>耕田</font>
+							</span>
+							<!-- <span class="fr">注释</span> -->
+						</a>
+					</dd>
+
+				</dl>
+			</div>
+		</ul>
+	</div>
+	<!-- 词语解释弹出层 -->
+	<div id="popover_word" class="mui-popover">
+		<ul class="mui-table-view">
+			<div class="ywJie radius8 pad10">
+				<h2>请选择</h2>
+				<p class="xnr beforeBorder">小时候，我常伏在窗口痴想山小时候，我常伏在窗口痴想山小时候，我常伏在窗口痴想山</p>
+			</div>
+		</ul>
+	</div>
+	<div id="masG02"></div>
+	<div id="tips"></div>
+	<div class="redFont" style="display:none;">1</div>
+	<div class="total" style="display:none;">2</div>
+	<script>
+		var respath = '__RESOURCE__';
+		var baseNetUrl = respath;
+		var recordNetUrl = respath + '/recordwav/';
+		var kewenNetUrl = respath + '/uploadsyw/kewenvoice/';
+		var pinyinNetUrl = respath + 'uploadsyw/zipinyin/';
+		var textMp3Arr = new Array();
+		$('.tabQ a').click(function () {
+			ss = $(this).index();
+			$(this).addClass('on');
+			$(this).siblings().removeClass('on');
+			$('.dz').eq(ss).css('display', 'block');
+			$('.dz').eq(ss).siblings('img').css('display', 'none');
+		})
+		$('.overYY').height($(window).height() - 90);
+		$('.overYz').height($(window).height() - 160);
+
+
+		var ks_code = GetQueryString('ks_code');
+		var resource = "__RESOURCE__";
+		var textJson;
+		var mp3;
+		var recordRile;
+		var record = new record();
+		var recordType;
+		var t_record;
+		var index = 0;
+		var maskFlag = false;
+		var downloadJson;
+		var androidVersion;
+		var isAndroid;
+		var recordIsComplete = false;
+		var textTitle = '';
+		var barType = 3; //1：课文 2古文；3：拼音
+
+
+		var userAgent = navigator.userAgent;
+		var indexA = userAgent.indexOf("Android")
+
+		var domain = window.location.host;
+		var link = 'http://' + domain + '/Yuwen/text/py?ks_code=' + ks_code + '&index=' + index;
+		var backlink = encodeURI(encodeURI(link));
+
+		if (indexA >= 0) {
+			isAndroid = true;
+			androidVersion = parseFloat(userAgent.slice(indexA + 8));
+		} else {
+			isAndroid = false;
+		}
+		var urlCallBack = GetQueryString('urlCallBack');
+
+		if (urlCallBack == null) {
+
+			urlCallBack = GetQueryString('backUrl');
+			if (urlCallBack == null) {
+				urlCallBack = getLocalStorage('cn_backUrl');
+			} else {
+				setLocalStorage('cn_backUrl', urlCallBack);
+			}
+		} else {
+			setLocalStorage('cn_backUrl', urlCallBack);
+		}
+
+
+		getUnitInfo();
+
+
+		/**function downloadAudio() {
+			mp3 = new player(eval('(' + downloadJson + ')'), 'download');
+			mp3.downloadList();
+		}*/
+
+		function backToIndex() {
+			try {
+				UXinJSInterfaceSpeech.stopAudio();
+			} catch (err) {
+
+			}
+			window.location.href = decodeURIComponent(urlCallBack);
+		}
+
+		function play(obj) {
+			$('i[name=playbutton]').prop('class', 'icon-playk actY').attr('isfirst', 1);
+			var url = $(obj).attr('url');
+			var arr = new Array();
+			arr = url.split('|');
+			/**
+			var json = '[{"fy":[';
+			for (i = 0; i < arr.length; i++) {
+				json += '"' + arr[i].trimStr('.mp3') + '",';
+			}
+			json = json.trimStr(',');
+			json += ']}]';
+			json = eval('(' + json + ')');
+			*/
+			var json = '[{"fayin":[';
+			for (i = 0; i < arr.length; i++) {
+				if (i == (arr.length - 1)) {
+					json += '{"fy":"' + arr[i].trimStr('.mp3') + '"}';
+				} else {
+					json += '{"fy":"' + arr[i].trimStr('.mp3') + '"},';
+				}
+			}
+			json = json.trimStr(',');
+			json += ']}]';
+			json = eval('(' + json + ')');
+
+
+			playErrNum = 0;
+			mp3 = new player(json, 'word');
+			mp3.stopAudio();
+			mp3.init();
+			mp3.setLoop(1);
+			mp3.playWord();
+		}
+
+		function playzi(obj) {
+			var url = $(obj).children('a').eq(0).attr('url');
+			mp3 = new player(url + '.mp3', 'zi');
+			mp3.playNet();
+		}
+
+		function play1(obj) {
+			var url = $(obj).attr('url');
+			// alert(url);
+			UXinJSInterfaceSpeech.playAudio(baseNetUrl + '/uploadsyw/zipinyin/' + url);
+			// mp3 = new player(json,'word');
+			// mp3.stopAudio();
+			// mp3.init();
+			// mp3.setLoop(1);
+			// mp3.playWord();
+		}
+	</script>
+
+	<script type="text/javascript" src="__ROOTPATH__/public/js/unitlog.js"></script>
+	<script type="text/javascript" src="__ROOTPATH__/public/js/performance.js"></script>
+</body>
+
+</html>

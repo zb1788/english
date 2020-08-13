@@ -1,0 +1,519 @@
+<include file="Base/header" />
+<body>
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="p5">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+      <tr>
+        <td height="34" class="td_right">题型：</td>
+        <td>
+          <input name="ques" type="radio"  value='1'  <if condition="$questype eq 1">checked</if>/>选择题&nbsp;
+          <input type="radio" name="ques"  value='2'  <if condition="$questype eq 2">checked</if>/>填空题&nbsp;
+          <input type="radio" name="ques"  value='3'  <if condition="$questype eq 3">checked</if>/>判断题&nbsp;
+        </td>
+      </tr>
+	  <if condition="$type eq 1">
+	      <tr>
+	        <td class="td_right">适配年级：</td>
+	        <td>
+	            <input name="class" type="checkbox"  value='1' cid='1'/>小学&nbsp;
+	            <input name="class" type="checkbox"  value='2' cid='2'/>初中&nbsp;
+	            <input name="class" type="checkbox"  value='3' cid='3'/>高中&nbsp;        
+	        </td>
+	      </tr>
+	      <tr>
+	        <td class="td_right">&nbsp;</td>
+	        <td>
+			    <volist name="grade" id="vo">
+			    	<input type="checkbox" name="grade" value='{$vo.id}' bid='<if condition="($vo.id lt 7)">1<elseif condition="($vo.id lt 10)"/>2<else />3</if>'/>{$vo.name}&nbsp;
+				</volist>  
+	        </td>
+	      </tr>
+	      <tr>
+	        <td class="td_right">难易程度：</td>
+	        <td>
+	        	<input type="radio" name="complexity" value='1' <if condition="$complexity eq 1">checked</if>/>容易&nbsp;
+	            <input type="radio" name="complexity" value='2' <if condition="$complexity eq 2">checked</if>/>适中&nbsp;
+	            <input name="complexity" type="radio" value='3' <if condition="$complexity eq 3">checked</if>/>较难&nbsp;
+	        </td>
+	      </tr>
+	      <tr>
+	        <td class="td_right">关键词：</td>
+	        <td>
+	        	<input type="text" class="input-text lh30" size="20" id="keyword"/><font style="color:gray;size:10px;">(关键词请以逗号隔开）</font>
+	                              来源：<input type="text"  class="input-text lh30" size="20" id="source"/>
+	          </td>
+	      </tr>
+	  </if>
+      <tr>
+        <td class="td_right">听力材料：</td>
+        <td>&nbsp;&nbsp;<img class="listen_add" src="__PUBLIC__/images/jia.png" width="21" height="19" /></td>
+      </tr>
+      <tr>
+      <td></td>
+        <td>
+        <table class="listen">
+        <tr style="display:none;">
+          <td><input type="text" class="input-text lh30" size="2"></td>
+          <td><input type="text" class="input-text lh30" size="40"  value="{$tncontent}"></td>
+          <td>
+	         <select name="tvoice" class="select voiceid" bid="0">
+	         	<option value="1">中男Liang</option>
+                <option value="2">中女Hui</option>
+	            <option value="3" selected="selected">美女Kate</option>
+	            <option value="4">美女Salli</option>
+				<option value="5">美男Joey</option>
+	            <option value="6">英女Bridget</option>
+				<option value="7">英男Brian</option>
+	        </select>
+          </td>
+		  <td width="50" align="right">
+          <img class="listen_del" src="__PUBLIC__/images/jian.png" width="21" height="19" />
+          </td>
+          </tr>
+		  <if condition="$type neq 1">
+		  	<volist name="listen" id="vo">
+		  		<tr>
+		          <td>
+		          	<input type="text" class="input-text lh30" size="2" value="{$vo.sortid}">
+				  </td>
+		          <td>
+		          	<input type="text" class="input-text lh30" size="40"  value="{$vo.vcontent}">
+				  </td>
+		          <td>
+			         <select name="tvoice" class="select voiceid" bid="{$vo.id}">
+			         	<option value="3" <if condition="$vo.vvoiceid eq 1">selected="selected"</if>>中男Liang</option>
+			            <option value="4" <if condition="$vo.vvoiceid eq 2">selected="selected"</if>>中女Hui</option>
+			            <option value="3" <if condition="$vo.vvoiceid eq 3">selected="selected"</if>>美女Kate</option>
+			            <option value="4" <if condition="$vo.vvoiceid eq 4">selected="selected"</if>>美女Salli</option>
+						<option value="5" <if condition="$vo.vvoiceid eq 5">selected="selected"</if>>美男Joey</option>
+			            <option value="6" <if condition="$vo.vvoiceid eq 6">selected="selected"</if>>英女Bridget</option>
+						<option value="7" <if condition="$vo.vvoiceid eq 7">selected="selected"</if>>英男Brian</option>
+			        </select>
+		          </td>
+		          <td width="50" align="right">
+		          <img class="listen_del" src="__PUBLIC__/images/jian.png" width="21" height="19" />
+		          </td>
+               </tr>
+		  	</volist>
+		  <else />
+			 <tr>
+		          <td><input type="text" class="input-text lh30" size="2"></td>
+		          <td>
+		          	<input type="text" class="input-text lh30" size="40"  value="{$tncontent}">
+				  </td>
+		          <td>
+			         <select name="tvoice" class="select voiceid" bid="0">
+			            <option value="3">美女Kate</option>
+			            <option value="4">美女Salli</option>
+						<option value="5">美男Joey</option>
+			            <option value="6">英女Bridget</option>
+						<option value="7">英男Brian</option>
+			        </select>
+		          </td>
+		          <td width="50" align="right">
+		          <img class="listen_del" src="__PUBLIC__/images/jian.png" width="21" height="19" />
+		          </td>
+              </tr>
+		  </if>
+        </table>
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">题干：</td>
+        <td>
+          <p> 
+            <script id="editor" type="text/plain" style="width:500px;height:125px;">{$tcontent}</script>
+          </p>
+          <p>
+            <span class="red">备注：普通下划线______ 用  #下划线# ，填空用  ##答案[good]## 表示　</span>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">解析：</td>
+        <td><textarea name="textarea" cols="30" rows="2" class="textarea" id="acontent">{$acontent}</textarea></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table answer">
+       <tr>
+        <td class="td_right">选择答案：</td>
+        <td>
+          <input name="answertype"  type="radio" value='1' <if condition="$itemtype eq 1">checked</if>/>文字
+          <input name="answertype"  type="radio" value='2' <if condition="$itemtype eq 2">checked</if>/>图片
+        </td>
+	   </tr>
+      <if condition="$type neq 1">
+      	 <if condition="$questype eq 1">
+      	 	<volist name="itmes" id="vo">
+      	 		 <tr>
+	                <td class="td_right">&nbsp;</td>
+	                <td height="32">
+		      	 		<if condition="$vo.sortid eq 1">
+		      	 		   <input name="status" type="radio" value="A" aid="{$answer_id}" bid="{$vo.id}" <if condition="$vo.content eq $answer_content">checked='checked'</if>/>A.
+						</if>
+						<if condition="$vo.sortid eq 2">
+		      	 		   <input name="status" type="radio" value="B" aid="{$answer_id}" bid="{$vo.id}" <if condition="$vo.content eq $answer_content">checked='checked'</if>/>B.
+						</if>
+						<if condition="$vo.sortid eq 3">
+		      	 		   <input name="status" type="radio" value="C" aid="{$answer_id}" bid="{$vo.id}" <if condition="$vo.content eq $answer_content">checked='checked'</if>/>C.
+						</if>
+						<if condition="$itemtype eq 1">
+				            <input type="text" class="input-text lh30" size="40" value="{$vo.content}"/>
+							<img class="img" style="display:none;" width="60px" height="60px" src="" ></img>
+				            <input type="button" value="上传"  class="ext_btn pic"  style="display:none;"/>
+						<else />
+							<input type="text" class="input-text lh30" size="40" style="display:none;"/>
+							<img class="img"  width="60px" height="60px" src="../../uploads/{$vo.content}" ></img>
+				            <input type="button" value="上传"  class="ext_btn pic" bid="{$vo.content}" />
+						</if>
+				    </td>
+	            </tr>
+      	 	</volist>
+      	 </if>
+	  <else />
+	      <tr>
+	        <td class="td_right">&nbsp;</td>
+	        <td height="32">
+	          <input name="status" type="radio" value="A"/>A.
+	          <input type="text" class="input-text lh30" size="40" />
+			  <img class="img" style="display:none;" width="60px" height="60px"></img>
+	          <input type="button" value="上传"  class="ext_btn pic" style="display:none;"/>
+			</td>
+	      </tr>
+	      <tr>
+	        <td class="td_right">&nbsp;</td>
+	        <td height="32">
+	          <input name="status" type="radio" value="B"/>B.
+	          <input type="text" class="input-text lh30" size="40" />
+			  <img class="img" style="display:none;" width="60px" height="60px"></img>
+	          <input type="button" value="上传"  class="ext_btn pic" style="display:none;"/>
+			</td>
+	      </tr>
+	      <tr>
+	        <td class="td_right">&nbsp;</td>
+	        <td height="32">
+	          <input name="status" type="radio" value="C"/>C.
+	          <input type="text" class="input-text lh30" size="40" />
+			  <img class="img" style="display:none;" width="60px" height="60px"></img>
+	          <input type="button" value="上传"  class="ext_btn pic" style="display:none;"/>
+			</td>
+	      </tr>
+	  </if>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table answer">
+      <tr>
+        <td class="td_right">填空答案：</td>
+        <td><input type="button" value="答案查看" id="tk" class="ext_btn" /></td>
+      </tr>
+      <tr>
+        <td class="td_right">&nbsp;</td>
+        <td height="30" style="display:none;">
+		</td>
+      </tr>
+      </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table answer">
+      <tr>
+        <td class="td_right">判断答案：</td>
+        <td><input type="button" value="答案查看" id="pd"  class="ext_btn" /></td>
+      </tr>
+	  <if condition="$type neq 1">
+      	 <if condition="$questype eq 3 and $answer_content eq 1">
+      	 	<tr>
+		        <td class="td_right">&nbsp;</td>
+		        <td height="32">
+				    <input name="status" type="radio" value='1' bid='{$answer_id}' checked="checked"> True
+                    <input name="status" type="radio" value='0' bid='{$answer_id}' >False
+				</td>
+	        </tr>
+		 </if>
+		 <if condition="$questype eq 3 and $answer_content eq 0">
+      	 	<tr>
+		        <td class="td_right">&nbsp;</td>
+		        <td height="32">
+				    <input name="status" type="radio" value='1' bid='{$answer_id}' > True
+                    <input name="status" type="radio" value='0' bid='{$answer_id}' checked="checked">False
+				</td>
+	        </tr>
+		 </if>
+	  <else />
+	      <tr>
+	        <td class="td_right">&nbsp;</td>
+	        <td height="32">
+	        	    <input name="status" type="radio" value='1' checked="checked"/> True
+		            <input name="status" type="radio" value='0' />False 
+			</td>
+	      </tr>
+	  </if>
+      </table>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+      <tr>
+        <td <if condition="$flag eq 1">align="right"<else />align="center"</if>>
+          <input type="button" id="save" name="button" class="btn btn82 btn_save2" value="保存" />&nbsp;
+		 </td>
+		 <if condition="$flag eq 1">
+		 <td>&nbsp;
+          <input type="button" id="back" name="button" class="btn btn82 btn_save2" value="返回" />
+		 </td>
+		</if>
+      </tr>
+    </table>
+    <div class="h10"></div>
+    </td> 
+  </tr> 
+</table>
+</div> 
+<div id="uploadfile" style="display:none;">
+	<table>
+	  <tr>
+	    <td align="right"><font style="font-weight:10px;">图片：</font></td>
+	    <td align="left">
+	      <img src="" id="myimg" width="120" height="90"/ style="border:1px solid #CCC; padding:2px;" >
+	    </td>
+      </tr> 
+	  <tr>
+	    <td>&nbsp;</td>
+	    <td>
+	    	<div id="queue"></div>
+			<input id="file_upload" name="file_upload" type="file" multiple/>
+		</td>
+	  </tr>
+	</table>
+</div>
+
+<script type="text/javascript">  
+$(function(){
+
+  $.ajaxSetup({async:false});
+  //短文大题默认是选择题型，独立大题将进行初始化
+  if({$flag}==1){
+  	$("input[name='ques']").attr("disabled",true);
+  }
+  $(".form_table.answer").hide();
+  $(".form_table.answer:eq(0)").hide();
+  
+  var ue = UE.getEditor('editor');//ueditor插件
+  //题型单击事件
+  $("input[name='ques']").click(function(){
+  	 var typeid=$(this).val()-1;
+	 $(".form_table.answer").hide();
+	 $(".form_table.answer:eq("+typeid+")").show();
+  });
+  $("input[name='ques']:checked").click();
+  //学段单击事件
+  $("input[name='class']").click(function(){
+    var phrase=$(this).val();
+    if($(this).is(':checked'))
+    {
+       $("input[bid="+phrase+"]").attr('checked',true);
+    }else{
+       $("input[bid="+phrase+"]").attr('checked',false);
+    }
+  });
+  //听力材料的添加和删除
+  $(".listen_add").click(function(){
+ 	var tr=$(".listen tr").eq(0).clone().show();
+	tr.appendTo(".listen");
+  });
+  $(".listen_del").live("click",function(){
+  	$(this).parent().parent().remove();
+  });
+  //年级单击事件
+  $("input[name='grade']").click(function(){
+    var phrase=$(this).attr('bid');
+    if(!$(this).is(':checked'))
+    {
+      $("input[cid="+phrase+"]").attr('checked',false);
+    }else{
+		//判断所在学段的年级是否全部选中
+      if($("input[bid="+phrase+"]").length==$("input[bid="+phrase+"]:checked").length){
+        $("input[cid="+phrase+"]").attr('checked',true);
+      }
+    }
+  });
+  //保存单击事件
+  $("#save").click(function(){
+     var questype=$("input[name='ques']:checked").val();//题型
+     var complexity=$("input[name='complexity']:checked").val();//题的难度
+     var keyword=$("#keyword").val();//关键字
+     var source=$("#source").val();//试题来源
+     //听力材料
+	 var vcontent=[];
+	 var itemids=[];
+	 $(".listen tr:gt(0)").each(function(){
+	 	//听力的顺序
+		var tingli=$(this).children("td");
+		var obj={};
+		obj.id=tingli.eq(2).find(".voiceid").attr("bid");
+		obj.sortid=tingli.eq(0).find("input").val();
+		obj.content=tingli.eq(1).find("input").val();
+		obj.voiceid=tingli.eq(2).find(".voiceid").val();  
+        vcontent.push(obj);  
+	 });
+     
+     var tcontent=ue.getContent();//题干
+     var acontent=$("#acontent").val();//解析
+     var itemtype=1;
+     var grade =[];//定义一个年级数组
+     $("input[name='grade']:checked").each(function(){
+        grade.push($(this).val()); 
+     });
+	 //答案的提交和选项的添加
+	 var answer=[];//定义答案的数组
+	 var itemflag=[];//定义选项的标记
+	 var itemcontent=[];//定义选项的内容
+	 var answerids=[];//定义答案的id
+	 if(questype=='1')//选择题的情况
+	 {
+	   if($("input[name='answertype']:checked").val()!='1'){itemtype=2;}
+	   $(".form_table.answer:eq(0) tr:gt(0)").each(function(){
+	   	 var td=$(this).children("td");
+		 itemflag.push(td.eq(1).find("input[type='radio']").val());
+		 itemids.push(td.eq(1).find("input[type='radio']").attr("bid"));
+		 //判断是文字还是图片
+		 if(itemtype==1){itemcontent.push(td.eq(1).find("input[type='text']").val());}
+		 else{itemcontent.push(td.eq(1).find("input[type='button']").attr("bid"));}
+	   });
+	   if(itemtype==1){
+	   	answerids.push($(".form_table.answer:eq(0) tr:eq(1) td:eq(1)").find("input").eq(0).attr("aid"));
+		answer.push($(".form_table.answer:eq(0)").find("input[type='radio']:checked").siblings("input[type='text']").eq(0).val());
+	   }else{
+	   	
+	   	answerids.push($(".form_table.answer:eq(0) tr:eq(1) td:eq(1)").find("input").eq(0).attr("aid"));
+	   	answer.push($(".form_table.answer:eq(0)").find("input[type='radio']:checked").siblings("input[type='button']").eq(0).attr("bid"));
+	   }
+	   if(itemcontent==''){art.dialog.tips("请填写选项");return false;}
+	 }
+	 else if(questype=='2')//填空题的情况使用正则匹配
+	 {
+	   var patt = new RegExp("#{2}答案\\[(.*?)\\]#{2}","g");
+       var result;
+		while ((result = patt.exec(tcontent)) != null)  {
+		   answer.push(result[1]); 
+		}
+	 }
+	 else if(questype=='3')//判断题的情况
+	 {
+	 	 answerids.push($(".form_table.answer:eq(2) tr:eq(1)").find("input:checked").attr("bid"));
+	     answer.push($(".form_table.answer:eq(2) tr:eq(1)").find("input:checked").val());
+	 }
+	 //判断必填项目
+	 //if(grade.join(",")==''){art.dialog.tips("请勾选年级");return false;}
+	 //if(acontent==''){art.dialog.tips("请填写解析");return false;}
+	 if(answer==""){;art.dialog.tips("请选择正确答案");return false;}
+     $.getJSON("../Exam/add_base_questions",{flag:{$flag},itemsids:itemids.join("*"),answerids:answerids.join("*"),id:{$id},ran:Math.random(),paperid:{$paperid},classid:'1',gradeid:grade.join("*"),questype:questype,complexity:complexity,keyword:keyword,source:source,vcontent:JSON.stringify(vcontent),tcontent:tcontent,acontent:acontent,itemsflag:itemflag.join("*"),itemcontent:itemcontent.join("*"),answer:answer.join("*"),itemtype:itemtype},function(){
+	 	$(".btn_save2").attr("disabled",true);
+		if({$flag}==1){
+		if({$type}!=0){
+			location.href="../Exam/exam_questions_select?flag={$flag}&currentpage={$currentpage}&classid={$classid}&paperid={$paperid}&questype={$questype}&examsid={$examsid}&complexity={$complexity}";
+		}else{
+			location.href="../Exam/unitexam_questions_list?flag={$flag}&classid={$classid}&questype={$questype}&paperid={$paperid}&examsid={$examsid}";
+		}
+		}
+		else 
+		{
+			if({$id}==0){
+				location.href="../Exam/base_questions_add?flag={$flag}&currentpage={$currentpage}&classid={$classid}&paperid={$paperid}&questype={$questype}&complexity={$complexity}&type=1";
+			}else{
+				art.dialog.close();
+			}
+			
+		}
+	});
+  });
+  $("#back").click(function(){
+  	if({$flag}==1){
+		if({$type}!=0){
+			location.href="../Exam/exam_questions_select?flag={$flag}&currentpage={$currentpage}&classid={$classid}&paperid={$paperid}&questype={$questype}&examsid={$examsid}&complexity={$complexity}";
+		}else{
+			location.href="../Exam/unitexam_questions_list?flag={$flag}&classid={$classid}&questype={$questype}&paperid={$paperid}&examsid={$examsid}";
+		}
+	}
+	else 
+	{
+		location.href="../Exam/base_questions_list?flag={$flag}&currentpage={$currentpage}&classid={$classid}&paperid={$paperid}&questype={$questype}&complexity={$complexity}";
+	}
+  });
+  //选择题答案类型点击事件
+  $("input[name=answertype]").click(function(){
+  	if($(this).val()=='1'){
+		$(this).parent().parent().nextAll("tr").find("input[type='text']").show();
+		$(this).parent().parent().nextAll("tr").find("input[type='button']").hide();
+	    $(this).parent().parent().nextAll("tr").find(".img").hide();
+	}else if($(this).val()=='2'){
+		$(this).parent().parent().nextAll("tr").find("input[type='button']").show();
+		$(this).parent().parent().nextAll("tr").find(".img").show();
+		$(this).parent().parent().nextAll("tr").find("input[type='text']").hide();
+	}
+  });
+  $("input[name=answertype]:checked").click();
+  
+  //填空题查看答案
+  $("#tk").click(function(){
+  	var tcontent=ue.getContent();//题干
+  	var answer="";
+  	var patt = new RegExp("#{2}答案\\[(.*?)\\]#{2}","g");
+    var result;
+	var sortid=1;
+	while ((result = patt.exec(tcontent)) != null)  {
+	   answer+=("<span>"+sortid+"."+result[1]+"</span>&nbsp;&nbsp;"); 
+	   sortid=sortid+1;
+	}
+	$(".form_table.answer:eq(1) tr").eq(1).children("td").eq(1).html("");
+	if(answer==""){art.dialog.tips("题干格式错误,请仔细核查!");return false;}
+	$(".form_table.answer:eq(1) tr").eq(1).children("td").eq(1).show();
+	$(".form_table.answer:eq(1) tr").eq(1).children("td").eq(1).html(answer);
+  });
+  //上传按钮弹出框
+  $(".ext_btn.pic").live("click",function(){
+  	var ch=$(this);
+	var img=$(this).parent().find(".img:eq(0)");
+	var path="";
+	if($(this).attr("bid")!=undefined){path='../../uploads/'+$(this).attr("bid");}
+	$("#uploadfile:eq(0)").find("img:eq(0)").attr("src",path);
+  	var dialog = art.dialog({
+	    content: $("#uploadfile")[0],
+	    fixed: true,
+	    ok: function(){
+			//var iframe=this.iframe.currentWindow;
+			var path=$("#myimg").attr("bid");
+			$(ch).attr("bid",path);
+			$(img).attr("src",'../../uploads/'+path);
+		}
+    });
+  });
+  
+});
+
+$(function(){
+	$('#file_upload').uploadify({
+    'height'    :30,
+    'width'     :120,
+    'buttonText': '上传图片',  //选择按钮显示的字符
+    'multi'     : false,   //是否允许同时选择多个(false一次只允许选中一张图片)
+    'method'    : 'post',
+    'formData'  : {
+      'folder'  : './uploads/exam/items',
+      'fileext': 'png'
+    },
+    'swf'       : '__PUBLIC__/js/uploadify/uploadify.swf',
+    'uploader'  : '../Upload/index',
+    'fileTypeExts': '*.png;*.jpg', //允许的后缀
+    'fileTypeDesc': 'Image Files', //允许的格式，详见文档
+     'onUploadSuccess' : function(file, data, response) 
+    {
+      //上传成功后的触发事件  
+      var obj=eval("("+data+")");
+      $("#myimg").attr("src",'../../uploads/'+obj.msg.savepath + obj.msg.savename);
+	  $("#myimg").attr("bid",obj.msg.savepath + obj.msg.savename);
+    }
+  });
+	
+});
+
+</script>
+
+</body>
+</html>

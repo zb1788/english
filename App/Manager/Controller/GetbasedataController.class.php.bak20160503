@@ -1,0 +1,110 @@
+<?php
+namespace Manager\Controller;
+use Think\Controller;
+
+/** 
+* 基本数据获取
+*  
+* @author         gm 
+* @since          1.0 
+*/  
+class GetbasedataController extends Controller {
+	/*获取年级JSON数据*/
+    public function getGrade(){
+		//if (!IS_AJAX){$this->ajaxReturn();}
+		// F('Grade',null); 
+		if (empty($Data)) {
+			$Dao = M('rms_dictionary'); // 实例化Word对象
+			$Data = $Dao->field('detail_code,detail_name')->where('dictionary_code="grade" and detail_code !="0010"')->order('detail_order')->select();
+		} 
+		$this->ajaxReturn($Data);
+    } 
+
+    /*获取版本JSON数据*/
+    public function getVersion(){
+		//if (!IS_AJAX){$this->ajaxReturn();}
+		$gradeid  = I("get.gradeid", 0);		 
+		$Dao = M(''); // 实例化Word对象
+		$sql = "SELECT detail_code,detail_name FROM engs_rms_dictionary a WHERE a.detail_code IN (SELECT DISTINCT t.r_version FROM engs_rms_unit t WHERE t.r_grade ='".$gradeid."' AND t.is_unit = 0) AND a.dictionary_code = 'edition' ORDER BY a.detail_order ASC";
+		$Data = $Dao->query($sql);
+		$this->ajaxReturn($Data);
+    }
+    
+    /*获取版本JSON数据*/
+    public function getUnit(){
+		//if (!IS_AJAX){$this->ajaxReturn();}
+		$gradeid = I("get.gradeid", 0);	
+		$versionid = I("get.versionid", 0);	
+		$termid  = I("get.termid", 0);	
+		$Dao = M('rms_unit'); // 实例化Word对象
+		$Data = $Dao->field('ks_code,ks_name,is_unit')->where("flag = 1 and r_grade='%s' and r_version='%s' and r_volume='%s' ",$gradeid,$versionid,$termid)->order("display_order")->select();
+		$this->ajaxReturn($Data);
+    } 
+    /*获取版本JSON数据*/
+    public function getVoiceid(){
+    	//if (!IS_AJAX){$this->ajaxReturn();}
+    	$flag = I("flag", 0);
+    	$Dao = C(CONST_VOICETYPE);
+    	if(flag=='0'){
+    		$this->ajaxReturn(array_slice($Dao,0,2));
+    	}else{
+    		$this->ajaxReturn(array_slice($Dao,2));
+    	}
+    }
+    /*获取年级JSON数据*/
+    public function getProvince(){
+		//if (!IS_AJAX){$this->ajaxReturn();}
+		// F('Grade',null); 
+		$Dao = M('dictionary');  // 实例化Word对象
+		$Data = $Dao->where('code="province"')->order("sortid,id")->select();
+		$this->ajaxReturn($Data);
+    }
+
+    /*获取年级JSON数据*/
+    public function getTerm(){
+        $gradeid=I("gradeid/s");
+        $Dao = M('rms_dictionary'); // 实例化Word对象
+        if($gradeid=='0010'){
+        	//高中学科的话就是term2
+        	$Data = $Dao->field('detail_code,detail_name')->where('dictionary_code="electiveType"')->order('detail_order')->select();
+        }else{
+        	$Data = $Dao->field('detail_code,detail_name')->where('dictionary_code="volume"')->order('detail_order')->select();
+        }
+		$this->ajaxReturn($Data);
+    }
+
+    /*获取年级JSON数据*/
+    public function getChapter(){
+        $unitid=I("unitid/s");
+        $Dao = M('text_chapter'); // 实例化Word对象
+        $Data = $Dao->where('ks_code="%s"',$unitid)->order('sortid,id')->select();
+        $this->ajaxReturn($Data);
+    } 
+	
+	
+	 //获取试卷统计信息
+    public function getStatExams(){
+        $starttime=I("starttime");
+        $endtime=I("endtime");
+        $sql="SELECT s.r_grade as gradeid,s.r_volume as termid,s.r_version as versionid,(SELECT rms_dictionary_detail.`detail_name` FROM rms_dictionary_detail WHERE rms_dictionary_detail.`detail_code`=s.`r_volume` AND rms_dictionary_detail.`DICTIONARY_CODE`='volume') AS termname,(SELECT rms_dictionary_detail.`detail_name` FROM rms_dictionary_detail WHERE rms_dictionary_detail.`detail_code`=s.`r_grade` AND rms_dictionary_detail.`DICTIONARY_CODE`='grade') AS gradename,(SELECT rms_dictionary_detail.`detail_name` FROM rms_dictionary_detail WHERE rms_dictionary_detail.`detail_code`=s.`r_version` AND rms_dictionary_detail.`DICTIONARY_CODE`='edition') AS versionname,SUM(CASE WHEN t.state=4 THEN 1 ELSE 0 END) AS checked,SUM(CASE WHEN t.state!=4 THEN 1 ELSE 0 END) AS checking,COUNT(*) as num FROM engs_exams t LEFT JOIN engs_rms_unit s ON t.`ks_code`=s.ks_code WHERE SUBSTR(t.addtime,1,10)>='".$starttime."' and SUBSTR(t.addtime,1,10)<='".$endtime."' AND isdel=1 AND t.ks_code IS NOT NULL AND t.`ks_code`!='0' GROUP BY s.r_grade,s.r_version,s.r_volume union all SELECT 'c' as gradeid,'1' as termid,'1' as versionid,(SELECT engs_dictionary.`title` FROM engs_dictionary WHERE engs_dictionary.id=t.`levelid`) AS gradeid,(SELECT engs_dictionary.`title` FROM engs_dictionary WHERE engs_dictionary.id=t.`typeid`) AS versionname, '中考' as termid,SUM(CASE WHEN t.state=4 THEN 1 ELSE 0 END) AS checked,SUM(CASE WHEN t.state!=4 THEN 1 ELSE 0 END) AS checking,COUNT(*) FROM engs_exams t  where SUBSTR(t.addtime,1,10)>='".$starttime."' and SUBSTR(t.addtime,1,10)<='".$endtime."' AND isdel=1 AND t.typeid!=0  GROUP BY t.`typeid`,t.`levelid`";
+        //echo $sql;
+        $rs=M()->query($sql);
+        $this->ajaxReturn($rs);
+    }
+
+    //获取试卷单元统计信息
+    public function getStatExamsUnit(){
+        $versionid=I("versionid");
+        $gradeid=I("gradeid");
+        $termid=I("termid");
+        $starttime=I("starttime");
+        $endtime=I("endtime");
+        $sql="SELECT  s.`ks_code`,s.`ks_name`,SUM(CASE WHEN t.`state`!='4' THEN 1 ELSE 0 END) AS checking,SUM(CASE WHEN t.`state`='4' THEN 1 ELSE 0 END) AS checked,COUNT(*) AS num FROM engs_exams t LEFT JOIN engs_rms_unit s ON t.ks_code=s.ks_code WHERE SUBSTR(t.addtime, 1, 10) >= '".$starttime."'  AND SUBSTR(t.addtime, 1, 10) <= '".$endtime."'  AND isdel = 1  AND s.`r_grade` = '".$gradeid."'   AND s.`r_version` = '".$versionid."'  AND s.`r_volume` = '".$termid."' GROUP BY s.`ks_code` order by s.display_order";
+        //echo $sql;
+        $rs=M()->query($sql);
+        $this->ajaxReturn($rs);
+    }
+    
+    
+    
+}

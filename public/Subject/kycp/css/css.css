@@ -1,0 +1,34 @@
+
+.set_image_all {
+	cursor: pointer;
+	position: relative;
+}
+
+.set_image_all .set_image_item {
+	position: relative;
+	display: inline-block;
+	z-index: 11;
+	visibility: visible;
+}
+
+.set_image_all .set_image_top {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 10;
+}
+
+.set_image_all .set_image_top>div {
+	display: inline-block;
+	overflow: hidden;
+}
+
+.set_image_all .set_image_top>div>img {
+	height: 100%;
+}
+
+.grade {
+	vertical-align: top;
+}
+
+

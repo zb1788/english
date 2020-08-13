@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script src="__PUBLIC__/js/jquery.min.js" type="text/javascript"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/nav.js"></script>
+<script src="__PUBLIC__/js/jquery.cookie.js" type="text/javascript"></script> 
+
+<script type="text/javascript">
+$(function(){
+    var ut=$.cookie("ut");
+    var url = 'http://ssofj.czbanbantong.com/sso/ssoGrant?isPortal=0&appFlg=SSO&ut='+ut+'&jsoncallback=?';
+    //prompt('',url);
+    //http://ssofj.czbanbantong.com/sso/ssoGrant?isPortal=0&appFlg=SSO&ut=86c028d3af6766a4ae62d82cf5b443e497b859da308f228888646de5acad65e1c1db7b77a10ad2ed
+    //url = 'http://192.168.164.95/sso/verifyAuthInfo?data={"loginUsertype":"teacher","inputname":"18638190786","username":"18638190786","pwd":"e10adc3949ba59abbe56e057f20f883e","schoolId":"","appFlg":"portal","isPortal":"1","encodeU":"0"}&jsoncallback=?';
+    $.getJSON(url,function(result){
+        alert("111");
+    })
+    // $.get("http://ssofj.czbanbantong.com/sso/ssoGrant?isPortal=0&appFlg=SSO",{ut:ut},function(data){
+    //     alert(data);
+    //    // if(data.authFlg==0){
+    //    //  alert("fasdfasdf");
+    //    //  }
+    // });
+    //  $.ajax({
+    //     type : "get",
+    //     async : false,
+    //     url : "http://ssofj.czbanbantong.com/sso//ssoGrant?isPortal=0&appFlg=SSO&jsoncallback=?", //实际上访问时产生的地址为: ajax.ashx?callbackfun=jsonpCallback&id=10
+    //     data : {ut:ut},
+    //     cache : false, //默认值true
+    //     dataType : "jsonp",
+    //     jsonp: "callbackfun",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+    //     jsonpCallback:"jsonpCallback",
+    //         //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+    //         //如果这里自定了jsonp的回调函数，则success函数则不起作用;否则success将起作用
+    //     success : function(json){
+    //         alert(json.message);
+    //     },
+    //     error:function(){
+    //         alert("erroe");
+    //     }
+    // });
+});
+</script>
+</body>
+</html>

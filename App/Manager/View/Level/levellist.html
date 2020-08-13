@@ -1,0 +1,405 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>单词游戏</title>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+    </head>
+    <body>
+        <div class="place"><strong>位置</strong>：首页 &gt; 单词游戏管理</div>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="box_top pl_10 f14"><strong>搜索</strong></td> 
+                </tr>
+                <tr>
+                    <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                            <tr>
+                                <td width="50" align="right">学段：</td>
+                                <td>
+                                    <select name="peroid" class="select" id="peroid" >
+                                        <option value="0">小学</option>
+                                        <option value="1">初中</option>
+                                        <option value="2">高中</option>
+                                    </select>
+                                </td>
+                                <td width="50" align="right">名称：</td>
+                                <td>
+                                    <select name="game" class="select" id="game" >
+                                        
+                                    </select>
+                                </td>
+                                <td>
+                                    &nbsp;
+                                    <input type="button" class="btn btn82 btn_search" value="查询" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td> 
+                </tr> 
+            </table>
+            <div class="h10"></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_10" height="42">
+                        <input id="addword" name="addword" type="button" class="ext_btn ext_btn_submit" value="添加关卡" />&nbsp;
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+                <tr>
+                    <th width="60">次序</th>
+                    <th width="160">游戏名称</th>
+                    <th width="100">关卡名称</th>
+                    <th width="60">单词数量</th>
+                    <th width="60">试题数量</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none" id="table_demo"> 
+                <tr class="tr">
+                    <td><input name="sortid" type="text" class="input-text lh30" size="3" maxlength="2" /></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="left">
+                        &nbsp;&nbsp;
+                        <input type="button" class="ext_btn ext_btn_edit" value="编辑" />
+                        <input type="button" class="ext_btn ext_btn_queslist" value="试题列表" />
+                        <input type="button" class="ext_btn ext_btn_wordlist" value="单词列表" />
+                        <input type="button" style="display:none"  class="ext_btn ext_btn_import" value="单词导入" />
+                        <input type="button" style="display:none" class="ext_btn ext_btn_wordclear" value="清空单词" />
+                        <input type="button" class="ext_btn ext_btn_error" value="删除" />  
+                    </td>
+                </tr>
+            </table>
+            <div class="h5"></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_10" height="42">
+                        <input name="btn_submit" id="btn_submit" type="button" class="ext_btn ext_btn_submit" value="修改次序" />
+                    </td>
+                </tr>
+            </table> 
+        </div>
+        <script type="text/javascript">
+
+            $(function() {
+
+                $.ajaxSetup({async: false});
+                $(".tr:odd").css("background", "#F5F8FA");
+                $('.tr:odd').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#F5F8FA");
+                    }
+                });
+
+                $('.tr:even').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#FFF");
+                    }
+                });
+                var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                /**
+                 初始化年级、学期、版本以及单元和单词
+                 **/
+                var Requests = new Object();
+                Requests = GetRequest();
+                var peroid=Requests["peroid"];
+                var gameid=Requests["gameid"];
+                $("#peroid").val(peroid);
+                getGame(peroid);
+                $("#game").val(gameid);
+                getGameLevelList();
+                dloading.close();
+
+                //学期事件监听
+                $("#peroid").bind('change',function(){
+                    var peroid=$(this).val();
+                    getGame(peroid);
+                    getGameLevelList();
+                })
+
+                //游戏列表的事件监听
+                $("#game").bind('change',function(){
+                    getGameLevelList();
+                })
+
+                //查询的事件监听
+                $(".btn_search").bind('click',function(){
+                    getGameLevelList();
+                })
+
+                //清空单词
+                $("#table_data .ext_btn_wordclear").bind('click',function(){
+                    var levelid=$(this).attr("bid");
+                    art.dialog.confirm('你确定要删除此关卡的单词同时删除问题？', function() {
+                        $.getJSON("clearLevelWords",{levelid:levelid,ran:Math.random()});
+                        getGameLevelList();
+                    });
+                    
+                })
+                /**
+                 编辑按钮单击事件
+                 **/
+                $("#table_data .ext_btn_edit").live("click", function() {
+                    var levelid=$(this).attr("bid");
+                    var title=$(this).parents("tr").find("td").eq(2).html();
+                    art.dialog.prompt('请输入关卡名称', function(val) {
+                        val = $.trim(val);
+                        if (val != "") {
+                            $.get('../Level/changeGameLevelName', {levelid:levelid,name: val, ran: Math.random()}, function(data) {
+                                getGameLevelList();
+                            }, "json");
+                        }
+                    },title);
+                });
+
+                //下载样板文件
+                $("#downexcel").click(function(){
+                    window.open("downloadfile");
+                })
+
+                //问题列表
+                $("#table_data").delegate(".ext_btn_queslist","click",function(){
+                    var levelid=$(this).attr("bid");
+                    art.dialog.open('levelqueslist?levelid='+levelid,{
+                        title: "单词上传",
+                        width: 1000,
+                        height: 600,
+                        lock: true,
+                        opacity: 0.3,
+                        button: [
+                            {
+                                name: '保存',
+                                callback: function() {
+                                    getGameLevelList();
+                                    return true;
+                                },
+                                focus: true
+                            },
+                            {
+                                name: '关闭',
+                                callback: function() {
+                                    getGameLevelList();
+                                    //$("#gradeid").change();
+                                },
+                                focus: false
+                            }
+                        ]
+                    });
+                })
+
+                /**
+                单词列表单击事件
+                 **/
+                $("#table_data .ext_btn_wordlist").live("click", function() {
+                    var levelid = $(this).attr("bid");
+                    art.dialog.open('levelwordlist?levelid='+levelid,{
+                        title: "单词上传",
+                        width: 700,
+                        height: 600,
+                        lock: true,
+                        opacity: 0.3,
+                        button: [
+                            {
+                                name: '一键生成',
+                                callback: function() {
+                                    var iframe = this.iframe.contentWindow;
+                                    var re = iframe.geneQuestion();
+                                    if(re){
+                                        getGameLevelList();
+                                        return true;
+                                    }else{
+                                        return false;
+                                    }
+                                    
+                                    return true;
+                                },
+                                focus: true
+                            },
+                            {
+                                name: '关闭',
+                                callback: function() {
+                                    getGameLevelList();
+                                    //$("#gradeid").change();
+                                },
+                                focus: false
+                            }
+                        ]
+                    });
+                });
+                
+                /**
+                 删除按钮单击事件
+                 **/
+                $("#table_data .ext_btn_error").live("click", function() {
+                    var tr = $(this).parents("tr");
+                    var id = $(this).attr("bid");
+                    art.dialog.confirm('你确定要删除这个游戏吗？', function() {
+                        $.get("delLevel", {levelid: id,random: Math.random()});
+                        tr.remove();
+                        getGameLevelList();
+                    });
+                });
+
+                //复制按钮单击事件
+                $("#table_data .ext_btn_copy").live("click", function() {
+                    var id = $(this).attr("bid");
+                    $.get("copyLevel", {levelid: id,random: Math.random()});
+                    getGameLevelList();
+                });
+
+                //难度监听事件
+                $("#table_data .difficulty").live("change", function() {
+                    var levelid = $(this).parents("tr").find("input").attr("bid");
+                    var difficulty=$(this).val();
+                    $.get("changeDifficulty", {levelid: levelid,difficulty:difficulty,random: Math.random()});
+                });
+
+                //单词导入
+                $("#table_data .ext_btn_import").live("click", function() {
+                    var id = $(this).attr("bid");
+                    art.dialog.open('levelwordin?levelid='+id,{
+                        title: "单词上传",
+                        width: 550,
+                        height: 320,
+                        lock: true,
+                        opacity: 0.3,
+                        button: [
+                            {
+                                name: '保存',
+                                callback: function() {
+                                    getGameLevelList();
+                                    return true;
+                                },
+                                focus: true
+                            },
+                            {
+                                name: '关闭',
+                                callback: function() {
+                                    //$("#gradeid").change();
+                                },
+                                focus: false
+                            }
+                        ]
+                    });
+                });
+
+
+                //添加关卡
+                $("#addword").click(function(){
+                        var peroid = $("#peroid").val();
+                        art.dialog.prompt('请输入游戏名称', function(val) {
+                            val = $.trim(val);
+                            if (val != "") {
+                                $.get('../Level/changeGameLevelName', {levelid:"0",name: val,gameid:gameid, ran: Math.random()}, function(data) {
+                                    getGameLevelList();
+                                }, "json");
+                            }
+                        });
+                });
+
+                //排序事件
+                $("#btn_submit").click(function(){
+                    var dloading = art.dialog({time: 30, title: '更新中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                    if ($("#table_data tr.tr").length == 0)
+                        return;
+                    var arrjson = [];
+                    $("#table_data tr.tr").each(function() {
+                        var tr = $(this);
+                        var id = tr.find('input[name="sortid"]').attr("bid");
+                        var sortid = tr.find('input[name="sortid"]').val();
+                        var obj = {};
+                        obj.id = id;
+                        obj.sortid = sortid;
+                        arrjson.push(obj);
+                    });
+                    $.post("upSortLevelList", {data:JSON.stringify(arrjson)}, function() {
+                        getGameLevelList();
+                        dloading.close();
+                    });
+                })
+            });
+
+            function getGameLevelList(){
+                var gameid=$("#game").val();
+                $("#table_data td").parent().remove();
+                $.getJSON("getGameLevelList",{gameid:gameid,ran:Math.random()},function(data){
+                    var i = 0;
+                    $.each(data, function(i, val) {
+                        i++;
+                        var tr = $("#table_demo tr").eq(0).clone();
+                        var td = tr.children('td').eq(0);
+                        td.find("input").val(i);
+                        td = tr.children('td').eq(1);
+                        td.html(val.gamename);
+                        td = tr.children('td').eq(2);
+                        td.html(val.levelname);
+                        if(parseInt(val.quesnum)>0){
+                            td.attr("style","font-weight:bold;background-color: yellow;");
+                        } 
+                        td = tr.children('td').eq(3);
+                        td.html(val.wordnum);
+                        td = tr.children('td').eq(4);
+                        td.html(val.quesnum);
+                        tr.find("input").attr("bid",val.id);
+                        tr.appendTo("#table_data");
+                    });
+                })
+            }
+
+            function upWordsort() {
+                var dloading = art.dialog({time: 30, title: '更新中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                if ($("#table_data tr.tr").length == 0)
+                    return;
+                var arrjson = [];
+                var peroid = $('#peroid').val();
+                $("#table_data tr.tr").each(function() {
+                    var tr = $(this);
+                    var id = tr.find('input[name="sortid"]').attr("BID");
+                    var sortid = tr.find('input[name="sortid"]').val();
+                    var obj = {};
+                    obj.id = id;
+                    obj.sortid = sortid;
+                    arrjson.push(obj);
+                });
+                $.get("listup", {data:JSON.stringify(arrjson),peroid:peroid}, function(result) {
+                    getGameList();
+                    dloading.close();
+                });
+            }
+
+            function GetRequest() {
+                var url = location.search; //获取url中"?"符后的字串
+                var theRequest = new Object();
+                if (url.indexOf("?") != -1) {
+                    var str = url.substr(1);
+                    strs = str.split("&");
+                    for(var i = 0; i < strs.length; i ++) {
+                        theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                    }
+                }
+                return theRequest;
+            }
+
+            function getGame(peroid){
+                $("#game").empty();
+                $.getJSON("getGameList",{peroid:peroid,title:"",ran:Math.random()},function(data){
+                    var i = 0;
+                    $.each(data, function(i, val) {
+                        $("#game").append($("<option>").val(val.id).text(val.name));
+                    });
+                })
+            }
+        </script> 
+    </body>
+</html>

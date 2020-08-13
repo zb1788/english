@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+ul.dtree_con { clear:both;margin:10px 0 10px 10px; line-height:30px; height:600px; overflow-y:auto;}
+ul.dtree_con li {margin-left:5px; height:30px; }
+ul.dtree_con li a {display:inline-block; padding:0 10px; height:30px; overflow:hidden; font-size:14px; }
+ul.dtree_con li a.cur_tree {background:#9c9c9c; color:#fff; border-radius:3px; }
+ul.dtree_con h2 {font-size:16px; color:#888; height:30px; overflow:hidden; display:block; word-break:keep-all; white-space:nowrap; text-overflow:ellipsis; margin-top:5px;}
+ul.dtree_con h2 span{ }

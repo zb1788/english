@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="wap-font-scale" content="no">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="__PUBLIC__/pad/css/currency.css" />
+		<link rel="stylesheet" href="__PUBLIC__/pad/font/style.css" />
+		<link rel="stylesheet" href="__PUBLIC__/pad/css/iscroll.css" />
+		<script type="text/javascript" src="__PUBLIC__/pad/js/demoUtils.js"></script>
+	    <script type="text/javascript" src="__PUBLIC__/pad/js/iscroll-lite.js" ></script>
+		<style>
+			#wrapper {top:350px}
+			@media (max-width: 1030px) {
+				#wrapper {top:250px}
+				}
+		</style>
+		<script type="text/javascript">
+var myScroll;
+function loaded () {
+	myScroll = new IScroll('#wrapper', {mouseWheel: true, click: true });
+}
+
+</script>
+	</head>
+	<body onload="loaded()">
+		<main>
+			<header class="head border-nav">
+				<a class="head-left" href="javascript:window.history.go(-1);"><i class="icon-back"></i></a>
+				<a class="head-right"><i class="icon-share"></i></a>
+				<h1 class="title">{$homeworkname}</h1>
+			</header>
+			<section>
+				<div class="padT50">
+	              	<div class="paiTop ">
+		              	<volist name="students" id="vo" offset="0" length='3'>
+							<div class="topS">
+								<h2 style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{$vo.name}</h2>
+								<p>
+									<span class="pmT3"><b>得分率</b><b>时间</b></span>
+									<span class="pmT4 redFont"><strong>{$vo.score|round=###,1}%</strong><strong>{$vo.time}秒</strong></span>
+								</p>
+								<if condition="$i eq 1"><i class="iconJ j1"></i></if>
+								<if condition="$i eq 2"><i class="iconJ j2"></i></if>
+								<if condition="$i eq 3"><i class="iconJ j3"></i></if>
+							</div>
+						</volist>
+	              	</div>
+	          	</div>
+			</section>
+			<section>
+				<div id="wrapper">
+	<div id="scroller">
+<ul class="pmList">
+	<li class="t01"><span></span><span>排序</span><span>姓名</span><span>得分率</span><span>用时</span></li>
+	<volist name="students" id="vo">
+		<if condition="$studentid eq $vo['id']">
+			<li class="t01"><span><i class="icon-my"></i>我</span><span>{$i}</span><span style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{$vo.name}</span><span>{$vo.score|round=###,1}%</span><span>{$vo.time}秒</span></li>
+		<else/>
+			<li><span></span><span>{$i}</span><span style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{$vo.name}</span><span>{$vo.score|round=###,1}%</span><span>{$vo.time}秒</span></li>
+		</if>
+	</volist>
+</ul>
+	</div></div>
+			</section>
+		</main>
+		<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.1.min.js"></script>
+
+	</body>
+
+</html>

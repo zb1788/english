@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>应用列表</title>
+       <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+        <script type="text/javascript" charset="utf-8" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+       <script type="text/javascript" charset="utf-8" src="__PUBLIC__/ueditor/ueditor.all.min.js"> </script>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                          <tr>
+                            <td class="td_right">范文题目：</td>
+                            <td>
+                              <input type="text" id="title" name="title" class="input-text lh30" size="80" value="{$title}" />&nbsp;(<strong><font color="red">*</font></strong>)
+                            </td>
+                          </tr>
+                         <!--  <tr><td></td><td><input name="btn_submit" id="btn_edit_sortid" type="button" class="ext_btn ext_btn_submit" onclick="insertHtml();" value="插入好句子" /></td></tr> -->
+                            <tr>
+                            <td class="td_right">内容：</td>
+                            <td>
+                              <!-- <textarea id="content" name="content" rows="25" cols="50">{$content}</textarea>&nbsp;(<strong><font color="red">*</font></strong>) -->
+                              <script id="editorcontent" type="text/plain" style="width:800px;height:500px;"></script>
+                            </td>
+                          </tr>
+                           <tr>
+                            <td class="td_right">作者：</td>
+                            <td>
+                              <input type="text" id="author" name="author" class="input-text lh30" size="40" value="{$author}" />&nbsp;(<strong><font color="red">*</font></strong>)
+                            </td>
+                          </tr>
+                        </table>
+                    </td> 
+                </tr> 
+            </table>
+            
+        </div>
+        <script type="text/javascript">
+        var course_id = "{$course_id}";
+        var id = "{$id}";
+        var app_id = "{$app_id}";
+            $(function(){
+               $.ajaxSetup({async: false});
+                var ue = UE.getEditor('editorcontent',{
+                   toolbars: [[
+                       'source',  'bold','|','undo', 'redo', '|','justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
+                       'removeformat', 'formatmatch',
+                      'simpleupload', 'insertimage'
+                  ]],
+                  pasteplain:true, //纯文本黏贴
+                  elementPathEnabled : false
+
+                });
+                ue.ready(function(){
+                  UE.getEditor('editorcontent').setContent('{$content}');
+                })
+               
+            });
+            //添加版本
+            function essayadd(){
+              var essay_name = $.trim($('#title').val());
+              var essay_content = $.trim(UE.getEditor('editorcontent').getContent());
+              var author = $.trim($('#author').val());
+              var flag = false;
+              if(essay_name == ''){
+                dialogTips('名称不能为空');
+                flag = false;
+                return;
+              }
+              if(essay_content == ''){
+                dialogTips('内容不能为空');
+                flag = false;
+                return;
+              }
+              if(author == ''){
+                dialogTips('作者不能为空');
+                flag = false;
+                return;
+              }
+              $.post('../classapp/Essay_save',{id:id,app_id:app_id,course_id:course_id,quetitle:essay_name,essay_content:essay_content,author:author
+              },function(result){
+                  // if(result.flag == 0){
+                  //   dialogTips(result.msg);
+                  //   flag = false;
+                  // }
+                  // else{
+                  //   dialogTips(result.msg);
+                  //   flag = true;
+                  // }
+                  flag = true;
+              });
+        
+              return flag;
+            }
+            function insertHtml() {
+                var value = prompt('插入好句子', '');
+                UE.getEditor('editorcontent').setContent('<span>'+value+'</span>', true);
+               
+            }
+        </script> 
+    </body>
+</html>

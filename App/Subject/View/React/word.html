@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="wap-font-scale" content="no">
+    <meta charset="UTF-8">
+    <title>英语同步练</title>
+    <link rel="stylesheet" href="__SUBJECT__/react/style/css/cssNew.css" />
+    <link rel="stylesheet" href="__SUBJECT__/react/style/font/fonts.css" />
+    <script type="text/javascript" src="__SUBJECT__/react/js/jquery.min.js"></script>
+
+    <script type="text/javascript" src="__SUBJECT__/react/js/common.js"></script>
+    <style>
+      #tips {background-color:#333; font-size: 14px; display:none; width: 90%; left: 5%; text-align: center; color:#fff; border-radius:5px; opacity:.82; padding:10px; position:fixed; top: 45%; z-index: 999;}
+      #tips img {vertical-align:middle; display: inline-block;}
+    </style>
+  </head>
+  <body>
+    <main id="example">
+
+    </main>
+    <script>
+      function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+          var str = url.substr(1);
+          strs = str.split("&");
+          for(var i = 0; i < strs.length; i ++) {
+            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+          }
+        }
+        return theRequest;
+      }
+
+      var Requests = new Object();
+      Requests = GetRequest();
+      var ubname="{$ubname}";
+      var datasource="__PUBLIC__";
+      var subject="__SUBJECT__";
+    </script>
+  <script type="text/javascript" src="__SUBJECT__/react/js/word.js"></script></body>
+  <script type="text/javascript">
+    $.windowbox = { 
+      //定义一个方法aa 
+      aa: function(){ 
+        $(window).width()>$(window).height()&&$('.deTanImg').css({
+            'left':'30%',
+            'right':'30%'
+        })
+      },
+      //定义一个方法bb 
+      bb: function(){ 
+        $(window).width()<$(window).height()&&$('.deTanImg').css({
+            'left':'10%',
+            'right':'10%'
+        })
+      },
+    }
+    $.windowbox.aa();
+    $.windowbox.bb();
+    $(window).resize(function () {     
+      $.windowbox.aa();
+      $.windowbox.bb();
+    })
+  </script>
+  <script type="text/javascript" src="__PUBLIC__/js/performance.js" async defer></script>
+</html>

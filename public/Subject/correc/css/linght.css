@@ -1,0 +1,97 @@
+/*---------灯光-------*/
+
+.linght .l-linght {
+    position: absolute;
+    left:0;
+	top:50px;
+	width: 70%;
+}
+.linght .r-linght {
+    position: absolute;
+    right:0;
+	top:50px;
+	width: 70%;
+}
+.top-flash-left {
+	-webkit-animation: 2s fashLeft infinite alternate ease;
+	animation: 2s fashLeft infinite alternate ease;
+}
+
+.top-flash-right {
+	-webkit-animation: 2s fashRight infinite alternate ease;
+	 animation: 2s fashRight infinite alternate ease ;
+}
+
+@-webkit-keyframes fashLeft {
+	0% {
+		-webkit-transform: rotate(20deg);
+		transform: rotate(20deg);
+		-webkit-transform-origin: 0 0;
+		transform-origin: 0 0
+	}
+
+	100% {
+		-webkit-transform: rotate(-20deg);
+		transform: rotate(-20deg);
+		-webkit-transform-origin: 0 0;
+		transform-origin: 0 0
+	}
+}
+
+@keyframes fashLeft {
+	0% {
+		-webkit-transform: rotate(20deg);
+		transform: rotate(20deg);
+		-webkit-transform-origin: 0 0;
+		transform-origin: 0 0
+	}
+
+	100% {
+		-webkit-transform: rotate(-20deg);
+		transform: rotate(-20deg);
+		-webkit-transform-origin: 0 0;
+		transform-origin: 0 0
+	}
+}
+
+@-webkit-keyframes fashRight {
+	0% {
+		-webkit-transform: rotate(30deg);
+		transform: rotate(30deg);
+		-webkit-transform-origin: right top;
+		transform-origin: right top
+	}
+
+	100% {
+		-webkit-transform: rotate(-20deg);
+		transform: rotate(-20deg);
+		-webkit-transform-origin: right top;
+		transform-origin: right top
+	}
+}
+
+@keyframes fashRight {
+	0% {
+		-webkit-transform: rotate(30deg);
+		transform: rotate(30deg);
+		-webkit-transform-origin: right top;
+		transform-origin: right top
+	}
+
+	100% {
+		-webkit-transform: rotate(-20deg);
+		transform: rotate(-20deg);
+		-webkit-transform-origin: right top;
+		transform-origin: right top
+	}
+}
+
+
+.word a{color: orange;}
+
+.fenfen {background: #fff; width: 140px;  padding: 10px; position: absolute; right: 100px; bottom: 15px;}
+.btn_banjiq {  padding-left: 28px!important;   line-height: 24px!important;  height: 24px!important; background: url(../images/banjiquan.jpg) no-repeat; display: block; float: left;}
+@media only screen and (min-width:760px)  {
+.linght .l-linght,.linght .r-linght{    width: 50%;}
+.pgbg img{    width: 40%;}
+}

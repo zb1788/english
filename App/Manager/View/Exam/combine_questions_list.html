@@ -1,0 +1,135 @@
+<include file="Base/header"/>
+<body>
+<div class="place"><strong>位置</strong>：首页 &gt; 短文题型管理</div>
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="box_top pl_10 f14"><strong>搜索</strong></td> 
+  </tr>
+  <tr>
+    <td class="pl_5">
+    <table width="700" border="0" cellpadding="0" cellspacing="0" class="form_table">
+      <tr>
+        <td width="58" align="right" value>题型：</td>
+        <td width="93">
+          <select name="select" class="select" id="questype">
+            <option value="1" <if condition="$questype eq 1">checked</if>>选择题</option>
+			<option value="3" <if condition="$questype eq 3">checked</if>>判断题</option>
+            <option value="4" <if condition="$questype eq 4">checked</if>>排序题</option> 
+          </select>
+        </td>
+        <td width="91" align="right">难易程度：</td>
+        <td width="361">
+          <select name="select3" class="select" id="complexity">
+            <option value="1" <if condition="$complexity eq 1">checked</if>>容易</option>
+            <option value="2" <if condition="$complexity eq 2">checked</if>>适中</option>
+            <option value="3" <if condition="$complexity eq 3">checked</if>>较难</option>
+          </select>
+        </td>
+        <td width="97" rowspan="3">&nbsp;&nbsp;&nbsp;
+          <input type="button" name="button" class="btn btn82 btn_search" value="查询" />
+		  <input type="hidden" name="paperid" value='0'/>
+		  <input type="hidden" name="classid" value='2'/>
+		</td>
+      </tr>
+      <tr>
+        <td align="right">年级：</td>
+        <td colspan="3">
+          <volist name="grade" id="vo">
+			    	<input type="checkbox" name="grade" value='{$vo.id}' />{$vo.name}&nbsp;
+		  </volist>
+        </td>
+        </tr>
+      <tr>
+        <td align="right">关键词：</td>
+        <td colspan="3">
+          <input type="text" name="keyname" class="input-text lh30" size="40" />
+          <!-- <input type="button" value="选择" onclick="location.href='textedit.html'" class="ext_btn" /> --></td>
+        </tr>
+    </table></td> 
+  </tr> 
+</table>
+<div class="h5"></div> 
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="36">
+      <input name="按钮" type="button" class="ext_btn ext_btn_submit" value="添加短文"  id="add_questions"/></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table">
+  <tr>
+    <th width="30" align="center">&nbsp;</th>
+    <th width="150">年级</th>
+    <th width="150">关键词</th>
+    <th width="">试题</th>
+    <th align="left" width="250">&nbsp;&nbsp;&nbsp;操&nbsp;作</th>
+  </tr>
+</table>
+<div class="h5"></div>
+<div class="page"></div>
+<include file="Base/common" />
+</div> 
+<script type="text/javascript"> 
+var pagesize=5;  
+$(function(){ 
+  $.ajaxSetup({async:false});
+  //添加小题按钮事件
+  $("#questype").val({$questype});
+  $("#complexity").val({$complexity});
+  $("#add_questions").click(function(){
+		var id=$(this).attr("bid");
+		art.dialog.open('../Exam/combine_questions_add?flag=2&type=1&ran='+Math.random()+'&id=0&questype='+$('#questype').val()+'&complexity='+$('#complexity').val(),{
+	      title:"添加短文小题",
+	      width:800,
+	      height:600,
+	      lock:true,
+	      opacity:0.3,
+        close:function(){
+          pagelist(1,pagesize);
+        }
+	    });		
+	});
+  //删除按钮响应单击事件
+  $(".ext_btn_error").live('click',function(){
+	var id=$(this).attr("bid");
+  	var pagecur=$('#current_page').val();
+	  del('delete_questions_list',id,pagecur,this,'0','1');
+  });
+  //查看小题按钮响应单击事件
+  $(".childquesedit").live('click',function(){
+		var id=$(this).attr("bid");
+		art.dialog.open('../Exam/child_questions_list?flag=2&paperid=0&source=1&questype='+$("#questype").val()+'&qid='+$(this).attr("bid")+"&complexity="+$("#complexity").val()+"&currpage="+$("current_page"),{
+	      title:"修改小题内容",
+	      width:800,
+	      height:600,
+	      lock:true,
+	      opacity:0.3,
+        close:function(){
+          pagelist(1,pagesize);
+        }
+	    });		
+	});
+  //查询按钮响应单击事件
+  $(".btn_search").click(function(){
+  	pagelist(1,pagesize);
+  });
+  $(".btn_search").click();
+  //修改按钮响应单击事件
+  $(".edit").live('click',function(){
+		var id=$(this).attr("bid");
+		art.dialog.open('../Exam/combine_questions_add?flag=2&type=2&id='+id,{
+	      title:"修改小题内容",
+	      width:800,
+	      height:600,
+	      lock:true,
+	      opacity:0.3,
+        close:function(){
+          pagelist(1,pagesize);
+        }
+	    });		
+	});
+   }); 
+</script> 
+
+</body>
+</html>

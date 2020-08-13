@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<title></title>
+		<!--<link rel="stylesheet" href="../css/iscroll.css" />-->
+		<link rel="stylesheet" href="../css/responsive.css"/>
+		<link rel="stylesheet" href="../css/currency.css" />
+		<link rel="stylesheet" href="../font/fonts.css" />
+		<script type="text/javascript" src="../js/iscroll-lite.js" ></script>
+		<script type="text/javascript" src="../js/demoUtils.js" ></script>
+		<script type="text/javascript" src="../js/TouchSlide.1.1.js" ></script>
+<style>
+	body {background: #fcfcfc;}
+	/*.mui-media-body h3{margin-right: 50px;}*/
+</style>
+</head>
+<body>
+<main>
+<header class="head">
+			<a class="head-left" href="javascript:UXinJSInterface.popTheController();"><i class="icon-back"></i>返回</a>
+			<h1 class="title">口语评测</h1>
+	        <!-- <a class="head-right">分享</a> -->
+</header>
+	<!--页中-->
+<section>
+   <div class="section01">
+        <div class="leftTitle">
+			<img src="../images/title_07.png" alt=""/>
+		</div>
+
+	    <div class="rightLesson">
+			<img src="../images/lessonIcon_07.png" alt=""/>
+		</div>
+   </div>
+	<div class="hx"></div>
+	<div class="section02">
+        <div class="title02">
+			<img src="../images/title_002.png" alt=""/>
+		</div>
+	</div>
+	<div class="contentInfo02">
+		<div class="topTitle">
+			<h4><span>精准提高口语 英语流利说</span></h4>
+		</div>
+       <div class="contentList02">
+		   <ul>
+			   <li><img src="../images/iconSmall.png" alt=""/>
+				   <span><b>选择模式:&nbsp;</b>选择教材评测内容，两种模式乐趣多</span>
+			   </li>
+			   <li><img src="../images/iconSmall02.png" alt=""/>
+				   <span><b>单句评测：&nbsp;</b>读完一句录一句，录完一句测一句，时时刻刻在提高</span>
+			   </li>
+			   <li><img src="../images/iconSmall03.png" alt=""/>
+				   <span><b>人机交互：&nbsp;</b>一说一答，角色互换，不一样的体验，全方位的练习</span>
+			   </li>
+			   <li><img src="../images/iconSmall04.png" alt=""/>
+				   <span><b>挑战报告：&nbsp;</b>每句都有测评结果，针对训练，针对提高</span>
+			   </li>
+		   </ul>
+	   </div>
+	</div>
+
+</section>
+	<!--页底-->
+<footer>
+    <div class="footerList">
+		<ul>
+			<li><img src="../images/ky1.jpg" alt=""/></li>
+			<li><img src="../images/ky2.jpg" alt=""/></li>
+			<li><img src="../images/ky3.jpg" alt=""/></li>
+			<li><img src="../images/ky4.jpg" alt=""/></li>
+		</ul>
+	</div>   
+</footer>
+</main>
+<script type="text/javascript" src="../js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$(".head-right").click(function(){
+    		var url = document.location.toString();
+	　　　　var arrUrl = url.split("//");
+	　　　　var start = arrUrl[1].indexOf("/");
+	　　　　var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
+			var arr=relUrl.split("/");
+			var url=arr.pop();
+    		//需要进行ajax的请求
+    		$.getJSON('../../Subject/Api/getLocation',function(data){
+				var title = '《口语评测》精准提高口语，英语流利说';
+	    		var iconUrl = window.location.protocol+"//"+window.location.host+"/public/public/images/kypc.png";
+			    var pageUrl = window.location.protocol+"//"+window.location.host+"/share/html/index7.html?localareacode="+data.localareacode+"&code="+data.code;
+			    var content='《口语评测》读完一句录一句，录完一句测一句，时时刻刻在提高';
+			    try{
+			        window.UXinJSInterfaceSpeech.webShare(title,iconUrl,pageUrl,content);
+			    }catch(e){
+			        
+			    }
+    		})
+   		 })
+    });
+</script>
+</body>
+</html>

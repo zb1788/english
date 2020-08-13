@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <title>英语同步练</title>
+    <link href="__PUBLIC__/css/fonts.css" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__/css/style.css" rel="stylesheet">
+    <meta name=”apple-mobile-web-app-status-bar-style” content=black” />
+    <script src="__PUBLIC__/js/TouchSlide.1.1.js"></script>
+</head>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<!- 引入对应版本的MuPlayer，要置于jQuery之后。->
+<script src="http://mu7.bdstatic.com/cms/app/muplayer/0_9_2/player.js"></script>
+
+<script>
+    // 初始化一个MuPlayer的实例。注意，我们默认使用了_mu全局命名空间。
+    var player = new _mu.Player({
+        // baseDir是必填初始化参数，指向刚才签出的MuPlayer静态资源目录
+        baseDir: 'http://mu7.bdstatic.com/cms/app/muplayer/0_9_1/'
+    });
+
+    // 通过add方法添加需要播放的音频，并调用play方法开始播放。
+    player.add('http://http://125.46.30.30/mp3_word/474385D4EF881A515BE05839C6B5B70E.mp3').play();
+</script>
+<body>
+	
+</body>
+</html>

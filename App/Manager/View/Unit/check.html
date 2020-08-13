@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版本列表</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+</head>
+<body>
+<div class="place"><strong>位置</strong>：首页 &gt; 单元信息管理</div>
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="box_top pl_10 f14"><strong>搜索</strong></td> 
+  </tr>
+  <tr>
+    <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+      <tr>
+        <td width="50" align="right">年级：</td>
+        <td>
+          <select name="gradeid" class="select" id="gradeid">
+          </select>
+        </td>
+        <td width="50" align="right">学期：</td>
+        <td>
+          <select name="termid" class="select" id="termid">
+            <option value="1">上学期</option>
+            <option value="2">下学期</option>
+            <option value="3">全一册</option>
+          </select>
+        </td>
+        <td width="50" align="right">版本：</td>
+        <td>
+          <select name="versionid" class="select" id="versionid"> 
+          </select>
+        </td>
+        <td width="100" align="right">中心库资源：</td>
+        <td>
+          <select name="resid" class="select" id="resid"> 
+          </select>
+        </td>
+        <td>
+          &nbsp;<input type="button" class="btn btn82 btn_search" value="查询" />
+        </td>
+      </tr>
+    </table>
+    </td> 
+  </tr> 
+</table>
+<div class="h10"></div> 
+<!-- <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="42">
+      <input name="按钮" id="btn_add" type="button" class="ext_btn ext_btn_submit" value="添加单元" />
+    </td>
+  </tr>
+</table> -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+  <tr>
+    <th width="30" align="center">&nbsp;</th>
+    <th width="60">次序</th>
+    <th width="150">单元简称</th>
+    <th width="300">单元全称</th>
+    <th width="300">中心库单元</th>
+    <th>&nbsp;</th>
+  </tr> 
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none" id="table_demo"> 
+  <tr class="tr">
+    <td align="center">1</td>
+    <td><input name="sortid" type="text" class="input-text lh30" size="3" maxlength="2" /></td>
+    <td align="center">UNIT 1</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="left">
+      &nbsp;&nbsp; 
+      <input type="button" class="ext_btn ext_btn_edit" value="编辑"   />&nbsp;&nbsp;
+      <input type="button" class="ext_btn ext_btn_error" value="删除" />       
+    </td>
+  </tr>
+</table>
+<div class="h5"></div>
+<!-- <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="42"><input name="按钮2" id="btn_submit" type="button" class="ext_btn ext_btn_submit" value="修改次序" /></td>
+  </tr>
+</table>  -->
+</div>
+<script type="text/javascript">  
+$(function(){ 
+  $.ajaxSetup({async:false});
+   $(".tr:odd").css("background", "#F5F8FA");
+  $('.tr:odd').live('hover',function(event){
+    if(event.type=='mouseenter'){
+      $(this).css("background-color", "#E5EBEE");
+    }else{
+      $(this).css("background-color", "#F5F8FA");
+    }
+  });
+
+  $('.tr:even').live('hover',function(event){
+    if(event.type=='mouseenter'){
+      $(this).css("background-color", "#E5EBEE");
+    }else{
+      $(this).css("background-color", "#FFF");
+    }
+  });
+  var dloading = art.dialog({time:30,title:'加载中……',width:130,height:30,opacity:0.3,lock:true});   
+  $.EBC.setGrade($("#gradeid"));
+   $.EBC.setTerm($("#termid"),$("#gradeid").val());
+  $("#termid").val(__TERMID__);
+  $.EBC.setVersion($("#versionid"),$("#gradeid").val());
+  $.EBC.setUnit($("#unitid"),$("#gradeid").val(),$("#versionid").val(),$("#termid").val());
+  
+  
+  getresversion();
+  getUnitList();
+  dloading.close();
+  $("#btn_add").click(function()
+  {
+    editUnit(0);
+  });
+
+  $("#gradeid").change(function()
+  { 
+     $.EBC.setTerm($("#termid"),$("#gradeid").val());  
+    $.EBC.setVersion($("#versionid"),$("#gradeid").val());
+    getresversion();
+    getUnitList();
+  });
+
+  $("#termid").change(function()
+  { 
+      getresversion();
+      getUnitList();
+  });
+
+  $("#versionid").change(function()
+  { 
+      getresversion();
+      getUnitList();
+  });
+  
+  $(".btn_search").click(function()
+  { 
+
+     getUnitList();
+  });
+ 
+  $("#table_data .ext_btn_edit").live("click",function(){
+    var unitid = $(this).attr("BID");
+    
+    editUnit(unitid);
+  });
+  $("#table_data .select").live("change",function(){
+    var id=$(this).attr("bid");
+    var resid=$(this).val();
+    $.post("checkres",{id:id,resid:resid,ran:Math.random()},function(){
+
+    })
+
+  });
+
+
+  $("#table_data .ext_btn_error").live("click",function(){
+    var tr = $(this).parents("tr");
+    var unitid = $(this).attr("BID");
+    art.dialog.confirm('你确定要删除这个单元的数据吗？', function () {
+      $.get("../unit/unitresdel",{unitid:unitid,random:Math.random()});
+      tr.remove();
+    });
+  });
+ 
+  $("#btn_submit").click(function()
+  {
+    if($('#table_data input[name="sortid"]').length == 0)return;
+    var dloading = art.dialog({time:30,title:'更新中……',width:130,height:30,opacity:0.3,lock:true});  
+    var arrjson =[];  
+    $('#table_data input[name="sortid"]').each(function(){  
+      var sortid = $(this).val() ; 
+      var unitid = $(this).attr("BID"); 
+      var obj = {};
+      obj.sortid = sortid;
+      obj.unitid = unitid;  
+      arrjson.push(obj);    
+    }); 
+    $.get("../unit/getunitsortidup",{data:JSON.stringify(arrjson)},function(){
+      getUnitList();
+      dloading.close();
+    });
+  });
+});
+ 
+
+function getUnitList(){  
+  var gradeid = $("#gradeid").val(); 
+  var versionid = $("#versionid").val(); 
+  var termid = $("#termid").val();
+  var resid = $("#resid").val();
+  
+  if (gradeid > 0 && versionid > 0 && termid > 0) {
+    var dloading = art.dialog({time:30,title:'加载中……',width:130,height:30,opacity:0.3,lock:true});   
+    $("#table_data td").parents("tr").remove();
+    $.getJSON("../unit/getresunitlist", {gradeid:gradeid,versionid:versionid,termid:termid,resid:resid,random:Math.random()}, function(data){
+      var i = 0;
+      $.each(data.unit, function(i,val){
+        i++;
+        var tr = $("#table_demo tr").eq(0).clone();
+        if(!val.ks_id)tr.css("color","red");
+        var td = tr.children('td').eq(0);
+        td.html(i);
+        td = tr.children('td').eq(1);
+
+        var input = td.children('input');
+        input.val(i);
+
+        td = tr.children('td').eq(2);
+        td.html(val.unitalias);
+
+        td = tr.children('td').eq(3);
+        td.html(val.unitname);
+
+        var content="<select class='select' bid='"+val.id+"'>";
+        $.each(data.unitrs,function(k1,v1){
+           if(v1.ks_id==val.ks_id){
+              content=content+"<option value='"+v1.ks_id+"' selected>"+v1.ks_name+"</option>";
+           }else{
+              content=content+"<option value='"+v1.ks_id+"'>"+v1.ks_name+"</option>";
+           }
+           
+        });
+        content=content+"</select>";
+        td = tr.children('td').eq(4);
+        td.html(content);
+
+        tr.find("input").attr("BID",val.id);
+
+        tr.appendTo("#table_data");
+      });
+    }); 
+    $(".tr:odd").css("background", "#F5F8FA");
+    dloading.close(); 
+  }
+}
+
+function editUnit(id){
+  var gradeid = $("#gradeid").val(); 
+  var versionid = $("#versionid").val(); 
+  var termid = $("#termid").val();
+  var myDialog = $.dialog.open('../unit/edit?id='+id+'&gradeid='+gradeid+'&termid='+termid+'&versionid='+versionid,{
+      id:'unit_edit',
+      title:'单元信息编辑',
+      window:'top',
+      width:520,
+      height:300,
+      lock:true,
+      opacity:0.3,
+      button: [
+        {
+          name: '保存',
+          callback: function () {  
+            var iframe = this.iframe.contentWindow;     
+            var re = iframe.saveUnitEdit();
+            getUnitList();
+            return false;
+          },
+          focus: true
+        },
+        {
+          name: '关闭',
+          callback: function () { 
+          },
+          focus: false
+        }
+      ]
+    });
+}
+
+
+function getresversion(){
+  var gradeid=$("#gradeid").find("option:selected").text();
+  var termid=$("#termid").find("option:selected").text();
+  var versionid=$("#versionid").find("option:selected").text();
+  $("#resid").empty();
+  $.post("getresversion",{ran:Math.random,gradeid:gradeid,termid:termid,versionid:versionid},function(data){
+    var content="";
+    if(data.length>1){
+      $.each(data,function(k,v){
+        content=content+"<option value="+v.ks_id+">"+v.c1+"</option>";
+      });
+    }else{
+        content=content+"<option value="+data.ks_id+">"+data.c1+"</option>";
+    }
+    $("#resid").html(content);
+  });
+}
+
+</script> 
+</body>
+</html>

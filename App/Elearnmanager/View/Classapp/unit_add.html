@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>应用列表</title>
+       <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                            <!-- <tr>
+                                <td width="70" align="right">所属学科：</td>
+                                <td>
+                                    <select name="subjectlist" class="select" id="subjectlist" disabled >
+                                      
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                              </tr>
+                               <tr>
+                               <eq name="isterm" value="1">
+                                <td width="70" align="right">所属版本：</td>
+                                <td>
+                                    <select name="versionlist" class="select" id="versionlist" disabled>
+                                      
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <else/>
+                                 <td width="70" align="right">所属应用：</td>
+                                <td>
+                                    <select name="applist" class="select" id="applist" disabled>
+                                      
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                              </eq>
+                            </tr> -->
+                            <tr>
+                            <td class="td_right">单元名称：</td>
+                            <td>
+                              <input type="text" id="unitname" name="unitname" class="input-text lh30" size="40" value="{$unitname}" />&nbsp;(<strong><font color="red">*</font></strong>)
+                            </td>
+                          </tr>
+                             <tr>
+                                <td width="70" align="right">是否可点：</td>
+                                <td>
+                                <eq name="unit_type" value="0">
+                                <eq name="id" value="0">
+                                    <input type="radio" value="0" checked name="isclick" />可点
+                                    &nbsp;&nbsp;
+                                    <input type="radio" value="1"  name="isclick" />不可点
+                                <else/>
+                                <input type="radio" value="0" name="isclick" <eq name="isclick" value="0"> checked </eq>  />可点
+                                    &nbsp;&nbsp;
+                                    <input type="radio" name="isclick" value="1" <eq name="isclick" value="1"> checked </eq>  />不可点
+                              </eq>
+                              <else/>
+                              <input type="radio" value="0" checked name="isclick" disabled />可点
+                                    &nbsp;&nbsp;
+                              <input type="radio" value="1"  name="isclick" disabled />不可点
+                            </eq>
+                                </td>
+                            </tr>
+                         <!--    <tr>
+                            <td class="td_right">序号：</td>
+                            <td>
+                              <input type="number" id="sortid" name="sortid" class="input-text lh30" size="40" value="{$sortid}" />&nbsp;(<strong><font color="red">*</font></strong>)
+                            </td>
+                          </tr> -->
+                            <tr>
+
+                                <td width="100" align="right">是否有缩略图：</td>
+                                <td>
+                                <eq name="unit_type" value="0">
+                                    <input type="radio" value="1" name="isimg" disabled />有
+                                    &nbsp;&nbsp;
+                                    <input type="radio" value="0" checked name="isimg" disabled />无
+                                    <else/>
+                                     <input type="radio" name="isimg" value="1" disabled  <eq name="unit_type" value="1"> checked </eq> />有
+                                    &nbsp;&nbsp;
+                                    <input type="radio" value="0" name="isimg" disabled  <eq name="unit_type" value="0"> checked </eq>  />无
+                                  </eq>
+                                </td>
+                            </tr>
+      <eq name="unit_type" value="1">
+       <tr id="unitimg"  style="display: none">
+        <td class="td_right">缩略图：</td>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table" id="table_excel"> 
+                <tr>
+                    <td width="100px">
+                        <input name="btn_submit" id="btn_que_add" type="button" class="ext_btn ext_btn_submit " value="上传图片" onclick="imgupload('#myimg','#filename')" />
+                    </td>
+                    <td align="left">
+                        <img src="/{$pic}" id="myimg" width="100" height="100"/ style="border:1px solid #CCC; padding:2px;" >
+                        <input type="hidden" id="filename" name="filename" value="{$pic}" />&nbsp;(<strong><font color="red">240*160</font></strong>)
+                    </td>
+                </tr>
+            </table> 
+        </td>
+      </tr>
+    </eq>
+                        </table>
+                    </td> 
+                </tr> 
+            </table>
+            
+        </div>
+        <div id="edit_tx2" class="edit_tx2" style="display: none;">
+  <iframe id="uploadPhoto" src="{:U('imageupload/index')}" width="100%" style="height:420px; text-align: center;"  frameborder="0" scrolling="no"></iframe>
+</div>
+        <script type="text/javascript">
+        var subject_code = "{$subject_code}";
+        var version_id = "{$version_id}";
+        var app_id = "{$app_id}";
+        var isterm = "{$isterm}";
+        var unit_type = "{$unit_type}";
+        var id = "{$id}";
+            $(function() {
+                $.ajaxSetup({async: false});
+                $.EBC.setSubject($('#subjectlist'),subject_code,0);
+                if(isterm == 1){
+                   $.EBC.setVersion($('#versionlist'),$('#subjectlist').val(),version_id);
+                }
+               else{
+                $.EBC.setAppname($('#applist'),$('#subjectlist').val(),app_id);
+               }
+               
+                $('input[name=isimg]').change(function(){
+                  if($('input[name=isimg]:checked').val() == 1){
+                     $('#unitimg').show();
+                  }
+                  else{
+                    $('#unitimg').hide();
+                  }
+                })
+               if($('input[name=isimg]:checked').val() == 1){
+                     $('#unitimg').show();
+                  }
+              else{
+                $('#unitimg').hide();
+              }
+            });
+            //添加版本
+            function unitadd(){
+              var unit_name = $.trim($('#unitname').val());
+              var pic = $('#filename').val();
+              var isclick = $('input[name=isclick]:checked').val();
+              var isimg = $('input[name=isimg]:checked').val();
+              var flag = false;
+              if(unit_name == ''){
+                dialogTips('单元名称不能为空');
+                flag = false;
+                return;
+              }
+              // if(isimg == 1){
+              //   if(pic == ''){
+              //       dialogTips('请上传版本图片');
+              //       flag = false;
+              //       return;
+              //   }
+              // }
+              $.getJSON('../classapp/Unit_save',{id:id,version_id:version_id,app_id:app_id,unit_name:unit_name,isclick:isclick,isimg:isimg,pic:pic
+              },function(result){
+                  if(result.flag == 0){
+                    dialogTips(result.msg);
+                    flag = false;
+                  }
+                  else{
+                    dialogTips(result.msg);
+                    flag = true;
+                  }
+                  $('#unitname').attr('unit_id',result.unit_id);
+              });
+              return flag;
+            }
+        </script> 
+    </body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="description">
+<title>英语绘本</title>
+<link href="__PUBLIC__/book/style/index.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/book/js/swipe.js"></script>
+<script src="__PUBLIC__/book/js/common.js" type="text/javascript"></script>
+<script type="text/javascript" src="__PUBLIC__/book/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/book/js/jquery.tmpl.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.form.js"></script>
+<script type="text/javascript">
+    var page=0;
+    var mp3url="../../uploads/book/mp3/";
+</script>
+<script type="text/javascript" src="__PUBLIC__/js/book.js"></script>
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/uploadify/jquery.uploadify.min.js"></script> 
+<link href="__PUBLIC__/js/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+</head>
+<body ng-app="myApp" ng-controller="userCtrl">
+    <div id="jplayer"></div>
+<div>
+   <button id="upload">添加图片</button> 
+</div>
+<!--Menu End-->
+<div id="content">
+   <button onclick="mySwipe.prev()" id="button-left"></button>
+   <button onclick="mySwipe.next()" id="button-right"></button>
+<div id="main">
+  <div id="slide" class="swipe" style="visibility: visible;">
+    <div class="swipe-wrap" style="width: 23977.7px;" id="photo">
+        
+    </div>
+  </div>
+</div>
+<!--书籍的图片模板-->
+<script id="piclist" type="text/x-jquery-tmpl">
+    <div data-index="${i}" style="width: 1141.8px; left: 0px; transition-duration: 1000ms; transform: translate(-1141.8px, 0px) translateZ(0px);">
+        <img src="__UPLOAD__/book/pic/${filename}"   style="height: 200px;width: 200px;" alt="">
+        <div class="form-group">
+            <label for="name">绘本内容</label>
+            <div class="contents"  pageid="${id}" bid="0">
+                <div>
+                    <textarea class="form-control" rows="2" placeholder="英语原文"></textarea>
+                    <textarea class="form-control" rows="2" placeholder="英语译文"></textarea>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table" id="table_excel"> 
+                          <tr>
+                              <td width="150px">
+                                  <div id="queue"></div>
+                                  <form id="form${id}" >
+                                      <input  class="file_upload" name="file_upload" type="file">
+                                      <input  class="filemp3_upload" type="button" value="上传" onclick="checkImage(${id});">
+                                  </form>
+                              </td>
+                              <td>
+                                  <input type="hidden" class="filename" id="filename${id}" name="filename" bid="{$filename}"/>
+                                  <a href="javascript:void(0);" onclick="contentedit(this,${id});">
+                                     <span class="glyphicon glyphicon-plus" aria-hidden="true">确定</span>
+                                  </a>
+                              </td>
+                          </tr>
+                    </table>
+                </div>
+                <table class="table" bid="${id}">
+                    <caption>绘本内容</caption>
+                    <thead>
+                        <tr>
+                            <th>内容</th>
+			    <th>翻译</th>
+                            <th>音频</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{each(i,lang ) pagecontent}}
+                            <tr>
+				<td>${lang.encontent}</td>
+                                <td>${lang.cncontent}</td>
+                                <td>
+                                    <a href="javascript:void(0);" onclick="play('${lang.filename}');">
+                                      <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" bid="${lang.id}" onclick="editcontent(this,${lang.id});">编辑</button>
+                                    <button type="button" class="btn btn-danger" bid="${lang.id}" onclick="contentdel(this,${lang.id})">删除</button>
+                                </td>
+                            </tr>   
+                        {{/each}}    
+                    </tbody>
+                </table>
+            </div>
+            <label for="name">绘本单词</label>
+            <div class="words" pageid="${id}" bid="0">
+                <div>
+                    <button type="button" class="btn btn-primary" onclick="wordchoose(${id});">选择单词</button>
+                </div>
+                <div>
+                    <table class="table" bid="${id}">
+                        <caption>单词列表</caption>
+                    </table>
+                    <ul class="pager">
+                        {{each(i,lang ) pagewords}}
+                            <li class="previous"><a href="javascript:void(0);"><span aria-hidden="true" bid="${lang.id}" onclick="worddel(this,${lang.id});">×</span>${lang.word}</a></li>   
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <label for="name">绘本问题</label>
+            <div class="questions" pageid="${id}" bid="0">
+                <div>
+                    <button type="button" class="btn btn-primary" onclick="editquestion(this,${id},0);">添加问题</button>
+                </div>
+                <div>
+                    <table class="table" bid="${id}">
+                            <caption>问题列表</caption>
+                    </table>
+                    <div class="questionlist">
+                        {{each(i,lang ) pagequestions}}
+                            <div>
+                                <a href="javascript:void(0);" onclick="editquestion(this,${lang.bookpicid},${lang.id});">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>
+                                </a>
+                                <a href="javascript:void(0);" onclick="questiondel(this,${lang.id})" >
+                                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                </a>
+                                ${i+1}、<label for="name">{{html lang.tncontent}}</label>
+                                <div class="items">
+                                    {{each(j,item ) lang.itemslist}}
+                                        <label class="checkbox-inline">
+                                            <input type="radio" name="optionsRadiosinline${lang.id}" id="optionsRadios3" value="${item.content}" {{if item.content==answer}}checked{{/if}}>${item.content}
+                                        </label>
+                                    {{/each}}
+                                </div>
+                            </div>  
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>            
+</script>
+<!--添加的图片内容模板-->
+<script id="addpiccontent" type="text/x-jquery-tmpl">
+    <tr>
+	<td>${encontent}</td>
+        <td>${cncontent}</td>
+        <td>
+            <a href="javascript:void(0);" onclick="play('${filename}');">
+              <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
+            </a>
+        </td>
+        <td>
+            <button type="button" class="btn btn-primary" bid="${id}" onclick="editcontent(this,${id});">编辑</button>
+            <button type="button" class="btn btn-danger" bid="${id}" onclick="contentdel(this,${id})">删除</button>
+        </td>
+    </tr>            
+</script>
+<!--图片单词信息模板-->
+<script id="addpicword" type="text/x-jquery-tmpl">
+     <li class="previous" ><a href="javascript:void(0);"><span aria-hidden="true" bid="${id}" onclick="worddel(this,${id});">×</span>${word}</a></li>           
+</script>
+<!--图片单词信息模板-->
+<script id="addpicquestion" type="text/x-jquery-tmpl">
+    <div>
+        <a href="javascript:void(0);" onclick="editquestion(this,${id});">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>
+        </a>
+        <a href="javascript:void(0);" onclick="questiondel(this,${id})" >
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+        </a>
+        ${k}、<label for="name">${tncontent}</label>
+        <div class="items">
+            {{each(j,item ) itemslist}}
+                <label class="checkbox-inline">
+                    <input type="radio" name="optionsRadiosinline${id}" id="optionsRadios3" value="${item.content}" {{if item.content==answer}}checked{{/if}}>${item.content}
+                </label>
+            {{/each}}
+        </div>
+    </div>      
+</script>
+<!--试题信息模板-->
+<script id="addpicitems" type="text/x-jquery-tmpl">
+    <div class="item">
+        <a href="#">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </a>
+        <a href="#" >
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+        </a>
+        <input type="text" class="form-control" id="name" placeholder="请输入名称">
+    </div>           
+</script>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $.ajaxSetup({async:false});
+
+
+        
+        $("#jplayer").jPlayer({
+            swfPath: "js",
+            wmode: "window",
+            supplied: "mp3",
+            preload: "none",
+            volume: "1"
+        });
+        var bookid=Request["id"];
+        var index=Request["index"];
+        if(index==undefined){
+            index=0;
+        }
+        $.getJSON("getBookPicList", {bookid:bookid,random: Math.random() }, function (data) {
+            $("#piclist").tmpl(data).appendTo('#photo');
+        });
+
+        window.mySwipe = new Swipe(document.getElementById('slide'), {
+            startSlide: index,
+            // speed: 1000,
+            // auto: 5000,
+            continuous: true,
+            enableKeyboard: true,
+            disableScroll: false,
+            stopPropagation: false,
+            callback: function (index, elem) { 
+
+            },
+            transitionEnd: function (index, elem) {
+                page=index;
+                $("#file_upload").attr("id","");
+                $(".contents .file_upload").eq(page).attr("id","file_upload"); 
+            }
+        });
+
+        
+        // $('#file_upload').uploadify({
+        //     'height': 30,
+        //     'width': 120,
+        //     'buttonText': '上传MP3', //选择按钮显示的字符
+        //     'multi': false, //是否允许同时选择多个(false一次只允许选中一张图片)
+        //     'method': 'post',
+        //     'formData': {
+        //         'folder': './uploads',
+        //         'fileext': 'mp3'
+        //     },
+        //     'swf': '__PUBLIC__/js/uploadify/uploadify.swf',
+        //     'uploader': '../upload/bookmp3',
+        //     'fileTypeExts': '*.mp3', //允许的后缀
+        //     'fileTypeDesc': 'mp3', //允许的格式，详见文档
+        //     'onUploadSuccess': function(file, data, response)
+        //     {
+        //         //上传成功后的触发事件  
+        //         var obj = eval("(" + data + ")");
+        //         if (obj.issuc == 1)
+        //         {
+        //             $('#' + file.id).find('.data').html('上传完毕');
+        //             $("#tdinfo").html("【" + obj.msg.name + '】文件已上传，请点击导入EXCEL数据');
+        //             $("#filename").val('uploads/' + obj.msg.savepath + obj.msg.savename);
+        //             $("#filename").attr('path',obj.msg.savename);
+        //             $("#btn_excel").show();
+        //         }
+        //         else
+        //         {
+        //             $("#tdinfo").html("【" + obj.msg + '】文件已上传，请点击导入EXCEL数据');
+        //         }
+        //         ;
+        //     }
+        // });
+        $("#upload").click(function(){
+            art.dialog.open('upload?id='+bookid+'&ran='+Math.random(), {
+                title: "上传图片",
+                width: 600,
+                height: 600,
+                lock: true,
+                opacity: 0.3,
+                button: [
+                        {
+                            name: '保存',
+                            callback: function() {
+                                var iframe = this.iframe.contentWindow;
+                                var re = iframe.savepic();
+                                if (re) {
+                                    //$.getJSON("getBookPicList", {bookid:bookid,random: Math.random() }, function (data) {
+                                     //   $("#piclist").tmpl(data.photolist).appendTo('#photo');
+                                        window.location.reload();
+                                    //});
+                                    return true;
+                                }
+                                else {
+                                    return false;
+                                }                               
+                            },
+                            focus: true
+                        },
+                        {
+                            name: '关闭',
+                            callback: function() {
+                                //$("#gradeid").change();
+                                window.location.reload();
+                            },
+                            focus: false
+                        }
+                    ]
+            });
+        });
+        
+        $("#addwords").click(function(){
+            art.dialog.open('words?id='+bookid+'&ran='+Math.random(), {
+                title: "上传图片",
+                width: 600,
+                height: 600,
+                lock: true,
+                opacity: 0.3,
+                button: [
+                        {
+                            name: '保存',
+                            callback: function() {
+                                var iframe = this.iframe.contentWindow;
+                                var re = iframe.savepic();
+                                if (re) {
+                                    $.getJSON("getBookPicList", {bookid:bookid,random: Math.random() }, function (data) {
+                                        $("#piclist").tmpl(data.photolist).appendTo('#photo');
+                                    });
+                                    return true;
+                                }
+                                else {
+                                    return false;
+                                }
+                            },
+                            focus: true
+                        },
+                        {
+                            name: '关闭',
+                            callback: function() {
+                                //$("#gradeid").change();
+                            },
+                            focus: false
+                        }
+                    ]
+            });
+        })
+    });
+
+
+    function checkImage(id)
+    {
+        var mydialog;
+                var options = {
+
+                   url:"../upload/bookmp3?ran="+Math.random(),//后台的处理，也就是form里的action
+                   type:"POST",
+    //               dataType:"script", //数据格式，有XML，html，json，默认为文本
+                   beforeSubmit : function() {
+                      mydialog=art.dialog({title:'上传中……',width:130,height:30,opacity:0.3,lock:true});
+                    },
+                   success:function(msg){
+                    console.log(msg);
+                    mydialog.close();
+                    $("#filename"+id).attr("path",msg.msg.savename);
+                    alert("上传完成");
+                  //msg为接受后台的反馈信息。将他格式化为文本。也许我的代码的问题，后台返回的一直带有HTML标记的文本，所以我将他格式成文本。
+                     //var msgText = $("<div>"+msg+"</div>").text();
+                     //下面可以根据后台反馈的信息做相应的处理
+                   }
+                };
+                console.log($("#form"+id));
+             $("#form"+id).ajaxSubmit(options);
+             return false;//为了防止刷新
+    }
+
+    function saveReport(obj) { 
+        // jquery 表单提交 
+        $(obj).parents("form").ajaxSubmit(function(message) {
+            console.log(message);
+           // 对于表单提交成功后处理，message为提交页面saveReport.htm的返回内容 
+        }); 
+
+        return false; // 必须返回false，否则表单会自己再做一次提交操作，并且页面跳转 
+    } 
+
+
+</script>
+</body>
+</html>

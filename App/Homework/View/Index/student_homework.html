@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <link href="__PUBLIC__/css/mui.min.css" rel="stylesheet"/>
+    <link href="__PUBLIC__/css/wszy.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/swiper/idangerous.swiper.css">
+    <link rel="stylesheet" href="__PUBLIC__/fonts/font-awesome/css/font-awesome.min.css">
+    <style type="text/css">
+    	body{background: #fcfcff;}
+    </style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon  mui-pull-left" style="padding-top:0px;color: #fff; font: normal 19px/45px Microsoft YaHei;">
+        <img width="20" height="20" src="__PUBLIC__/images/backIco.png" width="20" height="20" />返回
+      </a>
+	    <h1 class="mui-title">作业详情</h1>
+	</header>
+		<div class="mar_t45 bor-bo">
+        	<!-- <h2 class="tishi mar">在线作答、智能批改、班级分享，请点击“进入题库”</h2> -->
+        </div>
+		<div class="head01" style="margin-top: 0;"><i class="fa fa-pencil-square-o fa-lg"></i><span>英语听读作业</span></div>
+            <ul class="mui-table-view mb50" style="border: 0;">
+              <if condition="$wordrcount neq 0">
+                <li class="mui-table-view-divider posr min70">
+                    <span class="po-w60 zdie"><img src="__PUBLIC__/public/images/zuoye/6.png" /></span>
+                    <span class="pmiddle2">单词跟读<b>共<strong class="orangFon">{$wordrcount}</strong>个单词<!-- ，得分：<strong class="orangFon">50</strong>分 --></b></span>
+                    <span class="po-r-w100 xzy" attr="word_alound"><i class="fa fa-pencil fa-lg"></i><if condition="$source neq '0'">预览<else/>写作业</if></span>
+                </li>
+              </if>
+              <if condition="$wordtcount neq 0">
+                <li class="mui-table-view-divider posr min70">
+                    <span class="po-w60 zdie"><img src="__PUBLIC__/public/images/zuoye/4.png" /></span>
+                    <span class="pmiddle2">单词测试<b>共<strong class="orangFon">{$wordtcount}</strong>个单词<!-- ，得分：<strong class="orangFon">50</strong>分 --></b></span>
+                    <span class="po-r-w100 xzy" attr="word_test"><i class="fa fa-pencil fa-lg"></i><if condition="$source neq '0'">预览<else/>写作业</if></span></li>
+              </if>
+              <if condition="$chaptercount neq 0">
+                <li class="mui-table-view-divider posr min70">
+                    <span class="po-w60 zdie"><img src="__PUBLIC__/public/images/zuoye/1.png" /></span>
+                    <span class="pmiddle2">课文跟读<b>共<strong class="orangFon">{$chaptercount}</strong>段单词<!-- ，得分：<strong class="orangFon">50</strong>分 --></b></span>
+                    <span class="po-r-w100 xzy " attr="text_alound"><i class="fa fa-pencil fa-lg"></i><if condition="$source neq '0'">预览<else/>写作业</if></span>
+                </li>
+              </if>
+              <if condition="$examscount neq 0">
+                <li class="mui-table-view-divider posr min70">
+                    <span class="po-w60 zdie"><img src="__PUBLIC__/public/images/zuoye/15.png" /></span>
+                    <span class="pmiddle2">听力训练<b>共<strong class="orangFon">{$examscount}</strong>套试卷<!-- ，得分：<strong class="orangFon">50</strong>分 --></b></span>
+                    <span class="po-r-w100 xzy" attr="exams_quiz"><i class="fa fa-pencil fa-lg"></i><if condition="$source neq '0'">预览<else/>写作业</if></span>
+                </li>
+              </if>
+            </ul>
+        <if condition="$isOverdue eq 'false'">
+          <div class="dd-bottom">
+             <a class="edi-btn-bl"  id="titan">确定完成作业</a>
+          </div>
+        </if>
+    </div>
+</body>
+<script src="__PUBLIC__/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/artDialog.js?skin=blue"></script>
+<script src="__PUBLIC__/js/iframeTools.source.js"></script>
+<script src="__PUBLIC__/js/mobile.js" type="text/javascript"></script>
+<script type="text/javascript">
+  var ishttps=document.location.protocol;
+//$.ajaxSetup({async:false});
+    $(function(){
+      	mui.init();
+        mui.back=function(){
+          var source="{$source}";
+          //表示学生进去
+          if(source=="0"){
+            popTheController();
+          }else{
+            //返回到教师的列表页面
+            var url="{$callbackURL}";
+            window.location.href=url;
+          }
+        }
+    })
+    $(".zdie").click(function() {
+
+        $(this).parent().next("ul").toggle();
+        $(this).children("label").children("i").toggleClass("fa-minus-circle");
+        $(this).children("label").children("i").toggleClass("fa-plus-circle");
+    });
+    $(".zdie").click();
+    $(".xzy").bind('click',function(){
+        var attr=$(this).attr("attr");
+        var homeworkid="{$homeworkid}";
+        //paper_id=43&homeworkId=&studentId=&classId=&isOverdue=&batched=&sso=
+        var url=ishttps+"//"+document.domain+"/homework/Index/"+attr+"?homeworkid="+homeworkid+"&num=0&paper_id={$homeworkid}&homeworkId={$ilearid}&studentId={$username}&classId={$classid}&isOverdue={$isOverdue}&batchid={$batchid}&backurl=student_homework&sso={$sso}&source={$source}&callbackURL={$callbackURL}&starttime={$starttime}";
+        //openProgressController(url);
+        window.location.href=url;
+    });
+
+    $("#titan").click(function(){
+        //学生提交作业对接接口
+        var ilearid="{$ilearid}";
+        var homeworkid="{$homeworkid}";
+        var url=ishttps+"//"+document.domain+"/homework/Public/stupublish";
+        var batchid="{$batchid}";
+        var tms="{$sso}";
+        var studentid="{$username}";
+        var classid="{$classid}";
+        var starttime="{$starttime}";
+        $.post(url,{homeworkid:ilearid,paper_id:homeworkid,starttime:starttime,studentid:studentid,classid:classid,tms:tms,ran:Math.random()},function(data){
+           if(data.state==1){
+              setOnlinWorkHaveFinished(batchid);
+           }
+        });
+
+    });
+
+
+</script>
+</html>

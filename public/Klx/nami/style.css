@@ -1,0 +1,1011 @@
+/* CSS layout */
+* {
+	margin				: 	0;
+	padding				: 	0;
+}
+
+body {
+	font-family			: 	"Trebuchet MS" , Arial, "微软雅黑", "黑体", "宋体";
+	font-size			: 	16px;
+	background-color	:	#E4E4E4;
+}
+
+.a_no_line  {
+	text-decoration     :   none;
+    color               :   inherit;
+}
+
+.fixed , .clear
+{
+	clear			    :	both;
+}
+
+
+
+/* ***********************************
+ . 常规列表的布局
+/************************************ */
+.section{
+    margin-top          :   20px;
+}
+
+.section .title{
+    margin              :   0px 2px 10px 5px;
+    font-size           :   16px;
+    font-weight         :   bold;
+    position            :   relative;
+}
+
+.section .title .flag{
+    display             :   inline-block;
+    width               :   5px;
+    background-color    :   orange;
+    -webkit-box-shadow  :   0 1px 0 0 #d8d8d8;
+    margin              :   0px 5px 0px 0px;
+}
+.section .title .right{
+    position            :   absolute;
+    right               :   10px;
+    top                 :   0px;
+}
+.nblist{
+	border:1px solid #efefef;
+	margin:10px;
+	border-radius:10px;
+    background-color    :   white;
+}
+
+/* 电子商务页面的文字默认14px大小 */
+.nblist_ec{
+
+    font-size           :   14px;
+}
+
+.nblist .nblock{
+    border-bottom       :   1px solid #efefef;
+    padding             :   6px 5px;
+    position            :   relative;
+    min-height          :   75px;
+}
+
+.nblist .nblock_ec{
+    padding             :   7px 15px;
+    position            :   relative;
+    border-bottom       :   1px solid #efefef;
+	background-color:#fafafa;
+	border-radius:10px 10px 0 0;
+
+}
+
+.nblist .nblock_ec_last{
+    border-bottom-width :   0px;
+    padding-bottom      :   10px;
+	background-color:#fff;
+	border-radius: 0 0 10px 10px;
+	
+}
+
+.ec_introduce img{
+    max-width : 100%;
+    max-height: 100%;
+}
+
+/* 磁带目录，书本的显示不是方形的 */
+.nblist .nblock2{
+    min-height          :   100px;
+}
+
+.nblist a{
+	text-decoration     :   none;
+    color               :   inherit;
+}
+
+.nblist .nblockimg{
+    position            :   absolute;
+
+}
+.nblist .nblocktxt{
+    padding-left        :   90px;
+}
+
+.nblist .nblockimg .nbimgsquare{
+    width               :   75px;
+    /*height              :   75px;*/
+    vertical-align      :   top;
+    margin-right        :   10px;
+}
+
+.nblist .nblockimg .nbimgrect{
+    width               :   75px;
+    height              :   100px;
+    vertical-align      :   top;
+    margin-right        :   10px;
+}
+
+.nblist .nblockimg .nbimgrecommed{
+    position            :   absolute;
+    left                :   0px;
+    top                 :   0px;
+    width               :   36px;
+}
+
+.nblist .nbtitle{
+    font-size           :   1em;
+    font-weight         :   bold;
+    margin-top          :   8px;
+    text-overflow       :   ellipsis;
+    overflow            :   hidden;
+    white-space         :   nowrap;
+    color               :   #222222;
+}
+
+.nblist .nbtitle2{
+    margin-top          :   2px;
+}
+
+.nblist .nbsubtitle{
+    font-size           :   0.8em;
+    font-weight         :   normal;
+    margin-top          :   6px;
+    text-overflow       :   ellipsis;
+    overflow            :   hidden;
+    color               :   #606060;
+    margin-bottom       :   12px;
+}
+
+.nblist .nbsubtitle2{
+    margin-top          :   2px;
+}
+
+/*.nblist .nbtitle_hq{*/
+.nbtitle_hq{
+    vertical-align      :   super;
+    background-color    :   red;
+    color               :   white;
+    font-size           :   10px;
+    font-weight         :   normal;
+    padding             :   0px 1px;
+}
+
+/*.nblist .nbtitle_hq_grey{*/
+.nbtitle_hq_grey{
+    vertical-align      :   super;
+    background-color    :   grey;
+    color               :   white;
+    font-size           :   10px;
+    font-weight         :   normal;
+    padding             :   0px 1px;
+}
+
+.nblist .nbfoot{
+    position            :   absolute;
+    right               :   10px;
+    bottom              :   5px;
+    font-size           :   11px;
+    font-weight         :   normal;
+}
+
+.nblist .item{
+    display             :   inline-block;
+    padding             :   0px 2px;
+    font-size           :   10px;
+    font-weight         :   normal;
+    color               :   grey;
+}
+
+.nblist .hot{
+    display             :   inline-block;
+    background-color    :   #333399;
+    color               :   white;
+    padding             :   0px 2px;
+}
+
+.nblist .hot2{
+    position            :   absolute;
+    right               :   10px;
+    bottom              :   0px;
+    width               :   20px;
+    height              :   20px;
+    font-size           :   12px;
+    background-color    :   #333399;
+    color               :   white;
+    border-radius       :   10px;
+    line-height         :   20px;
+    text-align          :   center;
+    vertical-align      :   middle;
+}
+
+.nblist .audio{
+    display             :   inline-block;
+    background-color    :   deeppink;
+    color               :   white;
+    padding             :   0px 2px;
+}
+
+.nblist .price{
+    color               :   #be0c0c;
+    font                :   normal 14px/22px Arial,'Microsoft YaHei';
+    font-size           :   18px;
+}
+
+.nblist .saledcount{
+    font-size           :   12px;
+    color               :   grey;
+}
+
+/* 磁带点读的页面风格，基本还是SECTIONS的布局，但局部风格有变化 */
+.nblist .audioitem{
+    border-bottom       :   1px solid #DDDDDD;
+    padding             :   15px 0px;
+    font-size           :   16px;
+    position            :   relative;
+}
+
+.audioitem .pagetip{
+    font-size           :   0.8em;
+    color               :   #888888;
+    width               :   60px;
+    display             :   inline-block;
+    text-align          :   right;
+}
+
+.nblist .audioitem_focus{
+    background-color    :   #3E3D32;
+    color               :   white;
+}
+
+/* ***********************************
+ . 标准头部布局
+/************************************ */
+
+/* APP和微信的公共头部布局风格，微信默认高度40，APP是50 */
+.apptitle{
+    position            :   fixed;
+    top                 :   0px;
+    left                :   0px;
+    height              :   40px;
+    line-height         :   40px;
+    width               :   100%;
+    /*border-top          :   1px solid #2B61C0;*/
+    text-align          :   center;
+    vertical-align      :   middle;
+    font-size           :   18px;
+    font-weight         :   bold;
+    color    :   #fff;
+    z-index             :   500;
+    /*-webkit-box-shadow  :   0 2px 13px rgba(0,0,0,0.5);*/
+	background-color:#0078D7;
+}
+
+.apptitle50{
+    height              :   44px;
+    line-height         :   44px;
+}
+
+/* 微信的页面头部稍微有别于APP */
+.nbhead{
+    border-top-width    :   0px;
+}
+
+.nbhead .nbnavi{
+    height              :   24px;
+    padding             :   8px 8px;
+    position            :   absolute;
+    /*
+    margin              :   4px 2px 2px 2px;
+    border              :   1px solid #DDDDDD;
+    border-radius       :   3px;
+    background-color    :   #F6F6F6;
+    font-weight         :   bold;
+    display             :   inline-block;
+    height              :   22px;
+    line-height         :   22px;
+    vertical-align      :   middle;
+    */
+}
+
+.nbhead .nbnavi img{
+    vertical-align      :   top;
+    height              :   24px;
+}
+
+/* ***********************************
+ . v_audio.html通用的CSS
+/************************************ */
+
+/* 点读页面上面的书本图片CSS */
+.toppicture {
+    margin-right        :   10px;
+    margin-top          :   5px;
+    margin-left         :   5px;
+}
+
+/* 点读页面标题和说明文字 */
+.toptitle {
+    font-size           :   20px;
+    font-weight         :   bold ;
+    margin-bottom       :   10px;
+    color               :   black;
+
+}
+
+.toptext {
+    margin-bottom       :   10px;
+}
+
+/* 点读页面中每区段的粗体标题，不可点击 */
+.fpunit {
+    font-size           :   16px;
+    font-weight         :   bold;
+    margin-top          :   10px;
+    margin-bottom       :   10px;
+    color               :   blue;
+}
+
+/* 点读页面中每行的风格CSS，fpselected是为选中状态下设计的 */
+.fplist {
+    cursor              :   pointer;
+    line-height         :   32px;
+    font-size           :   14px;
+    font-weight         :   normal;
+    margin-left         :   10px;
+}
+
+.fpselected {
+    padding             :   5px;
+    background-color    :   #D6DEED;
+    border-left         :   1px solid #90A2C6;
+    border-top          :   1px solid #90A2C6;
+    border-bottom       :   1px solid #DBE3ED;
+    border-right        :   1px solid #DBE3ED;
+    font-weight         :   bold;
+    font-size           :   14px;
+}
+
+/* ***********************************
+ . 一些通用的风格，如按钮等
+/************************************ */
+
+.button_nmbox{
+    /*-webkit-box-shadow  :   0 -1px 0 0 #0077c9 inset;*/
+    color               :   white;
+    text-align          :   center;
+    text-decoration     :   none;
+    padding             :   6px 0px;
+    font-size           :   15px;
+    font-weight         :   normal;
+    cursor              :   pointer;
+    -moz-border-radius      : 5px; /* Firefox */
+    -webkit-border-radius   : 5px; /* Safari 和 Chrome */
+    border-radius           : 5px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+
+.button_blue{
+    background-color    :   #0298FF;
+}
+
+.button_orange{
+    background-color    :   #FE9500;
+}
+
+.button_red{
+    background-color    :   #C80101;
+}
+
+.button_green{
+    background-color    :   #7CC677;
+}
+
+.button_tomato{
+    background-color    :   #F25C5E;
+}
+
+.button_lemon{
+    background-color    :   #F2C75E;
+}
+
+.link_character{
+    border              : 1px solid #000;
+    line-inheight       : 40px;
+    margin              : 5px;
+    padding             : 5px;
+    text-align          : center;
+    text-decoration     : none;
+    font-size           : 18px;
+    display             : inline-block
+}
+
+/* 购物车右上角红色的提示圆圈 */
+.cartip{
+    position            :   absolute;
+    font-size           :   10px;
+    background-color    :   red;
+    border-radius       :   9px;
+    width               :   16px;
+    height              :   16px;
+    line-height         :   16px;
+    text-align          :   center;
+    vertical-align      :   middle;
+    right               :   -8px;
+    top:-8px;
+}
+
+/* 全局提示窗口，如购物车的结算和再逛逛 */
+.fullscreentip{
+    width               :   240px;
+    position            :   absolute;
+    z-index             :   9999;
+    background-color    :   white;
+    border-radius       :   5px;
+    padding             :   6px;
+    font-size           :   16px;
+    text-align          :   center;
+    vertical-align      :   middle;
+    display             :   none;
+}
+
+/* 纳米盒伴你成长，希望小朋友的学习和家长们的生活都能轻松开心一点！ */
+.hwgif {
+    margin-left         :   10px;
+    margin-top          :   40px;
+    margin-bottom       :   20px;
+    padding             :   10px;
+    border              :   1px solid #8E8117;
+    background-color    :   #FBEC88;
+    font-size           :   12px;
+}
+
+/* ***********************************
+ . 横向图片滚动的控制
+/************************************ */
+
+.touchslider .touchslider-nav{
+    text-align          :   center;
+}
+
+.touchslider-nav .touchslider-nav-item {
+    width               :   6px;
+	height              :   6px;
+    border              :   1px solid #E0E0E0;
+	background          :   white;
+	margin              :   0 2px;
+	display             :   inline-block;
+	-webkit-border-radius:  3px;
+	border-radius       :   3px;
+}
+
+.touchslider-nav .touchslider-nav-item-current {
+    background-color    :   #0077c9;
+    border-color        :   #0077c9;
+}
+
+/* ***********************************
+ 列表功能的控制
+/************************************ */
+.funlist{
+    background-color    :   #FFFFFF;
+    border-top          :   1px solid #dddddd;;
+ }
+
+.funlist .fun{
+    position            :   relative;
+    border-bottom       :   1px solid #dddddd;
+    min-height          :   50px;
+}
+.funlist .funimg{
+    position            :   absolute;
+    padding-left        :   12px;
+    padding-top         :   17px
+}
+
+.funlist .funimg img{
+    width               :   18px;
+    height              :   18px;
+}
+
+.funlist .funname{
+    padding-left        :   40px;
+    padding-top         :   15px
+}
+
+.funlist .funskip{
+    position            :   absolute;
+    right               :   20px;
+    bottom              :   10px
+}
+
+/* ***********************************
+ input 前面图标控制
+/************************************ */
+
+.inputdiv{
+   border               :   1px solid #dddddd;
+   height               :   45px;
+   position             :   relative;
+   margin-top           :   10px;
+}
+
+
+.inputip{
+    height              :   40px;
+    width               :   100%;
+    color               :   #e3e3e3;
+    border              :   0px;
+    font-size           :   16px;
+    margin-top          :    2px ;
+}
+.inputpwd{
+    height              :   40px;
+    width               :   100%;
+    color               :   #e3e3e3;
+    border              :   0px;
+    font-size           :   16px;
+    margin-top          :    2px ;
+}
+.inputicontip{
+    position            :   absolute;
+    padding             :   10px;
+}
+
+/* ***********************************
+app2.0的样式处理,用户信息
+/************************************ */
+.image_head{
+    width                   : 60px;
+    height                  : 60px;
+    border                  : 0;
+    vertical-align          : middle;
+    -moz-border-radius      : 15px; /* Firefox */
+    -webkit-border-radius   : 15px; /* Safari 和 Chrome */
+    border-radius           : 15px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+    background-color        : white;
+}
+
+
+.info_title{
+    font-size               :    16px;
+    background-color        :   #F7F7F7;
+    color                   :   #515151;
+    padding                 :   10px;
+    margin-top              :   10px;
+}
+
+.info_div{
+    position                :   relative;
+    padding                 :   10px;
+    margin-top              :   5px;
+    color                   :   #515151;
+    border-bottom           :   1px solid #E5E5E5;
+}
+
+.info_title img{
+    vertical-align          :   middle;
+}
+
+.info_name{
+    font-weight             :   bolder;
+}
+
+.info_set{
+    position                :   absolute;
+    right                   :   10px;
+    color                   :   #848484
+}
+
+
+.select-poptit{
+    position                :   relative;
+    margin-top              :   5px
+}
+.select-poptit a{
+    font-size               :   xx-large;
+    position                :   absolute;
+    right                   :   5px;
+    top                     :   -10px
+}
+
+
+.select-popbod {
+    margin-top              :   10px;
+    text-align              :   center;
+    max-height              :   290px;
+    overflow-y              :   auto;
+    position                :   relative;
+}
+.select_theme{
+    line-height             :   40px;
+    border-top              :   1px solid #E5E5E5;
+}
+.select_tip{
+   display                  :   none;
+   position                 :   absolute;
+   left                     :   40px;
+   margin-top               :   10px;
+}
+
+/* 微信顶部的导航按钮 */
+.wxnavi{position:fixed;left:8px;top:8px;width:32px;height:32px;border-radius:16px;background-color:white;opacity:0.8;z-index:400;}
+    .wxnavi img{width:24px;height:24px;vertical-align:top;margin:4px;}
+
+/* 评论、日记、社区相关的CSS设计 */
+
+/* 参考微信（朋友圈发帖子）设计的列表风格，在评论编辑区域用到了这种模式 */
+.ns_item{border-bottom:1px solid #DBDBDB;background-color:white;font-size:15px;color:#333333;}
+    .ns_item table{border-spacing:0px;border-collapse:collapse;width:100%;height:50px;vertical-align:middle;}
+    .ns_item .icon{width:24px;padding-left:18px;padding-right:6px;padding-top:10px;vertical-align:top;}
+
+/* 书评区的抬头部分 */
+#commentitle{padding:5px;background-color:white;padding-top:10px;}
+
+    /* 书评区本身是用table组织的，这里定义table的CSS风格 */
+    #commentitle>table{width:100%;border-spacing:0px;border-collapse:collapse;}
+
+    /* 书评抬头区域的标题区，包括标题、配音标识、副标题 */
+    #commentitle .title{font-size:18px;font-weight:bold;color:#202020;margin-bottom:6px;}
+    #commentitle .audio{background-color:#F76967;color:white;padding:0px 2px;font-size:11px;font-weight:normal;}
+    #commentitle .subtitle{font-size:12px;font-weight:normal;color:#838383;margin-bottom:6px;}
+
+    /* 书评抬头区域的缩略图 */
+    #commentitle .thumb_box{width:75px;height:75px;margin-right:10px;vertical-align:top;position:relative;}
+        #commentitle .thumb{width:75px;height:75px;vertical-align:top;}
+        #commentitle .thumb_author_box{position:absolute;right:0px;bottom:0px;width:36px;height:36px;border:2px solid white;border-radius:20px;-webkit-border-radius:20px;-moz-border-radius:20px;overflow:hidden;vertical-align:top;}
+            #commentitle .thumb_author{width:36px;height:36px;border-radius:18px;-webkit-border-radius:18px;-moz-border-radius:18px;}
+
+    /* 书评抬头区域的星评区域 */
+    #commentitle .star_p{text-align:left;width:80px;vertical-align:bottom;padding-bottom:2px;}
+    #commentitle .star_v{color:#989898;font-size:12px;font-weight:normal;vertical-align:bottom}
+
+    /* 书评抬头区域的赞数量，评论数量 */
+    #commentitle .stat{text-align:right;padding-top:0px;padding-right:3px;color:#989898;font-size:12px;font-weight:normal;vertical-align:bottom}
+    #commentitle .stat img{width:14px;margin-left:6px;margin-right:4px}
+
+/* 书评区域的操作按钮区域 */
+#area_action{width:100%;border-spacing:0px;border-collapse:separate;color:white;text-align:center;font-size:14px;margin-top:8px;}
+    #area_action td{width:25%}
+    #area_action a{text-decoration:none;}
+    #area_action .acbutton{padding:7px 0px;color:white;text-decoration:none;cursor:pointer}
+
+/* 图书阅读到最后一页展示的提示评论窗口*/
+#docomment{position:absolute;top:80px;left:240px;width:360px;max-width:100%;border-radius:8px;border:1px solid #CCCCCC;background-color:white;overflow:hidden;display:none;}
+    #docomment .rb_comment{background-color:#F2C75E;padding:8px 0px;text-align:center;text-decoration:none;color:#333333;font-size:14px;cursor:pointer}
+
+/* 阅读页面中右上角显示人物图标 */
+.book_author_box{position:absolute;width:48px;height:48px;border:2px solid white;border-radius:26px;-webkit-border-radius:26px;-moz-border-radius:26px;overflow:hidden;vertical-align:top;line-height:36px;z-index:999}
+    .book_author_box .thumb_author{width:48px;height:48px;border-radius:24px;-webkit-border-radius:24px;-moz-border-radius:24px;}
+
+/* 阅读时选择多个配音项目 */
+.showselect{position:absolute;top:0px;left:0px;width:320px;border:10px solid #00BBBB;z-index:10000;}
+    .showselect .showcontainer{overflow-y:auto;cursor:pointer}
+    .showselect .showselectip{border-bottom:1px solid #DDDDDD;font-size:13px;padding:8px;color:#333333;background-color: #fffbc7;line-height:140%;}
+        .showselectip span{background-color:#CC1BAC;color:white;padding:0px 3px;margin-right:3px;}
+    .showselect .thumb_box{width:50px;height:50px;border-radius:25px;overflow:hidden;position:absolute;left:12px;top:10px;}
+        .showselect .thumb{width:50px;height:50px;border-radius:25px;}
+        .showselect .nblocktxt{padding-left:70px;}
+
+/* 书评列表显示 */
+.comment{margin:0px;padding:10px 5px;background-color:white;border-bottom:1px solid #DDDDDD;}
+    .comment .emotion{width:20px;height:20px;margin:0px 1px;vertical-align:middle;}
+    /* 评论的主体区域，主体区域下面是回复区域 */
+    .comment .ct_text{position:relative;}
+
+        /* 评论的左侧头像区域 */
+        .comment .ct_text .ct_thumb{position:absolute;left:5px;top:0px;width:40px;cursor:pointer;text-align:center}
+            .comment .ct_thumb .user_icon{width:40px;height:40px;border-radius:20px;-webkit-border-radius:20px;-moz-border-radius:20px;vertical-align:top}
+            .comment .ct_thumb .user_level{width:42px;vertical-align:top;position:absolute;top:34px;left:-1px}
+
+        /* 评论的左侧，在错题本的情况下，显示的是日期 */
+        .comment .ct_date_icon{position:absolute;left:3px;top:0px;width:44px;text-align:center;}
+            .comment .ct_date_day{background-color:#23B801;color:white;font-size:15px;padding:1px 0px;}
+            .comment .ct_date_month{border:1px solid #23B801;color:#888888;font-size:10px;padding:2px 0px;}
+
+        /* 评论的左侧，在成长日记的情况下，显示的是日期 */
+        .comment .ct_diary_icon{position:absolute;left:3px;top:-6px;width:44px;text-align:center;}
+            .comment .ct_diary_day{color:black;font-size:32px;font-weight:bold;}
+            .comment .ct_diary_month{color:#888888;font-size:10px;}
+
+        /* 评论的左侧，在成绩单的模式下，显示的是成绩 */
+        .comment .ct_report_score{position:absolute;left:3px;top:0px;width:44px;text-align:center;font-size:24px;font-weight:normal;}
+
+        /* 评论的右侧信息区域 */
+        .comment .ct_text .ct_content{margin-left:54px;position:relative;}
+        .comment .ct_text .ct_content2{min-height:56px;}
+
+            /* 错题本的类型部分，如其中考试 */
+            .comment .ct_wrong_style{font-size:15px;color:#333333;font-weight:bold;margin-bottom:2px;}
+
+            /* 成绩单部分，顶层显示科目加类型，如语文小测验 */
+            .comment .ct_report_lesson{font-size:16px;color:#333333;font-weight:bold;margin-bottom:2px;}
+                .comment .ct_report_style{font-size:11px;color:#666666;font-weight:normal;}
+
+            /* 反馈的类型部分 */
+            .comment .ct_feedback_style{font-size:15px;color:#333333;font-weight:bold;margin-bottom:2px;}
+
+            .comment .ct_score_share{font-weight:bold;}
+
+            /* 评论的作者部分 */
+            .comment .ct_userv{width:10px;vertical-align:top;margin-right:2px;}
+            .comment .ct_userv_s{width:12px;vertical-align:top;}
+            .comment .ct_user_lv{margin-left:5px;height:12px;}
+            .comment .ct_author{font-size:13px;color:#666666;font-weight:bold;margin-bottom:2px;}
+               .comment .ct_author_bt{font-size:0.95em;color:#333333;font-weight:bold;margin-bottom:2px;}
+
+            /* 评论相关的对象图片（右上角） */
+            .comment .ct_content .ct_objpic{position:absolute;right:0px;top:0px;}
+                .comment .ct_content .ct_objpic img{width:50px;}
+
+            /* 错题本的右上角红绿灯风格 */
+            .comment .ct_wrong_status{position:absolute;right:0px;top:0px;padding:0px 4px;background-color:darkgrey;vertical-align:top;cursor:pointer;border-radius:8px;}
+                .comment .ct_wrong_status .ct_wrong_red{width:12px;height:12px;border-radius:6px;background-color:#590006;display:inline-block;}
+                .comment .ct_wrong_status .ct_wrong_red_l{background-color:#FC0110}
+                .comment .ct_wrong_status .ct_wrong_yellow{width:12px;height:12px;border-radius:6px;background-color:#574A09;display:inline-block;}
+                .comment .ct_wrong_status .ct_wrong_yellow_l{background-color:#FFFF00}
+                .comment .ct_wrong_status .ct_wrong_green{width:12px;height:12px;border-radius:6px;background-color:#2A5800;display:inline-block;}
+                .comment .ct_wrong_status .ct_wrong_green_l{background-color:#79FA06}
+
+            /* 反馈本的右上角文字风格 ,能点击*/
+            .comment .ct_feedback_status{position:absolute;right:0px;top:0px;padding:0px 4px;vertical-align:top;cursor:pointer;font-size:12px;}
+                .comment .ct_feedback_status .ct_feedback_red{color:red;display:inline-block;}
+                .comment .ct_feedback_status .ct_feedback_yellow{color:darkorange;display:inline-block;}
+                .comment .ct_feedback_status .ct_feedback_green{color:green;display:inline-block;}
+
+             /* 反馈分发 ,能点击*/
+            .comment .ct_feedback_ff_status{position:absolute;right:0px;top:0px;padding:0px 4px;vertical-align:top;cursor:pointer;font-size:12px;}
+                .comment .ct_feedback_ff_status .ct_feedback_red{color:red;display:inline-block;}
+
+            .comment .ct_feedback_ff_status2{position:absolute;right:0px;top:0px;padding:0px 4px;vertical-align:top;cursor:pointer;font-size:12px;}
+                .comment .ct_feedback_ff_status2 .ct_feedback_red{color:red;display:inline-block;}
+
+            .comment .ct_operate{font-size:9px;font-weight:normal;color:#222222;padding:2px;background-color:#c5dfff;margin:2px 0px;line-height:130%;border:1px dotted #E8E8E8}
+
+            /* 评论时间，定位信息区域 */
+            .comment .ct_content .ct_time_pos{font-size:10px;padding-left:2px;}
+                .comment .ct_time_pos .smartime{color:#999999}
+
+                .comment .ct_time_pos .grade{color:#666666}
+                .comment .ct_time_pos .grade img{margin-left:5px;margin-right:4px;width:11px;}
+
+                .comment .ct_time_pos .location{color:#666666}
+                .comment .ct_time_pos .location img{margin-left:5px;margin-right:2px;width:11px;}
+
+                .comment .ct_time_pos .pubattr{color:#666666}
+                .comment .ct_time_pos .pubattr img{margin-left:5px;margin-right:2px;width:11px;}
+
+            /* 评论正文区域 */
+            .comment .ct_content .comment_text{margin:10px 0px;font-size:13px;color:#1D1D1D;line-height:140%;word-wrap:break-word;word-break:break-all;font-weight:normal;}
+            .comment .ct_content .comment_image{margin-bottom:5px;}
+                .ct_content .comment_image .comment_image_line{margin-bottom:5px;}
+                .ct_content .comment_image img{margin-right:0px;cursor:pointer;max-width:100%;vertical-align:top;}
+
+                /* 错题本的正文中的前缀，如粗心 */
+                .comment .comment_text .ct_wrong_style2{font-weight:bold;}
+
+
+                /* 反馈页面的正文前的关于问题的简述和联系信息*/
+                .comment .comment_text .ct_feedback{font-size:0.9em;color:#666666}
+
+            /* 错题本的图片风格 */
+            .comment .comment_image_wrong{margin-bottom:5px;}
+                .comment .comment_image_wrong img{max-width:100%;max-height:640px;}
+
+            /* 评论的注脚，包括左边@名字，右边的赞和回复 */
+            .comment .comment_foot{width:100%;border-spacing:0px;border-collapse:collapse;margin-bottom:3px;line-height:100%;}
+                /* 评论@信息（当评论不针对某个内容时需要显示） */
+                .comment .ct_objname a{text-decoration:none;color:#3A67CC;font-size:12px;}
+
+                .comment .comment_foot td{border:1px solid #F0F0F0;}
+
+
+            /* 评论的点赞和回复 */
+            .comment .ct_action{text-align:right;vertical-align:top;color:#989898;font-size:12px;font-weight:normal;padding-right:10px;}
+            .comment .ct_action_left{text-align:left;}
+                .comment .ct_action .ct_delete{cursor:pointer;margin-right:5px;}
+                .comment .ct_action .ct_share{cursor:pointer;color:#989898;text-decoration:none;}
+                .comment .ct_action .ct_praise{cursor:pointer}
+                .comment .ct_action .ct_favorite{cursor:pointer}
+                .comment .ct_action .ct_doreply{cursor:pointer}
+                .comment .ct_action img{width:14px;margin-left:10px;margin-right:4px;vertical-align:top;}
+                .comment .ct_reply_delete{cursor:pointer;color:darkred}
+
+            /* 评论操作区域的重新定义 */
+            .comment .ct_action_v2{text-align:center;vertical-align:middle;color:#989898;font-size:10px;font-weight:normal;cursor:pointer;padding:5px 0px;}
+                .comment .ct_action_v2 img{vertical-align:middle;width:12px;margin-right:3px;margin-bottom:3px;}
+                .comment .ct_action_v2 a{text-decoration:none;color:inherit}
+
+            /* 评论扩展属性 */
+            .comment .ct_extend{font-size:9px;font-weight:normal;color:#222222;padding:2px;background-color:#F0F0FF;margin:2px 0px;line-height:130%;border:1px dotted #E8E8E8}
+
+    /* 评论的回复区域，附加一个贴左的风格 */
+    .comment .ct_reply{position:relative;padding-left:0px;}
+        .comment .ct_reply2{padding-left:0px;}
+
+        /* 向上的三角箭头和回复主体 */
+        .comment .ct_reply .tri_angle{margin-left:5px;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:10px solid #F4F4F4;}
+        .comment .ct_reply .rp_body{background-color:#F4F4F4;padding:6px;font-size:12px;line-height:150%;word-wrap:break-word;word-break:break-all;}
+
+        /* 第一级回复区域 */
+        .comment .rp_body .rp_level1{position:relative;overflow:hidden}
+            .comment .rp_level1 .thumb{position:absolute;left:2px;top:0px;width:16px;height:16px;border-radius:8px;-webkit-border-radius:8px;-moz-border-radius:8px;overflow:hidden}
+            .comment .rp_level1 .thumb img{width:16px;height:16px;border-radius:8px;-webkit-border-radius:8px;-moz-border-radius:8px;}
+            .comment .rp_level1 .rp_content{margin-left:24px;color:#333333;}
+            .comment .rp_level1 .rp_user{color:#3869B2;text-decoration:none;cursor:pointer}
+            .comment .rp_level1 .rp_user_newtip{color:#E5263E;}
+
+        /* 更多回复 */
+        .comment .rp_body .rp_more{background-color:#F0F0FF;text-align:center;color:grey;font-size:12px;padding:3px 0px;margin-top:3px;display:none;cursor:pointer}
+
+    /* 图片预览 */
+    #imgpreview{position:absolute;background-color:#333333;top:0px;left:0px;width:100%;height:100%;z-index:510;display:none;}
+        #imgpreview #imagebox{position:absolute;left:0px;width:100%;text-align:center;vertical-align:middle}
+        #imgpreview #imagesrc{max-width:100%;max-height:100%;vertical-align:middle}
+        #imgpreview #imgclose{position:absolute;right:0px;text-align:right;padding:10px;font-size:20px;color:#CCCCCC;z-index:600;}
+        #imgpreview #imgtip{position:absolute;left:0px;text-align:left;padding:5px;font-size:16px;color:#CCCCCC;z-index:600;}
+
+/* 评论的表情编辑器的风格定义 */
+.richdiv{line-height:160%;font-size:14px;}
+    .richdiv .emotion{width:20px;height:20px;margin:0px 1px;vertical-align:middle;}
+
+/* 提交书评的按钮风格 */
+.submit_comment{position:absolute;right:0px;color:white;font-size:14px;background-color:#F2C75E;padding:4px 15px;margin:5px;text-align:center;cursor:pointer}
+.cancel_comment{position:absolute;right:0px;color:#999999;font-size:14px;padding:4px 15px;margin:5px;text-align:center;cursor:pointer}
+
+/* 书评有两部分组成，一部分是正文，一部分是定位信息等 */
+.new_comment #comment_write{padding:5px;position:relative;}
+    /* 错误提示区域 */
+    .new_comment #comment_write #commentip{font-size:12px;color:deeppink;text-align:left;padding:3px 0px;display:none;}
+    /* 用户提示信息，如请先给这本书评个星吧！*/
+    .new_comment #comment_write .usertip{font-size:14px;color:#666666;padding:3px 0px;}
+
+    /* 星评区域使用table定位 */
+    .new_comment .ct_starnk{width:100%;border-spacing:0px;border-collapse:separate;}
+        .new_comment .ct_starnk .rank_val{font-size:24px;width:60px;;padding:0px 5px;color:#333333;text-align:left;}
+
+/* 评论导航 */
+.comment_navi_container{padding:10px 40px 5px 40px;}
+
+.comment_navi{border:1px solid #3A67CC;border-radius:4px;height:26px;}
+    .comment_navi>table{width:100%;border-spacing:0px;border-collapse:collapse;font-size:12px;}
+    .comment_navi>table td{vertical-align:middle;text-align:center;height:26px;cursor:pointer;}
+    .comment_navi>table td a{color:#333333;text-decoration:none;}
+    .comment_navi .box{border-left:1px solid #3A67CC;border-right:1px solid #3A67CC;}
+
+    /* 选择色块的状态 */
+    .comment_navi .focus{background-color:#3A67CC;}
+    .comment_navi .focus a{color:white;}
+
+.comment_navi_container_jct3userwork{}
+.comment_navi_jct3userwork{border-color: #CC1BAC;}
+    .comment_navi_jct3userwork .box{border-left:1px solid #CC1BAC;border-right:1px solid #CC1BAC;}
+    .comment_navi_jct3userwork .focus{background-color:#CC1BAC;}
+
+    /* 微社区新建话题 */
+    .new_nc{position:fixed;bottom:0px;left:0px;width:100%;text-align:center;font-size:16px;font-weight:normal;background-color:#3A67CC;z-index:200;color:white;padding:12px 0px;cursor:pointer}
+
+    /* 微社区话题底部分享 */
+    .area_bottom{position:fixed;bottom:0px;left:0px;width:100%;text-align:center;font-size:16px;font-weight:normal;color:white;background-color:white;}
+        .area_bottom table{width:100%;border-spacing:4px;border-collapse:separate;}
+        .area_bottom .acbutton{padding:10px 0px;}
+
+    /* 消息消息提醒 */
+    .user_nc_tip{margin:10px;text-align:center;}
+        .user_nc_tip .user_nc_tip_container{display:inline-block;padding:6px;width:140px;border-radius:3px;background-color:#575757;color:white;font-size:13px;vertical-align:middle;text-align:left;}
+        .user_nc_tip .user_nc_tip_container img{width:35px;height:35px;vertical-align:top;}
+        .user_nc_tip .user_nc_tip_container span{line-height:35px;margin-left:10px;}
+
+/* 星评对象 */
+.starankwrapper{position:relative;display:inline-block;vertical-align:bottom;}
+    .starankwrapper>img{vertical-align:bottom;width:100%;}
+    .starankwrapper .starank2{position:absolute;right:0px;top:0px;background-color:white;height:100%;}
+    .starankwrapper .starank_mask2{position:absolute;left:0px;top:0px;width:100%;}
+    .starankwrapper .starank_mask2>img{vertical-align:bottom;width:100%;}
+
+/* CMS内容列表中的CSS，逐渐迁移过来 */
+.nblock .nbsr{font-size:0px;}
+    .nblock .nbsr .srt{font-size:10px;color:#666666;}
+
+/* jct3Content：创作的内容在展示的时候风格定义 */
+.content_container{padding:6px;padding-top:12px;}
+    .content_container #cc_title{line-height:24px;font-weight:700;font-size:20px;word-wrap:break-word;}
+
+    .content_container #cc_metalist{font-size:12px;margin:2px 0px;color:#8C8C8C}
+        #cc_metalist #cc_weixin{text-decoration:none;color:#607fa6}
+        #cc_metalist #cc_author{text-decoration:none;color:#607fa6}
+
+    .content_container #cc_action{text-align:right;margin-top:20px;}
+        #cc_action .cc_button{display:inline-block;width:80px;padding:6px 0px;text-align:center;font-size:13px;background-color:lightcoral;color:white;cursor:pointer}
+        #cc_action .cc_info_val2{font-size:10px;color:#999999;margin-left:3px;}
+
+    .content_container #cc_content{font-size:14px;line-height:160%;margin-top:20px;position:relative;word-wrap:break-word;word-break:break-all;}
+        #cc_content img{max-width:100%;}
+        /*#cc_content td{padding: 5px 10px;border: 1px solid #DDD;}*/
+
+    .content_container .classlevel{margin-top:10px;font-size:14px;color:#666666}
+        .classlevel span{margin:0px 1px;padding:2px;background-color:green;color:white;font-size:10px;}
+        .classlevel .c1{background-color:red;color:white;}
+        .classlevel .c2,.classlevel .c4,.classlevel .c8{background-color:blue;color:white;}
+
+    .content_container #cc_wxfoot{margin-top:10px;}
+        /*#cc_foot #cc_origin_url{text-decoration:none;}*/
+        /*#cc_foot #cc_origin_text{padding:10px;background-color:#FF6600;color:white;text-align:center;font-size:14px;margin:10px auto;}*/
+
+    .content_container #cc_infolist{font-size:13px;color:#8C8C8C;margin-top:10px;}
+        #cc_infolist .cc_info_val{margin-right:12px;}
+
+/* 定义APP顶端的BANNER区域 */
+.banner .banner_box{position:relative;}
+.banner .banner_img{width:100%;vertical-align:top;}
+.banner .banner_txt{position:absolute;width:100%;background-color:#333333;color:white;opacity:0.8;bottom:0px;left:0px;padding:6px 0px;font-size:15px;}
+.banner .banner_txt table{border-spacing:0px;border-collapse:collapse;width:100%;}
+.banner .banner_extra{font-size:12px;color:#333333;padding:5px;line-height:140%;padding-bottom:0px;}
+
+.istitle{margin:10px 0px;font-size:14px;}
+    .istitle .scindicator{display:inline-block;margin:0px 5px;width:5px;background-color:orangered}
+
+.icon{display:inline-block;width:84px;text-align:center;margin-bottom:10px;position:relative}
+    .icon a{text-decoration:none}
+    .icon .icon_img{width:100%;padding-bottom:6px;}
+    .icon .icon_img img{width:50px;height:50px;}
+    .icon .icon_text{font-size:14px;color:#333333;}
+    .icon .icon_tip{font-size:10px;color:#999999;}
+    .icon .digitip{position:absolute;font-size:11px;background-color:red;color:white;font-weight:normal;border-radius:10px;width:18px;height:18px;line-height:18px;text-align:center;vertical-align:middle;left:6px;top:-6px;}
+    .icon .dotip{position:absolute;background-color:red;border-radius:4px;width:8px;height:8px;left:64px;top:-5px;}
+
+.topsection{margin:10px 5px;padding:8px;text-align:center;background-color:#F0F0F0;font-size:16px;color:#333333;font-weight:bold;border-bottom:1px solid #E0E0E0;}
+
+/* APP顶部用于年级筛选的DIV */
+.tri_angle_down{margin-left:5px;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:10px solid #666666;display:inline-block}
+    #level_choice_list{display:none;position:absolute;width:180px;background:white;border:1px solid #CCCCCC;}
+    #level_choice_list table{width:100%;border-spacing:0px;border-collapse:collapse;font-size:14px;}
+    #level_choice_list table td{border-top:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;vertical-align:middle;}
+    #level_choice_list table td{border-top:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;}
+    #level_choice_list table .choice_text{padding:8px;}
+    #level_choice_list table .choice_gou{text-align:center;width:60px;}
+    #level_choice_list table .choice_gou img{vertical-align:top;width:20px;height:20px;}
+
+    #level_choice_list .level_tip{font-size:12px;padding:5px;background-color:lightgoldenrodyellow}
+    #level_choice_list .level_tip span{font-size:11px;padding:0px 3px;margin-right:2px;background:darkblue;color:white;}
+    #level_choice_list #save_level{padding:10px 0px;border-radius:0px;}
+
+/* 作文搜索表单部分 */
+#article_div{margin:0px 10px 20px 10px;}
+    #article_div table{width:100%;border:1px solid #CCCCCC;background-color:white;}
+
+    /*搜索关键字  和搜索按钮*/
+    #article_div #kw{width:96%;height:24px;padding-left:5px;border-width:0px;}
+    #article_div #search_article{border-width:0px;background-color:white;padding:3px 8px;}
+
+
+/* 作文搜索结果中的  作文简介 */
+#article_profile{background-color:#F8F8F8; padding-top:5px;}
+    /* 作文简介部分 */
+    #article_profile a{text-decoration: none;}
+    #article_profile .article_profile_div{font-size:14px; background-color:white; border:1px solid rgba(15, 15, 15, 0.09); margin:7px; padding:8px;}
+
+        /*文章标题  内容  关键字 标签*/
+        #article_profile .article_profile_div .article_title{color: blue;}
+        #article_profile .article_profile_div .article_content{font-style: normal; color: #000000; padding-bottom: 4px; line-height: 20px;}
+        #article_profile .article_profile_div  em{color: #ff0000;font-style: normal;}
+        #article_profile .article_profile_div .article_tag{font-size: 12px;background-color: white;color: green;}
+
+    /* 作文翻页部分 */
+    #article_profile .statistic{margin: 10px; padding: 3px; font-style: normal;font-size: 14px;}
+    #article_profile #navicontainer .navibutton{display:inline-block;background-color:white; margin:5px 2px;padding:5px 0px; width:40px; text-align:center; font-size:14px; font-weight:normal; border:0px solid #CCCCCC;}
+
+    /*#article_profile #page_tail{padding: 1px; margin: 10px 10px 40px 10px;}*/
+        /*#article_profile #page_tail a{text-decoration: none;}*/
+        /*#article_profile #page_tail .cur_page{font-weight:bolder;line-height:38px;color:#f8f8f8;background-color: #8c8c8c;display: inline-block; width: 10%;max-width: 44px; height:38px; border: 2px solid #8c8c8c; text-align: center;}*/
+        /*#article_profile #page_tail .other_page{font-weight:bolder;line-height:38px;display: inline-block; width: 10%;max-width: 44px; height:38px;border: 2px solid #8c8c8c; text-align: center;}*/
+
+        /* 作文翻页页码样式  */
+        #article_profile #page_tail div:link{color:#0000ff;}
+        #article_profile #page_tail div:active{color:#ff0000;}
+        #article_profile #page_tail div:visited{color:#000000;}
+        #article_profile #page_tail div:hover{color: #f8f8f8;background-color: #8c8c8c;}
+
+/* APP本地缓存页面版本号的风格位 */
+.mirrorver{text-align:right;font-size:9px;color:#D0D0D0;font-weight:normal;padding-right:10px;display:none;}
+.mirrorun{width:16px;display:none;position:absolute;right:3px;top:3px;z-index:999;}
+
+/*NEW*/
+
+#canvas{padding:10px;}
+#canvas img{ width:100%; height:100%; margin:0 auto;}

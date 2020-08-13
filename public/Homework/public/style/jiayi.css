@@ -1,0 +1,64 @@
+@charset "gb2312";
+/* CSS Document */
+
+.jy_left{ float:left; margin-top:10px; width:885px; _width:880px;/*800px/1200px*/ }
+.jy_right{ float:right; margin-top:10px; background:#F4f4f4; min-height:870px; width:300px;/*380px/1200px*/  }
+.w980 .jy_left { width:720px; _width:705px;}
+.w980 .jy_right { width:250px; _width:250px;}
+
+
+.jy_list{}
+.jy_list dl{ border-bottom:1px solid #efefef; padding:10px 10px 10px 0; height:160px; margin-bottom: 10px;}
+.jy_list dt{ float:left; width:180px; height: 160px; background:#f4f4f4; position: relative;}
+.jy_list dt img{ width:180px; height:120px;}
+.jy_list dt span.tj{ position: absolute; right: 0; top: 0; z-index: 100; }
+.jy_list dt span.tj a{ padding:0px 4px; opacity:1; height: 20px; overflow: hidden; line-height: 20px; font-size: 12px; }
+.jy_list dt p{text-align: left; padding-left: 10px; line-height: 40px;  font-size: 18px; color: #00cc99; }
+
+.jy_list dd{ float:right; width:77%;  font-size:14px;}
+.jy_list dd em{ font-weight: bold; }
+.jy_list dd.tit{ font-size:16px; }
+.jy_list dd.tit a{  }
+.jy_list dd.tit span.fr{ font-size:14px; }
+.jy_list dd.con{ margin:10px 0; line-height: 24px; }
+.jy_list dd.bj{ color: #999;  }
+.jy_list dl i{ margin-right: 5px;  font-size:22px;  }
+.jy_list dd.bj i{font-size:14px;}
+.jy_list dt span.gong{ position: absolute; right: 0; bottom: 0;  }
+.jy_list dt p.kaishi{ background:#00cc99; text-align: center; color: #fff; }
+.jy_list dt p.kaishi a,.jy_list dt p.kaishi a:visited{ color: #fff; }
+.zred{ color:#f00 !important;  }
+
+.w980 .jy_list dl{border-bottom:1px solid #efefef; padding:10px; height:130px;}
+.w980 .jy_list dt{ float:left; width:150px; height: 130px; background:#f4f4f4; position: relative;}
+.w980 .jy_list dt img{ width:150px; height:100px;}
+.w980 .jy_list dt p{  line-height: 30px; }
+.w980 .jy_list dd{ float:right; width:75%;  font-size:12px;}
+.w980 .jy_list dd.tit{ font-size:16px; }
+.w980 .jy_list dd.con{ margin:10px 0; line-height: 24px; font-size: 12px; }
+
+/*20161222*/
+a.guize{ display:inline-table; background: #f1f1f1; width: 30px; height:30px; font-size: 20px; line-height: 30px; cursor: pointer; text-align: center; } 
+a.guize:hover{text-decoration: none;}
+.guize_tips{ position:absolute; top:4%; left: 26%; z-index:999;  display:none; width: 270px; padding: 5px 15px; height: 200px; background: url(../images/jiayi/tips_k_gray.png) no-repeat top left;  line-height:21px;}
+.guize_tips h4{ font-size: 16px; text-align: center; color: #068424; line-height: 25px;}
+
+.baik{ background: #fff; border: 1px solid #eee; padding:5px;}
+
+.w980 .kc_list.sy_mswk{ margin:0px 5px 10px 5px;}
+.w980 .kc_list.sy_mswk dl{ width: 218px; height:230px; margin:10px 5px;   }
+.w980 .kc_list.sy_mswk dl dt img{ width:218px; height:auto;  }
+.w980 .kc_list.sy_mswk dd{ line-height:22px; }
+.w980 .kc_list.sy_mswk dd.tit{ line-height: 30px;} 
+
+.jy_wktit{ }
+.jy_wktit h1{ font-size: 22px; color:#11B962;  line-height: 40px;  }
+.jy_wktit h3{ font-size: 14px;   line-height: 25px;  }
+
+.tab_news.jiayi li{ padding:0 23px;}
+.jy_ms{ margin-left:50px; border-bottom: 1px dashed #ddd; padding-bottom: 10px; height: 60px; margin-bottom: 20px;}
+.jy_ms dt{ width:60px; height: 60px; float: left;}
+.jy_ms dt img{ border-radius: 50px;}
+.jy_ms dd{ float:left; margin-left: 20px; width: 330px; font-size: 16px; line-height: 25px; }
+.jy_ms dd.tit{font-size: 20px; line-height: 40px;  color:#000;}
+.jy_msk p{ margin-top: 10px;}

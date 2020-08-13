@@ -1,0 +1,124 @@
+<meta charset="UTF-8">
+<script type="text/javascript">
+var myScroll;
+//function loaded () {
+	myScroll = new IScroll('#wrapper', { bounceEasing: 'elastic', bounceTime:0,momentum:true,disablePointer:true,HWCompositing:true,click:true });
+	TouchSlide({ 
+		slideCell:"#focus",
+		titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+		mainCell:".bd ul", 
+		effect:"left", 
+		autoPlay:true,//自动播放
+		autoPage:true, //自动分页
+		switchLoad:"../images" //切换加载，真实图片路径为"_src" 
+	});
+//}
+document.addEventListener('touchmove', function (e) {e.preventDefault(); }, isPassive() ? {
+	capture: false,
+	passive: false	
+}:false);
+</script>
+<div id="wrapper">
+	<div id="scroller">
+		<div id="focus" class="focus">
+			<div class="hd">
+				<ul>
+					<li class="on">1</li>
+					<li class="">2</li>
+					<li class="">3</li>
+				</ul>
+			</div>
+			<div class="bd">
+				<div class="tempWrap" style="overflow:hidden; position:relative;">
+					<ul style="width: 960px; position: relative; overflow: hidden; padding: 0px; margin: 0px; transition-duration: 200ms; -webkit-transition-duration: 200ms; -webkit-transform: translate(0px, 0px) translateZ(0px);">
+						<li style="display: table-cell; vertical-align: top; width: 320px;">
+							<a href="#"><img src="__PUBLIC__/img/top_img01.jpg"></a>
+						</li>
+						<li style="display: table-cell; vertical-align: top; width: 320px;">
+							<a href="#"><img src="__PUBLIC__/img/top_img01.jpg"></a>
+						</li>
+						<li style="display: table-cell; vertical-align: top; width: 320px;">
+							<a href="#"><img src="__PUBLIC__/img/top_img01.jpg"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<h2 class="moTitle afterBorder">同步学习</h2>
+		<h3 class="moTitleJump afterBorder clear">
+			<span class="fl">当前课程</span>
+			<span class="fr more">设置<i class="icon-shuming"></i></span>
+		</h3>
+		<div class=" backGfff">
+			<ul class="twoColumn clear">
+				<li class="listIconText" onclick="javascript:window.location.href='#/wordUnit'">
+					<span class="edi-jbiao">免费</span>
+					<span class="listIcon radius100 fl bGreen"><i class="icon-dcsj"></i></span>
+					<span class="listText">
+						<h3 class="textH3">背单词</h3>
+						<h4 class="textH4"><em class="ln">1.88万人学习</em></h4>
+					</span>
+				</li>
+				<li class="listIconText">
+					<span class="edi-jbiao">免费</span>
+					<span class="listIcon radius100 fl bPink"><i class="icon-kwdd"></i></span>
+					<span class="listText">
+						<h3 class="textH3">读课文</h3>
+						<h4 class="textH4"><em class="ln">1.88万人订购</em></h4>
+					</span>
+				</li>
+				<li class="listIconText">
+					<span class="listIcon radius100 fl bBlue"><i class="icon-tlxl"></i></span>
+					<span class="listText">
+						<h3 class="textH3">听力训练</h3>
+						<h4 class="textH4"><em class="ln">1.88万人学习</em><font class="redFont">￥10.00</font></h4>
+					</span>
+				</li>
+				<li class="listIconText">
+					<span class="listIcon radius100 fl bYellow"><i class="icon-kyxl"></i></span>
+					<span class="listText">
+						<h3 class="textH3">口语训练</h3>
+						<h4 class="textH4"><em class="ln">1.88万人学习</em><font class="redFont">￥10.00</font></h4>
+					</span>
+				</li>
+			</ul>
+		</div>
+		<h2 class="moTitle afterBorder">专项提升</h2>
+		<div class="backGfff">
+			<ul class="clear">
+				<li class="listIconText">
+					<span class="fr lineH55"><i class="icon-right"></i></span>
+					<span class="listIcon radius8 fl bZi"><i class="icon-yshb"></i></span>
+					<span class="listText">
+						<h3 class="textH3">绘本阅读 <em class="font08">1.88万人订购<font class="redFont">￥10.00</font></em></h3>
+						<h4 class="textH4"><em class="ln">分级阅读，情景式的故事，提高听，说，读。</em></h4>
+					</span>
+				</li>
+				<li class="listIconText">
+					<span class="fr lineH55"><i class="icon-right"></i></span>
+					<span class="listIcon radius8 fl bBlue2"><i class="icon-zktl"></i></span>
+					<span class="listText">
+						<h3 class="textH3">中考听力<em class="font08">1.88万人订购<font class="redFont">￥10.00</font></em></h3>
+						<h4 class="textH4"><em class="ln">5年真题，3年模拟</em></h4>
+					</span>
+				</li>
+				<li class="listIconText">
+					<span class="fr lineH55"><i class="icon-right"></i></span>
+					<span class="listIcon radius8 fl bGreen"><i class="icon-gktl"></i></span>
+					<span class="listText">
+						<h3 class="textH3">高考听力<em class="font08">1.88万人订购<font class="redFont">￥10.00</font></em></h3>
+						<h4 class="textH4"><em class="ln">5年真题，3年模拟</em></h4>
+					</span>
+				</li>
+				<li class="listIconText">
+					<span class="fr lineH55"><i class="icon-right"></i></span>
+					<span class="listIcon radius8 fl bRed"><i class="icon-dccgw"></i></span>
+					<span class="listText">
+						<h3 class="textH3">单词闯关王<em class="font08">1.88万人订购<font class="redFont">￥10.00</font></em></h3>
+						<h4 class="textH4"><em class="ln">"词汇大王"等你挑战！</em></h4>
+					</span>
+				</li>
+			</ul>
+		</div>
+	</div><!--end scroller-->
+</div><!--end wrapper-->

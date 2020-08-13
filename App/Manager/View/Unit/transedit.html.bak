@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版本编辑</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+<body> 
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="box_top pl_10 f14"><strong>单元信息修改</strong></td> 
+  </tr>
+  <tr>
+    <td class="p5">
+  <form action="wordadd_list.html" method="get">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+      <tr>
+        <td class="td_right">选择年级：</td>
+        <td>
+          <select name="gradeid" class="select" id="gradeid" bid={$gradeid}>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">选择学期：</td>
+        <td>
+          <select name="termid" class="select" id="termid" bid={$termid}>
+          <option value="1">上学期</option>
+          <option value="2">下学期</option>
+          <option value="3">全一册</option>
+        </select></td>
+      </tr>
+      <tr>
+        <td class="td_right">选择版本：</td>
+        <td>
+          <select name="versionid" class="select" id="versionid" bid={$versionid}> 
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">单元：</td>
+        <td>
+          <select name="unitid" class="select" id="unitid" bid={$unitid}> 
+          </select>
+        </td>
+      </tr>
+      </table>
+    </form>
+  <div class="h10"></div>
+    </td> 
+  </tr> 
+</table>
+</div>
+<script type="text/javascript">  
+$(function(){ 
+  $.ajaxSetup({async:false});
+ // var dloading = art.dialog({time:30,title:'加载中……',width:130,height:30,opacity:0.3,lock:true});
+ //初始化年级、学期以及版本基本信息
+  $.EBC.inIt("wordlist");
+  var gradeid=$("#gradeid").attr("bid");
+  var termid=$("#termid").attr("bid");
+  var versionid=$("#versionid").attr("bid");
+  var unitid="{$unitid}";
+  $('#gradeid').attr("value",gradeid);
+  $('#termid').val(termid);
+  $('#versionid').val(versionid);
+  $('#unitid').val(unitid);
+});
+
+function saveUnitEdit(){
+  var data = "{$data}";
+  var type="{$type}";
+  alert(data);
+  var unitid = $("#unitid").val(); 
+  var closeflag = true;
+  if(type=='1'){
+    $.getJSON("../word/transferword", {unitid:unitid,data:data,random:Math.random()}, function(data){}); 
+  }else{
+    $.getJSON("../text/transferchapter", {unitid:unitid,data:data,random:Math.random()}, function(data){}); 
+  }
+  return closeflag;
+}
+</script> 
+</body>
+</html>

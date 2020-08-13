@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>菜单</title> 
+        <script language="JavaScript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <link href="__PUBLIC__/style/menu.css" rel="stylesheet" type="text/css" />
+        <script  type="text/javascript">
+            $(function() {
+                //导航切换
+                $(".menuson li").click(function() {
+                    $(".menuson li.active").removeClass("active")
+                    $(this).addClass("active");
+                });
+
+                $('.title').click(function() {
+                    var $ul = $(this).next('ul');
+                    $('dd').find('ul').slideUp();
+                    if ($ul.is(':visible')) {
+                        $(this).next('ul').slideUp();
+                    } else {
+                        $(this).next('ul').slideDown();
+                    }
+                });
+            })
+        </script>
+    </head>
+    <body>
+        <div class="lefttop"><span></span>功能菜单</div>
+        <dl class="leftmenu">
+        <neq name="Think.session.ifadmin" value="2">
+            <dd>
+                <div class="title"><span></span>微课应用管理</div>
+                <ul class="menuson app">
+                    <li class='liapplist'><cite></cite><a class="applist" href="{:U('classapp/applist')}" target="mainFrame">微课应用列表</a><i></i></li>
+                    <!-- <li class='liappadd'><cite></cite><a class="appadd" href="{:U('classapp/appadd')}" target="mainFrame">微课应用添加</a><i></i></li> -->
+                    <!--  <li class='licourselist'><cite></cite><a class="courselist" href="{:U('classapp/app_course_list')}" target="mainFrame">微课内容列表</a><i></i></li>
+                    <li class='licourseadd'><cite></cite><a class="courseadd" href="{:U('classapp/app_course_add')}" target="mainFrame">微课内容添加</a><i></i></li> -->
+                    <li class='liversionlist'><cite></cite><a class="versionlist" href="{:U('classapp/versionlist')}" target="mainFrame">版本单元管理</a><i></i></li>
+                    <li class='liunitlist'><cite></cite><a class="unitlist" href="{:U('classapp/nov_unitlist')}" target="mainFrame">微课分类管理</a><i></i></li>
+                    <!--  <li class='liquelist'><cite></cite><a class="quelist" href="{:U('classapp/app_que_list')}" target="mainFrame">微课试题管理</a><i></i></li>
+                      <li class='liclaimlist'><cite></cite><a class="claimlist" href="{:U('classapp/app_claim_list')}" target="mainFrame">微课要求管理</a><i></i></li>
+                      <li class='liessaylist'><cite></cite><a class="essaylist" href="{:U('classapp/app_essay_list')}" target="mainFrame">微课范文管理</a><i></i></li> -->
+                </ul>
+            </dd>
+
+            <dd>
+                <div class="title"><span></span>基础信息管理</div>
+                <ul class="menuson">
+                    <li><cite></cite><a href="{:U('user/pwdmgr')}" target="mainFrame">登陆密码修改</a><i></i></li> 
+                  		
+                    <eq name="Think.session.ifadmin" value="1">
+               
+                    <li><cite></cite><a href="{:U('user/list')}" target="mainFrame">人员信息设置</a><i></i></li> 
+                   </eq>
+                </ul>
+            </dd>
+        </neq>
+            <eq name="Think.session.ifadmin" value="2">
+            <dd>
+                <div class="title"><span></span>评论管理</div>
+                <ul class="menuson">
+                    <li><cite></cite><a href="{:U('classapp/Evaluatelist_qg',array('area'=>0))}" target="mainFrame">全国联通</a><i></i></li> 
+                    <li><cite></cite><a href="{:U('classapp/Evaluatelist_qg',array('area'=>1))}" target="mainFrame">江西互动课堂</a><i></i></li> 
+                    <li><cite></cite><a href="{:U('classapp/Evaluatelist_qg',array('area'=>2))}" target="mainFrame">河南永城</a><i></i></li>
+                </ul>
+            </dd>
+        </eq>
+            
+        </dl>
+    </body>
+</html>

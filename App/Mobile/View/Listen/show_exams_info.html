@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+        <title>英语同步练</title>
+        <link href="__PUBLIC__css/fonts.css" rel="stylesheet" type="text/css">
+        <link href="__PUBLIC__css/style.css" rel="stylesheet">
+        <script src="__PUBLIC__js/TouchSlide.1.1.js"></script>
+        <script type="text/javascript" src="__PUBLIC__js/jquery.min.js"></script>
+        <script src="__PUBLIC__js/main.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+
+        <script type="text/javascript">
+            var exams_mp3_url = "{$Think.config.exams_mp3_path}";
+        </script>
+        <script type="text/javascript" src="__PUBLIC__/js/listen.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/exams_play.js"></script>
+        
+
+
+
+    </head>
+     <script type="text/javascript">
+     
+        $.ajaxSetup({async:false});
+            $(function() {
+            var examsid=getParameter("examsid");
+            show_paper_info(examsid);
+            autopage(0,0);
+            $("#jplayer").jPlayer({
+                    swfPath: '/public/public/js',
+                    wmode: "window",
+                    supplied: "mp3",
+                    preload: "none",
+                    volume: "1"
+            });       
+        });
+        </script>
+    <body>
+        <header>
+            <div id="jplayer"></div>
+            <div class="l fl"><a href="show_exams_list?unitid={$unitid}"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+            <div class="c fl">听力训练</div>
+            <div class="r fl">
+                <div id="dd" class="topMenu" tabindex="1">
+                    <span><i class="icon-more-horiz"></i></span>
+                    <ul class="dropdown">
+                        <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                        <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+                        <li><a href="{:U('index/wordbook')}"><i class="icon-heart"></i><font class="wordcount">{$wordbcount}</font></a></li>
+                        <li><a href="{:U('index/record')}"><i class="icon-list-alt"></i><font class="recordcount">{$recordcount}</font></a></li>
+                        <li><a href="{:U('index/index')}"><i class="icon-evil"></i>学习中心</a></li>
+                        <li><a href="{:U('index/course')}"><i class="icon-pencil-square"></i><b>课程设置</b></a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <section class="wordbook">
+            <!-- <div class="wbBtn bLine"><p id="total_score" examsid="{$exams['id']}" unitid="{$exams['ks_code']}" total_score="{$total_score}">{$exams['name']}</p><p id="papernum"></p></div> -->
+        </section>
+
+        <section class="listen">
+            <div id="iScroll" class="iScroll bWhite">
+                <div class="hd">
+                    <ul></ul>
+                </div>
+                <div class="bd" id="iScroll-bd">
+                    
+
+                </div>
+            </div>
+
+        </section>
+
+
+       
+    </body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>听读作业</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="wap-font-scale" content="no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="__PUBLIC__css/mui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__css/finish.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background: #3cb0e0;">
+			<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav" style="font-size:2.0em;color:white;"></span><font style="font-size:1.1em;color:white;">返回</font>
+			</button>
+			<!--<span class="mui-icon mui-icon-left-nav" style="font-size:1.1em;color: white;">返回</span>-->
+			<h1 class="mui-title" style="font-size:1.1em;color: white;">作答报告</h1>
+		</header>
+		<nav class="mui-bar mui-bar-tab">
+		    <a class="mui-tab-item"  id="errquesid"  style="border: 1px solid #007aff;background-color: #007aff;color:white;">
+		       	错题解析
+		    </a>
+		    <a class="mui-tab-item"  id="allquesid"  style="border: 1px solid #007aff;background-color: #007aff;color:white;">
+		        全部解析
+		    </a>
+		</nav>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<div style="height:100px;background-color:dodgerblue;width:100%">
+					<p style="color: white;line-height:100px;vertical-align: center;padding-left: 40%;" style="display:none;" id="user">
+						<!--显示用户的分数作业名称-->
+						<font style="font-size:3.5em;" id="userhomeworkscore">{$studentscore}</font>
+					</p>
+				</div>
+
+				<ul class="mui-table-view mui-grid-view">
+		      <!--       <li class="mui-table-view-cell" style="width: 32%;">
+		            	<a href="javascript:void(0);">
+		                    <span>
+		                    	使用时间
+		                    </span>
+		                    <div class="mui-media-body">{$homeworksubmittime}</div>
+		            	</a>
+		            </li> -->
+		            <li class="mui-table-view-cell" style="width: 32%;">
+		            	<a href="javascript:void(0);">
+		                    <span>
+		                    	最高分
+		                    </span>
+		                    <div class="mui-media-body">{$homeworkmaxscore}分</div>
+		            	</a>
+		            </li>
+		            <li class="mui-table-view-cell" style="width: 32%;">
+		            	<a href="javascript:void(0);">
+		                    <span>
+		                    	平均分
+		                    </span>
+		                    <div class="mui-media-body">{$homeworkaveragescore}分</div>
+		            	</a>
+		            </li>
+		        </ul>
+			</div>
+			<div class="mui-content-padded" id="content">
+				<!--<h4>答题卡</h4>-->
+				<div id="wordalound" style="padding-top:10px;display:none;">
+					<font style="margin-bottom:15px;color:black;">单词跟读<p style="display:inline;font-size: 0.9em;">(共<font id="wacount"></font>个单词，跟读<font id="wausercount"></font>个，平均<font id="waaver"></font>分)</p></font>
+					<div class="flex-container" style="background: white;width:100%;text-align: left;margin-top:10px;">
+
+				    </div>
+			    </div>
+			    <div id="wordspell" style="padding-top:10px;display:none;">
+					<font style="margin-bottom:15px;color:black;">单词拼写</font><p style="display:inline;font-size: 0.9em;">共<font id="wscount"></font>道试题，答对<font id="wsusercount"></font>道，正确率<font id="wsrate"></font></p>
+					<div class="flex-container" style="background: white;width:100%;text-align: left;margin-top:10px;">
+
+				    </div>
+				</div>
+				<div id="wordchoose" style="padding-top:10px;display:none;">
+					<font style="margin-bottom:15px;color:black;">听音选词</font><p style="display:inline;font-size: 0.9em;">共<font id="wccount"></font>道试题，答对<font id="wcusercount"></font>道，正确率<font id="wcrate"></font></p>
+					<div class="flex-container" style="background: white;width:100%;text-align: left;margin-top:10px;">
+
+				    </div>
+				</div>
+				<div id="wordrate" style="padding-top:10px;display:none;">
+					<font style="margin-bottom:15px;color:black;">英汉互译</font><p style="display:inline;font-size: 0.9em;">共<font id="wrcount"></font>道试题，答对<font id="wrusercount"></font>道，正确率<font id="wrrate"></font></p>
+					<div class="flex-container" style="background: white;width:100%;text-align: left;margin-top:10px;">
+
+				    </div>
+				</div>
+				<div id="textalound" style="padding-top:10px;display:none;">
+					<font style="margin-bottom:15px;color:black;">课文跟读</font><p style="display:inline;font-size: 0.9em;">共<font id="tacount"></font>段课文，跟读<font id="tausercount"></font>段，平均分<font id="taaver"></font>分</p>
+					<div class="flex-container" style="background: white;width:100%;text-align: left;margin-top:10px;">
+
+				    </div>
+				</div>
+				<div id="examsquiz" style="padding-top:10px;display:none;">
+					<font style="margin-bottom:15px;color:black;">听力训练</font><p style="display:inline;font-size: 0.9em;">共<font id="eqcount"></font>道试题，答对<font id="equsercount"></font>道，正确率<font id="eqrate"></font></p>
+					<div class="flex-container" style="background: white;width:100%;text-align: left;margin-top:10px;">
+
+				    </div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var homeworkid="{$homeworkid}";
+		var studentid="{$studentid}";
+		var classid="{$classid}";
+		var batchid="{$batchid}";
+		var type="{$type}";
+		var errflag="{$errflag}";
+		var errornum=0;
+		var emptynum=0;
+	</script>
+	<script src="__PUBLIC__js/lazyload_2d9c23aa.js" type="text/javascript"></script>
+	<script>
+		LazyLoad(
+			'js',
+			[
+			  "__PUBLIC__js/mobile.js",
+			  "__PUBLIC__js/mui.min.js",
+			  "__PUBLIC__js/TouchSlide.1.1.js",
+			  "__PUBLIC__js/finish.js",
+			]
+		);
+	</script>
+
+</html>

@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta charset="UTF-8">
+	<meta name="wap-font-scale" content="no">
+	<title>单词听写</title>
+	<link rel="stylesheet" href="__YUWEN__/css/ywcurr.css" />
+	<link rel="stylesheet" href="__YUWEN__/font/fonts.css" />
+	<link rel="stylesheet" href="__YUWEN__/css/iscroll.css" />
+	<link rel="stylesheet" href="__PUBLIC__/js/swiper.min.css" />
+	<link rel="stylesheet" href="__SUBJECT__/css/font-awesome.min.css" />
+
+	<script type="text/javascript">
+		var respath = '__RESOURCE__';
+		var baseNetUrl = respath;
+		var recordNetUrl = respath + '/recordwav/';
+		var kewenNetUrl = respath + '/uploadsyw/kewenvoice/';
+		var backstatus = 0;
+		var index = 0;
+		var ks_code = "";
+
+		var ks_name;
+		var resource = "__RESOURCE__";
+		var wordJson;
+		var playArrJson;
+		var mp3;
+		var downloadJson;
+		var mode = 0; //0自动1手动
+		var speed = 5; //播放速度
+		var loop = 2; //重复次数
+		var isend = false; //是否到了最后
+		var collecturl = "";
+		var curpage = 0;
+		var curloop = 0;
+
+		var booklist = "";
+
+		var listenarr = [];
+
+		var timer = "";
+		var collecturl = "../Word/userCollectLearnWord";
+
+		var wset = "";
+	</script>
+	<style>
+		.lieList .list_title {
+			width: 100%;
+			display: block;
+			padding: 5px 5px 5px 5px;
+			background: #efefef;
+			color: #00bdc7;
+		}
+
+		.fr {
+			float: right;
+			display: inline;
+			margin-right: 10px;
+			width: 50%;
+			text-align: left;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+
+		.pin {
+			border: none;
+		}
+
+		.pin:before {
+			border: none;
+		}
+
+		.pin:after {
+			border: none;
+		}
+
+		.pinZi01 {
+			width: 100%;
+		}
+	</style>
+
+
+</head>
+
+<body class="backGfff">
+	<main>
+		<header class="head border-nav">
+			<a class="head-left" href="javascript:backToIndex();">
+				<i class="icon-back"></i>返回</a>
+			<h1 class="title"></h1>
+			<a class="head-right" onclick="goWord();">单词本</a>
+		</header>
+		<section>
+			<div id="leftTabBox" class="tabBox">
+				<div class="bd mT45">
+					<ul>
+						<div class="overYz swiper-container" id="lists" style="overflow: auto;">
+
+						</div>
+						<div class="h50"></div>
+					</ul>
+				</div>
+				<div class="bottom">
+					<div class="courseBtn">
+						<a class="fenT set">设置</a>
+						<a class="fenT play"><i class="icon-uniE60C"></i>去听写</a>
+					</div>
+
+				</div>
+			</div>
+		</section>
+	</main>
+	<div id="mask"></div>
+	<div class="bottomTan">
+		<div class="backGef clear plr10">
+			<a class="fl btnB01" onclick="javascript:wset.cancel();">取消</a>
+			<a class="fr btnB01 yingFont" onclick="javascript:wset.ok();">确定</a>
+		</div>
+		<div class="pad10">
+			<label>听写模式</label>
+			<p class="tanNr" id="mode">
+				<span class="mode" bid="1"><i class="icon-radio-unchecked"></i>英文</span>
+				<span class="mode" bid="0"><i class="icon-radio-checked"></i>中文</span>
+			</p>
+			<label id="speed">听写速度</label>
+			<p class="tanNr clear" id="speedinfo">
+				<b class="f1"></b>
+				<b class="f2"></b>
+				<b class="f3"></b>
+				<input type="range" min="1" max="3" value="2" step="1" class="speed"
+					style="top:0;position:absolute;z-index:1002;">
+				<strong class="heng3">
+					<span>快</span>
+					<span>中</span>
+					<span>慢</span>
+				</strong>
+			</p>
+			<label>重复次数</label>
+			<p class="tanNr">
+				<b class="f1"></b>
+				<b class="f2"></b>
+				<b class="f3"></b>
+				<input type="range" min="1" max="3" value="2" class="loop"
+					style="top:0;position:absolute;z-index:1002;">
+				<strong class="heng3">
+					<span>1次</span>
+					<span>2次</span>
+					<span>3次</span>
+				</strong>
+			</p>
+		</div>
+	</div>
+
+	<div class="dialogTan"
+		style="display:none;position: fixed;top:30%;left:10%;right:10%;z-index: 998;background: #fff;line-height: 40px;font-size: 16px;">
+
+		<div class="pad10">
+			<img src="__SUBJECT__/images/play.png" style="margin: 0 auto;width:35%;" />
+			<p class="tanNr" id="mode"
+				style="text-align: center;font-size:10px;vertical-align: middle;line-height: 40px;">
+				恭喜您，本课听写结束!
+			</p>
+		</div>
+
+		<div class="backGef clear plr10" style="background: #00bdc7!important;">
+			<a class="fl btnB01" style="text-align: center;width:50%;border-right: solid 1px white;color:white;"
+				onclick="nextlisten();">
+				听写下一课
+			</a>
+			<a class="fr btnB01" style="text-align: center;width:45%;color:white;" onclick="readtext();">
+				学课文
+			</a>
+		</div>
+	</div>
+
+	<script id="wordlist" type="text/x-jquery-tmpl">
+		{{each(i,group ) data}}
+			<div class="chapterlist">
+				<ul class="lieList">
+					{{if group.chaptername}}
+						<div class="list_title" onclick="checkAll(this);"><span>${group.chaptername}</span><span style="padding-left:10px;color:gray;"><i class="fa fa-square-o"></i>全选</span></div>
+					{{else}}
+						<div class="list_title" onclick="checkAll(this);"><span style="padding-left:10px;color:gray;"><i class="fa fa-square-o"></i>全选</span></div>
+					{{/if}}
+					{{each(j,word ) group.wordlist}}
+						<li class="word" wordtype="2" wordinfo="" fy="kan4,jian4" backurl="word" onclick="checkItem(this);" rindex="${i}" cindex="${j}">
+							<i class="fa fa-square-o"></i>
+							<span class="fr">${explains}</span>
+							<span class="textH3">${word}</span>
+						</li>
+					{{/each}}
+				<ul>
+			</div>
+		{{/each}}
+	</script>
+
+	<script id="word-book" type="text/x-jquery-tmpl">
+		<li class="word" wordtype="2" wordinfo="" fy="kan4,jian4" backurl="word">
+			<span class="fr" style="width:65%;padding-right:50px;">
+				${explains}
+			</span>
+			<p style="display: inline;position: absolute;right: 10px;"  bid='${id}' onclick="removeWord(this);"><i class="fa fa-trash"></i></p>
+			<span class="textH3">${word}</span>
+		</li>		
+	</script>
+
+
+	<script id="check-list" type="text/x-jquery-tmpl">
+		<li class="word" wordtype="2" wordinfo="" fy="kan4,jian4" backurl="word" onclick="collect(this);">
+			<span class="fr" style="width:65%;">
+				${explains}
+				<p style="display: inline;position: absolute;right: 20px;"><i class="fa fa-star-o"></i></p>
+			</span>
+			<span class="textH3">${word}</span>
+		</li>		
+	</script>
+
+
+	<script id="listen-word" type="text/x-jquery-tmpl">
+		<div class="pad10 swiper-slide swiper-no-swiping" onclick="javascript:stop(this);">
+			<div style="text-align:right;margin-top:-50px;" class="progress"></div>
+			<div class="shengzi radius8" style="height:640px;vertical-align:middle; padding:0;">
+				<div class="pinZi01" style="">
+					<div class="pin">
+						<span class="hide" style="display:none;font-size:0.7em;">${word}</span>
+					</div>
+					<div class="expain">
+						<span style="font-size:0.7em;">${explains}</span>
+					</div>
+					<div class="zi ywBook play" style="border: gray;width:100%;position:relative;" onclick="audioPlay(this);">
+						<img style="margin:0 auto;width:120px;" src="__SUBJECT__/images/stop.png" class="img100">
+					</div>
+				</div>
+				<div class="pinTS" style="display:block;">不会写了,再想一想,<br>可点“暂停”查看</div>
+			</div>
+		</div>
+	</script>
+
+	<script id="listen-explain" type="text/x-jquery-tmpl">
+		<div class="pad10 swiper-slide swiper-no-swiping" onclick="javascript:stop(this);">
+			<div style="text-align:right;margin-top:-50px;" class="progress"></div>
+			<div class="shengzi radius8" style="height:640px;vertical-align:middle; padding:0;">
+				<div class="pinZi01" style="padding-top:207.5px;">
+					<div class="pin">
+						<span style="font-size:0.7em;">${word}</span>
+					</div>
+					<div class="expain">
+						<span class="hide"  style="display:none;font-size:0.7em;">${explains}</span>
+					</div>
+					<div class="zi ywBook play" style="border: gray;width:100%;position:relative;"  onclick="audioPlay(this);">
+						<img style="margin:0 auto;width:120px;" src="__SUBJECT__/images/stop.png" class="img100">
+					</div>
+				</div>
+				<div class="pinTS" style="display:block;">不会写了,再想一想,<br>可点“暂停”查看</div>
+			</div>
+		</div>
+	</script>
+
+	<script id="listen-word-explain" type="text/x-jquery-tmpl">
+		<div style="text-align:right;margin-top:-50px;" class="progress"></div>
+		<div class="pad10 swiper-slide swiper-no-swiping" onclick="javascript:stop(this);">
+			<div class="shengzi radius8" style="height:640px;vertical-align:middle; padding:0;">
+				<div class="pinZi01" style="padding-top:207.5px;">
+					<div class="pin">
+						<span class="hide"  style="display:none;font-size:0.7em;">${word}</span>
+					</div>
+					<div class="expain">
+						<span class="hide" style="display:none;font-size:0.7em;">${explains}</span>
+					</div>
+					<div class="zi ywBook play" style="border: gray;width:100%;position:relative;"  onclick="audioPlay(this);">
+						<img style="margin:0 auto;width:120px;" src="__SUBJECT__/images/stop.png" class="img100">
+					</div>
+				</div>
+				<div class="pinTS" style="display:block;">不会写了,再想一想,<br>可点“暂停”查看</div>
+			</div>
+		</div>
+	</script>
+
+	<div id="tips"></div>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.tmpl.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/swiper.min.js"></script>
+	<script type="text/javascript" src="__SUBJECT__/js/ywcommon.js"></script>
+	<script type="text/javascript" src="__SUBJECT__/js/text.js"></script>
+	<script>
+		wset = new wordSet(1); //设置对象
+		var ks_name = "{$ks_name}";
+		index = GetQueryString('index');
+		ks_code = GetQueryString('ks_code');
+		//ks_name = GetQueryString('name');
+		// if(ks_name == "" || ks_name == undefined){
+		// 	ks_name = GetQueryString('ks_name')
+		// }
+		$(".title").text(ks_name);
+
+		var swiper = "";
+		if (index == null) {
+			index = 0;
+		}
+		var urlCallBack = GetQueryString('urlCallBack');
+		if (urlCallBack == null) {
+
+			urlCallBack = GetQueryString('backUrl');
+			if (urlCallBack == null) {
+				urlCallBack = getLocalStorage('cn_backUrl');
+			} else {
+				setLocalStorage('cn_backUrl', urlCallBack);
+			}
+		} else {
+			setLocalStorage('cn_backUrl', urlCallBack);
+		}
+
+		$(function () {
+			//下载mp3
+			getUnitWordInfo();
+			//获取用户设置
+			//wset.getMyConfig();
+
+
+			//切换模式
+			$('.mode').click(function () {
+				//mode = $(this).attr("bid");
+				console.log(mode)
+				$(this).children('i').removeClass('icon-radio-unchecked').addClass('icon-radio-checked');
+				$(this).siblings('span').children('i').removeClass('icon-radio-checked').addClass(
+					'icon-radio-unchecked');
+			})
+
+			//播放速度
+			// $('.speed').click(function () {
+			// 	speed = $(this).attr("bid");
+			// })
+
+			// //循环次数
+			// $('.loop').click(function () {
+			// 	loop = $(this).attr("bid");
+			// })
+
+			$(".fenT").click(function () {
+				console.log($(this))
+				if ($(this).hasClass("set")) {
+					wset.show();
+				} else if ($(this).hasClass("play")) {
+					console.log("play")
+
+					play();
+				} else if ($(this).hasClass("continue")) {
+					reset();
+				} else if ($(this).hasClass("over")) {
+					over();
+				}
+			})
+
+		})
+
+
+		$('.overYY').height($(window).height() - 90);
+		$('.overYz').height($(window).height() - 87);
+
+		function GetRequest() {
+			var url = location.search; //获取url中"?"符后的字串
+			var theRequest = new Object();
+			if (url.indexOf("?") != -1) {
+				var str = url.substr(1);
+				strs = str.split("&");
+				for (var i = 0; i < strs.length; i++) {
+					theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+				}
+			}
+			return theRequest;
+		}
+
+		/**
+		 * 获取单元信息
+		 */
+		function getUnitWordInfo() {
+			$(".head-right").show();
+			var data = {};
+			data.ks_code = ks_code;
+			$("#lists").empty();
+			$(".bottom").show();
+			$(".bottom").find("a").show();
+			$(".bottom").find("a").eq(0).removeClass("continue").addClass("set");
+			$(".bottom").find("a").eq(0).text("设置");
+			$(".bottom").find("a").eq(1).removeClass("over").addClass("play");
+			$(".bottom").find("a").eq(1).html('<i class="icon-uniE60C"></i>去听写');
+			backstatus = 0;
+			listenarr = [];
+			curpage = 0;
+			curloop = 0;
+			isend = false;
+			$.ajax({
+				url: "../Word/getUnitWordList",
+				data: {
+					isgroup: 1,
+					request: JSON.stringify(data)
+				},
+				// datatype: "json",
+				type: "get",
+				async: false,
+				success: function (data) {
+					//成功后回调
+					if (data.count == 0) {
+						$('#lists').html("<ul><li>没有要听写的单词</li></ul>");
+					} else {
+						wordJson = data.data;
+						console.log(wordJson[0].wordlist);
+						//下载音频
+						try {
+							window.UXinJSInterfaceSpeech.cacheAudioFiles(JSON.stringify(wordJson[0].wordlist));
+						} catch (e) {
+
+						}
+						$("#wordlist").tmpl(data).appendTo('#lists');
+					}
+
+				},
+				error: function (e) {
+					//失败后回调
+					// alert(e);
+				},
+				beforeSend: function () {
+					//发送请求前调用，可以放一些"正在加载"之类额话
+					// alert("正在加载");
+				}
+			});
+		}
+
+		//进入播放页
+		function play() {
+
+			//模式
+			var data = $(".word.active");
+			var contents = [];
+			if (data.length > 0) {
+				backstatus = 2;
+				//修改两个按钮的样式
+				$(".bottom").hide();
+				data.each(function (key, value) {
+					var rindex = $(value).attr("rindex");
+					var cindex = $(value).attr("cindex");
+					console.log(rindex, cindex);
+					var word = wordJson[rindex]["wordlist"][cindex];
+					console.log(word)
+					listenarr.push(word);
+				})
+				console.log(listenarr);
+				//window.localStorage.setItem("engs_listenarr",JSON.stringify(listenarr));
+				swiperpage(listenarr);
+			} else {
+				setTip("请选择单词");
+				return false;
+			}
+		}
+
+		//暂定
+		function stop(obj) {
+			$(obj).find(".word").show();
+		}
+
+		//继续试听
+		function reset() {
+			//隐藏底部
+			$(".bottom").hide();
+			//var listenarr = JSON.parse(window.localStorage.getItem("engs_listenarr"));
+			isend = false;
+			curpage = 0;
+			swiperpage(listenarr);
+		}
+
+		function over() {
+			//弹窗
+			$("#mask").show();
+			$(".dialogTan").show();
+		}
+
+		function removeWord(obj) {
+			var id = $(obj).attr("bid");
+			var item = {};
+			item.id = id;
+			//var ritem = booklist[rindex];
+			$.ajax({
+				url: "../Word/delUserWordBookById",
+				data: {
+					request: JSON.stringify(item),
+					r: Math.random()
+				},
+				// datatype: "json",
+				type: "get",
+				async: true,
+			})
+			$(obj).parent().remove();
+		}
+
+		function nextlisten() {
+			$(".dialogTan").hide();
+			$("#mask").hide();
+			backstatus = 0;
+			var catchekey = "subjectid" + GetQueryString("subjectid") + "gradeid" + GetQueryString("gradeid") + "termid" +
+				GetQueryString("termid") + "moduleid" + GetQueryString("moduleid") + "wordunitlist";
+			var unitdata = JSON.parse(window.localStorage.getItem(catchekey));
+			var unitindexs = 0;
+			$.each(unitdata, function (key, val) {
+				if (ks_code == val.ks_id) {
+					unitindexs = key;
+				}
+			})
+			unitindexs = unitindexs + 1;
+			if (unitindexs == unitdata.length) {
+				window.history.go(-1);
+			} else {
+				while (unitdata[unitindexs].count == 0 && unitindexs < unitdata.length) {
+					unitindexs = unitindexs + 1;
+				}
+
+				if (unitdata[unitindexs].count == 0) {
+					window.history.go(-1);
+				} else {
+					ks_code = unitdata[unitindexs].ks_id;
+					isend = false;
+					curpage = 0;
+					//修改标题
+					$(".title").text(unitdata[unitindexs].ks_name);
+					getUnitWordInfo();
+				}
+			}
+		}
+
+		function readtext() {
+			window.location.href = "/Subject/Public/treeunit#/readtext/?gradeid=" + GetQueryString("gradeid") + "&termid=" +
+				GetQueryString("termid") + "&subjectid=" + GetQueryString("subjectid") + "&versionid=" + GetQueryString(
+					"versionid") + "&moduleid=2&ks_code=" + GetQueryString("ks_code") + "&ks_name=" + GetQueryString("name");
+		}
+
+		//生成试听的页面
+		function swiperpage(arr) {
+			backstatus = 1;
+			//页面数据
+			$("#lists").empty();
+			$("#lists").html('<div class="swiper-wrapper"></div>');
+			$(".head-right").hide();
+			//通过swiper进行数据的展示模式
+			if (mode == 0) {
+				$("#listen-word").tmpl(arr).appendTo(".swiper-wrapper");
+			} else if (mode == 1) {
+				$("#listen-explain").tmpl(arr).appendTo(".swiper-wrapper");
+			} else if (mode == 2) {
+				$("#listen-word-explain").tmpl(arr).appendTo(".swiper-wrapper");
+			}
+
+			//分页
+			swiper = new Swiper('.swiper-container', {
+				effect: 'cube',
+				noSwiping: true,
+				watchSlidesProgress: true,
+				on: {
+					transitionEnd: function () {
+						curpage = this.activeIndex;
+						curloop = 0;
+						console.log("end")
+						clearTimeout(timer);
+						//显示进度
+						$(".progress").text((curpage + 1) + "/" + $(".swiper-slide").length);
+						//var engs_listenarr = JSON.parse(window.localStorage.getItem("engs_listenarr"));
+						try {
+							UXinJSInterfaceSpeech.playAudio(listenarr[this.activeIndex].mp3);
+						} catch (err) {
+							setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+							//onAudioPlayStatus(0);
+						}
+					},
+					init: function () {
+						console.log("init")
+						$(".progress").text("1/" + $(".swiper-slide").length);
+						//var engs_listenarr = JSON.parse(window.localStorage.getItem("engs_listenarr"));
+						try {
+							UXinJSInterfaceSpeech.playAudio(listenarr[0].mp3);
+						} catch (err) {
+							setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+							//onAudioPlayStatus(0);
+						}
+					},
+					reachEnd: function () {
+						isend = true;
+					},
+				}
+
+			});
+		}
+
+		function audioPlay(obj) {
+			var item = $(obj);
+			if (item.hasClass("play")) {
+				try {
+					UXinJSInterfaceSpeech.stopAudio();
+				} catch (e) {}
+				clearTimeout(timer);
+				item.find("img").attr("src", "__SUBJECT__/images/play.png");
+				console.log(item.parent().find(".pin"));
+				item.parent().find("span").show();
+				item.removeClass("play").addClass("stop");
+			} else {
+				var engs_listenarr = JSON.parse(window.localStorage.getItem("engs_listenarr"));
+				try {
+					UXinJSInterfaceSpeech.playAudio(engs_listenarr[curpage].mp3);
+				} catch (e) {}
+				item.find("img").attr("src", "__SUBJECT__/images/stop.png");
+				item.parent().find("span.hide").hide();
+				item.removeClass("stop").addClass("play");
+				onAudioPlayStatus(0);
+			}
+		}
+
+		//单词本页面
+		function goWord() {
+			$("#lists").empty();
+			$(".bottom").hide();
+			if (backstatus == 0) {
+				backstatus = 1;
+			} else {
+				backstatus = 2;
+			}
+			$.ajax({
+				url: "../Word/getUserWordBookList",
+				// datatype: "json",
+				type: "get",
+				async: false,
+				success: function (data) {
+					booklist = data.data;
+					if (data.count > 0) {
+						//成功后回调
+						$("#lists").append(
+							"<div class='chapterlist'><ul class='lieList' id='book-list'></ul></div>");
+						$("#word-book").tmpl(data.data).appendTo('#book-list');
+					} else {
+						$("#lists").append("<div class='chapterlist' style='text-align:center;'>太棒了</div>");
+					}
+
+				},
+				error: function (e) {
+					//失败后回调
+					// alert(e);
+				},
+				beforeSend: function () {
+					//发送请求前调用，可以放一些"正在加载"之类额话
+					// alert("正在加载");
+				}
+			});
+		}
+
+		function backToIndex() {
+			try {
+				UXinJSInterfaceSpeech.stopAudio();
+			} catch (e) {
+
+			}
+			clearTimeout(timer);
+			console.log(backstatus);
+			if (backstatus == 0) {
+				if (GetQueryString("backUrl") == "" || GetQueryString("backUrl") == null) {
+					window.location.href = "/Subject/Public/treeunit#/wordlist/?gradeid=" + GetQueryString("gradeid") +
+						"&termid=" + GetQueryString("termid") + "&subjectid=" + GetQueryString("subjectid") + "&versionid=" +
+						GetQueryString("versionid") + "&moduleid=" + GetQueryString("moduleid");
+				} else {
+					window.location.href = GetQueryString("backUrl");
+				}
+			} else if (backstatus == 1) {
+				getUnitWordInfo();
+			} else if (backstatus == 2) {
+				listenover();
+			}
+		}
+
+
+		function showSet() {
+			wset.show();
+		}
+
+		function checkItem(obj) {
+			var item = $(obj);
+			if (item.find("i").hasClass("fa-square-o")) {
+				item.addClass("active");
+				item.find("i").removeClass("fa-square-o").addClass("fa-check-square-o");
+				//判断如果是全部的话就全部选中
+				if (item.parent().children("li").find("i.fa-check-square-o").length == item.parent().children("li").find("i")
+					.length) {
+					item.parent().children("div").find("i").removeClass("fa-square").addClass("fa-check-square-o");
+				} else {
+					item.parent().children("div").find("i").removeClass("fa-square-o").addClass("fa-square");
+				}
+			} else {
+				item.removeClass("active");
+				item.find("i").removeClass("fa-check-square-o").addClass("fa-square-o");
+				if (item.parent().children("li").find("i.fa-check-square-o").length == 0) {
+					item.parent().children("div").find("i").removeClass("fa-square").addClass("fa-square-o");
+				} else {
+					item.parent().children("div").find("i").removeClass("fa-check-square-o").addClass("fa-square");
+				}
+			}
+		}
+
+		function checkAll(obj) {
+			var item = $(obj);
+			if (item.find("i").hasClass("fa-square") || item.find("i").hasClass("fa-square-o")) {
+				//表示全选中
+				item.find("i").removeClass("fa-square").removeClass("fa-square-o").addClass("fa-check-square-o");
+				item.parent().children("li").each(function (key, value) {
+					if ($(value).find("i.fa-square-o")) {
+						$(value).find("i").removeClass("fa-square-o").addClass("fa-check-square-o");
+						$(value).addClass("active");
+					}
+				})
+			} else if (item.find("i").hasClass("fa-check-square-o")) {
+				item.find("i").removeClass("fa-square").removeClass("fa-check-square-o").addClass("fa-square-o");
+				item.parent().children("li").find("i").removeClass("fa-check-square-o").addClass("fa-square-o");
+				item.parent().children("li").removeClass("active");
+			}
+		}
+
+		function listenover() {
+			$(".head-right").show();
+			//清空lists
+			backstatus = 1;
+			//var data = JSON.parse(window.localStorage.getItem("engs_listenarr"));
+			//console.log(data)
+			$("fenT").eq(0).text("继续听写").removeClass("set").addClass("reset");
+			$("fenT").eq(1).text("结束听写").removeClass("play").addClass("over");
+			$("#lists").empty();
+			$("#lists").append("<div class='chapterlist'><ul class='lieList' id='word-list'></ul></div>");
+			$("#check-list").tmpl(listenarr).appendTo('#word-list');
+			$(".courseBtn").find("a").eq(0).text("继续听写");
+			$(".courseBtn").find("a").eq(0).removeClass("set").addClass("continue");
+			$(".courseBtn").find("a").eq(1).text("结束听写");
+			$(".courseBtn").find("a").eq(1).removeClass("play").addClass("over");
+			$(".bottom").show();
+			$(".courseBtn").find("a").show();
+		}
+
+		function collect(obj) {
+			if (backstatus == 0) {
+				backstatus == 1;
+			} else {
+				backstatus == 2;
+			}
+			var data = listenarr;
+			var liindex = $(obj).index();
+			var liitems = data[liindex];
+
+			liitems.source = 5;
+			if ($(obj).find("i").hasClass("fa-star-o")) {
+				liitems.iscollect = 1;
+				$.post(collecturl, {
+					request: JSON.stringify(liitems),
+					r: Math.random()
+				});
+				$(obj).find("i").removeClass("fa-star-o").addClass("fa-star");
+			} else {
+				$.post(collecturl, {
+					request: JSON.stringify(liitems),
+					r: Math.random()
+				});
+				$(obj).find("i").removeClass("fa-star").addClass("fa-star-o");
+			}
+		}
+	</script>
+</body>
+
+<script type="text/javascript" src="__ROOTPATH__/public/js/unitlog.js"></script>
+
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>应用列表</title>
+       <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" charset="utf-8" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+       <script type="text/javascript" charset="utf-8" src="__PUBLIC__/ueditor/ueditor.all.min.js"> </script>
+    </head>
+    <body>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                            <tr>
+                                <td width="70" align="right">试题类型：</td>
+                                <td>
+                                <eq name="id" value="0">
+                                    <input type="radio" value="1" checked name="type" />选择题
+                                    &nbsp;&nbsp;
+                                    <input type="radio" value="2"  name="type" />判断题
+                                <else/>
+                                <input type="radio" value="1" name="type" <eq name="type" value="1"> checked </eq>  />选择题
+                                    &nbsp;&nbsp;
+                                    <input type="radio" name="type" value="2" <eq name="type" value="2"> checked </eq>  />判断题
+                              </eq>
+                                </td>
+                            </tr>
+                            <tr>
+                            <td class="td_right">题干：</td>
+                            <td>
+                              <script id="quetitle" type="text/plain" style="width:600px;height:100px;"></script>
+                            </td>
+                          </tr>
+                             <tr class="items">
+                                <td width="70" align="right">选项类型：</td>
+                                <td>
+                                <eq name="id" value="0">
+                                    <input type="radio" value="0" checked name="itemtype" />文字
+                                    &nbsp;&nbsp;
+                                    <input type="radio" value="1"  name="itemtype" />图片
+                                <else/>
+                                <input type="radio" value="0" name="itemtype" <eq name="itemtype" value="0"> checked </eq>  />文字
+                                    &nbsp;&nbsp;
+                                    <input type="radio" name="itemtype" value="1" <eq name="itemtype" value="1"> checked </eq>  />图片
+                              </eq>
+                                </td>
+                            </tr>
+                            <tr class="items">
+                              <td class="td_right">选项&nbsp;A：</td><td><input type="text" id="contentA" name="contentitemA" class="input-text lh30 wenziitem"  size="40" value="{$contentA}" flag="A" /><table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table itempic" id="table_exceA" style="display: none"> 
+                              <tr>
+                                  <td width="100px">
+                                      <input name="btn_submit" id="file_uploadA" type="button" class="ext_btn ext_btn_submit " value="上传图片" onclick="imgupload('#myimgA','#filenameA')" />
+                                  </td>
+                                  <td align="left">
+                                      <img src="/{$picA}" id="myimgA" width="100" height="100" style="border:1px solid #CCC; padding:2px;" >
+                                      <input type="hidden" class="filename" flag="A" id="filenameA" name="filenameA" value="{$picA}" />&nbsp;(<strong><font color="red">*</font></strong>)
+                                  </td>
+                              </tr>
+                          </table>  </td>
+                            </tr>
+                              <tr class="items">
+                              <td class="td_right">选项&nbsp;B：</td><td><input type="text" id="contentB" name="contentitemB" class="input-text lh30 wenziitem"  size="40" value="{$contentB}" flag="B" /><table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table itempic" id="table_exceB" style="display: none"> 
+                              <tr>
+                                  <td width="100px">
+                                      <input name="btn_submit" id="file_uploadB" type="button" class="ext_btn ext_btn_submit " value="上传图片" onclick="imgupload('#myimgB','#filenameB')" />
+                                  </td>
+                                  <td align="left">
+                                      <img src="/{$picB}" id="myimgB" width="100" height="100" style="border:1px solid #CCC; padding:2px;" >
+                                      <input type="hidden" class="filename" flag="B" id="filenameB" name="filenameB" value="{$picB}" />&nbsp;(<strong><font color="red">*</font></strong>)
+                                  </td>
+                              </tr>
+                          </table>  </td>
+                            </tr>
+                             <tr class="items">
+                              <td class="td_right">选项&nbsp;C：</td><td><input type="text" id="contentC" name="contentitemC" class="input-text lh30 wenziitem"  size="40" value="{$contentC}" flag="C" /><table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table itempic" id="table_exceC" style="display: none"> 
+                              <tr>
+                                  <td width="100px">
+                                      <input name="btn_submit" id="file_uploadC" type="button" class="ext_btn ext_btn_submit " value="上传图片" onclick="imgupload('#myimgC','#filenameC')" />
+                                  </td>
+                                  <td align="left">
+                                      <img src="/{$picC}" id="myimgC" width="100" height="100" style="border:1px solid #CCC; padding:2px;" >
+                                      <input type="hidden" class="filename" flag="C" id="filenameC" name="filenameC" value="{$picC}" />&nbsp;(<strong><font color="red">*</font></strong>)
+                                  </td>
+                              </tr>
+                          </table>  </td>
+                            </tr>
+                             <tr class="items">
+                              <td class="td_right">选项&nbsp;D：</td><td><input type="text" id="contentD" name="contentitemD" class="input-text lh30 wenziitem"  size="40" value="{$contentD}" flag="D" /><table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table itempic" id="table_exceD" style="display: none"> 
+                              <tr>
+                                  <td width="100px">
+                                      <input name="btn_submit" id="file_uploadB" type="button" class="ext_btn ext_btn_submit " value="上传图片" onclick="imgupload('#myimgD','#filenameD')" />
+                                  </td>
+                                  <td align="left">
+                                      <img src="/{$picD}" id="myimgD" width="100" height="100"/ style="border:1px solid #CCC; padding:2px;" >
+                                      <input type="hidden" class="filename" flag="D" id="filenameD" name="filenameD" value="{$picD}" />&nbsp;(<strong><font color="red">*</font></strong>)
+                                  </td>
+                              </tr>
+                          </table>  </td>
+                            </tr>
+                             <tr class="items">
+                              <td class="td_right">选项&nbsp;E：</td><td><input type="text" id="contentE" name="contentitemE" class="input-text lh30 wenziitem"  size="40" value="{$contentE}" flag="E" /><table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table itempic" id="table_exceE" style="display: none"> 
+                              <tr>
+                                   <td width="100px">
+                                      <input name="btn_submit" id="file_uploadB" type="button" class="ext_btn ext_btn_submit " value="上传图片" onclick="imgupload('#myimgE','#filenameE')" />
+                                  </td>
+                                  <td align="left">
+                                      <img src="/{$picE}" id="myimgE" width="100" height="100"/ style="border:1px solid #CCC; padding:2px;" >
+                                      <input type="hidden" class="filename" flag="E" id="filenameE" name="filenameE" value="{$picE}" />&nbsp;(<strong><font color="red">*</font></strong>)
+                                  </td>
+                              </tr>
+                          </table>  </td>
+                            </tr>
+                             <tr class="items">
+                              <td class="td_right">选项&nbsp;F：</td><td><input type="text" id="contentF" name="contentitemF" class="input-text lh30 wenziitem"  size="40" value="{$contentF}" flag="F" /><table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table itempic" id="table_exceF" style="display: none"> 
+                              <tr>
+                                   <td width="100px">
+                                      <input name="btn_submit" id="file_uploadF" type="button" class="ext_btn ext_btn_submit " value="上传图片" onclick="imgupload('#myimgF','#filenameF')" />
+                                  </td>
+                                  <td align="left">
+                                      <img src="/{$picF}" id="myimgF" width="100" height="100" style="border:1px solid #CCC; padding:2px;" >
+                                      <input type="hidden" class="filename" flag="F" id="filenameF" name="filenameF" value="{$picF}" />&nbsp;(<strong><font color="red">*</font></strong>)
+                                  </td>
+                              </tr>
+                          </table>  </td>
+                            </tr>
+                             <tr class="items">
+                              <td class="td_right">选项&nbsp;G：</td><td><input type="text" id="contentG" name="contentitemG" class="input-text lh30 wenziitem"  size="40" value="{$contentG}" flag="G" /><table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table itempic" id="table_exceG" style="display: none"> 
+                              <tr>
+                                   <td width="100px">
+                                      <input name="btn_submit" id="file_uploadG" type="button" class="ext_btn ext_btn_submit " value="上传图片" onclick="imgupload('#myimgG','#filenameG')" />
+                                  </td>
+                                  <td align="left">
+                                      <img src="/{$picG}" id="myimgG" width="100" height="100" style="border:1px solid #CCC; padding:2px;" >
+                                      <input type="hidden" class="filename" flag="G" id="filenameG" name="filenameG" value="{$picG}" />&nbsp;(<strong><font color="red">*</font></strong>)
+                                  </td>
+                              </tr>
+                          </table>  </td>
+                            </tr>
+                            <tr id="transwerxuanze">
+                            <td class="td_right">答案：</td>
+                            <td>
+                            <eq name="id" value="0">
+                              <input type="radio" value="A" checked name="answerxuanze" />A
+                                    &nbsp;&nbsp;
+                              <input type="radio" value="B"  name="answerxuanze" />B
+                              &nbsp;&nbsp;
+                              <input type="radio" value="C"  name="answerxuanze" />C
+                              &nbsp;&nbsp;
+                              <input type="radio" value="D"  name="answerxuanze" />D
+                              &nbsp;&nbsp;
+                              <input type="radio" value="E"  name="answerxuanze" />E
+                              &nbsp;&nbsp;
+                              <input type="radio" value="F"  name="answerxuanze" />F
+                              &nbsp;&nbsp;
+                              <input type="radio" value="G"  name="answerxuanze" />G
+                              <else/>
+                              <input type="radio" value="A" name="answerxuanze" <eq name="trueanswer" value="A"> checked</eq>  />A
+                                    &nbsp;&nbsp;
+                              <input type="radio" value="B"  name="answerxuanze" <eq name="trueanswer" value="B"> checked</eq> />B
+                              &nbsp;&nbsp;
+                              <input type="radio" value="C"  name="answerxuanze" <eq name="trueanswer" value="C"> checked</eq> />C
+                              &nbsp;&nbsp;
+                              <input type="radio" value="D"  name="answerxuanze" <eq name="trueanswer" value="D"> checked</eq> />D
+                              &nbsp;&nbsp;
+                              <input type="radio" value="E"  name="answerxuanze" <eq name="trueanswer" value="E"> checked</eq> />E
+                              &nbsp;&nbsp;
+                              <input type="radio" value="F"  name="answerxuanze" <eq name="trueanswer" value="F"> checked</eq> />F
+                              &nbsp;&nbsp;
+                              <input type="radio" value="G"  name="answerxuanze" <eq name="trueanswer" value="G"> checked</eq> />G
+                            </eq>
+                            </td>
+                          </tr>
+                          <tr id="transwepanduan">
+                            <td class="td_right">答案：</td>
+                            <td>
+                            <eq name="id" value="0">
+                             
+                               <input type="radio" value="1" checked  name="answerpanduan" />√
+                                    &nbsp;&nbsp;
+                              <input type="radio" value="0"  name="answerpanduan" />×
+                              
+                              <else/>
+                              <input type="radio" value="1"  name="answerpanduan" <eq name="trueanswer" value="1"> checked</eq> />√
+                               &nbsp;&nbsp;
+                              <input type="radio" value="0" name="answerpanduan" <eq name="trueanswer" value="0"> checked</eq>  />×
+                                   
+                              
+                            </eq>
+                            </td>
+                          </tr>
+                            <!-- <tr>
+                            <td class="td_right">序号：</td>
+                            <td>
+                              <input type="number" id="sortid" name="sortid" class="input-text lh30" size="40" value="{$sortid}" />&nbsp;(<strong><font color="red">*</font></strong>)
+                            </td>
+                          </tr> -->
+                            
+                        </table>
+                    </td> 
+                </tr> 
+            </table>
+            
+        </div>
+        <div id="edit_tx2" class="edit_tx2" style="display: none;">
+  <iframe id="uploadPhoto" src="{:U('imageupload/index')}" width="100%" style="height:420px; text-align: center;"  frameborder="0" scrolling="no"></iframe>
+</div>
+        <script type="text/javascript">
+        var course_id = "{$course_id}";
+        var id = "{$id}";
+        var app_id = "{$app_id}";
+            $(function() {
+                $.ajaxSetup({async: false});
+            
+                $('input[name=itemtype]').change(function(){
+                    items_show_hide();
+                });
+                $('input[name=type]').change(function(){
+                    itemtype_show_hide();
+                });
+                    items_show_hide();
+                    itemtype_show_hide();
+                   
+
+                var ue = UE.getEditor('quetitle',{
+                   toolbars: [[
+                       'source',
+                       '|',
+                       'simpleupload',
+                       '|',
+                       'justifyleft', '|','justifycenter', '|','justifyright', '|','justifyjustify'
+                  ]],
+                  elementPathEnabled : false,
+                  wordCount:false,
+                  pasteplain:true //纯文本黏贴
+
+                });
+                ue.ready(function(){
+                  UE.getEditor('quetitle').setContent('{$quetitle}');
+                })
+            });
+
+            function items_show_hide(){
+                if($('input[name=itemtype]:checked').val() == 1){
+                     $('.wenziitem').hide();
+                     $('.itempic').show();
+                  }
+                  else{
+                    $('.itempic').hide();
+                    $('.wenziitem').show();
+                  }
+            }
+            function itemtype_show_hide(){
+             // console.log($('input[name=type]:checked').val());
+                if($('input[name=type]:checked').val() == 1){
+                     $('#transwepanduan').hide();
+                     $('#transwerxuanze').show();
+                     $('.items').show();
+                  }
+                  else{
+                    $('#transwepanduan').show();
+                    $('#transwerxuanze').hide();
+                    $('.items').hide();
+                  }
+            }
+            
+            //添加版本
+            function queaddshow(){
+              var type = $('input[name=type]:checked').val();
+              var itemtype = $('input[name=itemtype]:checked').val();
+              var quetitle = $.trim(UE.getEditor('quetitle').getContent());
+              var contentA = $.trim($('#contentA').val());
+              var contentB = $.trim($('#contentB').val());
+              var contentC = $.trim($('#contentC').val());
+              var itempicA = $('#filenameA').val();
+              var itempicB = $('#filenameB').val();
+              var itempicC = $('#filenameC').val();
+              
+              var trueanswer = '';
+              var arrjson = [];        
+              var itemsdata = '';
+              var trueanswer = '';
+              var flag = false;
+              if(quetitle == ''){
+                dialogTips('题干不能为空');
+                flag = false;
+                return;
+              }
+              if(type == 1){
+                  if(itemtype == 0){ //文字选项
+                    $('input[class*=wenziitem]').each(function(i){
+                       var obj = {};
+                       obj.flag=$(this).attr('flag');
+                       obj.content = $.trim($(this).val());
+                       if($.trim($(this).val()) != ''){
+                        arrjson.push(obj);
+                       }
+                       
+                    });
+                  }
+                  else{
+                      $('input[class=filename]').each(function(i){
+                         var obj = {};
+                         obj.flag=$(this).attr('flag');
+                         obj.content = $.trim($(this).val());
+                         if($.trim($(this).val()) != ''){
+                          arrjson.push(obj);
+                         }
+                      });
+                  }
+                  if(arrjson.length <=1){
+                     dialogTips('至少添加两个选项');
+                     flag = false;
+                     return;
+                  }
+                  itemsdata = JSON.stringify(arrjson);
+                  trueanswer = $('input[name=answerxuanze]:checked').val();
+                  
+              }
+              else{
+                  itemsdata= '';
+                  trueanswer = $('input[name=answerpanduan]:checked').val();
+              }
+              // if(sortid == ''){
+              //   dialogTips('请填写序号');
+              //   flag = false;
+              //   return;
+              // }
+              $.getJSON('../classapp/Que_save',{id:id,course_id:course_id,type:type,itemtype:itemtype,quetitle:quetitle,itemsdata:itemsdata,trueanswer:trueanswer,app_id:app_id
+              },function(result){
+                  if(result.flag == 0){
+                    dialogTips(result.msg);
+                    flag = false;
+                  }
+                  else{
+                    dialogTips(result.msg);
+                    flag = true;
+                  }
+              });
+              return flag;
+            }
+        </script> 
+    </body>
+</html>

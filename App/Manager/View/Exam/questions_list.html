@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑模版</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+</head>
+<body>
+<div class="place"><strong>位置</strong>：首页 &gt; 单项小题管理</div>
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="box_top pl_10 f14"><strong>搜索</strong></td> 
+  </tr>
+  <tr>
+    <td class="pl_5">
+    <table width="700" border="0" cellpadding="0" cellspacing="0" class="form_table">
+      <tr>
+        <td width="58" align="right">题型：</td>
+        <td width="93">
+        <select name="select" class="select">
+          <option value="1">选择题</option>
+          <option value="2" selected="selected">填空题</option>
+          <option value="2">判断题</option>
+        </select>
+        </td>
+        <td width="91" align="right">难易程度：</td>
+        <td width="361"><select name="select3" class="select">
+          <option value="1">较难</option>
+            <option value="2">适中</option>
+            <option value="2">容易</option>
+        </select></td>
+        <td width="97" rowspan="3">&nbsp;&nbsp;&nbsp;
+          <input type="button" name="button" class="btn btn82 btn_search" value="查询" /></td>
+      </tr>
+      <tr>
+        <td align="right">年级：</td>
+        <td colspan="3">
+        	<input type="checkbox" name="check" />一年级&nbsp;
+            <input type="checkbox" name="check" />二年级&nbsp;
+            <input type="checkbox" name="check" />三年级&nbsp;
+            <input type="checkbox" name="check" />四年级&nbsp;
+            <input type="checkbox" name="check" />五年级&nbsp;
+            <input type="checkbox" name="check" />六年级&nbsp;
+            <input type="checkbox" name="check" />七年级&nbsp;
+            <input type="checkbox" name="check" />八年级&nbsp;
+            <input type="checkbox" name="check" />九年级&nbsp;
+            <input type="checkbox" name="check" />高一&nbsp;
+            <input type="checkbox" name="check" />高二&nbsp; 
+            <input type="checkbox" name="check" />高三&nbsp;
+		</td>
+        </tr>
+      <tr>
+        <td align="right">关键词：</td>
+        <td colspan="3"><input type="text" name="name3" class="input-text lh30" size="40" />
+          <input type="button" value="选择" onclick="location.href='textedit.html'" class="ext_btn" /></td>
+        </tr>
+    </table></td> 
+  </tr> 
+</table>
+<div class="h5"></div> 
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="36">
+      <input name="按钮" type="button" class="ext_btn ext_btn_submit" value="添加小题" onclick="javascript:location.href='questions_add.html'" /></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table">
+  <tr>
+    <th width="30" align="center">&nbsp;</th>
+    <th width="60">题型</th>
+    <th width="300">年级</th>
+    <th width="200">关键词</th>
+    <th width="300">&nbsp;</th>
+    <th width="80">难易程度</th>
+    <th width="120">&nbsp;</th>
+    <th>&nbsp;</th>
+  </tr>
+  <tr class="tr">
+    <td align="center">1</td>
+    <td align="center">选择题</td>
+    <td align="left">三年级,四年级,五年级,六年级</td>
+    <td align="left">关键词1,关键词2</td>
+    <td align="left">Sarah’s aunt lives in the city.             
+      <input type="button" value="查看" onclick="location.href='textedit.html'" class="ext_btn" /></td>
+    <td>
+        较难
+    </td>
+    <td align="center">
+        <input type="button" value="修改" onclick="location.href='textedit.html'" class="ext_btn" />        
+        <input type="button" class="ext_btn ext_btn_error" value="删除" />
+      </td>
+    <td align="left">&nbsp;</td>
+  </tr>	
+  <tr class="tr">
+    <td align="center">2</td>
+    <td align="center">填空题</td>
+    <td align="left">三年级,四年级,五年级,六年级</td>
+    <td align="left">关键词1,关键词2</td>
+    <td align="left">Sarah’s aunt lives in the city.             
+      <input type="button" value="查看" onclick="location.href='textedit.html'" class="ext_btn" /></td>
+    <td>
+        容易
+    </td>
+    <td align="center">
+        <input type="button" value="修改" onclick="location.href='textedit.html'" class="ext_btn" />
+        <input type="button" class="ext_btn ext_btn_error" value="删除" />
+	</td>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr class="tr">
+    <td align="center">3</td>
+    <td align="center">判断题</td>
+    <td align="left">三年级,四年级,五年级,六年级</td>
+    <td align="left">关键词1,关键词2</td>
+    <td align="left">Sarah’s aunt lives in the city.             
+      <input type="button" value="查看" onclick="location.href='textedit.html'" class="ext_btn" /></td>
+    <td>适中</td>
+    <td align="center">
+        <input type="button" value="修改" onclick="location.href='textedit.html'" class="ext_btn" />
+        <input type="button" class="ext_btn ext_btn_error" value="删除" /></td>
+    <td align="left">&nbsp;</td>
+  </tr>
+</table>
+<div class="h5"></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="42">翻页</td>
+  </tr>
+</table> 
+</div> 
+</body>
+</html>

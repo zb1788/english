@@ -1,0 +1,123 @@
+<include file="Base/header" />
+<body>
+<div class="container">
+<table width="100%"  cellspacing="0" cellpadding="0" class="box_border">
+      <tr heigh="100">
+        <td width="100" height="30" align="right">年级：</td>
+        <td>
+          <select name="gradeid" class="select" id="gradeid"></select>
+        </td>
+		</tr>
+		<tr>
+        <td width="100" height="30" align="right">学期：</td>
+        <td>
+          <select name="termid" class="select" id="termid">
+            <option value="1">上学期</option>
+            <option value="2">下学期</option>
+            <option value="0">全一册</option>
+          </select>
+      </td>
+	  </tr>
+	  <tr>
+        <td width="100" height="30" align="right">版本：</td>
+        <td>
+          <select name="versionid" class="select" id="versionid"></select>
+        </td>
+		</tr>
+		<tr>
+        <td width="100" height="30" align="right">单元：</td>
+        <td>
+          <select name="unitid" class="select" id="unitid"></select>
+        </td>
+		</tr>
+		<tr>
+        <td width="100" height="30" align="right">状态：</td>
+        <td>
+          <select name="select3" class="select" id="stateid" <if condition="$id eq 0">disabled='disabled'</if>>
+            <option value="1">编辑中</option>
+            <option value="2">已完成待发</option>
+        	  <option value="3">已生成待审</option>
+        	  <option value="4">发布完成</option>
+          </select>
+        </td>
+		</tr>
+		<tr>
+		<td width="100" height="30" align="right">试卷名称：</td>
+        <td align="left"><input name="text" type="text" class="input-text lh30" id="exam" value="{$name}">
+        </td>
+      </tr>
+     <tr>
+       <td width="100" height="30" align="right">考试时长：</td>
+        <td align="left"><input name="text" type="text" class="input-text lh30" id="examtime" value="{$examtime}">
+        </td>
+     </tr>
+
+ </table> 
+</div> 
+<script type="text/javascript">  
+$(function(){ 
+  $.ajaxSetup({async:false});
+  /**
+  初始化年级、学期、版本以及单元和单词
+  **/
+
+  $.EBC.setGrade($("#gradeid"));
+  $("#gradeid").val("{$gradeid}");
+   $.EBC.setTerm($("#termid"),$("#gradeid").val());
+  $("#termid").val(__TERMID__);
+  $("#termid").val("{$termid}");
+  $.EBC.setVersion($("#versionid"),$("#gradeid").val());
+  $("#versionid").val("{$versionid}");
+  $.EBC.setUnit($("#unitid"),$("#gradeid").val(),$("#versionid").val(),$("#termid").val());
+  $("#unitid").val("{$unitid}");
+  $("#stateid").val("{$stateid}");
+  //dloading.close();
+  
+  /**
+  初始化年级、学期、版本下拉框联动
+  **/
+  $("#gradeid").change(function(){ 
+     $.EBC.setTerm($("#termid"),$("#gradeid").val());
+    $.EBC.setVersion($("#versionid"),$("#gradeid").val());
+    $.EBC.setUnit($("#unitid"),$("#gradeid").val(),$("#versionid").val(),$("#termid").val());
+  });
+  $("#versionid").change(function(){  
+    $.EBC.setUnit($("#unitid"),$("#gradeid").val(),$("#versionid").val(),$("#termid").val());
+  });
+  $("#termid").change(function(){
+    $.EBC.setUnit($("#unitid"),$("#gradeid").val(),$("#versionid").val(),$("#termid").val());
+  });
+  $("#stateid").change(function(){
+     var cur="{$stateid}";
+     var curr=$(this).val();
+     if(curr-cur>1){
+        alert("您每次只能调整一个状态");
+        $(this).val(cur);
+     }else if(cur<3&&curr==3){
+        alert("您手动将状态调整为待发");
+        $(this).val(cur);
+     }else if(curr==4){
+        alert("您已经仔细审核，将试卷发布到平台!")
+     }
+  });
+});
+//编辑试题
+function editExam()
+{
+    var unitid = $("#unitid").val();
+	var gradeid=$("#gradeid").val();
+	var stateid=$("#stateid").val();
+	var examval=$("#exam").val();
+	var examtime=$("#examtime").val();
+	if(examtime<5){art.dialog.alert("请填写考试时长(考试时长必须大于等于5)");return false;}
+	var closeflag = false; 
+    $.getJSON('../Exam/examEdit',{unitid:unitid,stateid:stateid,id:{$id},examtime:examtime,gradeid:gradeid,exam:examval,random:Math.random()},function(data){
+          if (data.isadd == 1) {
+		    closeflag=true;
+		  };
+      });
+	  return closeflag; 
+}
+</script> 
+</body>
+</html>

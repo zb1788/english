@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="wap-font-scale" content="no">
+		<meta charset="UTF-8">
+		<title>听读作业</title>
+		<link rel="stylesheet" href="__PUBLIC__/pad/css/currencyfinish.css" />
+		<link rel="stylesheet" href="__PUBLIC__/pad/font/style.css" />
+		<link rel="stylesheet" href="__PUBLIC__/pad/css/iscroll.css" />
+		<link rel="stylesheet" href="__PUBLIC__/css/mui.min.css" />
+		<script type="text/javascript" src="__PUBLIC__/pad/js/TouchSlide.1.1.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/pad/js/demoUtils.js"></script>
+		<link rel="stylesheet" href="__PUBLIC__/pad/css/londing.css" />
+		<style>
+			.wsgray{
+				font-family: Muiicons;
+				padding-left:0px;
+				margin-left:0px;
+				margin-top:10px;
+				display:inline-block;
+				padding: 0;
+				width: 50px;
+				height: 50px;
+				border-radius: 20px;
+				text-align: center;
+				border: solid 1px transparent;
+				line-height: 50px;
+			}
+
+			.wgray{
+				background-color: #f7f7f7;
+				box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+				color: #a7a7a7;
+			}
+
+			.wgreen{
+				background-color: #2bc8a0;
+				box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #2bc8a0;
+				color: white;
+			}
+		</style>
+		<script type="text/javascript">
+			//初始化参数
+			var pageindex=0;
+			var hwid="{$hwid}";
+			var homeworkid="{$paperid}";
+			var quescount=0;
+			var batchid="{$batchid}";
+			var sso="{$sso}";
+			var tms="{$tms}";
+			var tqms="{$tqms}";
+			var username="{$studentid}";
+			var classid="{$classid}";
+			var iserror="{$iserror}";
+			var issubmit="{$issubmit}";
+			var type="{$type}";
+			var isOverdue="{$isOverdue}";
+			var title="{$name}";
+			var index="{$index}";
+			var recordlocation="{$location}";
+			var storage=window.localStorage;
+			var questions="";
+			var questionscard="";
+            if(!window.localStorage){
+               questions=false;
+               questionscard=false;
+               foldhomeworkid=false;
+            }else{
+               foldhomeworkid=storage.getItem("fhomeworkid");
+               questions=storage.getItem("questions");
+               questionscard=storage.getItem("questionscard");
+            }
+            var curindex=index;
+		</script>
+	</head>
+	<body>
+		<main>
+			<header class="head border-nav">
+				<a class="head-left" href="javascript:void(0);"><i class="icon-back"></i></a>
+				<a class="head-right"><i class="icon-share"></i></a>
+				<h1 class="title">{$papername}</h1>
+			</header>
+			<section>
+				<div class="pad050" style="overflow:hidden;">
+					<div class="box">
+						<div class="datiLeft">
+							<h1 class="dth1"><i class="icon-shijuan"></i>答题卡</h1>
+							<div class="lfl flY" id="card">
+								<div class="center afterBorder">
+									<div class="pad10">
+									得分率：<font class="redFont font12">{$studentscore}%</font><br />使用时间：<font class="greenFont font12">{$homeworksubmittime}</font>
+									</div>
+								</div>
+								<div class="center afterBorder">
+									<div class="pad10">
+										<h3 class="textFB">最高分：{$homeworkmaxscore}分/平均分：{$homeworkaveragescore}分</h3>
+										<p class="mb20"><a class="bBtn" href="rank?homeworkid={$paperid}&batchid={$batchid}&studentid={$studentid}&classid={$classid}"><i class="icon-paiming"></i>作业排名</a></p>
+										<!--<p><a class="cBtn"><i class="icon-sj"></i>家长已签字</a></p>-->
+									</div>
+								</div>
+								<!--直接将数据查询出来进行模板展示-->
+								<script id="questioncard" type="text/x-jquery-tmpl">
+								    <h2 class="btH2 afterBorder">${name}（${num}）</h2>
+									<div class="clear afterBorder">
+										<div class="dtk pad10">
+										{{if type=="1"}}
+											{{each(i,lang ) questions}}
+												<span class="load-container load8">
+													<div class=""></div>
+													{{if lang.score == null}}
+														<a href="javascript:void(0);" class="ball t2 bGray">${i + 1}</a>
+													{{else lang.score>0||(lang.score!='0'&&lang.score !=null)}}
+														<a href="javascript:void(0);" class="ball t2 bGray">${i + 1}</a><b class="jiao bDui"><i class="icon-dui"></i></b>
+													{{/if}}
+													{{if lang.score==0||lang.score =='0'}}
+														<a href="javascript:void(0);" class="ball t2 bGray">${i + 1}</a><b class="jiao bCuo"><i class="icon-cuo"></i></b>
+													{{/if}}
+												</span>
+											{{/each}}
+										{{/if}}
+										{{if type=="0"}}
+											{{each(i,lang ) questions}}
+												<span class="load-container load8">
+													<div class=""></div>
+													{{if lang.score == null}}
+														<a href="javascript:void(0);" class="ball t2 bGray">${i + 1}</a>
+													{{else lang.score>50}}
+														<a href="javascript:void(0);" class="ball t2 bGray">${i + 1}</a><b class="jiao bDui"><i class="icon-dui"></i></b>
+													{{/if}}
+													{{if lang.score<=50&&lang.score !=null}}
+														<a href="javascript:void(0);" class="ball t2 bGray">${i + 1}</a><b class="jiao bCuo"><i class="icon-cuo"></i></b>
+													{{/if}}	
+												</span>
+											{{/each}}
+										{{/if}}
+										</div>
+									</div>
+								</script>
+							</div>
+							<if condition="($iserror eq '0')">
+								<div class="bbt" style="z-index: 500;">
+									<a class="dBtn bRed" id="errorques"><i class="icon-cuo2"></i>错题解析</a>
+									<!-- <a class="bBtn" >错题解析</a> -->
+								</div>
+							<else/>
+								<div class="bbt" style="z-index: 500;">
+									<a class="bBtn bRed" id="allerrorques">全部解析</a>
+								</div>
+							</if>
+						</div><!--end left-->
+						<div class="datiRight" >
+							<div class="posR">
+								<div id="iScroll" class="iScroll" style="overflow-y: auto;">
+									<div class="bd" id="iScroll-bd">
+										
+									</div>
+								</div>
+								<div class="h50"></div>
+								<div class="bbtR">
+									<div class="fl">
+										<span class="dabble">
+											<!-- <a class="cBtn" id="tan"><i class="icon-yuyin"></i>录音</a> -->
+											<a class="cBtn myrecord"><i class="icon-shengyin"></i>我的录音</a>
+										</span>
+									</div>
+									<div class="fr">
+										<span class="dabble">
+											<button class="prev cBtn" id="wpre"><i class="icon-left"></i>上一题</button>
+											<button class="next cBtn" id="wnxt">下一题<i class="icon-right"></i></button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end right-->
+					</div>
+				</div>
+			</section>
+			<div id="bg" style="display: none;"></div>
+			<div id="tanS" class="tanshow radius8">
+				<h1 class="tanH1"><i class="icon-light"></i>思路点拨<span class="fr" id="close"><i class="icon-cuo"></i></span></h1>
+				<div class="pad30">
+					<p class="tanNr">5. 点击“交作业”按钮，系统自动判断试题是否已全部完成，如未完成，提示：您还有X道试题未作答，提交之后将不能作答！如已完成，提示：作业提交后，答案将不可修改，确认提交点击确认；点击提交，提交当前的网上作业，并返回至网上作业列表页面；</p>
+					<p class="tanNr">5. 点击“交作业”按钮，系统自动判断试题是否已全部完成，如未完成，提示：您还有X道试题未作答，提交之后将不能作答！如已完成，提示：作业提交后，答案将不可修改，确认提交点击确认；点击提交，提交当前的网上作业，并返回至网上作业列表页面；</p>
+				</div>
+			</div>
+			<include file="finishtemplate"/>
+			
+			<div id="jplayer"></div>
+		</main>
+		<script type="text/javascript" src="__PUBLIC__/js/mui.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.1.min.js"></script>
+		<script type="text/javascript" src="__COMMON__/js/jquery.tmpl.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/pad/js/finish.js"></script>
+	</body>
+
+</html>

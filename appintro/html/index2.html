@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<title></title>
+		<!--<link rel="stylesheet" href="../css/iscroll.css" />-->
+		<link rel="stylesheet" href="../css/responsive.css"/>
+		<link rel="stylesheet" href="../css/currency.css" />
+		<link rel="stylesheet" href="../font/fonts.css" />
+		<script type="text/javascript" src="../js/iscroll-lite.js" ></script>
+		<script type="text/javascript" src="../js/demoUtils.js" ></script>
+		<script type="text/javascript" src="../js/TouchSlide.1.1.js" ></script>
+<style>
+	body {background: #fcfcfc;}
+	/*.mui-media-body h3{margin-right: 50px;}*/
+</style>
+</head>
+<body>
+<main>
+<header class="head">
+			<a class="head-left" href="javascript:UXinJSInterface.popTheController();"><i class="icon-back"></i>返回</a>
+			<h1 class="title">单词学习</h1>
+	        <!-- <a class="head-right">分享</a> -->
+</header>
+	<!--页中-->
+<section>
+   <div class="section01">
+        <div class="leftTitle">
+			<img src="../images/title_02.png" alt=""/>
+		</div>
+
+	    <div class="rightLesson">
+			<img src="../images/lessonIcon_02.png" alt=""/>
+		</div>
+   </div>
+	<div class="hx"></div>
+	<div class="section02">
+        <div class="title02">
+			<img src="../images/title_002.png" alt=""/>
+		</div>
+	</div>
+	<div class="contentInfo02">
+		<div class="topTitle">
+			<h4><span>先学一学 英语单词轻松记牢</span></h4>
+		</div>
+       <div class="contentList02">
+		   <ul>
+			   <li><img src="../images/iconSmall.png" alt=""/>
+				   <span><b>先听三遍:&nbsp;</b>掌握词形，发音，释义，配图助记加深理解</span>
+			   </li>
+			   <li><img src="../images/iconSmall02.png" alt=""/>
+				   <span><b>再跟读三遍：&nbsp;</b>掌握发音，正确跟读，练好发音</span>
+			   </li>
+			   <li><img src="../images/iconSmall03.png" alt=""/>
+				   <span><b>接着拼写三遍：&nbsp;</b>掌握单词读规则，正确拼写</span>
+			   </li>
+			   <li><img src="../images/iconSmall04.png" alt=""/>
+				   <span><b>最后跟着例句学三遍：&nbsp;</b>掌握单词用法，根据语境理解单词含义</span>
+			   </li>
+		   </ul>
+	   </div>
+	</div>
+	<div class="contentInfo01">
+		<div class="topTitle">
+			<h4><span>再练一练 全面提升听说读写</span></h4>
+		</div>
+		<div class="contentList01">
+			<ul>
+				<li>
+					<span><b>You can 测一测练拼写：&nbsp;</b>测试单词，词组拼写掌握情况</span>
+				</li>
+				<li>
+					<span><b>You can 读一读练口语：&nbsp;</b>听读、跟读，提高口语能力</span>
+				</li>
+				<li>
+					<span><b>You can 玩一玩：&nbsp;</b>游戏化闯关背单词，告别枯燥记忆</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>
+	<!--页底-->
+<footer>
+    <div class="footerList">
+		<ul>
+			<li><img src="../images/bigImg08.png" alt=""/></li>
+			<li><img src="../images/bigImg09.png" alt=""/></li>
+			<li><img src="../images/bigImg10.png" alt=""/></li>
+			<li><img src="../images/bigImg11.png" alt=""/></li>
+		</ul>
+	</div>   
+</footer>
+</main>
+<script type="text/javascript" src="../js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$(".head-right").click(function(){
+    		var url = document.location.toString();
+	　　　　var arrUrl = url.split("//");
+	　　　　var start = arrUrl[1].indexOf("/");
+	　　　　var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
+			var arr=relUrl.split("/");
+			var url=arr.pop();
+    		//需要进行ajax的请求
+    		$.getJSON('../../Subject/Api/getLocation',function(data){
+				var title = '《背单词》游戏化超强记忆快乐背单词，全面提升听说读写能力。';
+	    		var iconUrl = window.location.protocol+"//"+window.location.host+"/public/public/images/dcxx.png";
+			    var pageUrl = window.location.protocol+"//"+window.location.host+"/share/html/index2.html?localareacode="+data.localareacode+"&code="+data.code;
+			    var content='《背单词》展示趣味记忆和自然拼读法，情景记单词，轻松有趣，记单词不枯燥，让记忆快一倍。';
+			    try{
+			        window.UXinJSInterfaceSpeech.webShare(title,iconUrl,pageUrl,content);
+			    }catch(e){
+			        
+			    }
+    		})
+   		 })
+    });
+</script>
+</body>
+</html>

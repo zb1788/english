@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="wap-font-scale" content="no">
+    <title>语文快乐学</title>
+
+    <link rel="stylesheet" href="__PUBLIC__/css/ywcurr.css" />
+    <link rel="stylesheet" href="__PUBLIC__/font/fonts.css" />
+    <script type="text/javascript" src="__PUBLIC__/js/zepto.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/demoUtils.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/TouchSlide.1.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/ywcommon.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/text.js"></script>
+    <style>
+        #wrapper {
+            top: 45px;
+            bottom: 60px;
+        }
+    </style>
+</head>
+
+<body class="backGfff">
+    <main>
+        <header class="head border-nav">
+            <a class="head-left" href="javascript:back();">
+                <i class="icon-back"></i>返回</a>
+            <h1 class="title" id="tag"></h1>
+            <a class="head-right" id="setbuttong">设置</a>
+        </header>
+
+        <section>
+            <h2 class="textH3 backGef plr10 mT45" style="text-align:center;color:#93cc52;" id="title">忆江南</h2>
+            <div id="leftTabBox" class="tabBox">
+                <div class="bd" id="bdslide">
+                    <!-- 				<ul>
+				<div class="pad10">
+			         <div class="shengzi radius8">
+                <div class="pinZi01"><div class="pin">chong</div><div class="zi ywBook">停</div></div>
+                </div></div>
+				</ul> -->
+                </div>
+                <div class="hd">
+                    <div class="arrow preLR">
+                        <span class="fl mL10">
+                            <i id="prev" class="icon-uniF060 icon-l prev"></i>
+                        </span>
+                        <span class="title">
+                            <font class="redFont">1</font>/
+                            <font id="total">20</font>
+                        </span>
+                        <span class="fr next">
+                            <i id="next" class="icon-uniF061 icon-l"></i>
+                        </span>
+                    </div>
+
+                    <ul>
+                    </ul>
+                </div>
+            </div>
+
+
+        </section>
+        <div class="bottom">
+            <div class="boxCon">
+                <a href="#" onclick="playWord(this);" class="btn bDefault" pageCurrent="1" index="0">
+                    <i class="icon-uniE60C"></i>
+                    <font id="status">开始</font>
+                </a>
+            </div>
+        </div>
+    </main>
+    <!--
+<div id="mask"></div>
+<div class="tanTup radius8">
+    <img class="tImg" src="__PUBLIC__/images/tanImg.png" />
+    <h3 class="yingFont textH4 bTextCenter">恭喜，本课听写已完成。</h3>
+    <a href="javascript:goMyWord();" class="btn bDefault"><i class="icon-search"></i>查看结果</a>
+
+</div>
+-->
+    <div class="bottomTan">
+        <div class="backGef clear plr10">
+            <a id="qx" class="fl btnB01">取消</a>
+            <a id="qd" class="fr btnB01 yingFont">确定</a>
+        </div>
+        <div class="pad10">
+            <label>听写模式</label>
+            <p class="tanNr" id="mode">
+                <span id="zd">
+                    <i class="icon-radio-checked" bid="0"></i>自动切换</span>
+                <span id="sd">
+                    <i class="icon-radio-unchecked" bid="1"></i>手动切换</span>
+            </p>
+            <label id="speed">听写速度</label>
+            <p class="tanNr clear" id="speedinfo">
+                <b class="f1"></b>
+                <b class="f2"></b>
+                <b class="f3"></b>
+                <input type="range" min="1" max="3" value="2" step="1" id="sudu" style="top:0;position:absolute;z-index:1002;">
+                <strong class="heng3">
+                    <span>快</span>
+                    <span>中</span>
+                    <span>慢</span>
+                </strong>
+            </p>
+            <label>重复次数</label>
+            <p class="tanNr">
+                <b class="f1"></b>
+                <b class="f2"></b>
+                <b class="f3"></b>
+                <input type="range" min="1" max="3" value="2" id="loop" style="top:0;position:absolute;z-index:1002;">
+                <strong class="heng3">
+                    <span>1次</span>
+                    <span>2次</span>
+                    <span>3次</span>
+                </strong>
+            </p>
+        </div>
+    </div>
+    <div id="tips"></div>
+</body>
+<script type="text/javascript">
+    var respath = '__RESOURCE__';
+    var baseNetUrl = respath;
+    var recordNetUrl = respath + '/recordwav/';
+    var kewenNetUrl = respath + '/uploadsyw/kewenvoice/';
+    var resource = "__RESOURCE__";
+
+    var index = GetQueryString('index');
+    var ks_code = GetQueryString('ks_code');
+    var ks_name = GetQueryString('ks_name');
+    var backurl = GetQueryString('backurl');
+    var currentJson = eval('(' + decodeURI(getLocalStorage('cn_wordPlayList')) + ')');
+    var mp3;
+    var mode; //0自动1手动
+    var speed; //播放速度
+    var loop; //重复次数
+    var pageCurrentNum; //当前第几页
+    var totalWord; //当前要播放的总个数
+    //var downloadJson = '[{"name":"start","size":"10","format":"mp3","url":"'+baseNetUrl+'/uploadsyw/start.mp3"},{"name":"end","size":"10","format":"mp3","url":"'+baseNetUrl+'/uploadsyw/end.mp3"}]';
+    var downloadJson = '[';
+
+    var tagNamge = GetQueryString('tag');
+    var wset; //设置对象
+    var wordObj; //播放列表操作
+
+    console.log(currentJson);
+
+
+    $(function () {
+        $('#tag').html(tagNamge);
+        $('#title').html(ks_name);
+        wset = new wordSet(2);
+        mp3 = new player(makeList(), 'word');
+        mp3.init();
+        getCurrentWord();
+    })
+
+    //返回播放列表
+    function makeList() {
+        var list = currentJson.info;
+        //需要重新拼接json
+        var obj = [];
+        var start = '{"word":["noLoop"],"py":["start"],"fy":["start"],"fayin":[{"fy":"start","sleep":"0"}]}';
+        var end = '{"word":["noLoop"],"py":["end"],"fy":["end"],"fayin":[{"fy":"end","sleep":"0"}]}';
+        var ding = '{"word":["noLoop"],"py":["ding"],"fy":["ding"],"fayin":[{"fy":"ding","sleep":"0"}]}';
+        obj.push(eval('(' + start + ')'));
+        $.each(list, function (k, v) {
+            obj.push(eval('(' + ding + ')'));
+            obj.push(v);
+        });
+        obj.push(eval('(' + end + ')'));
+
+        var newstart =
+            '{"word":["noLoop"],"py":["start"],"fy":["start"],"fayin":[{"fy":"start","sleep":"0"},{"fy":"ding","sleep":"0"}';
+        newstart += ']}';
+
+        //obj.shift();
+        //obj.shift();
+        //obj.unshift(eval('(' + newstart + ')'));
+        console.log(obj);
+        return obj;
+    }
+
+
+    function back() {
+        try {
+            UXinJSInterfaceSpeech.stopAudio();
+        } catch (err) {
+
+        }
+        if (backurl == 'word') {
+            setTimeout(function(){
+                window.location.href = 'word?ks_code=' + ks_code + '&index=' + index;
+            },400)
+            
+        } else if (backurl == 'revisionselect') {
+            setTimeout(function(){
+                window.location.href = 'revision?ks_code=' + ks_code + '&index=' + index;
+            },400)
+            
+        }
+    }
+
+    function goMyWord() {
+        try {
+            UXinJSInterfaceSpeech.stopAudio();
+        } catch (err) {
+
+        }
+        window.location.href = "myword?ks_code=" + ks_code + "&index=" + index + '&ks_name=' + ks_name + '&backurl=' +
+            backurl;
+    }
+
+    //听写完成弹窗
+    function showResultView() {
+        mp3.setFlag(1);
+        mp3.setPageCurrent(0);
+        mp3.setIndex(0);
+        $('#status').html('开始');
+        $('#mask').css('display', 'block');
+        if (currentJson.nextkscode != '') {
+            //显示下一个章节
+            // window.location.href="word?ks_code="+currentJson.nextkscode;
+        } else {
+            //没有下一个章节，不显示
+        }
+        $('.tanTup').show();
+    }
+
+    //播放列表
+    function playWord(obj) {
+        var html = $('#status').html();
+        if (html == '开始') {
+            $('#setbuttong').hide();
+            if (mode == 0) {
+                $('#status').html('暂停')
+                $('#status').prev('i').removeClass('icon-uniE60C').addClass('icon-playt');
+                mp3.playWord();
+            } else {
+                //如果手动就判断是否显示下一个按钮
+                if ($("#bdslide").children("ul").length > 1) {
+                    $('#next').show();
+                }
+                mp3.setFlag(0);
+                mp3.setPageCurrent((wordObj.getIndex() + 1) * 2);
+                mp3.setPageTotal(1);
+                mp3.playWord();
+                $('#status').html('显示字');
+                $('div .zi').hide();
+            }
+        } else if (html == '暂停') {
+            $('#status').html('继续');
+            $('#status').prev('i').removeClass('icon-playt').addClass('icon-uniE60C');
+            //暂停播放
+            $('div .zi').show(); //显示汉字
+            $('.pinTS').hide(); //隐藏提示
+            if (mode == 0) {
+                mp3.setFlag(1);
+                mp3.stopAudio();
+            }
+        } else if (html == '继续') {
+            //继续播放
+            $('#status').html('暂停');
+            $('#status').prev('i').removeClass('icon-uniE60C').addClass('icon-playt');
+            $('div .zi').hide();
+            $('.pinTS').show(); //隐藏提示
+            if (mode == 0) {
+                mp3.setFlag(0);
+                mp3.playWord();
+            } else {
+                mp3.playWord();
+            }
+        } else if (html == '显示字') {
+            mp3.setPageCurrent((wordObj.getIndex() + 1) * 2);
+            mp3.setPageTotal(1);
+            mp3.playWord();
+            $('#status').html('隐藏字');
+            $('div .zi').show();
+        } else if (html == '隐藏字') {
+            mp3.setPageCurrent((wordObj.getIndex() + 1) * 2);
+            mp3.setPageTotal(1);
+            mp3.playWord();
+            $('#status').html('显示字');
+            $('div .zi').hide();
+        }
+    }
+
+
+
+    function getCurrentWord() {
+        var heightNow = $(window).height() - 195;
+        var heightNow02 = $(window).height() / 2 - 95 - 75;
+        $('.redFont').html('1');
+        var html = '';
+        var shtml = '<div class="pinTS" style="display:block;">不会写了,再想一想,<br/>可点“暂停”查看</div>';
+        downloadJson += '{"name":"start_1","size":"10","format":"mp3","url":"' + baseNetUrl +
+            '/uploadsyw/start.mp3"},{"name":"end","size":"10","format":"mp3","url":"' + baseNetUrl +
+            '/uploadsyw/end.mp3"},{"name":"ding","size":"10","format":"mp3","url":"' + baseNetUrl +
+            '/uploadsyw/ding.mp3"},';
+        $.each(currentJson.info, function (k, v) {
+            $.each(v.fayin, function (kk, vv) {
+                downloadJson += '{"name":"' + vv.fy + '","size":"10","format":"mp3","url":"' +
+                    baseNetUrl + '/uploadsyw/zipinyin/' + vv.fy + '.mp3"},';
+            });
+
+            if (v.word.length == 1) {
+                //字
+                html += '<ul>';
+                html += '<li>';
+                html += '<div class="pad10">';
+                html += '<div class="shengzi radius8" style="height:' + heightNow +
+                    'px;vertical-align:middle; padding:0;">';
+                html += '<div class="pinZi01" style="padding-top:' + heightNow02 + 'px;">';
+                html += '<div class="pin">' + v.py + '</div>';
+                // html += '<div class="zi ywBook" style="display:none;">'+v.word+'</div>';
+                html += '<div class="zi ywBook" style="display:none;"><img style="margin:0 auto;" src="' +
+                    resource + 'uploadklx/klxsz/uploads/zigif/' + v.word + '.gif' + '" class="img100"/></div>';
+                html += '</div>';
+                html += shtml;
+                html += '</div>';
+                html += '</div>';
+                html += '</li>';
+                html += '</ul>';
+            } else {
+                //词
+                if (v.word.length > 1 && v.word.length < 4) {
+                    //1-4个字
+                    html += '<ul>';
+                    html += '<li>';
+                    html += '<div class="pad10">';
+                    html += '<div class="shengzi radius8" style="height:' + heightNow +
+                        'px;vertical-align:middle; padding:0;">';
+                    $.each(v.word, function (kk, vv) {
+                        html += '<div class="pinZi03" style="padding-top:' + heightNow02 + 'px;">';
+                        html += '<div class="pin">' + v.py[kk] + '</div>';
+                        html += '<div class="zi ywBook" style="display:none;">' + vv + '</div>';
+                        html += '</div>';
+                    });
+                    html += shtml;
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</li>';
+                    html += '</ul>';
+                } else if (v.word.length > 3) {
+                    //超过4个字
+                    html += '<ul>';
+                    html += '<li>';
+                    html += '<div class="pad10">';
+                    html += '<div class="shengzi radius8" style="height:' + heightNow +
+                        'px;vertical-align:middle; padding:0;">';
+                    $.each(v.word, function (kk, vv) {
+                        html += '<div class="pinZi03 mo" style="padding-top:' + heightNow02 + 'px;">';
+                        html += '<div class="pin">' + v.py[kk] + '</div>';
+                        html += '<div class="zi ywBook" style="display:none;">' + vv + '</div>';
+                        html += '</div>';
+                    });
+                    html += shtml;
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</li>';
+                    html += '</ul>';
+                }
+            }
+        });
+        downloadJson = downloadJson.trimStr(',');
+        downloadJson += ']';
+        $('.bd').html(html);
+
+        $('#bdslide').children('ul').hide();
+        $('#bdslide').children('ul').eq(0).show();
+
+        $('#total').html(currentJson.info.length);
+        totalWord = currentJson.info.length;
+        setTimeout("downloadAudio();", 500);
+
+        //获取用户配置
+        wset.getMyConfig();
+
+    }
+
+
+
+
+    //上一个
+    $('#prev').click(function () {
+        wordObj.prev();
+    });
+    //下一个
+    $('#next').click(function () {
+        wordObj.next();
+    });
+</script>
+
+<script type="text/javascript">
+    //点击设置按钮
+    $('.head-right').click(function () {
+        wset.show();
+    })
+    //确定按钮
+    $('#qd').click(function () {
+        wset.ok();
+    })
+    $('#qx').click(function () {
+        wset.cancel();
+    })
+    $('.tanNr').children('span').click(function () {
+        $(this).children('i').removeClass('icon-radio-unchecked').addClass('icon-radio-checked');
+        $(this).siblings('span').children('i').removeClass('icon-radio-checked').addClass(
+            'icon-radio-unchecked');
+    })
+    //自动模式
+    $('#zd').click(function () {
+        $('#speed').show();
+        $('#speedinfo').show();
+    });
+    //手动模式
+    $('#sd').click(function () {
+        $('#speed').hide();
+        $('#speedinfo').hide();
+    });
+</script>
+
+</html>

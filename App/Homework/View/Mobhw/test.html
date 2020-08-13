@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+		<!--App自定义的css-->
+		<!--<link rel="stylesheet" type="text/css" href="../css/app.css"/>-->
+		<style>
+			.flex-container {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-flex-flow: row wrap;
+				justify-content: space-between;
+				text-align: center;
+			}
+			.mui-content-padded {
+				padding: 10px;
+			}
+			.mui-content-padded a {
+				margin: 3px;
+				width: 40px;
+				height: 40px;
+				display: inline-block;
+				text-align: center;
+				background-color: #fff;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+			}
+			.mui-content-padded a .mui-icon {
+				margin-top: 7px;
+			}
+			.mui-spinner,
+			.mui-spinner-white {
+				margin-top: 12px
+			}
+			.active .mui-spinner-indicator {
+				background: #007AFF;
+				/*style="background-color: #efeff4;"*/
+			}
+			.mui-content a {
+				color: #8F8F94;
+			}
+			.mui-content a.active {
+				color: #007aff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">icon（图标）</h1>
+		</header>
+		<div class="mui-content">
+			<div class="">
+				<div id="segmentedControl" class="mui-segmented-control" style="text-align: center;">
+					<a class="mui-control-item mui-active" style="height:38px;border:none;">
+					  
+					</a>
+					<a class="mui-control-item" >
+						
+					</a>
+					<a class="mui-control-item">
+						
+					</a>
+					<a class="mui-control-item">
+						
+					</a>
+					<a class="mui-control-item">
+						
+					</a>
+					<a class="mui-control-item">
+						
+					</a>
+					<a class="mui-control-item">
+						
+					</a>
+					<a class="mui-control-item">
+						
+					</a>
+				</div>
+			</div>
+			
+			<div class="mui-content-padded">
+				<div class="flex-container">
+					<a key="0"><span class="mui-icon"><font>A</font></span></a>
+					<a key="1"><span class="mui-icon"><font>B</font></span></a>
+					<a key="2"><span class="mui-icon"><font>A</font></span></a>
+					<a key="3"><span class="mui-icon"><font>B</font></span></a>
+					<a key="4"><span class="mui-icon"><font>A</font></span></a>
+					<a key="5"><span class="mui-icon"><font>B</font></span></a>
+					<a key="6"><span class="mui-icon"><font>A</font></span></a>
+					<a key="7"><span class="mui-icon"><font>B</font></span></a>
+					<a key="8"><span class="mui-icon"><font>A</font></span></a>
+					<a key="9"><span class="mui-icon"><font>B</font></span></a>
+				</div>
+			</div>
+		</div>
+
+	</body>
+		<script src="__PUBLIC__/js/mui.min.js"></script>
+		<script src="__PUBLIC__/js/learn.js"></script>
+		<script type="text/javascript" charset="utf-8">
+		
+			mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+			mui(".flex-container").on("tap", "a", function() {
+				var text=this.getElementsByTagName("span")[0].innerHTML;
+				var key=this.getAttribute("key");
+				if(document.getElementsByClassName("mui-active").length>0&&!hasClass(this,"actived")){
+					document.getElementsByClassName("mui-active")[0].innerHTML=text;
+					this.style.backgroundColor="#efeff4";
+					addClass(this,"actived");
+					//向下移动
+					var items=document.getElementsByClassName("mui-control-item");
+					for(var i=0;i<items.length;i++){
+						if(hasClass(items[i],"mui-active")&&i<items.length-1){
+							removeClass(items[i],"mui-active");
+							addClass(items[i+1],"mui-active");
+							i=items.length;
+						}else{
+							if(i==(items.length-1)){
+								removeClass(items[i],"mui-active");
+							}
+						}
+					}	
+				}
+			});
+			
+			mui("#segmentedControl").on("tap", "a", function() {
+				this.innerHTML="";
+			});	
+		</script>
+</html>

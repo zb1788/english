@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <link href="__PUBLIC__/css/mui.min.css" rel="stylesheet"/>
+    <link href="__PUBLIC__/css/wszy.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/swiper/idangerous.swiper.css">
+    <link rel="stylesheet" href="__PUBLIC__/fonts/font-awesome/css/font-awesome.min.css">
+    <script type="text/javascript" charset="UTF-8">
+      	mui.init();
+    </script>
+    <style type="text/css">
+    	body{background: #fcfcff;}
+    </style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon  mui-pull-left"><img src="__PUBLIC__/images/backIco.png" width="20" height="20" /></a>
+	    <h1 class="mui-title">提交作业</h1>
+	</header>
+	<div class="head01"><i class="fa fa-pencil-square-o fa-lg"></i><span>课文跟读</span></div>
+	<span class="biaoti01 mar_t10"><s>答题卡</s></span>
+    <volist name="textlist" id="vo">
+        <h2 class="edi-bt01"><i class="fa fa-circle"></i>{$vo.chapter}</h2>
+        <div class="fen5">
+            <volist name="vo.text" id="vc">
+                <span><a class="edi-qiu edi-red" onclick="info(this);">{$key+1}</a></span>
+            </volist>
+        </div>
+        <div class="clearfix"></div>
+    </volist>
+<div class="dd-bottom"><a class="edi-btn-bl"  id="titan"  href="student_homework?paper_id={$homeworkid}&homeworkId={$Think.session.ilearid}&studentId={$Think.session.username}&classId={$Think.session.classid}&isOverdue=false&batched={$Think.session.batched}&ssource=1">继续完成作业</a></div>
+</body>
+<script src="__PUBLIC__/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+<script>
+function info(obj){
+  var num=0;
+  //计算出来这是第几个试题
+  $(obj).parents(".fen5").prevAll(".fen5").each(function(){
+      num=num+$(this).find("a.edi-qiu").length;
+  });
+  num=num+$(obj).parent().prevAll().length;
+  window.location.href="text_alound?homeworkid={$homeworkid}&num="+num;
+}
+
+</script>
+</html>

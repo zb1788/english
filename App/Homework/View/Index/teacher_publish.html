@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+        />
+        <meta name="wap-font-scale" content="no">
+        <title>听读作业</title>  
+        <style type="text/css">
+            body{background: #fcfcff;}
+            @media (min-width:800px) {
+			body{ zoom:1.5;}
+			}
+             .qie_b ul li{width: 25%;}
+		</style>
+    </head>
+    <script>
+		function loadCss(url) {  
+            //<link href="css/main.css" rel="stylesheet" type="text/css" />  
+            var link = document.createElement("link");  
+            link.rel = "stylesheet";  
+            link.type = "text/css";  
+            link.href = url;  
+            document.getElementsByTagName("head")[0].appendChild(link);  
+        }
+        // loadCss("__PUBLIC__/css/guide.css");
+		loadCss("__PUBLIC__/css/mui.min.css");
+		loadCss("__PUBLIC__/css/wszy.css");
+		loadCss("__PUBLIC__/css/tree.css");
+        console.log(window.performance);
+	</script>
+    <body>
+    	<if condition="$result eq '1'">
+			<ul class="mui-table-view mb35">
+				<if condition="$wordcount neq '0'">
+					<li class="mui-table-view-divider posr min70 homeworkword" style="color:black;padding-bottom: 0px;">
+						<span class="po-w60 zdie">
+							<i class="fa fa-minus-circle fa-lg "></i>
+							<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA3CAMAAABuDnn5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpmNjczYjJjMC0wOTlmLTQ0MjctYjM5My1iYzVmMjI5YjJlYTciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjZDNjdERkE0N0IwMTFFNDlEMDE4N0ZDRUQ0QzYyREEiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjZDNjdERjk0N0IwMTFFNDlEMDE4N0ZDRUQ0QzYyREEiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDc2NWYyNzktMzFhYS00OGNmLTg3NWMtOGEwMjljNTRhYTI0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOmY2NzNiMmMwLTA5OWYtNDQyNy1iMzkzLWJjNWYyMjliMmVhNyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PreWcoIAAAGwUExURRzM3BW5yP///6Hl7XTa5vX8/Ybk7Lvr8U/T4WPX45Ph6ur5+/z+//b9/vv+/mnd6OT5+1HY5B7M3DnQ3iXO3cby9iDN3R3M3EzX49f2+Vna5UfW467o79X2+TPR4Pr+/nDf6YHj7N/1+Hbg6l7b5oTe6JDm7sHx9d/4+nzi66rs8j/U4XHf6f3//4Tj7MLx9iLN3SzQ3lLY5HLf6R/N3MXy9knW473w9Z3p8Hnh6lva5ovl7bXu9OL4+sfv9DXS4FbZ5aLq8eP5+7jv9Mjz9rnv9CTO3dP1+EHU4u37/JHm7jrT4cz097bv9PD8/d74+jDQ3zvT4T7U4dD0+NL1+Mnz96Tr8a/t89H1+Nn2+cPy9o/m7oLj7EDU4UTV4iPO3WHc50bV4uz7/O/7/dj2+avs8vP8/Vza5s/0+DHR313b5m/f6SrP3rDt86Pq8azs8pfo7zTR4FPY5f7//zfS4I3l7cDx9dv3+fT9/bfv9Of6+63t8mbd5yHN3c30947m7ojk7ZTn78fy9ijP3srz9+v6/JLn7qjr8n3i65ro7+H4+j3T4WTc5ynP3qns8n7i6wFYJm4AAAI6SURBVHja7Nb1b9tQEAfw29fPix2GJV2Thlfmdl1pbbfC2jEzMzMzM/3LO8dxGqhhmTSpUu+H6NHH987ySaFVdQb9A6Q6YgUuYyhJoj4ISEtDIRRShEoRISJEqiSpvMgLQlKI3JIwhZNwkQseckMmHnC4+H7wyBD61Ay6GcmA6mKgAoJTCIZwNZPCyDxjRIaEHJpk/bxeFA/43oVnmEK+jwxVljlxBSRbyNserZomKtyNjVKEXMKkZA7Jw6ZZO84Fc7WymwzoBnI5c1gRQpTPFLHSHcsVbml/dx7nevMv/xKuC0KPtk328F7rGmOY9wKPfAXpD9jBG8+QLQ4H/ED6vVfP6UvYwK840n+okDN8gc8n6VjxtrPW8OcThH6ho1CgdvwWpXqLcq0l7MKHTq9/Ics5N2sX3MdrC9sea7DFEl5Ez0N0xNFKFAWOGlkSt7ux0RLuRyiKMzcxTtSI6w2LGwFELeE09rahsxEbiIa0n1LEbTLuxtl5JA4gpNX4u2zjNY5bwoO4PIOuETwnGkMyXFrvm7B5qyO4M4qh7+nDDRRO4kRp/VNViTXwGr5d9eHFQIzHobQ3q7+ecAt8p6xhLIjBHszok0EvXgVSsanMPPw/7L7VUXxMjRufedzojgn77lg/i89l/ZgfDl6ansv0OejHu0/7jWcEVi/GlynnjbwT5bHrpFM4hsoYdgrnqqB/jzP4oLsKot0ZfFvtsMMRPL21Bt7f7gRmUBtvnMArS8DGavif/8z/EWAALr87kvKzOJYAAAAASUVORK5CYII=" />
+						</span>
+						<span class="pmiddle3">
+							单词测试
+							<b>
+								已选择:
+								<strong class="orangFon select word">
+									0
+								</strong>
+								个单词
+							</b>
+						</span>
+						<ul>
+							<li class="mui-table-view-divider" style="color:black;padding-bottom: 0px;">
+								<span class="pmiddle4 zdie">
+									<eq name="section" value="0">
+											<i class="fa fa-plus-circle fa-lg"></i> 单词跟读
+									<b style="font-size: 0.7em;">
+										共
+										<font class="orangFon">
+											{$wordlaloundcount}
+										</font>
+										个单词,已选择:
+										<font class="orangFon word_alound count">
+											0
+										</font>
+										个
+									</b>
+										</eq>
+										<eq name="section" value="1">
+											<i class="fa fa-minus-circle fa-lg"></i> 单词跟读
+									<b style="font-size: 0.7em;">
+										共
+										<font class="orangFon">
+											{$wordlaloundcount}
+										</font>
+										个单词,已选择:
+										<font class="orangFon word_alound count">
+											0
+										</font>
+										个
+									</b>
+										</eq>
+									
+								</span>
+								<eq name="section" value="0"> 
+									<span class="po-r-w100 word">
+										<i class="fa fa-square-o fa-lg check word"></i>
+									</span>
+								</eq>
+								<eq name="section" value="1">
+									<span class="po-r-w100 word section">
+										<i class="fa fa-square-o fa-lg check word section"></i>
+									</span>
+								</eq>
+								<ul>
+									<eq name="section" value="0">
+										<volist name="wordlistr" id="vord">
+											<volist name="vord" id="vo">
+												<if condition="$vo.imp eq '1' and $isword neq '1'">
+													<li class="mui-table-view-divider tab-zhu word word_alound" style="display:none;color:black;">
+														<span class="tab-wb80">
+															<if condition="$vo.isstress eq '0'">{$vo.word}<else/><strong>{$vo.word}</strong></if>
+														</span>
+														<span class="tab-wb20">
+															<i class="fa fa-<notempty name='vo.checked'>check-</notempty>square-o fa-lg word" bid="{$vo.id}" quescount="{$vo.quescount}" typeid="0"></i>
+														</span>
+													</li>
+												</if>
+											</volist>
+										</volist>
+									</eq>
+									<eq name="section" value="1">
+										<volist name="wordlistr" id="vord">
+											<li class="mui-table-view-divider" style="color:black;padding-bottom: 0px;">
+												<span class="pmiddle4 zdie">
+													<i class="fa fa-plus-circle fa-lg"></i> {$key}
+												</span> 
+												<span class="po-r-w100 section word child">
+													<i class="fa fa-square-o fa-lg check word section"></i>
+												</span>
+												<ul>
+													<volist name="vord" id="vo">
+													<if condition="$vo.imp eq '1'">
+														<li class="mui-table-view-divider tab-zhu word word_alound section" style="display:none;color:black;">
+															<span class="tab-wb80">
+																<if condition="$vo.isstress eq '0'">{$vo.word}<else/><strong>{$vo.word}</strong></if>
+															</span>
+															<span class="tab-wb20">
+																<i class="fa fa-<notempty name='vo.checked'>check-</notempty>square-o fa-lg word section" bid="{$vo.id}" quescount="{$vo.quescount}" typeid="0"></i>
+															</span>
+														</li>
+													</if>
+													</volist>
+												</ul>
+											</li>
+										</volist>
+									</eq>
+								</ul>
+							</li>
+							<neq name="wordimport" value="0">
+								<li class="mui-table-view-divider" style="color:black;padding-bottom: 0px;">
+									<span class="pmiddle4 zdie">
+										<eq name="section" value="0">
+											<i class="fa fa-plus-circle fa-lg"></i> 单词拼写
+											<b style="font-size: 0.7em;">
+											共
+											<font class="orangFon">
+												{$wordimport}
+											</font>
+											个单词,已选择:
+											<font class="orangFon word_spell count">
+												0
+											</font>
+											个
+										</b>
+										</eq>
+										<eq name="section" value="1">
+											<i class="fa fa-minus-circle fa-lg"></i> 单词拼写
+											<b style="font-size: 0.7em;">
+											共
+											<font class="orangFon">
+												{$wordimport}
+											</font>
+											个单词,已选择:
+											<font class="orangFon word_spell count">
+												0
+											</font>
+											个
+										</b>
+										</eq>
+									</span> 
+									<eq name="section" value="0"> 
+										<span class="po-r-w100 word">
+											<i class="fa fa-square-o fa-lg check word"></i>
+										</span>
+									</eq>
+									<eq name="section" value="1">
+										<span class="po-r-w100 word section">
+											<i class="fa fa-square-o fa-lg check word section"></i>
+										</span>
+									</eq>
+									<ul>
+										<eq name="section" value="0">
+											<volist name="wordlistr" id="vord">
+												<volist name="vord" id="vo">
+													<if condition="$vo.imp eq '1'">
+														<li class="mui-table-view-divider tab-zhu word word_spell" style="display:none;color:black;">
+															<span class="tab-wb80">
+																<if condition="$vo.isstress eq '0'">{$vo.word}<else/><strong>{$vo.word}</strong></if>
+															</span>
+															<span class="tab-wb20">
+																<i class="fa fa-<notempty name='vo.checked'>check-</notempty>square-o fa-lg word" bid="{$vo.id}" quescount="{$vo.quescount}" typeid="1"></i>
+															</span>
+														</li>
+													</if>
+												</volist>
+											</volist>
+										</eq>
+										<eq name="section" value="1">
+											<volist name="wordlistr" id="vord">
+												<li class="mui-table-view-divider" style="color:black;padding-bottom: 0px;">
+													<span class="pmiddle4 zdie">
+														<i class="fa fa-plus-circle fa-lg"></i> {$key}
+													</span> 
+													<span class="po-r-w100 section word child">
+														<i class="fa fa-square-o fa-lg check word"></i>
+													</span>
+													<ul>
+														<volist name="vord" id="vo">
+															<if condition="$vo.imp eq '1'">
+																<li class="mui-table-view-divider tab-zhu word word_spell section" style="display:none;color:black;">
+																	<span class="tab-wb80">
+																		<if condition="$vo.isstress eq '0'">{$vo.word}<else/><strong>{$vo.word}</strong></if>
+																	</span>
+																	<span class="tab-wb20">
+																		<i class="fa fa-<notempty name='vo.checked'>check-</notempty>square-o fa-lg word" bid="{$vo.id}" quescount="{$vo.quescount}" typeid="1"></i>
+																	</span>
+																</li>
+															</if>
+														</volist>
+													</ul>
+												</li>
+											</volist>
+										</eq>
+										<!-- <volist name="wordlistr" id="vo">
+											<if condition="$vo.imp eq '1'">
+												<li class="mui-table-view-divider tab-zhu word_alound" style="display:none;color:black;">
+													<span class="tab-wb80">
+														<if condition="$vo.isstress eq '0'">{$vo.word}<else/><strong>{$vo.word}</strong></if>
+													</span>
+													<span class="tab-wb20">
+														<i class="fa fa-<notempty name='vo.checked'>check-</notempty>square-o fa-lg word" bid="{$vo.id}" quescount="{$vo.quescount}" typeid="1">
+														</i>
+													</span>
+												</li>
+											</if>
+										</volist> -->
+									</ul>
+								</li>
+						    </neq>
+							<li class="mui-table-view-divider" style="color:black;padding-bottom: 0px;">
+								<span class="pmiddle4 zdie" >
+									<eq name="section" value="0">
+										<i class="fa fa-plus-circle fa-lg"></i> 听音选词
+										<b style="font-size: 0.7em;">
+											共
+											<font class="orangFon">
+												{$wordlencount}
+											</font>
+											个单词,已选择:
+											<font class="orangFon word_choose count">
+												0
+											</font>
+											个
+										</b>
+									</eq>
+									<eq name="section" value="1">
+										<i class="fa fa-minus-circle fa-lg"></i> 听音选词
+										<b style="font-size: 0.7em;">
+											共
+											<font class="orangFon">
+												{$wordlencount}
+											</font>
+											个单词,已选择:
+											<font class="orangFon word_choose count">
+												0
+											</font>
+											个
+										</b>
+									</eq>
+								</span> 
+								<eq name="section" value="0"> 
+									<span class="po-r-w100 word">
+										<i class="fa fa-square-o fa-lg check word"></i>
+									</span>
+								</eq>
+								<eq name="section" value="1">
+									<span class="po-r-w100 word section">
+										<i class="fa fa-square-o fa-lg check word section"></i>
+									</span>
+								</eq>
+								<ul>
+									<eq name="section" value="0">
+										<volist name="wordlistr" id="vord">
+											<volist name="vord" id="vo">
+												<li class="mui-table-view-divider tab-zhu word word_choose" style="display:none;color:black;">
+													<span class="tab-wb80">
+														<if condition="$vo.isstress eq '0'">{$vo.word}<else/><strong>{$vo.word}</strong></if>
+													</span>
+													<span class="tab-wb20">
+														<i class="fa fa-<notempty name='vo.checked'>check-</notempty>square-o fa-lg word" bid="{$vo.id}" quescount="{$vo.quescount}" typeid="2"></i>
+													</span>
+												</li>
+											</volist>
+										</volist>
+									</eq>
+									<eq name="section" value="1">
+										<volist name="wordlistr" id="vord">
+											<li class="mui-table-view-divider" style="color:black;padding-bottom: 0px;">
+												<span class="pmiddle4 zdie">
+													<i class="fa fa-plus-circle fa-lg"></i> {$key}
+												</span> 
+												<span class="po-r-w100 section word child">
+													<i class="fa fa-square-o fa-lg check word"></i>
+												</span>
+												<ul>
+													<volist name="vord" id="vo">
+														<li class="mui-table-view-divider tab-zhu word word_choose section" style="display:none;color:black;">
+															<span class="tab-wb80">
+																<if condition="$vo.isstress eq '0'">{$vo.word}<else/><strong>{$vo.word}</strong></if>
+															</span>
+															<span class="tab-wb20">
+																<i class="fa fa-<notempty name='vo.checked'>check-</notempty>square-o fa-lg word" bid="{$vo.id}" quescount="{$vo.quescount}" typeid="2"></i>
+															</span>
+														</li>
+													</volist>
+												</ul>
+											</li>
+										</volist>
+									</eq>
+									<!-- <volist name="wordlistr" id="vo">
+										<li class="mui-table-view-divider tab-zhu word_alound" style="display:none;color:black;">
+											<span class="tab-wb80">
+												<if condition="$vo.isstress eq '0'">{$vo.word}<else/><strong>{$vo.word}</strong></if>
+											</span>
+											<span class="tab-wb20">
+												<i class="fa fa-<notempty name='vo.checked'>check-</notempty>square-o fa-lg word" bid="{$vo.id}" quescount="{$vo.quescount}" typeid="2">
+												</i>
+											</span>
+										</li>
+									</volist> -->
+								</ul>
+							</li>
+							<li class="mui-table-view-divider" style="color:black;padding-bottom: 0px;">
+								<span class="pmiddle4 zdie">
+									<eq name="section" value="0">
+										<i class="fa fa-plus-circle fa-lg"></i> 英汉互译
+										<b style="font-size: 0.7em;">
+											共
+											<font class="orangFon">
+												{$wordlencount}
+											</font>
+											个单词,已选择:
+											<font class="orangFon word_translate count">
+												0
+											</font>
+											个
+										</b>
+									</eq>
+									<eq name="section" value="1">
+										<i class="fa fa-minus-circle fa-lg"></i> 英汉互译
+										<b style="font-size: 0.7em;">
+											共
+											<font class="orangFon">
+												{$wordlencount}
+											</font>
+											个单词,已选择:
+											<font class="orangFon word_translate count">
+												0
+											</font>
+											个
+										</b>
+									</eq>
+
+								</span> 
+								<eq name="section" value="0"> 
+									<span class="po-r-w100 word">
+										<i class="fa fa-square-o fa-lg check word"></i>
+									</span>
+								</eq>
+								<eq name="section" value="1">
+									<span class="po-r-w100 word section">
+										<i class="fa fa-square-o fa-lg check word section"></i>
+									</span>
+								</eq>
+								<ul>
+									<eq name="section" value="0">
+										<volist name="wordlistr" id="vord">
+											<volist name="vord" id="vo">
+												<li class="mui-table-view-divider tab-zhu word word_translate" style="display:none;color:black;">
+													<span class="tab-wb80">
+														<if condition="$vo.isstress eq '3'">{$vo.word}<else/><strong>{$vo.word}</strong></if>
+													</span>
+													<span class="tab-wb20">
+														<i class="fa fa-<notempty name='vo.checked'>check-</notempty>square-o fa-lg word" bid="{$vo.id}" quescount="{$vo.quescount}" typeid="3"></i>
+													</span>
+												</li>
+											</volist>
+										</volist>
+									</eq>
+									<eq name="section" value="1">
+										<volist name="wordlistr" id="vord">
+											<li class="mui-table-view-divider" style="color:black;padding-bottom: 0px;">
+												<span class="pmiddle4 zdie">
+													<i class="fa fa-plus-circle fa-lg"></i> {$key}
+												</span> 
+												<span class="po-r-w100 section word child">
+													<i class="fa fa-square-o fa-lg check word section"></i>
+												</span>
+												<ul>
+													<volist name="vord" id="vo">
+														<li class="mui-table-view-divider tab-zhu word word_translate section" style="display:none;color:black;">
+															<span class="tab-wb80">
+																<if condition="$vo.isstress eq '0'">{$vo.word}<else/><strong>{$vo.word}</strong></if>
+															</span>
+															<span class="tab-wb20">
+																<i class="fa fa-<notempty name='vo.checked'>check-</notempty>square-o fa-lg word" bid="{$vo.id}" quescount="{$vo.quescount}" typeid="3"></i>
+															</span>
+														</li>
+													</volist>
+												</ul>
+											</li>
+										</volist>
+									</eq>
+									<!-- <volist name="wordlistr" id="vo">
+										<li class="mui-table-view-divider tab-zhu word_alound" style="display:none;color:black;">
+											<span class="tab-wb80">
+												<if condition="$vo.isstress eq '0'">{$vo.word}<else/><strong>{$vo.word}</strong></if>
+											</span>
+											<span class="tab-wb20">
+												<i class="fa fa-<notempty name='vo.checked'>check-</notempty>square-o fa-lg word" bid="{$vo.id}" quescount="{$vo.quescount}" typeid="3">
+												</i>
+											</span>
+										</li>
+									</volist> -->
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</if>
+				<if condition="$chaptercount neq '0'">
+					<li  class="mui-table-view-divider posr min70 homeworktext" style="color:black;padding-bottom: 0px;">
+						<span class="po-w60 zdie">
+							<i class="fa fa-plus-circle fa-lg "></i>
+							<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA3CAMAAABuDnn5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpmNjczYjJjMC0wOTlmLTQ0MjctYjM5My1iYzVmMjI5YjJlYTciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjY3OUIwODM0N0IwMTFFNDlEMDE4N0ZDRUQ0QzYyREEiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjY3OUIwODI0N0IwMTFFNDlEMDE4N0ZDRUQ0QzYyREEiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDc2NWYyNzktMzFhYS00OGNmLTg3NWMtOGEwMjljNTRhYTI0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOmY2NzNiMmMwLTA5OWYtNDQyNy1iMzkzLWJjNWYyMjliMmVhNyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgJuoY0AAAIWUExURf/AAP////+rJ//Sa//fnP/v0f/79P/JQv/FJv/dd//z3f/OWP/QQf/vvv/bjf/+/P/99f/AAf/36f/AAv/TTv/ee//PPP/++f///v/vv//jqv/BA//44f/CCv/88v/VVv/HHP/++v/XX//ssv/00v/hhP/bbP/SR//z0P/DDf/GGv/TTf/BBP/XXv/MMP/ssf/NNv/66v/llv/fff/DDv/rrv/cc//33v/EEv/YYf/CB//33//rr//RRP/nn//ggv/PPf/ddf/11v/JJf/78P/ZZf/DC//uuf/89P/CCf/ttf/zzv///f/rsP/KKv/MMv/qrP/88//ccf/KJ//SSv/++//uu//nuP/kkf/wwf/DDP/aaP/FFv/33f/IIv/ppP/wwv/22v/VU//BBf/EEP/KKP/gg//SSf/RRf/UUf/ED//mmP/ss//NNP/Wff/QQv/ppv/iiv/mm//SSP/tuP/rxf/BBv/PPv/PO//ppf/oo//HG//vwP/bbv/YYP/xyP/00//22//ZZP/yy//ML//jjf/eef/56P/eeP/JJv/VV//45P/ccv/yyv/yzP/xx//mmf/01P/LLf/HHv/aaf/TTP/ggP/rrf/ww//uvP/44//yyf/JI//XXf/GGP/UUv/77v/bbf/ff//77f/NM//oof/vvf/ggf/ll//FFf/xxv/99//oov/hh//nnf/iif/hhf/nnvlq+ooAAAL6SURBVHjapJaFWxsxGMbz7nRXp9CWwvABwxkw3GFs6IBhc3d3d3d3d5f/cLm2N2qXO+B9nqZpLr8m35vk8pFZ0xSZAUimIRNgigmw0DaIWC0wBOcirnxZBuBD2inbuiyqB210JLJBG5AU2wMox/fdTDANO0g88EMHOnayQMAaFyQeJ8rbmeA8WkqcTD+chRBZLVSQ5HnxLIMFquWYaCe8KMAiiYrIh1pfO9D2lQ3K4BUVFGX6Lcna32X5cLqSCdqhQOIVLoHnE4jfroEkF/h0iAUqfk7w84DIyQJEixY5IUlAVQorxlhXQ17/Bva59EFqaMBVjlg4TgqsbnbwsesL8FMf5KmXEjVHIEKCYI/YT+7VwBV9UCAKT0G/CqrrWEg3a6l1odqhqBS+cwyQGqrQtRfG6KRjz4xLDwQEmRYgAh9qT7QtCgNNuxqzc/VcVePiZJmj1pLgXM2BNEZa4zhY6J4FNw1QVMgUQemgpIK7pj6iAIFwIHZRpiZyZkE9Lc498R7lo1MGl6Zq62g1Bg93zdGqnQ7ggDMAjqQbgRuuYyhUbckEvJWO4JDOEgPwIs7X3AmM6T5D++eTp6HJTrDBbYPw/EVTIEC1+3ZSMBoiy5jgKTwZdmT2D9Ex56sTvErb+je1qWAzE/yI1ndoakQXIcnA3bJQc8mPXixhgjdxJBmJe1BBSA5eTr5sSDqSmWA9XpzFcA4G1LfHQNiDRoMR1+JCD0puwaPGeDLswSN8ZoJrsL8BWeM4Rq8O5Lv/t9dVG7g6jr0PYGv3HnURd37Ydf4nECID3IyVr5xY11JE6x6v40bQHncznPfYYFEqalvREPxR68DtawXrM4p7kLnVaK8ux+WCCm2bb9FOR7Xx6UiZwK+w89jZnZpW31dcp3sjT+p4VY32H+mzJ/U2w1wOoOpxxLv8zcaYrCM7PpcXlTF1m8pzqPqiwJEVkWDYvRSh+73RSVquuVwuVt+is8fIe0lfvlVm8tXiOOQlM+DzOGAOmVlOPj39E2AALkBctIjSYvwAAAAASUVORK5CYII=" />
+						</span>
+						<span class="pmiddle3">
+							课文跟读
+							<b>
+							共
+							<strong class="orangFon">
+								{$chaptercount}
+							</strong>
+							段课文,已选择:
+							<font class="orangFon select text_read count">
+								0
+							</font>
+							段课文
+							</b>
+						</span>
+						<span class="po-r-w100 text" style="top: 30px;">
+							<i class="fa fa-square-o fa-lg check"></i>
+						</span>
+						<ul>
+							<volist name="chapterlist" id="vo">
+								<li class="mui-table-view-divider tab-zhu text text_read" style="display:none;color:black;">
+									<span class="tab-wb80">
+										{$vo.chapter}
+									</span>
+									<span class="tab-wb20">
+										<i class="fa fa-<notempty name='vo.checked'>check-</notempty>square-o fa-lg text" bid="{$vo.id}" quescount="{$vo.quescount}" typeid="0"></i>
+									</span>
+								</li>
+							</volist>
+						</ul>
+					</li>
+				</if>
+				<if condition="$examscount neq '0'">
+					<li class="mui-table-view-divider posr min70 homeworkexams" style="color:black;padding-bottom: 0px;">
+						<span class="po-w60 zdie">
+							<i class="fa fa-plus-circle fa-lg "></i>
+							<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA3CAMAAABuDnn5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpmNjczYjJjMC0wOTlmLTQ0MjctYjM5My1iYzVmMjI5YjJlYTciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjczRTBDMzg0N0IwMTFFNDlEMDE4N0ZDRUQ0QzYyREEiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjczRTBDMzc0N0IwMTFFNDlEMDE4N0ZDRUQ0QzYyREEiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDc2NWYyNzktMzFhYS00OGNmLTg3NWMtOGEwMjljNTRhYTI0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOmY2NzNiMmMwLTA5OWYtNDQyNy1iMzkzLWJjNWYyMjliMmVhNyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqnHvDwAAAHLUExURU2t/////zuY54rF/6vY/6/W/9nr/+r1//b6/265/16z/+Pw/3y///X6/9Lq/3rC/3zD/4PG/6PQ/06t//f7/1Sw/7bd/8nm//7//+31/6nX//3+/7rb/5bP/6TV/7zg/6PV/1ax/8Di/0+u/1Wx/5DM//b7/3fA/6zZ/1qz/4/M/8fl/2e5/3/E//n8//j8/1Cu/8bl/73h/87o/9nt/3jB/6bW/3nB/7je/+Ly/7Lc/5zR//L5//D4/9Tr/4LF/3O//+Dx/1ey/+v2/6XW/7/h/2q7/2G2/1Kv/8rn/7vf/06u/3bA/4TG/7rf/5/T//v9/63Z/6fW/1iy/93v/5bO/2i6/1Cv/8Xg/1Gv/9vu/1y0//T6/2C2/9Xs/5HM/33D/9ru//z+/2W4/+/4/7be/3C9/5rQ/53S/7Xd/+bz/+z2/5jP/4rJ/161/93w//z9/+n1/5jQ/5XO/+f0/7nf/+73/8/m/7Pc/3G+/5fP/6HU/7/i/+Hx/7vg/2O3/3G9/+Py/6/a/3vC/4DE/47L/9bs/2y7/9vv/4bH//r9/2+8/9Hq/1+1/8Hi/8jm/5TN/+Xz/5PN/2+9//P6/2a5/5fL/268/4fI/9lOiyMAAALUSURBVHjavNYFd+JAEAfw+V+aEAFa7KDFqld3d3f39tzd3d3d7z7ubQqBUpI05e7dvMdCwv4CO7ubDO3KMOgvIGUQFmCRBehyepEep7eFedCNQMU2sJd18mcXb+nBTgZd5tAJ5Kf3ALpR88wU7sE46cHHDjjumEEgWxdSaS26q0xhAWslTmYvzk4kq40KqXoOg6NmUG3XRDfxogC7JCoiHz/7Joj2feZQBq+oUJTZuyRrl6sIoGnAFLqhQOIVLpfncynk1iBdBd6vm0ElxAkhHhA5WYBo10ZOlA/UF5mNMT2r8VzPAzc8xpAldCOrHNk5TtqYXX/sa88JIMsY8iyXEkuOQEKu4E5ZT5P3gXvGUCCFZzCkQnUeXckVXOdH4KsJZAlV2NwLa+xPp+8ZjxEEBJk1IIHX3aWWs5q2co2yqo6Lk2WOpZZi/9UaZGNknzgOdrZmwWUARYV2CKVbkgp/7vwXBQjEgdyizJLIWYUZZ/UfQlvWTmBzoy8Jv1mHi+fQmYRHZ0bJ/PaYOP0Ue8vbfBrc/6Bmos9jBQ54UfoQUQ1iOs8LW/T89I8cNbLHDGEJDq4EL490+uLQe62gZPwmuwHENkjLKY8BbMBsC6I5aCRab7Wp3ZcujFHxQhzudoQN4BFMOeH6iAjR7UJbrHtXW29eAl4ygFdw7CxW+nGSqFaDaiTgWwP4Bb+W8O41SokGdWGXAexBdSUqOjBM9GJYD0YNYAfmw3BWzRWyyVvUge2PDOBzXL9Yi9/NdfHp2AKHfEbzWGfDoVlUJhaAGt8/RUpe5SyXlZXdXTVecss4/iHiS8JgZfXqxkEfu8SM/hM5VhT1YCK5yAP1I9qBxwGcMasBDtSXJ+Hm0uAJsJBedfj1NnL/UMq2BsLW6pzUmKwBDm+FLt3KKhG+VtZUsQqt3Gott/l5EwaaLFePm2ED8NlqvZoSUy8jRRnB1HvOfy7m/wgwAAe5T29a0BYXAAAAAElFTkSuQmCC" />
+						</span>
+						<span class="pmiddle3">
+							听力训练
+							<b>
+							共
+							<strong class="orangFon">
+								{$examscount}
+							</strong>
+							套试卷,已选择:
+							<strong class="orangFon select">
+								0
+							</strong>
+							套试卷
+							</b>
+						</span>
+						<ul>
+							<volist name="examslist" id="vo">
+								<li class="mui-table-view-divider tab-zhu exams_quiz" style="display:none;color:black;">
+									<span class="tab-wb80">
+										{$vo.name}
+									</span>
+									<span class="tab-wb20">
+										<i class="fa fa-<notempty name='vo.checked'>dot-</notempty>circle-o fa-lg exam" bid="{$vo.id}" quescount="{$vo.quescount}" typeid="0"></i>
+									</span>
+								</li>
+							</volist>
+						</ul>
+					</li>
+				</if>
+		    </ul>
+		<else/>
+			<span class="pmiddle4 zdie">
+				对不起,资源正在加紧制作中。。。。。。
+			</span> 
+	    </if>
+		<div class="ddel">
+            <a class="dd-fen2 pubhomework" id="pubhomework">
+               	 发布作业
+            </a>
+            <a class="fl_right dd-fen2" id="previewhomework">
+               	 预览
+            </a>
+    	</div>		
+	</body>
+	<!-- <div style="height:122px;overflow:hidden;"></div>
+	<div id="nipic_search">
+		<div class="tipSwitch"></div>
+	</div> -->
+	<script>
+		var username="{$username}";
+		var ks_code="{$ks_code}";
+		var sso="{$sso}";
+		var homeworkid="{$homeworkid}";
+		var tqms="{$tqms}";
+		loadCss("__PUBLIC__/fonts/font-awesome/css/font-awesome.min.css");
+	</script>
+	<script type="text/javascript" src="__PUBLIC__/js/require.js"  data-main="__PUBLIC__/js/main" defer async="true" ></script>
+</html>

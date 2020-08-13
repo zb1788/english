@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="wap-font-scale" content="no">
+    <title>英语同步练</title>
+    <link rel="stylesheet" href="__PUBLIC__/css/currNew.css" />
+    <link rel="stylesheet" href="__PUBLIC__/font/fonts.css" />
+    <!-- <link rel="stylesheet" href="__PUBLIC__/js/dropload/dropload.css" /> -->
+    <link rel="stylesheet" href="__PUBLIC__/mui/mui.min.css" />
+    <script type="text/javascript" src="__PUBLIC__/mui/mui.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/ywcommon.js"></script>
+    <!-- <script type="text/javascript" src="__PUBLIC__/js/dropload/dropload.js"></script> -->
+
+    <style>
+        .tempWrap {
+            margin-top: 45px;
+        }
+
+        .ovv {
+            overflow: hidden;
+            height: 100%;
+        }
+
+        #tips {
+            background-color: #333;
+            font-size: 14px;
+            display: none;
+            width: 90%;
+            left: 2%;
+            text-align: center;
+            color: #fff;
+            border-radius: 5px;
+            opacity: .82;
+            padding: 10px;
+            position: fixed;
+            top: calc(50% - 60px);
+            z-index: 99999;
+        }
+
+        .mui-content>.mui-table-view:first-child {
+            margin-top: -1px;
+        }
+
+        .mui-scroll-wrapper {
+            top: 138px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <main id="main">
+        <header class="head border-nav">
+            <a class="head-left" href="javascript:backParent();">
+                <i class="icon-back"></i>返回</a>
+            <a class="head-right" href="totalrankrule">排名规则</a>
+            <h1 class="title">排行榜</h1>
+        </header>
+        <!--<div class="model bLine"><span><a href="study_list.html" class="cur"><i class="icon-uniE609"></i>列表模式</a></span><span><a href="study_image.html"><i class="icon-uniE616"></i>图文模式</a></span></div>
+-->
+        <section>
+
+            <div>
+                <div class="hd qie_b fen3">
+
+                    <ul id="area">
+                        <li class="on" hidefocus="true" bid="class" onclick="show(this);">班级</li>
+                        <li hidefocus="true" class="" bid="school" onclick="show(this);">学校</li>
+                        <li hidefocus="true" class="" bid="all" onclick="show(this);">全国</li>
+                    </ul>
+                </div>
+
+                <div class="backGfff mT90">
+                    <div class="stsx">
+                        <div class="table">
+                            <a class="stbj"></a>
+                            <span class="w50">
+                                <i class="icon-down2 nj-fr"></i>
+                            </span>
+                        </div>
+
+                        <ul class="tanlist">
+
+                        </ul>
+                    </div>
+                    <div class="pad10">
+                        <div class="nqie fen3">
+                            <a class="on" bid="w" onclick="showtime(this);">周榜</a>
+                            <a bid="m" onclick="showtime(this);">月榜</a>
+                            <a bid="a" onclick="showtime(this);">总榜</a>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="inner">
+                    <ul class="topList clear" id="infoList">
+
+                    </ul>
+                </div> -->
+                <!--下拉刷新容器-->
+                <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                        <!--数据列表-->
+                        <ul class="mui-table-view mui-table-view-chevron" id="infoList"></ul>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+        </section>
+    </main>
+    <div id="tips"></div>
+    <script type="text/javascript">
+        var apptype = GetQueryString('apptype'); //1;语文课文，2：英语课文；3：英语单词
+        var pageCurrent = 0;
+        var pageSize = 100;
+        var type = 'class'; //class:班级;school:学校;all:全国
+        var time = 'w'; //w:周;m:月；a：总榜
+        var interfaceurl = GetQueryString('interfaceurl');
+        var localAreaCode = "{$localAreaCode}";
+        var dropload;
+        var ubicon = "";
+        if(localAreaCode != "aaaaa."){
+            ubicon = '<i class="icon-Ubi w20h20"></i>';
+        }
+        muiobj = mui.init({
+            pullRefresh: {
+                container: '#pullrefresh',
+                // down: {
+                //     style: 'circle',
+                //     callback: pulldownRefresh
+                // },
+                up: {
+                    auto: true,
+                    contentrefresh: '正在加载...',
+                    contentnomore: '暂无更多数据',
+                    callback: pullupRefresh
+                }
+            }
+        });
+
+        function pullupRefresh() {
+            // console.log('aaxx');
+            getRank();
+            
+        }
+
+        /**
+         * 下拉刷新具体业务实现
+         */
+        function pulldownRefresh() {
+            mui('#pullrefresh').pullRefresh().endPulldownToRefresh(true);
+        }
+        $(function () {
+            // 检查是否有个班级
+            if (type == 'class') {
+                getClassList();
+            }
+        });
+
+        function backParent() {
+            UXinJSInterface.popTheController();
+        }
+
+        function show(obj) {
+            $(obj).addClass('on');
+            $(obj).siblings().removeClass('on');
+            pageCurrent = 0;
+            type = $('#area li.on').attr('bid');
+            if (type != 'class') {
+                $('.stsx').hide();
+                $('.mui-scroll-wrapper').css('top', '138px');
+            } else {
+                getClassList();
+            }
+            $('#infoList').empty();
+            mui('#pullrefresh').pullRefresh().refresh(true)
+            mui('#pullrefresh').pullRefresh().pullupLoading();
+        }
+
+        function showtime(obj) {
+            $(obj).addClass('on');
+            $(obj).siblings('a').removeClass('on');
+            pageCurrent = 0;
+
+            $('#infoList').empty();
+            mui('#pullrefresh').pullRefresh().refresh(true)
+            mui('#pullrefresh').pullRefresh().pullupLoading();
+        }
+
+        //获取班级列表
+        function getClassList() {
+            $.ajax({
+                type: 'get',
+                url: '../Text/getClassList',
+                data: {
+                    ran: Math.random()
+                },
+                dataType: 'json',
+                success: function (data) {
+                    var html = '';
+                    if (data.isShow) {
+                        //多个班级
+                        $('.stsx').show();
+                        $('.stbj').html(data.classList[0].classname);
+                        $('.tanlist').empty();
+                        var classHtml = '';
+                        $.each(data.classList, function (k, v) {
+                            classHtml += '<li onclick="showNowClass(this)" bid="' + v.classid +
+                                '">' + v.classname + '</li>';
+                            if (data.classid != null) {
+                                if (v.classid == data.classid) {
+                                    $('.stbj').html(v.classname);
+                                }
+                            }
+                        })
+                        $('.tanlist').html(classHtml);
+                        $('.mui-scroll-wrapper').css('top', '178px');
+                    } else {
+                        $('.stsx').hide();
+                        $('.mui-scroll-wrapper').css('top', '138px');
+                    }
+                },
+                error: function (e) {
+
+                }
+            })
+        }
+
+        //选择班级
+        function showNowClass(obj) {
+            var nowClassName = $(obj).html();
+            var classid = $(obj).attr('bid');
+            $('.stbj').html(nowClassName);
+            pageCurrent = 0;
+            window.scroll(0, 0);
+            $.ajax({
+                type: 'get',
+                url: '../Text/setClass',
+                data: {
+                    ran: Math.random(),
+                    classid: classid
+                },
+                success: function (data) {
+                    $('#infoList').empty();
+                    getRank();
+                }
+            })
+        }
+
+
+        function getRank() {
+            pageCurrent++;
+            type = $('#area li.on').attr('bid');
+            time = $('.pad10 a.on').attr('bid');
+            if(pageCurrent>1){
+                mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+                return false;
+            }
+
+            $.ajax({
+                type: 'get',
+                url: '../../' + interfaceurl,
+                // url : '../Text/getTotalRank',
+                data: {
+                    ran: Math.random(),
+                    apptype: apptype,
+                    pageCurrent: pageCurrent,
+                    pageSize: pageSize,
+                    type: type,
+                    time: time
+                },
+                dataType: 'json',
+                success: function (data) {
+                    var html = '';
+                    if (pageCurrent == 1) {
+                        if (data.myinfo.hasRank) {
+                            html += '<li class="listIconText table after4">';
+                            html += '<span class="licoM"><em>我的排名</em><label>' + data.myinfo.myRank +
+                                '</label></span>';
+                            // html += '<div class="w50"><span class="listImg radius100 bGray"><img src="' +
+                            //     data.myinfo.userpic + '" /></span></div>';
+                            if (data.myinfo.mytotal != -1) {
+                                html += '<div class="listText">';
+                                if (type == 'class') {
+                                    html += '<h3 class="xinz"><label>' + data.myinfo.truename +
+                                        '</label><em></em></h3>';
+                                } else if (type == 'school') {
+                                    html += '<h3 class="xinz"><label>' + data.myinfo.truename +
+                                        '</label><em>' +
+                                        data.myinfo.classname + '</em></h3>';
+                                } else if (type == 'all') {
+                                    html += '<h3 class="xinz"><label>' + data.myinfo.truename +
+                                        '</label><em>' +
+                                        data.myinfo.schoolname + '</em></h3>';
+                                }
+                                html += '<h3 class="xinx">';
+                                html += '<em>累计朗读：' + data.myinfo.mytotal + '篇 </em>';
+                                html += '<em>获得'+ubicon+'：' + data.myinfo.myub +
+                                    '</em></h3>';
+                                html += '</div>';
+                            } else {
+                                if (type == 'class') {
+                                    html += '<span class="listText"><h6 class="topH6">' + data.myinfo.truename +
+                                        '</h6></span>';
+                                    html +=
+                                        '<span class="w100 textFR blueFont"><font class="fontyb pad0-10"><i class="icon-Ubi w20h20"></i>' +
+                                        data.myinfo.myub + '</font></span>';
+                                } else if (type == 'school') {
+                                    html += '<div class="listText">';
+                                    html += '<h3 class="xinz"><strong>' + data.myinfo.truename +
+                                        '</strong></h3>';
+                                    html += '<h6 class="xinx">';
+                                    html += '<em>' +
+                                        data.myinfo.classname +
+                                        '</em><em>获得'+ubicon+'：' +
+                                        data.myinfo.myub +
+                                        '</em></h6>';
+                                    html += '</div>';
+                                } else if (type == 'all') {
+                                    html += '<div class="listText">';
+                                    html += '<h3 class="xinz"><strong>' + data.myinfo.truename +
+                                        '</strong></h3>';
+                                    html += '<h6 class="xinx">';
+                                    html += '<em>' +
+                                        data.myinfo.schoolname +
+                                        '</em><em>获得'+ubicon+'：' +
+                                        data.myinfo.myub +
+                                        '</em></h6>';
+                                    html += '</div>';
+                                }
+                            }
+                            html += '</li>';
+                        }
+                    }
+                    if (data.info == "") {
+                        mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+                    } else {
+                        mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); //参数为true代表没有更多数据了。
+                        $.each(data.info, function (k, v) {
+                            var isRed = '';
+                            html += '<li class="listIconText table afterb1">';
+                            if (v.rank == 1) {
+                                html +=
+                                    '<span class="lico"><i class="icon-topped first"></i></span>';
+                                isRed = 'orgFont';
+                            } else if (v.rank == 2) {
+                                html +=
+                                    '<span class="lico"><i class="icon-topped second"></i></span>';
+                                isRed = 'orgFont';
+                            } else if (v.rank == 3) {
+                                html +=
+                                    '<span class="lico"><i class="icon-topped third"></i></span>';
+                                isRed = 'orgFont';
+                            } else {
+                                isRed = '';
+                                html += '<span class="lico">' + v.rank + '</span>';
+                            }
+                            // html +=
+                            //     '<div class="w50"><span class="listImg radius100 bGray"><img src="' +
+                            //     v.userpic + '" /></span></div>';
+
+                            if (v.total != -1) {
+                                html += '<div class="listText">';
+                                if (type == 'class') {
+                                    html += '<h3 class="xinz"><label class="' + isRed + '">' + v.truename +
+                                        '</label><em></em></h3>';
+                                } else if (type == 'school') {
+                                    html += '<h3 class="xinz"><label class="' + isRed + '">' + v.truename +
+                                        '</label><em>' + v.classname + '</em></h3>';
+                                } else if (type == 'all') {
+                                    html += '<h3 class="xinz"><label class="' + isRed + '">' + v.truename +
+                                        '</label><em>' + v.schoolname + '</em></h3>';
+                                }
+                                html += '<h3 class="xinx">';
+                                html += '<em>累计朗读：' + v.total + '篇 </em>';
+                                html += '<em>获得'+ubicon+'：' + v.ub +
+                                    '</em></h3>';
+                                html += '</div>';
+                            } else {
+                                if (type == 'class') {
+                                    html += '<span class="listText"><h6 class="topH6">' + v.truename +
+                                        '</h6></span>';
+                                    html +=
+                                        '<span class="w100 textFR blueFont"><font class="fontyb pad0-10"><i class="icon-Ubi w20h20"></i>' +
+                                        v.ub + '</font></span>';
+                                } else if (type == 'school') {
+                                    html += '<div class="listText">';
+                                    html += '<h3 class="xinz"><strong>' + v.truename +
+                                        '</strong></h3>';
+                                    html += '<h6 class="xinx">';
+                                    html += '<em>' +
+                                        v.classname + '</em><em>获得'+ubicon+'：' +
+                                        v.ub +
+                                        '</em></h6>';
+                                    html += '</div>';
+                                } else if (type == 'all') {
+                                    html += '<div class="listText">';
+                                    html += '<h3 class="xinz"><strong>' + v.truename +
+                                        '</strong></h3>';
+                                    html += '<h6 class="xinx">';
+                                    html += '<em>' +
+                                        v.schoolname +
+                                        '</em><em>获得'+ubicon+'：' + v
+                                        .ub +
+                                        '</em></h6>';
+                                    html += '</div>';
+                                }
+                            }
+                            html += '</li>';
+                        });
+                        $('#infoList').append(html);
+                         
+                    }
+
+                },
+                error: function (data) {
+                    // alert('Ajax error!');
+                    // 即使加载出错，也得重置
+                }
+            })
+
+        }
+
+
+
+
+        $('.stsx').click(function () {
+            $(this).children('.tanlist').slideToggle();
+            $(this).toggleClass('bg');
+            $('body').toggleClass('ovv')
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<meta name="wap-font-scale" content="no">
+		<title>原声绘本</title>
+		<link rel="stylesheet" href="__SUBJECT__/book/css/huiben.css" />
+        <link rel="stylesheet" href="__SUBJECT__/book/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/book/css/iscroll.css" />
+        <script type="text/javascript" src="__SUBJECT__/book/js/iscroll-lite.js" ></script>
+        <script type="text/javascript" src="__SUBJECT__/book/js/demoUtils.js" ></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js" ></script>
+		<style>		
+			body { background: #fff;}
+			.text {box-sizing: border-box;}
+			@media all and (orientation : landscape) { 
+				#dimg100 {width: 30%; margin: 0 auto;}
+			}
+			.height50 {height: 50px; clear: both; width: 100%;}
+		</style>
+	</head>
+	<body>
+		<main>
+			<header class="head border-nav">
+				<a class="head-left"><i class="icon-back"></i>返回</a>
+				<h1 class="title">原声绘本</h1>
+			</header>
+			<section>
+				<div class="mT45">
+					<div class="con overY">
+					    <div>
+					        <div class="pad10 posR" id="tup">
+								<label class="hbQian" style="margin-top: 10px;"><font id="cur">1</font>/<font id="piccount">{$piccount}</font></label>
+								<div id="pagecontents">
+									
+						  		</div>
+							</div>
+
+							
+							<div class="clearfix"></div>
+
+						</div>
+					</div>
+				</div>
+				<div class="hbr-bottom bt01" style="z-index:100;background: #00bdc7;">
+					<ul class="fen2">
+						<li><a class="left on"><i class="icon-jt-left icon-2x"></i></a></li>
+						<li><a class="right"><i class="icon-jt-right icon-2x"></i></a></li>
+					</ul>
+				</div>
+			</section>
+			<div id="tips"></div>
+			<!-- <a class="prev" id="prev" style="width:50%;" style="display:none;">上一题</a>
+			<a class="next" id="next" style="width:50%;" style="display:none;">下一题</a> -->
+			<!--遮罩的代码-->
+			<div id="over" class="over"></div>
+			<div id="layout" class="layout">
+			    <img src="__SUBJECT__/img/2013112931.gif" alt="" />
+			</div>
+			<style>
+			    .over {
+			        display: block;
+			        position: absolute;
+			        top: 0;
+			        left: 0;
+			        width: 100%;
+			        height: 100%;
+			        background-color: #f5f5f5;
+			        opacity:0.5;
+			        z-index: 1000;
+			    }
+			    .layout {
+			        display: block;
+			        position: absolute;
+			        top: 40%;
+			        left: 40%;
+			        width: 20%;
+			        height: 20%;
+			        z-index: 1001;
+			        text-align:center;
+			    }
+			    .cur{
+			        background-color: oldlace;
+			    }
+
+			    body{background:#fff}
+			</style>
+		</main>
+		<!--分类的模板-->
+		<script id="bookpage" type="text/x-jquery-tmpl">
+    		<div>
+            	<img src="${pic}" class="img100 imgDa" id="dimg100" />
+            </div>
+			<div class="text ovY">
+				{{each(i,item) contents}}
+					<p class="sound" mp3="${item.mp3}" isaudio="${item.isaudio}"><i class="icon-uniE60C actY"></i><span class="en" style="color: black;">${item.encontent}</span></p>
+				{{/each}}
+				<div class="clearfix"></div>
+		        <div class="height50"></div>
+  			</div>
+		</script>
+	</body>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js" ></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.tmpl.min.js" ></script>
+	<script type="text/javascript" src="__PUBLIC__/js/ajax.js" ></script>
+	<script>
+	var audiolist=[];
+	var start=0;
+	var flag=true;
+	var timer="";
+	$(function(){
+		
+        getList("getBookPic",{id:Requests["id"],index:"1"},"#pagecontents","#bookpage");
+        $(".left").click(function(){
+        	try{UXinJSInterfaceSpeech.stopAudio();}catch(e){}
+            try{clearTimeout(timer);}catch(e){}
+        	var index=parseInt($("#cur").text());
+        	if(index>1){
+        		index=index-1;
+        		getList("getBookPic",{id:Requests["id"],index:index},"#pagecontents","#bookpage");
+        	}
+        })
+
+        $(".head-left").click(function(){
+        	try{UXinJSInterfaceSpeech.stopAudio();}catch(e){}
+            try{clearTimeout(timer);}catch(e){}
+        	window.location.href='cataglory?first='+Requests["first"]+"&second="+Requests["second"]+"&third="+Requests["third"]+"&type=1"+'&backUrl='+encodeURIComponent(Requests["backUrl"]);
+        })
+
+        $(".right").click(function(){
+        	try{UXinJSInterfaceSpeech.stopAudio();}catch(e){}
+            try{clearTimeout(timer);}catch(e){}
+        	var index=parseInt($("#cur").text());
+        	var count=parseInt($("#piccount").text()); 
+        	if(index<count){
+        		index=index+1;
+        		getList("getBookPic",{id:Requests["id"],index:index},"#pagecontents","#bookpage");
+        	}else{
+        		window.location.href='translation?id='+Requests["id"]+"&first="+Requests["first"]+"&second="+Requests["second"]+"&third="+Requests["third"]+"&batchid="+Requests["batchid"]+'&backUrl='+encodeURIComponent(Requests["backUrl"]);
+        	}
+        })
+        
+    })
+
+    function mp3play(){
+    	//变色
+    	//$('#pagecontents .sound').
+    	var mp3=audiolist[start].mp3;
+		window.UXinJSInterfaceSpeech.playAudio(mp3);	
+    }
+	function getList(url,paras,obj,tmpl){
+        $(obj).empty();
+        showloading();
+        $.ajax({
+            type:'GET',
+            url:url,
+            data:paras,
+            dataType:'json',
+            async:false,
+            context:$('body'),
+            success: function(data){
+            	audiolist=data.contents;
+            	//播放音频
+            	start=0;
+            	flag=true;
+            	//清楚音频播放
+            	try{UXinJSInterfaceSpeech.stopAudio();}catch(e){}
+            	try{clearTimeout(timer);}catch(e){}
+                //遮罩消失
+                hideloading();
+                $(tmpl).tmpl(data).appendTo(obj);
+                $("#cur").text(paras.index);
+                if(paras.index==1){
+                	$("a.left i").css("color","gray");
+                }else{
+                	$("a.left i").css("color","#e1fbff");
+                }
+                var count=parseInt($("#piccount").text());
+                mp3play();
+
+                // if(paras.index==count){
+                // 	$("a.right i").css("color","gray");
+
+                // }else{
+                // 	$("a.right i").css("color","#e1fbff");
+                // }
+
+                //播放音频
+                $('#pagecontents').off('click','.sound').delegate('.sound', 'click', function() {
+                	try{UXinJSInterfaceSpeech.stopAudio();}catch(e){}
+            		try{clearTimeout(timer);}catch(e){}
+                	flag=false;
+                	var mp3=$(this).attr("mp3");
+                	var isaudio=$(this).attr("isaudio");
+                	console.log(mp3);
+                	if(isaudio=='0'){
+                		setTip("音频不存在");
+                		return false;
+                	}
+                	try{
+                		window.UXinJSInterfaceSpeech.playAudio(mp3);
+                	}catch(e){
+                		setTip("调用客户端接口失败");
+                	}
+                });
+            },
+            error:function(xhr,type){
+                hideloading();
+            }
+        })
+    }
+
+    function onAudioPlayStatus(status){
+    //播放完成直接将样式去掉
+    //mp3.removeCurClass();
+	    if(status == 0){
+	        if(audiolist.length>=(start+1)&&flag){
+	        	start=start+1;
+	        	timer=setTimeout(function(){
+	        		mp3play();
+	        	},3000);
+	        }
+	    } else {
+	        
+	    }
+	}
+
+	</script>
+</html>

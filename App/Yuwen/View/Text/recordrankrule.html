@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="wap-font-scale" content="no">
+    <title>排名规则</title>
+    <link rel="stylesheet" href="__PUBLIC__/css/currNew.css" />
+    <link rel="stylesheet" href="__PUBLIC__/font/fonts.css" />
+    <script type="text/javascript" src="__PUBLIC__/js/zepto.min.js"></script>
+    <style>
+        body {
+            background: #fff;
+        }
+
+        .tempWrap {
+            margin-top: 45px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <main>
+        <header class="head border-nav">
+            <a class="head-left" href="javascript:history.go(-1);">
+                <i class="icon-back"></i>返回</a>
+            <h1 class="title">排名规则</h1>
+        </header>
+        <section>
+            <div class="pmtop">
+                <img src="__PUBLIC__/images/phbg_03.png" />
+            </div>
+            <div class="pmMiddle">
+                <!-- <p>排行榜是根据每个用户在使用应用时所获得的“优币”数量进行排名。</p>
+                <p>我们的排名是实时更新的哦，也就是说你的课文朗读语音被别人“送优币”（类似点赞）后，刷新页面后就能看到最新的排名~</p> -->
+                <p>我们的榜单包括三个榜单：我的录音、班级录音、全国录音。</p>
+                <p>如果暂时你还没有进入好的名次，只要继续努力学习，相信自己一定能进入排行榜！</p>
+            </div>
+            <div class="pmBottom">
+
+            </div>
+        </section>
+    </main>
+    <script type="text/javascript">
+        var ww = $(window).width();
+        var wh = $(window).height();
+        if (ww < wh) {
+            $('.pmBottom').height($(window).width() * 0.52);
+            $('.pmMiddle').css({
+                'bottom': $(window).width() * 0.52,
+                'top': ($(window).width() * 0.15 + 45),
+            });
+        } else {
+            $('.pmBottom').hide();
+            $('.pmMiddle').css({
+                'top': ($(window).width() * 0.15 + 45),
+                'bottom': '10px'
+            });
+        }
+    </script>
+</body>
+
+</html>

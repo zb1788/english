@@ -1,0 +1,111 @@
+<!--单词跟读模板解析开始-->
+    <div style="display: none" isexists="{$isexists}"></div>
+<eq name="curpostype" value = "0">
+<div class="titleCon pr">
+    <div class="fl"><h2>单词跟读</h2><span>（共<b class="cRed">{$word_total}</b>个单词，进行到第<b class="cRed" id="curindex">0</b>个）</span><a class="playBtn none" title="播放">&nbsp;</a></div>
+   <div class="fr  none"><a href="javascript:show_word_list('{$curunitid}',0,{$curunitpos},0);" class="aBtn cur">单词跟读</a><a href="javascript:show_word_list('{$curunitid}',1,{$curunitpos},0);" class="aBtn">单词学习</a><a href="javascript:javascript:show_word_list('{$curunitid}',2,{$curunitpos},0);" class="aBtn">单词记忆</a><a href="javascript:javascript:show_word_list('{$curunitid}',3,{$curunitpos},0);" class="aBtn">单词听写</a></div>
+    <div class="clearfix"></div>
+</div>
+<div class="boxCon">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="listWord">
+        <foreach name="wordlist" item="wordlist" key="k" >
+
+            <tr>
+            <td width="15" align="right"><i class="fa fa-play-circle cur"></i></td>
+            <eq name = "wordlist.ukmark" value="">
+            <td class="f18" width="285" colSpan=2>{$k+1}. {$wordlist.word}</td>   
+            <else/>
+            <td class="f18" width="165">{$k+1}. {$wordlist.word}</td>
+            <td width="120">[{$wordlist.ukmark}]</td> 
+            </eq >
+            <td width="220">{$wordlist.morphology}{$wordlist.explains}</td>
+            <td width="40" align="center"><a class="sound_single none " mp3url="__resource_path__mp3_word/{$wordlist.usmp3}" unitid="{$curunitid}" wordid = "{$wordlist.wordid}">&nbsp;</a></td>
+            <eq name ="wordlist.cllocted_flag" value = '0'>
+            <td width="120" align="center"><a id="collect{$wordlist.wordid}" href="javascript:book_collect('{$curunitid}',{$wordlist.wordid});" class="aBtn none fav fixw"><i class="fa fa-heart-o"></i>&nbsp;收&nbsp;&nbsp;藏</a></td>
+            <else/>
+            <td width="120" align="center"><a id="collect{$wordlist.wordid}" href="javascript:Cancel_collect('{$curunitid}',{$wordlist.wordid});" class="aBtn none fav focus fixw"><i class="fa fa-heart"></i>&nbsp;已收藏</a></td>
+            </eq>
+            </tr>
+        </foreach>
+    </table>
+</div>
+</eq>
+<!--单词跟读模板解析结束-->
+
+<!--单词学习模板解析开始-->
+<eq name="curpostype" value = "1">
+
+<div class="titleCon">
+    <div class="fl"><h2>单词学习</h2><span>（<b class="cRed">*</b>号为重点单词，共<b class="cRed">{$word_total}</b>个单词，进行到第<b id="curindex" class="cRed">{$wordpage+1}</b>个）</span></div>
+    <div class="fr  none"><a href="javascript:show_word_list('{$curunitid}',0,{$curunitpos},0);" class="aBtn">单词跟读</a><a href="javascript:show_word_list('{$curunitid}',1,{$curunitpos},0);" class="aBtn cur">单词学习</a><a href="javascript:javascript:show_word_list('{$curunitid}',2,{$curunitpos},0);" class="aBtn">单词记忆</a><a href="javascript:javascript:show_word_list('{$curunitid}',3,{$curunitpos},0);" class="aBtn">单词听写</a></div>
+    <div class="clearfix"></div>
+</div>
+<div class="boxCon">
+    <div class="wordCon">
+        <div class="imgs fl"><img src="__resource_path__pic_word/{$wordlist[$wordpage].pic}"></div>
+        <div class="infos fr">
+            <p><strong><u>{$wordlist[$wordpage].word}</u><eq name='wordlist[$wordpage].isstress' value='1'><i class="fa  fa-star"></i></eq></strong><span class="yinbiao"><neq name='wordlist[$wordpage].ukmark' value=''>[{$wordlist[$wordpage].ukmark}]</neq></span></p>
+            <p id="readBtn"><!--<a href="#" class="readBtn pd none active">拼读</a>--><a href="javascript:;" mp3url="__resource_path__mp3_word/{$wordlist[$wordpage].usmp3}" wordid="{$wordlist[$wordpage].wordid}" unitid="{$curunitid}" class="readBtn ld none">朗读</a></p>
+            <p class="f16">释义：{$wordlist[$wordpage].explains}</p>
+            <p class="preNext"><if condition="$word_total eq 1"><a href="javascript:;" class="aBtn none disabled"><i class="fa fa-hand-o-left"></i>&nbsp;上一个</a><a href="javascript:;" class="aBtn none disabled">下一个&nbsp;<i class="fa  fa-hand-o-right"></i></a><elseif condition="($wordpage eq 0) and ($word_total gt 1)"/><a href="javascript:;" class="aBtn none disabled"><i class="fa fa-hand-o-left"></i>&nbsp;上一个</a><a href="javascript:show_word_list('{$curunitid}', {$curpostype}, {$curunitpos}, {$wordpage+1});" class="aBtn none active">下一个&nbsp;<i class="fa  fa-hand-o-right"></i></a><elseif condition="$wordpage gt 0 and $word_total gt 1 and $wordpage neq ($word_total-1)" /><a href="javascript:show_word_list('{$curunitid}', {$curpostype}, {$curunitpos}, {$wordpage-1});" class="aBtn none active"><i class="fa fa-hand-o-left"></i>&nbsp;上一个</a><a href="javascript:show_word_list('{$curunitid}', {$curpostype}, {$curunitpos}, {$wordpage+1});" class="aBtn none active">下一个&nbsp;<i class="fa  fa-hand-o-right"></i></a><else /><a href="javascript:show_word_list('{$curunitid}', {$curpostype}, {$curunitpos}, {$wordpage-1});" class="aBtn none active"><i class="fa fa-hand-o-left"></i>&nbsp;上一个</a><a href="javascript:;" class="aBtn none disabled">下一个&nbsp;<i class="fa  fa-hand-o-right"></i></a></if>&nbsp;&nbsp;&nbsp;&nbsp;<eq name='wordlist[$wordpage].cllocted_flag' value='0'><a id="collect{$wordlist[$wordpage].wordid}" href="javascript:book_collect('{$curunitid}',{$wordlist[$wordpage].wordid});" class="aBtn none fav"><i class="fa fa-heart-o"></i>&nbsp;收&nbsp;&nbsp;藏</a><else/><a id="collect{$wordlist[$wordpage].wordid}" href="javascript:Cancel_collect('{$curunitid}',{$wordlist[$wordpage].wordid});" class="aBtn none fav focus"><i class="fa fa-heart"></i>&nbsp;已收藏</a></eq></p>
+            <div class="exp">
+                <neq name ="expinfo[0].encontent" value="">
+                <p>[例句]{$expinfo[0].encontent} &nbsp;&nbsp;<a href="javascript:;" mp3url="{$expinfo[0].mp3}" class="sound_single"></a><span>{$expinfo[0].cncontent}</span></p>
+                </neq>
+            </div>                  
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+
+</eq>
+<!--单词学习模板解析结束-->
+
+<!--单词记忆模板解析开始-->
+<eq name="curpostype" value = "2">
+<div class="titleCon">
+    <div class="fl"><h2>单词记忆</h2><span>（共<b class="cRed">{$word_total}</b>个单词，进行到第<b id="curindex" class="cRed">{$wordpage+1}</b>个）</span></div>
+    <div class="fr  none"><a href="javascript:show_word_list('{$curunitid}',0,{$curunitpos},0);" class="aBtn">单词跟读</a><a href="javascript:show_word_list('{$curunitid}',1,{$curunitpos},0);" class="aBtn">单词学习</a><a href="javascript:javascript:show_word_list('{$curunitid}',2,{$curunitpos},0);" class="aBtn  cur">单词记忆</a><a href="javascript:javascript:show_word_list('{$curunitid}',3,{$curunitpos},0);" class="aBtn">单词听写</a></div>
+    <div class="clearfix"></div>
+</div>
+<div class="boxCon">
+    <div class="wordCon">
+        <div class="imgs  fl"><img src="__resource_path__pic_word/{$wordlist[$wordpage].pic}"></div>
+        <div class="infos fl ml20">
+            <p id="readBtn"><!--<strong>[lait]</strong>-->&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" mp3url="__resource_path__mp3_word/{$wordlist[$wordpage].usmp3}" wordid="{$wordlist[$wordpage].wordid}" unitid="{$curunitid}" class="readBtn ld none">朗读</a><big>{$wordlist[$wordpage].word}</big></p>
+            <p id="explains">{$wordlist[$wordpage].explains}</p>
+            <p class="none"><input id="wordinput" type="text" class="inputTxt" value="请输入你听到的单词" size="30" onblur="if (value == ''){value = '请输入你听到的单词'};" onfocus="if (value == '请输入你听到的单词'){value = ''};"/><a href="javascript:;" trueword="{$wordlist[$wordpage].word}" wordtotal="{$word_total}" wordunitid="{$curunitid}" wordpostype="{$curpostype}" wordcurunitpos="{$curunitpos}" wordcurpage="{$wordpage}"  class="aBtn btnCon bgcBlue" id="surebtn"><i class="fa fa-check-square-o"></i>&nbsp;确定</a><i class="icon_zy icon_dui fl ml20"></i><i class="icon_zy icon_cuo fl ml20"></i></p>
+            <div class="clearfix"></div>
+            <p class="find"><a href="javascript:;" findstr="{$wordlist[$wordpage].word|substr=0,1}" wordtags="{$wordlist[$wordpage].tags}" wordid="{$wordlist[$wordpage].wordid}"><i class="fa fa-search"></i>&nbsp;找一找</a></p>
+            <p class="sele"></p>
+            <p class="preNext"><if condition="$word_total eq 1"><a href="javascript:;" class="aBtn none disabled"><i class="fa fa-hand-o-left"></i>&nbsp;上一个</a><a href="javascript:;" class="aBtn none disabled">下一个&nbsp;<i class="fa  fa-hand-o-right"></i></a><elseif condition="($wordpage eq 0) and ($word_total gt 1)"/><a href="javascript:;" class="aBtn none disabled"><i class="fa fa-hand-o-left"></i>&nbsp;上一个</a><a href="javascript:;" onclick="show_word_list('{$curunitid}', {$curpostype}, {$curunitpos}, {$wordpage + 1});" class="aBtn none active">下一个&nbsp;<i class="fa  fa-hand-o-right"></i></a><elseif condition="$wordpage gt 0 and $word_total gt 1 and $wordpage neq ($word_total-1)" /><a href="javascript:;" onclick="show_word_list('{$curunitid}', {$curpostype}, {$curunitpos}, {$wordpage - 1});" class="aBtn none active"><i class="fa fa-hand-o-left"></i>&nbsp;上一个</a><a href="javascript:;" onclick="show_word_list('{$curunitid}', {$curpostype}, {$curunitpos}, {$wordpage + 1});" class="aBtn none active">下一个&nbsp;<i class="fa  fa-hand-o-right"></i></a><else /><a href="javascript:;" onclick="show_word_list('{$curunitid}', {$curpostype}, {$curunitpos}, {$wordpage - 1})" class="aBtn none active"><i class="fa fa-hand-o-left"></i>&nbsp;上一个</a><a href="javascript:;" class="aBtn none disabled">下一个&nbsp;<i class="fa  fa-hand-o-right"></i></a></if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<eq name='wordlist[$wordpage].cllocted_flag' value='0'><a id="collect{$wordlist[$wordpage].wordid}" href="javascript:book_collect('{$curunitid}',{$wordlist[$wordpage].wordid});" class="aBtn none fav"><i class="fa fa-heart-o"></i>&nbsp;收&nbsp;&nbsp;藏</a><else/><a id="collect{$wordlist[$wordpage].wordid}" href="javascript:Cancel_collect('{$curunitid}',{$wordlist[$wordpage].wordid});" class="aBtn none fav focus"><i class="fa fa-heart"></i>&nbsp;已收藏</a></eq></p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+</eq>
+<!--单词记忆模板解析结束-->
+
+<!--单词听写模板解析开始-->
+<eq name="curpostype" value = "3">
+<div class="titleCon">
+    <div class="fl"><h2>单词听写</h2><span>（错误单词自动加入生词本）</span></div>
+    <div class="fr  none"><a href="javascript:show_word_list('{$curunitid}',0,{$curunitpos},0);" class="aBtn">单词跟读</a><a href="javascript:show_word_list('{$curunitid}',1,{$curunitpos},0);" class="aBtn">单词学习</a><a href="javascript:javascript:show_word_list('{$curunitid}',2,{$curunitpos},0);" class="aBtn">单词记忆</a><a href="javascript:javascript:show_word_list('{$curunitid}',3,{$curunitpos},0);" class="aBtn cur">单词听写</a></div>
+    <div class="clearfix"></div>
+</div>
+<div class="boxCon">
+    <div class="tingxie">
+        <h2>单词听写，每个单词读两遍，<span>（共<b class="cRed">{$word_total}</b>个单词，进行到第<b id="curindex" class="cRed">0</b>个）</span><a class="playBtn none" title="播放">&nbsp;</a></h2>
+        <ul class="listInput">
+            <foreach name="wordlist" item="wordlist" key="k" >
+                <li><span>{$k+1}、</span><input  name="dictation_input" unitid="{$curunitid}" wordid="{$wordlist.wordid}" mp3url="__resource_path__mp3_word/{$wordlist.usmp3}" trueword="{$wordlist.word}" type="text" value="" /><big><i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;{$wordlist.word}</big></li>
+            </foreach>
+            <li><a href="javascript:;" class="none" id="dictation">听写完成</a></li>
+        </ul>
+    </div>                         
+</div>
+</eq>
+<!--单词听写模板解析结束-->

@@ -1,0 +1,454 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>课程内容管理</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/js/webuploader/webuploader.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/js/webuploader/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/js/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/webuploader/webuploader.js"></script>
+<script type="text/javascript" src="__PUBLIC__/ue/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/ue/ueditor.all.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/uploadify/jquery.uploadify.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="list_table">
+        <tr>
+            <td>
+            标题：
+            </td>
+            <td align="left" colspan="4">
+            <input type="text" id="title" class="input-text" size="50" value="{$data['title']}"/>
+            <input type="button" name="button2" class="ext_btn ext_btn_success" value="选择作者视频" id="selectFromCCM">
+            <input type="button" name="bo" class="ext_btn ext_btn_listen" value="试播" url="{$data['r_code']}" id="shibo" onclick="playAuthor();">
+            <input type="button" value="删除作者信息" class="ext_btn ext_btn_error" id="delAuthor" />
+            <span id="author">{$data['r_title']}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>音频：</td>
+            <td align="left" width="100">
+           <!--      <input type="file" id="file_upload"  multiple="false" >/> -->
+                <input type="hidden" name="filepath" id="filepath" value="{$data['url']}" />
+                <input type="hidden" name="filename" id="filename" value="" />
+                <input type="hidden" name="issuc" id="issuc" value=""
+            <div id="uploader" class="wu-example">
+    <!--用来存放文件信息-->
+    <div id="thelist" class="uploader-list"></div>
+    <div class="btns">
+        <div id="picker">选择文件</div>
+    </div>
+</div>
+            </td>
+            <td  align="left" width="110">
+                <input type="button" name="button2" class="ext_btn ext_btn_success" value="导入课文录音" id="import">
+            </td>
+            <empty name="data['url']">
+                <td align="left" id="luyin" width="150">暂无</td>
+            <else />
+                <td align="left" id="luyin" width="150">{$data['url']}</td>
+            </empty>
+            <td  align="left">
+                <input type="button" name="ting" class="ext_btn ext_btn_listen" value="试听" url="{$data['url']}" id="shiting">
+            </td>
+        </tr>
+        <tr>
+            <td>正文：</td>
+            <td colspan="4">
+                <script id="editor" type="text/plain" style="width:900px;height:300px;">{$data['text']}</script>
+            </td>
+        </tr>
+    </table>
+
+    <div class="h5"></div>
+
+
+
+</div>
+
+<div id="play" align="center">
+
+</div>
+</body>
+</html>
+<script type="text/javascript">
+$.ajaxSetup({async:false});
+$(function(){
+    var ue = UE.getEditor('editor');//ueditor插件
+    if('{$option}' =='add'){
+        $('#title').val('{$ks_name}');
+    }
+
+})
+
+//导入语文100课文录音
+$('#import').click(function(){
+    var ks_code= '{$ks_code}';
+    var myDialog = $.dialog.open('importkewen?ks_code='+ks_code+'&ran='+Math.random(),{
+        title:'选择课文录音',
+        window : 'top',
+        width : 790,
+        height : 400,
+        lock : true,
+        opacity : 0.3,
+        button : [
+                 {
+                    name:'保存',
+                    callback:function(){
+                        var iframe = this.iframe.contentWindow;
+                        var re = iframe.savedata();//调用窗口的方法
+                        if(re==false){
+                            art.dialog.alert('添加失败！');
+                        }
+                        var mp3=art.dialog.data('mp3');
+                        $('#filepath').val(mp3);
+                        $('#luyin').html(mp3);
+                        $('#shiting').attr('url',mp3);
+                        return re;
+                    },
+                    focus:true
+                 },
+                 {
+                    name : '关闭',
+                    callback : function() {
+                        return true;
+                    },
+                    focus : false
+                } ]
+    });
+});
+//导入中心库视频编码和标题
+$('#selectFromCCM').click(function(){
+    var ks_code= '{$ks_code}';
+    var myDialog = $.dialog.open('resSelectFromCCM?ks_code='+ks_code+'&ran='+Math.random(),{
+        id : 'ccm',
+        title:'选择课文录音',
+        window : 'top',
+        width : 790,
+        height : 400,
+        lock : true,
+        opacity : 0.3,
+        button : [
+                 {
+                    name:'保存',
+                    callback:function(){
+                        var iframe = this.iframe.contentWindow;
+                        var r_title = $('#r_title',iframe.document).val();
+                        var r_code = $('#r_code',iframe.document).val();
+                        $('#author').html(r_title);
+                        $('#shibo').attr('url',r_code);
+                        if(r_title==''){
+                            $.dialog.alert('至少选择一个');
+                            return false;
+                        }else{
+                            return true;
+                        }
+                        return true;
+                    },
+                    focus:true
+                 },
+                 {
+                    name : '关闭',
+                    callback : function() {
+                        return true;
+                    },
+                    focus : false
+                } ]
+    });
+});
+
+//试播
+function playAuthor(){
+    var r_code = $('#shibo').attr('url');
+    var r_title = $('#author').html();
+    if(r_code == ''){
+        $.dialog.alert('暂无视频');
+        return false;
+    }
+    var userName = '4101018888880152';
+    $.getJSON("http://plshenan.czbanbantong.com/youjiao/doMutiplePlay.do?jsoncallback=?",
+      {
+        rcode:r_code,
+        userName:userName,
+        filterType:2,
+        outType:1
+      },
+      function(data){
+        // art.dialog({ title: '作者简介', content: '<video src="'+data.jsonList[0].list[0].path+'" controls="controls">您的浏览器不支持 video 标签。</video>',fixed:true });
+        videoplay(r_title,data.jsonList[0].list[0].path,1);
+      });
+
+}
+
+function videoplay(filename,filestore,type){
+    var url='';
+    var width='';
+    var height='';
+    if(type=='1'){
+        url='__PUBLIC__/flowplayer/playVideo.php';
+        width=650;
+        height=450;
+        }
+    var myDialog = art.dialog.open(url+'?filename='+filename+'&filepath='+encodeURI(encodeURI(filestore))+'&random='+Math.random(),{
+        id:'mate_edit',
+        title:filename,
+        window:'top',
+        width:width,
+        height:height,
+        padding:0,
+        lock:true,
+        opacity:0.3
+      });
+}
+
+  //试听
+  $('input[name="ting"]').live("click",function() {
+    var mp3 = $(this).attr('url');
+    var title = '试听';
+    if(!mp3){art.dialog.alert("请上传音频");}
+    else
+    {
+         mp3 = "../../uploadsyw/kewenvoice/" + mp3;
+         playVideo(title,mp3);
+        // if($(this).val()=='试听'){
+        //     $(this).val('停止');
+        //     jpstart(mp3);
+        // }else{
+        //     $(this).val('试听');
+        //     jpclear();
+        // }
+    }
+  });
+
+//播放弹出页面
+function playVideo(filename,filestore){
+    var url='';
+    var width='';
+    var height='';
+
+    url='playmp3';
+    width=220;
+    height=220;
+
+    var myDialog = art.dialog.open(url+'?filename='+filename+'&filepath='+filestore+'&random='+Math.random(),{
+        id:'mate_edit',
+        title:filename,
+        window:'top',
+        width:width,
+        height:height,
+        padding:0,
+        lock:true,
+        opacity:0.3
+      });
+}
+
+
+//删除作者信息
+$('#delAuthor').click(function(){
+    var ks_code= '{$ks_code}';
+    var r_code = $('#shibo').attr('url');
+    if(r_code == ''){
+        $.dialog.alert('暂无作者信息');
+        return false;
+    }
+    if($.dialog.confirm('确定删除？',function(){
+        $.get('../Kewen/delAuthor',{ran:Math.random(),id:'{$id}',ks_code:ks_code},function(data){
+            $('#shibo').attr('url','');
+            $('#author').html('');
+        });
+    }));
+});
+
+
+//保存课文内容
+function savedata(){
+    var ue = UE.getEditor('editor');//ueditor插件
+    var tncontent=ue.getContent();//获取编辑器内容
+    var title=$('#title').val();
+    var ks_code= '{$ks_code}';
+    var issuc=$('#issuc').val();
+    var filename=$("#filename").val();
+    var filepath=$('#filepath').val();
+    var option = '{$option}';
+    var style = '{$style}';
+    var r_code = $('#shibo').attr('url');
+    var r_title = $('#author').html();
+    if(tncontent==''){
+        art.dialog.alert('课文内容不能为空!');
+        return false;
+    }else if(title==''){
+        art.dialog.alert('课文标题不能为空！');
+        return false;
+    }else{
+        $.post('../Kewen/addKewenToText',
+        {
+            ran:Math.random(),
+            ks_code:ks_code,
+            tncontent:tncontent,
+            title:title,
+            filename:filename,
+            filepath:filepath,
+            type:style,
+            option:option,
+            r_code:r_code,
+            r_title:r_title,
+            id:'{$id}'
+
+        },
+        function(data){
+
+        });
+    }
+    return true;
+}
+
+
+$list = $('#thelist');
+var uploader = WebUploader.create({
+    auto: true,
+    // swf文件路径
+    swf: '__PUBLIC__/js/webuploader/Uploader.swf',
+
+    // 文件接收服务端。
+    server: '../Upload/uploadfile',
+
+    // 选择文件的按钮。可选。
+    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+    pick: '#picker',
+
+    // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+    resize: false
+});
+// 当有文件被添加进队列的时候
+uploader.on( 'fileQueued', function( file ) {
+    $list.append( '<div id="' + file.id + '" class="item">' +
+        '<p class="state">等待上传...</p>' +
+    '</div>' );
+});
+// 文件上传过程中创建进度条实时显示。
+uploader.on( 'uploadProgress', function( file, percentage ) {
+    var $li = $( '#'+file.id ),
+        $percent = $li.find('.progress .progress-bar');
+
+    // 避免重复创建
+    if ( !$percent.length ) {
+        $percent = $('<div class="progress progress-striped active">' +
+          '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+          '</div>' +
+        '</div>').appendTo( $li ).find('.progress-bar');
+    }
+
+    $li.find('p.state').text('上传中');
+
+    $percent.css( 'width', percentage * 100 + '%' );
+});
+
+uploader.on( 'uploadSuccess', function( file ,response) {
+    // var obj = eval("(" + response + ")");
+    var obj = response;
+
+    $("#filepath").attr("value",obj.msg.savepath + obj.msg.savename);
+    $("#filename").attr("value", obj.msg.name);
+    $("#issuc").attr("value", obj.issuc);
+    $('#luyin').html(obj.msg.savepath + obj.msg.savename);
+    $('#shiting').attr("url",obj.msg.savepath + obj.msg.savename);
+    $( '#'+file.id ).find('p.state').text('上传完成');
+});
+
+uploader.on( 'uploadError', function( file ) {
+    $( '#'+file.id ).find('p.state').text('上传出错');
+});
+
+uploader.on( 'uploadComplete', function( file ) {
+    $( '#'+file.id ).find('.progress').fadeOut();
+    $( '#'+file.id ).find('p.state').fadeOut();
+});
+
+
+// /**
+//  * 文件上传
+//  */
+//  $(function() {
+//         $("#file_upload").uploadify(
+//                 {
+//                     'debug' : false,
+//                     'buttonText' : '选择文件',
+//                     'height' : 30,
+//                     'removeCompleted' : false,
+//                     'auto' : true,
+//                     'swf' : '__PUBLIC__/js/uploadify/uploadify.swf?ran='+Math.random(),
+//                     'uploader' : '../Upload/uploadfiles',
+//                     'width' : 70,
+//                     'fileSizeLimit' : '100MB',
+//                     'fileTypeExts' : '*.mp3',
+//                     'fileTypeDesc' : '请选择mp3文件',
+//                     'multi' : false,
+//                     'removeCompleted':true,
+//                     'removeTimeout':0.5,
+//                     'onUploadSuccess' : function(file, data, response) {
+//                         if (response) {
+//                             $('#' + file.id).find('.data').html(' 上传完毕');
+//                             $('.uploadify-button-text').empty();
+//                             $('.uploadify-button-text').append('上传完毕');
+//                             /**
+//                             issuc:1成功；2失败;
+//                             name:文件原名称；
+//                             size：文件大小；
+//                             ext：文件后缀名；
+//                             savename：上传后文件名
+//                             savepath：保存路径（201504/）
+//                              **/
+//                              //alert(data);
+//                             var obj = eval("(" + data + ")");
+//                             if (obj.issuc == 1) {
+//                                 //alert(obj.msg.savepath+obj.msg.savename);
+//                                 $("#filepath").attr("value",obj.msg.savepath + obj.msg.savename);
+//                                 $("#filename").attr("value", obj.msg.name);
+//                                 $("#issuc").attr("value", obj.issuc);
+//                                 $('#luyin').html(obj.msg.savepath + obj.msg.savename);
+//                                 $('#shiting').attr("url",obj.msg.savepath + obj.msg.savename);
+//                             }
+//                         }
+
+//                     }
+//                 });
+//     });
+
+
+
+
+UE.registerUI('myblockquote',function(editor,uiName){
+    editor.registerCommand(uiName,{
+        execCommand:function(){
+            this.execCommand('inserthtml',"【】");
+        }
+    });
+    var btn = new UE.ui.Button({
+        name:uiName,
+        title:'插入中括号',
+        cssRules :"background-position: -660px -40px;",
+        onclick:function () {
+           editor.execCommand(uiName);
+        }
+    });
+    editor.addListener('selectionchange', function () {
+        var state = editor.queryCommandState('blockquote');
+        if (state == -1) {
+            btn.setDisabled(true);
+            btn.setChecked(false);
+        } else {
+            btn.setDisabled(false);
+            btn.setChecked(state);
+        }
+    });
+    return btn;
+});
+</script>

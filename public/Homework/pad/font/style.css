@@ -1,0 +1,150 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?um2ji9');
+  src:  url('fonts/icomoon.eot?um2ji9#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?um2ji9') format('truetype'),
+    url('fonts/icomoon.woff?um2ji9') format('woff'),
+    url('fonts/icomoon.svg?um2ji9#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shengyin:before {
+  content: "\e905";
+}
+.icon-jiaocai:before {
+  content: "\e900";
+  color: #666;
+}
+.icon-sj:before {
+  content: "\e901";
+}
+.icon-daoxue:before {
+  content: "\e902";
+}
+.icon-ketang:before {
+  content: "\e903";
+}
+.icon-tisheng:before {
+  content: "\e904";
+}
+.icon-back:before {
+  content: "\e90f";
+}
+.icon-bandui:before {
+  content: "\e910";
+}
+.icon-see:before {
+  content: "\e911";
+}
+.icon-cuo:before {
+  content: "\e912";
+}
+.icon-cuo2:before {
+  content: "\e913";
+}
+.icon-light:before {
+  content: "\e914";
+}
+.icon-dui:before {
+  content: "\e915";
+}
+.icon-down:before {
+  content: "\e917";
+}
+.icon-top:before {
+  content: "\e906";
+}
+.icon-left:before {
+  content: "\e907";
+}
+.icon-right:before {
+  content: "\e918";
+}
+.icon-right2:before {
+  content: "\e91b";
+}
+.icon-menu:before {
+  content: "\e91c";
+}
+.icon-paizhao:before {
+  content: "\e91d";
+}
+.icon-paiming:before {
+  content: "\e91e";
+}
+.icon-time:before {
+  content: "\e91f";
+}
+.icon-shijuan:before {
+  content: "\e920";
+}
+.icon-tijiao:before {
+  content: "\e921";
+}
+.icon-tupian:before {
+  content: "\e922";
+}
+.icon-weike:before {
+  content: "\e923";
+}
+.icon-my:before {
+  content: "\e924";
+}
+.icon-yuyin:before {
+  content: "\e925";
+}
+.icon-zuoye:before {
+  content: "\e926";
+}
+.icon-zan:before {
+  content: "\e604";
+}
+.icon-zan-o:before {
+  content: "\e605";
+}
+.icon-song-j:before {
+  content: "\e60e";
+}
+.icon-song-no:before {
+  content: "\e60f";
+}
+.icon-song:before {
+  content: "\e612";
+}
+.icon-shoucang:before {
+  content: "\f007";
+}
+.icon-shoucang-o:before {
+  content: "\f008";
+}
+.icon-zyzfw:before {
+  content: "\e90c";
+}
+.icon-ico-bianj:before {
+  content: "\e916";
+}
+.icon-ico-yuyin:before {
+  content: "\e927";
+}
+.icon-play-down:before {
+  content: "\ea1c";
+}
+.icon-play-right:before {
+  content: "\ea1d";
+}

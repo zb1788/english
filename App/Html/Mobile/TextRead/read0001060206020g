@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <title>英语同步练</title>
+    <link href="/public/Mobile//css/fonts.css" rel="stylesheet" type="text/css">
+    <link href="/public/Mobile//css/style.css" rel="stylesheet">
+    <script src="/public/Mobile//js/TouchSlide.1.1.js"></script>
+	<script type="text/javascript" src="/public/Mobile//js/jquery.min.js"></script>  
+	<script src="/public/Mobile//js/jquery.cookie.js" type="text/javascript"></script> 
+</head>
+
+<body>
+<header>
+    <div class="l fl"><a href="/mobile/textread/index"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">读课文</div>
+    <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+               <!--  <li><a href="/mobile/index/wordbook"><i class="icon-heart"></i><font class="wordcount"></font></a></li>
+                <li><a href="/mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount"></font></a></li> -->
+                <li><a href="/mobile/index/index"><i class="icon-evil"></i>学习中心</a></li>
+                <li><a href="/mobile/index/course"><i class="icon-pencil-square"></i><b>版本设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<section class="wordbook">
+    <div class="wbBtn bLine" bid="0001060206020g"><p>Unit1 Part B</p><p><font class="curindex">1</font>/5</p></div> 
+</section>
+
+<section class="read">
+    <div id="iScroll" class="iScroll bWhite">
+        <div class="hd" style="display:none;">
+            <ul></ul>
+        </div>
+        <div class="bd" id="iScroll-bd">
+            <div class="con">
+            	<ul>
+                    <div class="text">
+                       <h3 class="active"></h3>
+                            <p class="active"><span class="en" ></span></p>
+                    </div>
+                </ul>
+            </div>
+            <div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>B Let's talk</a></h3>
+                           <p class="active" bid="941">
+                                    <span class="en" mid="3819E6A4BF24382F6CC65A479A864CC1">
+                                        Shopkeeper&nbsp;:&nbsp;Why are you shopping today?                                    </span>
+                                    <span class="ch" style="">
+                                        Shopkeeper&nbsp;:&nbsp;今天为什么是你在购物？                                    </span>
+                                </p><p class="active" bid="941">
+                                    <span class="en" mid="709F1A3821CA24E44AC801F417E8B7E8">
+                                        Sarah&nbsp;:&nbsp;My mum worked last night. So I’m shopping today.                                    </span>
+                                    <span class="ch" style="">
+                                        Sarah&nbsp;:&nbsp;妈妈昨晚上夜班。所以今天我购物。                                    </span>
+                                </p><p class="active" bid="941">
+                                    <span class="en" mid="CD12E0719234B6C926BDC029F6A4B866">
+                                        Shopkeeper&nbsp;:&nbsp;Good girl! So what do you do on the weekend?                                    </span>
+                                    <span class="ch" style="">
+                                        Shopkeeper&nbsp;:&nbsp;好孩子！那你周末做什么？                                    </span>
+                                </p><p class="active" bid="941">
+                                    <span class="en" mid="C30E619D3E716A277D06C7D06FD52BDF">
+                                        Sarah&nbsp;:&nbsp;I often watch TV and play ping-pong with my father.                                    </span>
+                                    <span class="ch" style="">
+                                        Sarah&nbsp;:&nbsp;我经常看电视，也常和我爸爸一起打乒乓球。                                    </span>
+                                </p><p class="active" bid="941">
+                                    <span class="en" mid="E3149406562083228A1E2E46B4C81634">
+                                        Shopkeeper&nbsp;:&nbsp;That sounds like a lot of fun.                                    </span>
+                                    <span class="ch" style="">
+                                        Shopkeeper&nbsp;:&nbsp;听起来好像很有趣。                                    </span>
+                                </p><p class="active" bid="941">
+                                    <span class="en" mid="6C74AD356611166F966C33EF1F696F48">
+                                        Sarah&nbsp;:&nbsp;Yes, but I’m also hard-working. I usually wash my clothes. Sometimes I cook dinner.                                    </span>
+                                    <span class="ch" style="">
+                                        Sarah&nbsp;:&nbsp;是的，但我也很勤快。我通常洗自己的衣服。有时我做饭。                                    </span>
+                                </p><p class="active" bid="941">
+                                    <span class="en" mid="70E2D9B9E76CB339109ED94E020F5ECE">
+                                        Shopkeeper&nbsp;:&nbsp;You’re so busy! You need a robot to help you!                                    </span>
+                                    <span class="ch" style="">
+                                        Shopkeeper&nbsp;:&nbsp;你太忙了！你需要一个机器人来帮你！                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>B Let's talk-Ask the question and then pass it on</a></h3>
+                           <p class="active" bid="942">
+                                    <span class="en" mid="B2921CD16194170868DD5428388F3CA8">
+                                        Mike&nbsp;:&nbsp;What do you do on the weekend?                                    </span>
+                                    <span class="ch" style="">
+                                        Mike&nbsp;:&nbsp;你周末做什么？                                    </span>
+                                </p><p class="active" bid="942">
+                                    <span class="en" mid="CDD326ABB44CB64A411530A795A4020D">
+                                        Zhang Peng&nbsp;:&nbsp;I often go shopping.                                    </span>
+                                    <span class="ch" style="">
+                                        Zhang Peng&nbsp;:&nbsp;我经常购物。                                    </span>
+                                </p><p class="active" bid="942">
+                                    <span class="en" mid="AD695C515C319B461CF99ED33B094E4A">
+                                        Zhang Peng&nbsp;:&nbsp;What do you do on the weekend?                                    </span>
+                                    <span class="ch" style="">
+                                        Zhang Peng&nbsp;:&nbsp;你周末做什么？                                    </span>
+                                </p><p class="active" bid="942">
+                                    <span class="en" mid="218633B342013387E511960532C52A26">
+                                        Sarah&nbsp;:&nbsp;I usually clean my room.                                    </span>
+                                    <span class="ch" style="">
+                                        Sarah&nbsp;:&nbsp;我通常打扫我的房间。                                    </span>
+                                </p><p class="active" bid="942">
+                                    <span class="en" mid="3AA91D7BA7F0C5D6A9A9AFB88059B6E1">
+                                        &nbsp;do homework                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;做家庭作业                                    </span>
+                                </p><p class="active" bid="942">
+                                    <span class="en" mid="99527292E90BF3EAF3DB60960B964E33">
+                                        &nbsp;watch TV                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;看电视                                    </span>
+                                </p><p class="active" bid="942">
+                                    <span class="en" mid="F80A3634681EC141E1A8218995B3491C">
+                                        &nbsp;have … class                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;上……课                                    </span>
+                                </p><p class="active" bid="942">
+                                    <span class="en" mid="A99558CDAA1DEE4A180D33BFA3F0980D">
+                                        &nbsp;play sports with …                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;和……进行体育运动                                    </span>
+                                </p><p class="active" bid="942">
+                                    <span class="en" mid="0E38DB77317A20821CDDD8098F66A4C6">
+                                        &nbsp;play music                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;演奏音乐                                    </span>
+                                </p><p class="active" bid="942">
+                                    <span class="en" mid="CD0C60C4A4C57F8E641166F8FB4FF31C">
+                                        &nbsp;wash my clothes                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;洗我的衣服                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>B Let's learn</a></h3>
+                           <p class="active" bid="943">
+                                    <span class="en" mid="66E22B72777EE44F21AAE567DB2A91E6">
+                                        Sarah&nbsp;:&nbsp;I often clean my room on Saturdays!                                    </span>
+                                    <span class="ch" style="">
+                                        Sarah&nbsp;:&nbsp;我经常在周六打扫我的房间。                                    </span>
+                                </p><p class="active" bid="943">
+                                    <span class="en" mid="CB9C5F00765CCCA1D838AFDD71141472">
+                                        &nbsp;clean my room                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;打扫我的房间                                    </span>
+                                </p><p class="active" bid="943">
+                                    <span class="en" mid="50DA49F835EC6BC9F6C337608FE4BD0D">
+                                        &nbsp;go for a walk                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;散步                                    </span>
+                                </p><p class="active" bid="943">
+                                    <span class="en" mid="B2754BE14AA402E9106B1A348DD335AC">
+                                        &nbsp;go shopping                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;去买东西；购物                                    </span>
+                                </p><p class="active" bid="943">
+                                    <span class="en" mid="DE16DF4110A7F436352B37A0CF2AA279">
+                                        &nbsp;take a dancing class                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;上舞蹈课                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>B Do a survey</a></h3>
+                           <p class="active" bid="945">
+                                    <span class="en" mid="8BF878081A1489C9624E21A5D839F62D">
+                                        &nbsp;I                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;我                                    </span>
+                                </p><p class="active" bid="945">
+                                    <span class="en" mid="F2448BB606107DFBB09681450A369DE2">
+                                        &nbsp;always                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;总是                                    </span>
+                                </p><p class="active" bid="945">
+                                    <span class="en" mid="F3A940C1D2AC023C628FFF5910510E59">
+                                        &nbsp;often                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;经常                                    </span>
+                                </p><p class="active" bid="945">
+                                    <span class="en" mid="11B196B1A2EF2387839F1695342E975F">
+                                        &nbsp;sometimes                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;有时                                    </span>
+                                </p><p class="active" bid="945">
+                                    <span class="en" mid="5F5DC48586623CBF48369F6A388513DE">
+                                        &nbsp;clean my room                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;打扫我的房间                                    </span>
+                                </p><p class="active" bid="945">
+                                    <span class="en" mid="8715FB8CD0DCA0B45C07B7590084CCB0">
+                                        &nbsp;go shopping                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;购物                                    </span>
+                                </p><p class="active" bid="945">
+                                    <span class="en" mid="ADD147128308D5301735B08A3FA55FD9">
+                                        &nbsp;go for a walk                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;散步                                    </span>
+                                </p><p class="active" bid="945">
+                                    <span class="en" mid="838DD9BC7DB373340B8E95A44D54E292">
+                                        &nbsp;take a dancing class                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;上舞蹈课                                    </span>
+                                </p><p class="active" bid="945">
+                                    <span class="en" mid="6F502F60BEB6E4FFF7EA2A5A6D52725D">
+                                        &nbsp;with                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;和                                    </span>
+                                </p><p class="active" bid="945">
+                                    <span class="en" mid="9D2A81F9B79335624756F7E440080C5D">
+                                        &nbsp;on Saturdays                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;在星期六                                    </span>
+                                </p><p class="active" bid="945">
+                                    <span class="en" mid="379CDCFF9360AF269A52C79FA8084603">
+                                        &nbsp;on Sundays                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;在星期日                                    </span>
+                                </p><p class="active" bid="945">
+                                    <span class="en" mid="ECADA84675C4D5D03CBF97BD1706B47C">
+                                        &nbsp;on the weekend                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;在周末                                    </span>
+                                </p><p class="active" bid="945">
+                                    <span class="en" mid="6FDE6857AD6FFC0EF492C0F9EF4C15DC">
+                                        &nbsp;I sometimes go shopping with my mum on the weekend.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;我周末有时和我妈妈一起购物。                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>B Read and write</a></h3>
+                           <p class="active" bid="944">
+                                    <span class="en" mid="019B37CF61D31710208D7A6ED90A4E73">
+                                        &nbsp;Robin's play                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;罗宾的戏剧                                    </span>
+                                </p><p class="active" bid="944">
+                                    <span class="en" mid="54174D2A391303708AF50581FDB92156">
+                                        &nbsp;Robin is in a play.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;罗宾在一部戏剧中。                                    </span>
+                                </p><p class="active" bid="944">
+                                    <span class="en" mid="8DE020C6983486EA0C11D8126C9FF917">
+                                        &nbsp;He is Robinson Crusoe.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;他是鲁滨逊·克鲁索。                                    </span>
+                                </p><p class="active" bid="944">
+                                    <span class="en" mid="A0C43A130E60F220578C8D913CDBFA2A">
+                                        &nbsp;Here is a letter from him.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;这里有一封来自他的信。                                    </span>
+                                </p><p class="active" bid="944">
+                                    <span class="en" mid="C316499AD46C809729F41E0E9EFFF931">
+                                        &nbsp;My name is Robinson.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;我的名字叫鲁宾逊。                                    </span>
+                                </p><p class="active" bid="944">
+                                    <span class="en" mid="969A931782494BCDE2F585ADFDD33A93">
+                                        &nbsp;I live on an island.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;我住在一个岛上。                                    </span>
+                                </p><p class="active" bid="944">
+                                    <span class="en" mid="2A2319C4E8A11931CDF5CD3460ED3EAC">
+                                        &nbsp;I always get up early every day.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;我每天总是起得很早。                                    </span>
+                                </p><p class="active" bid="944">
+                                    <span class="en" mid="AA1A78561D5AA4776B2337BA1DFA71B0">
+                                        &nbsp;I wash my face, and then I eat breakfast.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;我洗脸，然后我吃早饭。                                    </span>
+                                </p><p class="active" bid="944">
+                                    <span class="en" mid="E05DA67F4012ECABC42C6556077939E1">
+                                        &nbsp;Sometimes I clean my cave, too.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;有时我也打扫我的山洞。                                    </span>
+                                </p><p class="active" bid="944">
+                                    <span class="en" mid="85C295E8401781C479217D6DBFF95DFA">
+                                        &nbsp;I often go swimming in the water.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;我经常去水里游泳。                                    </span>
+                                </p><p class="active" bid="944">
+                                    <span class="en" mid="4AF6D25DFF0778726F6F6DDDC9105DFA">
+                                        &nbsp;In the afternoon, I play sports with my friend.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;下午，我和我的朋友进行体育运动。                                    </span>
+                                </p><p class="active" bid="944">
+                                    <span class="en" mid="2A10747D14EC8EA26E319200BB06CB60">
+                                        &nbsp;His name is Friday.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;他的名字叫星期五。                                    </span>
+                                </p><p class="active" bid="944">
+                                    <span class="en" mid="88B798E5CD7AB726B7EC2B5FD89B1918">
+                                        &nbsp;Friday is good at sports.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;星期五擅长运动。                                    </span>
+                                </p><p class="active" bid="944">
+                                    <span class="en" mid="D90E0EC9D942D0179BF4A0C88720DE0D">
+                                        &nbsp;He often wins.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;他经常获胜。                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div> 
+            <div class="con">
+            	<ul>
+                    <div class="text">
+                       <h3 class="active"></h3>
+                            <p class="active"><span class="en" >fasdfasdfasdfasd</span></p>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    TouchSlide( { slideCell:"#iScroll",
+    titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+    autoPage:true, //自动分页
+    defaultIndex:1,
+    endFun:function(i){ //高度自适应
+    	    mp.clear();
+            $(".wbBtn font").text(i);
+            $(".tips").hide();
+            var bd = document.getElementById("iScroll-bd");
+            bd.parentNode.style.minHeight = window.screen.availHeight+100+"px";
+            document.getElementsByClassName("con")[i].getElementsByClassName("text")[0].style.minHeight=window.screen.availHeight+"px";
+            bd.scrollTop="20px";
+            if(i>0)bd.parentNode.style.transition="200ms";
+
+             if((i-1)==5)
+            {
+                $(".wbBtn.bLine p:eq(1)").hide(); 
+                $(".con:last span").text("正在加载下一单元......");
+                var indexn="1";
+                var unitcount="1";
+            
+                
+                unitcount=parseInt(unitcount)-1;
+                if(indexn!=unitcount)
+                {
+                   window.location.href="/mobile/textread/read/indexn/1/indexp/-1/model/tm/flag/0";
+                }
+                else
+                {
+                   $(".con:last span").text("您已经背诵到最有一个单元了，恭喜你已经学完本册书籍");
+                   return false;
+                }
+            }
+            
+            if(i>0)
+            {
+              $('.text:eq('+i+') h3').click();
+            }
+            
+            if((i)==5){$(".tips").show();}
+            if((i)==0)
+            {
+            	$(".wbBtn.bLine p:eq(1)").hide();            	
+          	    var indexp="-1";
+            	if(indexp!='-1')
+            	{
+            	   $(".con:eq(0) span").text("正在加载上一单元......");
+                   window.location.href="/mobile/textread/read/indexn/1/indexp/-1/model/tm/flag/1"; 
+                }
+            	else
+            	{
+               	   $(".con:eq(0) span").text("这里是第一单元，向左开始读课文");
+               	   return false;
+                }
+            }
+
+           
+         }
+    } );</script>
+</section>
+
+<section class="tips" style-"display:none;">
+    <p class="txt">已经到最后一段课文了，向左滑动进入下一个单元。</p>
+</section>
+<div id="jplayer"></div> 
+ 
+
+<script src="/public/Mobile//js/main.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.cookie.js"></script>
+
+<script type="text/javascript"> 
+$(".tips").hide();
+mp = new Mplay();
+var unitid="0001060206020g";
+var textcount=$(".con").length;
+mp.index=0;
+mp.url = "en.czbanbantong.com:8081/yylmp3/mp3_text/";
+var wordbcount=parseInt();
+var recordcount=parseInt();
+$(function() {
+    $(".dropdown a:eq(0) .wordcount").text($.cookie("engm_wordbook_count"));
+    $(".dropdown a:eq(1) .recordcount").text($.cookie("engm_record_count"));
+    //$('.ch').hide(); 
+    $('h3').removeClass('active');
+    $('p').removeClass('active');
+   // $(document).on('click', '.text h3', function() {
+    $('.text h3').click(function(){
+    	mp.clear();
+        $(this).addClass("active");
+        var pdom=$(this).nextAll('p');
+        var ind=$(this).parents().prevAll().length-4;
+        mp.index = pdom.index()-1;
+        mp.repeat = 1;
+        twordplay(".text:eq("+ind+")  p","span.en","active",1,1);
+    });
+
+    //$(document).on('click', '.text p', function() {
+    $('.text p').click(function(){
+    	mp.clear();
+        mp.index = $(this).index()-1;
+        mp.repeat = 1;
+        var ind=$(this).parents().prevAll().length-4;
+        twordplay(".text:eq("+ind+")  p","span.en","active",1,1);
+        $(this).parent().find("h3").addClass("active");
+    });
+});
+
+//获取mp3文件路径
+function getmp3url(mp3name){
+    //mp3name = mp3name.substr(0,mp3name.length-1);
+    var mp3url = '';
+    var quespeed = 1;
+    //if(examstts_type == 1){           //系统生成
+        if(quespeed == 0){
+            mp3name = mp3name+'s';
+        }
+        else if(quespeed == 2){
+            mp3name = mp3name+'q';
+        }
+    //}
+    mp3url = mp.url+mp3name.substr(0,2)+'/'+mp3name+'.mp3';
+    return mp3url;
+}
+
+
+function twordplay(pdom,cdom,cclass,repeat,timeoutnum)
+{
+    var allnum =  $(pdom).length; 
+    var carindex = mp.index;
+    //$(pdom).find("span.ch").hide();
+    //$(pdom).removeClass(cclass);
+    $(pdom + ":eq(" + carindex + ")").addClass(cclass);
+    var $word = $(pdom + ":eq(" + carindex + ")").find(cdom);
+    var mp3  = $word.attr("mid");
+    $word.addClass(cclass);
+    //$(pdom + ":eq(" + carindex + ")").find("span.ch").show();
+    if (carindex < allnum) {
+
+        mp.play(getmp3url(mp3));
+        $("#jplayer").bind($.jPlayer.event.ended,function (event) {
+            if (mp.repeat >= repeat) 
+            {mp.index = mp.index + 1; mp.repeat = 1;}
+            else
+            {mp.repeat = mp.repeat + 1};                
+            setTimeout(function(){twordplay(pdom,cdom,cclass,repeat,timeoutnum);}, timeoutnum * 1000); 
+        });
+    }
+    else
+    {
+        mp.index = 0;
+        $(".boxCon").show();
+        $word.removeClass(cclass);
+        var chapterid=$(pdom).attr("bid");
+        $.get("/mobile/textread/study_text_record",{unitid:unitid,chapterid:chapterid},function(data){
+            var recordcount=$(".dropdown a:eq(1) .recordcount").text();
+            $(".dropdown a:eq(1) .recordcount").text(parseInt(recordcount)+parseInt(data.add));
+            $.cookie("engm_record_count",parseInt($.cookie("engm_record_count"))+parseInt(data.add));
+        });
+      
+    } 
+}
+
+function Mplay(){ 
+   $("#jplayer").jPlayer({
+        swfPath: "",
+        wmode: "window",
+        supplied: "mp3",
+        preload: "none",
+        volume: "1"
+    });
+
+    var oplay = new Object();  
+    oplay.index = 0;
+    oplay.url = "";
+    oplay.repeat = 1;
+
+    oplay.play = function(mp3){  
+        oplay.clear();
+        $("#jplayer").jPlayer("setMedia", {mp3:mp3}).jPlayer("play");
+    };
+
+    oplay.clear = function(){       
+        $("#jplayer").jPlayer("stop");
+        $("#jplayer").jPlayer("clearMedia");
+        //$("#jplayer").data("SpeakMP3Value", "0");  
+        $("#jplayer").unbind($.jPlayer.event.ended);
+        $("#jplayer").unbind($.jPlayer.event.progress);
+    };
+    return oplay;  
+}
+
+
+function  BodyScroll(curpos){
+  var container = $("html,body"); 
+  var pos_y = $(curpos).offset().top-300;
+  $("html,body").animate({scrollTop:pos_y},100);//1000是ms,也可以用slow代替
+}
+</script>
+</body>
+</html>

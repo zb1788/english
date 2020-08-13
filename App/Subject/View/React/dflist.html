@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"><title>Webpack App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+<style>
+    * {margin: 0;padding: 0;}
+           .prev,.next {width: 50px; height: 50px; margin-left: 5px; margin-top: -10px;line-height: 50px;border-radius: 50%;position: relative; }
+           .prev span,.next span {text-align: center; font-size: 42px; line-height: 48px;  color: #fe934e;display: none; }
+           .prev:hover span {color: #fe934e; }
+            .next span {color: #27bcad;}
+            .next:hover span {color: #27bcad}
+            .play {width: 50px; height: 50px; line-height: 50px; border-radius: 50%;position: relative;margin-top: -10px; margin-left: 5px;}
+            .play span {font-size: 42px; color: #eb5a5c;display: none;  text-align: center; line-height: 48px;}
+            .prev span.on,
+            .play span.on,
+            .next span.on {display: inline-block;*display: inline;*zoom: 1}
+    		
+           .yyquan {position: absolute;top: -11px;  left: -10px;}
+           .yyquan svg {width: 70px;height: 70px;overflow: hidden;}
+           .yyquan.zhong {position: absolute;top: -15px; left: -15px;}
+           .yyquan.zhong svg {width: 75px;height: 75px;overflow: hidden;}
+        .mycircle {
+            stroke-width:3px;
+            stroke: #fe934e;
+            stroke-dasharray: 80px;
+            stroke-linecap: round;
+            animation: lineMove 4s ease-in-out 0s infinite;
+        }
+        .redC {
+            stroke: #ea595b;
+        }
+        .greenC {
+            stroke: #00bfac;
+        }
+
+        @keyframes lineMove {
+            0% {
+                stroke-dasharray: 0, 1600
+            }
+            100% {
+                stroke-dasharray: 1600, 1600
+            }
+        }
+</style>
+<link rel="stylesheet" href="__SUBJECT__react/style/font_x/iconfont.css" />
+<script>    
+    var mySwiper="";
+    //录音的全局变量
+    var mp3time = 0;
+    var playtype = 1; //1原音播放，2滴一声播放,3录音播放,4人机对话
+    var obj1 = "";
+    var obj2 = "";
+    var obj3 = "";
+    var scoreobj = "";
+    var type = 0;
+    var curindex = 0;
+    var playlist = "";
+    var isloop = true;
+    var audio = "";
+    var records = "";
+    var recordpath = "";
+    var curpage = 0;
+    var bookid = 0;
+    var pageid = 0;
+    var contentid  = 0;
+	var apptype = 0;
+    var chapter = "";
+    var content = "";
+    //var host = window.location
+    var averagescore = 0;
+    var average_score = 0;
+    var audiocount = 0;
+    var audiojson = [];
+    var overaudioindex = 0;
+
+    //var voices = '[{"url":"' + kewenNetUrl + textMp3Arr[i] + '"}]';
+
+    //播放的全局变量
+    var list = [];
+    var loop = 0;
+    var time = 0;
+    var playtime = 0;
+    var isplay = false;
+    var starttime = 0;
+    var intervaltime = 2000;
+    var timer = "";
+    var position = [0,0];
+    var mp3index = 0;
+    var isover = false;
+
+    //地址栏的参数
+    var request = "";
+    //用户录音列表
+    //用户录音列表
+
+    var audiotype = 0;
+    var audio = "";
+
+    var backUrl = "{$backUrl}";
+    console.log(backUrl);
+    var localAreaCode = "{$localAreaCode}";
+
+    function GetRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for(var i = 0; i < strs.length; i ++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+
+    var Requests = new Object();
+    Requests = GetRequest();
+   // console.log("sss="+location.href);
+
+</script>
+<style>
+.inLeft{
+    calc(100% - 45px);
+}
+</style>
+<body>
+    <div id="example"></div>
+    
+</body>
+<script type="text/javascript" src="__SUBJECT__react/dfjs/jquery.min.js"></script>
+<script type="text/javascript" src="__SUBJECT__react/dfjs/mobile.js"></script>
+<script type="text/javascript" src="__SUBJECT__react/dfjs/commons.js"></script>
+<script type="text/javascript" src="__SUBJECT__react/dfjs/vendor.js"></script>
+<script type="text/javascript" src="__SUBJECT__react/dfjs/list.js"></script>
+<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/eruda"></script>
+<script>eruda.init();</script> -->
+</html>
+<script type="text/javascript">
+    $(function(){
+       // $("a[role=button]").eq(1).hide();
+    })
+</script> 

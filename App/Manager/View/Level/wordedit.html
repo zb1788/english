@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版本列表</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+</head>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+  <tr id="tr_mp3">
+    <td class="td_right">单词：</td>
+    <td>
+      <input type="text" name="word" id="word" class="input-text lh30" size="30" placeholder="请输入单词" onblur="getIsWord();getExplains();" bid="0" /><span id="wordcontent" style="color: red;"></span>
+    </td>
+  </tr>
+  <tr id="tr_voice">
+    <td align="left" class="td_right">是否单词：</td>
+    <td>
+    <select id="isword" name="isword" class="select">
+
+    </select>
+    </td>
+  </tr>
+  <tr id="tr_voice">
+    <td align="left" class="td_right">释义：</td>
+    <td>
+    <select id="explains" name="explains" class="select">
+       
+    </select>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+$(function(){
+  $.ajaxSetup({async:false});
+  
+
+  $("#isword").bind('change',function(){
+    getExplains();
+  })
+
+  $("#word").bind('focus',function(){
+    $('#wordcontent').text('');
+  })
+});
+
+function getExplains(){
+  var word=$("#word").val();
+  var isword=$("#isword").val();
+  $("#explains").empty();
+  $("#wordcontent").text("");
+  $("#explains").empty();
+  var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+  $.getJSON("getExplainListByWord",{word:word,isword:isword,ran:Math.random()},function(datas){
+      dloading.close();
+      if(datas.length==0){$("#wordcontent").text("词库无此单词");}
+      $.each(datas, function(is, vals) {
+        if(is==0){
+          $("#word").attr("bid",vals.base_wordid);
+        }
+        $("#explains").append($("<option>").val(vals.id).text(vals.explains));
+      });
+  })
+}
+
+function getIsWord(){
+  var word=$("#word").val();
+  var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+  $("#isword").empty();
+  $.getJSON("getWordTypeByWord",{word:word,ran:Math.random()},function(datas){
+      dloading.close();
+      $.each(datas, function(is, vals) {
+        if(vals.isword=='0'){
+          $("#isword").append($("<option>").val(vals.isword).text("否"));
+        }else{
+          $("#isword").append($("<option>").val(vals.isword).text("是"));
+        } 
+      });
+  })
+}
+
+//保存单词
+function addWord(){
+  var Requests = new Object();
+  Requests = GetRequest();
+  var levelid=Requests["levelid"];
+  var wordid=$("#word").attr("bid");
+  if(wordid=='0'||wordid==''){
+    return false;
+  }
+  var explainid=$("#explains").val();
+  var flag=false;
+  $.getJSON("addLevelWords",{levelid:levelid,wordid:wordid,explainid:explainid,ran:Math.random()},function(data){
+    art.artDialog.tips(data.msg);
+    if(data.succ=='1'){
+      flag=true;
+    }else{
+      flag=false;
+    }
+  })
+  return flag;
+}
+
+function GetRequest() {
+    var url = location.search; //获取url中"?"符后的字串
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for(var i = 0; i < strs.length; i ++) {
+            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+/* CSS Document */
+* { padding: 0; margin: 0; border: 0px;   }
+a, a:active, a:visited { text-decoration: none; color: #333; font-size: 14px; }
+a:hover { }
+a.blue:link { font-size: 13px; color: #0d79cc; text-decoration: none; }
+a.blue:visited { font-size: 13px; color: #0d79cc; text-decoration: none; }
+a.blue:hover { font-size: 13px; color: #006DC0; text-decoration: underline; }
+a.blue:active { font-size: 13px; color: #0d79cc; text-decoration: none; }
+a.hong, a.hong:visited { color: #ce3601; text-decoration: underline; }
+a.hong:hover { text-decoration: none; }
+.orangeFon { font-family: Arial, 宋体; color: #f60; font-weight: bold; }
+ul, li { list-style: none; }
+input, img, select, button { vertical-align: middle; border: none; }
+/*清除float*/
+.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.clearfix { display: inline-block; }
+* html .clearfix { height: 0; }
+.clearfix { display: block; overflow: auto; clear: both; height: 0; }
+
+html {
+	font-family: sans-serif;
+	-webkit-text-size-adjust: 100%
+}
+body {
+	background:#fff; 
+	/* background:#FBB965 url(../images/saike.jpg) top no-repeat; */
+	/* background-size: 100% ; */
+	font-family: 'Helvetica Neue', Helvetica, sans-serif;
+	font-size: 14px;
+	line-height: 22px;
+	color: #555;
+	-webkit-overflow-scrolling: touch;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+	display: block
+}
+audio, canvas, progress, video {
+	display: inline-block;
+	vertical-align: baseline
+}
+audio:not([controls]) {
+	display: none;
+	height: 0
+}
+[hidden], template {
+	display: none
+}
+a {
+	background: 0 0
+}
+a:active, a:hover {
+	outline: 0
+}
+abbr[title] {
+	border-bottom: 1px dotted
+}
+b, strong {
+	font-weight: 700
+}
+dfn {
+	font-style: italic
+}
+h1 {
+	margin: .67em 0
+}
+
+* {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-user-select: none;
+	outline: 0;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-tap-highlight-color: transparent
+}
+
+
+a:active {
+	color: #0062cc
+}
+/* page */
+a.btn_yellow{ border:none; cursor:pointer;  text-align:center; font-size:12px; color:#fff; display:inline-block; padding:0 10px; border-radius:3px;  background-color:#fb6161;}
+a.btn_yellow:hover {background-color:#fb6161;text-decoration:none;}
+.ztTop{min-height: 170px; background:#FFF url(../images/saike.png) top center no-repeat;  background-size: 100%;}
+.main_block{background: #fff;  box-shadow: 0 15px 30px rgba(0,0,0,0.1); padding: 15px 15px; min-height: 140px; height: 100%; border-radius: 5px; margin:0;}
+.keTop h2{font-size: 28px; margin: 0.5rem;}
+.keMain{ margin:10px 5px 10px 8px;}
+.keMainLeft{}
+.keMainLeft p{}
+.keMainLeft .miaoShu{margin: 20px 0; background: #f1f1f1; padding:10px;}
+.keMainLeft .miaoShu p.miaoS{color: red;}
+.keMainLeft .miaoShu p.miaoS span{display: inline-block; padding: 0 15px 0 0;}
+.keMainLeft .video{  vertical-align: middle; }
+.keMainLeft .video img{ max-width: 100%; height: auto; max-height: 440px; }
+.toupiao{margin-top: 10px; text-align: center; width:100%;}
+.toupiao a{padding:3% 15%; font-size: 16px; letter-spacing: 0px;}
+
+
+.keMainRight{ }
+.keMainRight h2{ font-size: 18px; margin-bottom: 5px;}
+.keMainRight p{line-height: 22px; margin: 0 0 5px 0;}
+.keMainRight p span{color: #999;}
+.keMainRight p.saoMa{ text-align: center; margin-top: 20px;}
+.keMainRight p.saoMa span{line-height: 18px!important; margin-top: 10px; display: block;}
+
+
+.nanji ul li{ float:left; display:block;}
+.sawd{ padding:10px 10px 10px 0;}
+.nanji{ height:40px; border-bottom:1px solid #e1dddd;}
+.kechenglist dd{ width:30%; padding:10px;float:left;}
+.kechenglist dd img{ width:110px; height:90px;}
+.kechenglist dt{width:64%; margin-left:20px; float: left; margin-top:8px;}
+.bisfd{ color:#999999; margin-top:20px!important;}
+
+.quxuexi{float:right; margin-right:18px; width:80px; height:26px; background:#f25e50;border-radius:35px; color:#fff;}
+.postst_tit{ position:relative;}
+.postst_tittel{position: absolute;background: #000;height: 24px;width:110px; top:79px;opacity:0.5; color:#fff; text-align:center;}
+
+
+.keTop{ position:relative;}
+.shutiao{background:#fb6161;width: 8px;height: 100%;position: absolute;left: -18px;}
+
+
+.wqoue{position:absolute;left:124px;top: 43px;display:none;height: 309px;}
+
+
+
+
+
+
+
+
+
+/* menu links style */
+.suckerdiv ul li a{
+border-bottom: 0;
+}
+
+.suckerdiv ul li a:visited{
+color: black;
+}
+
+.suckerdiv ul li a:hover{
+color: white;
+background-color: gray;
+}
+
+.suckerdiv .subfolderstyle{
+background: url(http://www.alixixi.com/images/icon_list_off2.gif) no-repeat center right;
+}
+
+ 
+/* Holly Hack for IE \*/
+* html .suckerdiv ul li { float: left; height: 1%; }
+* html .suckerdiv ul li a { height: 1%; }
+/* End */
+* {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  list-style:none;
+}
+a {
+  color: #000000;
+  text-decoration: none;
+  display: block;
+}
+#ul1 {
+  
+  font-size: 14px!important;
+  color: #000000;
+  line-height: 36px;
+  text-align: center;
+  margin: 0 auto;
+  z-index:999;
+ 
+}
+#ul1 li {
+  display: inline-block;
+   list-style:none;
+  font-size: 14px!important;
+  float: left;
+  width: 98px;
+  height: 36px;
+  z-index:999;
+
+  border: 1px solid #fff;
+  list-style:none;
+}
+#ul1 li:hover {
+  background: #ffffff;
+  list-style:none;
+   list-style:none;
+}
+#ul1 .ul2 {
+  display: none;
+  position: relative;
+  width: 100px;
+}
+#ul1 .ul2 li {
+  background:#ffffff;
+  position: relative;
+}
+#ul1 .ul2 li:hover {
+  background: #f7f7f7;
+}
+#ul1 .ul2 .ul3 li:hover {
+  background:#eeeeee;
+}
+#ul1 .ul2 .ul3 li {
+   background:#e1e1e1;
+}
+#ul1 .ul2 .ul3 {
+  position: absolute;
+  left: 98px;
+  top: 0px;
+  display: none;
+  width: 100px;
+  height: 90px;
+}
+.ul4 {
+  position: absolute;
+  left: 98px;
+  top: 0px;
+  display: none;
+  width: 100px;
+  height: 90px;
+}
+.postst_tit{ z-index:888;}
+
+/*bofang*/
+.bofang { height: 200px; width: 100%; overflow: hidden; position: relative;}
+.bofang img {width: 100%; position: absolute; top: 0; height: 100%;}
+.bofang i {position: absolute; top: 40%; left: 40%; width: 20%; z-index: 9; color: #444; text-align: center;}
+
+

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>优教班班通-听读作业</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link href="__PUBLIC__/public/style/common.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/test_paper.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/Test_paper/style/ks_exam.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/font_quan.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/keyboard.css" rel="stylesheet" type="text/css" />
+
+<link href="__PUBLIC__/css/mystyle.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+
+<script src="__PUBLIC__/public/script/artDialog.js?skin=default_green"></script>
+<script src="__PUBLIC__/public/script/test_paper.js"></script>
+<script src="__PUBLIC__/public/script/keyboard.js"></script>
+<script src="__COMMON__/js/jquery.tmpl.js"></script> 
+<script src="__PUBLIC__/public/script/pic_scrollplugin.0717.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+<script src="__COMMON__/js/en.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/pcmp3play.js"></script>
+</head>
+<body class="bg_stu ">
+<!--begin w1200-->
+<div class="w980" >
+   
+  <div class="clearfix"></div>
+  <div class="test_con" >
+    <h1 class="dbt1">{$exams_name}</h1>
+
+    <div class="test" id="topone">
+      <div class="te_tab">
+     
+         <a href="javascript:void(0);" name="eq" class="aBtn cur" selecttype="examsquiz">听力训练</a>
+  
+      </div>
+      <div class="test content">
+     
+    
+        <div class="homework examsquiz">
+          
+        </div>
+ 
+      </div>
+    </div>
+   
+
+    <!--end shiti-->
+
+    <div class="clearfix"></div>
+  </div>
+  <!-- 代码 开始 -->
+</div>
+<font id="num" style="display:none;">0</font>
+<!--end w1200-->
+<div class="scrollsidebar" id="scrollsidebar">
+    <div class="side_content">
+      <div class="side_list">
+        <div class="side_title">答题卡<a title="隐藏" class="close_btn"><span>关闭</span></a></div>
+        <div class="side_center" >
+          <p>得分率：{$average}%</p>
+  
+            <h1>{$eqcardtitle}</h1>
+          <ul id="cardeq">  
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+    <div class="show_btn"><span>在线答题卡</span></div>
+  </div> 
+</div>
+<!--t提交弹出层-->
+<div id="tj_pop" style="display:none;">
+  <div class="popContent">
+    <h5>答案已提交，正在批改中，请稍侯...</h5>
+  </div>
+  <!--end popContent-->
+</div>
+<div id="jplayer"></div>
+<include file="template"/>
+</body>
+</html>
+<script src="__PUBLIC__public/script/common.js"></script>
+<script type="text/javascript">
+var ishttps=document.location.protocol;
+var interfaceServiceURL=ishttps+'//{$hdxx}/w/stu/inf/olhomeview.action';
+var readtype = 0;
+var examsmp3url = "__RESOURCE__mp3_exam/";
+var word_pic_url = "__RESOURCE__pic_word/";
+var wordmp3url = "__RESOURCE__mp3_word/";
+var textmp3url = "__RESOURCE__mp3_text/";
+var recordmp3url = "{$Think.config.record_mp3_path}";
+var classid = "{$classid}";
+var studentid = "{$studentid}";
+var examsid = "{$examsid}";
+var local_service = "{$Think.config.local_service}";
+var wacount="{$wacount}";
+var wscount="{$wscount}";
+var wrcount="{$wrcount}";
+var wccount="{$wccount}";
+var tacount="{$tacount}";
+var eqcount="{$eqcount}";
+var taindex = 0;
+var arraynum = new Array('一、','二、','三、','四、','五、','六、');
+//console.log(arraynum[0]);
+$(function(){
+  $("#scrollsidebar").fix({
+    float : 'right',  //default.left or right
+    //minStatue : true,
+    skin : 'green', //default.gray or blue
+    durationTime : 600
+  });
+$.getJSON("../listen/getSturesultExaminfo",{examsid:examsid,studentid:studentid,classid:classid,ran:Math.random},function(data){
+          examsdata = data;
+          $("#tmpleqquestion").tmpl(data).appendTo(".examsquiz");
+          $('#stutmpleqcard').tmpl(data).appendTo($('#cardeq'));
+});
+
+  $(".te_tab .aBtn").bind("click",function(){
+     clearTimeout(mp3_progress);
+     mp.clear();
+     var name=$(this).attr("selecttype");
+     //console.log(name);
+     $(".aBtn").removeClass("cur");
+     $(this).addClass("cur");
+     $(".homework").hide();
+     $("."+name).show();
+     if($(this).attr("name") == "wa"){
+      readtype = 0;
+     }
+     else if($(this).attr("name") == "ta"){
+      readtype = 1;
+     }
+  });
+  $(".aBtn:eq(0)").click();
+  /*设置图片数变量*/
+  n=0;
+  var listnum = $('.row-two').length;
+  /*点右箭头*/
+  $(".lef-btn2").click(function(){
+    /*换下一张图*//*如果n大于3，等于3,否则接着加*/
+    if(n>=(listnum-9)){
+     // n=0;
+    }else{
+      n=n+5;
+      //console.log(listnum+"left"+n);
+    }
+   
+   // document.title=n;
+    $(".over-box").animate({marginLeft:-102*n});
+  })  
+  /*点左箭头*/
+  $(".rig-btn1").click(function(){
+    /*换上一张图*//*如果n大于3，等于3,否则接着加*/
+    if(n>0){
+      n=n-5;
+    }else{
+      n=0;
+    }
+    //console.log("right"+n);
+    //document.title=n;
+    $(".over-box").animate({marginLeft:-102*n});
+  })  
+});
+function reading(obj,flag){
+  //console.log(wordmp3url);
+  mp.clear();
+   var playimg = '';
+   if($(obj).find("img").length != 0){
+       playimg = $(obj).find("img").attr('src');
+       var _playimg =playimg.replace('png','gif');
+      $(obj).find("img").attr('src',_playimg);
+   }
+   else{
+    $(obj).find('a').addClass('active');
+   }
+   if(flag==0){
+     var mp3=$(obj).find("a").attr("mp3");
+     mp.play(wordmp3url +  mp3);
+   }else if(flag==1){
+     var mp3=$(obj).find("a").attr("mp3");
+     mp.play(textmp3url +  mp3.substr(0,2) + "/" + mp3 + ".mp3");
+   }
+   else if(flag==2){
+     var usermp3=$(obj).find("a").attr("mp3");
+     var recordid=$(obj).find("a").attr("recordid");
+     var recordtype = $(obj).find("a").attr("recordtype");
+     $.getJSON('../public/playBack',{id:recordid,type:recordtype},function(result){
+      //console.log(result.length);
+        mp.play(recordmp3url+result.filename);
+          $("#jplayer").bind($.jPlayer.event.ended,function(event){
+         // console.log('sss');
+          if(playimg != ''){
+
+             $(obj).find("img").attr('src',playimg);
+          }
+          else{
+             $(obj).find("a").removeClass('active');
+          }    
+          });
+     });
+     
+   }
+   $("#jplayer").bind($.jPlayer.event.ended,function(event){
+    //console.log('sss');
+    if(playimg != ''){
+
+       $(obj).find("img").attr('src',playimg);
+    }
+    else{
+       $(obj).find("a").removeClass('active');
+    }    
+    });
+}
+</script>

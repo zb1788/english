@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<title></title>
+		<!--<link rel="stylesheet" href="../css/iscroll.css" />-->
+		<link rel="stylesheet" href="../css/responsive.css"/>
+		<link rel="stylesheet" href="../css/currency.css" />
+		<link rel="stylesheet" href="../font/fonts.css" />
+		<script type="text/javascript" src="../js/iscroll-lite.js" ></script>
+		<script type="text/javascript" src="../js/demoUtils.js" ></script>
+		<script type="text/javascript" src="../js/TouchSlide.1.1.js" ></script>
+<style>
+	body {background: #fcfcfc;}
+	/*.mui-media-body h3{margin-right: 50px;}*/
+</style>
+</head>
+<body>
+<main>
+<header class="head">
+			<a class="head-left" href="javascript:UXinJSInterface.popTheController();"><i class="icon-back"></i>返回</a>
+			<h1 class="title">听课文</h1>
+	       <!--  <a class="head-right">分享</a> -->
+</header>
+	<!--页中-->
+<section>
+   <div class="section01">
+        <div class="leftTitle">
+			<img src="../images/tkw.png" alt=""/>
+		</div>
+
+	    <div class="rightLesson">
+			<img src="../images/tkwicon.png" alt=""/>
+		</div>
+   </div>
+	<div class="hx"></div>
+	<div class="section02">
+        <div class="title02">
+			<img src="../images/title_002.png" alt=""/>
+		</div>
+	</div>
+	<div class="contentInfo03">
+		<div class="topTitle">
+			<h4><span>听英语 英语越听越地道</span></h4>
+		</div>
+       <div class="contentList03">
+		   <ul>
+			   <li><img src="../images/iconSmall.png" alt=""/>
+				   <span><b>选择课文：&nbsp;</b>同步教材任你选，海量课文任你听</span>
+			   </li>
+			   <li><img src="../images/iconSmall02.png" alt=""/>
+				   <span><b>听课文：&nbsp;</b>一键操作听课文，支持定时，想听多久听多久</span>
+			   </li>
+			   <li><img src="../images/iconSmall03.png" alt=""/>
+				   <span><b>息屏播放：&nbsp;</b>息屏一样听课文，学习也别忘了保护视力哦</span>
+			   </li>
+			   
+		   </ul>
+	   </div>
+	</div>
+</section>
+	<!--页底-->
+<footer>
+    <div class="footerList">
+		<ul>
+			<li><img src="../images/tkw1.jpg" alt=""/></li>
+			<li><img src="../images/tkw2.jpg" alt=""/></li>
+		
+		</ul>
+	</div>   
+</footer>
+</main>
+<script type="text/javascript" src="../js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$(".head-right").click(function(){
+    		var url = document.location.toString();
+	　　　　var arrUrl = url.split("//");
+	　　　　var start = arrUrl[1].indexOf("/");
+	　　　　var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
+			var arr=relUrl.split("/");
+			var url=arr.pop();
+    		//需要进行ajax的请求
+    		$.getJSON('../../Subject/Api/getLocation',function(data){
+				var title = '不用再买复读机，手机点读很方便，《听课文》趣味朗读一键分享！';
+	    		var iconUrl = window.location.protocol+"//"+window.location.host+"/public/public/images/tkwicon.png";
+			    var pageUrl = window.location.protocol+"//"+window.location.host+"/share/html/index3.html?localareacode="+data.localareacode+"&code="+data.code;
+			    var content='《听课文》界面简洁清晰，图文模式更直观！点读、连读随意切换。家长英语盲也可以轻松辅导孩子学英语啦！';
+			    try{
+			        window.UXinJSInterfaceSpeech.webShare(title,iconUrl,pageUrl,content);
+			    }catch(e){
+			        
+			    }
+    		})
+   		 })
+    });
+</script>
+</body>
+</html>

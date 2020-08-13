@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="wap-font-scale" content="no">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="__PUBLIC__/share/css/css.css" />
+    <link rel="stylesheet" href="__PUBLIC__/share/font/style.css" />
+    <title></title>
+    <style>
+        .code1 {
+            background-image: url('http://vfshenan.czbanbantong.com/A01/lib/defaultstyle/portalWJ/public/images/login/code2.png');
+            background-repeat: no-repeat;
+            width: 150px;
+            height: 150px;
+            display: block;
+            margin: 10px auto;
+
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="pad10">
+            <div class="pabox">
+                <div class="pbbox">
+                    <span class="yun1"></span>
+                    <span class="yun2"></span>
+                    <div class="toux">
+                        <span class="tou">
+                            <img src="__PUBLIC__/share/img/toux/tx02.jpg" class="img100" />
+                        </span>
+                        <label id="truename"></label>
+                        <em>{$now}</em>
+                    </div>
+                    <div class="zxnr">我在“
+                        <font class="redFont" id="modulename">课文朗读</font>”录音了
+                        <font class="redFont" id="kewentitle"></font>这篇课文，获得
+                        <i class="icon-youbi"></i>
+                        <font id="ub"></font>个优币，快来参与吧！一起挣优币！
+                        <a href="" class="redFont" id="shareurl">
+                            <strong style="text-decoration:underline ;">点击参与</strong>
+                        </a>
+                    </div>
+                    <div class="fll">
+                        <span class="pins">
+                            <img src="__PUBLIC__/share/images/yinp.png" />
+                        </span>
+                        <div class="audio">
+                            <audio id="my_audio"></audio>
+                            <!--时间轴-->
+                            <div class="time_progress">
+                                <div class="progress">
+                                    <p class="bar" id="bar"></p>
+                                    <div class="btn" id="btn"></div>
+                                </div>
+                            </div>
+                            <!--时间-->
+                            <div class="time">
+                                <!--当前时间-->
+                                <span class="now_time" id="now_time">00:00</span>
+                                <!--总的时间-->
+                                <span class="all_time" id="all_time">00:00</span>
+                            </div>
+                            <!--暂停或播放-->
+                            <div class="contros">
+                                <a class="button" onClick="playPause()">
+                                    <img class="img100" src="__PUBLIC__/share/images/play.png" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bbt">
+                        <!--    <div class="youb">王晓萌录音了《观潮》这篇课文得到<p><i class="icon-youbi"></i><font class="redFont">25个优币</font><i class="icon-youbi"></i></p></div>
+-->
+                        <div class="bottom">
+                            <span></span>
+                            <a>
+                                <img id="code" src="__PUBLIC__/share/img/down.png" class="img100" />
+                                <label>长按识别二维码</label>
+                                <label>下载安装</label>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+<script type="text/javascript" src="__PUBLIC__/share/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    var path = '__PUBLIC__';
+    var recordpath = '__RECORD__';
+    var respath = '__RESOURCE__';
+    var title = GetQueryString('title');
+    var truename = GetQueryString('truename');
+    var ub = GetQueryString('ub');
+    var filepath = GetQueryString('filepath');
+    var localAreaCode = GetQueryString('localAreaCode');
+    var modulename = GetQueryString('modulename');
+
+    $(function () {
+        $('#kewentitle').html('《' + title + '》');
+        $('#ub').html(ub);
+        $('#truename').html(truename);
+        $('#modulename').html(modulename);
+        if (localAreaCode == '58.') {
+            //江西互动课堂
+            if (checkPhone() == 1) {
+                $('#code').attr('src', path + '/share/img/hdktios.png');
+            } else {
+                $('#code').attr('src', path + '/share/img/hdk.png');
+            }
+            $('#shareurl').attr('href', 'http://vfshdkt.jxrrt.cn/mobile/hdkt.html');
+        } else if (localAreaCode == '51.') {
+            //重庆玖学堂
+            $('#code').attr('src', path + '/share/img/jxt.png');
+            $('#shareurl').attr('href', 'http://cms.czbanbantong.com/mobile/jiuxuetang_download.html');
+        } else {
+            //全国默认的
+            $('#shareurl').attr('href', 'http://cms.czbanbantong.com/pic/download/html/index.html');
+        }
+    })
+
+
+    $('.pbbox').css({
+        'width': $(window).width() - 44,
+        'height': $(window).height() - 44
+    })
+
+    function checkPhone() {
+        if (/i(Phone|P(o|a)d)/.test(navigator.userAgent)) {
+            //苹果
+            return 1;
+        } else {
+            //安卓
+            return 2;
+        }
+    }
+
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURI(decodeURI(unescape(r[2])));
+        return null;
+    }
+</script>
+<script type="text/javascript" src="__PUBLIC__/share/js/audio.js"></script>
+
+</html>

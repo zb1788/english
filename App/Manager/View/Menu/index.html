@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>课程列表</title>
+<style>
+ .page{width:auto;height:25px; margin:auto; line-height:25px;}
+ .page a{display:block; height:25px; padding:0px 6px; border:solid 1px #e7e7e7; border-radius:3px; color:#333; font-family:'微软雅黑'; font-size:13px; text-align:center; text-decoration:none;float:left; margin-right:10px;min-width:20px;}
+ .page a:hover, .page a.this{background:#f7f7f7; font-weight:bold}
+</style>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jPlayer/dist/jplayer/jquery.jplayer.min.js"></script>
+</head>
+<body>
+<div class="place"><strong>位置</strong>：首页 &gt; 推荐栏目配置</div>
+<div class="container">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+     <!--  <tr>
+        <td class="box_top pl_10 f14"><strong>模块配置</strong>&nbsp;&nbsp;<input type="button" name="m" onclick="goManage();" value="模块管理" class="ext_btn ext_btn_submit"/></td>
+      </tr> -->
+      <tr>
+        <td class="pl_5">
+            <table border="0" cellspacing="0" cellpadding="0" class="form_table">
+              <tr>
+                <td align="left">学段：</td>
+                <td>
+                  <select id="levelid" class="select">
+                    <option value="0">小学</option>
+                    <option value="1">初中</option>
+                    <option value="2">高中</option>
+                  </select>
+                </td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td  align="left">学科：</td>
+                <td>
+                  <select id="subject" class="select">
+                  </select>
+                </td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td align="left">客户端：</td>
+                 <td>
+                  <select id="isrecommend" class="select">
+                    <option value="1">平板</option>
+                    <option value="0">手机</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+        </td>
+      </tr>
+    </table>
+	<div class="h10"></div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+	  <tr>
+        <th width="60">序号</th>
+        <th width="60">选项</th>
+        <th width="60">次序</th>
+        <th width="120">new标识</th>
+        <th width="280">模块名称</th>
+	    <th>模块说明</th>
+	  </tr>
+	</table>
+	<div class="h5"></div>
+	<div class="page"></div>
+</div>
+<div class="h5"></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="pl_10" height="42" width="70"><input id="btn_submit" type="button" class="ext_btn ext_btn_submit" value="保存" /></td>
+    <!-- <td class="pl_10" height="42" width="140"><input onclick="makeJson();" type="button" class="ext_btn ext_btn_submit" value="生成json" /></td>
+    <td class="pl_10" height="42"><input onclick="makeJson2();" type="button" class="ext_btn ext_btn_submit" value="生成模块json" /></td> -->
+  </tr>
+</table>
+
+<table style="display:none;" id="demo">
+  <tr class="tr">
+    <td align="left"></td>
+    <td><input type="checkbox" name="item" value=""/></td>
+    <td><input name="sortid" type="text" class="input-text lh30" size="3" maxlength="2" /></td>
+    <td><input type="checkbox" name="isnew"  value=""/></td>
+    <td align="left">字</td>
+    <td align="left"></td>
+  </tr>
+</table>
+<div id="jplayer"></div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+  $.ajaxSetup({async:false});
+ // getGrade();
+  getSubject();
+  pagelist();
+});
+
+
+$('#levelid').change(function(){
+    pagelist();
+});
+$('#subject').change(function(){
+    pagelist();
+});
+$('#isrecommend').change(function(){
+    pagelist();
+});
+
+// function getGrade(){
+//     $.get('../Menu/getGrade',function(data){
+//         $.each(data, function(i, v) {
+//             $('#grade').append($("<option>").val(v.detail_code).text(v.detail_name));
+//         });
+//     })
+// }
+function getSubject(){
+    $.get('../Menu/getSubject',function(data){
+        $.each(data, function(i, v) {
+            $('#subject').append($("<option>").val(v.detail_code).text(v.detail_name));
+        });
+        $('#subject').append($("<option>").val('app').text('APP'));
+    })
+}
+
+
+function goManage(){
+  window.open("models.html");
+}
+
+
+
+//保存排序
+ $("#btn_submit").click(function()
+  {
+    
+
+    var strjson = auditAll();
+    var levelid = $('#levelid').val();
+    var subject = $('#subject').val();
+    var isrecommend = $('#isrecommend').val();
+    $.get("../Menu/addConfig",
+        {
+            strjson:strjson,
+            levelid:levelid,
+            subject:subject,
+            isrecommend:isrecommend
+        },
+        function(){
+        
+        alert("保存成功");
+        pagelist();
+    });
+
+  });
+
+function auditAll(){
+    var arrVersion = []; //定义一个数组
+    $('input[name="item"]:checked').each(function(){
+        var obj = {};
+        obj.sortid = $(this).parent('td').next().children('input').val();
+        if($(this).parent('td').next().next().children('input').is(':checked')){
+          obj.isnew = 1;
+        }
+        obj.menuid = $(this).val();
+        arrVersion.push(obj);//把选中的区域放入数组
+    });
+    return JSON.stringify(arrVersion);
+}
+
+
+function ispadshow(obj){
+  if($(obj).parent().prev().prev().find('input').eq(0).is(':checked')){
+    if(obj.checked){
+      var ispad = 1;
+    }else{
+      var ispad = 0;
+    }
+    var bid = $(obj).attr('bbid');
+    $.get('../Menu/ispad',{ran:Math.random(),ispad:ispad,bid:bid},function(data){
+
+    });
+  }else{
+    art.dialog.alert('第二列必须先选中！');
+    $(obj).prop('checked',false);
+    return false;
+  }
+
+}
+
+//分页查询
+ function pagelist(){
+    var levelid = $('#levelid').val();
+    var subject = $('#subject').val();
+    var isrecommend = $('#isrecommend').val();
+    $.get("../Menu/fenye",
+            {
+              ran:Math.random(),
+              levelid:levelid,
+              subject:subject,
+              isrecommend:isrecommend
+            },
+            function(data){
+            $('.list_table tr:not(:first)').remove();
+            $.each(data,function(k,v){
+                    var tr=$('#demo').children('tbody').children('tr').eq(0).clone();
+                    tr.children('td').eq(0).html(v.id);
+                    tr.children('td').eq(1).find('input').val(v.id);
+                    if(v.status==1){
+                        tr.children('td').eq(1).find('input').val([v.id]);
+                    }
+                    tr.children('td').eq(2).find('input').val(v.sortid);
+                    tr.children('td').eq(3).find('input').val(v.id);
+                    if(v.isnew==1){
+                        tr.children('td').eq(3).find('input').val([v.id]);
+                    }
+                    tr.children('td').eq(4).html(v.title);
+                    tr.children('td').eq(5).html(v.remark);
+                    tr.find('input').attr('bid',v.id);
+                    tr.find('input').attr('bbid',v.bid);
+                    tr.appendTo('.list_table');
+            });
+        })
+ }
+
+
+
+
+function makeJson(){
+  window.open('dodata');
+}
+
+function makeJson2(){
+  window.open('getModules');
+}
+</script>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="/public/Elearn/jiangxi/css/mui.min.css" rel="stylesheet" />
+		<link href="/public/Elearn/jiangxi/css/online-kt.css" rel="stylesheet" />
+		<script type="text/javascript" src="/public/public/js/jquery-1.11.2.min.js" ></script>
+        <script type="text/javascript" src="/public/public/js/jquery.tmpl.min.js" ></script>
+		<script type="text/javascript" src="/public/public/js/uxinterface.js" ></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon  mui-pull-left" id="back"><img src="/public/Elearn/jiangxi/images/backIco.png" width="20" height="20" /></a>
+			<h1 class="mui-title">在线课堂</h1>
+		</header>
+		<div class="kq_content">
+			<div class="kq_search x2">
+				<div class="xuan"><span class="mui-icon mui-icon-arrowdown fr"></span>
+					<div class="mui-input-row   my_select">
+						<select id="subject" onchange="getCourseList();">
+							<option value="0001">语文</option>
+							<option value="0002">数学</option>
+							<option value="0003">英语</option>
+							<option value="0004">物理</option>
+							<option value="0005">化学</option>
+							<option value="0011">地理</option>
+							<option value="0013">历史</option>
+							<option value="0012">政治</option>
+							<option value="0010">生物</option>
+							<option value="0025">职业生涯规划</option>
+						</select>
+					</div>
+				</div>
+				<div class="xuan"><span class="mui-icon mui-icon-arrowdown fr"></span>
+					<div class="mui-input-row   my_select">
+						<select class="com-opt" id="studytype" onchange="getCourseList();">
+							<option value="0">全部课程</option>
+							<option value="1">已学习</option>
+							<option value="2">未学习</option>
+						</select>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+
+			<div class="wklist">
+				<ul class="mui-table-view" id="viewCourseList">
+					
+					
+				</ul>
+			</div>
+
+
+		</div>
+
+	</body>
+
+</html>
+ <script id="tmplCourseList" type="text/x-jquery-tmpl">
+	<li class="mui-table-view-cell">
+	<a href="play?course_id=${id}" target="_blank">
+		<span class="mui-icon mui-icon-videocam"></span>
+		<span class="bt">${title}</span>
+		{{if studytype == "1"}}
+		<span class="mui-badge mui-badge-inverted">已学习</span>
+		{{else}}
+		<span class="mui-badge mui-badge-danger mui-badge-inverted">未学习</span>
+		{{/if}}
+	</a>
+	</li>
+</script>
+
+<script type="text/javascript">
+var username = "vcomhxp";
+var userinfo = "";
+	function getCourseList(username){
+		var subject_code = $("#subject").val();
+		var studytype = $("#studytype").val();
+		  $.ajax({
+		    url:"getCourseList",
+		    type:"get",
+		    dataType:"json",
+		    data:{subject_code:subject_code,studytype:studytype,username:username,ran:Math.random()},
+		    success:function(data){
+		        $("#viewCourseList").empty(); 
+		        $("#tmplCourseList").tmpl(data).appendTo("#viewCourseList");
+		    },
+		    error:function(error){
+		      return false;
+		    } 
+		  });
+	}
+
+	$(function(){
+		try {
+			 userinfo = UXinJSInterface.getUserInfo();
+			 if (typeof userinfo != 'undefined') {
+				userinfo = JSON.parse(userinfo);
+				username = userinfo.studentId;
+      }
+		} catch (error) {
+			
+		}
+		getCourseList(username);
+
+		$("#back").click(function(){
+			popTheController();
+		});
+	})
+</script>

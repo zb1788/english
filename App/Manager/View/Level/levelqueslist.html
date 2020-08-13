@@ -1,0 +1,586 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>单词游戏</title>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+        <script type="text/javascript">
+        var mp = '';
+        var mp3_progress='';
+        var mp3_progress_reap="";
+        function myplay() {
+            var oplay = new Object();
+            oplay.index = 0;
+            oplay.stemindex = 0;
+            oplay.queinitindex = 0;
+            oplay.questionindex = 0;
+            oplay.childstemindex = 0;
+            oplay.playtimes=0;
+            oplay.childinitstemindex = 0;
+            oplay.url = "";
+            oplay.repeat = 1; //默认播放次数
+            oplay.curpeat = 1;//当前播放到第几次
+            oplay.url = "";
+            oplay.play = function(mp3) {
+                $("#jplayer").jPlayer("setMedia", {mp3: mp3}).jPlayer("play");
+            };
+
+            oplay.pause = function() {
+                $("#jplayer").jPlayer("pause");
+                $("#jplayer").unbind($.jPlayer.event.ended);
+                $("#jplayer").unbind($.jPlayer.event.progress);
+            }
+            oplay.clear = function() {
+
+                $("#jplayer").jPlayer("stop");
+                $("#jplayer").jPlayer("clearMedia");
+                //$("#jplayer").data("SpeakMP3Value", "0");
+        //      $("#jplayer").unbind($.jPlayer.event.ended);
+        //      $("#jplayer").unbind($.jPlayer.event.progress);
+            };
+            return oplay;
+        }
+
+        $(function(){
+            $("#jplayer").jPlayer({
+                swfPath: '/public/Homework/js',
+                wmode: "window",
+                supplied: "mp3",
+                preload: "none",
+                volume: "1"
+            });
+            mp = new myplay();
+            mp.clear();
+        });
+    </script>
+    </head>
+    <body>
+            <div class="h10"></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border" style="position:fixed;">
+                <tr>
+                    <td class="pl_10" height="42">
+                        <input id="addword" name="addword" type="button" class="ext_btn ext_btn_submit" value="添加问题" />&nbsp;
+                    </td>
+                    <td class="pl_10" height="42" id="mode">
+                        <input  name="editmode" type="button" class="ext_btn editmode ext_btn_error" value="编辑模式" />&nbsp;
+                        <input  name="previewmode" type="button" class="ext_btn previewmode" value="预览模式" />&nbsp;
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data" style="margin-top:44px;">
+                <tr>
+                    <th width="60">次序</th>
+                    <th width="150">单词</th>
+                    <th width="150">释义</th>
+                    <th width="80">题型</th>
+                    <th width="200">试题</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none" id="table_demo"> 
+                <tr class="tr">
+                    <td><input name="sortid" type="text" class="input-text lh30" size="3" maxlength="2" style="text-align: center;"/></td>
+                    <td align="center"></td>
+                    <td align="left">
+                        <select class="select explains" style="width:150px;">
+
+                        </select>
+                    </td>
+                    <td align="left">
+                        <select class="select questype" style="width:80px;">
+
+                        </select>
+                    </td>
+                    <td align="left"></td>
+                    <td align="left">
+                        &nbsp;&nbsp;
+                        <input type="button" class="ext_btn ext_btn_refresh" value="刷新" />
+                        <input type="button" class="ext_btn ext_btn_submit edit" value="编辑" />
+                        <input type="button" class="ext_btn ext_btn_error" value="删除" />  
+                    </td>
+                </tr>
+            </table>
+            <div class="h5"></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_10" height="42">
+                        <input name="btn_submit" id="btn_submit" type="button" class="ext_btn ext_btn_submit listup" value="修改次序" />
+                        <input name="btn_submit" id="ranupsort" type="button" class="ext_btn ext_btn_submit ranupsort" value="一键排序" />
+                    </td>
+                </tr>
+            </table> 
+        </div>
+        <div id="jplayer"></div>
+        <script type="text/javascript">
+
+
+            $(function() {
+
+                $.ajaxSetup({async: false});
+                $(".tr:odd").css("background", "#F5F8FA");
+                $('.tr:odd').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#F5F8FA");
+                    }
+                });
+
+                $('.tr:even').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#FFF");
+                    }
+                });
+                var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                /**
+                 初始化年级、学期、版本以及单元和单词
+                 **/
+                var Requests = new Object();
+                Requests = GetRequest();
+                var levelid=Requests["levelid"];
+                getLevelQuesEditList(levelid);
+                dloading.close();              
+                /**
+                 删除按钮单击事件
+                 **/
+                $("#table_data .ext_btn_error").live("click", function() {
+                    var tr = $(this).parents("tr");
+                    var id = $(this).attr("bid");
+                    var levelid = $(this).attr("pid");
+                    art.dialog.confirm('你确定要删除这个试题吗？', function() {
+                        dloading.show();
+                        $.get("delLevelQuestion", {levelid:levelid,id:id,random: Math.random()},function(data){
+                            dloading.close();
+                            tr.remove();
+                        });
+                    });
+                });
+
+
+                $(".editmode").click(function(){
+                    $(".previewmode").removeClass("ext_btn_error");
+                    $(this).addClass("ext_btn_error");
+                    $(this).attr("disabled",true);
+                    $(".previewmode").attr("disabled",false);
+                    getLevelQuesEditList(levelid);
+                })
+
+                $(".previewmode").click(function(){
+                    $(".editmode").removeClass("ext_btn_error");
+                    $(this).addClass("ext_btn_error");
+                    $(this).attr("disabled",true);
+                    $(".editmode").attr("disabled",false);
+                    getLevelQuesList(levelid);
+                })
+
+                /**
+                 刷新按钮单击事件
+                 **/
+                $("#table_data .ext_btn_refresh").live("click", function() {
+                    var tr = $(this).parents("tr");
+                    var id = $(this).attr("bid");
+                    var levelid = $(this).attr("pid");
+                    var dloadings = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                    $.getJSON("refreshQuestion",{levelid:levelid,id:id,ran:Math.random()},function(){
+                        var modeflag=$("#mode").find(".ext_btn_error").hasClass("editmode");
+                        if(modeflag){
+                            getLevelQuesEditList(levelid);
+                        }else{
+                            getLevelQuesList(levelid);
+                        }
+                        
+                        dloadings.close();
+                    })
+                });
+
+                //试题编辑
+                $("#table_data .edit").live("click", function() {
+                    var id=$(this).attr("bid");
+                    art.dialog.open('questionedit?levelid='+levelid+"&id="+id,{
+                        title: "添加单词",
+                        width: 800,
+                        height: 500,
+                        lock: true,
+                        opacity: 0.3,
+                        button: [
+                            {
+                                name: '保存',
+                                callback: function() {
+                                    var iframe = this.iframe.contentWindow;
+                                    var re = iframe.saveQuestion();
+                                    if(re){
+                                        var modeflag=$("#mode").find(".ext_btn_error").hasClass("editmode");
+                                        if(modeflag){
+                                            getLevelQuesEditList(levelid);
+                                        }else{
+                                            getLevelQuesList(levelid);
+                                        }
+                                        return true;
+                                    }else{
+                                        return false;
+                                    }
+                                },
+                                focus: true
+                            },
+                            {
+                                name: '关闭',
+                                callback: function() {
+                                    //$("#gradeid").change();
+                                },
+                                focus: false
+                            }
+                        ]
+                    });
+                });
+
+                //单词导入
+                $("#table_data .ext_btn_import").live("click", function() {
+                    var id = $(this).attr("pid");
+                    art.dialog.open('levelwordin?levelid='+id,{
+                        title: "单词上传",
+                        width: 550,
+                        height: 320,
+                        lock: true,
+                        opacity: 0.3,
+                        button: [
+                            {
+                                name: '保存',
+                                callback: function() {
+                                    var modeflag=$("#mode").find(".ext_btn_error").hasClass("editmode");
+                                    if(modeflag){
+                                        getLevelQuesEditList(levelid);
+                                    }else{
+                                        getLevelQuesList(levelid);
+                                    }
+                                    return true;
+                                },
+                                focus: true
+                            },
+                            {
+                                name: '关闭',
+                                callback: function() {
+                                    //$("#gradeid").change();
+                                },
+                                focus: false
+                            }
+                        ]
+                    });
+                });
+                
+                //音频发音
+                $("#table_data .play").live("click", function() {
+                    var mp3=$(this).attr("mp3");
+                    var word_mp3="http://192.168.151.208/yylmp3/mp3_word/";
+                    mp.play(word_mp3+mp3);
+                })
+
+
+                //添加单词
+                $("#addword").click(function(){
+                    art.dialog.open('questionadd?levelid='+levelid,{
+                        title: "添加单词",
+                        width: 800,
+                        height: 500,
+                        lock: true,
+                        opacity: 0.3,
+                        button: [
+                            {
+                                name: '保存',
+                                callback: function() {
+                                    var iframe = this.iframe.contentWindow;
+                                    var re = iframe.saveQuestion();
+                                    if(re){
+                                        var modeflag=$("#mode").find(".ext_btn_error").hasClass("editmode");
+                                        if(modeflag){
+                                            getLevelQuesEditList(levelid);
+                                        }else{
+                                            getLevelQuesList(levelid);
+                                        }
+                                        return true;
+                                    }else{
+                                        return false;
+                                    }
+                                },
+                                focus: true
+                            },
+                            {
+                                name: '关闭',
+                                callback: function() {
+                                    //$("#gradeid").change();
+                                },
+                                focus: false
+                            }
+                        ]
+                    });
+                });
+
+                //释义变化的监听事件
+                $("#table_data .explains").bind("change",function(){
+                    var explainid=$(this).val();
+                    var id=$(this).parents("tr").find("input").attr("bid");
+                    $.getJSON("changeGameLevelQuestionByExplainid",{levelid:levelid,id:id,explainid:explainid,ran:Math.random},function(data){
+                        var modeflag=$("#mode").find(".ext_btn_error").hasClass("editmode");
+                        if(modeflag){
+                            getLevelQuesEditList(levelid);
+                        }else{
+                            getLevelQuesList(levelid);
+                        }
+                    });
+                })
+
+                //题型变化的监听事件
+                $("#table_data .questype").bind("change",function(){
+                    var questype=$(this).val();
+                    var id=$(this).parents("tr").find("input").attr("bid");
+                    $.getJSON("changeGameLevelQuestionByQuestype",{levelid:levelid,id:id,questype:questype,ran:Math.random},function(data){
+                        var modeflag=$("#mode").find(".ext_btn_error").hasClass("editmode");
+                        if(modeflag){
+                            getLevelQuesEditList(levelid);
+                        }else{
+                            getLevelQuesList(levelid);
+                        }
+                    });
+                })
+
+                //顺序的修改
+                $("#btn_submit").click(function()      //正文修改次序按钮点击事件
+                {
+                    var dloading = art.dialog({time: 30, title: '更新中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                    if ($("#table_data tr.tr").length == 0)
+                        return;
+                    var arrjson = [];
+                    var flag=$("#table_data tr.tr").eq(0).find('input[name="sortid"]').attr("disable");
+                    if(flag){
+                        alert("您当前出于编辑模式,请点击预览模式下修改顺序");
+                    }
+                    $("#table_data tr.tr").each(function() {
+                        var tr = $(this);
+                        var id = tr.find('input[name="sortid"]').attr("bid");
+                        var sortid = tr.find('input[name="sortid"]').val();
+                        var obj = {};
+                        obj.id = id;
+                        obj.sortid = sortid;
+                        arrjson.push(obj);
+                    });
+                    $.post("upSortLevelQuestionList", {data:JSON.stringify(arrjson),levelid:levelid}, function() {
+                        var modeflag=$("#mode").find(".ext_btn_error").hasClass("editmode");
+                        if(modeflag){
+                            getLevelQuesEditList(levelid);
+                        }else{
+                            getLevelQuesList(levelid);
+                        }
+                        dloading.close();
+                    });
+
+                });
+
+                //一键随机排序
+                $("#ranupsort").click(function(){
+                    var dloading = art.dialog({time: 30, title: '更新中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                    $.post("randUpSort", {levelid:levelid,ran:Math.random()}, function() {
+                        var modeflag=$("#mode").find(".ext_btn_error").hasClass("editmode");
+                        if(modeflag){
+                            getLevelQuesEditList(levelid);
+                        }else{
+                            getLevelQuesList(levelid);
+                        }
+                        dloading.close();
+                    });
+                })
+
+                // //排序
+                // $("#table_data .explains").bind("change",function(){
+                //     var explainid=$(this).val();
+                //     var id=$(this).parents("tr").find("input").attr("bid");
+                //     $.getJSON("changeGameLevelQuestionByExplainid",{levelid:levelid,id:id,explainid:explainid,ran:Math.random},function(data){
+                //         getLevelQuesList(levelid);
+                //     });
+                // })
+            });
+
+            function getLevelQuesEditList(levelid){
+                $("#table_data td").parent().remove();
+               var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                $.getJSON("getQuestionsEditList",{levelid:levelid,ran:Math.random()},function(data){
+                    dloading.close();
+                    var i = 0;
+                    if(data!=null&&data!='null'){
+                        console.log(data);
+                        $.each(data, function(key, val) {
+                            console.log(key);
+                            i++;
+                            var tr = $("#table_demo tr").eq(0).clone();
+                            var td = tr.children('td').eq(0);
+                            td.find("input").val(i);
+                            td.find("input").attr("disabled",true);
+                            td = tr.children('td').eq(1);
+                            td.html(val.word);
+                            td = tr.children('td').eq(2);
+                            var wordid=val.wordid;
+                            var explainid=val.explainid;
+                            $.getJSON("getExplainListByWordid",{wordid:wordid,ran:Math.random()},function(datas){
+                                $.each(datas, function(is, vals) {
+                                    $(td).find("select").append($("<option>").val(vals.id).text(vals.explains));
+                                });
+                            })
+                            td.find("select").val(explainid);
+                            td = tr.children('td').eq(3);
+                            var wordid=val.wordid;
+                            var explainid=val.explainid;
+                            $.getJSON("getQuestypeList",{wordid:wordid,explainid:explainid,ran:Math.random()},function(datas){
+                                $.each(datas, function(is, vals) {
+                                    $(td).find("select").append($("<option>").val(vals.cindex).text(vals.remark));
+                                });
+                            })
+                            td.find("select").val(val.questype);
+                            td = tr.children('td').eq(4);
+                            var html="";
+                            if(val.questype==0||val.questype==1){
+                                html=("<span><img src='__PUBLIC__/images/icon_listen.png' class='play' width='40px' height='40px' mp3='"+val.tncontent+"'/></span>");
+                            }else{
+                                html=("<span>"+val.tncontent+"</span>");
+                            }
+                            $.each(val.items,function(kk,vv){
+                                if(vv.flag==val.answer){
+                                    if(vv.typeid==0){
+                                        html=html+("<span style='display:block;color:red;'>"+vv.flag+"."+vv.content+"</span>");
+                                    }else{
+                                        html=html+("<span style='display:block;color:red;'>"+vv.flag+".<img src='"+vv.content+"'  width='40px' height='40px'/></span>");
+                                    }
+                                    
+                                }else{
+                                    if(vv.typeid==0){
+                                        html=html+("<span style='display:block;'>"+vv.flag+"."+vv.content+"</span>");
+                                    }else{
+                                        html=html+("<span style='display:block;'>"+vv.flag+".<img src='"+vv.content+"' width='40px' height='40px'/></span>");
+                                    }
+                                    
+                                }
+                                
+                            })
+                            td.html(html);
+                            tr.find("input").attr("pid",levelid);
+                            tr.find("input").attr("bid",key);
+                            tr.appendTo("#table_data");
+                        });
+                    }
+                    
+                })
+            }
+
+            function getLevelQuesList(levelid){
+                $("#table_data td").parent().remove();
+               var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                $.getJSON("getQuestionsList",{levelid:levelid,ran:Math.random()},function(data){
+                    dloading.close();
+                    var i = 0;
+                    if(data!=null&&data!='null'){
+                        console.log(data);
+                        $.each(data, function(key, val) {
+                            console.log(key);
+                            i++;
+                            var tr = $("#table_demo tr").eq(0).clone();
+                            var td = tr.children('td').eq(0);
+                            td.find("input").val(i);
+                            td = tr.children('td').eq(1);
+                            td.html(val.word);
+                            td = tr.children('td').eq(2);
+                            var wordid=val.wordid;
+                            var explainid=val.explainid;
+                            $.getJSON("getExplainListByWordid",{wordid:wordid,ran:Math.random()},function(datas){
+                                $.each(datas, function(is, vals) {
+                                    $(td).find("select").append($("<option>").val(vals.id).text(vals.explains));
+                                });
+                            })
+                            td.find("select").val(explainid);
+                            td = tr.children('td').eq(3);
+                            var wordid=val.wordid;
+                            var explainid=val.explainid;
+                            $.getJSON("getQuestypeList",{wordid:wordid,explainid:explainid,ran:Math.random()},function(datas){
+                                $.each(datas, function(is, vals) {
+                                    $(td).find("select").append($("<option>").val(vals.cindex).text(vals.remark));
+                                });
+                            })
+                            td.find("select").val(val.questype);
+                            td = tr.children('td').eq(4);
+                            var html="";
+                            if(val.questype==0||val.questype==1){
+                                html=("<span><img src='__PUBLIC__/images/icon_listen.png' width='40px' height='40px' mp3='"+val.tncontent+"'/></span>");
+                            }else{
+                                html=("<span>"+val.tncontent+"</span>");
+                            }
+                            $.each(val.items,function(kk,vv){
+                                if(vv.flag==val.answer){
+                                    if(vv.typeid==0){
+                                        html=html+("<span style='display:block;color:red;'>"+vv.flag+"."+vv.content+"</span>");
+                                    }else{
+                                        html=html+("<span style='display:block;color:red;'>"+vv.flag+".<img src='"+vv.content+"'  width='40px' height='40px'/></span>");
+                                    }
+                                    
+                                }else{
+                                    if(vv.typeid==0){
+                                        html=html+("<span style='display:block;'>"+vv.flag+"."+vv.content+"</span>");
+                                    }else{
+                                        html=html+("<span style='display:block;'>"+vv.flag+".<img src='"+vv.content+"' width='40px' height='40px'/></span>");
+                                    }
+                                    
+                                }
+                                
+                            })
+                            td.html(html);
+                            tr.find("input").attr("pid",levelid);
+                            tr.find("input").attr("bid",key);
+                            tr.appendTo("#table_data");
+                        });
+                    }
+                    
+                })
+            }
+
+            function upWordsort() {
+                var dloading = art.dialog({time: 30, title: '更新中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                if ($("#table_data tr.tr").length == 0)
+                    return;
+                var arrjson = [];
+                var peroid = $('#peroid').val();
+                $("#table_data tr.tr").each(function() {
+                    var tr = $(this);
+                    var id = tr.find('input[name="sortid"]').attr("BID");
+                    var sortid = tr.find('input[name="sortid"]').val();
+                    var obj = {};
+                    obj.id = id;
+                    obj.sortid = sortid;
+                    arrjson.push(obj);
+                });
+                $.get("listup", {data:JSON.stringify(arrjson),peroid:peroid}, function(result) {
+                    var modeflag=$("#mode").find(".ext_btn_error").hasClass("editmode");
+                if(modeflag){
+                    getLevelQuesEditList(levelid);
+                }else{
+                    getLevelQuesList(levelid);
+                }
+                    dloading.close();
+                });
+            }
+
+            function GetRequest() {
+                var url = location.search; //获取url中"?"符后的字串
+                var theRequest = new Object();
+                if (url.indexOf("?") != -1) {
+                    var str = url.substr(1);
+                    strs = str.split("&");
+                    for(var i = 0; i < strs.length; i ++) {
+                        theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                    }
+                }
+                return theRequest;
+            }
+        </script> 
+    </body>
+</html>

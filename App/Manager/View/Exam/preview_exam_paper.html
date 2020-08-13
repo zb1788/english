@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>英语听力产品</title>
+        <meta name="Keywords" content="关键词," />
+        <meta name="description" content="这里是描述" />
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <link href="__Hcss__style.css" rel="stylesheet" type="text/css">
+        <link href="__Hcss__font.css" rel="stylesheet" type="text/css">
+        <link href="__Pjs__artDialog/skins/black.css" rel="stylesheet" type="text/css">
+        <script src="__Pjs__jquery.min.js" type="text/javascript"></script>
+        <script src="__Pjs__jquery.cookie.js" type="text/javascript"></script>
+        <script src="__Pjs__artDialog/artDialog.js" type="text/javascript"></script>
+        <script src="__Pjs__jquery.jplayer.min.js" type="text/javascript"></script>
+        <script src="__Hjs__jquery.selectui.js" type="text/javascript"></script>
+        <script src="__Hjs__md5.js" type="text/javascript"></script>
+        <script src="__Hjs__public.js" type="text/javascript"></script>
+        <script src="__Hjs__mp3play.js" type="text/javascript"></script>
+        <script src="__Hjs__listen.js" type="text/javascript"></script>
+        
+        <script src="__Hjs__login.js" type="text/javascript"></script>
+        <script src="__Hjs__arealist.js" type="text/javascript"></script>
+        <script src="__Hjs__yjtYy_properties.js" type="text/javascript"></script>
+        <!--[if IE 7]> <link rel="stylesheet" href="__Hcss__css/ie7.css"> <![endif]-->
+        <!--[if IE]><script src="__Pjs__html5.js"></script><![endif]-->
+        <script type="text/javascript">
+            var examsid="{$examsid}";
+            var exams_mp3_url = "{$Think.config.exams_mp3_path}";
+            $(function() {
+                 $("#jplayer").jPlayer({
+                swfPath: '/public/public/js',
+                wmode: "window",
+                supplied: "mp3",
+                preload: "none",
+                volume: "1"
+    });
+                 mp = new myplay();
+                show_paper_info(examsid);
+            });
+            istlcl=2;
+
+        </script>
+    </head>
+    <body>
+    <include file ="include:header" />
+    <div id="jplayer"></div>
+    <div class="main box">
+        <div id="rightunit" class="rightCon">
+        </div>
+        <div id="rightzt" class="rightCon" style="display:none">    
+        <div class="sxBox" id="zt">
+            <dl id="zttype"><dt>类型：</dt><dd><a href="javascript:;" zttypeid="0" class="cur">全部</a></dd><dd><a href="javascript:;"  zttypeid="1">模拟</a></dd><dd><a href="javascript:;" zttypeid="2">真题</a></dd></dl>
+            <dl id="ztyear"><dt>年份：</dt><dd><a href="javascript:;" yearkey="all" class="cur">全部</a></dd>
+            <volist name="ztyear" id="ztyear">
+                <dd><a href="javascript:;" yearkey="{$ztyear.year}">{$ztyear.year}</a></dd>
+            </volist>
+            </dl>
+            <dl id="ztprovince"><dt>省份：</dt><dd><a href="javascript:;" provinceid="all" class="cur">全部</a></dd>
+            <volist name="ztprovince" id="ztprovince">
+                <dd><a href="javascript:;" provinceid="{$ztprovince.id}">{$ztprovince.name}</a></dd>
+            </volist>
+            </dl>
+        </div>
+        <div class="boxCon readBox">
+                   
+        </div>       
+        </div>    
+
+    </div>
+    <include file ="include:footer" />
+    <include file ="include:login_or_version" />
+    <div id="score" class="topdiv">
+    <div class="tcc_top"><a href="javascript:void(0)" class="fr" onclick = "show_score(2)"></a>成绩</div>
+    <div class="scoreCon">
+        <p><span>总分：</span>100分</p>
+        <p><span>得分：</span>80分</p>
+        <p><span>错误：</span>3题</p>
+    </div>
+    </div>
+</body>
+</html>

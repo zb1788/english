@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<title></title>
+		<!--<link rel="stylesheet" href="../css/iscroll.css" />-->
+		<link rel="stylesheet" href="../css/responsive.css"/>
+		<link rel="stylesheet" href="../css/currency.css" />
+		<link rel="stylesheet" href="../font/fonts.css" />
+		<script type="text/javascript" src="../js/iscroll-lite.js" ></script>
+		<script type="text/javascript" src="../js/demoUtils.js" ></script>
+		<script type="text/javascript" src="../js/TouchSlide.1.1.js" ></script>
+<style>
+	body {background: #fcfcfc;}
+	/*.mui-media-body h3{margin-right: 50px;}*/
+</style>
+</head>
+<body>
+<main>
+<header class="head">
+			<a class="head-left" href="javascript:UXinJSInterface.popTheController();"><i class="icon-back"></i>返回</a>
+			<h1 class="title">单词听写</h1>
+	        <!-- <a class="head-right">分享</a> -->
+</header>
+	<!--页中-->
+<section>
+   <div class="section01">
+        <div class="leftTitle">
+			<img src="../images/title_06.png" alt=""/>
+		</div>
+
+	    <div class="rightLesson">
+			<img src="../images/lessonIcon_06.png" alt=""/>
+		</div>
+   </div>
+	<div class="hx"></div>
+	<div class="section02">
+        <div class="title02">
+			<img src="../images/title_002.png" alt=""/>
+		</div>
+	</div>
+	<div class="contentInfo02">
+		<div class="topTitle">
+			<h4><span>边听边写边提高 单词记更牢</span></h4>
+		</div>
+       <div class="contentList02">
+		   <ul>
+			   <li><img src="../images/iconSmall.png" alt=""/>
+				   <span><b>先选择:&nbsp;</b>选择教材，选择单元，选择单词，选择你想要</span>
+			   </li>
+			   <li><img src="../images/iconSmall02.png" alt=""/>
+				   <span><b>再设置：&nbsp;</b>设置听写模式，贴心满足你需要</span>
+			   </li>
+			   <li><img src="../images/iconSmall03.png" alt=""/>
+				   <span><b>再想想：&nbsp;</b>想不起来先暂停，学会之后再播放，随时随地在学习</span>
+			   </li>
+			   <li><img src="../images/iconSmall04.png" alt=""/>
+				   <span><b>最后检查：&nbsp;</b>听写完成检查对比、收藏单词，针对学习再拔高</span>
+			   </li>
+		   </ul>
+	   </div>
+	</div>
+
+</section>
+	<!--页底-->
+<footer>
+    <div class="footerList">
+		<ul>
+			<li><img src="../images/dc1.jpg" alt=""/></li>
+			<li><img src="../images/dc2.jpg" alt=""/></li>
+			<li><img src="../images/dc3.jpg" alt=""/></li>
+			<li><img src="../images/dc4.jpg" alt=""/></li>
+		</ul>
+	</div>   
+</footer>
+</main>
+<script type="text/javascript" src="../js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$(".head-right").click(function(){
+    		var url = document.location.toString();
+	　　　　var arrUrl = url.split("//");
+	　　　　var start = arrUrl[1].indexOf("/");
+	　　　　var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
+			var arr=relUrl.split("/");
+			var url=arr.pop();
+    		//需要进行ajax的请求
+    		$.getJSON('../../Subject/Api/getLocation',function(data){
+				var title = '《单词听写》游戏化超强记忆快乐背单词，全面提升听说读写能力。';
+	    		var iconUrl = window.location.protocol+"//"+window.location.host+"/public/public/images/dctx.png";
+			    var pageUrl = window.location.protocol+"//"+window.location.host+"/share/html/index6.html?localareacode="+data.localareacode+"&code="+data.code;
+			    var content='《单词听写》展示趣味记忆和自然拼读法，情景记单词，轻松有趣，记单词不枯燥，让记忆快一倍。';
+			    try{
+			        window.UXinJSInterfaceSpeech.webShare(title,iconUrl,pageUrl,content);
+			    }catch(e){
+			        
+			    }
+    		})
+   		 })
+    });
+</script>
+</body>
+</html>

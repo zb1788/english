@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>应用列表</title>
+       <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                            <tr>
+                                <td width="70" align="right">所属学科：</td>
+                                <td>
+                                    <select name="subjectlist" class="select" id="subjectlist" onclick="change_applist();">
+                                      
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="70" align="right">所属应用：</td>
+                                <td>
+                                    <select name="applist" class="select" id="applist" onclick="change_grade();">
+                                      
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                              <tr>
+                                <td width="70" align="right">所属年级：</td>
+                                <td>
+                                    <select name="gradelist" class="select" id="gradelist" onclick="change_ver_img();">
+                                      
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                              <tr>
+                                <td width="70" align="right">所属学期：</td>
+                                <td>
+                                    <select name="termlist" class="select" id="termlist">
+                                      
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                               <tr>
+                                <td width="70" align="right">版本名称：</td>
+                                <td>
+                                    <select name="rmsversionlist" class="select" id="rmsversionlist" onclick="change_ver_img();">
+                                      
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="70" align="right">版本备注：</td>
+                                <td>
+                                   <input type="text" id="remark" name="remark" class="input-text lh30" size="40" value="{$r_remark}" />&nbsp;&nbsp;&nbsp;
+                                </td>
+                            </tr>
+       <tr>
+        <td class="td_right">缩略图：</td>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table" id="table_excel"> 
+                <tr>
+                    <td width="100px">
+                        <input name="btn_submit" id="btn_que_add" type="button" class="ext_btn ext_btn_submit " value="上传图片" onclick="imgupload('#myimg','#filename')" />
+                    </td>
+                    <td align="left">
+                        <img src="/{$pic}" id="myimg" width="100" height="100"/ style="border:1px solid #CCC; padding:2px;" >
+                        <input type="hidden" id="filename" name="filename" value="{$pic}" />&nbsp;(<strong><font color="red">180*270</font></strong>)
+                    </td>
+                </tr>
+            </table> 
+        </td>
+      </tr>
+                        </table>
+                    </td> 
+                </tr> 
+            </table>
+            
+        </div>
+        <div id="edit_tx2" class="edit_tx2" style="display: none;">
+  <iframe id="uploadPhoto" src="{:U('imageupload/index')}" width="100%" style="height:420px; text-align: center;"  frameborder="0" scrolling="no"></iframe>
+</div>
+        <script type="text/javascript">
+        var subject_code = "{$subject_code}";
+        var grade_code = "{$grade_code}";
+        var term_code = "{$term_code}";
+        var app_id = "{$app_id}";
+            $(function() {
+                $.ajaxSetup({async: false});
+                $.EBC.setSubject($('#subjectlist'),subject_code,0);
+                $.EBC.setAppname($('#applist'),$('#subjectlist').val(),app_id);
+                $.EBC.setGrade($('#gradelist'),grade_code,'option');
+                $.EBC.setTerm($('#termlist'),term_code);
+                $.EBC.setRmsVersion($('#rmsversionlist'),'all');
+                
+               change_ver_img();
+            });
+            //添加版本
+            function versionadd(){
+              var subject_code = $('#subjectlist').val();
+              var app_id = $('#applist').val();
+              var subject_name = $('#subjectlist').find("option:selected").text();
+              var grade_code = $('#gradelist').val();
+              var grade_name = $('#gradelist').find("option:selected").text();
+              var term_code = $('#termlist').val();
+              var term_name = $('#termlist').find("option:selected").text();
+              var version_code = $('#rmsversionlist').val();
+              var version_name = $('#rmsversionlist').find("option:selected").text();
+              var pic = $('#filename').val();
+              var remark = $('#remark').val();
+              var flag = false;
+              if(subject_code == 'all'){
+                dialogTips('请选择所属学科');
+                flag = false;
+                return;
+              }
+              if(app_id == '0'){
+                dialogTips('该学科下没有应用，请先添加应用');
+                flag = false;
+                return;
+              }
+              // if(pic == ''){
+              //   dialogTips('请上传版本图片');
+              //   flag = false;
+              //   return;
+              // }
+              $.getJSON('../classapp/Version_save',{app_id:app_id,subject_code:subject_code,subject_name:subject_name,grade_code:grade_code,grade_name:grade_name,term_code:term_code,term_name:term_name,version_code:version_code,version_name:version_name,pic:pic,remark:remark
+              ,random: Math.random()},function(result){
+                  if(result.flag == 0){
+                    dialogTips(result.msg);
+                    flag = false;
+                  }
+                  else{
+                    dialogTips(result.msg);
+                    flag = true;
+                  }
+              });
+              return flag;
+            }
+            function change_ver_img(){
+              var subject_code = $('#subjectlist').val();
+              
+              var grade_code = $('#gradelist').val();
+              
+              var term_code = $('#termlist').val();
+            
+              var version_code = $('#rmsversionlist').val();
+              console.log(grade_code);
+           
+               $.getJSON('../classapp/get_version_img',{subject_code:subject_code,grade_code:grade_code,term_code:term_code,version_code:version_code,random: Math.random()},function(result){
+                //console.log(result.r_pic);
+                    if(result.length > 0){
+                      $("#myimg").attr("src",'/'+result.r_pic);
+                      $("#filename").val(result.r_pic);
+                    }
+                    else{
+                      $("#myimg").attr("src",'/uploads/learnimg/noimg.png');
+                      $("#filename").val('');
+                    }
+               })
+            }
+            function change_applist(){
+               $.EBC.setAppname($('#applist'),$('#subjectlist').val(),app_id);
+               change_grade();
+            }
+
+            function change_grade(){
+              var app_id = $('#applist').val();
+              $.getJSON('../classapp/get_app_grade_conf',{app_id:app_id,random: Math.random()},function(data){
+                  $.EBC.setGrade($('#gradelist'),data.grade_code,'option');
+                  change_ver_img();
+              });
+            }
+        </script> 
+    </body>
+</html>

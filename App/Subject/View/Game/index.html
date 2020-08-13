@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="wap-font-scale" content="no">
+	<meta charset="UTF-8">
+	<title>英语闯关</title>
+	<link rel="stylesheet" href="__SUBJECT__game/css/css.css" />
+	<link rel="stylesheet" href="__SUBJECT__game/font/style.css" />
+	<link rel="stylesheet" href="__SUBJECT__game/css/button.css" />
+	<link rel="stylesheet" href="__SUBJECT__game/css/demo.css" />
+	<link rel="stylesheet" href="__SUBJECT__game/font/fonts/fonts.css" />
+	<script type="text/javascript" src="__PUBLIC__js/jquery.min.js" ></script>
+	<script type="text/javascript" src="__PUBLIC__js/jquery.cookie.js" ></script>
+	<style>
+		#wrapper {margin-top: 45px; bottom:0px; left:0; right:0;}
+	</style>
+</head>
+<body>
+	<header class="head border-nav">
+		<a class="head-left" href="javascript:void(0);"><i class="icon-left2"></i>返回</a>
+		<h1 class="title">单词闯关王</h1>
+		<!-- <a class="head-right" style="font-weight: 500;font-size: 17px;" >{$gamegradename}</a> -->
+	</header>
+	<section>
+		<div id="wrapper" class="backGef">
+			<div id="scroller">	
+				<div class="pad10">
+					<ul class="xzList" id="xzList">
+						
+					</ul>
+				</div>
+			</div><!--end scrolloer-->
+		</div><!--end wrapper-->
+	</section>
+	<div class="nianji22">
+	    <ul class="nianjia-w" id="nianjia">
+	    	<li bid="3"><div class="nianji">全部</div></li>
+	        <li bid="0"><div class="nianji">小学</div></li>
+	        <li bid="1"><div class="nianji">初中 </div></li>
+	        <li bid="2"><div class="nianji">高中</div></li>
+	        
+	    </ul>
+	    <ul class="nianjia-t" id="nianjib">
+	        <li><span class="xiaobiao">一年级</span></li>
+	        <li><span class="xiaobiao">二年级</span></li>
+	        <li><span class="xiaobiao">三年级</span></li>
+	        <li><span class="xiaobiao">四年级</span></li>
+	        <li><span class="xiaobiao">五年级</span></li>
+	        <li><span class="xiaobiao">六年级</span></li>
+	        <li><span class="xiaobiao">七年级</span></li>
+	        <li><span class="xiaobiao">八年级</span></li>
+	        <li><span class="xiaobiao">九年级</span></li>
+	    </ul>
+	</div>
+	<div id="tips"></div>
+    <!-- <a class="prev" id="prev" style="width:50%;" style="display:none;">上一题</a>
+    <a class="next" id="next" style="width:50%;" style="display:none;">下一题</a> -->
+    <!--遮罩的代码-->
+    <div id="over" class="over"></div>
+    <div id="layout" class="layout">
+        <img src="__SUBJECT__img/2013112931.gif" alt="" />
+    </div>
+    <style>
+        .over {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f5f5f5;
+            opacity:0.5;
+            z-index: 1000;
+        }
+        .layout {
+            display: block;
+            position: absolute;
+            top: 40%;
+            left: 40%;
+            width: 20%;
+            height: 20%;
+            z-index: 1001;
+            text-align:center;
+        }
+        .cur{
+            background-color: oldlace;
+        }
+        body{background:#fff}
+    </style>
+    <script type="text/javascript" src="__PUBLIC__js/enajax.js" ></script>
+    <script type="text/javascript" src="__SUBJECT__js/wordgame.js" ></script>
+    <script type="text/javascript">
+    	var usercurgameid="{$gameid}";
+	    var mp3wordlist="";
+	    var peroid=0;
+	    var grade=0;
+	    var gradeid = Requests["gradeid"];
+	    var gamegradeid = 0;
+	    if($.type(gradeid) == "undefined"){
+	    	
+	    	gamegradeid = $.cookie("gamegradeid");
+	    }
+	    else{
+	    	gamegradeid = parseInt(gradeid);
+	    	$.cookie("gamegradeid",gamegradeid,{ path: '/' });
+	    }
+	    $(function(){
+	    	//列表的初始化
+	    	getWordGameList("getGameListByGrade",gamegradeid,$("#xzList"),usercurgameid);
+	    	perface();
+	    	
+
+	    	//menu的点击事件
+	    	$(".head-right").click(function(){
+		        if ($('.nianji22').hasClass('grade-w-roll')) {
+		            $('.nianji22').removeClass('grade-w-roll');
+		        } else {
+		            $('.nianji22').addClass('grade-w-roll');
+		        }
+		    });
+
+		    $(".nianjia-w>li").click(function(){
+		    	//填充子元素
+		    	$("#nianjib").empty();
+		    	var bid=$(this).attr("bid");
+		    	var html="";
+		    	if(bid=='0'){
+		    		html='<li grade="1"><span class="xiaobiao1">一年级</span></li><li grade="2"><span class="xiaobiao1">二年级</span></li><li grade="3"><span class="xiaobiao1">三年级</span></li><li grade="4"><span class="xiaobiao1">四年级</span></li><li grade="5"><span class="xiaobiao1">五年级</span></li><li grade="6"><span class="xiaobiao1">六年级</span></li>';
+		    		$("#nianjib").html(html);
+		        	$(".nianjia-t").css("left","50%")
+		    	}else if(bid=="1"){
+		    		html='<li  grade="7"><span class="xiaobiao1">七年级</span></li><li  grade="8"><span class="xiaobiao1">八年级</span></li><li  grade="9"><span class="xiaobiao1">九年级</span></li>';
+		    		$("#nianjib").html(html);
+		        	$(".nianjia-t").css("left","50%")
+		    	}else if(bid=="2"){
+		    		html='<li  grade="10"><span class="xiaobiao1">高中</span></li>';
+		    		$("#nianjib").html(html);
+		        	$(".nianjia-t").css("left","50%")
+		    	}else if(bid=="3"){
+		    		$(".head-right").text("全部");
+		    		$('.nianji22').removeClass('grade-w-roll');
+		    		getWordGameList("getGameListByGrade","-1",$("#xzList"));
+		    	}
+		    	
+		    });
+
+		    $("#nianjib").on("click","li",function(){
+		    	//用户的设置信息
+
+		    	grade=$(this).attr("grade");
+		    	var name=numToString(parseInt(grade));
+		    	if(grade=="10"){
+		    		name="高中";
+		    	}else{
+		    		name=name+"年级";
+		    	}
+		    	$(".head-right").text(name);
+		    	$(this).siblings().children().filter('i').remove();
+			    $(this).append('<i class="fa fa-check-circle fa-lg "></i>');
+			    $('.nianji22').removeClass('grade-w-roll');
+			    getWordGameList("getGameListByGrade",grade,$("#xzList"));
+		    })
+
+		    $(".head-left").click(function(){
+	        	var Requests = new Object();
+	            Requests = GetRequest();
+	            window.location.href=Requests["backUrl"];
+	        })
+	    });
+	</script>
+	</body>
+</html>

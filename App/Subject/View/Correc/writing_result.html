@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<meta name="wap-font-scale" content="no">
+		<title>批改报告</title>
+		<link rel="stylesheet" href="__SUBJECT__/correc/css/mui.min.css" />
+		<link rel="stylesheet" href="__SUBJECT__/correc/css/currency.css" />
+		<link rel="stylesheet" href="__SUBJECT__/correc/font/fonts.css" />
+		
+<style>
+	body {background: #fcfcfc;}
+	.mui-media-body h3{margin-right: 50px;}
+</style>
+
+</head>
+<body>
+<main>
+<header class="head">
+			<a class="head-left" href="index"><i class="icon-back"></i>返回</a>
+			<h1 class="title">智课作文</h1>
+			<a class="head-right">批改记录</a>
+</header>
+<section>
+
+<div class="mt55">
+<volist name="result" id="data">
+	<div class="mui-card mt10">
+    <ul class="mui-table-view">
+	<li class="mui-table-view-cell mui-media">
+		<span class="fenfen">{$data.score}分</span>
+			<span class=" mui-pull-left xueke xk1 edi-yuan">个人<br />上传</span>
+			<div class="mui-media-body">
+				<h3 class="mb10">{$data.title}</h3>
+				<p class="mui-ellipsis fon08">次数：{$data.submitnum}次 提分：{$data.addscore}分 类型：个人上传</p>
+			</div>
+			<div class="bortop"><span class="mui-pull-left font3">{$data.submittime}</span><div class="mui-pull-right"><button type="button" class="mui-btn mar_r10 colorb02 viewbaogao" content="{$data.content}" bid="{$data.id}">查看报告</button><button type="button" class="mui-btn" onclick="location='index?id={$data.id}'">修改作文</button></div></div>
+	</li>
+    </ul>
+	</div>
+	</volist>
+	</div>
+	<div class="brg"></div>
+	<div style="position: absolute; top: 0; left: 0; right: 0;">
+    <div class="cloud"><i class="icon-yumao"></i><span>正在调取中，请稍后..</span></div></div>
+</section>
+</main>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.2.min.js" ></script>
+<script type="text/javascript">
+var type="{$type}";
+$('.viewbaogao').click(function() {
+	var content = $(this).attr('content');
+	var id = $(this).attr('bid');
+	$(document).scrollTop(0);
+	$('.cloud').show();
+	$('.brg').show();
+	$.ajax({
+				dataType:'json',
+				url:'/Subject/Correc/writing',
+				type : 'post',
+				data : {
+					'content':content,
+					'type' : type,
+					'id':id,
+					'submittype':1
+				},
+				success : function(json) {
+					$('.cloud').hide();
+					$('.brg').hide();
+					window.location.href= 'baogao?id='+json.id;
+				}
+	});
+})
+</script>
+</body>
+</html>
+<script type="text/javascript" src="__PUBLIC__/js/unitlog.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/performance.js" ></script>

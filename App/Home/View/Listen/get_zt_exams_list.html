@@ -1,0 +1,11 @@
+<foreach name="exams_list" item="exams_list">
+    <dl class="readCon">
+        <a href="javascript:show_paper_info({$exams_list.id});" onclick="return isLogin();">
+            <img src="__Himg__icon_reading.png">
+            <dt>{$exams_list.name}</dt>
+            <dd>本测试包含{$exams_list.papernum}题</dd>
+            <dd>{$exams_list.studynum}人完成</dd>
+        </a>
+    </dl>
+</foreach>
+    

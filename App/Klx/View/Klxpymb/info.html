@@ -1,0 +1,392 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>远教信使-成语词典</title>
+<link href="__PUBLIC__/style/klxpymb/xpy.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/js/jquery.min.js" type="text/javascript"></script>
+<script type="application/javascript" src="__PUBLIC__/js/iscroll/build/iscroll.js?v4"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jPlayer/dist/jplayer/jquery.jplayer.min.js"></script>
+<script src="__PUBLIC__/style/klxszM/hammer.min.js" type="text/javascript"></script>
+<!--
+<script src="../script/jquery.mobile-1.4.5.js" type="text/javascript"></script>-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+.btnplay{padding: 0; float: right; font-size: 0.8em; color: #777!important; }
+.btnplay i {width: 20px; height: 20px; display:inline-block; background: url(__PUBLIC__/style/klxpymb/play.png); background-size: 100%; vertical-align: sub; margin-left: 5px; margin-right: 5px;}
+</style>
+</head>
+
+<body>
+
+<header>
+
+            <div class="back"><a href="javascript:backToIndex();"><img src="__PUBLIC__/style/klxpymb/backIco.png" width="20" height="20" />返回</a></div>
+            <h1>学拼音</h1>
+			<div class="kc_setup"><a class="shou" href="javascript:void(0);"></a></div>
+<span class="line"></span>
+</header>
+
+ <div id="wrapper" class="qie_b">
+            <ul>
+                <li name="mode" class="on" id="1Tab_0" onclick="this.style.cursor='pointer';modeClick(this);"  ><a>看</a></li>
+                <li name="mode" id="1Tab_1" onclick="this.style.cursor='pointer';modeClick(this);" ><a >听</a></li>
+				<li name="mode" id="1Tab_3" onclick="this.style.cursor='pointer';modeClick(this);" ><a >写</a></li>
+            </ul>
+            </div>
+<div id="1s_0">
+	<div class="gifSlide">
+	<div class="divPad">
+	<div class="kan bg" id="kandiv">
+		<img src="__PUBLIC__/style/klxpymb/bg_01.png" />
+		<span class="ren"><img id="look" src="__RESOURCE__/uploadklx/klxpy/upload/mb/b/b.png" /></span>
+		<span class="zi"><img id="pic" src="__RESOURCE__/uploadklx/klxpy/upload/mb/b/b1.png" /></span>
+	</div>
+
+	<div class="ttin bg" id="tingdiv" style="display:none;">
+		<img src="__PUBLIC__/style/klxpymb/bg_01.png" />
+		<span class="xx" id="listen_text">发音时，双唇紧闭，阻碍气流，然后双唇突然放开，让气流冲出，读音轻短。</span>
+		<span class="zi" ><img id="listen_pic" src="__RESOURCE__/uploadklx/klxpy/upload/mb/b/b1.png" /></span>
+		<span class="bofang" id="laba" onclick="labaClick();"></span>
+	</div>
+
+	<div class="xxie bg" id="xiediv" style="display:none;">
+		<img src="__PUBLIC__/style/klxpymb/bg_01.png" />
+		<span class="xx"><img id="gif" src="__RESOURCE__/uploadklx/klxpy/upload/mb/b/b.gif" /></span>
+	</div>
+	</div>
+	</div>
+	<div class="gifRight">
+	<div class="qs">
+	<a class="on" href="javascript:void(0);" id="sm">声母表</a><a href="javascript:void(0);" id="ym">韵母表</a><a href="javascript:play();" class="btnplay"><i></i>播放</a>
+	</div>
+	<div class="xuan" id="shengmu">
+			<a href="javascript:void(0);" onclick="smClick(this);" class="onf"><span>b</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>p</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>m</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>f</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>d</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>t</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>n</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>l</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>g</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>k</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>h</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>j</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>q</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>x</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>zh</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>ch</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>sh</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>r</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>z</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>c</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>s</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>y</span></a>
+			<a href="javascript:void(0);" onclick="smClick(this);"><span>w</span></a>
+			<div class="clearfix"></div>
+	</div>
+	<div class="xuan" id="yunmu" style="display:none;">
+			<a href="javascript:void(0);" onclick="ymClick(this);" class="onf"><span>a</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>o</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>e</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>i</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>u</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>ü</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>ai</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>ei</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>ui</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>ao</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>ou</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>iu</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>ie</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>üe</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>er</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>an</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>en</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>in</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>un</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>ün</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>ang</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>eng</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>ing</span></a>
+			<a href="javascript:void(0);" onclick="ymClick(this);"><span>ong</span></a>
+			<div class="clearfix"></div>
+	</div>
+	</div>
+</div>
+<div id="jplayer"></div>
+
+</body>
+
+<script type="text/javascript" src="__PUBLIC__/js/ckplayer/ckplayer.js" charset="utf-8"></script>
+<script>
+$.ajaxSetup({async:false});
+	var letters={
+			"a":{"look":"a/a.png","pic":"a/a1.png","mp4":"a/a.mp4","listen":"发音时，嘴唇自然张大，舌放平，舌头中间微隆，声带颤动。"},
+			"o":{"look":"o/o.png","pic":"o/o1.png","mp4":"o/o.mp4","listen":"发音时，嘴唇成圆形，微翘起，舌头向后缩，舌面后部隆起，舌居中，声带颤动。"},
+			"e":{"look":"e/e.png","pic":"e/e1.png","mp4":"e/e.mp4","listen":"发音时，嘴半开，舌位靠后，嘴角向两边展开成扁形，声带颤动。"},
+			"i":{"look":"i/i.png","pic":"i/i1.png","mp4":"i/i.mp4","listen":"发音时，嘴微张成扁平状，舌尖抵住下齿龈，舌面抬高，靠近上硬腭，声带颤动。"},
+			"u":{"look":"u/u.png","pic":"u/u1.png","mp4":"u/u.mp4","listen":"发音时，嘴唇拢圆，突出成小孔，舌面后部隆起，声带颤动。"},
+			"v":{"look":"v/v.png","pic":"v/v1.png","mp4":"v/v.mp4","listen":"发音时，嘴唇成圆形，接近闭拢，舌尖抵住下齿龈，舌面前部隆起，声带颤动。"},
+			"b":{"look":"b/b.png","pic":"b/b1.png","mp4":"b/b.mp4","listen":"发音时，双唇紧闭，阻碍气流，然后双唇突然放开，让气流冲出，读音轻短。"},
+			"p":{"look":"p/p.png","pic":"p/p1.png","mp4":"p/p.mp4","listen":"发音时，双唇紧闭，阻碍气流，然后双唇突然放开，气流迸出成音。"},
+			"m":{"look":"m/m.png","pic":"m/m1.png","mp4":"m/m.mp4","listen":"发音时，双唇紧闭，舌后缩，气流从鼻腔出来，打开嘴，声带颤动。"},
+			"f":{"look":"f/f.png","pic":"f/f1.png","mp4":"f/f.mp4","listen":"发音时，上齿触下唇形成窄缝，让气流从缝中挤出来，摩擦成声。"},
+			"d":{"look":"d/d.png","pic":"d/d1.png","mp4":"d/d.mp4","listen":"发音时，舌尖抵住上牙床，憋住气流后突然放开，气流从口腔迸出，爆发成音。"},
+			"t":{"look":"t/t.png","pic":"t/t1.png","mp4":"t/t.mp4","listen":"发音时，舌尖抵住上牙床，憋住气后，突然离开，气流从口中迸出。"},
+			"n":{"look":"n/n.png","pic":"n/n1.png","mp4":"n/n.mp4","listen":"发音时，舌尖抵住上牙床，气流从鼻腔通过，同时冲开舌尖的阻碍，声带颤动。"},
+			"l":{"look":"l/l.png","pic":"l/l1.png","mp4":"l/l.mp4","listen":"发音时，嘴唇稍开，舌尖抵住上牙床，声带颤动，气流从舌尖两边流出。"},
+			"g":{"look":"g/g.png","pic":"g/g1.png","mp4":"g/g.mp4","listen":"发音时，舌根前部抵住软腭阻碍气流，让气流冲破舌根的阻碍，爆发成音。"},
+			"k":{"look":"k/k.png","pic":"k/k1.png","mp4":"k/k.mp4","listen":"发音时，舌根前部，抵住上软腭，阻碍气流，让气流冲破舌根的阻碍，迸发成音。"},
+			"h":{"look":"h/h.png","pic":"h/h1.png","mp4":"h/h.mp4","listen":"发音时，舌根抬高，接近软腭，形成窄缝，气流从缝中挤出，摩擦成音。"},
+			"j":{"look":"j/j.png","pic":"j/j1.png","mp4":"j/j.mp4","listen":"发音时，舌尖抵住下门齿，舌面前部紧贴硬腭，气流从窄缝中冲出，摩擦成音。"},
+			"q":{"look":"q/q.png","pic":"q/q1.png","mp4":"q/q.mp4","listen":"发音时，舌面前部贴住硬腭，气流冲破舌根的阻碍，摩擦成音。"},
+			"x":{"look":"x/x.png","pic":"x/x1.png","mp4":"x/x.mp4","listen":"发音时，舌尖抵住下门齿，舌面前部抬高靠近硬腭，形成窄缝，气流从缝中挤出，摩擦成音。"},
+			"zh":{"look":"zh/zh.png","pic":"zh/zh1.png","mp4":"zh/zh.mp4","listen":"发音时，舌尖上翘，抵住硬腭前部，有较弱的气流冲开舌尖阻碍，从缝中挤出，摩擦成音。"},
+			"ch":{"look":"ch/ch.png","pic":"ch/ch1.png","mp4":"ch/ch.mp4","listen":"发音时，舌尖上翘，抵住硬腭前部，有较强的气流冲开舌尖阻碍，从缝中挤出，摩擦成音。"},
+			"sh":{"look":"sh/sh.png","pic":"sh/sh1.png","mp4":"sh/sh.mp4","listen":"发音时，舌尖上翘，靠近硬腭前部，留出窄缝，气流从窄缝中挤出，摩擦成音。"},
+			"r":{"look":"r/r.png","pic":"r/r1.png","mp4":"r/r.mp4","listen":"发音时，舌尖上翘，靠近硬腭前部，留出窄缝，嗓子用力发音，气流从窄缝中挤出，摩擦成音，声带颤动。"},
+			"z":{"look":"z/z.png","pic":"z/z1.png","mp4":"z/z.mp4","listen":"发音时，舌尖抵住上门齿背，阻碍气流，让较弱的气流冲开舌尖阻碍，从窄缝中挤出，摩擦成音。"},
+			"c":{"look":"c/c.png","pic":"c/c1.png","mp4":"c/c.mp4","listen":"发音时，舌尖抵住上门齿背，阻碍气流，让较强的气流从缝中挤出，摩擦成音。"},
+			"s":{"look":"s/s.png","pic":"s/s1.png","mp4":"s/s.mp4","listen":"发音时，舌尖接近上门齿背，留出窄缝，气流从舌尖的窄缝中挤出，摩擦成音。"},
+			"y":{"look":"y/y.png","pic":"y/y1.png","mp4":"y/y.mp4","listen":"发音时，嘴微张成扁平状，舌尖抵住下齿龈，舌面抬高，靠近上硬腭，声带颤动。"},
+			"w":{"look":"w/w.png","pic":"w/w1.png","mp4":"w/w.mp4","listen":"发音时，嘴唇拢圆，突出成小孔，舌面后部隆起，声带颤动。"},
+			"ai":{"look":"ai/ai.png","pic":"ai/ai1.png","mp4":"ai/ai.mp4","listen":"发音时，先发 a 的音，然后滑向i，气流不中断，读音轻短。"},
+			"ei":{"look":"ei/ei.png","pic":"ei/ei1.png","mp4":"ei/ei.mp4","listen":"发音时，先发 e 的音，然后滑向i，气流不中断，嘴角向两边展开。"},
+			"ui":{"look":"ui/ui.png","pic":"ui/ui1.png","mp4":"ui/ui.mp4","listen":"发音时，u 的发音轻短，然后滑向 ei，嘴形由圆到扁。"},
+			"ao":{"look":"ao/ao.png","pic":"ao/ao1.png","mp4":"ao/ao.mp4","listen":"发音时，先发 a 的音，然后舌尖后缩，舌根向上抬，嘴形拢成圆形，轻轻的滑向 o。"},
+			"ou":{"look":"ou/ou.png","pic":"ou/ou1.png","mp4":"ou/ou.mp4","listen":"发音时，先发 o 的音，嘴唇渐收拢，舌根抬高，口型由大圆到小圆。"},
+			"iu":{"look":"iu/iu.png","pic":"iu/iu1.png","mp4":"iu/iu.mp4","listen":"发音时，先发 i，然后向 ou 滑动，口型由扁到圆。"},
+			"ie":{"look":"ie/ie.png","pic":"ie/ie1.png","mp4":"ie/ie.mp4","listen":"发音时，先发 i，再发e，气流不中断。"},
+			"ve":{"look":"ve/ve.png","pic":"ve/ve1.png","mp4":"ve/ve.mp4","listen":"发音时，先发 ü 的音，然后向e滑动，口型由圆到扁。"},
+			"er":{"look":"er/er.png","pic":"er/er1.png","mp4":"er/er.mp4","listen":"发音时，舌位居中发 e 的音，然后舌尖向硬腭卷起，两个字母同时发音。"},
+			"an":{"look":"an/an.png","pic":"an/an1.png","mp4":"an/an.mp4","listen":"发音时，先发 a 的音，然后舌尖逐渐抬起，顶住上牙床发n的音。"},
+			"en":{"look":"en/en.png","pic":"en/en1.png","mp4":"en/en.mp4","listen":"发音时，先发 e 的音，然后舌面抬高,舌尖抵住上牙床，气流从鼻腔泄出，发n的音。"},
+			"in":{"look":"in/in.png","pic":"in/in1.png","mp4":"in/in.mp4","listen":"发音时，先发 i 的音，然后舌尖抵住下门齿背，舌面渐至硬腭，气流从鼻腔泄出，发n的音。"},
+			"un":{"look":"un/un.png","pic":"un/un1.png","mp4":"un/un.mp4","listen":"发音时，先发 u 的音，然后舌尖抵住上牙床，接着发n的音，气流从鼻腔泄出。"},
+			"vn":{"look":"vn/vn.png","pic":"vn/vn1.png","mp4":"vn/vn.mp4","listen":"发音时，先发 ü 的音，然后舌头上抬，抵住上牙床，气流从鼻腔泄出，发n的音。"},
+			"ang":{"look":"ang/ang.png","pic":"ang/ang1.png","mp4":"ang/ang.mp4","listen":"发音时，先发 a 的音，然后舌根抵住上软腭，气流从鼻腔泄出，发后鼻音尾ng的音。"},
+			"eng":{"look":"eng/eng.png","pic":"eng/eng1.png","mp4":"eng/eng.mp4","listen":"发音时，先发 e 的音，然后舌尖抵住下牙床，舌根后缩抵住软腭发ng音，气流从鼻腔泄出。"},
+			"ing":{"look":"ing/ing.png","pic":"ing/ing1.png","mp4":"ing/ing.mp4","listen":"发音时，舌尖触下齿龈，舌面隆起至硬腭，鼻腔共鸣成声。"},
+			"ong":{"look":"ong/ong.png","pic":"ong/ong1.png","mp4":"ong/ong.mp4","listen":"发音时，先发 o 的音，然后舌根后缩抵住软腭，舌面隆起，嘴唇拢圆，鼻腔共鸣成声。 "}
+		};
+//str:看，停，读，写
+//type:声母，韵母
+function show(str,type,letters){
+	jpclear();
+	if (type == 'sm'){
+		var now = $('#shengmu a.onf').children('span').html();
+	}else {
+		//韵母
+		var now = $('#yunmu a.onf').children('span').html();
+	}
+	now = now.replace('ü','v');
+
+	if(str == '看'){
+		eval('var look = letters.'+now+'.look');
+		eval('var pic = letters.'+now+'.pic');
+		$('#look').attr('src','__RESOURCE__/uploadklx/klxpy/upload/mb/'+look);
+		$('#pic').attr('src','__RESOURCE__/uploadklx/klxpy/upload/mb/'+pic);
+
+
+		$('#kandiv').show();
+		$('#tingdiv').hide();
+		$('#xiediv').hide();
+	}else if(str == '听'){
+		eval('var pic = letters.'+now+'.pic');
+		eval('var listen = letters.'+now+'.listen');
+		$('#listen_text').html(listen);
+		$('#listen_pic').attr('src','__RESOURCE__/uploadklx/klxpy/upload/mb/'+pic);
+		var url='__RESOURCE__/uploadklx/klxpy/upload/mb/'+now+'.mp3';
+		$('#laba').attr('url',url);
+		jpstart(url);
+
+		$('#tingdiv').show();
+		$('#kandiv').hide();
+		$('#xiediv').hide();
+	}else{
+		var gif='__RESOURCE__/uploadklx/klxpy/upload/mb/'+now+'/'+now+'.gif';
+		$('#gif').attr('src',gif);
+
+		$('#xiediv').show();
+		$('#tingdiv').hide();
+		$('#kandiv').hide();
+	}
+}
+
+function play(){
+	jpclear();
+	var type = $('.qs a.on').attr('id');
+	if (type == 'sm'){
+		var now = $('#shengmu a.onf').children('span').html();
+	}else {
+		//韵母
+		var now = $('#yunmu a.onf').children('span').html();
+	}
+	now = now.replace('ü','v');
+	eval('var mp4 = letters.'+now+'.mp4');
+	//$('#player').attr('src','../Upload/mb/'+mp4);
+	var url = '__RESOURCE__/uploadklx/klxpy/upload/mb/'+mp4;
+	location.href=url;
+}
+
+
+//播放音频
+ function labaClick(){
+ 	var url=$('#laba').attr('url');
+	jpstart(url);
+ }
+ // $('#laba').live('click',function(){
+ // 	var url=$('#laba').attr('url');
+	// jpstart(url);
+ // });
+
+
+//停止播放
+function jpclear() {
+	$("#jplayer").jPlayer("clearMedia");
+	$("#jplayer").jPlayer("stop");
+	$("#jplayer").unbind($.jPlayer.event.ended);
+	$("#jplayer").unbind($.jPlayer.event.progress);
+}
+//开始播放
+function jpstart(mp3){
+$("#jplayer").jPlayer({
+	swfPath: "js",
+	wmode: "window",
+	supplied: "mp3",
+	preload: "none",
+	volume: "1"
+	});
+	$("#jplayer").jPlayer("setMedia", {
+	mp3: mp3
+	}).jPlayer("play");
+	$("#jplayer").bind($.jPlayer.event.ended, function(event) {
+	//$('#laba').attr('class','shengyin');
+  });
+}
+
+
+$(function(){
+	$('#test').focus();
+
+
+	//进来是韵母
+	// if('{$id}'==2){
+	// 	$('#sm').removeAttr('class');
+	// 	$('#ym').attr('class','on');
+	// 	$("#shengmu").hide();
+	// 	$('#yunmu').show();
+
+	// 	var str=$('#wrapper ul li.on').children('a').html();
+	// 	show(str,'ym',letters);
+	// }
+
+
+
+	//点击声母
+	$('#sm').click(function(){
+		$('#ym').removeAttr('class');
+		$('#sm').attr('class','on');
+		$("#shengmu").show();
+		$('#yunmu').hide();
+
+		var str=$('#wrapper ul li.on').children('a').html();
+		show(str,'sm',letters);
+	});
+	//点击韵母
+	$('#ym').click(function(){
+		$('#sm').removeAttr('class');
+		$('#ym').attr('class','on');
+		$("#shengmu").hide();
+		$('#yunmu').show();
+
+		var str=$('#wrapper ul li.on').children('a').html();
+		show(str,'ym',letters);
+	});
+
+
+
+
+
+	var hammertime = new Hammer(document.getElementById("1s_0"));
+
+
+    //添加事件
+    hammertime.on("swipeleft", function (e) {
+    	var type = $('.qs a.on').attr('id');
+		var str=$('li[name="mode"].on').next('li').children('a').html();
+		if(str=='undefined'){return false;}
+		$('li[name="mode"].on').next('li').attr('class','on');
+		$('li[name="mode"].on').prev('li').removeAttr('class');
+		show(str,type,letters);
+    });
+    hammertime.on("swiperight", function (e) {
+    	var type = $('.qs a.on').attr('id');
+		var str=$('li[name="mode"].on').prev('li').children('a').html();
+		if(str=='undefined'){return false;}
+		$('li[name="mode"].on').prev('li').attr('class','on');
+		$('li[name="mode"].on').next('li').removeAttr('class');
+		show(str,type,letters);
+    });
+
+
+});
+
+
+	//点击听写读看
+	function modeClick(obj){
+		$(obj).attr('class','on');
+		$(obj).siblings().removeAttr('class');
+		var str = $(obj).children('a').html();//看听读写
+		var type = $('.qs a.on').attr('id');
+		show(str,type,letters);
+	}
+
+
+	//点击声母的拼音
+	function smClick(obj){
+		$(obj).siblings().removeAttr('class');
+		$(obj).attr('class','onf');
+		var str=$('#wrapper ul li.on').children('a').html();
+		show(str,'sm',letters);
+	}
+
+	//点击韵母的拼音
+	function ymClick(obj){
+		$(obj).siblings().removeAttr('class');
+		$(obj).attr('class','onf');
+		var str=$('#wrapper ul li.on').children('a').html();
+		show(str,'ym',letters);
+	}
+
+
+
+function load(url){
+    var flashvars={
+        f:url,
+        c:0
+    };
+    var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always',wmode:'transparent'};
+    var video=[url+'->video/mp4'];
+    CKobject.embed('__PUBLIC__/js/ckplayer/ckplayer.swf','dudiv','ckplayer_a1','100%','100%',false,flashvars,video,params);
+ }
+
+var urlCallBack = GetQueryString('backUrl');
+function backToIndex(){
+    if(urlCallBack == null){
+        window.location.href='http://www.czbanbantong.com';
+    }else{
+        window.location.href=urlCallBack;
+    }
+}
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  decodeURI(unescape(r[2])); return null;
+}
+
+</script>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="wap-font-scale" content="no">
+		<meta charset="UTF-8">
+		<title>英语闯关</title>
+		<link rel="stylesheet" href="__SUBJECT__/game/css/css.css" />
+		<link rel="stylesheet" href="__SUBJECT__/game/font/style.css" />
+		<link rel="stylesheet" href="__SUBJECT__/game/css/iscroll.css" />
+		<link rel="stylesheet" href="__SUBJECT__/game/css/button.css" />
+<style>
+
+	#wrapper {top: 45px; bottom: 5px; left: 5px; right: 5px; background: #efefef;}
+	#die { bottom: 5px; left: 5px; right: 5px;}
+</style>
+</head>
+	<body>
+		<header class="head">
+			<a class="head-left" href="javascript:void(0);">
+				<i class="icon-left2"></i>返回
+			</a>
+			<h1 class="title">查看解析</h1>
+		</header>
+		<section>
+			<div id="wrapper">
+				<div id="scroller">	
+					<div class="backGef">
+						<h3 class="textH3 pad0-10 afterBorder1">{$word}解析</h3>
+						<neq name="analysis" value="">
+					        <div class="jxNr pad10 afterBorder4">
+					        	<p class="textP mb10"><span class="backGyin pad0-10">解析内容</span></p>
+					        	{$analysis}
+					        </div>
+				        </neq>
+						<div class="pad10 backGfff">
+							<p class="textP mb10"><span class="backGyin pad0-10">例句</span></p>
+							<volist name="examples" id="vo">
+								<p class="textP mb10">{$vo.encontent}<a class="abo" mp3="{$vo.mp3}"><i class="icon-song2"></i></a></p>
+							</volist>
+						</div><div class="clearfix"></div>
+					</div>
+					<div class="clearfix"></div>
+				</div><!--end scrolloer-->
+			</div><!--end wrapper-->
+			<div id="die"></div>
+		</section>
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__/js/enajax.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__/js/iscroll-lite.js" ></script>
+		<script type="text/javascript">
+	        //滑动问题
+	        perface();
+	        new IScroll("#wrapper",{
+	            momentum:true,
+	            click:true 
+	        });
+	        $("#wrapper").resize();
+	        $(".head-left").click(function(){
+	        	var index = parent.layer.getFrameIndex(window.name);
+	        	parent.layer.close(index);
+	        })
+		</script>
+	</body>
+</html>

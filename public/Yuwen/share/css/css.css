@@ -1,0 +1,123 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,img { padding: 0; margin: 0; }
+fieldset,img { border: 0; }
+address,caption,cite,code,dfn,em,strong,th,var,i{ font-weight: normal; font-style: normal; }
+ol,ul,li { list-style: none; }
+caption,th { text-align: left; }
+h1,h2,h3,h4,h5,h6 { font-weight: normal; font-size: 100%; }
+q:before,q:after { content:''; }
+abbr,acronym { border: 0; }
+body,html {width: 100%; height: 100%;}
+body{color:#555; font-size:18px;font-family: "Lucida Sans Unicode", "Lucida Grande",Microsoft YaHei;}
+a{text-decoration:none;  -webkit-tap-highlight-color:rgba(0,0,0,0); outline:none;}
+a:hover{ opacity:0.7;}
+a,a:hover,a:visited {color: #666;}
+/*a,a:hover{-webkit-transition: all linear .218s;}*/
+a.active,p.active{ display:block;  background-image:-webkit-linear-gradient(to right, #efefef, #fff);  background-image:linear-gradient(to right, #efefef, #fff);}
+.fl{ float:left; display:inline;}
+.fr{ float:right; display:inline;}
+.left,.right {display: table-cell;}
+.beforeBorder:before,.afterBorder:after{content: ""; height: 1px; clear: both; background: #ddd; display: block; transform: scaleY(0.5); -webkit-transform:scaleY(0.5)}
+.afterBorder8 {border-bottom:  solid 8px #f4f4f4;}
+.afterBorder4 {border-bottom: solid 4px #efefef;}
+.afterBorder1 {border-bottom:  solid 1px #dcdcdc;}
+.border-nav{-webkit-box-shadow: 0 1px 6px #ccc;box-shadow: 0 1px 6px #ccc;}
+.border-nav2:hover,.border-nav3 { -webkit-box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); -moz-box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); -webkit-transform: translate3d(0, -2px, 0); -moz-transform: translate3d(0, -2px, 0); transform: translate3d(0, -2px, 0); }
+
+.clearfix:after {content: ".";  display:block;  height:0;  clear: both;  visibility: hidden;}
+.clearfix {display:block; clear: both;}
+* html .clearfix {height:0;}
+.posR {position: relative;}
+.font08 {color: #ccc; font-size: 0.8em; text-indent: 10px; line-height: 30px;}
+.font08e { font-size: 0.8em;}
+.mt45 {margin-top: 45px;}
+.pad10 {padding: 10px;}
+.img100{width: 100%; text-indent: 0;}
+.backGfc {background: #fcfcfc!important;}
+.tCenter {text-align: center;}
+.redFont,.redFont:hover,.redFont:visited {color: red;}
+
+body {width: 100%; height: 100%; background: url(../images/lobg.jpg); background-size:contain;}
+.pabox {background: url(../images/bg.jpg); padding: 10px; box-sizing: border-box;}
+.pbbox { border:solid 2px #63b0e2; position: relative;}
+span.yun1 {background: url(../images/yun1.png); display: block; width: 30%; height: 0px; padding-top: 20%; background-size: contain; position: absolute; top: 10px; left: 10px;}
+span.yun2 {background: url(../images/yun2.png); display: block; width: 30%; height: 0px; padding-top: 30%; background-size: contain; position: absolute; top: 10px; right: 10px;}
+.toux {width: 50%; text-align: center; margin-left: 25%; padding-top: 15px; line-height: 1rem;}
+.toux span.tou{display: block; width: 80px; height: 80px; margin: 0 auto; border:solid 2px #ba8a6f; border-radius: 60px; overflow: hidden;}
+.toux label {display: block; line-height: 1.4rem;}
+.toux em { font-size: 0.8rem;}
+.zxnr {font-size: 0.8rem; font-weight: bold; text-indent: 2em; padding: 5px 10px;}
+.bottom {position: relative; width: 100%;}
+.bottom span {display: block; width: 40%; height: 0; padding-top: 33%; background: url(../images/down.png); background-size:cover;}
+.bottom a {position: absolute; width: 40%;right: 10px;bottom: 0%;}
+.bottom a img {width: 60%; margin-left: 20%;}
+.bottom a label {display: block; text-align: center; font-size: 0.6rem;}
+.bbt {position: absolute; bottom: 0; left: 0; right: 0;}
+.youb {font-size: 0.8rem; padding: 0 10px; text-align:center}
+.pins {display: block; width: 50%; margin: 0 auto;}
+.pins img {width: 100%;}
+.pbbox {overflow-y: auto;}
+i.icon-youbi {width: 25px; height: 25px; display: inline-block;margin: 0 5px; background: url(../images/youbi.png); background-size: contain; vertical-align: middle;}
+
+/*audio*/
+.audio {padding:0 10px ;}
+.rainbow{animation: 6s rainbow infinite linear;}
+@keyframes rainbow {
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
+}
+.time{width:100%;height:30px;overflow:hidden;line-height:30px;font-size:12px;color:#000;}
+.now_time{float:left;}
+.all_time{float:right;}
+.gc_show{width:100%;height:30px;line-height:30px;text-align:center;font-size:14px;margin-top:30px;}
+.time_progress{width:100%;height:6px;}
+.progress{width:100%;height:3px;background:#C0C0C0;position:relative;}
+.bar{position:absolute;top:0;left:0;height:4px;background:#00d3dc;display:block;}
+.btn{width:20px;height:20px;background:#fff;border-radius:50%;  box-shadow: 1px 1px 5px #ccc;position:absolute;top:-8px;}
+.contros{width:90%;margin:-30px auto 0;overflow:hidden;line-height:60px;}
+
+.button{margin:0 auto;display:block;width: 50px;}
+@media only screen and (max-width:321px ) {
+	.toux {padding-top: 10px!important;}
+	.tou {width: 60px!important; height: 60px!important;}
+}
+
+@media only screen and (orientation:portrait) and (min-width:322px ) and (max-width:400px ) {
+	.audio,.zxnr {margin:5px 0;}
+	.toux label {line-height: 2rem; font-weight: bold;}
+}
+@media only screen and (orientation:portrait) and (min-width:401px ) and (max-width:500px ) {
+	.audio,.zxnr {margin:15px 0;}
+	.zxnr {line-height: 2rem;}
+	.toux label {line-height: 2rem; font-weight: bold;}
+}
+@media only screen and (orientation:portrait) and (min-width:501px ) {
+     .audio,.zxnr {margin:15px 0;}
+	.zxnr {line-height: 2.5rem; font-size: 1.2rem;}
+	.toux span.tou {width: 120px; height: 120px;}
+	.button {width: 80px;}
+	.contros {margin: 0 auto;}
+	.toux label {line-height: 2rem; font-weight: bold;}
+	.youb {font-size: 1.2rem;}
+	
+}
+@media screen and (orientation:landscape) and (max-width:899px){
+	.bbt {position: relative;}
+	.bottom span {    width: 25%; padding-top: 22%;}
+	.bottom a{top: 30%;  width: 30%;}
+}
+@media screen and (orientation:landscape) and (min-width:900px){
+	.toux span.tou{ width: 80px; height: 80px;}
+	span.yun1{width: 15%;padding-top:10%;}
+	span.yun2{width: 15%;padding-top:15%;}
+	.bottom span {    width: 25%;    padding-top: 22%;}
+.fll {width: 50%; margin-left: 25%;}
+.youb {font-size: 1.4rem;}
+.bbt {width: 50%; right: 25%; left: 25%;}
+.zxnr {font-size: 1.4rem;}
+.bottom a {top: 20%;}
+	  .button {width: 50px;}
+	  .youb {clear: both;  }
+	  .zxnr {    width: 50%;
+    margin-left: 25%;}
+	  
+	}

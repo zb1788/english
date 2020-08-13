@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="wap-font-scale" content="no">
+    <title>语文快乐学</title>
+    <link rel="stylesheet" href="__PUBLIC__/css/ywcurr.css" />
+    <link rel="stylesheet" href="__PUBLIC__/font/fonts.css" />
+    <link rel="stylesheet" href="__PUBLIC__/css/muitan.css" />
+    <script type="text/javascript" src="__PUBLIC__/js/zepto.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/mui.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/demoUtils.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/TouchSlide.1.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/ywcommon.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/text.js"></script>
+
+    <style>
+        body {
+            background: #fff
+        }
+
+        #wrapper {
+            top: 45px;
+            bottom: 60px;
+        }
+
+        .overY {
+            margin-top: 85px;
+            margin-bottom: 60px;
+        }
+
+        .tts {
+            z-index: 999;
+            color: #999;
+            display: none;
+            top: 30%;
+            height: 100px;
+            position: fixed;
+            text-align: center;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        #masG02 {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: #fff;
+            opacity: .1;
+            z-index: 12;
+            display: none;
+        }
+
+        .ywJie .xz dd:after {
+            content: "";
+            clear: both;
+            display: block;
+        }
+    </style>
+
+
+</head>
+
+<body onload="loaded()">
+    <p style="display: none;" id="username">{$username}</p>
+    <p style="display: none;" id="plsip">{$plsip}</p>
+    <main>
+        <header class="head border-nav">
+            <a class="head-left" href="javascript:backToIndex();">
+                <i class="icon-back"></i>返回</a>
+            <a class="head-right" id="fanyi" style="display: none;" onclick="goExplainsOrAuthor(this);">
+                <span class="fontFFF">翻译</span>
+            </a>
+            <a class="head-right font08 jHao" style="display: none;" id="tta">+</a>
+            <h1 class="title"></h1>
+        </header>
+        <ul class="tTan" style="display: hide;">
+            <li onclick="goExplainsOrAuthor(this);">翻译</li>
+            <li onclick="goExplainsOrAuthor(this);">作者简介</li>
+        </ul>
+        <script>
+            $('#tta').click(function () {
+                $('.tTan').toggle();
+            })
+        </script>
+        <div class="topH4" style="display:none;">
+            <span class="fl mL10"></span>
+            <span class="fr mR10">
+                <font class="redFont"></font>/
+                <font id="total"></font>
+            </span>
+        </div>
+        <section>
+            <div class="overY">
+                <div id="iScroll" class="iScroll bWhite">
+                    <div class="tempWrap">
+                        <div class="bd" id="iScroll-bd">
+                            <!-- 课文内容 -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end overY-->
+
+            <div class="huakuai" style="display: none;">
+                <div class="hkTable">
+                    <span>
+                        <input type="range" id="trackBar" min="0" max="1000" step="1" value="1" style="position: absolute;top: 10px;" class="zz">
+                        <p class="rang_width"></p>
+                    </span>
+                    <label class="hlb">
+                        <font id="currentTime">00'00</font>/
+                        <font id="totalTime">01'06</font>
+                    </label>
+                </div>
+            </div>
+
+            <!--
+<input type="range" id="trackBar" min="1" max="10" step="1" value="1" style="display: none; position: fixed; bottom: 85px;"/>
+<div class="bottom zz">
+    <div id="bt01">
+    <span class="fen3"><a id="luyin" onclick="showTab();" class="btnY02 radius100"><i class="icon-ico-yuyin actY"></i></a></span>
+        <span class="fen3"><a class="btnY02 radius100"><i class="icon-playk actY" isfirst="1" name="playbutton" onclick="playKewen(this);"></i></a></span>
+<span class="fen3"><a class="btnY02 radius100"><i backurl="text" onclick="goMyrecord(this);" class="icon-uniE609 actY"></i></a></span>
+</div>
+
+<div id="bt02" style="display: none;" class="pad10">
+    <h2 class="textH3 bTextCenter">准备录音</h2>
+    <p class="yingFont bTextCenter load"><i class="icon-ico-dian"></i><i class="icon-ico-dian"></i><i class="icon-ico-dian"></i></p>
+</div>
+<div id="bt03" style="display: none">
+<h4 class="luing"><div class="CCyin"><div style="animation-play-state: running;"></div><div style="animation-play-state: running;"></div><div style="animation-play-state: running;"></div><div style="animation-play-state: running;"></div></div><font id="ttt"></font><span bnum="0" id="timestr" class="plr10">00:00</span><div class="CCyin"><div style="animation-play-state: running;"></div><div style="animation-play-state: running;"></div><div style="animation-play-state: running;"></div><div style="animation-play-state: running;"></div></div></h4>
+    <div class="clear mB20">
+        <span class="fen3"><a onclick="fangqi()" class="btnx yingFont"><i class="icon-error03 actY"></i></a></span>
+        <span class="fen3"><a class="btnYuan radius100" onclick="zanting()"><i id="zanting" class="icon-ico-yuyin actY"></i></a></span>
+<span class="fen3"><a class="btnx yingFont" onclick="chengg()"><i class="icon-correct03 actY"></i></a></span>
+</div>
+</div>
+</div>
+
+-->
+
+        </section>
+        <div id="mask" onclick="maskClick(this);"></div>
+        <div class="tts">
+            <!--
+            <p>背不出？
+                <br/>点击暂停按钮可看全文哦</p> -->
+            <p>录音时,点击“暂停”可查看课文内容</p>
+        </div>
+        <div id="masGfff"></div>
+        <div class="tanDb" style="display: none">
+            <a href="#" onclick="bei(1)">
+                <span class="btnYuan fonts bYellow radius100">背</span>
+                <b>我要背诵</b>
+            </a>
+            <a href="#" onclick="bei(2)">
+                <span class="btnYuan fonts radius100">读</span>
+                <b>我要朗读</b>
+            </a>
+        </div>
+        <div class="dialog2">
+            <h2>确定要放弃录音吗</h2>
+            <div class="btn_d">
+                <a onclick="fangqiVoice();" id="fangqi">确定</a>
+                <a onclick="continuVoice();" id="fanhui">取消</a>
+            </div>
+        </div>
+        <div class="bottomTan">
+            <div class="backGef clear">
+                <a id="qd" onclick="closeClick();" class="fr btnB01 yingFont">关闭</a>
+            </div>
+            <div class="pad10">
+                <h3 class="textH3 greenFont bTextCenter">恭喜，录制成功</h3>
+                <h3 class="textH3 greenFont bTextCenter">您可以试听后上传录音</h3>
+                <p>
+                    <a class="wcBtn radius100">
+                        <i class="icon-playk" name="playbutton" id="shiting" isfirst="1" onclick="listenVoice(this);"></i>
+                    </a>
+                    <a href="#" class="btn bDefault" id="uploadAudio" onclick="uploadVoice();">上传录音</a>
+                </p>
+            </div>
+        </div>
+    </main>
+    <!-- 字的详细信息弹出页 -->
+    <div id="popover_zi" class="mui-popover">
+        <ul class="mui-table-view">
+            <div class="ywJie radius8 pad10">
+                <span class="w80">
+                    <label id="zi">浙</label>
+                </span>
+                <span class="wz">
+                    <p onclick="playzi(this);">拼音：【
+                        <font id="py">zhe</font>】
+                        <a id="fy" class="fontFFF">
+                            <i class="icon-uniE60C"></i>
+                        </a>
+                    </p>
+                    <p>部首：
+                        <font id="bushou">彡</font>
+                    </p>
+                    <p>词语：
+                        <font id="wordlist">词语</font>
+                    </p>
+                </span>
+            </div>
+        </ul>
+    </div>
+    <!-- 选择弹出层 -->
+    <div id="popover_select" class="mui-popover">
+        <ul class="mui-table-view">
+            <div class="ywJie radius8 pad10">
+                <h2>请选择</h2>
+                <dl class="xz">
+                    <dd class="beforeBorder">
+                        <a>
+                            <span class="fl">1.
+                                <font>耕田</font>
+                            </span>
+                            <!-- <span class="fr">注释</span> -->
+                        </a>
+                    </dd>
+                    <dd class="beforeBorder">
+                        <a>
+                            <span class="fl">2.
+                                <font>耕田</font>
+                            </span>
+                            <!-- <span class="fr">注释</span> -->
+                        </a>
+                    </dd>
+
+                </dl>
+            </div>
+        </ul>
+    </div>
+    <!-- 词语解释弹出层 -->
+    <div id="popover_word" class="mui-popover">
+        <ul class="mui-table-view">
+            <div class="ywJie radius8 pad10">
+                <h2>请选择</h2>
+                <p class="xnr beforeBorder">小时候，我常伏在窗口痴想山小时候，我常伏在窗口痴想山小时候，我常伏在窗口痴想山</p>
+            </div>
+        </ul>
+    </div>
+    <div id="demo" style="display:none;">
+        <div class="con">
+            <div class="ywBook pad10 overYY">
+                <!--kw 是课文  ss是诗词-->
+            </div>
+        </div>
+    </div>
+    <div id="masG02"></div>
+    <div id="tips"></div>
+</body>
+<script type="text/javascript">
+    var respath = '__RESOURCE__';
+    var baseNetUrl = respath;
+    var recordNetUrl = respath + '/recordwav/';
+    var kewenNetUrl = respath + '/uploadsyw/kewenvoice/';
+
+    //多篇课文MP3地址
+    var textMp3Arr = new Array();
+    var textTitleArr = new Array();
+    var textAuthorArr = new Array();
+    //多篇课文是否有翻译
+    var textExplainsArr = new Array();
+    var index = GetQueryString('index');
+    var ks_code = GetQueryString('ks_code');
+    var textJson;
+    // var mp3 = new player('','');return false;
+    var mp3;
+    var recordRile;
+    var record = new record();
+    var recordType;
+    var t_record;
+    var downloadJson;
+    var maskFlag = false;
+    var androidVersion;
+    var isAndroid;
+    var recordIsComplete = false;
+    var ks_name;
+    var textTitle = ks_name;
+    var barType = 1; //1：课文/古文；2：拼音
+    var kewenNum = 0; //当前第几篇课文,从0开始
+    var barHeight = 0;
+    var isScroll = true; //默认滑动切换控件
+
+    // var time = 0;
+    // var t_jindu;
+    // var trackBar = document.getElementById("trackBar");
+    // trackBar.min = 0;
+    // trackBar.step = 1;
+    // trackBar.value = time;
+    // trackBar.addEventListener("change",function(){
+    //     //拖动
+    //     clearTimeout(t_jindu);
+    //     mp3.stopAudio();
+    //     var url = mp3.getList();
+    //     mp3.playAudioAtTime(kewenNetUrl+url,this.value);
+    //     $('#currentTime').html(this.value);
+    //     goOn();
+    //     $('i[name=playbutton]').prop('class','icon-playt');
+    // });
+
+
+    var urlCallBack = GetQueryString('urlCallBack');
+
+    if (urlCallBack == null) {
+
+        urlCallBack = GetQueryString('backUrl');
+        if(urlCallBack == null){
+            urlCallBack = getLocalStorage('cn_backUrl');
+        }
+        else{
+            setLocalStorage('cn_backUrl', urlCallBack); 
+        }
+    } else {
+        setLocalStorage('cn_backUrl', urlCallBack); 
+    }
+    
+    if (index == null) {
+        index = 0;
+    }
+
+    var domain = window.location.host;
+    var link = 'http://' + domain + '/Yuwen/Text/text?ks_code=' + ks_code + '&index=' + index;
+    var backlink = encodeURI(encodeURI(link));
+
+    function loaded() {
+        var userAgent = navigator.userAgent;
+        var indexA = userAgent.indexOf("Android")
+        if (indexA >= 0) {
+            isAndroid = true;
+            androidVersion = parseFloat(userAgent.slice(indexA + 8));
+        } else {
+            isAndroid = false;
+        }
+
+        getUnitInfo();
+        TouchSlide({
+            slideCell: "#iScroll",
+            defaultIndex: index,
+            endFun: function (i, c) {
+                kewenNum = i;
+                index = i;
+                $('.redFont').html(i + 1);
+                $('#total').html(c);
+                textTitle = textTitleArr[i];
+                checkExplains(i);
+
+                if (isScroll) {
+                    checkRow(2);
+                    showBar(i); //展示控件
+                }
+                if (c > 1) {
+                    //如果总页数大于1，翻页则停止播放且播放按钮样式重置
+                    try {
+                        // UXinJSInterfaceSpeech.stopAudio();
+                    } catch (e) {
+                        setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+                    }
+                    isScroll = true;
+                } else {
+                    isScroll = false;
+                }
+            }
+        });
+    }
+
+
+
+
+
+
+    function playzi(obj) {
+        var url = $(obj).children('a').eq(0).attr('url');
+        mp3 = new player(url + '.mp3', 'zi');
+        mp3.playNet();
+    }
+
+
+    function backToIndex() {
+        try {
+            UXinJSInterfaceSpeech.stopAudio();
+            UXinJSInterfaceSpeech.hideVoiceView(1);
+        } catch (e) {
+            setTip("您的APP版本过低部分功能无法使用，请升级至最新版本。");
+        }
+
+        window.location.href = decodeURIComponent(urlCallBack);
+    }
+
+    //隐藏进度条
+    function HideJindu() {
+        $('.huakuai').hide(); //进度条隐藏
+        clearTimeout(t_jindu); //进度条关闭
+        document.getElementById('trackBar').value = 0;
+        document.getElementById('trackBar').max = 1000;
+    }
+
+    function go() {
+        time++;
+        document.getElementById('trackBar').value = time;
+        $('#currentTime').html(secondToDate(time));
+
+        var redWidth = $('.rang_width').parent('span').width(); //进度条的总长度
+        var totalTime = document.getElementById('trackBar').max;
+        var stepWidth = redWidth / totalTime;
+        $('.rang_width').css('width', stepWidth * time + 'px');
+        t_jindu = setTimeout("go();", 1000);
+    }
+
+    function goOn() {
+        var val = document.getElementById('trackBar').value;
+        time = val;
+        go();
+    }
+
+    function detectOrient() {
+        if (window.innerHeight >= window.innerWidth) {
+            // 竖屏
+            // alert('shu');
+            if (barHeight != 0) {
+                changeTextHeight(barHeight);
+            }
+        } else {
+            // 横屏
+            // alert('height');
+            if (barHeight != 0) {
+                changeTextHeight(barHeight);
+            }
+        }
+    }
+    detectOrient();
+    window.addEventListener('resize', detectOrient);
+
+
+    // var mql = window.matchMedia('(orientation: portrait)');
+    // // console.log(mql);
+
+    // function handleOrientationChange(mql) {
+    //     alert('abc');
+    //     if (mql.matches) {
+    //         // console.log('portrait'); // 竖屏
+    //         alert('height');
+    //         try {
+    //             changeTextHeight(height);
+    //         } catch (e) {
+
+    //         }
+
+    //     } else {
+    //         alert('shu');
+    //         try {
+    //             changeTextHeight(height);
+    //         } catch (e) {
+
+    //         }
+    //         console.log('landscape'); // 横屏
+    //     }
+    // }
+    // // 输出当前屏幕模式
+    // handleOrientationChange(mql);
+    // // 监听屏幕模式变化
+    // mql.addListener(handleOrientationChange);
+</script>
+<script type="text/javascript" src="__ROOTPATH__/public/js/unitlog.js"></script>
+<script type="text/javascript" src="__ROOTPATH__/public/js/performance.js"></script>
+
+
+</html>

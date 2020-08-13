@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>应用列表</title>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+    </head>
+    <body>
+        <div class="place"><strong>位置</strong>：首页 &gt; 微课全国评论管理</div>
+        <div class="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="box_top pl_10 f14">微课全国评论列表</td> 
+                </tr> 
+            </table>
+             <tr>
+                    <td class="pl_5"><table border="0" cellspacing="0" cellpadding="0" class="form_table">
+                            <tr>
+                                <td width="50" align="right">学科：</td>
+                                <td>
+                                    <select name="subjectlist" class="select" id="subjectlist" onchange="change_applist();">
+                                    <option selected="" value="all" title="全部">全部</option>
+                                    <option value="0001" title="语文">语文</option>
+                                    <option value="0002" title="数学">数学</option>
+                                    <option value="0003" title="英语">英语</option>
+                                    <option value="0004" title="物理">物理</option>
+                                    <option value="0005" title="化学">化学</option>
+                                    <option value="0006" title="音乐">音乐</option>
+                                    <option value="0007" title="美术">美术</option>
+                                    <option value="0008" title="科学">科学</option>
+                                    <option value="0009" title="品德">品德</option>
+                                    <option value="0010" title="生物">生物</option>
+                                    <option value="0011" title="地理">地理</option>
+                                    <option value="0012" title="政治">政治</option>
+                                    <option value="0013" title="历史">历史</option>
+                                    <option value="0015" title="通用技术">通用技术</option>
+                                    <option value="0014" title="信息技术">信息技术</option>
+                                    <option value="0016" title="艺术">艺术</option>
+                                    <option value="0017" title="体育与健康">体育与健康</option>
+                                    <option value="0024" title="其它">其它</option>
+                                    </select>
+                                </td>
+                                <td width="50" align="right">应用：</td>
+                                <td>
+                                    <select name="applist" class="select" id="applist" onchange="getEvaluateList();">
+
+                                    </select>
+                                </td>
+                               
+                                
+                        
+                                <td>
+                                    &nbsp;<input type="button" class="btn btn82 btn_search" value="查询" /
+                                </td>
+                            </tr>
+                        </table>
+                    </td> 
+                </tr> 
+            <div class="h10"></div>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+                <tr>
+                    <th width="10" align="center"><input id="all" type="checkbox"/></th>
+                    <th width="10">序号</th>
+                    <th width="100">微课应用</th>
+                    <th width="200">评论内容</th>
+                    <th width="50">用户名称</th>
+                    <th width="50">评论时间</th>
+                    <th width="50">操作</th>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none" id="table_demo"> 
+                <tr class="tr">
+                    <td align="center"><input type="checkbox" class="tras"/></td> 
+                    <td><input name="sortid" type="text" class="input-text lh30" size="3" maxlength="2" /></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td align="left">
+                        &nbsp;&nbsp;
+                        <input type="button" class="ext_btn ext_btn_error appdel"  value="删除" />   &nbsp;&nbsp;     
+                    </td>
+                </tr>
+            </table>
+            <div class="h5"></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="pl_10" height="42">
+                        <input name="btn_submit" id="del_all" type="button" class="ext_btn ext_btn_submit" value="删除" />
+                    </td>
+                </tr>
+            </table> 
+        </div>
+        <script type="text/javascript">
+        function change_applist(){
+            $.EBC.setAppname($('#applist'),$('#subjectlist').val(),0,0);
+            //getUnitList();
+         }
+        var area = "{$area}";
+       function getEvaluateList()
+        {
+            var subject_code = $("#subjectlist").val();
+            var app_id = $("#applist").val();
+            if (subject_code != '') {
+                var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                $("#table_data td").parents("tr").remove();
+                $.getJSON("/Elearnmanager/classapp/managerEvaluate_qg", {area:area,subject_code:subject_code, app_id:app_id,random: Math.random()}, function(data) {
+                    var i = 0;
+                    $.each(data, function(i, val) {
+                        i++;
+                        var tr = $("#table_demo tr").eq(0).clone();
+                        var td = tr.children('td').eq(0);
+                        td.find("input").attr("bid",val.id);
+                        td = tr.children('td').eq(1);
+                        td.html(i);
+                        td = tr.children('td').eq(2);
+                        td.html(val.app_name);
+                        td = tr.children('td').eq(3);
+                        td.html(val.content);
+                        td = tr.children('td').eq(4);
+                        td.html(val.truename);
+                        td = tr.children('td').eq(5);
+                        td.html(val.evaluate_time);
+                        tr.find("input").attr("bid", val.id);
+                        tr.appendTo("#table_data");
+                    });
+                });
+                $(".tr:odd").css("background", "#F5F8FA");
+                dloading.close();
+            }
+                    
+        }
+            $(function() {
+                $.ajaxSetup({async: false});
+                change_applist();
+                $(".tr:odd").css("background", "#F5F8FA");
+                $('.tr:odd').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#F5F8FA");
+                    }
+                });
+
+                $('.tr:even').live('hover', function(event) {
+                    if (event.type == 'mouseenter') {
+                        $(this).css("background-color", "#E5EBEE");
+                    } else {
+                        $(this).css("background-color", "#FFF");
+                    }
+                });
+                var dloading = art.dialog({time: 30, title: '加载中……', width: 130, height: 30, opacity: 0.3, lock: true});
+                /**
+                 初始化年级、学期、版本以及单元和单词
+                 **/ 
+                getEvaluateList();
+                dloading.close();
+                $(".appdel").live("click", function() {
+                    var tr = $(this).parents("tr");
+                    var id = $(this).attr("bid");
+                    art.dialog.confirm('你确定要删除这条评论吗？', function() {
+                        $.get("/Elearnmanager/classapp/evaluate_del_qg", {id: id,flag:0,area:area,random: Math.random()});
+                        getEvaluateList();
+                    });
+                });
+
+                /**
+                 修改次序单击事件
+                 **/
+                $("#del_all").click(function()
+                {
+                   var temparr = [];
+                   $(".tras").each(function(){
+                         var temp={};
+                         if($(this).is(":checked")){
+                            temp.id=$(this).attr("bid");
+                            temparr.push(temp);
+                         }
+                   });
+                   if(temparr.length == 0){
+                     alert("请选择要删除的评论");
+                   }
+                   else{
+                    //encodeURI(JSON.stringify(homework))
+                     art.dialog.confirm('你确定要删除所选择的评论吗？', function() {
+                        $.get("/Elearnmanager/classapp/evaluate_del_qg", {ids:encodeURI(JSON.stringify(temparr)),flag:1,area:area,random: Math.random()});
+                        getEvaluateList();
+                     });
+                   }
+                });
+
+                //全选
+                $("#all").click(function(){
+                    if($(this).is(":checked")){
+                       $(".tras").attr("checked",true);
+                    }else{
+                       $(".tras").attr("checked",false);
+                    }
+                });
+                $('.btn_search').click(function(){
+                    getEvaluateList();
+                });
+            });
+            
+        </script> 
+    </body>
+</html>

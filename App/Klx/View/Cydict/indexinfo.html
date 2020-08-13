@@ -1,0 +1,66 @@
+
+<div class="tline"></div>
+<div class="kuai01"></div>
+<div class="t02"></div>
+<div class="nr">
+<input type="hidden" value="{$id}" id="classfyid"/>
+<input type="hidden" value="{$chiid}" id="cyclassfyid"/>
+<span class="lie">
+    
+</span>
+<!-- <div id="pages" class="page" style="margin-top:10px;">共<strong>30</strong>条 第<strong>1</strong>页/共<strong>4</strong>页 
+    <a href="#" class="a1">上一页</a>
+    <span class="par">1</span>
+    <a href="../msg_template_list.php?current_genre_id=1&current_page=2">2</a>
+    <a href="../msg_template_list.php?current_genre_id=1&current_page=3">3</a>
+    <a href="../msg_template_list.php?current_genre_id=1&current_page=4">4</a>
+    <a href="../msg_template_list.php?current_genre_id=1&current_page=2" class="a1">下一页</a>
+</div> -->
+<div class="page" id="pages" style="float:left;"></div>
+<div class="clearfix"></div>
+</div>
+<div class="bline"></div>
+<include file="Common/content"/>
+
+
+<script type="text/javascript">
+$(function(){
+  $.ajaxSetup({async:false}); 
+  getDictParentClassfy({$id});
+  pagelist(1,100);
+  //getClassfyCy({$id});
+ // test(1,50,26);
+});
+function pagelist(pageCurrent,page_size){
+  var id=$("#cyclassfyid").val();
+  $(".page").empty();
+  $('.lie').empty();
+  var content="";
+  $.get("fenye",
+      {
+        ran:Math.random(),
+        pageCurrent:pageCurrent,
+        page_size:page_size,
+        id:id
+      },
+      function(data){
+        var data=eval("("+data+")");
+      $.each(data,function(k,v){
+        $('.page').html(k);
+        $.each(v,function(key,value){
+          if(value.cyname.length==4){
+              content=content+"<a href=' javascript:void(0);' onclick='getcyinfo("+value.cyid+");'>"+value.cyname+"</a>";
+            }else if(value.cyname.length>4){
+              content=content+"<a href=' javascript:void(0);' onclick='getcyinfo("+value.cyid+");'>"+value.cyname.substr(0,3)+"..</a>";
+            }else if(value.cyname.length<4){
+              content=content+"<a href=' javascript:void(0);' onclick='getcyinfo("+value.cyid+");'>"+value.cyname+"&nbsp;</a>";
+            }
+            
+        });
+		//content=content+"<script>$('#SelectPages').change(function(){var eachnums=$('#eachnums').val();var curnum=$(this).val();pagelist(curnum,eachnums);});<//script>";
+        $(".lie").append(content);
+      });
+    })
+ }
+</script>
+    

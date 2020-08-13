@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="wap-font-scale" content="no">
+		<meta charset="UTF-8">
+		<title>英语同步练</title>
+        <link rel="stylesheet" href="__SUBJECT__/css/currency.css" />
+        <link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+        <link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+        <link rel="stylesheet" href="__PUBLIC__/css/layer.css" />
+
+        <script type="text/javascript" src="__PUBLIC__/js/require.js" ></script>
+        <style>
+        	#wrapper {top: 45px; bottom: 40px; background: #F4F4F4;}
+        </style>
+    </head>
+	<body>
+		<main>
+			<header class="head border-nav">
+				<a class="head-left" href="javascript:void(0);"><i class="icon-back"></i>返回</a>
+				<a class="head-right" style="display:none;"><i class="icon-clock"></i></a>
+				<h1 class="title"></h1>
+			</header>
+			<section>
+				<div id="wrapper">
+					<div id="scroller">
+						<div class="pad10">
+							<div class="topBox pad10">
+								<!-- <strong  id="share">晒成绩</strong> -->
+								<p class="topF" style="padding: 0 0"><strong class="score">0</strong>&nbsp;分</p>
+							</div>
+							<ul class="bjsj backGfff">
+					    		<li style="padding: 0 0;width:50%;"><p class="textH4">用时</p><p class="fontZ dotime">0秒</p></li>
+					    		<li style="padding: 0 0;width:50%;"><p class="textH4">作答人次</p><p class="fontZ donum"></p></li>
+					    		<!-- <li style="padding: 0 0"><p class="textH4">易错单词</p><p class="fontZ">B</p></li> -->
+							</ul>
+					    	<h3 class="listIconText bt" id="classrank">
+								<span class="fr"><i class="icon-right"></i></span>
+					            <span class="textH3">班级得分榜</span>
+							</h3>
+						</div>
+						<div class="pad10">
+							<ul class="wb bWhite cpbg iStudy">
+								
+							</ul>
+							<div class="clearfix"></div>
+						</div>
+					</div><!--end scroller-->
+				</div><!--end wrapper-->
+				<div class="courseBtn">
+					<!--<a class="fenT" href="javascript:;" >查看解析</a>-->
+					<a class="fenT" id="test" href="javascript:void(0);" style="width:100%">重新测试</a>
+				</div>
+			    <div id="tips"></div>
+            </section>
+        </main>
+    <!--遮罩的代码-->
+        <div id="over" class="over"></div>
+        <div id="layout" class="layout">
+            <img src="__SUBJECT__/img/2013112931.gif" alt="" />
+        </div>
+        <style>
+            .over {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #f5f5f5;
+                opacity:0.5;
+                z-index: 1000;
+            }
+            .layout {
+                display: block;
+                position: absolute;
+                top: 40%;
+                left: 40%;
+                width: 20%;
+                height: 20%;
+                z-index: 1001;
+                text-align:center;
+            }
+        </style> 
+    </body>
+    <script type="text/javascript">
+        var subjectsource="__SUBJECT__";
+        require.config({
+        　　paths: {
+                "readword": "__SUBJECT__/js/readword",
+                "touchslide": "__PUBLIC__/js/TouchSlide.1.1",
+                "iscroll":"__PUBLIC__/js/iscroll-lite",
+                "layer":"__PUBLIC__/js/layer",
+            },
+            shim: {
+                "iscroll": {
+                    exports:"IScroll"
+                },
+                "touchslide": {
+                    exports:"touchslide"
+                },
+                "layer": {
+                    exports:"layer"
+                },
+            },
+            waitSeconds: 0
+        });
+        require(["readword",'touchslide','iscroll',"layer"], function(readword,touchslide,IScroll,layer){
+            $(function(){
+                //滑动问题
+                new IScroll("#wrapper",{
+                    momentum:true,
+                    click:true 
+                });
+                $("#wrapper").resize();
+                var Requests = new Object();
+                Requests = GetRequest();
+                //这是时间
+                //setTimer(0,$("#timer"));
+                //设置标题
+                $(".title").text(decodeURI(Requests["chaptername"])+"报告");
+                //初始化
+                readword.getUserReadData("../User/getUserReadData",$("ul.iStudy"));
+                perface();
+                 //返回跳转
+                $(".head-left").click(function(){
+                    var Requests = new Object();
+                    Requests = GetRequest();
+                    window.location.href="../Word/readchapter?ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"]+"&urlCallBack="+Requests["urlCallBack"];
+                })
+
+                //历史查看
+                $(".head-right").click(function(){
+                    layer.open({type: 2});
+                    $.ajax({
+                        type:'GET',
+                        url:"../User/getUserReadHistoryData",
+                        dataType:'json',
+                        async:false,
+                        timeout: 30000,
+                        context:$('body'),
+                        success: function(data){
+                            //遮罩消失
+                            layer.closeAll();
+                            var content='<ul class="wb bWhite iStudy">';
+                            $.each(data,function(k,v){
+                                //基础模块的添加
+                                content=content+'<li href="readword?chapterid=0&amp;ks_code=00010202070101&amp;moduleid=4&amp;ks_short_name=undefined&amp;chaptername=%25E5%258D%2595%25E8%25AF%258D%25E5%258F%25A3%25E8%25AF%25AD"><p style="display: block;"><span style="display:block;font-size:1.1em;">'+v.name+"&nbsp;"+v.chapter+'测试</span><span style="display:block;">'+v.submittime+'&nbsp;平均得分:'+v.score+'分</span></p></li>';
+                            });
+                            content=content+"</ul>";
+                            layer.open({
+                                type: 1
+                                ,content: content
+                                ,anim: 'up'
+                                ,style: 'position:fixed; bottom:0; left:0; width: 100%; height: 200px; padding:10px 0; border:none;overflow-y:auto;'
+                             });
+                        },
+                        error:function(xhr,type){
+
+                        }
+                    })
+                })
+
+                //播放原音音频
+                $(".icon-ico-yuyin").click(function(){
+                    //设置播放列表
+                    var mp3url=$(this).attr("mp3url");
+                    if(mp3url!=""&&mp3url!=undefined){
+                        try{
+                            mp3.setUse(0);
+                            UXinJSInterfaceSpeech.playAudio(mp3url);
+                        }catch(e){
+                            setTip("请升级到最新的优信");
+                        }
+                    }else{
+                        setTip("好遗憾您没有录音");
+                    }
+                });
+
+                //播放原音音频
+                $(".icon-sound").click(function(){
+                    //设置播放列表
+                    var mp3url=$(this).attr("mp3url");
+                    try{
+                        mp3.setUse(0);
+                        UXinJSInterfaceSpeech.playAudio(mp3url);
+                    }catch(e){
+                        setTip("请升级到最新的优信");
+                    } 
+                });
+
+                //重新测评
+                $("#test").click(function(){
+                    try{
+                          UXinJSInterfaceSpeech.stopAudio();  
+                    }catch(e){
+
+                    }
+                    window.location.href='readword?chapterid='+Requests["chapterid"]+'&ks_code='+Requests["ks_code"]+'&moduleid='+Requests["moduleid"]+'&ks_short_name='+Requests["ks_short_name"]+'&chaptername='+encodeURI((Requests["chaptername"]));
+                })
+
+                //返回操作
+                $(".head-left").click(function(){
+                    try{
+                          UXinJSInterfaceSpeech.stopAudio();  
+                    }catch(e){
+
+                    }
+                    var Requests = new Object();
+                    Requests = GetRequest();
+                    //readchapter?ks_code=00010202070101&moduleid=4&ks_short_name=Unit1
+                    // window.location.href="../Word/readchapter?ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"];
+                    window.location.href="../Word/readchapter?&ks_code="+Requests["ks_code"]+"&moduleid="+Requests["moduleid"]+"&ks_short_name="+Requests["ks_short_name"]+"&urlCallBack="+encodeURIComponent(Requests["urlCallBack"]);
+                });
+
+                //班级得分榜
+                $("#classrank").click(function(){
+                    try{
+                          UXinJSInterfaceSpeech.stopAudio();  
+                    }catch(e){
+
+                    }
+                    window.location.href="../Word/classrank?dataurl="+encodeURIComponent('../User/getClassRank')+"&mod=word&callbackURL="+encodeURIComponent(document.location.href)+"&func=getReadWordClassRank&ks_code="+Requests["ks_code"];
+                })
+            })
+        });
+    </script> 
+</html>

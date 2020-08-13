@@ -1,0 +1,76 @@
+<!--
+	上传的div
+-->
+<div id="uploadfile" style="display:none;">
+	<table>
+	  <tr>
+	    <td align="right"><font style="font-weight:10px;">图片：</font></td>
+	    <td align="left">
+	      <img src="" id="myimg" width="120" height="90"/ style="border:1px solid #CCC; padding:2px;" >
+	    </td>
+      </tr> 
+	  <tr>
+	    <td>&nbsp;</td>
+	    <td>
+	    	<div id="queue"></div>
+			<input id="file_upload" name="file_upload" type="file" multiple="false"/>
+		</td>
+	  </tr>
+	</table>
+</div>
+
+
+<!--
+	问题的table_demo
+-->
+<table id="table_demo" style="display:none;">
+	<tr class="tr">
+    <td  align="center">1</td>
+    <td  align="center" valign="middle">
+    	<input name="sortid" type="text" class="input-text" size="3" maxlength="2" style="width:24px" />
+	</td>
+    <td width="317" align="left">
+    	 <span><strong>试题内容:</strong><p class="content"></p></span>
+		 <span><strong>听力材料:</strong><p class="content"></p></span>
+		 <span><strong>解       析:</strong><p class="content"></p></span>
+		 <span><strong>选项以及答案:</strong><p class="content"></p></span>
+    </td>
+    <td  align="left">
+        <input type="button" value="小题详情"  class="ext_btn childquesedit" />  
+        <input type="button" value="题干修改"  class="ext_btn alert" />        
+        <input type="button" class="ext_btn ext_btn_error" value="删除" />
+    </td>
+  </tr>
+</table>
+
+<!--
+	问题的list_demo
+-->
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_demo" style="display:none;">
+  <tr class="tr">
+    <td align="center">2</td>
+    <td align="left"></td>
+    <td align="left"></td>
+    <td align="left">
+    	<span><strong>试题内容:</strong><p class="content"></p></span>
+		<span><strong>听力材料:</strong><p class="content"></p></span>
+		<span><strong>解       析:</strong><p class="content"></p></span>
+		<span><strong>选项以及答案:</strong><p class="content"></p></span>
+    </td>
+    <td align="left">&nbsp;
+      <input type="button" class="ext_btn childquesedit" value="预览小题" />
+	  <if condition="$examflag neq 1">
+      <input type="button" value="题干修改"  class="ext_btn edit" />
+      <input type="button" class="ext_btn ext_btn_error" value="删除" />
+	  <else />
+	  <input type="button" value="选择"  class="ext_btn choose" /> 
+	  </if>
+    </td>
+  </tr>
+</table>
+
+
+
+
+

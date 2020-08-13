@@ -1,0 +1,309 @@
+body,html{
+    width:100%;
+    margin:0;
+    border:0;
+    padding:0;
+    font-size:62.5%;
+    font-family: "Microsoft yahei",sans-serif,Arail,Helvetica;
+    color:#333;
+}
+a{
+    text-decoration:none;
+    color:#333;
+}
+img{
+    max-width:100%;
+    vertical-align:bottom;
+}
+.img100{width: 100%; text-indent: 0;}
+.img100{width: 90%; text-indent: 0;}
+p,h1,h2,h3,h4,h5,h6,dd,dt,dl,ul,li{
+    padding:0;
+    margin:0;
+    list-style: none;
+    font-weight:normal;
+}
+.container{
+    overflow:hidden;
+    width:96%;
+    margin:0 auto;
+    font-size:1.2em;
+    text-align:center;
+}
+.container>.top{
+    padding-top:30px;
+    width:90%;
+    margin:0 auto;
+    overflow:hidden;
+    padding-bottom:20px;
+}
+.top>.titleLeft,.top>.lessonRight{
+    float:left;
+    width:50%;
+}
+.top>.lessonRight{
+    float:right;
+    text-align:right;
+}
+.hr{
+    width:100%;
+    height:10px;
+    background-color:#eaeaea;
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    box-sizing:border-box;
+}
+.section,
+.section02,
+.section03,
+.section04{
+    width:90%;
+    margin:0 auto;
+}
+.section{
+    width:90%;
+}
+.info{
+    margin:0 auto;
+    margin-top:20px;
+}
+.info div,
+.info{
+    width:100%;
+    overflow:hidden;
+}
+.info i,
+.info b,
+.info h1{
+    float:left;
+    background-color:#f64d4a;
+}
+.info b{
+    margin-left:6px;
+}
+.info i{
+    width:8px;
+    height:28px;
+    line-height:28px;
+}
+.info b{
+    width:4px;
+    height:20px;
+    line-height:20px;
+    margin-top:4px;
+}
+.info h1{
+    width:91%;
+    text-align:left;
+    font-weight:bold;
+    font-size:2em;
+    color:#fff;
+    padding:4px 0;
+    text-indent:1em;
+    margin-left:10px;
+    letter-spacing:1px;
+}
+.info>p{
+    width:100%;
+    text-align:left;
+    text-indent:1em;
+    margin:0 auto;
+    margin-top:10px;
+    font-size:2em;
+    line-height:1.6em;
+}
+.info>.title{
+    display:block;
+    width:240px;
+    margin:0 auto;
+    margin-top:10px;
+}
+.infoList{
+    padding-top:24px;
+    width:100%;
+    overflow:hidden;
+    position:relative;
+    margin-top:20px;
+}
+.infoList>h2{
+    width:80%;
+    /*margin:0 auto;*/
+    font-size:2.2em;
+    font-weight:bold;
+    text-align:center;
+    background-color:#ff7674;
+    border-radius:4px;
+    color:#fff;
+    padding:4px;
+    position:absolute;
+    top:0;
+    left:10%;
+    letter-spacing:1px;
+}
+.infoList>ul{
+    border-radius:4px;
+    padding-top:30px;
+    box-sizing: border-box;
+    border:2px solid #ff7674;
+    width:100%;
+    overflow:hidden;
+    background-color:#fefcfb;
+}
+.infoList>ul>li{
+    text-align:left;
+    padding:5px 10px;
+    /*background-color:#fefcfb;*/
+    border-bottom:1px solid #fff;
+}
+.infoList>ul>li span{
+    font-size:2.1em;
+    line-height:1.8em;
+}
+.infoList>ul>li b{
+    color:#f64d4a;
+    font-size:2.4em;
+}
+.infoList>ul>li img{
+    width:50px;
+    padding-right:10px;
+}
+.section02{
+    overflow:hidden;
+    margin-bottom:20px;
+}
+.infoList02>ul{
+    width:90%;
+    margin:0 auto;
+    overflow:hidden;
+    margin-bottom:20px;
+}
+.infoList02>ul>li{
+    width:42%;
+    float:left;
+    margin-left:16px;
+    margin-top:16px;
+}
+.info h1.title04{
+    letter-spacing:0;
+}
+.infoList03{
+    margin-top:16px;
+    width:100%;
+    overflow:hidden;
+    margin-bottom:16px;
+}
+.infoList03>.content-title,.infoList03>ul{
+    text-align:left;
+}
+.infoList03>.content-title h4{
+    font-size:2.4em;
+}
+.infoList03>.content-title>p{
+    font-size:2em;
+    padding-bottom:10px;
+}
+.infoList03>ul>li{
+    font-size:2em;
+}
+.infoList03>ul>li>h4{
+    font-weight:bold;
+    font-size:1.1em;
+}
+.infoList03 ul{
+    overflow:hidden;
+    margin-bottom:10px;
+}
+.ewm{
+    margin-bottom:20px;
+}
+.ewm,
+.ewm>ul
+{
+    width:100%;
+    overflow:hidden;
+    margin:0 auto;
+}
+.ewm>ul{
+  margin-bottom:20px;
+}
+.ewm>ul>li{
+    width:49%;
+    float:left;
+    color:#463d3d;
+}
+.ewm>ul>li+li{
+    margin-left:4px;
+}
+.ewm>ul>li:last-child>h5,
+.ewm>ul>li:first-child>h5,
+.ewm>ul>li:first-child>p{
+    margin-top:2px;
+    font-size:1.8em;
+    font-weight:bold;
+}
+.ewm>ul>li>b.code{
+    display:block;
+    width:140px;
+    height:140px;
+    background-image:url(../images/code.png) ;
+    overflow:hidden;
+    background-position:-6px 296px;
+    /*background-position:-6px 144px;第二个二维码的位置*/
+    margin:0 auto;
+}
+.download,
+.download02,
+.download03,
+.download01{
+    width:100%;
+    overflow:hidden;
+    margin-bottom:30px;
+}
+.download>a,
+.download02>a,
+.download03>a,
+.download01>a{
+    display:inline-block;
+    width:70%;
+    border-radius:6px;
+
+}
+.download>a>b,
+.download02>a>b,
+.download03>a>b,
+.download01>a>b{
+    display:block;
+    color:#fff;
+    font-size:2em;
+    padding:6px 16px;
+
+    font-weight:normal;
+}
+/*我是猜歌王*/
+.download>a{
+    background-color:#f67675;
+}
+.download>a:hover {
+    background-color:#f64d4a;
+}
+/*基础闯关*/
+.download02>a{
+    background-color:#46a88d;
+}
+.download02>a:hover{
+    background-color:#0f8f6c;
+}
+/*真题大闯关（适用于政史地三科）*/
+.download03>a{
+    background-color:#4ec3c7;
+}
+.download03>a:hover{
+    background-color:#00aaad;
+}
+/*课文朗读*/
+.download01>a{
+    background-color:#5ae8fd;
+}
+.download01>a:hover{
+    background-color:#1fbbd2;
+}

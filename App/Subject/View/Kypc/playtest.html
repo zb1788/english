@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <title></title>
+  <script src="__SUBJECT__/kycp/js/mui.min.js"></script>
+  <link href="__SUBJECT__/kycp/css/mui.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="__SUBJECT__/kycp/css/kycp.css" />
+  <!--星星打分-->
+  <link rel="stylesheet" href="__SUBJECT__/kycp/css/css.css">
+  <link rel="stylesheet" href="__SUBJECT__/kycp/css/currNew.css">
+  <link rel="stylesheet" href="__SUBJECT__/kycp/font_x/iconfont.css">
+  <script src="/public/public/js/zepto.min.js" type="text/javascript"></script>
+
+</head>
+<style>
+  .over {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+    opacity: 0.5;
+    z-index: 1000;
+  }
+
+  .layout {
+    display: block;
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 20%;
+    height: 20%;
+    z-index: 1001;
+    text-align: center;
+  }
+
+  .layui-m-layer-yourclass {
+    width: 420px;
+    height: 240px;
+    background-color: #81BA25;
+    box-shadow: none;
+    color: #fff;
+  }
+
+  #tips {
+    background-color: #333;
+    font-size: 14px;
+    display: none;
+    width: 90%;
+    left: 5%;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    opacity: .82;
+    padding: 10px;
+    position: fixed;
+    top: 45%;
+    z-index: 999;
+  }
+
+  .swiper-pagination {
+    text-align: right;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul li {
+    list-style: none;
+  }
+</style>
+
+<body>
+  <header style="z-index:9998;" class="mui-bar mui-bar-nav mubg">
+    <div class="col-xs-4" style="text-align:left;"><span class="Meeting-img">
+        <a class="mui-icon mui-icon-left-nav mui-pull-left corcobaise return"><span class="spans">返回</span></a>
+    </div>
+    <div class="col-xs-4">
+      <h1 class="mui-title corcobaise">口语评测</h1>
+    </div>
+    <div class="col-xs-4 corcobaise" style="text-align:right;"><span class="Meeting-img">
+        <a><span class="spans startset" onclick="startset();">设置</span></a>
+    </div>
+  </header>
+
+
+
+  <div style="border-bottom: 2px solid #222222;" class="mui-content">
+
+    <div style="position:fixed;background:#efefef; z-index:997; width:100%;" class="foatleft mkbox5"><span
+        style=" margin-left:18px; float: left;" id="chapter"></span>
+      <span class="skld swiper-pagination">
+        <font id="cur"></font>/<font id="count"></font>
+      </span>
+    </div>
+  </div>
+
+  <div class="clear"></div>
+
+
+  <section style=" margin-top: 40px;">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <ul class="mui-table-view listbg">
+          <li class="psort listbg">
+            <div class="relwf"><img src="/public/Subject/kycp/images/211150600.jpg"></div>
+            <div id="score10707"></div>
+          </li>
+          <li class="mui-table-view-cell mui-collapse dianjijianju mui-active"><a
+              class="mui-navigate-right corbg entext" href="javascript:;">单词文本：abacus</a>
+            <div style="" class="mui-collapse-content  mui-active">
+              <div class="mb-hd">
+                <ul>
+                  <li class="playmp3" title="abacus" type="word"
+                    mp3="http://192.168.148.88:8080/yylmp3/mp3_word/9819B96B89FF30B835272820E7112868.mp3" mp3time="2">
+                    <div class="next">
+                      <div class="yyquan"><svg viewBox="0 0 440 440">
+                          <circle cx="220" cy="220" r="150" stroke="#27bcad" stroke-width="10" fill="none"></circle>
+                          <circle class="mycircle greenC" cx="220" cy="220" r="150" fill="none" style="display:none">
+                          </circle>
+                        </svg></div><span class="iconfont iconfont icon-play-circle-fill on"></span><span
+                        class="iconfont icon-poweroff-circle-fill  ">
+                    </div>
+                    <div class="wz">原音</div>
+                  </li>
+                  <li>
+                    <div class="play">
+                      <div class="yyquan zhong"><svg viewBox="0 0 440 440">
+                          <circle cx="220" cy="220" r="170" stroke="#eb5a5c" stroke-width="10" fill="none"></circle>
+                          <circle class="mycircle redC" cx="220" cy="220" r="170" fill="none" style="display:none">
+                          </circle>
+                        </svg></div><span class="iconfont icon-luyin on"></span> <span
+                        class="iconfont icon-luyin3 "></span>
+                    </div>
+                    <div class="wz">跟读</div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>              
+        </ul>
+      </div>
+    </div>
+    <div style=" height: 60px;"></div>
+  </section>
+
+
+</body>
+
+</html>
+<script type="text/javascript">
+function iGetInnerText(testStr) {
+    var resultStr = testStr.replace(/\ +/g, ""); //去掉空格
+    resultStr = testStr.replace(/[ ]/g, ""); //去掉空格
+    resultStr = testStr.replace(/[\r\n]/g, ""); //去掉回车换行
+    return resultStr;
+}
+
+  var text = "";
+  var type = "";
+  var mp3time = "";
+  var circletime = '';
+  var obj1 = "";
+  var obj2 = "";
+  var mp3cachelist = [];
+  var c = {};
+  c.name = "5EA204295A8157383C646DBCE016CD00.mp3";
+  c.size = "1";
+  c.format = "mp3";
+  c.url = "http://en.czbanbantong.com:8080/yylmp3/mp3_word/5EA204295A8157383C646DBCE016CD00.mp3";
+  mp3cachelist.push(c);
+    try {
+          UXinJSInterfaceSpeech.cacheAudioFiles(iGetInnerText(JSON.stringify(mp3cachelist)));
+        } catch (e) {
+            alert("UXinJSInterfaceSpeech.cacheAudioFiles()方法不可用");
+        }
+
+
+  var onCacheAudioStatus = function(status){
+      if(status != 0){
+        alert("UXinJSInterfaceSpeech.cacheAudioFiles()方法缓存音频失败");
+      }
+      else{
+        alert("UXinJSInterfaceSpeech.cacheAudioFiles()方法缓存音频成功");
+      }
+  }
+
+  $(".playmp3").on("tap", function () {
+     UXinJSInterfaceSpeech.playAudio("5EA204295A8157383C646DBCE016CD00.mp3");
+  });
+
+  //播放完成回调函数
+  var onAudioPlayStatus = function (status) {
+    if (status == 0) {
+       alert("播放成功");
+
+      }
+      else{
+        alert("播放失败");
+      }
+
+  }
+  
+
+</script>

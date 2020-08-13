@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="wap-font-scale" content="no">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>英语同步练</title>
+       <link rel="stylesheet" href="__ELEARN__css/weike.css" />
+        <link rel="stylesheet" href="__ELEARN__font/fonts.css" />
+        <link rel="stylesheet" href="__ELEARN__css/iscroll.css" />
+        <script type="text/javascript" src="__PUBLIC__/js/require.js" data-main="__ELEARN__/js/main" ></script>
+
+</head>
+<body class="backGfff">
+<div id="over" class="over"></div>
+        <div id="layout" class="layout">
+        <img src="__ELEARN__/images/layout.gif" alt="" />
+</div>
+<section>
+    <header class="head border-nav">
+            <a class="head-left" href="{$course_back}?app_id={$app_id}&title={$title}&backUrl={$backUrl}&version_id={$version_id}&unit_id={$unit_id}&isterm={$isterm}&isunit={$isunit}"><i class="icon-back"></i>返回</a>
+            <h1 class="title">{$videotitle}</h1>
+                    </header>
+                    <div class="topH4"></div>
+    <div class="pad90">
+    <div id="iScroll" class="iScroll bWhite">
+        <div class="bd" id="iScroll-bd">
+            
+        </div>
+    </div></div>
+
+ <script type="text/javascript">
+ var pic_url = "{$pic_url}";
+ require(['zepto.min','enElearn','TouchSlide.1.1','question'],function($){
+    $(function(){
+        InitLlstData('/Elearn/Question/getQuestionsData',$("#iScroll-bd"));
+        //hideloading();
+         
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+ 
+<title>微课专题</title>
+<script type="text/javascript" src="/public/public/js/jquery-1.11.2.min.js" ></script>
+</head>
+<script type="text/javascript">
+  var client_id = 'f6dbb06d91764f1880c1e2d523b11ac2';
+  var response_type = "code";
+  var grant_type = "authorization_code";
+  var scope='snsapi_userinfo';
+  var domain="https://auths.smartfengze.com/oauth";
+  var redirect_uri="https://en.czbanbantong.com/Elearn/fengze/index";
+  var codeurl=domain+'/authorize?client_id='+client_id+'&response_type=code&grant_type=authorization_code&scope='+scope+'&redirect_uri='+redirect_uri;
+  //console.log(codeurl);
+ // http://59.61.216.120:18891/oauth/authorize?client_id=f6dbb06d91764f1880c1e2d523b11ac2&response_type=code&grant_type=authorization_code&scope=snsapi_userinfo&redirect_uri=http://en.czbanbantong.com:8080/Elearn/fengze/index 18859504000 111111a
+  window.onload=function(){
+    window.location.href=codeurl;
+  }
+</script>
+</head>
+
+	
+</html>

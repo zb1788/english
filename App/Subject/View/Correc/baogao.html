@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<title>批改报告</title>
+		<link rel="stylesheet" href="__SUBJECT__/correc/css/mui.min.css" />
+		<link rel="stylesheet" href="__SUBJECT__/correc/css/currency.css" />
+		<link rel="stylesheet" href="__SUBJECT__/correc/css/linght.css" />
+		<link rel="stylesheet" href="__SUBJECT__/correc/font/fonts.css" />
+        <script type="text/javascript" src="__SUBJECT__/correc/js/mui.min.js" ></script>
+
+	<script type="text/javascript" charset="UTF-8">
+      	mui.init();
+    </script>
+<style>
+	.topBox {margin-top: 45px; margin-bottom: 50px; padding: 10px;}
+</style>
+</head>
+<body class="bDefault">
+<main id="baogao">
+<header class="head">
+			<a class="head-left" href="javascript:history.go(-1)"><i class="icon-back"></i>返回</a>
+
+</header>
+<div class="linght">
+    	<img src="__SUBJECT__/correc/images/l-linght.png" class="l-linght top-flash-left" alt="">
+        <img src="__SUBJECT__/correc/images/r-linght.png" class="r-linght top-flash-right" alt="">
+</div>
+<div class="pgbg">
+	<h2 class="pgH2">{$truename}的作文批改报告</h2>
+	<!-- <h4 class="pgH4">作文名称：How to behave well</h4> -->
+	<img src="__SUBJECT__/correc/img/jiang.png" />
+	<h3 class="pgH3">您的等级是<font class="yelloFont02">{$dengji}</font>,继续努力哦。</h3>
+   <h4 class="pgH4">您的总分：<span><font class="fenshu">{$score}</font>/100</span></h4>
+</div>
+    </div>
+<section class="ddel2"><a href="index?id={$id}&gradeid={$gradeid}&backUrl={$backUrl}" id="drTan" class="last">继续修改</a><a href="detail?gradeid={$gradeid}&backUrl={$backUrl}" class="yellow">查看报告</a></section>
+</section>
+</main>
+<script type="text/javascript" src="__PUBLIC__/js/zepto.min.js"></script>
+</body>
+</html>
+<script type="text/javascript" src="__PUBLIC__/js/unitlog.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/performance.js" ></script>

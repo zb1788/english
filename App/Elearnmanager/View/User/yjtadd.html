@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>域名编辑</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script> 
+<body> 
+<div class="container">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="box_top pl_10 f14"><strong>添加域名</strong></td> 
+  </tr>
+  <tr>
+    <td class="p5">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+      <tr>
+        <td class="td_right">域名：</td>
+        <td>
+          <input type="text" id="domainname" name="domainname" class="input-text lh30" size="40" value="" />
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">IP：</td>
+        <td><input type="text" id="domainip" name="domainip" value="" class="input-text lh30" size="40" /></td>
+      </tr>
+       <tr>
+        <td class="td_right">省份：</td>
+        <td><input type="text" id="domainpro" name="domainpro" value="" class="input-text lh30" size="40" /></td>
+      </tr>
+         <tr>
+        <tr>
+        <td class="td_right">区域编码：</td>
+        <td><input type="text" id="domaincode" name="domaincode" value="" class="input-text lh30" size="40" /></td>
+      </tr>
+         <tr>
+        <td class="td_right">类型：</td>
+        <td><input type="radio" name="domaintype" value="tms" checked />TMS&nbsp;&nbsp;<input type="radio" name="domaintype" value="sso" />SSO&nbsp;&nbsp;<input type="radio" name="domaintype" value="portal" />PORTAL&nbsp;&nbsp;<input type="radio" name="domaintype" value="ub" />UB&nbsp;&nbsp;<input type="radio" name="domaintype" value="ilearn" />ILEARN&nbsp;&nbsp;<input type="radio" name="domaintype" value="tqms" />TQMS</td>
+      </tr>
+   
+      </table>
+
+  <div class="h10"></div>
+    </td> 
+  </tr> 
+</table>
+</div>
+<script type="text/javascript">  
+
+function saveuser(){
+ $.ajaxSetup({async:false});
+  var domainname = $.trim($("#domainname").val()); 
+  var domainip = $.trim($("#domainip").val()); 
+  var domainpro = $.trim($("#domainpro").val()); 
+  var domaincode = $.trim($("#domaincode").val());
+  if ($.trim(domainname) == "") {
+    dialogTips('域名不能为空');
+    return false;
+  }
+  if ($.trim(domainip) == "") {
+    dialogTips('IP不能为空');
+    return false;
+  }
+  if ($.trim(domainpro) == "") {
+    dialogTips('省份不能为空');
+    return false;
+  }
+  if ($.trim(domaincode) == "") {
+    dialogTips('区域编码不能为空');
+    return false;
+  }
+  var domaintype = $('input[name="domaintype"]:checked').val();
+  var closeflag = true;
+ 
+  $.getJSON("../user/edityjtdomain", {domainname:domainname,domainip:domainip,domainpro:domainpro,domaincode:domaincode,domaintype:domaintype,random:Math.random()}, function(result){
+   
+    if (result.resultflag == '0') {
+      // alert(result.resultflag);
+      dialogNotice("系统提示",result.errorinfo,30);
+      closeflag = false;
+      
+    }
+    else{
+    closeflag = true;
+    }
+  }); 
+ // alert(closeflag);
+  return closeflag;
+}
+</script> 
+</body>
+</html>

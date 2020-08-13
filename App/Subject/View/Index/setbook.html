@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="wap-font-scale" content="no">
+		<meta charset="UTF-8">
+		<title>英语同步练</title>
+		<link rel="stylesheet" href="__SUBJECT__/css/currency.css" />
+		<link rel="stylesheet" href="__SUBJECT__/font/fonts.css" />
+		<link rel="stylesheet" href="__SUBJECT__/css/iscroll.css" />
+		<link rel="stylesheet" href="__PUBLIC__/css/layer.css" />
+		<script type="text/javascript" src="__PUBLIC__/js/require.js" ></script>
+		<script type="text/javascript">
+			var bookimg="";
+		</script>
+		<style>
+			#wrapper {top: 80px;}
+			.bookon {border: 1px solid red;}
+			span i.mark{
+				display: block;
+				font-size: 30px;
+				padding: 5px;
+				height: 50px;
+				line-height: 50px;
+				width: 50px;
+				border-radius: 50%;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				margin: -30px 0 0 -30px;
+				text-align: center;
+				background: rgba(255,255,255,0.7);
+			}
+			h2.tishi {
+			    background: #efefef;
+			    height: 35px;
+			    font-size: 14px;
+			    line-height: 35px;
+			    font-style: normal;
+			    color: #999;
+			    text-align: center;
+			    display: block;
+			    width: 100%;
+			    box-shadow: 1px 1px 10px 1px #ccc;
+			    position: fixed;
+			    top: 45px;
+			    z-index: 98;
+			}
+           .gunD {position: absolute; top: 80px; overflow-y:auto;}
+		</style>
+	</head>
+	<body>
+		<main>
+			<header class="head border-nav">
+				<a class="head-left"><i class="icon-back"></i>返回</a>
+				<a class="head-right" style="display:none;"><i class="icon-clock"></i></a>
+				<h1 class="title">选教材</h1>
+			</header>
+			<h2 class="tishi">请选择当前年级、版本</h2>
+			<div class="gunD" style="width:100%;">
+					<ul class="gradeList" id="gradeList" style="width:100%;">
+                   
+					</ul>
+			</div><!--end gunD-->
+			<div id="tips"></div>
+		</main>
+		<!--遮罩的代码-->
+	    <div id="over" class="over"></div>
+	    <div id="layout" class="layout">
+	        <img src="__SUBJECT__/img/2013112931.gif" alt="" />
+	    </div>
+	    <style>
+	        .over {
+	            display: block;
+	            position: absolute;
+	            top: 0;
+	            left: 0;
+	            width: 100%;
+	            height: 100%;
+	            background-color: #f5f5f5;
+	            opacity:0.5;
+	            z-index: 1000;
+	        }
+	        .layout {
+	            display: block;
+	            position: absolute;
+	            top: 40%;
+	            left: 40%;
+	            width: 20%;
+	            height: 20%;
+	            z-index: 1001;
+	            text-align:center;
+	        }
+	    </style> 
+	</body>
+	<script type="text/javascript">
+	    require.config({
+	    　　paths: {
+	　　　　　　"selectbook": "__SUBJECT__/js/selectbook",
+				"iscroll":"__PUBLIC__/js/iscroll-lite",
+				"layer":"__PUBLIC__/js/layer",
+	　　　　},
+		    shim: {
+	　　　　　　"iscroll": {
+	　　　　　　　　exports:"iscroll"
+	　　　　　　}
+		　　},
+        	waitSeconds: 0
+	    });
+	    require(["selectbook","iscroll","layer"], function(selectbook,IScroll,layer){
+	    	var Request = new Object();
+        	Request = GetRequest();
+	    	//返回的事件
+	    	$(".head-left").click(function(){
+	    		window.location.href="../"+Request["urlCallBack"]+"?moduleid="+Request["moduleid"];
+	    	});
+	    	//事件委托
+	    	$(document).on('click', 'ul#history li', function(){
+				var grade=$(this).attr("gradeid");
+            	var version=$(this).attr("versionid");
+            	var volume=$(this).attr("termid");
+            	showloading();
+                $.getJSON("../User/setUserGradeVersion",{grade:grade,volume:volume,version:version},function(){
+                	selectbook.initBookImg("getCourse",$("#gradeList"));
+                    hideloading();
+                    layer.closeAll();
+                    setTip("设置成功");
+                });
+			});
+	    	//教材书籍的展示
+	        selectbook.initBookImg("getCourse",$("#gradeList"));
+	        perface();
+	        //版本历史
+	        $(".head-right").click(function(){
+            	layer.open({type: 2});
+            	$.ajax({
+		            type:'GET',
+		            url:"../User/getUserVersionHistoryData",
+		            dataType:'json',
+		            async:false,
+		            timeout: 30000,
+		            context:$('body'),
+		            success: function(data){
+		                //遮罩消失
+		                layer.closeAll();
+		                if(data.length>0){
+		                	var attrarr=[];
+				            var temp={};
+				            temp.id="class";
+		                    temp.val="wb bWhite iStudy";
+		                    attrarr.push(temp);
+		                    temp={};
+				            temp.id="id";
+		                    temp.val="history";
+		                    attrarr.push(temp);
+		                    var ul =initDom("<ul></ul>",attrarr);
+			                $.each(data,function(k,v){
+			                    //基础模块的添加
+			                    attrarr=[];
+				                temp={};
+				                temp.id="gradeid";
+			                    temp.val=v.gradeid;
+			                    attrarr.push(temp);
+			                    temp={};
+			                    temp.id="versionid";
+			                    temp.val=v.versionid;
+			                    attrarr.push(temp);
+			                    temp={};
+			                    temp.id="termid";
+			                    temp.val=v.termid;
+			                    attrarr.push(temp);
+			                    var li =initDom("<li></li>",attrarr);
+			                    ul.append(li);
+			                    attrarr=[];
+				                temp={};
+			                    temp.id="style";
+			                    temp.val="display: block;line-height: 40px;margin-left: 10px;";
+			                    attrarr.push(temp);
+			                    temp={};
+			                    temp.id="href";
+			                    temp.val='javascript:layer.closeAll();$.getJSON("../User/setUserGradeVersion",{grade:"'+v.gradeid+'",volume:"'+v.termid+'",version:"'+v.versionid+'"},function(){setTip("设置成功");});';
+			                    attrarr.push(temp);
+			                    var p =initDom("<a></a>",attrarr);
+			                    li.append(p);
+			                    attrarr=[];
+				                temp={};
+			                    temp.id="style";
+			                    temp.val="display:block;font-size:1.1em;";
+			                    attrarr.push(temp);
+			                    var span =initDom("<span></span>",attrarr);
+			                    span.text(v.subject+"."+v.grade+"."+v.term+"."+v.version);
+			                    p.append(span);
+			                });
+			                console.log(ul);
+			                layer.open({
+							    type: 1
+							    ,content: $(ul).prop("outerHTML")
+							    ,anim: 'up'
+							    ,style: 'position:fixed; bottom:0; left:0; width: 100%; height: 200px; padding:10px 0; border:none;overflow-y:auto;'
+							 });
+		                }else{
+		                	setTip("您还没有历史记录了,赶紧快练习吧!");
+		                }
+	            	},
+	            	error:function(xhr,type){
+
+	            	}
+        		})
+            })
+	    });
+	</script>
+</html>

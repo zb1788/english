@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="wap-font-scale" content="no">
+<title></title>
+<link href="__PUBLIC__css/currency.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__css/newwork.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="__PUBLIC__fonts/font-icomoon/icomoon.css">
+<script type="text/javascript" src="__PUBLIC__js/jquery-1.7.2.min.js" ></script>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style>
+	@media (min-width:800px) {
+		body{ zoom:1.5;}
+	}
+	.acolor{color: #4ebea2!important;}
+/* .wrapper01 {height: 123px;} */
+.wrapper01 {overflow: hidden;}
+.error{
+    margin: 20px auto 0 auto;
+    padding: 0 10px;
+    line-height: 2em;
+}
+.error img {
+    display: block;
+    margin: 0 auto 10px;
+}
+</style>
+</head>
+
+<body>
+	<div class="container">
+	   <header>
+	        <h1 class="ml60">作业报告</h1>
+	        <div class="back"><a id="feedbackback" href="javascript:void(0);"><img src="__PUBLIC__/images/backIco.png" width="20" height="20" />返回</a></div>
+			<!-- <div class="kc_setup">
+				<a class="shou" href="javascript:void(0);">
+					<img src="__PUBLIC__/images/answer.png" class="anns" />
+				</a>
+			</div> -->
+	    </header>
+	    <article>
+			<div class="edi-head02 mt45">
+				<span class="hd02-left"><strong id="classname">{$classname}</strong>作业详情</span>
+				<if condition="$classNum neq '1'">
+					<span class="hd02-right">
+						<div class="edi-qiezz">
+							<a class="qie-ze">点击切换班级<i class="fa fa-angle-down"></i></a>
+						</div>
+				    </span>
+				</if>
+			</div>
+			<div class="clearfix"></div>
+			<div class="zy-top02">
+				<span>{$homeworkname}</span>
+				<h2><!-- 平均用时<font id="homeworkaveragetime">0</font> --> 班级最高分<font id="homeworkmaxscore">0</font>分</h2>
+			</div>
+			<h3 class="ytj">
+			    <a href="javascript:void(0);" id="homeworkstudent">
+					<div class="tj_l">
+						已提交：<strong id="submitstucount">{$homeworksubmitnum}</strong>/<font id="classstucount">{$studentcount}</font>
+									</div>
+					<img class="tj_r" src="__PUBLIC__/images/arrow2.png">
+				</a>
+			</h3>
+
+			<div class="cpbg_z bg_0" id="content">
+			    <h2>答题卡<strong id="quescounts">(0道)</strong>
+			 	<span class="right">
+			 		<i class="dt-bl"></i>正确率>60%
+			 		<i class="dt-cw"></i>正确率<60%
+			 	</h2>
+			 	<div id="inforesult">
+			 	<div id="wordalound" style="display: none">
+			 		<h5 class="edi-bt01"><span>已批改</span>单词跟读</h5>
+				    <ul>
+				        <!-- <li><a class="ball_blu">1<span>100%</span></a></li>
+				        <li><a class="ball_blu">2<span>80%</span></a></li>
+				        <li><a class="ball_red">3<span>10%</span></a></li>
+				        <li><a class="ball_red">4<span>20%</span></a></li> -->
+				    </ul>
+			 	</div>
+			    <div class="clearfix"></div>
+			    <div id="wordspell" style="display: none">
+			    	<h5 class="edi-bt01"><span>已批改</span>单词拼写</h5>
+			        <ul>
+			        	<!-- <li><a class="ball_blu">1<span>100%</span></a></li> -->
+			        </ul>
+			    </div>
+		        
+		        <div class="clearfix"></div>
+		        <div id="wordchoose" style="display: none">
+		        	<h5 class="edi-bt01"><span>已批改</span>听音选词</h5>
+			        <ul>
+			        	<!-- <li><a class="ball_blu">1<span>100%</span></a></li> -->
+			        </ul>
+		        	
+		        </div>
+		        
+		        <div class="clearfix"></div>
+		        <div id="wordrate" style="display: none">
+		        	<h5 class="edi-bt01"><span>已批改</span>英汉互译</h5>
+			        <ul>
+			        	<!-- <li><a class="ball_blu">1<span>100%</span></a></li> -->
+			        </ul>
+		        </div>
+		        
+		        <div class="clearfix"></div>
+		        <div id="textalound" style="display: none">
+		        	<h5 class="edi-bt01"><span>已批改</span>课文跟读</h5>
+			        <ul>
+			        	<!-- <li><a class="ball_blu">1<span>100%</span></a></li> -->
+			        </ul>
+		        </div>
+		        
+		        <div class="clearfix"></div>
+		        <div id="examsquiz" style="display: none">
+		        	<h5 class="edi-bt01"><span>已批改</span>听力训练</h5>
+			        <ul >
+			        	<!-- <li><a class="ball_blu">1<span>100%</span></a></li> -->
+			        </ul>
+		        </div>
+		    </div>
+		        <div class="clearfix"></div>
+		        <section id="nfk" style="display: none">
+					<div class="error" style=" margin: 15% auto 0 auto;">
+						<img src="/public/Homework/images/charu.gif" width="131" height="116">
+						<span id="tp">班级内暂无学生提交作业，请切换其他班级进行批改</span>
+					</div>
+				</section>
+			</div>
+			<div class="mb50"></div>
+		</article>
+	</div><!--end container-->
+	<div class="tips"></div>
+	<!-- <a class="btn_blu mb">批改</a> -->
+	<div class="bg" style="display: none;"></div>	
+	<div id="wrapper" class="wrapper01" style="display: none;">
+	    <div class="scroller">
+	    	<ul id="studentclass">
+	    		<li>三年级二班</li>
+	    		<li>三年级二班</li>
+	    		<li>三年级二班</li>
+	    		<li>三年级二班</li>
+	    		<li>三年级二十三班</li>
+	    		<li>三年级二十三班</li>
+	    		<li>三年级二十三班</li>
+	    		<li>三年级二十三班</li>
+	    	</ul>
+	    </div>
+	</div>
+</body>
+<script>
+    //教师查看的类型
+	var type="1";
+	var homeworkid="{$homeworkid}";
+	var studentid="{$studentid}";
+	var classid="{$classid}";
+	var tqms="{$tqms}";
+	var batchid="{$batchid}";
+</script>
+<script>
+$(function(){
+	
+	$('.hd02-right').click(function(){
+		$('.wrapper01').slideDown(500);
+		$('.bg').show();
+		$('body').css({
+			'height':$(window).height(),
+			'overflow': 'hidden'
+		})
+	})
+	// $('.wrapper01').click(function(){
+	// 	$(this).slideUp('hide');
+	// 	$('.bg').hide();	
+	// 			$('body').css({
+	// 		'height':'auto',
+	// 		'overflow': 'auto'
+	// 	})
+	// })
+
+	$('#studentclass li').live('click',function(){
+		var stuclass=$(this).attr("classid");
+		classid=stuclass;
+		var classstunum=$(this).attr("classstunum");
+		$("#classstucount").text(classstunum);
+		$('.wrapper01').slideUp('hide');
+		$('.bg').hide();	
+		$('body').css({
+			'height':'auto',
+			'overflow': 'auto'
+		});
+	$('#studentclass li').removeClass("on");
+	$(this).addClass("on");
+		getClass();
+		//getClassSituation();
+		getHomeworkStudentScore();
+	});
+
+	$("#homeworkstudent").click(function(){
+		window.location.href="homeworkstudent?homeworkid="+homeworkid+"&classid="+classid+"&tqms="+tqms+"&batchid="+batchid+"&ran="+Math.random();
+	})
+
+})
+</script>
+<script src="__PUBLIC__/js/lazyload_2d9c23aa.js" type="text/javascript"></script>
+<script>
+	LazyLoad(
+		'js',
+		[
+		  "__PUBLIC__js/mui.min.js",
+		  "__PUBLIC__js/mobile.js",
+		  "__PUBLIC__js/feedback.js",
+		]
+	);
+</script>
+
+</html>

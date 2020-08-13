@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<meta name="wap-font-scale" content="no">
+		<title>语文快乐学</title>
+		<link rel="stylesheet" href="__PUBLIC__/css/ywcurr.css" />
+		<link rel="stylesheet" href="__PUBLIC__/css/muitan.css" />
+		<link rel="stylesheet" href="__PUBLIC__/font/fonts.css" />
+		<link rel="stylesheet" href="__PUBLIC__/css/iscroll.css" />
+		<script type="text/javascript" src="__PUBLIC__/js/zepto.min.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__/js/iscroll-lite.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__/js/demoUtils.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__/js/TouchSlide.1.1.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__/js/ywcommon.js" ></script>
+
+
+	<script type="text/javascript">
+var myScroll;
+function loaded () {
+	myScroll = new IScroll('#wrapper', {momentum:true,click:true });
+}
+
+</script>
+<style>
+	#wrapper {top: 45px; bottom:0px;}
+</style>
+
+
+</head>
+<body onload="loaded()">
+<main>
+<header class="head border-nav">
+			<a class="head-left" href="javascript:mobileBack();"><i class="icon-back"></i>返回</a>
+			<h1 class="title">翻译</h1>
+					</header>
+		<section>
+			<div id="wrapper">
+	<div id="scroller">
+<div class="ywBook ss">
+	<!-- <h2>忆江南</h2> -->
+	<!-- <h6 class="h6Name">白居易</h6> -->
+<dl class="ywFan">
+	<dt>江南好</dt>
+	<dd>江南风光多美好。</dd>
+	<dt>风景曾旧<font class="greenFont">谙</font>。</dt>
+	<dd>江南风光多美好江南风光多美好。江南风光多美好</dd>
+</dl>
+</div>
+	</div><!--end scroller-->
+</div><!--end wrapper-->
+
+</section>
+</main>
+<script>
+var respath = '__RESOURCE__';
+var baseNetUrl = respath;
+var recordNetUrl = respath+'/recordwav/';
+var kewenNetUrl = respath+'/uploadsyw/kewenvoice/';
+
+var explainsJson = decodeURI(getLocalStorage('cn_explains'));
+var title = decodeURI(getLocalStorage('cn_title'));
+var index = GetQueryString('index');
+var ks_code = GetQueryString('ks_code');
+$('a').prop('href','text?ks_code='+ks_code+'&index='+index);
+// $('h2').html(title);
+// $('.title').html(title+' 翻译');
+var json = eval('('+explainsJson+')');
+var html = '';
+$.each(json,function(k,v){
+	html += '<dt>'+v.content+'</dt>';
+	html += '<dd>'+v.interpretation+'</dd>';
+})
+$('.ywFan').html(html);
+</script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="wap-font-scale" content="no">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="__ELEARN__/css/currency.css" />
+	<link rel="stylesheet" href="__ELEARN__css/weike.css" />
+	<link rel="stylesheet" href="__ELEARN__font/fonts.css" />
+	<script type="text/javascript" src="__PUBLIC__/js/require.js" data-main="__ELEARN__/js/main"></script>
+</head>
+<style>
+#tips {
+    background-color: #333;
+    font-size: 14px;
+    display: none;
+    width: 90%;
+    left: 5%;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    opacity: .82;
+    padding: 10px;
+    position: absolute;
+    /* top: calc(50% - 60px); */
+    z-index: 999;
+    top: 350px;
+}
+</style>
+<body>
+	<section>
+		<header class="head border-nav">
+			<a class="head-left" href="/Elearn/index/index?app_id={$app_id}&backUrl={$backUrl}"><i
+					class="icon-back"></i>返回</a>
+			<h1 class="title">{$app_name}</h1>
+		</header>
+		<div class="pinglun mT45">
+			<h3><i class="icon-uniF006"></i><i class="icon-uniF006"></i><i class="icon-uniF006"></i><i
+					class="icon-uniF006"></i><i class="icon-uniF006"></i></h3>
+			<span><textarea cols="50" rows="5" id="textarea" onfocus="if(value=='限20字'){value=''}"
+					onblur="if (value ==''){value='限20字'}">限20字</textarea> </span>
+			
+		</div>
+		<div id="tips"></div>
+		<a class="btn-bottom" href="javascript:;">提交</a>
+	</section>
+</body>
+
+</html>
+<script type="text/javascript">
+	require(['zepto.min', 'enElearn'], function ($) {
+		$.fn.prevAll = function (selector) {
+			var prevEls = [];
+			var el = this[0];
+			if (!el) return $([]);
+			while (el.previousElementSibling) {
+				var prev = el.previousElementSibling;
+				if (selector) {
+					if ($(prev).is(selector)) prevEls.push(prev);
+				} else prevEls.push(prev);
+				el = prev;
+			}
+			return $(prevEls);
+		};
+
+		$.fn.nextAll = function (selector) {
+			var nextEls = [];
+			var el = this[0];
+			if (!el) return $([]);
+			while (el.nextElementSibling) {
+				var next = el.nextElementSibling;
+				if (selector) {
+					if ($(next).is(selector)) nextEls.push(next);
+				} else nextEls.push(next);
+				el = next;
+			}
+			return $(nextEls);
+		};
+
+		function emoji2Str(str) {
+
+			return unescape(escape(str).replace(/\%uD.{3}/g, ''));
+
+		}
+
+		var Request = new Object();
+		Request = GetRequest();
+		$(function () {
+			$(".pinglun h3 i").mousedown(function () {
+				$(this).removeClass('icon-uniF006').addClass('icon-uniF005');
+				$(this).prevAll().removeClass('icon-uniF006').addClass('icon-uniF005');
+				$(this).nextAll().removeClass('icon-uniF005').addClass('icon-uniF006');
+			});
+			$('.btn-bottom').on('click', function () {
+				setTimeout(function () {
+					var score = $('.icon-uniF005').length;
+					var content = $.trim($('#textarea').val());
+					//console.log(content);
+					if (content == '' || content == '限20字') {
+						//alert('请输入评论内容');
+						setTip('请输入评论内容');
+						return;
+					}
+					content = emoji2Str(content);
+					if (content.length > 20) {
+						setTip('评论内容不能大于20字');
+						return;
+					}
+					//console.log(content.length);
+					$.post('pinglunaction', {
+						app_id: Request['app_id'],
+						score: score,
+						content: content
+					}, function (resust) {
+						setTip(resust.message);
+						if (resust.flag == 1) {
+							window.location.href = '/Elearn/index/index?app_id=' + Request['app_id'] +
+								'&backUrl=' + Request['backUrl'];
+						}
+
+					});
+				}, 400);
+
+
+				//console.log(score);
+
+			});
+		});
+	});
+</script>

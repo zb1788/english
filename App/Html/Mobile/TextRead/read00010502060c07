@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <title>英语同步练</title>
+    <link href="/public/Mobile//css/fonts.css" rel="stylesheet" type="text/css">
+    <link href="/public/Mobile//css/style.css" rel="stylesheet">
+    <script src="/public/Mobile//js/TouchSlide.1.1.js"></script>
+	<script type="text/javascript" src="/public/Mobile//js/jquery.min.js"></script>  
+	<script src="/public/Mobile//js/jquery.cookie.js" type="text/javascript"></script> 
+</head>
+
+<body>
+<header>
+    <div class="l fl"><a href="/mobile/textread/index"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">读课文</div>
+    <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+               <!--  <li><a href="/mobile/index/wordbook"><i class="icon-heart"></i><font class="wordcount"></font></a></li>
+                <li><a href="/mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount"></font></a></li> -->
+                <li><a href="/mobile/index/index"><i class="icon-evil"></i>学习中心</a></li>
+                <li><a href="/mobile/index/course"><i class="icon-pencil-square"></i><b>版本设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<section class="wordbook">
+    <div class="wbBtn bLine" bid="00010502060c07"><p>Unit6 Jobs</p><p><font class="curindex">1</font>/6</p></div> 
+</section>
+
+<section class="read">
+    <div id="iScroll" class="iScroll bWhite">
+        <div class="hd" style="display:none;">
+            <ul></ul>
+        </div>
+        <div class="bd" id="iScroll-bd">
+            <div class="con">
+            	<ul>
+                    <div class="text">
+                       <h3 class="active"></h3>
+                            <p class="active"><span class="en" ></span></p>
+                    </div>
+                </ul>
+            </div>
+            <div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>Story</a></h3>
+                           <p class="active" bid="11492">
+                                    <span class="en" mid="EA22A9F0E5CF1E2D821EDE9ECEF2F971">
+                                        Gogo&nbsp;:&nbsp;Hi! My name is Gogo! Where are you going?                                    </span>
+                                    <span class="ch" style="">
+                                        Gogo&nbsp;:&nbsp;嗨！我的名字是戈戈！你打算去哪？                                    </span>
+                                </p><p class="active" bid="11492">
+                                    <span class="en" mid="46841827E15D76D8DEBAAA9C1EC526A7">
+                                        A&nbsp;:&nbsp;Oh, hello, Gogo. I'm going to the hospital.                                    </span>
+                                    <span class="ch" style="">
+                                        A&nbsp;:&nbsp;哦，你好，戈戈。我打算去医院。                                    </span>
+                                </p><p class="active" bid="11492">
+                                    <span class="en" mid="B5AB75C0D287B007D3145A62D17B6E81">
+                                        Gogo&nbsp;:&nbsp;What do you do?                                    </span>
+                                    <span class="ch" style="">
+                                        Gogo&nbsp;:&nbsp;你是做什么的？                                    </span>
+                                </p><p class="active" bid="11492">
+                                    <span class="en" mid="8AE64540492274DC11F323032DA06962">
+                                        B&nbsp;:&nbsp;I'm a doctor.                                    </span>
+                                    <span class="ch" style="">
+                                        B&nbsp;:&nbsp;我是一名医生。                                    </span>
+                                </p><p class="active" bid="11492">
+                                    <span class="en" mid="1D016CDA138D3C991E54042D392D9F1D">
+                                        Gogo&nbsp;:&nbsp;What do you do?                                    </span>
+                                    <span class="ch" style="">
+                                        Gogo&nbsp;:&nbsp;你是做什么的？                                    </span>
+                                </p><p class="active" bid="11492">
+                                    <span class="en" mid="E156FC027258FF188EA93AE984458AC0">
+                                        C&nbsp;:&nbsp;I'm a firefighter!                                    </span>
+                                    <span class="ch" style="">
+                                        C&nbsp;:&nbsp;我是一名消防员！                                    </span>
+                                </p><p class="active" bid="11492">
+                                    <span class="en" mid="F53A1C855ABE8996BE8C2DE670A442CD">
+                                        Tony&nbsp;:&nbsp;I want to be a firefighter.                                    </span>
+                                    <span class="ch" style="">
+                                        Tony&nbsp;:&nbsp;我想成为一名消防员。                                    </span>
+                                </p><p class="active" bid="11492">
+                                    <span class="en" mid="1094F1C4FA6FDFDEB0527038D49AD678">
+                                        Tony&nbsp;:&nbsp;What do you want to be?                                    </span>
+                                    <span class="ch" style="">
+                                        Tony&nbsp;:&nbsp;你将来想做什么？                                    </span>
+                                </p><p class="active" bid="11492">
+                                    <span class="en" mid="B27F0E0E7CAEB3CABF94D890488F6A49">
+                                        Gogo&nbsp;:&nbsp;I want to be a magician!                                    </span>
+                                    <span class="ch" style="">
+                                        Gogo&nbsp;:&nbsp;我想成为一名魔术师！                                    </span>
+                                </p><p class="active" bid="11492">
+                                    <span class="en" mid="307B3F434A2095227B231B39BC0C436D">
+                                        Tony&nbsp;:&nbsp;Oh, Gogo!                                    </span>
+                                    <span class="ch" style="">
+                                        Tony&nbsp;:&nbsp;哦，戈戈！                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>Vocabulary</a></h3>
+                           <p class="active" bid="11493">
+                                    <span class="en" mid="ABAFD8D83A5BADA88B8DB9961F235F52">
+                                        &nbsp;a taxi driver                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;一名出租车司机                                    </span>
+                                </p><p class="active" bid="11493">
+                                    <span class="en" mid="4EF7955661171797BCF0F02CFDD86823">
+                                        &nbsp;a firefighter                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;一名消防员                                    </span>
+                                </p><p class="active" bid="11493">
+                                    <span class="en" mid="F426F47BE6E1816B220F8177FF79132A">
+                                        &nbsp;a police officer                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;一名警察                                    </span>
+                                </p><p class="active" bid="11493">
+                                    <span class="en" mid="67E9FD2DED5D092AD93905B61707A22B">
+                                        &nbsp;a writer                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;一名作家                                    </span>
+                                </p><p class="active" bid="11493">
+                                    <span class="en" mid="927CF25DF89FD536FFD0D48CAECFB43E">
+                                        &nbsp;an office worker                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;一名办公室职员                                    </span>
+                                </p><p class="active" bid="11493">
+                                    <span class="en" mid="C68EA7B962A4F44B281574227C092891">
+                                        &nbsp;a doctor                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;一名医生                                    </span>
+                                </p><p class="active" bid="11493">
+                                    <span class="en" mid="64AC1921E3BA335444319F4B72106243">
+                                        &nbsp;a nurse                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;一名护士                                    </span>
+                                </p><p class="active" bid="11493">
+                                    <span class="en" mid="5B56BD1DE044FB94CB82C9C6579D3DFB">
+                                        &nbsp;a teacher                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;一位老师                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>Target</a></h3>
+                           <p class="active" bid="11494">
+                                    <span class="en" mid="D3233C4410122F1ADD19B9F5EE41C579">
+                                        Gogo&nbsp;:&nbsp;What do you do?                                    </span>
+                                    <span class="ch" style="">
+                                        Gogo&nbsp;:&nbsp;你是做什么的？                                    </span>
+                                </p><p class="active" bid="11494">
+                                    <span class="en" mid="9810307E42CF7435ED061076903ED107">
+                                        D&nbsp;:&nbsp;I'm a nurse.                                    </span>
+                                    <span class="ch" style="">
+                                        D&nbsp;:&nbsp;我是一名护士。                                    </span>
+                                </p><p class="active" bid="11494">
+                                    <span class="en" mid="7CB0F2FFE2D65BC6C9D94542ED7982B5">
+                                        Gogo&nbsp;:&nbsp;What do you want to be?                                    </span>
+                                    <span class="ch" style="">
+                                        Gogo&nbsp;:&nbsp;你将来想做什么？                                    </span>
+                                </p><p class="active" bid="11494">
+                                    <span class="en" mid="B094839BBAB4B0E0EE8FB8B11FE0DD2B">
+                                        Jenny&nbsp;:&nbsp;I want to be a teacher.                                    </span>
+                                    <span class="ch" style="">
+                                        Jenny&nbsp;:&nbsp;我想成为一位老师。                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>Song</a></h3>
+                           <p class="active" bid="11495">
+                                    <span class="en" mid="9FFF59DC2BE013ACA874D3C832E64018">
+                                        &nbsp;What does he do?                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;他是做什么的？                                    </span>
+                                </p><p class="active" bid="11495">
+                                    <span class="en" mid="4BC5780B601CEED42359A42EAFF13181">
+                                        &nbsp;What does he do? He's a taxi driver. What does he do? He's an office worker. What does he do? He's a story writer. A story writer! What does he do? He's a doctor. What does he do? He's a math teacher. A math teacher!                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;他是做什么的？他是一名出租车司机。他是做什么的？他是一名办公室职员。他是做什么的？他是一名故事作家。一名故事作家！他是做什么的？他是一名医生。他是做什么的？他是一位数学老师。一位数学老师！                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>Listen, point and say</a></h3>
+                           <p class="active" bid="11496">
+                                    <span class="en" mid="0505392C509FE9188968A704ED434873">
+                                        &nbsp;father                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;爸爸                                    </span>
+                                </p><p class="active" bid="11496">
+                                    <span class="en" mid="F46EE1AAC5B9C05122BF029AA96EAEE1">
+                                        &nbsp;mother                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;妈妈                                    </span>
+                                </p><p class="active" bid="11496">
+                                    <span class="en" mid="DAC3F09B773D26726420A3358C255370">
+                                        &nbsp;sisters                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;姐妹                                    </span>
+                                </p><p class="active" bid="11496">
+                                    <span class="en" mid="026E04C312C1D0BF493FF7FED8E3F175">
+                                        &nbsp;worker                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;工人                                    </span>
+                                </p><p class="active" bid="11496">
+                                    <span class="en" mid="EF9410A5C82A37C3355814A110278DD5">
+                                        &nbsp;teacher                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;老师                                    </span>
+                                </p><p class="active" bid="11496">
+                                    <span class="en" mid="A3858067ABE73B55177ABF9485767444">
+                                        &nbsp;driver                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;司机                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div><div class="con">
+                    <ul>
+                        <div class="text">
+                           <h3 class="active"><a><i class="icon-volume-up"></i>Listen and chant</a></h3>
+                           <p class="active" bid="11497">
+                                    <span class="en" mid="B54B35A11BD7418B6455C541BFAA09EA">
+                                        &nbsp;My family                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;我的家                                    </span>
+                                </p><p class="active" bid="11497">
+                                    <span class="en" mid="2D1C670EF3C92935354D6F2BCBB54239">
+                                        &nbsp;My father is a driver. My mother is a teacher. My sister is a police officer. I love them all.                                    </span>
+                                    <span class="ch" style="">
+                                        &nbsp;我的爸爸是一名司机。我的妈妈是一名老师。我的姐姐是一名警察。我爱他们。                                    </span>
+                                </p>                        </div>
+                    </ul>
+                </div> 
+            <div class="con">
+            	<ul>
+                    <div class="text">
+                       <h3 class="active"></h3>
+                            <p class="active"><span class="en" >fasdfasdfasdfasd</span></p>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    TouchSlide( { slideCell:"#iScroll",
+    titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+    autoPage:true, //自动分页
+    defaultIndex:1,
+    endFun:function(i){ //高度自适应
+    	    mp.clear();
+            $(".wbBtn font").text(i);
+            $(".tips").hide();
+            var bd = document.getElementById("iScroll-bd");
+            bd.parentNode.style.minHeight = window.screen.availHeight+100+"px";
+            document.getElementsByClassName("con")[i].getElementsByClassName("text")[0].style.minHeight=window.screen.availHeight+"px";
+            bd.scrollTop="20px";
+            if(i>0)bd.parentNode.style.transition="200ms";
+
+             if((i-1)==6)
+            {
+                $(".wbBtn.bLine p:eq(1)").hide(); 
+                $(".con:last span").text("正在加载下一单元......");
+                var indexn="1";
+                var unitcount="1";
+            
+                
+                unitcount=parseInt(unitcount)-1;
+                if(indexn!=unitcount)
+                {
+                   window.location.href="/mobile/textread/read/indexn/1/indexp/-1/model/tm/flag/0";
+                }
+                else
+                {
+                   $(".con:last span").text("您已经背诵到最有一个单元了，恭喜你已经学完本册书籍");
+                   return false;
+                }
+            }
+            
+            if(i>0)
+            {
+              $('.text:eq('+i+') h3').click();
+            }
+            
+            if((i)==6){$(".tips").show();}
+            if((i)==0)
+            {
+            	$(".wbBtn.bLine p:eq(1)").hide();            	
+          	    var indexp="-1";
+            	if(indexp!='-1')
+            	{
+            	   $(".con:eq(0) span").text("正在加载上一单元......");
+                   window.location.href="/mobile/textread/read/indexn/1/indexp/-1/model/tm/flag/1"; 
+                }
+            	else
+            	{
+               	   $(".con:eq(0) span").text("这里是第一单元，向左开始读课文");
+               	   return false;
+                }
+            }
+
+           
+         }
+    } );</script>
+</section>
+
+<section class="tips" style-"display:none;">
+    <p class="txt">已经到最后一段课文了，向左滑动进入下一个单元。</p>
+</section>
+<div id="jplayer"></div> 
+ 
+
+<script src="/public/Mobile//js/main.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.cookie.js"></script>
+
+<script type="text/javascript"> 
+$(".tips").hide();
+mp = new Mplay();
+var unitid="00010502060c07";
+var textcount=$(".con").length;
+mp.index=0;
+mp.url = "en.czbanbantong.com:8081/yylmp3/mp3_text/";
+var wordbcount=parseInt();
+var recordcount=parseInt();
+$(function() {
+    $(".dropdown a:eq(0) .wordcount").text($.cookie("engm_wordbook_count"));
+    $(".dropdown a:eq(1) .recordcount").text($.cookie("engm_record_count"));
+    //$('.ch').hide(); 
+    $('h3').removeClass('active');
+    $('p').removeClass('active');
+   // $(document).on('click', '.text h3', function() {
+    $('.text h3').click(function(){
+    	mp.clear();
+        $(this).addClass("active");
+        var pdom=$(this).nextAll('p');
+        var ind=$(this).parents().prevAll().length-4;
+        mp.index = pdom.index()-1;
+        mp.repeat = 1;
+        twordplay(".text:eq("+ind+")  p","span.en","active",1,1);
+    });
+
+    //$(document).on('click', '.text p', function() {
+    $('.text p').click(function(){
+    	mp.clear();
+        mp.index = $(this).index()-1;
+        mp.repeat = 1;
+        var ind=$(this).parents().prevAll().length-4;
+        twordplay(".text:eq("+ind+")  p","span.en","active",1,1);
+        $(this).parent().find("h3").addClass("active");
+    });
+});
+
+//获取mp3文件路径
+function getmp3url(mp3name){
+    //mp3name = mp3name.substr(0,mp3name.length-1);
+    var mp3url = '';
+    var quespeed = 1;
+    //if(examstts_type == 1){           //系统生成
+        if(quespeed == 0){
+            mp3name = mp3name+'s';
+        }
+        else if(quespeed == 2){
+            mp3name = mp3name+'q';
+        }
+    //}
+    mp3url = mp.url+mp3name.substr(0,2)+'/'+mp3name+'.mp3';
+    return mp3url;
+}
+
+
+function twordplay(pdom,cdom,cclass,repeat,timeoutnum)
+{
+    var allnum =  $(pdom).length; 
+    var carindex = mp.index;
+    //$(pdom).find("span.ch").hide();
+    //$(pdom).removeClass(cclass);
+    $(pdom + ":eq(" + carindex + ")").addClass(cclass);
+    var $word = $(pdom + ":eq(" + carindex + ")").find(cdom);
+    var mp3  = $word.attr("mid");
+    $word.addClass(cclass);
+    //$(pdom + ":eq(" + carindex + ")").find("span.ch").show();
+    if (carindex < allnum) {
+
+        mp.play(getmp3url(mp3));
+        $("#jplayer").bind($.jPlayer.event.ended,function (event) {
+            if (mp.repeat >= repeat) 
+            {mp.index = mp.index + 1; mp.repeat = 1;}
+            else
+            {mp.repeat = mp.repeat + 1};                
+            setTimeout(function(){twordplay(pdom,cdom,cclass,repeat,timeoutnum);}, timeoutnum * 1000); 
+        });
+    }
+    else
+    {
+        mp.index = 0;
+        $(".boxCon").show();
+        $word.removeClass(cclass);
+        var chapterid=$(pdom).attr("bid");
+        $.get("/mobile/textread/study_text_record",{unitid:unitid,chapterid:chapterid},function(data){
+            var recordcount=$(".dropdown a:eq(1) .recordcount").text();
+            $(".dropdown a:eq(1) .recordcount").text(parseInt(recordcount)+parseInt(data.add));
+            $.cookie("engm_record_count",parseInt($.cookie("engm_record_count"))+parseInt(data.add));
+        });
+      
+    } 
+}
+
+function Mplay(){ 
+   $("#jplayer").jPlayer({
+        swfPath: "",
+        wmode: "window",
+        supplied: "mp3",
+        preload: "none",
+        volume: "1"
+    });
+
+    var oplay = new Object();  
+    oplay.index = 0;
+    oplay.url = "";
+    oplay.repeat = 1;
+
+    oplay.play = function(mp3){  
+        oplay.clear();
+        $("#jplayer").jPlayer("setMedia", {mp3:mp3}).jPlayer("play");
+    };
+
+    oplay.clear = function(){       
+        $("#jplayer").jPlayer("stop");
+        $("#jplayer").jPlayer("clearMedia");
+        //$("#jplayer").data("SpeakMP3Value", "0");  
+        $("#jplayer").unbind($.jPlayer.event.ended);
+        $("#jplayer").unbind($.jPlayer.event.progress);
+    };
+    return oplay;  
+}
+
+
+function  BodyScroll(curpos){
+  var container = $("html,body"); 
+  var pos_y = $(curpos).offset().top-300;
+  $("html,body").animate({scrollTop:pos_y},100);//1000是ms,也可以用slow代替
+}
+</script>
+</body>
+</html>

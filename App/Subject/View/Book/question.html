@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8">
+		<meta name="wap-font-scale" content="no">
+		<title>原声绘本</title>
+		<link rel="stylesheet" href="__SUBJECT__/book/css/huiben.css" />
+        <link rel="stylesheet" href="__SUBJECT__/book/font/fonts.css" />
+        <script type="text/javascript" src="__SUBJECT__/book/js/demoUtils.js" ></script>
+		<style>
+			#wrapper {top: 45px; bottom:60px;background:#ecf8f8;}
+			body {}
+			.pad10 image{width:100%;}
+		</style>
+		<script type="text/javascript">
+			var mql = window.matchMedia('(orientation: portrait)');
+			console.log(mql);
+			function handleOrientationChange(mql) {
+				if(mql.matches) {
+				  console.log('portrait');  // 竖屏
+				  try{
+				  	var height=$(document).height()-55-30+"px";
+					  console.log($(document).height());
+					  $("#scroller").css("height",height).css("overflow-y","auto");
+					}catch(e){
+
+					}
+				}else {
+					try{
+						var height=$(document).height()-55-30+"px";
+				   console.log($(document).height());
+					$("#scroller").css("height",height).css("overflow-y","auto");
+				}catch(e){
+
+				}
+				  console.log('landscape'); // 横屏
+				}
+			}
+			// 输出当前屏幕模式
+			handleOrientationChange(mql);
+			// 监听屏幕模式变化
+			mql.addListener(handleOrientationChange);
+		</script>
+	</head>
+	<body>
+		<main>
+			<header class="head border-nav">
+				<a class="head-left"><i class="icon-back"></i>返回</a>
+				<h1 class="title">原声绘本</h1>
+			</header>
+			<section>	
+				<div id="scroller" class="con" style="margin: 50px 0 50px;">
+					
+		        </div><!--end scroller-->
+				<div class="hbr-bottom">
+					<ul class="fen2">
+						<li class="last">
+							<a href="javascript:void(0);" class="laabtn">查看绘本</a>
+						</li>
+						<li class="next">
+							<a href="javascript:void(0);" class="laabtn">下一题</a>
+						</li>
+					</ul>
+				</div>
+				<div class="dtts">
+					<!--<h1><i class="icon-error02"></i></h1>
+					<h2>回答错误</h2>
+					<p>正确答案是<font class="greenFont">B</font></p>-->
+					<h1><i class="icon-correct02"></i></h1>
+					<h2>回答正确</h2>
+				</div>
+			</section>
+
+			<div class="dtts right">
+				<h1><i class="icon-correct02"></i></h1>
+				<h2>回答正确</h2>
+			</div>
+			
+			<div class="dtts error">
+				<h1><i class="icon-error02"></i></h1>
+				<h2>回答错误</h2>
+			</div>
+
+		</main>
+		<!--内容的模板-->
+		<div id="tips"></div>
+		<script id="listtmpl" type="text/x-jquery-tmpl">
+			<div class="timu">
+				<div class=" pad10">
+					{{html tncontent}}
+				</div>
+			</div>
+			<div class="daan pad20">
+				{{each(i,item) quesitems}}
+					{{if questionid!=null}}
+						{{if answer==useranswer}}
+							<a bid="${quesid}" bookid="${bookid}" item="${item.content}" class="backGfff xxT item yes {{if item.content==answer}}right ture{{else}}wrong{{/if}}" iserror="{{if item.content==answer}}1{{else}}0{{/if}}">${item.content}</a>
+						{{else}}
+							{{if answer==item.content}}
+								<a bid="${quesid}" bookid="${bookid}" item="${item.content}" class="backGfff xxT item yes right ture" iserror="1">${item.content}</a>
+							{{else}}
+								{{if useranswer==item.content}}
+									<a bid="${quesid}" bookid="${bookid}" item="${item.content}" class="backGfff xxT item yes wrong false" iserror="0">${item.content}</a>
+								{{else}}
+									<a bid="${quesid}" bookid="${bookid}" item="${item.content}" class="backGfff xxT item yes wrong" iserror="0">${item.content}</a>
+								{{/if}}
+							{{/if}}
+						{{/if}}
+					{{else}}
+						<a bid="${quesid}" bookid="${bookid}" item="${item.content}" class="backGfff xxT item no {{if item.content==answer}}right{{else}}wrong{{/if}}" iserror="{{if item.content==answer}}1{{else}}0{{/if}}">${item.content}</a>
+					{{/if}}
+				{{/each}}
+			</div>
+			<div class="mb50"></div>
+		</script>
+	</body>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js" ></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.tmpl.min.js" ></script>
+	<script type="text/javascript" src="__PUBLIC__/js/enajax.js" ></script>
+	<script type="text/javascript">
+	$(function(){
+		
+		var questions=[];
+		var userquestions=[];
+		var answercount=0;
+		var cur=0;
+		$.getJSON("getBookQuestionList",{bookid:"{$id}",batchid:Requests["batchid"],ran:Math.random()},function(data){
+			questions=data;
+			$("#listtmpl").tmpl(data[cur]).appendTo("#scroller");
+			var height=$(document).height()-55+"px";
+			$("#scroller").css("height",height).css("overflow-y","auto");
+			//选择试题的样式
+			$("#scroller").delegate('.item', 'click',function(){
+				var isanswer=$(this).hasClass("yes");
+				if(isanswer){
+					return false;
+				}
+				answercount=answercount+1;
+				console.log("aaaaaa");
+				var id=$(this).attr("bid");
+				var bookid=$(this).attr("bookid");
+				var answer=$(this).attr("item");
+				var batchid=Requests["batchid"];
+				var iserror=$(this).attr("iserror");
+				var isdo=$(this).parent().attr("isdo");
+				//修改全局变量
+				var temp={};
+				questions[cur].useranswer=answer;
+				questions[cur].questionid="1";
+				// questions[cur].useranswer=answer;
+				// questions[cur].questionid="1";
+				//进行一步数据提交
+				$.getJSON("saveAnswer",{bookid:bookid,batchid:batchid,id:id,answer:answer,iserror:iserror});
+				if(iserror==0){
+					$(this).addClass("false");
+					$(this).parent().find("a.right").addClass("ture");
+					$('.dtts.error').show(300).delay(1500).fadeOut(300);
+				}else{
+					$(this).addClass("ture");
+					$('.dtts.right').show(300).delay(1500).fadeOut(300);
+				}
+				$(this).parent().attr("isdo","1");
+			})
+		})
+		$("li.next").click(function(){
+			
+			if(cur==(questions.length-2)){
+				cur=cur+1;
+				$(".next a").text("提交");
+				$(".last a").text("上一题");
+				$("#scroller").empty();
+				$("#listtmpl").tmpl(questions[cur]).appendTo("#scroller");
+			}else if(cur<(questions.length-1)){
+				cur=cur+1;
+				$(".last a").text("上一题");
+				$(".next a").text("下一题");
+				$("#scroller").empty();
+				console.log(userquestions);
+				$("#listtmpl").tmpl(questions[cur]).appendTo("#scroller");
+			}else if(cur==(questions.length-1)){
+				//表示用户完成本次绘本的学习
+				if(answercount>0){
+					$.getJSON("setUserBookOver",{batchid:Requests["batchid"],ran:Math.random()},function(){
+						window.location.href="rank?id="+Requests["id"]+"&first="+Requests["first"]+"&second="+Requests["second"]+"&third="+Requests["third"]+"&batchid="+Requests["batchid"]+'&backUrl='+encodeURIComponent(Requests["backUrl"]);
+					})
+				}else{
+					setTip("您没有作答,请作答之后提交");
+				}
+				
+			}
+			console.log(cur);
+			console.log(questions.length);
+		})
+
+
+		$("li.last").click(function(){
+			if(cur==1){
+				cur=cur-1;
+				$(".last a").text("查看绘本");
+				$(".next a").text("下一题");
+				$("#scroller").empty();
+				$("#listtmpl").tmpl(questions[cur]).appendTo("#scroller");
+			}else if(cur>0){
+				cur=cur-1;
+				$(".last a").text("上一题");
+				$(".next a").text("下一题");
+				$("#scroller").empty();
+				$("#listtmpl").tmpl(questions[cur]).appendTo("#scroller");
+			}else if(cur==-1){
+				window.location.href="book?id="+Requests["id"]+"&first="+Requests["first"]+"&second="+Requests["second"]+"&third="+Requests["third"]+"&batchid="+Requests["batchid"]+'&backUrl='+encodeURIComponent(Requests["backUrl"]);
+			}
+			
+		});
+		
+		$(".head-left").click(function(){
+        	window.location.href="wordlist?id="+Requests["id"]+"&first="+Requests["first"]+"&second="+Requests["second"]+"&third="+Requests["third"]+"&batchid="+Requests["batchid"]+'&backUrl='+encodeURIComponent(Requests["backUrl"]);
+    })
+
+	})
+
+	</script>
+</html>

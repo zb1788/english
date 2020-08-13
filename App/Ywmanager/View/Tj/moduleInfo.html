@@ -1,0 +1,675 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>统计</title>
+<style>
+ .page{width:auto;height:25px; margin:auto; line-height:25px;}
+ .page a{display:block; height:25px; padding:0px 6px; border:solid 1px #e7e7e7; border-radius:3px; color:#333; font-family:'微软雅黑'; font-size:13px; text-align:center; text-decoration:none;float:left; margin-right:10px;min-width:20px;}
+ .page a:hover, .page a.this{background:#f7f7f7; font-weight:bold}
+</style>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/DatePicker/WdatePicker.js"></script>
+<link rel="icon" href="https://static.jianshukeji.com/highcharts/images/favicon.ico">
+<script src="https://img.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+<script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
+<script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
+</head>
+<body>
+<div class="place"><strong></strong></div>
+<div class="container">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+	  <tr>
+	    <td class="box_top pl_10 f14"><strong>模块详情</strong></td>
+	  </tr>
+	  <tr>
+	    <td class="pl_5">
+	    	<table border="0" cellspacing="0" cellpadding="0" class="form_table">
+		      <tr>
+		      	<td  align="left">平台：</td>
+				<td>
+		          <select id="area" class="select">
+				  	<option value="tj">天津（全国）</option>
+		          </select>
+		        </td>
+                <td  align="left">区域：</td>
+                <td>
+                  <select id="localAreaCode" class="select">
+                  </select>
+                </td>
+                <td  align="left">模块：</td>
+                <td>
+                  <select id="module" class="select">
+                  </select>
+                </td>
+                <td align="left">开始时间：</td>
+                <td><input type="text" id="beg" value="" class="Wdate input-text" onclick="WdatePicker({el:'beg',dateFmt:'yyyy-MM-dd HH:mm:ss',skin:'whyGreen'});" style="width:145px;"/></td>
+                <td align="left">结束时间：</td>
+                <td><input type="text" id="end" value="" class="Wdate input-text" onclick="WdatePicker({el:'end',dateFmt:'yyyy-MM-dd HH:mm:ss',skin:'whyGreen'});" style="width:145px;"/></td>
+                <td>&nbsp;&nbsp;<input type="button" onclick="getTj(2);" value="日统计" class="btn btn82 btn_search"/></td>
+		      </tr>
+	    	</table>
+		</td>
+	  </tr>
+	</table>
+	<div class="h5"></div>
+	<table border="0" cellspacing="0" cellpadding="0" class="form_table">
+		<tr>
+			<td>
+				<!-- <input type="button" id="addKecheng" value="添加章节" class="ext_btn ext_btn_submit" /> -->
+			</td>
+		</tr>
+	</table>
+	<div class="h10"></div>
+<!-- 	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+	  <tr>
+	    <th>序号</th>
+	    <th>章节</th>
+	    <th>属性</th>
+	    <th>目录类型</th>
+	    <th>管理</th>
+	  </tr>
+	</table> -->
+    <div class="h4" id="total"></div>
+    <div class="h4" id="totalPeople"></div>
+    <div class="h5"></div>
+    <div id="container1" style="min-width:400px;height:400px"></div>
+	<div id="container" style="min-width:400px;height:400px"></div>
+	<div class="h5"></div>
+    <div>
+        <table style="display: none;" id="list" width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" >
+            <tr>
+                <th width="50">序号</th>
+                <td width="100">学科</td>
+                <th width="250">模块名称</th>
+                <th width="150">访问量（次）</th>
+                <th width="150">访问总人数（个）</th>
+                <th align="left">平均访问次数（次）</th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+<table style="display: none;" id="list_demo" >
+    <tr class="tr">
+        <td>序号</td>
+        <td>学科</td>
+        <td>模块名称</td>
+        <td>访问量</td>
+        <td>访问总人数</td>
+        <td align="left">平均访问次数</td>
+    </tr>
+</table>
+
+<table style="display:none;" id="demo">
+	<tr class="tr">
+		<td>序号</td>
+		<td>章节</td>
+		<td>属性</td>
+		<td>目录类型</td>
+		<td align="left">
+			<input type="button" name="edit"  class="ext_btn ext_btn_listen" value="目录类型编辑" />
+			<input type="button" name="manage" value="课文管理" class="ext_btn ext_btn_success" />
+			<input type="button" name="shengzi" value="生字管理" class="ext_btn ext_btn_submit" />
+			<input type="button" name="del" value="删除" class="ext_btn ext_btn_error" />
+			<input type="button" name="kwview" value="课文预览" class="ext_btn ext_btn_success" />
+			<input type="button" name="szview" value="生字预览" class="ext_btn ext_btn_success" />
+		</td>
+	</tr>
+</table>
+<div id="jplayer"></div>
+</body>
+</html>
+<script type="text/javascript">
+var areaName = '天津（全国）';
+var area = 'tj';
+var grade;
+var term;
+var subject;
+var beg;
+var end;
+var localAreaCode;
+var now = new Date();
+var time = now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
+$(function(){
+    var myDate = new Date();
+    var month = (myDate.getMonth()+1)<10?'0'+(myDate.getMonth()+1):(myDate.getMonth()+1);
+    var day = myDate.getDate()<10?'0'+myDate.getDate():myDate.getDate();
+    var begstr = myDate.getFullYear()+'-'+month+'-01';
+    var endstr = myDate.getFullYear()+'-'+month+'-'+day;
+    $('#beg').val(begstr+' 00:00:01');
+    $('#end').val(endstr+' 23:59:59');
+    getLocalArea();
+    getModule();
+});
+$('#area').change(function(){
+   getLocalArea();
+})
+function getLocalArea(){
+    area = $('#area').val();
+    $('#localAreaCode').empty();
+    $.ajax({
+        url:'../Tj/getArea',
+        data:{area:area},
+        type:'get',
+        success:function(data){
+            $.each(data,function(key,value){
+                $('#localAreaCode').append($("<option>").val(value.areacode).text(value.areaname));
+            })
+        }
+    })
+    $('#localAreaCode').change();
+}
+
+function getModule(){
+    area = $('#area').val();
+    $('#module').empty();
+    $.ajax({
+        url:'../Tj/getModule',
+        data:{area:area},
+        type:'get',
+        success:function(data){
+            $.each(data,function(key,value){
+                $('#module').append($("<option>").val(value.id).text(value.title));
+            })
+        }
+    })
+}
+
+function getResult(){
+	area = $('#area').val();
+	areaName = $('#area option:selected').text();
+	grade = $('#grade').val();
+	term = $('#term').val();
+	subject = $('#subject').val();
+    beg = $('#beg').val();
+    end = $('#end').val();
+	$.ajax({
+		async:false,
+	    url:"../Tj/getData",
+	    data:{area:area,grade:grade,term:term,subject:subject,beg:beg,end:end},
+	    type:'get',
+	    dataType:'json',
+	    success:function(result){
+	    	$('#container').empty();
+            $('#container1').empty();
+            $("#total").empty();
+            $("#totalPeople").empty();
+            $('#container').show();
+            $('#container1').hide();
+	        show_t(result);
+	    },
+        error: function(e){    //失败后回调
+            // alert(e);
+        },
+        beforeSend: function(){
+            // alert("正在加载");
+        }
+	});
+}
+String.prototype.trimStr = function(str) {
+  return this.replace(eval('/(^'+str+'*)|('+str+'*$)/g'), '');
+};
+
+function getGradeName(gradeCode){
+    var gardeName;
+    switch(gradeCode){
+        case '0001':
+            gardeName = '一年级';
+            break;
+        case '0002':
+            gardeName = '二年级';
+            break;
+        case '0003':
+            gardeName = '三年级';
+            break;
+        case '0004':
+            gardeName = '四年级';
+            break;
+        case '0005':
+            gardeName = '五年级';
+            break;
+        case '0006':
+            gardeName = '六年级';
+            break;
+        case '0007':
+            gardeName = '七年级';
+            break;
+        case '0008':
+            gardeName = '八年级';
+            break;
+        case '0009':
+            gardeName = '九年级';
+            break;
+        case '0010':
+            gardeName = '高中';
+            break;
+        case '0011':
+            gardeName = '高一';
+            break;
+        case '0012':
+            gardeName = '高二';
+            break;
+        default:
+            gardeName = '大学';
+    }
+    return gardeName;
+}
+function getSubjectName(subjectCode){
+    var subjectName;
+    switch(subjectCode){
+        case '0001':
+            subjectName = '语文';
+            break;
+        case '0002':
+            subjectName = '数学';
+            break;
+        case '0003':
+            subjectName = '英语';
+            break;
+        case '0004':
+            subjectName = '物理';
+            break;
+        case '0005':
+            subjectName = '化学';
+            break;
+        case '0006':
+            subjectName = '音乐';
+            break;
+        case '0007':
+            subjectName = '美术';
+            break;
+        case '0008':
+            subjectName = '科学';
+            break;
+        case '0009':
+            subjectName = '品德';
+            break;
+        case '0010':
+            subjectName = '生物';
+            break;
+        case '0011':
+            subjectName = '地理';
+            break;
+        case '0012':
+            subjectName = '政治';
+            break;
+        case '0013':
+            subjectName = '历史';
+            break;
+        case '0014':
+            subjectName = '信息技术';
+            break;
+        case '0015':
+            subjectName = '通用技术';
+            break;
+        case '0018':
+            subjectName = '高考';
+            break;
+        default:
+            subjectName = '大学';
+    }
+    return subjectName;
+}
+
+function show_t(data){
+    $('.list_table tr:not(:first)').remove();
+    $('#list').show();
+
+    var str_name = '[';
+    var str_count = '[';
+    var str_people = '[';
+    var str_average = '[';
+    var flag = true;
+    var i = -1;
+    $.each(data.count,function(k,v){
+        i++;
+        if(v.count !== null){
+            str_name += "'["+getSubjectName(v.subjectid)+']'+v.title+"',";
+            str_count += v.count+",";
+            flag = false;
+            var tr=$('#list_demo').children('tbody').children('tr').eq(0).clone();
+            tr.children('td').eq(0).html(i+1);
+            tr.children('td').eq(1).html(getSubjectName(v.subjectid));
+            tr.children('td').eq(2).html(v.title);
+            tr.children('td').eq(3).html(v.count);
+            tr.children('td').eq(4).html(data.people[k].count);
+            tr.children('td').eq(5).html(data.average[i]);
+            tr.appendTo('.list_table');
+        }
+    });
+
+    $.each(data.people,function(k,v){
+        if(v.count !== null){
+            str_people += v.count+",";
+            flag = false;
+        }
+    });
+    $.each(data.average,function(k,v){
+        str_average += v+",";
+    });
+    if(flag){
+        $('#container').html('暂无数据');
+        return false;
+    }else{
+        $('#container').empty();
+    }
+    str_name = str_name.trimStr(',');
+    str_name += ']';
+
+    str_count = str_count.trimStr(',');
+    str_count += ']';
+
+    str_people = str_people.trimStr(',');
+    str_people += ']';
+
+    str_average = str_average.trimStr(',');
+    str_average += ']';
+
+    $("#total").html('总访问次数：'+data.total+'次');
+    $("#totalPeople").html('总访问人数：'+data.totalPeople+'个');
+console.log(str_people);
+console.log(str_count);
+console.log(str_average);
+
+    $('#container').highcharts({
+        chart: {
+            zoomType: 'xy'
+        },
+        title: {
+            text: '智学助手模块统计'
+        },
+        subtitle: {
+            // text: '数据截止 '+time+'，来源: '+areaName
+            text: '来源: '+areaName
+        },
+        xAxis: [{
+            categories: eval('('+str_name+')'),
+            crosshair: true
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value}次',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            title: {
+                text: '访问量',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            opposite: true
+        }, { // Secondary yAxis
+            gridLineWidth: 0,
+            title: {
+                text: '访问总人数（个）',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value} 个',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            }
+        }, { // Tertiary yAxis
+            gridLineWidth: 0,
+            title: {
+                text: '平均访问次数',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            labels: {
+                format: '{value} 次 ',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            opposite: true
+        }],
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            x: 80,
+            verticalAlign: 'top',
+            y: 55,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        },
+        series: [{
+            name: '访问总人数',
+            type: 'column',
+            yAxis: 1,
+            data: eval('('+str_people+')'),
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '平均访问次数',
+            type: 'spline',
+            yAxis: 2,
+            data: eval('('+str_average+')'),
+            marker: {
+                enabled: false
+            },
+            dashStyle: 'shortdot',
+            tooltip: {
+                valueSuffix: ' 个'
+            }
+        }, {
+            name: '访问量',
+            type: 'spline',
+            data: eval('('+str_count+')'),
+            tooltip: {
+                valueSuffix: ' 次'
+            }
+        }]
+    });
+}
+
+
+function getTj(type){
+    area = $('#area').val();
+    areaName = $('#area option:selected').text();
+    localAreaCode = $('#localAreaCode').val();
+    var module = $('#module').val();
+    beg = $('#beg').val();
+    end = $('#end').val();
+    $.ajax({
+        async:false,
+        url:"../Tj/getLogByDayByModule",
+        data:{area:area,type:type,beg:beg,end:end,module:module,localAreaCode:localAreaCode},
+        type:'get',
+        dataType:'json',
+        success:function(result){
+            $('#container1').empty();
+            $('#container').empty();
+            $("#total").empty();
+            $("#totalPeople").empty();
+            $('#container').hide();
+            $('#container1').show();
+            $('#list').hide();
+            show_by_day_m(result,type);
+        },
+        error: function(e){    //失败后回调
+            // alert(e);
+        },
+        beforeSend: function(){
+            // alert("正在加载");
+        }
+    });
+}
+function show_by_day_m(data,type){
+    if(type == 1){
+        var title = '月访问统计';
+    }else if(type == 2){
+        var title = '日访问统计';
+    }else if(type == 3){
+        var title = '时访问统计';
+    }
+    var str_count = '[';
+    var str_people = '[';
+    var str = '[';
+
+    $.each(data.count,function(k,v){
+        str_count += v.count+",";
+        str += "'"+v.date+"',";
+    });
+    $.each(data.people,function(k,v){
+        str_people += v.count+",";
+    });
+
+
+    str_count = str_count.trimStr(',');
+    str_count += ']';
+
+    str_people = str_people.trimStr(',');
+    str_people += ']';
+
+    str = str.trimStr(",");
+    str += ']';
+
+    $('#container1').highcharts({
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: title
+        },
+        subtitle: {
+            text: '数据来源:智学助手统计'
+        },
+        xAxis: {
+            categories: eval('('+str+')')
+        },
+        yAxis: {
+            title: {
+                text: '次'
+            }
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true          // 开启数据标签
+                },
+                enableMouseTracking: false // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+            }
+        },
+        series: [{
+            name: '总访问次数',
+            data: eval('('+str_count+')')
+        },{
+            name: '总访问人数',
+            data: eval('('+str_people+')')
+        }]
+    });
+
+
+}
+
+
+
+function getByGrade(){
+    area = $('#area').val();
+    areaName = $('#area option:selected').text();
+    grade = $('#grade').val();
+    term = $('#term').val();
+    subject = $('#subject').val();
+    beg = $('#beg').val();
+    end = $('#end').val();
+    $.ajax({
+        async:false,
+        url:"../Tj/getDataByGrade",
+        data:{area:area,beg:beg,end:end,ran:Math.random()},
+        type:'get',
+        dataType:'json',
+        success:function(result){
+            $('#container').empty();
+            $('#container1').empty();
+            $("#total").empty();
+            $("#totalPeople").empty();
+            $('#container').show();
+            $('#container1').hide();
+            $('#list').hide();
+            show(result);
+        },
+        error: function(e){    //失败后回调
+            // alert(e);
+        },
+        beforeSend: function(){
+            // alert("正在加载");
+        }
+    });
+}
+function show(data){
+	var str = '[';
+	$.each(data,function(k,v){
+		str += '["'+v.gradecode+'",'+v.count+'],';
+	});
+
+	str = str.trimStr(',');
+	str += ']';
+    $('#container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '智学助手模块统计'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: -45,//X轴字体旋转度数
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '访问量 (次)'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: '访问量: <b>{point.y} 次</b>'
+        },
+        series: [{
+            name: '总人口',
+            data: eval('('+str+')'),
+            dataLabels: {
+                enabled: true,
+                rotation: 0,
+                color: '#FFFFFF',
+                align: 'center',
+                format: '{point.y}', // one decimal
+                y: 0, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    });
+}
+
+</script>

@@ -1,0 +1,25 @@
+{
+	"name" : "singsound/warrant-sdk-for-php",
+	"description" : "warrant sdk for php",
+	"require" : {
+		"symfony/dotenv" : "~3.4|~4.0",
+		"guzzlehttp/guzzle" : "^6.3",
+		"ramsey/uuid" : "~3.7",
+		"moontoast/math" : "~1.1"
+	},
+	"require-dev" : {
+		"symfony/http-foundation" : "~3.4|~4.0"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"SSPHPSDK\\" : "src/",
+			"SSPHPSDK\\SSInterface\\" : "src/interface/",
+			"SSPHPSDK\\SSTool\\" : "src/tool/"
+		}
+	},
+	"authors" : [{
+			"name" : "Guojz",
+			"email" : "guojz@singsound.com"
+		}
+	]
+}

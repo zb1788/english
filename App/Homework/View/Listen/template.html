@@ -1,0 +1,1159 @@
+<!--英语天天练模板文件-->
+<!--单词朗读预览试题模板-->
+<script id="tmplwaquestion" type="text/x-jquery-tmpl">
+   
+ <h1>${title}<span> 共${wordlistnum}个单词 点击标准读音可听系统示范试音，学生点击跟读可录入读音，可重复试读，每次读音系统均会给出评分！</span></h1>
+    {{each(a,lang ) words}}
+        <div class="testContent">
+           <div class="mh90 posRe">
+            <h2>${a+1}.<strong>${word}<i class="fa  fa-star"></i></strong>&nbsp;{{if isword==1}}<span class="yinbiao">[${usmark}]</span> {{/if}}&nbsp;${explains} </h2>
+             <ul class="duyin gendu ">
+           <li onclick="reading(this,0);"><a  href="javascript:void(0);" mp3="${lang.ukmp3}"><img src="__PUBLIC__/public/images/zuoye/icon_listen.png" width="80" height="80"  alt=""/></a><span>标准读音</span>
+              </li>
+            <li><a href="javascript:;"><img src="__PUBLIC__/public/images/zuoye/icon_rehui.png" width="80" height="80"  alt=""/></a><span>跟读</span></li>
+            <li ><a href="javascript:;"><img src="__PUBLIC__/public/images/zuoye/icon_reading_hui.png" width="80" height="80"  alt=""/></a><span>我的读音</span></li>
+          </ul>
+          <div class="clearfix"></div>
+          </div>
+        </div>
+  {{/each}}
+
+</script>
+<!--单词拼写预览选择题模板其中issubmit表示是否提交进行答案的判断[${lang.score}分]-->
+<script id="tmplwpquestion" type="text/x-jquery-tmpl">
+    {{if issubmit ==0}} <!-- 未题交 -->
+      {{if answer ==1}} <!-- 预览 -->
+       <h1>${title}<span> 跟据您所选单词，已为您生成单词拼写的检测题，学生作答时每题1分，共${wordlistnum}分。</span></h1>
+       {{each(b,lang ) words}}
+       <div class="testContent">
+        <div class="clearfix"></div>
+        <h2 class="pinxie">${b+1}.&nbsp;${explains}&nbsp;<span onclick="reading(this,0)"><a  href="javascript:void(0);" mp3="${lang.ukmp3}" class="pin"><img src="__PUBLIC__/public/images/zuoye/icon_listen.png" width="80" height="80"  alt=""/></a></span></h2>
+         <div class="btn_cs">${word}</div>
+      </div>
+      {{/each}}
+      {{/if}} 
+    {{/if}} 
+
+</script>
+<!--英汉互译预览选择题模板其中issubmit表示是否提交进行答案的判断[${lang.score}分]-->
+<script id="tmplwyquestion" type="text/x-jquery-tmpl">
+    {{if issubmit ==0}} <!-- 未题交 -->
+      {{if answer ==1}} <!-- 预览 -->
+       <h1>${title}<span> 跟据您所选单词，已随机为您生成单词的英汉互译的检测题，学生作答时每题1分，共${wordlistnum}分。</span></h1>
+       {{each(c,lang ) words}}
+       <div class="testContent">
+       <h2 class="td tingli" onclick="reading(this,0);">    
+          {{if lang.typeid==0}}
+                  ${c+1}.<span></span>${lang.explains}          
+          {{else}}
+                 ${c+1}.<span></span>${lang.word}
+
+          {{/if}} 
+           </h2>
+                  {{if lang.answer=='A'}}
+                      <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);"> A </a>${lang.option_a}</p>
+                  {{else}}
+                      <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);"> A </a>${lang.option_a}</p>
+                  {{/if}}
+                  {{if lang.answer=='B'}}
+                      <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);"> B </a>${lang.option_b}</p>
+                  {{else}}
+                      <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);"> B </a>${lang.option_b}</p>
+                  {{/if}}
+                  {{if lang.answer=='C'}}
+                      <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);"> C </a>${lang.option_c}</p>
+                  {{else}}
+                      <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);"> C </a>${lang.option_c}</p>
+                  {{/if}}
+      </div>
+      {{/each}}
+      {{/if}} 
+    {{/if}} 
+
+</script>
+<!--英汉互译做作业-->
+<!--听音选词预览选择题模板其中issubmit表示是否提交进行答案的判断[${lang.score}分]-->
+<script id="tmplwxquestion" type="text/x-jquery-tmpl">
+    {{if issubmit ==0}} <!-- 未题交 -->
+      {{if answer ==1}} <!-- 预览 -->
+       <h1>${title}<span> 跟据您所选单词，已为您生成听音选词的检测题，学生作答时每题1分，共${wordlistnum}分。</span></h1>
+       {{each(d,lang ) words}}
+       <div class="testContent">
+       <h2 class="td tingli" onclick="reading(this,0);">    
+          ${d+1}.<span></span><a href="javascript:void(0);" class="sound_single" mp3="${lang.ukmp3}"></a>  
+           </h2>
+                  {{if lang.answer=='A'}}
+                      <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);"> A </a>${lang.option_a}</p>
+                  {{else}}
+                      <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);"> A </a>${lang.option_a}</p>
+                  {{/if}}
+                  {{if lang.answer=='B'}}
+                      <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);"> B </a>${lang.option_b}</p>
+                  {{else}}
+                      <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);"> B </a>${lang.option_b}</p>
+                  {{/if}}
+                  {{if lang.answer=='C'}}
+                      <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);"> C </a>${lang.option_c}</p>
+                  {{else}}
+                      <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);"> C </a>${lang.option_c}</p>
+                  {{/if}}
+      </div>
+      {{/each}}
+      {{/if}} 
+    {{/if}} 
+
+</script>
+<!--短文朗读预览试题模板-->
+<script id="tmpltaquestion" type="text/x-jquery-tmpl">
+ {{each(j,la) chapters}}
+        <div class="testContent">
+        <h2><span class="fr"></span><strong>${j+1}.&nbsp;${la.chapter}</strong></h2>
+        <div class="clearfix"></div>
+         {{each(i,lang ) la.text}}
+            <div class="row">
+            <div class="zcol-1h">
+              <h2>0${textindex}.</h2>
+            </div>
+            <div class=" zcol-7h ">
+              <div class="gendu_tit"><strong>${lang.encontent}</strong></div>
+              <div class="gendu_miaoshu">${lang.cncontent} </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="zcol-4 ">
+          <ul class="duyin_s">
+            <li onclick="reading(this,1);"><a href="javascript:void(0);" mp3="${lang.mp3}"><img src="__PUBLIC__/public/images/zuoye/icon_listen.png" width="80" height="80"  alt=""/></a><span>标准读音</span></li>
+            <li><a href="javascript:;"><img src="__PUBLIC__/public/images/zuoye/icon_rehui.png" width="80" height="80"  alt=""/></a><span>跟读</span></li>
+            <li ><a href="javascript:;"><img src="__PUBLIC__/public/images/zuoye/icon_reading_hui.png" width="80" height="80"  alt=""/></a><span>我的读音</span></li>
+          </ul>
+        </div>
+      </div>
+         {{/each}}
+        </div>
+  {{/each}}
+</script>
+<!--学生反馈单词朗读试题模板-->
+<script id="tmplstuwaquestion" type="text/x-jquery-tmpl">
+<h1><span>共 ${wordlistnum} 个单词,可播放标准读音进行查看，录音时需要打开您的麦克风设备，且需要录音设置辅助进行。</span></h1>
+   {{each(i,lang ) words}}
+      <div class="testContent">
+        <div class="mh90 posRe">
+          <h2>${i+1}.&nbsp;&nbsp;<strong>${word}</strong>&nbsp;&nbsp;{{if isword==1}}<span class="yinbiao">[${ukmark}]</span>{{/if}} ${explains} </h2>
+          <ul class="duyin gendu ">
+            <li onclick="reading(this,0);"><a href="javascript:;" mp3="${ukmp3}"><img src="__PUBLIC__/public/images/zuoye/icon_listen.png" width="80" height="80"  alt=""/></a><span>标准读音</span></li>
+            <li><a href="javascript:;"><img src="__PUBLIC__/public/images/zuoye/icon_rehui.png" width="80" height="80"  alt=""/></a><span>跟读</span></li>
+            {{if (userscore !=null)}}
+            <li onclick="reading(this,2);"><a href="javascript:;" mp3="${usermp3}" recordtype="0" recordid="${recordid}"><img src="__PUBLIC__/public/images/zuoye/icon_reading_me.png" width="80" height="80"  alt=""/></a><span>我的读音</span></li>
+            {{else}}
+            <li ><a href="javascript:;"><img src="__PUBLIC__/public/images/zuoye/icon_reading_hui.png" width="80" height="80"  alt=""/></a><span>我的读音</span></li>
+            {{/if}}
+
+          </ul>
+         
+          <div class="clearfix"></div>
+        </div>
+        {{if (answer != 2)}}
+        <div class="btn_cs">作答结果：{{if (userscore ==null)}}<font class="redFon">未作答</font>{{else}}<font class="greenFon">已作答</font>{{/if}}&nbsp;&nbsp;&nbsp;&nbsp;{{if (userscore !=null)}}得分：{{if (userscore >=60)}}<font class=" greenFon">{{else}}<font class="redFon">{{/if}}${userscore}分</font>{{/if}} 　</div>
+      
+        {{/if}} 
+      </div>
+   {{/each}}
+
+</script>
+<!--学生反馈单词拼写试题模板-->
+<script id="tmplstuwpquestion" type="text/x-jquery-tmpl">
+<h1><span>共 ${wordlistnum} 个单词.</span></h1>
+{{each(i,lang ) words}}
+<div class="testContent">
+<div class="clearfix"></div>
+<h2 class="pinxie" onclick="reading(this,0);"><label class="explains">${i+1}.&nbsp;&nbsp;${explains}</label> &nbsp;&nbsp;<a href="javascript:;" class="pin mp3" mp3="${mp3}"><img src="__PUBLIC__/public/images/zuoye/icon_listen.png" width="80" height="80"  alt=""/></a></h2>
+{{if (answer ==2)}}
+  <div class="btn_cs"><font class="greenFon">${queanswer}</font>　</div>
+{{else}}
+    {{if (useranswer2 =="")}}
+  <div class="btn_cs"><font class="redFon">未作答</font>&nbsp;&nbsp;&nbsp;&nbsp;正确答案：<font class="greenFon">${queanswer}</font>　</div>
+    {{else}}
+    <div class="btn_cs">作答：<font class="greenFon">${useranswer2}</font>&nbsp;&nbsp;结果：{{if (iscorrect==0)}}<font class="redFon">错误</font>{{else}}<font class="greenFon">正确</font>{{/if}}&nbsp;&nbsp;正确答案：<font class="greenFon">${queanswer}</font></div>
+
+    {{/if}}
+{{/if}}
+</div>
+{{/each}}
+</script>
+<!--学生反馈英汉互译试题模板-->
+<script id="tmplstuwyquestion" type="text/x-jquery-tmpl">
+<h1><span>共 ${wordlistnum} 个单词。</span></h1>
+{{each(i,lang ) words}}
+<div class="testContent">
+<div class="clearfix"></div>
+<h2 class="td tingli">${i+1}.<span></span> {{if typeid==1}}${word}{{else}}${explains}{{/if}}   </h2>
+{{if answer==2}}
+{{if lang.queanswer=='A'}}
+  <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);"> A </a>${lang.option_a}</p>
+{{else}}
+  <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);"> A </a>${lang.option_a}</p>
+{{/if}}
+{{if lang.queanswer=='B'}}
+  <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);"> B </a>${lang.option_b}</p>
+{{else}}
+  <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);"> B </a>${lang.option_b}</p>
+{{/if}}
+{{if lang.queanswer=='C'}}
+  <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);"> C </a>${lang.option_c}</p>
+{{else}}
+  <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);"> C </a>${lang.option_c}</p>
+{{/if}}
+{{else}}
+{{if (useranswer =="")}}
+   <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="A"> A </a><span type="option">${option_a}</span></p>
+   <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="B"> B </a><span type="option">${option_b}</span></p>
+   <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="C"> C </a><span type="option">${option_c}</span></p>
+  <div class="btn_cs"><font class="redFon">未作答</font>&nbsp;&nbsp;&nbsp;&nbsp;正确答案：<font class="greenFon">${queanswer}</font>　</div>
+{{else}}
+   {{if useranswer == 'A'}}
+      <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);" type="option" useranswer="A"> A </a><span type="option">${option_a}</span></p>
+    {{else}}
+      <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="A"> A </a><span type="option">${option_a}</span></p>
+    {{/if}}
+    {{if useranswer == 'B'}}
+      <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);" type="option" useranswer="B"> B </a><span type="option">${option_b}</span></p>
+    {{else}}
+      <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="B"> B </a><span type="option">${option_b}</span></p>
+    {{/if}}
+     {{if useranswer == 'C'}}
+      <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);" type="option" useranswer="C"> C </a><span type="option">${option_c}</span></p>
+    {{else}}
+      <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="C"> C </a><span type="option">${option_c}</span></p>
+    {{/if}}
+<div class="btn_cs">作答：<font class="greenFon">${useranswer}</font>&nbsp;&nbsp;结果：{{if (iscorrect==0)}}<font class="redFon">错误</font>{{else}}<font class="greenFon">正确</font>{{/if}}&nbsp;&nbsp;正确答案：<font class="greenFon">${queanswer}</font></div>
+
+{{/if}}
+{{/if}}
+</div>
+{{/each}}
+</script>
+<!--学生反馈听音选词试题模板-->
+<script id="tmplstuwxquestion" type="text/x-jquery-tmpl">
+<h1><span>共 ${wordlistnum} 个单词。</span></h1>
+{{each(i,lang ) words}}
+<div class="testContent">
+<div class="clearfix"></div>
+  <h2 class="td tingli" onclick="reading(this,0);">${i+1}.<span></span> <a href="javascript:void(0);" class="sound_single" mp3="${mp3}"></a>   </h2>
+{{if answer==2}}
+{{if lang.queanswer=='A'}}
+  <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);"> A </a>${lang.option_a}</p>
+{{else}}
+  <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);"> A </a>${lang.option_a}</p>
+{{/if}}
+{{if lang.queanswer=='B'}}
+  <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);"> B </a>${lang.option_b}</p>
+{{else}}
+  <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);"> B </a>${lang.option_b}</p>
+{{/if}}
+{{if lang.queanswer=='C'}}
+  <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);"> C </a>${lang.option_c}</p>
+{{else}}
+  <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);"> C </a>${lang.option_c}</p>
+{{/if}}
+{{else}}
+{{if (useranswer =="")}}
+   <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="A"> A </a><span type="option">${option_a}</span></p>
+   <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="B"> B </a><span type="option">${option_b}</span></p>
+   <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="C"> C </a><span type="option">${option_c}</span></p>
+  <div class="btn_cs"><font class="redFon">未作答</font>&nbsp;&nbsp;&nbsp;&nbsp;正确答案：<font class="greenFon">${queanswer}</font>　</div>
+{{else}}
+   {{if useranswer == 'A'}}
+      <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);" type="option" useranswer="A"> A </a><span type="option">${option_a}</span></p>
+    {{else}}
+      <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="A"> A </a><span type="option">${option_a}</span></p>
+    {{/if}}
+    {{if useranswer == 'B'}}
+      <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);" type="option" useranswer="B"> B </a><span type="option">${option_b}</span></p>
+    {{else}}
+      <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="B"> B </a><span type="option">${option_b}</span></p>
+    {{/if}}
+     {{if useranswer == 'C'}}
+      <p><a href="javascript:void(0);" class="btn_green" onclick="javascript:void(0);" type="option" useranswer="C"> C </a><span type="option">${option_c}</span></p>
+    {{else}}
+      <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="C"> C </a><span type="option">${option_c}</span></p>
+    {{/if}}
+<div class="btn_cs">作答：<font class="greenFon">${useranswer}</font>&nbsp;&nbsp;结果：{{if (iscorrect==0)}}<font class="redFon">错误</font>{{else}}<font class="greenFon">正确</font>{{/if}}&nbsp;&nbsp;正确答案：<font class="greenFon">${queanswer}</font></div>
+
+{{/if}}
+{{/if}}
+</div>
+{{/each}}
+</script>
+<!--学生反馈短文朗读试题模板-->
+<script id="tmplstutaquestion" type="text/x-jquery-tmpl">
+ {{each(j,la) chapters2}}
+        <div class="testContent">
+        <h2><span class="fr"></span><strong>${j+1}.&nbsp;${la.chapter}</strong></h2>
+        <div class="clearfix"></div>
+         {{each(i,lang ) la.text}}
+            <div class="row">
+            <div class="zcol-1h">
+              <h2>0${textindex}.</h2>
+            </div>
+            <div class=" zcol-7h ">
+              <div class="gendu_tit"><strong>${lang.encontent}</strong></div>
+              <div class="gendu_miaoshu">${lang.cncontent} </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="zcol-4 ">
+          <ul class="duyin_s">
+            <li onclick="reading(this,1);"><a href="javascript:void(0);" mp3="${lang.mp3}"><img src="__PUBLIC__/public/images/zuoye/icon_listen.png" width="80" height="80"  alt=""/></a><span>标准读音</span></li>
+            <li><a href="javascript:;"><img src="__PUBLIC__/public/images/zuoye/icon_rehui.png" width="80" height="80"  alt=""/></a><span>跟读</span></li>
+            {{if (userscore !=null)}}
+            <li onclick="reading(this,2);"><a href="javascript:;" mp3="${usermp3}" recordtype="1" recordid="${recordid}"><img src="__PUBLIC__/public/images/zuoye/icon_reading_me.png" width="80" height="80"  alt=""/></a><span>我的读音</span></li>
+            {{else}}
+            <li ><a href="javascript:;"><img src="__PUBLIC__/public/images/zuoye/icon_reading_hui.png" width="80" height="80"  alt=""/></a><span>我的读音</span></li>
+            {{/if}}
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+        {{if (answer != 2)}}
+        <div class="btn_cs">作答结果：{{if (userscore ==null)}}<font class="redFon">未作答</font>{{else}}<font class="greenFon">已作答</font>{{/if}}&nbsp;&nbsp;&nbsp;&nbsp;{{if (userscore !=null)}}得分：{{if (userscore >=60)}}<font class=" greenFon">{{else}}<font class="redFon">{{/if}}${userscore}分</font>{{/if}} 　</div>
+      
+        {{/if}} 
+        </div>     
+         {{/each}}
+        </div>
+  {{/each}}
+</script>
+<!--听力训练选择题模板-->
+<script id="xztmpl" type="text/x-jquery-tmpl">
+      {{if display=='1'}}
+        {{if itemtype=="1"}}
+           {{if tcontent =='' || tcontent ==null}}
+            <div class="testContent tu heng heng_w" id="top${id}">
+            {{else}}
+            <div class="testContent tu heng" id="top${id}">
+            {{/if}}
+          {{else}}
+            {{if tcontent =='' || tcontent ==null}}
+            <div class="testContent heng heng_w" id="top${id}">
+            {{else}}
+            <div class="testContent p40 heng " id="top${id}">
+            {{/if}}
+        {{/if}} 
+        {{else}}
+          {{if tcontent =='' || tcontent ==null}}
+            <div class="testContent shu_w" id="top${id}">
+            {{else}}
+            <div class="testContent p40" id="top${id}">
+            {{/if}}
+      {{/if}}
+      {{if tcontent =='' || tcontent ==null}}
+        {{if display !="1"}}
+        <b class="h90">${question_num}.</b>
+        {{else}}
+        <b>${question_num}.</b>
+        {{/if}}
+       {{else}}
+       <h2 class="td" >
+        <b>${question_num}.</b>{{html tcontent}}
+       </h2>
+      {{/if}}
+    {{if itemtype != '1'}}  
+        {{each(i,item) items}}
+          {{if issubmit=='0'}}
+            {{if answer=="0"}}
+             {{if useranswer==item.flag}}
+              <p><a  class="btn_green" href="javascript:void(0);"  onclick="save_stu_exams(this);" name="eqxz_${id}" option="${id}" questionid="${id}"  examsid="${examsid}" quizid="${quizid}" answerid="${que_answer.id}" useranswer="${item.flag}" typeid="1">${item.flag}</a>${item.content}</p>
+              {{else}}
+              <p><a  class="btn_gray" href="javascript:void(0);"  onclick="save_stu_exams(this);" name="eqxz_${id}" option="${id}" questionid="${id}"  examsid="${examsid}" quizid="${quizid}" answerid="${que_answer.id}" useranswer="${item.flag}" typeid="1">${item.flag}</a>${item.content}</p>
+              {{/if}}
+            {{else}}
+              {{if que_answer.answer==item.flag}}
+                <p><a href="javascript:void(0);" class="btn_gray"  quesid="${id}" name="eqxz_${id}" examsid="${examsid}">${item.flag}</a>${item.content}</p>
+              {{else}}
+                <p><a href="javascript:void(0);" class="btn_gray"  quesid="${id}" name="eqxz_${id}" examsid="${examsid}">${item.flag}</a>${item.content}</p>
+              {{/if}}
+            {{/if}}
+          {{else}}
+            {{if useranswer==item.flag}}
+            <p><a href="javascript:void(0);" class="btn_green"  quesid="${id}" name="eqxz_${id}" examsid="${examsid}">${item.flag}</a>${item.content}</p>
+            {{else}}
+             <p><a href="javascript:void(0);" class="btn_gray"  quesid="${id}" name="eqxz_${id}" examsid="${examsid}">${item.flag}</a>${item.content}</p>
+            {{/if}}
+          {{/if}}
+        {{/each}}
+    {{else}}
+    <ul>
+        {{each(i,item) items}}
+          {{if issubmit=='0'}}
+            {{if answer=="0"}}
+                {{if useranswer==item.flag}}
+                  <li><img width="100px" height="75px" src="__RESOURCE__/uploads/${item.content}"/><span><a  class="btn_green" href="javascript:void(0);"  onclick="save_stu_exams(this);" name="eqxz_${id}" option="${id}" questionid="${id}"  examsid="${examsid}" quizid="${quizid}" answerid="${que_answer.id}" useranswer="${item.flag}" typeid="1">${item.flag}</a></span></li>
+                {{else}}
+                 <li><img width="100px" height="75px" src="__RESOURCE__/uploads/${item.content}"/><span><a  class="btn_gray" href="javascript:void(0);"  onclick="save_stu_exams(this);" name="eqxz_${id}" option="${id}" questionid="${id}"  examsid="${examsid}" quizid="${quizid}" answerid="${que_answer.id}" useranswer="${item.flag}" typeid="1">${item.flag}</a></span></li>
+                {{/if}}
+            {{else}}
+              {{if que_answer.answer==item.flag}}
+                <li><img width="100px" height="75px" src="__RESOURCE__/uploads/${item.content}"/><span><a href="javascript:void(0);" class="btn_gray"  quesid="${id}" name="eqxz_${id}" examsid="${examsid}">${item.flag}</a></span></li>
+              {{else}}
+                <li><img width="100px" height="75px" src="__RESOURCE__/uploads/${item.content}"/><span><a href="javascript:void(0);" class="btn_gray"  quesid="${id}" name="eqxz_${id}" examsid="${examsid}">${item.flag}</a></span></li>
+              {{/if}}
+            {{/if}}
+          {{else}}
+             {{if useranswer==item.flag}}
+           
+              <li><img width="100px" height="75px" src="__RESOURCE__/uploads/${item.content}"/><span><a href="javascript:void(0);" class="btn_green"  quesid="${id}" name="eqxz_${id}" examsid="${examsid}">${item.flag}</a></span></li>
+            {{else}}
+              <li><img width="100px" height="75px" src="__RESOURCE__/uploads/${item.content}"/><span><a href="javascript:void(0);" class="btn_gray"  quesid="${id}" name="eqxz_${id}" examsid="${examsid}">${item.flag}</a></span></li>
+            {{/if}}
+          {{/if}}
+        {{/each}}
+    </ul>
+    {{/if}}
+
+        <div class="clearfix"></div>
+      {{if issubmit=='1'}}
+        {{if answer=='1'}}
+          <div class="btn_cs">
+            {{if useranswer==""}}
+               <font class="redFon">未作答</font>&nbsp;&nbsp;正确答案：<font class="greenFon">${que_answer.answer}</font>
+            {{else}}
+               作答：<font class="greenFon">${useranswer}</font>&nbsp;&nbsp;结果：{{if iscorrect=='0'}}<font class="redFon">错误</font>{{else}}<font class="greenFon">正确</font>{{/if}}&nbsp;&nbsp;正确答案：<font class="greenFon">${que_answer.answer}</font>
+            {{/if}}
+          </div>
+        {{/if}}
+      {{/if}}
+    </div>
+</script>
+<!--听力训练判断题模板-->
+<script id="pdtmpl" type="text/x-jquery-tmpl">
+{{if tcontent=='' && tcontent == null}}
+    <div class="testContent pd heng_w" id="top${id}">
+      <b>${question_num}.</b>
+    {{else}}
+    <div class="testContent pd" id="top${id}">
+      <h2 class="td">
+      ${question_num}.{{html tcontent}}
+     </h2>
+ {{/if}}
+      {{if issubmit=='0'}}
+        {{if answer=="0"}}
+          
+              {{if useranswer=="1"}}
+               <p> <a class="btn_green" href="javascript:void(0);"  onclick="save_stu_exams(this);" name="eqxz_${id}" option="${id}" questionid="${id}"  examsid="${examsid}" quizid="${quizid}" answerid="${que_answer.id}" useranswer="1" typeid="0"> √ </a>&nbsp;&nbsp;<a class="btn_gray" href="javascript:void(0);"  onclick="save_stu_exams(this);" name="eqxz_${id}" option="${id}" questionid="${id}"  examsid="${examsid}" quizid="${quizid}" answerid="${que_answer.id}" useranswer="0" typeid="0"> × </a></p>
+              {{else useranswer=="0"}}
+               <p> <a class="btn_gray" href="javascript:void(0);"  onclick="save_stu_exams(this);" name="eqxz_${id}" option="${id}" questionid="${id}"  examsid="${examsid}" quizid="${quizid}" answerid="${que_answer.id}" useranswer="1" typeid="0"> √ </a>&nbsp;&nbsp;<a class="btn_green" href="javascript:void(0);"  onclick="save_stu_exams(this);" name="eqxz_${id}" option="${id}" questionid="${id}"  examsid="${examsid}" quizid="${quizid}" answerid="${que_answer.id}" useranswer="0" typeid="0"> × </a></p>
+               {{else}}
+                 <p> <a class="btn_gray" href="javascript:void(0);"  onclick="save_stu_exams(this);" name="eqxz_${id}" option="${id}" questionid="${id}"  examsid="${examsid}" quizid="${quizid}" answerid="${que_answer.id}" useranswer="1" typeid="0"> √ </a>&nbsp;&nbsp;<a class="btn_gray" href="javascript:void(0);"  onclick="save_stu_exams(this);" name="eqxz_${id}" option="${id}" questionid="${id}"  examsid="${examsid}" quizid="${quizid}" answerid="${que_answer.id}" useranswer="0" typeid="0"> × </a></p>
+              {{/if}}
+        
+        {{else}}
+            {{if que_answer.answer=="1"}}
+            <p><a class="btn_gray"  href="javascript:void(0);"> √ </a>&nbsp;&nbsp;<a class="btn_gray" href="javascript:void(0);" > × </a></p>
+            {{else}}
+            <p><a class="btn_gray" href="javascript:void(0);" > √ </a>&nbsp;&nbsp;<a class="btn_gray" href="javascript:void(0);" > × </a></p>
+            {{/if}}
+         {{/if}}
+      {{else}}
+        {{if useranswer=="1"}}
+        <p><a class="btn_green" href="javascript:void(0);"  quesid="${id}" name="eqpd_${id}" value="1"  examsid="${examsid}"> √ </a>&nbsp;&nbsp;<a class="btn_gray" href="javascript:void(0);" quesid="${id}" name="eqpd_${id}" value="0"  examsid="${examsid}"> × </a></p>
+         {{else useranswer=="0"}}  
+         <p><a class="btn_gray" href="javascript:void(0);"  quesid="${id}" name="eqpd_${id}" value="1"  examsid="${examsid}"> √ </a>&nbsp;&nbsp;<a class="btn_green" href="javascript:void(0);" quesid="${id}" name="eqpd_${id}" value="0"  examsid="${examsid}"> × </a></p>  
+        {{else}}
+        <p><a class="btn_gray" href="javascript:void(0);"  quesid="${id}" name="eqpd_${id}" value="1"  examsid="${examsid}"> √ </a>&nbsp;&nbsp;<a class="btn_gray" href="javascript:void(0);" quesid="${id}" name="eqpd_${id}" value="0"  examsid="${examsid}"> × </a></p>
+         {{/if}}
+      {{/if}}
+
+      <div class="clearfix"></div>
+      {{if issubmit=='1'}}
+        {{if answer=='1'}}
+          <div class="btn_cs">
+            {{if useranswer==""}}
+               <font class="redFon">未作答</font>&nbsp;&nbsp;正确答案：<font class="greenFon">{{if que_answer.answer=="1"}}√ {{else}}×{{/if}}</font>
+            {{else}}
+              作答：<font class="greenFon">
+              {{if useranswer=="0"}}
+                ×
+              {{else}}
+               √
+              {{/if}}</font>
+              &nbsp;&nbsp;结果：
+              
+                {{if iscorrect=='0'}}
+                <font class="redFon">  错误</font>
+                  {{else}}
+                <font class="greenFon">  正确</font>
+                {{/if}}
+              
+              正确答案：
+              <font class="greenFon">
+                {{if que_answer.answer=="1"}}
+                √
+                {{else}}
+                ×
+                {{/if}}
+              </font>
+            {{/if}}
+          </div>
+          <div class="tips2 parent qk2" id="s1"  style="display:none;">
+            <small>
+              <span>做题分析：</span>正确率:${accuracy}错误率:${errorrate}
+            </small>
+          </div>
+        {{/if}}
+      {{/if}}
+    </div>
+</script>
+<!--听力训练填空题模板-->
+<script id="tktmpl" type="text/x-jquery-tmpl">
+    
+</script>
+<!--听力训练排序题模板-->
+<script id="pxtmpl" type="text/x-jquery-tmpl">
+
+</script>
+<!--听力组合体模板-->
+<script id="combinetmpl" type="text/x-jquery-tmpl">
+  {{each(c,cstem) stem_children}}
+    {{if cstem.content!=null}}
+      <div class="clearfix"></div>
+      {{if cstem.content!=""}}
+      <h1>{{html cstem.content}}</h1>
+      {{/if}}
+    {{/if}}
+    {{each(j,qlang) cstem.question}}
+      {{if qlang.typeid=="1"}}
+        {{tmpl(qlang) "#xztmpl"}}
+      {{/if}}
+      {{if qlang.typeid=="2"}}
+        {{tmpl(qlang) "#tktmpl"}}
+      {{/if}}
+      {{if qlang.typeid=="3"}}
+        {{tmpl(qlang) "#pdtmpl"}}
+      {{/if}}
+      {{if qlang.typeid=="4"}}
+        {{tmpl(qlang) "#pxtmpl"}}
+      {{/if}}
+    {{/each}}
+  {{/each}}
+</script>
+
+<!--听力训练独立试题模板-->
+<script id="tmpleqquestion" type="text/x-jquery-tmpl">
+    {{each(s,sla) stem}}
+      <h1 class="tingli">{{html sla.content}}<a  href="javascript:void(0);" onclick="mp3play(${s},this);" class="sound_single"></a></h1>
+      <div class="clearfix"></div>
+      {{if sla.stem_type=="1"}}
+        {{each(i,lang) sla.question}}
+          {{if lang.typeid=="1"}}
+            {{tmpl(lang) "#xztmpl"}}
+          {{/if}}
+          {{if lang.typeid=="2"}}
+            {{tmpl(lang) "#tktmpl"}}
+          {{/if}}
+
+          {{if lang.typeid=="3"}}
+            {{tmpl(lang) "#pdtmpl"}}
+          {{/if}}
+          {{if lang.typeid=="4"}}
+            {{tmpl(lang) "#pxtmpl"}}
+          {{/if}}
+        {{/each}}
+      {{/if}}
+      {{if sla.stem_type=="2"}}
+         {{tmpl(sla) "#combinetmpl"}}
+      {{/if}}
+    {{/each}}
+</script>
+<!-- 学生答题卡单词跟读模板 -->
+<script id="tmplwacard" type="text/x-jquery-tmpl">
+{{each(i,lang ) words}}
+ {{if userscore==null}}
+<li id="cardwa${wordreadid}"><a href="javascript:;" type="0" action="cur" curindex="${i}" onclick="word_prev_netx(this);">${i+1}</a></li>
+ {{else}}
+  {{if userscore < 60}}
+  <li id="cardwa${wordreadid}" class="error"><a href="javascript:;" type="0" action="cur" curindex="${i}" onclick="word_prev_netx(this);">${i+1}</a></li>
+  {{else}}
+  <li id="cardwa${wordreadid}" class="complete"><a href="javascript:;" type="0" action="cur" curindex="${i}" onclick="word_prev_netx(this);">${i+1}</a></li>
+  {{/if}}
+ 
+ {{/if}}
+{{/each}}
+</script>
+<!-- 学生反馈答题卡单词跟读模板 -->
+<script id="stutmplwacard" type="text/x-jquery-tmpl">
+{{each(i,lang ) words}}
+ {{if userscore==null}}
+<li id="cardwa${wordreadid}"><a href="javascript:;" type="0" action="cur" curindex="${i}">${i+1}</a></li>
+ {{else}}
+   {{if userscore < 60}}
+   <li id="cardwa${wordreadid}" class="error"><a href="javascript:;" type="0" action="cur" curindex="${i}">${i+1}</a></li>
+   {{else}}
+   <li id="cardwa${wordreadid}" class="complete"><a href="javascript:;" type="0" action="cur" curindex="${i}">${i+1}</a></li>
+   {{/if}}
+ {{/if}}
+{{/each}}
+</script>
+
+<!-- 学生答题卡单词拼写模板 -->
+<script id="tmplwpcard" type="text/x-jquery-tmpl">
+{{each(i,lang ) words}}
+ {{if useranswer==""}}
+<li id="cardwp${wordid}"><a href="javascript:;" type="1" action="cur" curindex="${i}" onclick="word_prev_netx(this);">${i+1}</a></li>
+ {{else}}
+ <li id="cardwp${wordid}" class="complete"><a href="javascript:;" type="1" action="cur" curindex="${i}" onclick="word_prev_netx(this);">${i+1}</a></li>
+ {{/if}}
+{{/each}}
+</script>
+<!-- 学生反馈答题卡单词拼写模板 -->
+<script id="stutmplwpcard" type="text/x-jquery-tmpl">
+{{each(i,lang ) words}}
+ {{if useranswer==""}}
+<li id="cardwp${wordid}"><a href="javascript:;" type="1" action="cur" curindex="${i}" >${i+1}</a></li>
+ {{else}}
+   {{if iscorrect == 0}}
+   <li id="cardwp${wordid}" class="error"><a href="javascript:;" type="1" action="cur" curindex="${i}">${i+1}</a></li>
+   {{else}}
+   <li id="cardwp${wordid}" class="complete"><a href="javascript:;" type="1" action="cur" curindex="${i}">${i+1}</a></li>
+   {{/if}}
+ {{/if}}
+{{/each}}
+</script>
+<!-- 学生答题卡英汉互译模板 -->
+<script id="tmplwycard" type="text/x-jquery-tmpl">
+{{each(i,lang ) words}}
+ {{if useranswer==""}}
+<li id="cardwy${wordid}"><a href="javascript:;" type="2" action="cur" curindex="${i}" onclick="word_prev_netx(this);">${i+1}</a></li>
+ {{else}}
+ <li id="cardwy${wordid}" class="complete"><a href="javascript:;" type="2" action="cur" curindex="${i}" onclick="word_prev_netx(this);">${i+1}</a></li>
+ {{/if}}
+{{/each}}
+</script>
+<!-- 学生反馈答题卡英汉互译模板 -->
+<script id="stutmplwycard" type="text/x-jquery-tmpl">
+{{each(i,lang ) words}}
+ {{if useranswer==""}}
+<li id="cardwp${wordid}"><a href="javascript:;" type="1" action="cur" curindex="${i}" >${i+1}</a></li>
+ {{else}}
+   {{if iscorrect == 0}}
+   <li id="cardwp${wordid}" class="error"><a href="javascript:;" type="1" action="cur" curindex="${i}">${i+1}</a></li>
+   {{else}}
+   <li id="cardwp${wordid}" class="complete"><a href="javascript:;" type="1" action="cur" curindex="${i}">${i+1}</a></li>
+   {{/if}}
+ {{/if}}
+{{/each}}
+</script>
+<!-- 学生答题卡听音选词模板 -->
+<script id="tmplwxcard" type="text/x-jquery-tmpl">
+{{each(i,lang ) words}}
+ {{if useranswer==""}}
+<li id="cardwx${wordid}"><a href="javascript:;" type="3" action="cur" curindex="${i}" onclick="word_prev_netx(this);">${i+1}</a></li>
+ {{else}}
+ <li id="cardwx${wordid}" class="complete"><a href="javascript:;" type="3" action="cur" curindex="${i}" onclick="word_prev_netx(this);">${i+1}</a></li>
+ {{/if}}
+{{/each}}
+</script>
+<!-- 学生反馈答题卡听音选词模板 -->
+<script id="stutmplwxcard" type="text/x-jquery-tmpl">
+{{each(i,lang ) words}}
+ {{if useranswer==""}}
+<li id="cardwp${wordid}"><a href="javascript:;" type="1" action="cur" curindex="${i}" >${i+1}</a></li>
+ {{else}}
+   {{if iscorrect == 0}}
+   <li id="cardwp${wordid}" class="error"><a href="javascript:;" type="1" action="cur" curindex="${i}">${i+1}</a></li>
+   {{else}}
+   <li id="cardwp${wordid}" class="complete"><a href="javascript:;" type="1" action="cur" curindex="${i}">${i+1}</a></li>
+   {{/if}}
+ {{/if}}
+{{/each}}
+</script>
+<!-- 学生答题卡课文跟读模板 -->
+<script id="tmpltacard" type="text/x-jquery-tmpl">
+{{each(i,lang ) chapters}}
+ {{if userscore==null}}
+<li id="cardta${textid}"><a href="javascript:;" type="4" action="cur" curindex="${i}" onclick="word_prev_netx(this);">${i+1}</a></li>
+ {{else}}
+    {{if userscore < 60}}
+     <li id="cardta${textid}" class="error"><a href="javascript:;" type="4" action="cur" curindex="${i}" onclick="word_prev_netx(this);">${i+1}</a></li>
+     {{else}}
+     <li id="cardta${textid}" class="complete"><a href="javascript:;" type="4" action="cur" curindex="${i}" onclick="word_prev_netx(this);">${i+1}</a></li>
+     {{/if}}
+ {{/if}}
+{{/each}}
+</script>
+<!-- 学生反馈答题卡课文跟读模板 -->
+<script id="stutmpltacard" type="text/x-jquery-tmpl">
+{{each(i,lang ) chapters}}
+ {{if userscore==null}}
+<li id="cardta${textid}"><a href="javascript:;" type="4" action="cur" curindex="${i}">${i+1}</a></li>
+ {{else}}
+ {{if userscore < 60}}
+  <li id="cardta${textid}" class="error"><a href="javascript:;" type="4" action="cur" curindex="${i}">${i+1}</a></li>
+ {{else}}
+ <li id="cardta${textid}" class="complete"><a href="javascript:;" type="4" action="cur" curindex="${i}">${i+1}</a></li>
+ {{/if}}
+ {{/if}}
+{{/each}}
+</script>
+<!--听力训练答题卡独立试题模板-->
+<script id="tmpleqcard" type="text/x-jquery-tmpl">
+    {{each(s,sla) stem}}
+      {{if sla.stem_type=="1"}}
+        {{each(i,lang) sla.question}}
+          {{tmpl(lang) "#cardxztmpl"}}
+        {{/each}}
+      {{/if}}
+      {{if sla.stem_type=="2"}}
+         {{tmpl(sla) "#cardcombinetmpl"}}
+      {{/if}}
+    {{/each}}
+</script>
+<script id="cardcombinetmpl" type="text/x-jquery-tmpl">
+  {{each(c,cstem) stem_children}}
+    {{each(j,qlang) cstem.question}}
+       {{tmpl(qlang) "#cardxztmpl"}}
+    {{/each}}
+  {{/each}}
+</script>
+<script id="cardxztmpl" type="text/x-jquery-tmpl">
+{{if useranswer==""}}
+<li id="eqcard${id}"><a href="javascript:;" >${question_num}</a></li>
+{{else}}
+<li id="eqcard${id}" class="complete"><a href="javascript:;" >${question_num}</a></li>
+{{/if}}
+</script>
+
+<!--学生反馈听力训练答题卡独立试题模板-->
+<script id="stutmpleqcard" type="text/x-jquery-tmpl">
+    {{each(s,sla) stem}}
+      {{if sla.stem_type=="1"}}
+        {{each(i,lang) sla.question}}
+          {{tmpl(lang) "#stucardxztmpl"}}
+        {{/each}}
+      {{/if}}
+      {{if sla.stem_type=="2"}}
+         {{tmpl(sla) "#stucardcombinetmpl"}}
+      {{/if}}
+    {{/each}}
+</script>
+<script id="stucardcombinetmpl" type="text/x-jquery-tmpl">
+  {{each(c,cstem) stem_children}}
+    {{each(j,qlang) cstem.question}}
+       {{tmpl(qlang) "#stucardxztmpl"}}
+    {{/each}}
+  {{/each}}
+</script>
+<script id="stucardxztmpl" type="text/x-jquery-tmpl">
+{{if useranswer==""}}
+<li id="eqcard${id}"><a href="javascript:;" >${question_num}</a></li>
+{{else}}
+  {{if iscorrect=="0"}}
+    <li id="eqcard${id}" class="error"><a href="javascript:;" >${question_num}</a></li>
+  {{else}}
+    <li id="eqcard${id}" class="complete"><a href="javascript:;" >${question_num}</a></li>
+  {{/if}}
+{{/if}}
+</script>
+<!--网上作业授课端听读模板-->
+<script id="devicetmplwaquestion" type="text/x-jquery-tmpl">
+  <div class="testContent">
+    <div class="clearfix"></div>
+    <div class="word_sj">
+      <dl>
+        <dt class="fl"><img src="/yylmp3/pic_word/${pic}"></dt>
+        <dd class="tit"><strong>${word}<i class="fa  fa-star"></i></strong><span class="yinbiao">{{if ukmark}}[${ukmark}]{{/if}}</span></dd>
+        <dd>
+          <ul class="duyin">
+            <li onclick="reading(this,0);"><a  href="javascript:void(0);" mp3="${ukmp3}"><img src="__PUBLIC__/public/images/zuoye/icon_listen.png" width="80" height="80"  alt=""/></a><span>标准读音</span></li>
+          </ul>
+        </dd>
+      </dl>
+    </div>
+  </div>
+  <DIV class=daan>统计结果：<SPAN style="COLOR: green">作答人数:${num}人</SPAN> <SPAN>平均分:${avarage}分</SPAN> </DIV>
+</script>
+
+<!--网上作业授课端听读模板-->
+<script id="devicetmplwtquestion" type="text/x-jquery-tmpl">
+    <H3 style="FONT-SIZE: 18px">
+      <SPAN>${word}总体概况：<SPAN style="COLOR: green">作答人数:{{if num==null}}0{{else}}${num}{{/if}}人</SPAN>
+      <SPAN>辨识率:{{if bsrate==null}}0%{{else}}${bsrate}{{/if}}</SPAN>
+      <SPAN>拼写率:{{if pxrate==null}}0%{{else}}${pxrate}{{/if}}</SPAN>
+    </H3>
+    {{each(i,lang) option}}
+     {{if lang.typeid!='2'}}
+     <H3 style="FONT-SIZE: 15px">（1分)<SPAN>作答情况：A {{if arate==null}}0%{{else}}${arate}{{/if}} B {{if brate==null}}0%{{else}}${brate}{{/if}} C {{if crate==null}}0%{{else}}${crate}{{/if}}</SPAN></H3>
+     <DIV style="ZOOM: 1.5" class="neir fixck bigger_150">
+        <DIV class=options><SPAN class=option>A. </SPAN>${lang.option_a}</DIV>
+        <DIV class=options><SPAN class=option>B. </SPAN>${lang.option_b}</DIV>
+        <DIV class=options><SPAN class=option>C. </SPAN>${lang.option_c}</DIV>
+        <DIV class=daan>统计结果：
+          <SPAN style="COLOR: green">作答人数:{{if lang.num==null}}0{{else}}${lang.num}{{/if}}人</SPAN>
+          <SPAN>错误率:{{if lang.accurate==null}}0%{{else}}${lang.accurate}{{/if}}</SPAN>
+        </DIV>
+      </div>
+     {{else}}
+     <DIV style="ZOOM: 1.5" class="neir fixck bigger_150">
+        <DIV class=options><SPAN class=option>A. </SPAN>${lang.option_a}</DIV>
+        <DIV class=daan>统计结果：
+          <SPAN style="COLOR: green">作答人数:{{if lang.num==null}}0{{else}}${lang.num}{{/if}}人</SPAN>
+          <SPAN>错误率:{{if lang.accurate==null}}0%{{else}}${lang.accurate}{{/if}}</SPAN>
+        </DIV>
+    </DIV>
+     {{/if}}
+    {{/each}}
+</script>
+
+
+<!--网上作业授课端课文听读模板-->
+<script id="devicetmpltaquestion" type="text/x-jquery-tmpl">
+  <div class="testContent">
+    <div class="clearfix"></div>
+    <div class="word_sj">
+      <dl>
+        <dt class="fl"><img src="/yylmp3/pic_word/${pic}"></dt>
+        <dd class="tit"><strong>${word}<i class="fa  fa-star"></i></strong><span class="yinbiao">{{if ukmark}}[${ukmark}]{{/if}}</span></dd>
+        <dd>
+          <ul class="duyin">
+            <li onclick="reading(this,0);"><a  href="javascript:void(0);" mp3="${ukmp3}"><img src="__PUBLIC__/public/images/zuoye/icon_listen.png" width="80" height="80"  alt=""/></a><span>标准读音</span></li>
+          </ul>
+        </dd>
+      </dl>
+    </div>
+  </div>
+  <DIV class=daan>统计结果：<SPAN style="COLOR: green">作答人数:${num}人</SPAN> <SPAN>平均分:${avarage}分</SPAN> </DIV>
+</script>
+
+<!--网上作业授课端听力训练模板-->
+<script id="devicetmplwttttquestion" type="text/x-jquery-tmpl">
+    <H3 style="FONT-SIZE: 18px">第一题 单项选择题（3分)<SPAN>作答情况：A 0.0% B 0.0% C 100.0% D 0.0%</SPAN></H3>
+    <DIV style="ZOOM: 1.5" class="neir fixck bigger_150">下列语句正确的是（　　）
+    <DIV class=options><SPAN class=option>A. </SPAN>对顶角相等</DIV>
+    <DIV class=options><SPAN class=option>B. </SPAN>相邻的两个角是邻补角</DIV>
+    <DIV class=options><SPAN class=option>C. </SPAN>相等的角是对顶角</DIV>
+    <DIV class=options><SPAN class=option>D. </SPAN>互补的两个角就是邻补角<BR></DIV></DIV>
+    <DIV class=daan>统计结果：<SPAN style="COLOR: green">0.0%做对了</SPAN> <SPAN>100.0%的做错了</SPAN> </DIV>
+    <DIV style="ZOOM: 1.5" class="neir fixck bigger_150">
+      <SPAN style="COLOR: red">参考答案：</SPAN>A
+    </DIV>
+</script>
+
+
+<!--网上作业授课端听读模板-->
+<script id="devicetmplxzquestion" type="text/x-jquery-tmpl">
+  <H3 style="FONT-SIZE: 18px">${question_num}（${score}分)
+    <SPAN>作答情况：
+      {{each(i,item) answer_items}}
+        ${item.flag}、${item.rate}&nbsp;
+      {{/each}}
+    </SPAN>
+  </H3>
+  <DIV style="ZOOM: 1.5" class="neir fixck bigger_150">{{html tcontent}}
+    {{each(i,item) items}}
+      {{if itemtype!='1'}}
+        <DIV class=options><SPAN class=option>${item.flag}. </SPAN>${item.content}</DIV>
+      {{else}}
+        <DIV class=options><SPAN class=option>${item.flag}. </SPAN><img width="100px" height="75px" src="http://en.czbanbantong.com/uploads/${item.content}"/></DIV>
+         <p>${item.flag}、</p>
+      {{/if}}
+    {{/each}}
+  </DIV>
+  <DIV class=daan>统计结果：<SPAN style="COLOR: green">作答人数：${num}人</SPAN> <SPAN>错误率：${errorrate}</SPAN> </DIV>
+  <DIV style="ZOOM: 1.5" class="neir fixck bigger_150">
+    <SPAN style="COLOR: red">参考答案：</SPAN>${useranswer}
+  </DIV>
+</script>
+
+<!--网上作业授课端听读模板-->
+<script id="devicetmplpdquestion" type="text/x-jquery-tmpl">
+  <H3 style="FONT-SIZE: 18px">${question_num}（${score}分)
+    <SPAN>作答情况：
+      {{each(i,item) answer_items}}
+        {{if item.flag=='1'}}√{{else}}×{{/if}}、${item.rate}&nbsp;
+      {{/each}}
+    </SPAN>
+  </H3>
+  <DIV style="ZOOM: 1.5" class="neir fixck bigger_150">{{html tcontent}}
+    <DIV class=options><SPAN class=option></SPAN>√</DIV>
+    <DIV class=options><SPAN class=option></SPAN>×</DIV>
+  </DIV>
+  <DIV class=daan>统计结果：<SPAN style="COLOR: green">作答人数：${num}</SPAN> <SPAN>错误率：${errorrate}</SPAN> </DIV>
+  <DIV style="ZOOM: 1.5" class="neir fixck bigger_150">
+    <SPAN style="COLOR: red">参考答案：</SPAN>{{if useranswer=="0"}}√{{else}}×{{/if}}
+  </DIV>
+</script>
+
+<!--网上作业授课端听读模板-->
+<script id="devicetmpltkquestion" type="text/x-jquery-tmpl">
+<H3 style="FONT-SIZE: 18px">${question_num}（${score}分)</H3>
+<DIV style="ZOOM: 1.5" class="neir fixck bigger_150">{{html tcontent}}</DIV>
+<DIV class=daan>统计结果：<SPAN style="COLOR: green">作答人数：${num}</SPAN> <SPAN>错误率：${errorrate}</SPAN> </DIV>
+</script>
+
+<!--网上作业授课端听读模板-->
+<script id="devicetmplpxquestion" type="text/x-jquery-tmpl">
+<H3 style="FONT-SIZE: 18px">${question_num}（${score}分)</H3>
+<DIV style="ZOOM: 1.5" class="neir fixck bigger_150">{{html tcontent}}
+  <DIV class=options><SPAN class=option></SPAN>√</DIV>
+  <DIV class=options><SPAN class=option></SPAN>×</DIV>
+</DIV>
+<DIV class=daan>统计结果：<SPAN style="COLOR: green">作答人数：${num}</SPAN> <SPAN>错误率：${errorrate}</SPAN> </DIV>
+</script>
+
+<!-- <div id="tixing" class="tixing">
+  <ul>
+    <span class="tit4"> 两条不平行的直线被第三条直线所截，下列说法可能成立的是？( )</span>
+    <span class="select3">
+      A、同位角相等<br>
+        B、内错角相等<br>
+        C、同旁内角相等<br>
+        D、同旁内角互补
+    </span>
+    <span class="answer2">正确答案：<font class="redFon">A</font>　　错误率：<font class="redFon">100%</font>　　正确<font class="redFon">0</font>人　　错误<font class="redFon">50</font>人</span>
+    </ul>
+</div> -->
+
+<!--网上作业授课端课文听读模板-->
+<script id="feedbacktmplwaquestion" type="text/x-jquery-tmpl">
+  <div class="testContent">
+    <div class="clearfix"></div>
+    <div class="word_sj">
+      <dl>
+        <dt class="fl"><img src="/yylmp3/pic_word/${pic}"></dt>
+        <dd class="tit"><strong>${word}<i class="fa  fa-star"></i></strong><span class="yinbiao">{{if ukmark}}[${ukmark}]{{/if}}</span></dd>
+        <dd>
+          <ul class="duyin">
+            <li onclick="reading(this,0);"><a  href="javascript:void(0);" mp3="${ukmp3}"><img src="__PUBLIC__/public/images/zuoye/icon_listen.png" width="80" height="80"  alt=""/></a><span>标准读音</span></li>
+          </ul>
+        </dd>
+      </dl>
+    </div>
+  </div>
+  <DIV class=daan>统计结果：<SPAN style="COLOR: green">作答人数:${num}人</SPAN> <SPAN>平均分:${avarage}分</SPAN> </DIV>
+</script>
+
+<!--网上作业授课端听读模板-->
+<script id="feedbacktmplwtquestion" type="text/x-jquery-tmpl">
+<div class="testContent">
+{{if typeid!='2'}}
+  <h2 class="td tingli" onclick="reading(this,0);">
+  {{if typeid =='0'}}  ${explains} {{else}} ${word} {{/if}} <a href="javascript:void(0);" class="sound_single" mp3="${mp3}"></a>
+  </h2>
+  <p>A、${option_a}</p>
+  <p>B、${option_b}</p>
+  <p>C、${option_c}</p>
+  <span class="answer2">正确答案：<font class="redFon">${answer}</font>错误率：<font class="redFon">${eper}%</font>正确<font class="redFon">${perstu}</font>人&nbsp;错误<font class="redFon">${eperstu}</font>人</span>
+{{else}}
+<h2 class="td tingli" onclick="reading(this,0);">
+  ${explains} <a href="javascript:void(0);" class="sound_single" mp3="${mp3}"></a>
+</h2>
+<p></p>
+<span class="answer2">正确答案：<font class="redFon">${word}</font>错误率：<font class="redFon">${eper}%</font>正确<font class="redFon">${perstu}</font>人&nbsp;错误<font class="redFon">${eperstu}</font>人</span>
+{{/if}}
+</div>
+</script>
+
+<!--网上作业授课端听读模板-->
+<script id="feedbacktmpltaquestion" type="text/x-jquery-tmpl">
+  <div class="testContent">
+    <div class="clearfix"></div>
+    <div class="word_sj">
+      <dl>
+        <dt class="fl"><img src="/yylmp3/pic_word/${pic}"></dt>
+        <dd class="tit"><strong>${tncon}<i class="fa  fa-star"></i></strong><span class="yinbiao">{{if ukmark}}[${ukmark}]{{/if}}</span></dd>
+        <dd>
+          <ul class="duyin">
+            <li onclick="reading(this,0);"><a  href="javascript:void(0);" mp3="${ukmp3}"><img src="__PUBLIC__/public/images/zuoye/icon_listen.png" width="80" height="80"  alt=""/></a><span>标准读音</span></li>
+          </ul>
+        </dd>
+      </dl>
+    </div>
+  </div>
+  <DIV class=daan>统计结果：<SPAN style="COLOR: green">作答人数:${num}人</SPAN> <SPAN>平均分:${avarage}分</SPAN> </DIV>
+</script>
+
+
+<!--网上作业授课端听读模板-->
+
+
+
+
+
+<!--网上作业授课端听读模板-->
+<script id="feedbacktmplxzquestion" type="text/x-jquery-tmpl">
+      {{if display=='1'}}
+        {{if itemtype=="1"}}
+           {{if tcontent =='' || tcontent ==null}}
+            <div class="testContent tu heng heng_w">
+            {{else}}
+            <div class="testContent tu heng">
+            {{/if}}
+          {{else}}
+            {{if tcontent =='' || tcontent ==null}}
+            <div class="testContent heng heng_w">
+            {{else}}
+            <div class="testContent p40">
+            {{/if}}
+        {{/if}} 
+        {{else}}
+          {{if tcontent =='' || tcontent ==null}}
+            <div class="testContent shu_w">
+            {{else}}
+            <div class="testContent p40">
+            {{/if}}
+      {{/if}}
+      {{if tcontent =='' || tcontent ==null}}
+        {{if display !="1"}}
+        <b class="h90">${question_num}.</b>
+        {{else}}
+        <b>${question_num}.</b>
+        {{/if}}
+       {{else}}
+       <h2 class="td" >
+        <b>${question_num}.</b>{{html tcontent}}
+       </h2>
+      {{/if}}
+    <!--   {{each(i,item) items}}
+        {{if itemtype!='1'}}
+          <p>${item.flag}.&nbsp;&nbsp;${item.content}</p>
+        {{else}}
+           <p>${item.flag}.&nbsp;&nbsp;<img width="100px" height="75px" src="http://en.czbanbantong.com/uploads/${item.content}"/></p>
+        {{/if}}
+      {{/each}} -->
+     
+    {{if itemtype!='1'}}  
+        {{each(i,item) items}}
+         <p><a  class="btn_gray" href="javascript:void(0);" onclick="javascript:$(this).parent().parent().find('a.btn_green').addClass
+
+('btn_gray').removeClass('btn_green');$(this).addClass('btn_green').removeClass('btn_gray');" quesid="${id}" name="eqxz_${id}" examsid="${examsid}">
+
+${item.flag}</a>${item.content}</p>
+        {{/each}}
+    {{else}}
+    <ul>
+        {{each(i,item) items}}
+         <li><img width="100px" height="75px" src="http://en.czbanbantong.com/uploads/${item.content}"/><span><a  class="btn_gray" 
+
+href="javascript:void(0);" onclick="javascript:$(this).parent().parent().parent().find('a.btn_green').addClass('btn_gray').removeClass('btn_green');
+
+$(this).addClass('btn_green').removeClass('btn_gray');" quesid="${id}" name="eqxz_${id}" examsid="${examsid}">${item.flag}</a></span></li>
+        {{/each}}
+    </ul>
+    {{/if}}
+{{if display=='1'}}
+    <div class="clearfix"></div>
+  {{/if}}
+  <span class="answer2">正确答案：<font class="redFon">{{each(j,ans) que_answer}}${ans.answer}{{/each}}</font>错误率：<font class="redFon">${errorrate}</font>正确<font class="redFon">${accrnum}</font>人&nbsp;错误<font class="redFon">${errnum}</font>人</span>
+  <span class="answer2">
+    
+  听力材料：<br/>
+    {{each(j,tts) que_tts}}
+    {{if tts.flag_content !=""}}
+    ${tts.flag_content}:&nbsp;${tts.tts_content}<br/>
+    {{else}}
+    ${tts.tts_content}<br/>
+    {{/if}}
+    {{/each}}
+  </span>
+</div>
+</script>
+
+<!--网上作业授课端听读模板-->
+<script id="feedbacktmplpdquestion" type="text/x-jquery-tmpl">
+<div class="testContent pd">
+  <h2 class="td" >
+  {{if question_num!=""&&question_num!=null}}
+    ${question_num}、
+  {{/if}}
+  <span>[${question_score}分]</span>{{html tcontent}}</h2>
+  <div class="weekdt_an">
+    <a class="btn_gray"  href="javascript:void(0);"> √ </a><a class="btn_gray" href="javascript:void(0);" > × </a>
+  </div>
+  <div class="clearfix"></div>
+  <span class="answer2">正确答案：<font class="redFon">  {{if que_answer[0].answer=="1"}}
+    √
+    {{else}}
+    ×
+    {{/if}}</font>错误率：<font class="redFon">${errorrate}</font>正确<font class="redFon">${accrnum}</font>人&nbsp;错误<font class="redFon">${errnum}</font>人</span>
+    <span class="answer2">
+    
+  听力材料：<br/>
+    {{each(j,tts) que_tts}}
+    {{if tts.flag_content !=""}}
+    ${tts.flag_content}:&nbsp;${tts.tts_content}<br/>
+    {{else}}
+    ${tts.tts_content}<br/>
+    {{/if}}
+    {{/each}}
+  </span>
+</div>
+</script>
+
+
+
+<!--网上作业授课端听读模板-->
+<script id="feedbacktmpltkquestion" type="text/x-jquery-tmpl">
+<div class="testContent">
+    <div class="e_juan02daan">
+      <div class="qcontent">
+      {{if question_num!=""&&question_num!=null}}
+        ${question_num}、
+      {{/if}}
+      {{html tcontent}}
+      </div>
+      <div class="clearfix"></div>
+      <br>
+    </div>
+    <div class="clearfix"></div>
+    <span class="answer2">正确答案：<font class="redFon">{{each(j,ans) que_answer}}${ans,answer_num}、${ans.answer}{{/each}}</font>错误率：<font class="redFon">${errorrate}</font>正确<font class="redFon">${accrnum}</font>人&nbsp;错误<font class="redFon">${errnum}</font>人</span>
+    <span class="answer2">
+    
+  听力材料：<br/>
+    {{each(j,tts) que_tts}}
+    {{if tts.flag_content !=""}}
+    ${tts.flag_content}:&nbsp;${tts.tts_content}<br/>
+    {{else}}
+    ${tts.tts_content}<br/>
+    {{/if}}
+    {{/each}}
+  </span>
+</div>
+</script>
+
+
+<!--网上作业授课端听读模板-->
+<script id="feedbacktmplpxquestion" type="text/x-jquery-tmpl">
+{{if itemtype=="1"}}
+<div class="testContent tu">
+{{else}}
+<div class="testContent">
+{{/if}}
+ <h2 class="td tixing">
+ {{if question_num!=""&&question_num!=null}}
+   ${question_num}、
+ {{/if}}
+{{html tcontent}}</h2>
+ <div class="qcontent">
+   <ul>
+     {{each(i,la) items}}
+       {{if itemtype=="1"}}
+          <li><img src="http://en.czbanbantong.com/uploads/${la.content}"><span>${la.flag}</span></li>
+       {{else}}
+          <li>${la.content}<span>${la.flag}</span></li>
+       {{/if}}
+     {{/each}}
+   </ul>
+ </div>
+ <div class="clearfix"></div>
+ <br/>
+ <div class="clearfix"></div>
+ <span class="answer2">正确答案：<font class="redFon">{{each(j,ans) que_answer}}${ans,answer_num}.${ans.answer}&nbsp;&nbsp;&nbsp;{{/each}}</font>错误率：<font class="redFon">${errorrate}</font>正确<font class="redFon">${accrnum}</font>人&nbsp;错误<font class="redFon">${errnum}</font>人</span>
+ <span class="answer2">
+    
+  听力材料：<br/>
+    {{each(j,tts) que_tts}}
+    {{if tts.flag_content !=""}}
+    ${tts.flag_content}:&nbsp;${tts.tts_content}<br/>
+    {{else}}
+    ${tts.tts_content}<br/>
+    {{/if}}
+    {{/each}}
+  </span>
+ </div>
+</script>

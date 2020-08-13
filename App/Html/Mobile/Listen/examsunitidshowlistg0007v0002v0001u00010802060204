@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="/public/Mobile/css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="/public/Mobile/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<header>
+	<div class="l fl"><a href="/mobile/listen/index"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">听力训练</div>
+    <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+                <li><a href="/mobile/index/wordbook"><i class="icon-heart"></i><font class="wordcount">4</font></a></li>
+                <li><a href="/mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount">438</font></a></li>
+                <li><a href="/mobile/index/index"><i class="icon-evil"></i>学习中心</a></li>
+                <li><a href="/mobile/index/course"><i class="icon-pencil-square"></i><b>课程设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section class="study iListen">
+	<h2>..</h2>
+	
+	<dl class="listen_list">
+    	<a href="../Examlisten/examsquiz?unitid=00010802060204&examsid=129&isOverdue=false"> 
+        	<dt>1.Unit5 单元听力测试（一）</dt>
+            <!-- <dd><p>已完成用时<span>10:04</span>，得分<span>80</span>，错误<span>3</span>题</p></dd> -->
+        </a>
+    </dl><dl class="listen_list">
+    	<a href="../Examlisten/examsquiz?unitid=00010802060204&examsid=402&isOverdue=false"> 
+        	<dt>2.Unit5 单元听力测试（二）</dt>
+            <!-- <dd><p>已完成用时<span>10:04</span>，得分<span>80</span>，错误<span>3</span>题</p></dd> -->
+        </a>
+    </dl><dl class="listen_list">
+    	<a href="../Examlisten/examsquiz?unitid=00010802060204&examsid=876&isOverdue=false"> 
+        	<dt>3.Unit5 听力专项训练（句子理解）</dt>
+            <!-- <dd><p>已完成用时<span>10:04</span>，得分<span>80</span>，错误<span>3</span>题</p></dd> -->
+        </a>
+    </dl><dl class="listen_list">
+    	<a href="../Examlisten/examsquiz?unitid=00010802060204&examsid=877&isOverdue=false"> 
+        	<dt>4.Unit5 听力专项训练（对话理解）</dt>
+            <!-- <dd><p>已完成用时<span>10:04</span>，得分<span>80</span>，错误<span>3</span>题</p></dd> -->
+        </a>
+    </dl></section>
+
+
+<script type="text/javascript" src="/public/Mobile/js/jquery.min.js"></script>  
+<script src="/public/Mobile/js/main.js"></script>
+<script src="http://en.czbanbantong.com/Homework/Public/setLog?type=mobile.Listen.showexamslist"></script>
+</body>
+</html>

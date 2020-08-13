@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <title>英语同步练</title>
+    <link href="/public/Mobile//css/fonts.css" rel="stylesheet" type="text/css">
+    <link href="/public/Mobile//css/style.css" rel="stylesheet">
+    <meta name=”apple-mobile-web-app-status-bar-style” content=black” />
+    <script src="/public/Mobile//js/TouchSlide.1.1.js"></script>
+</head>
+
+<body style="position:relative;">
+    
+<header class="fixed" style="position:fixed; top:0px;">
+    <div class="l fl"><a href="/mobile/wordstudy/index"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">学单词</div>
+    <div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+             <!--    <li><a href="/mobile/index/wordbook"><i class="icon-heart"></i><font class="wordcount"></font></a></li>
+                <li><a href="/mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount">NaN</font></a></li> -->
+                <li><a href="/mobile/index/index"><i class="icon-evil"></i>学习中心</a></li>
+                <li><a href="/mobile/index/course"><i class="icon-pencil-square"></i><b>版本设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="wbBtn" bid="0001060206020g"><p>Unit1 Part B</p><p style="display:none;"><font class="curindex">3</font>/22</p></div> 
+    <div id="studymodel" class="model bLine"><span><a id="pm" class="cur" onclick="model_change(this);"><i class="icon-reorder"></i>列表模式</a></span><span><a id="tm" onclick="model_change(this);"><i class="icon-picture-in-picture"></i>图文模式</a></span>
+    </div>   
+</header>
+
+<section class="wordbook" style="padding-top:158px; background-color:#fff;">
+    <!--单词列表方式 -->
+    <ul id="iStudy" class="wb bWhite iStudy">
+        <li>
+            <a class="twmp" wid="1893" mid="A940C3ACB45A3DE655BA62E8CF2857A7.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>clean my room</span>
+                                        <span>打扫我的房间</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav cur' bid="1" onclick="collect(this);"><i class="icon-favorite"></i><font>取消</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1894" mid="4E91733B82E2861DB8D18176BE54C681.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>go for a walk</span>
+                                        <span>散步</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav cur' bid="1" onclick="collect(this);"><i class="icon-favorite"></i><font>取消</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1895" mid="9A335E4413F080D92594905F283C7EE4.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>go shopping</span>
+                                        <span>去买东西；购物</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1896" mid="20513800BA5526CA96A743A9F7687D33.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>take</span>
+                    <span>[teɪk]</span>                    <span>vt.拿；取；执行；需要；接受；理解；修(课程)；买；吃（喝）；服（药）；认为；搭乘</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1898" mid="BB7BDBE1F6CC7B5103C6CD59D5708C2E.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>take a dancing class</span>
+                                        <span>上舞蹈课</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav cur' bid="1" onclick="collect(this);"><i class="icon-favorite"></i><font>取消</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1907" mid="32C682AD0FEA97ED63822D37FFA60939.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>why</span>
+                    <span>[waɪ]</span>                    <span>adv.为什么</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1908" mid="C0C200CEBADC69DDEBA51F11B3697150.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>shop</span>
+                    <span>[ʃɒp]</span>                    <span>vt.&vi.逛商店；购物；买东西，（到…）去买东西[购物]；逛商店</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav cur' bid="1" onclick="collect(this);"><i class="icon-favorite"></i><font>取消</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1909" mid="57392AC9E72F4981EF8E47C10EDC463C.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>work</span>
+                    <span>[wɜː(r)k]</span>                    <span>vt.&vi.工作，劳动，使工作；操作；经营；使缓慢前进</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1910" mid="B35276D9CD9B4E6E63045BAB3FE76367.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>last</span>
+                    <span>[lɑːst]</span>                    <span>adj.最近的；上一个的；末尾的；最后的</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav cur' bid="1" onclick="collect(this);"><i class="icon-favorite"></i><font>取消</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1911" mid="15FF4888D79CE49D16457105A770BCB3.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>sound</span>
+                    <span>[saʊnd]</span>                    <span>vt.听起来；感觉起来；发出声音；发音；探测深度；探询</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1912" mid="A84C0F2266A9987A86427F7FAD6703F7.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>also</span>
+                    <span>['ɔːlsəʊ]</span>                    <span>adv.也；而且</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1913" mid="EF403203602A794147A2A73719DD5AA1.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>busy</span>
+                    <span>[ˈbɪzi]</span>                    <span>adj.忙碌的；占线的；繁华的；爱管闲事的</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1914" mid="0D829B326F2D7149894F08A64CCA4785.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>need</span>
+                    <span>[niːd]</span>                    <span>vt.&vi.有必要，需要</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1915" mid="3F74D19B09F3FAD42BD3B7237F0CD646.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>play</span>
+                    <span>[pleɪ]</span>                    <span>n.戏剧；剧本；比赛；游戏</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1916" mid="E082A60EA81E6986FBF804457E113958.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>letter</span>
+                    <span>[ˈletə]</span>                    <span>n.字母；信；函</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1917" mid="AB4D5CE211FDB932A640733D38A0C183.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>live</span>
+                    <span>[lɪv]</span>                    <span>vt.&vi.居住；活着；生活；经历；度过</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1918" mid="00DB45F1E2A35512805B9043204925B7.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>island</span>
+                    <span>[ˈaɪlənd]</span>                    <span>n.岛，岛屿</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1919" mid="A83B19F5D4A8E020290E096761AB3141.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>always</span>
+                    <span>[ˈɔːlweɪz]</span>                    <span>adv.总是，一直；经常</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1920" mid="C5265B08790EA101FCD9004EA816E801.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>cave</span>
+                    <span>[keɪv]</span>                    <span>n.洞窟；山洞</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1921" mid="022E9D2892E7B41CF62B16F564F98A01.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>go swimming</span>
+                                        <span>去游泳</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="1922" mid="B737A6977E99D5D2517167B1F1921116.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>win</span>
+                    <span>[wɪn]</span>                    <span>vt.&vi.赢得；赢，获胜；在……中获胜</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li><li>
+            <a class="twmp" wid="51046" mid="4F16C4E4FA5E4BC3617CF91EDC993756.mp3" onclick="word_read(this);">
+                <p class="icon"><i class="icon-volume-up"></i></p>
+                <p>
+                    <span>dancing</span>
+                    <span>[ˈdɑːnsɪŋ]</span>                    <span>n.舞蹈，跳舞</span>
+                </p>
+            </a>
+          <!--   <p class="iBtn">
+                <a   class='aBtn fav' bid="0" onclick="collect(this);"><i class="icon-favorite"></i><font>收藏</font></a>
+             
+            </p> -->
+        </li>        <div class="boxCon" style="display:none;"><a href="/mobile/wordrecite/recite/unitid/0001060206020g" class="btn bGreen">背单词</a></div>
+    </ul>
+    
+    <!--图文混合方式 -->
+
+    <div id="iScroll" class="iScroll bWhite" style="display">
+        <div class="hd" style="display:none;">
+            <ul></ul>
+        </div>
+        <div class="bd" id="iScroll-bd">
+        	<div class="con" style="">
+            </div>
+            <div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/d156cd209547a3a58f9c554cd6554663.jpg" src="images/blank.png" /></p>
+                        <p><span>clean my room</span>
+                                                <span>打扫我的房间</span>
+                        <p><a class="aBtn bGreen" mid="A940C3ACB45A3DE655BA62E8CF2857A7.mp3" wid="1893" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="218633B342013387E511960532C52A26" onclick="read_exam(this);">
+                                    <dt>1、I usually clean my room.<i class="icon-volume-up"></i></dt>
+                                    <dd>我通常打扫我的房间。</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/7ce373fdc6b05cadfa09f763614d97e8.jpg" src="images/blank.png" /></p>
+                        <p><span>go for a walk</span>
+                                                <span>散步</span>
+                        <p><a class="aBtn bGreen" mid="4E91733B82E2861DB8D18176BE54C681.mp3" wid="1894" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="50DA49F835EC6BC9F6C337608FE4BD0D" onclick="read_exam(this);">
+                                    <dt>1、go for a walk<i class="icon-volume-up"></i></dt>
+                                    <dd>散步</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/70a175d75bb6aba52dced9573b765a2b.jpg" src="images/blank.png" /></p>
+                        <p><span>go shopping</span>
+                                                <span>去买东西；购物</span>
+                        <p><a class="aBtn bGreen" mid="9A335E4413F080D92594905F283C7EE4.mp3" wid="1895" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="3819E6A4BF24382F6CC65A479A864CC1" onclick="read_exam(this);">
+                                    <dt>1、Why are you shopping today?<i class="icon-volume-up"></i></dt>
+                                    <dd>今天为什么是你在购物？</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/a2f23bfa8c57502a67e6e27ba581fc17.jpg" src="images/blank.png" /></p>
+                        <p><span>take</span>
+                        <span>[teɪk]</span>                        <span>vt.拿；取；执行；需要；接受；理解；修(课程)；买；吃（喝）；服（药）；认为；搭乘</span>
+                        <p><a class="aBtn bGreen" mid="20513800BA5526CA96A743A9F7687D33.mp3" wid="1896" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="DE16DF4110A7F436352B37A0CF2AA279" onclick="read_exam(this);">
+                                    <dt>1、take a dancing class<i class="icon-volume-up"></i></dt>
+                                    <dd>上舞蹈课</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/401a79b81a87119dd3b6de4d98775025.jpg" src="images/blank.png" /></p>
+                        <p><span>take a dancing class</span>
+                                                <span>上舞蹈课</span>
+                        <p><a class="aBtn bGreen" mid="BB7BDBE1F6CC7B5103C6CD59D5708C2E.mp3" wid="1898" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="F80A3634681EC141E1A8218995B3491C" onclick="read_exam(this);">
+                                    <dt>1、have … class<i class="icon-volume-up"></i></dt>
+                                    <dd>上……课</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/20170829100840184759.jpg" src="images/blank.png" /></p>
+                        <p><span>why</span>
+                        <span>[waɪ]</span>                        <span>adv.为什么</span>
+                        <p><a class="aBtn bGreen" mid="32C682AD0FEA97ED63822D37FFA60939.mp3" wid="1907" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="3819E6A4BF24382F6CC65A479A864CC1" onclick="read_exam(this);">
+                                    <dt>1、Why are you shopping today?<i class="icon-volume-up"></i></dt>
+                                    <dd>今天为什么是你在购物？</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/20150907150928821856.jpg" src="images/blank.png" /></p>
+                        <p><span>shop</span>
+                        <span>[ʃɒp]</span>                        <span>vt.&vi.逛商店；购物；买东西，（到…）去买东西[购物]；逛商店</span>
+                        <p><a class="aBtn bGreen" mid="C0C200CEBADC69DDEBA51F11B3697150.mp3" wid="1908" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="304C14AD2CEA49D3DFAC45A81F53E158" onclick="read_exam(this);">
+                                    <dt>1、Then he sees a toy shop across from the restaurant.<i class="icon-volume-up"></i></dt>
+                                    <dd>然后他看到餐馆对面有一个玩具店。</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/daee1fdcf0138184036449fcec80ebc5.jpg" src="images/blank.png" /></p>
+                        <p><span>work</span>
+                        <span>[wɜː(r)k]</span>                        <span>vt.&vi.工作，劳动，使工作；操作；经营；使缓慢前进</span>
+                        <p><a class="aBtn bGreen" mid="57392AC9E72F4981EF8E47C10EDC463C.mp3" wid="1909" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="A37E2BFF9D0A54ACF59E54FF6CAD9D19" onclick="read_exam(this);">
+                                    <dt>1、Does your mum go to work on Saturdays?<i class="icon-volume-up"></i></dt>
+                                    <dd>你的妈妈星期六上班吗？</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/60d936c3d72985d9b0ced5e428d00ad0.jpg" src="images/blank.png" /></p>
+                        <p><span>last</span>
+                        <span>[lɑːst]</span>                        <span>adj.最近的；上一个的；末尾的；最后的</span>
+                        <p><a class="aBtn bGreen" mid="B35276D9CD9B4E6E63045BAB3FE76367.mp3" wid="1910" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="709F1A3821CA24E44AC801F417E8B7E8" onclick="read_exam(this);">
+                                    <dt>1、My mum worked last night. So I’m shopping today.<i class="icon-volume-up"></i></dt>
+                                    <dd>妈妈昨晚上夜班。所以今天我购物。</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/e8eee8610534cb274b6b36c46113f8c7.jpg" src="images/blank.png" /></p>
+                        <p><span>sound</span>
+                        <span>[saʊnd]</span>                        <span>vt.听起来；感觉起来；发出声音；发音；探测深度；探询</span>
+                        <p><a class="aBtn bGreen" mid="15FF4888D79CE49D16457105A770BCB3.mp3" wid="1911" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="6AE3198E59A66031A056FF6F407FCE15" onclick="read_exam(this);">
+                                    <dt>1、ou house / mouse / sound / count<i class="icon-volume-up"></i></dt>
+                                    <dd>房子、老鼠、声音、数数</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/988d8451be7e66374ebf762e06d37177.jpg" src="images/blank.png" /></p>
+                        <p><span>also</span>
+                        <span>['ɔːlsəʊ]</span>                        <span>adv.也；而且</span>
+                        <p><a class="aBtn bGreen" mid="A84C0F2266A9987A86427F7FAD6703F7.mp3" wid="1912" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="6C74AD356611166F966C33EF1F696F48" onclick="read_exam(this);">
+                                    <dt>1、Yes, but I’m also hard-working. I usually wash my clothes. Sometimes I cook dinner.<i class="icon-volume-up"></i></dt>
+                                    <dd>是的，但我也很勤快。我通常洗自己的衣服。有时我做饭。</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/bc9a81538e8d0952dea885837a73e1eb.jpg" src="images/blank.png" /></p>
+                        <p><span>busy</span>
+                        <span>[ˈbɪzi]</span>                        <span>adj.忙碌的；占线的；繁华的；爱管闲事的</span>
+                        <p><a class="aBtn bGreen" mid="EF403203602A794147A2A73719DD5AA1.mp3" wid="1913" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="70E2D9B9E76CB339109ED94E020F5ECE" onclick="read_exam(this);">
+                                    <dt>1、You’re so busy! You need a robot to help you!<i class="icon-volume-up"></i></dt>
+                                    <dd>你太忙了！你需要一个机器人来帮你！</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/2b09e651d8b904fee08dd397df724cd6.jpg" src="images/blank.png" /></p>
+                        <p><span>need</span>
+                        <span>[niːd]</span>                        <span>vt.&vi.有必要，需要</span>
+                        <p><a class="aBtn bGreen" mid="0D829B326F2D7149894F08A64CCA4785.mp3" wid="1914" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="70E2D9B9E76CB339109ED94E020F5ECE" onclick="read_exam(this);">
+                                    <dt>1、You’re so busy! You need a robot to help you!<i class="icon-volume-up"></i></dt>
+                                    <dd>你太忙了！你需要一个机器人来帮你！</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/20150907173831941827.jpg" src="images/blank.png" /></p>
+                        <p><span>play</span>
+                        <span>[pleɪ]</span>                        <span>n.戏剧；剧本；比赛；游戏</span>
+                        <p><a class="aBtn bGreen" mid="3F74D19B09F3FAD42BD3B7237F0CD646.mp3" wid="1915" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="C30E619D3E716A277D06C7D06FD52BDF" onclick="read_exam(this);">
+                                    <dt>1、I often watch TV and play ping-pong with my father.<i class="icon-volume-up"></i></dt>
+                                    <dd>我经常看电视，也常和我爸爸一起打乒乓球。</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/20150907111747285147.jpg" src="images/blank.png" /></p>
+                        <p><span>letter</span>
+                        <span>[ˈletə]</span>                        <span>n.字母；信；函</span>
+                        <p><a class="aBtn bGreen" mid="E082A60EA81E6986FBF804457E113958.mp3" wid="1916" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="A0C43A130E60F220578C8D913CDBFA2A" onclick="read_exam(this);">
+                                    <dt>1、Here is a letter from him.<i class="icon-volume-up"></i></dt>
+                                    <dd>这里有一封来自他的信。</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/17fcc5bbce3dd266f687347882c7adc6.jpg" src="images/blank.png" /></p>
+                        <p><span>live</span>
+                        <span>[lɪv]</span>                        <span>vt.&vi.居住；活着；生活；经历；度过</span>
+                        <p><a class="aBtn bGreen" mid="AB4D5CE211FDB932A640733D38A0C183.mp3" wid="1917" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="969A931782494BCDE2F585ADFDD33A93" onclick="read_exam(this);">
+                                    <dt>1、I live on an island.<i class="icon-volume-up"></i></dt>
+                                    <dd>我住在一个岛上。</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/140129742eed5797f3d2e35a78d9dc7d.jpg" src="images/blank.png" /></p>
+                        <p><span>island</span>
+                        <span>[ˈaɪlənd]</span>                        <span>n.岛，岛屿</span>
+                        <p><a class="aBtn bGreen" mid="00DB45F1E2A35512805B9043204925B7.mp3" wid="1918" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="969A931782494BCDE2F585ADFDD33A93" onclick="read_exam(this);">
+                                    <dt>1、I live on an island.<i class="icon-volume-up"></i></dt>
+                                    <dd>我住在一个岛上。</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/20150907131734297561.jpg" src="images/blank.png" /></p>
+                        <p><span>always</span>
+                        <span>[ˈɔːlweɪz]</span>                        <span>adv.总是，一直；经常</span>
+                        <p><a class="aBtn bGreen" mid="A83B19F5D4A8E020290E096761AB3141.mp3" wid="1919" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="2A2319C4E8A11931CDF5CD3460ED3EAC" onclick="read_exam(this);">
+                                    <dt>1、I always get up early every day.<i class="icon-volume-up"></i></dt>
+                                    <dd>我每天总是起得很早。</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/a40a1614a07128d957eb31517b67d171.jpg" src="images/blank.png" /></p>
+                        <p><span>cave</span>
+                        <span>[keɪv]</span>                        <span>n.洞窟；山洞</span>
+                        <p><a class="aBtn bGreen" mid="C5265B08790EA101FCD9004EA816E801.mp3" wid="1920" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="E05DA67F4012ECABC42C6556077939E1" onclick="read_exam(this);">
+                                    <dt>1、Sometimes I clean my cave, too.<i class="icon-volume-up"></i></dt>
+                                    <dd>有时我也打扫我的山洞。</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/bb23abbf7cf5b32670003eebf16eeae7.jpg" src="images/blank.png" /></p>
+                        <p><span>go swimming</span>
+                                                <span>去游泳</span>
+                        <p><a class="aBtn bGreen" mid="022E9D2892E7B41CF62B16F564F98A01.mp3" wid="1921" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="85C295E8401781C479217D6DBFF95DFA" onclick="read_exam(this);">
+                                    <dt>1、I often go swimming in the water.<i class="icon-volume-up"></i></dt>
+                                    <dd>我经常去水里游泳。</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/3840f2575e5a4ae193f27a513e676f18.jpg" src="images/blank.png" /></p>
+                        <p><span>win</span>
+                        <span>[wɪn]</span>                        <span>vt.&vi.赢得；赢，获胜；在……中获胜</span>
+                        <p><a class="aBtn bGreen" mid="B737A6977E99D5D2517167B1F1921116.mp3" wid="1922" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="4F7B4C937269D1197AF0ADF07055E73A" onclick="read_exam(this);">
+                                    <dt>1、I was slow.Now I'm fast.I can win.<i class="icon-volume-up"></i></dt>
+                                    <dd>（那时）我很慢。现在我很快。我能获胜。</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div><div class="con">
+                <ul>
+                    <div class="scrollCon">
+                        <p><img _src="en.czbanbantong.com:8081/yylmp3/pic_word/2815c177a6e74e226188eb3b479e70f3.jpg" src="images/blank.png" /></p>
+                        <p><span>dancing</span>
+                        <span>[ˈdɑːnsɪŋ]</span>                        <span>n.舞蹈，跳舞</span>
+                        <p><a class="aBtn bGreen" mid="4F16C4E4FA5E4BC3617CF91EDC993756.mp3" wid="51046" onclick="aloud(this);">朗读</a></p>
+                        <!-- <dl class="example">
+                            <a class="active" mid="DE16DF4110A7F436352B37A0CF2AA279" onclick="read_exam(this);">
+                                    <dt>1、take a dancing class<i class="icon-volume-up"></i></dt>
+                                    <dd>上舞蹈课</dd>
+                                </a>                        </dl> -->                        
+                    </div>
+                </ul>
+            </div>  
+            <div class="con">
+            </div>
+        </div>
+    </div> 
+</section>
+
+<section class="tips"  style="display:none;">
+    <p class="txt">已经到最后一个单词了，向左滑动进入下一个单元。</p>
+</section>
+<section class="plr10" style="display:none;">
+    <div class="boxCon">
+       <!--  <p><a class="btn bYellow"><i class="icon-favorite"></i>&nbsp;收藏</a> --></p><p><a href="/mobile/wordrecite/index" class="btn bGreen">背单词</a></p>
+	</div>
+</section>
+<div id="jplayer"></div> 
+ 
+<script type="text/javascript" src="/public/Mobile//js/jquery.min.js"></script>  
+<script type="text/javascript" src="/public/Mobile//js/xback.js"></script>  
+<script src="/public/Mobile//js/main.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/hammer.min.js"></script>
+<script type="text/javascript" src="/public/Mobile//js/jquery.cookie.js"></script>
+ 
+
+<script type="text/javascript"> 
+var unitid="0001060206020g";
+mp = new Mplay();
+mp.index=0;
+mp.url = "en.czbanbantong.com:8081/yylmp3/mp3_word/";
+var model="pm";
+$(function() {
+
+    //设置
+    if($.cookie("engm_wordbook_count")==null){
+        $(".dropdown a:eq(0) .wordcount").text("0");    
+    }else{
+        $(".dropdown a:eq(0) .wordcount").text($.cookie("engm_wordbook_count"));
+    }
+
+    if($.cookie("engm_record_count")==null){
+        $(".dropdown a:eq(1) .recordcount").text("0");
+    }else{
+        $(".dropdown a:eq(1) .recordcount").text($.cookie("engm_record_count"));
+    }
+
+    
+    
+
+
+    $(".tips").hide();
+    $(".wbBtn p:eq(1)").hide();    
+    $(".boxCon").hide();
+    $("#iScroll").hide();
+    $("#"+model).click();
+    var hammertime = new Hammer(document.getElementById("iStudy"));
+    //添加事件
+    hammertime.on("swipeleft", function (e) {
+    	var indexn="2";
+    	var unitcount="13";
+    	unitcount=parseInt(unitcount)-1;
+    	if(indexn!=unitcount)
+    	{
+           window.location.href="/mobile/wordstudy/study/unitid/0001060206020i/indexn/2/indexp/0/model/pm/flag/0";
+        }
+    	else
+    	{
+       	   return false;
+        }
+    });
+    hammertime.on("swiperight", function (e) {
+    	var indexp="0";
+    	if(indexp!='-1')
+    	{
+           window.location.href="/mobile/wordstudy/study/unitid/00010602060201/indexn/2/indexp/0/model/pm/flag/1"; 
+        }
+    	else
+    	{
+       	   return false;
+        }
+    });
+    $(".btn.bYellow").click(function(){
+       var wordid=$("bd ul:eq("+mp.index+")").find("a.aBtn.bGreen").attr("wid");
+       $.get("/mobile/index/collect_word",{wordid:wordid,unitid:unitid},function(data){
+            var wordcount=parseInt($(".dropdown a:eq(0) .wordcount").text());
+            $(".dropdown a:eq(0) .wordcount").text(wordbcount+parseInt(data.add));
+            $.cookie("engm_wordbook_count",parseInt($.cookie("engm_wordbook_count"))+parseInt(data.add));
+        });
+    });
+
+    XBack.listen(function(){
+      $('.l.fl').find('a').click();
+    });
+});
+
+
+
+
+function twordplay(pdom,cdom,cclass,repeat,timeoutnum)
+{
+
+    var allnum =  $(pdom).length; 
+    var carindex = mp.index;
+    $(pdom + " " + cdom).removeClass(cclass);
+    var $word = $(pdom + ":eq(" + carindex + ")").find(cdom);
+    var mp3  = $word.attr("mid"); 
+    var wordid  = $word.attr("wid");
+    $word.addClass(cclass);
+    if (carindex < allnum) {      
+        mp.play(mp.url +  mp3);
+        $("#jplayer").bind($.jPlayer.event.ended,function (event) {
+            if (mp.repeat >= repeat) 
+            {
+                BodyScroll($word); 
+                mp.index = mp.index + 1; 
+                mp.repeat = 1;
+                $.get("/mobile/wordstudy/study_word_record",{unitid:unitid,wordid:wordid},function(data){
+                    var recordcount=parseInt($(".dropdown a:eq(1) .recordcount").text());
+                    $(".dropdown a:eq(1) .recordcount").text(recordcount+parseInt(data.add));
+                    $.cookie("engm_record_count",parseInt($.cookie("engm_record_count"))+parseInt(data.add),{path: '/'});
+                });
+            }
+            else
+            {mp.repeat = mp.repeat + 1};                
+            setTimeout(function(){twordplay(pdom,cdom,cclass,repeat,timeoutnum);}, timeoutnum * 200);
+        });
+    }
+    else
+    {
+        mp.index = 0;
+        $(".tips").show();
+        $(".boxCon").show();
+        $(".plr10 .boxCon").hide();
+        $word.removeClass(cclass);
+
+    }   
+}
+function Mplay(){ 
+   $("#jplayer").jPlayer({
+        swfPath: "/public/Mobile//js/",
+        wmode: "window",
+        supplied: "mp3",
+        preload: "none",
+        volume: "1"
+    });
+
+    var oplay = new Object();  
+    oplay.index = 0;
+    oplay.url = "";
+    oplay.repeat = 1;
+
+    oplay.play = function(mp3){  
+        oplay.clear();
+        $("#jplayer").jPlayer("setMedia", {mp3:mp3}).jPlayer("play");
+    };
+
+    oplay.clear = function(){       
+        $("#jplayer").jPlayer("stop");
+        $("#jplayer").jPlayer("clearMedia");
+        //$("#jplayer").data("SpeakMP3Value", "0");  
+        $("#jplayer").unbind($.jPlayer.event.ended);
+        $("#jplayer").unbind($.jPlayer.event.progress);
+    };
+    return oplay;  
+}
+function  BodyScroll(curpos){
+var container = $("html,body"); 
+var pos_y = $(curpos).offset().top-300;
+$("html,body").animate({scrollTop:pos_y},100);//1000是ms,也可以用slow代替
+}
+
+//朗读单词
+function aloud(obj){
+    var mp3=$(obj).attr("mid");
+     mp.play(mp.url +  mp3); 
+}
+
+//朗读例句
+function read_exam(obj){
+    var mp3=$(obj).attr("mid");
+    mp.play("en.czbanbantong.com:8081/yylmp3/mp3_text/" +  mp3); 
+}
+
+//收藏取消功能实现
+function collect(obj){
+    if($(obj).attr("bid")=='0')
+    {
+        $(obj).attr("bid",'1');
+        $(obj).removeClass(" aBtn fav");
+        $(obj).addClass("aBtn fav cur");
+        $(obj).find("font").text("取消");
+        var wordid=$(obj).parent().parent().find("a.twmp").attr("wid");
+        $.get("/mobile/wordstudy/collect_word",{wordid:wordid,unitid:unitid},function(data){
+            var wordcount=parseInt($(".dropdown a:eq(0) .wordcount").text());
+            $(".dropdown a:eq(0) .wordcount").text(wordbcount+parseInt(data.add));
+            $.cookie("engm_wordbook_count",parseInt($.cookie("engm_wordbook_count"))+parseInt(data.add));
+
+        });
+   }
+   else
+   {
+        $(obj).attr("bid",'0');
+        $(obj).removeClass(" aBtn fav cur");
+        $(obj).addClass("aBtn fav");
+        $(obj).find("font").text("收藏");
+        var wordid=$(obj).parent().parent().find("a.twmp").attr("wid");
+        $.get("/mobile/index/delwordbook",{wordid:wordid},function(data){
+            var wordcount=parseInt($(".dropdown a:eq(0) .wordcount").text());
+            $(".dropdown a:eq(0) .wordcount").text(wordbcount-1);
+            $.cookie("engm_wordbook_count",parseInt($.cookie("engm_wordbook_count"))-1);              
+        });
+    }
+}
+
+//单词按顺序读
+function word_read(obj){
+    mp.index=$(obj).parent().prevAll("li").length;
+    mp.repeat = 1;
+    twordplay(".iStudy li","a.twmp","active",2,1);
+}
+
+//读单词模式切换
+function model_change(obj){
+    $("#studymodel a").removeClass("cur");
+    $(obj).addClass("cur");
+    var id = $(obj).attr("id");  
+    mp.clear();
+    if (id=="tm") 
+    {
+    	
+        $(".plr10 .boxCon").show();
+        $("#iScroll").show();
+        $(".wbBtn p:eq(1)").show(); 
+        $("#iStudy").hide(); 
+	    TouchSlide( { slideCell:"#iScroll",
+	    titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+	    autoPage:true, //自动分页
+	    switchLoad:"_src",
+	    defaultIndex:mp.index+1,
+	    endFun:function(i){ //高度自适应
+	            var bd = document.getElementById("iScroll-bd");
+                try{
+                   document.getElementsByClassName("con")[i].getElementsByClassName("scrollCon")[0].style.minHeight=window.screen.availHeight+"px"; 
+               }catch(e){
+                   console.log(e);
+               }
+	            
+	            mp.index=i;
+	            if(i>0)
+	            {
+                $(".aBtn.bGreen:eq("+(i-1)+")").click();
+				var wordid=$(".aBtn.bGreen:eq("+(i-1)+")").attr("wid");
+				$.get("/mobile/wordstudy/study_word_record",{unitid:unitid,wordid:wordid},function(data){
+                    var recordcount=parseInt($(".dropdown a:eq(1) .recordcount").text());
+                    $(".dropdown a:eq(1) .recordcount").text(recordcount+parseInt(data.add));
+                    $.cookie("engm_record_count",parseInt($.cookie("engm_record_count"))+parseInt(data.add));
+                });
+                }
+                $(".tips").hide();
+                $(".wbBtn font").text(i);
+	            //bd.parentNode.style.height = bd.children[i].children[0].offsetHeight+"px";
+	            //if(i>0)bd.parentNode.style.transition="200ms";//添加动画效果
+	            if((i)==0)
+                {
+                	$(".wbBtn.bLine p:eq(1)").hide(); 
+                	var indexp="0";
+                	if(indexp!='-1')
+                	{
+                	   $(".con:eq(0)").text("正在加载上一单元......");
+                       window.location.href="/mobile/wordstudy/study/unitid/00010602060201/indexn/2/indexp/0/model/tm/flag/1"; 
+                    }
+                	else
+                	{
+                	   window.location.href="/mobile/wordstudy/study/unitid/0001060206020i/indexn/2/indexp/0/model/pm/flag/1/xflag/1"; 
+                   	   return false;
+                    }
+                }
+                if((i)==22){$(".tips").show();}
+                if((i-1)==22)
+                {
+                	$(".wbBtn.bLine p:eq(1)").hide(); 
+                	$(".con:last").text("正在加载下一单元......");
+                	var indexn="2";
+                	var unitcount="13";
+                	unitcount=parseInt(unitcount)-1;
+                	if(indexn!=unitcount)
+                	{
+                       window.location.href="/mobile/wordstudy/study/unitid/0001060206020i/indexn/2/indexp/0/model/tm/flag/0";
+                    }
+                	else
+                	{
+                	   window.location.href="/mobile/wordstudy/study/unitid/00010602060201/indexn/2/indexp/0/model/pm/flag/0/xflag/1";
+                   	   return false;
+                    }
+                }
+	        }
+	
+	    } );       
+    }
+    else
+    {
+    	$(".twmp:eq("+mp.index+")").click();
+        $(".plr10 .boxCon").show();
+        $("#iScroll").hide();
+        $(".wbBtn p:eq(1)").hide(); 
+        $("#iStudy").show();
+    }
+}
+
+
+
+</script>
+
+</body>
+</html>

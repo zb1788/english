@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>优教班班通-听读作业</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link href="__PUBLIC__/public/style/common.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/test_paper.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/Test_paper/style/ks_exam.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/font_quan.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/keyboard.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/mystyle.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+
+<script src="__PUBLIC__/public/script/artDialog.js?skin=default_green"></script>
+<script src="__PUBLIC__/public/script/test_paper.js"></script>
+<script src="__PUBLIC__/public/script/keyboard.js"></script>
+<script src="__COMMON__/js/jquery.tmpl.js"></script> 
+<!-- <script type="text/javascript" src="__PUBLIC__/js/template.js"></script> -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.jplayer.min.js"></script>
+<script src="__COMMON__/js/en.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/pcmp3play.js"></script>
+</head>
+<body class="bg_stu ">
+<!--begin w1200-->
+<div class="w980" >
+  <div class="clearfix"></div>
+  <div class="test_con" >
+    <h1 class="dbt1">{$homework_name}</h1>
+    <span></span>
+    <div class="test" id="topone">
+      <div class="te_tab">
+      <neq name="wacount" value="0">
+         <a href="javascript:void(0);" name="wa" class="aBtn cur" selecttype="wordalound">单词跟读</a>
+      </neq>
+      <neq name="wscount" value="0">
+         <a href="javascript:void(0);" name="wp" class="aBtn cur" selecttype="wordwp">单词拼写</a>
+      </neq>
+
+       <neq name="wccount" value="0">
+         <a href="javascript:void(0);" name="wx" class="aBtn cur" selecttype="wordwx">听音选词</a>
+      </neq>
+        <neq name="wrcount" value="0">
+         <a href="javascript:void(0);" name="wy" class="aBtn cur" selecttype="wordwy">英汉互译</a>
+      </neq>
+      <neq name="tacount" value="0">
+         <a href="javascript:void(0);" name="ta" class="aBtn cur" selecttype="textalound">课文跟读</a>
+      </neq>
+      <neq name="eqcount" value="0">
+         <a href="javascript:void(0);" name="eq" class="aBtn cur" selecttype="examsquiz">听力训练</a>
+      </neq>
+      <eq name="isOverdue" value="false"><span><a href="javascript:;" onclick="hwlistback();">返回我的作业列表</a></span></eq>
+      </div>
+      <div class="test content">
+      <neq name="wacount" value="0">
+        <div class="homework wordalound" style="display: none;">
+          <h1><span>共 <span class="total"></span> 个单词需要跟读，当前进行到第 <span class="curindex"></span> 个，可播放标准读音进行查看，录音时需要打开您的麦克风设备，且需要录音设置辅助进行。</span></h1>
+              <div class="word_sj">
+                <div class="clearfix"></div>
+                <dl>
+            <dt class="fl"><img  class="pic"></dt>
+            <dd class="tit"><strong class="word"><i class="fa  fa-star"></i></strong><span class="yinbiao"></span></dd>
+            <dd class="tit"><span>释义:</span><i class="fa  fa-star"></i><span class="explains"></span></dd>
+            <dd>
+              <ul class="duyin gendu">
+                <li onclick="reading(this,0);"><a class="mp3" href="javascript:void(0);"><img src="__PUBLIC__/record/images/icon_listen.png" width="80" height="80"  alt=""/></a><span>标准读音</span>
+              </li>
+               <li onclick="reading(this,2);"><a class="warecordmp3" href="javascript:void(0);" recordtype="0"><img src="__PUBLIC__/record/images/icon_reading.png" width="80" height="80"  alt=""/></a><span>我的读音</span>
+              </li>
+              <li id="record">
+             
+              <!--  <iframe id="record" frameborder="0" allowtransparency="yes" name="record" width="800" height="140" src="record" scrolling="no"></iframe> -->
+      <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="vcomre" width="235" height="150" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
+         <param name="movie" value="__PUBLIC__record/vcomre.swf" />
+         <param name="quality" value="high" />
+         <param name="wmode" value="Opaque">
+         <param name="bgcolor" value="#ffffff" />
+         <param name="allowScriptAccess" value="sameDomain" />
+         <embed src="__PUBLIC__record/vcomre.swf" quality="high" bgcolor="#ffffff" width="235" height="150" name="vcomre" align="middle" play="true" loop="false" quality="high" wmode="Opaque" allowScriptAccess="sameDomain" type="application/x-shockwave-flash"  pluginspage="http://www.macromedia.com/go/getflashplayer">
+         </embed>
+     </object>
+              </li>
+
+            </ul>
+            </dd>
+            </dl>
+          <div class="btn_cs" style="display: none;"> </div>
+          </div>
+           <div class="timufenye mt35"><a href="javascript:;" class="btn_gray" type="0" action="prev" onclick="word_prev_netx(this);"><i class="fa fa-hand-o-left" aria-hidden="true"></i> 上一题</a> <a href="javascript:;" class="btn_green" type="0" action="next"  onclick="word_prev_netx(this);">下一题 <i class="fa fa-hand-o-right" aria-hidden="true"></i></a></div>
+          
+        </div>
+      </neq>
+      <neq name="wscount" value="0">
+        <div class="homework wordwp" style="display: none;">
+        <div class="test" >
+        <h1>共<span class="total"></span>个单词，共<span class="total"></span>分，现在进行到第<span class="curindex"></span>个，你可以直接在输入框中输入答案，也可以直接通过下列键盘选择单词字母！</h1>
+      <div class="testContent">
+        <div class="clearfix"></div>
+        <h2 class="pinxie" onclick="reading(this,0);"><label class="explains">蜡笔</label> <a href="javascript:;" class="pin mp3" ><img src="__PUBLIC__/public/images/zuoye/icon_listen.png" width="80" height="80"  alt=""/></a></h2>
+        <div class="k_keyboard" >
+          <input type="text" placeholder="输入单词" id="numkeyboard1" class="numkeyboard" onblur="save_stu_wordpx(this);" />
+          
+           <ul id='keyboard_5xbogf8c' >
+    <li>Q</li>
+    <li>W</li>
+    <li>E</li>
+    <li>R</li
+    ><li>T</li>
+    <li>Y</li>
+    <li>U</li>
+    <li>I</li>
+    <li>O</li>
+    <li>P</li>
+   <li>A</li>
+   <li>S</li>
+   <li>D</li>
+   <li>F</li>
+   <li>G</li>
+   <li>H</li>
+   <li>J</li>
+   <li>K</li>
+   <li>L</li>
+    <li>CapsLock</li>
+    <li>Z</li>
+    <li>X</li>
+    <li>C</li>
+    <li>V</li>
+    <li>B</li>
+    <li>N</li>
+    <li>M</li>
+    <li>←</li>
+    <li>Clear</li>
+    <div id='keyboard_5xbogf8c_left'></div>
+    <div id='keyboard_5xbogf8c_right'></div>
+    </ul>
+          
+          
+        </div>
+      </div>
+      <!--效果html开始--> 
+      
+      <!--效果html结束-->
+      <div class="clearfix"></div>
+      <div class="timufenye mt35"><a href="javascript:;" class="btn_gray" type="1" action="prev" onclick="word_prev_netx(this);"><i class="fa fa-hand-o-left" aria-hidden="true"></i> 上一题</a> <a href="javascript:;" class="btn_green" type="1" action="next"  onclick="word_prev_netx(this);">下一题 <i class="fa fa-hand-o-right" aria-hidden="true"></i></a></div>
+    </div>
+
+        </div>
+      </neq>
+       
+      <neq name="wccount" value="0">
+        <div class="homework wordwx" style="display: none;">
+        <div class="testContent">
+          <h1>共<span class="total"></span>个单词，共<span class="total"></span>分，现在进行到第<span class="curindex"></span>个</h1> 
+       <h2 class="td tingli" onclick="reading(this,0);">    
+    
+           </h2>
+       <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="A"> A </a><span type="option"></span></p>
+                 
+       <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="B"> B </a><span type="option"></span></p>
+                
+       <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="C"> C </a><span type="option"></span></p>
+                  <div class="clearfix"></div>
+      <div class="timufenye mt35"><a href="javascript:;" class="btn_gray" type="3" action="prev" onclick="word_prev_netx(this);"><i class="fa fa-hand-o-left" aria-hidden="true"></i> 上一题</a> <a href="javascript:;" class="btn_green" type="3" action="next"  onclick="word_prev_netx(this);">下一题 <i class="fa fa-hand-o-right" aria-hidden="true"></i></a></div>
+      </div>
+        </div>
+      </neq>
+      <neq name="wrcount" value="0">
+        <div class="homework wordwy" style="display: none;">
+        <div class="testContent">
+          <h1>共<span class="total"></span>个单词，共<span class="total"></span>分，现在进行到第<span class="curindex"></span>个</h1>
+     
+       
+       <h2 class="td tingli" onclick="reading(this,0);">    
+         
+       </h2>
+                
+       <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="A"> A </a><span type="option"></span></p>
+                 
+       <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="B"> B </a><span type="option"></span></p>
+                
+       <p><a href="javascript:void(0);" class="btn_gray" onclick="javascript:void(0);" type="option" useranswer="C"> C </a><span type="option"></span></p>
+               <div class="clearfix"></div>
+      <div class="timufenye mt35"><a href="javascript:;" class="btn_gray" type="2" action="prev" onclick="word_prev_netx(this);"><i class="fa fa-hand-o-left" aria-hidden="true"></i> 上一题</a> <a href="javascript:;" class="btn_green" type="2" action="next"  onclick="word_prev_netx(this);">下一题 <i class="fa fa-hand-o-right" aria-hidden="true"></i></a></div>      
+</div>
+    
+
+        </div>
+      </neq>
+      <neq name="tacount" value="0">
+        <div class="homework textalound" style="display: none;">
+          <div class="testContent">
+               <h1></h1>
+     
+      
+        
+        <div class="clearfix"></div>
+        
+            <div class="row">
+            <div class="zcol-1h">
+              <h2>1.</h2>
+            </div>
+            <div class=" zcol-11 ">
+              <div class="gendu_tit"><strong></strong></div>
+              <div class="gendu_miaoshu"> </div>
+              <div class="clearfix"></div>
+            </div>
+            <div>
+          <ul class="duyin_s mt15">
+            <li onclick="reading(this,1);"><a href="javascript:void(0);" class="mp3"><img src="__PUBLIC__/public/images/zuoye/icon_listen.png" width="80" height="80"  alt=""/></a><span>标准读音</span></li>
+            <li onclick="reading(this,2);"><a class="tarecordmp3" href="javascript:void(0);" recordtype="1"><img src="__PUBLIC__/record/images/icon_reading.png" width="80" height="80"  alt=""/></a><span>我的读音</span>
+            </li>
+            <li>
+               <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="ExternalInterfaceExample" width="235" height="150" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
+         <param name="movie" value="__PUBLIC__record/vcomre.swf" />
+         <param name="quality" value="high" />
+         <param name="wmode" value="Opaque">
+         <param name="bgcolor" value="#ffffff" />
+         <param name="allowScriptAccess" value="sameDomain" />
+         <embed src="__PUBLIC__record/vcomre.swf" quality="high" wmode="Opaque" bgcolor="#ffffff" width="235" height="150" name="ExternalInterfaceExample" align="middle" play="true" loop="false" quality="high" allowScriptAccess="sameDomain" type="application/x-shockwave-flash"  pluginspage="http://www.macromedia.com/go/getflashplayer">
+         </embed>
+     </object>
+            </li>
+         
+          </ul>
+
+        </div>
+      </div>
+      <div class="btn_cs" style="display: none;"> </div>
+         <div class="timufenye mt35"><a href="javascript:;" class="btn_gray" type="4" action="prev" onclick="word_prev_netx(this);"><i class="fa fa-hand-o-left" aria-hidden="true"></i> 上一题</a> <a href="javascript:;" class="btn_green" type="4" action="next"  onclick="word_prev_netx(this);">下一题 <i class="fa fa-hand-o-right" aria-hidden="true"></i></a></div>
+        </div>
+     
+
+        </div>
+      </neq>
+      <neq name="eqcount" value="0">
+        <div class="homework examsquiz" style="display: none;"></div>
+      </neq>
+      </div>
+    </div>
+   
+
+    <!--end shiti-->
+
+    <div class="clearfix"></div>
+  </div>
+  <!-- 代码 开始 -->
+</div>
+<font id="num" style="display:none;">0</font>
+<!--end w1200-->
+<div class="scrollsidebar" id="scrollsidebar" >
+    <div class="side_content">
+      <div class="side_list">
+        <div class="side_title">答题卡<a title="隐藏" class="close_btn"><span>关闭</span></a></div>
+        <div class="side_center" >
+        <eq name="isOverdue" value="false">
+          <p><a href="#" class=" btn_green" onclick="savePaper();">暂存作业</a></p>
+          <p><a href="javascript:;" class=" btn_green submit" onclick="sumbitPaper();">交作业</a></p>
+        </eq>
+          <neq name="wacount" value="0"> <h1>{$wacardtitle}</h1></neq>
+          <ul id="cardwa">
+          </ul>
+          <div class="clearfix"></div>
+          <neq name="wscount" value="0"> <h1>{$wpcardtitle}</h1></neq>
+          <ul id="cardwp">
+          </ul>
+       
+          <div class="clearfix"></div>
+          <neq name="wccount" value="0"> <h1>{$wxcardtitle}</h1></neq>
+          <ul id="cardwx">
+          </ul>
+          <div class="clearfix"></div>
+          <neq name="wrcount" value="0"> <h1>{$wycardtitle}</h1></neq>
+          <ul id="cardwy">
+          </ul>
+          <div class="clearfix"></div>
+           <neq name="tacount" value="0"> <h1>{$tacardtitle}</h1></neq>
+          <ul id="cardta">    
+          </ul>
+          <div class="clearfix"></div>
+           <neq name="eqcount" value="0"> <h1>{$eqcardtitle}</h1></neq>
+          <ul id="cardeq">  
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+    <div class="show_btn"><span>在线答题卡</span></div>
+  </div> 
+</div>
+<!--t提交弹出层-->
+<div id="tj_pop" style="display:none;">
+  <div class="popContent">
+    <h5>答案已提交，正在批改中，请稍侯...</h5>
+  </div>
+  <!--end popContent-->
+</div>
+<div id="zy_ts" class="zy_ts" style="display:none;text-align: center;"><h2 style="margin-top:5px;"><img src="__PUBLIC__/images/gongxi.jpg" width="70" height="70"  alt=""/></h2><h1 style="font-size:2.0em;">太棒了！</h1><h1 style="font-size:2.0em;margin-top:5px;">作业做完了！</h1><div class="clearfix"></div>
+</div>
+<div id="zy_ts2" class="zy_ts" style="display:none;text-align: center;"><h2 style="margin-top:5px;"><img src="__PUBLIC__/images/gongxi.jpg" width="70" height="70"  alt=""/></h2><h1 style="font-size:2.0em;">作业已经保存！</h1><div class="clearfix"></div>
+</div>
+<div id="jplayer"></div>
+<include file="template"/>
+</body>
+</html>
+<script src="__PUBLIC__public/script/common.js"></script>
+<script type="text/javascript">
+var interfaceServiceURL='{$interfaceServiceURL}&channelid={$channelid}';
+var readtype = 0;
+var examsmp3url = "__RESOURCE__mp3_exam/";
+var word_pic_url = "__RESOURCE__pic_word/";
+var wordmp3url = "__RESOURCE__mp3_word/";
+var textmp3url = "__RESOURCE__mp3_text/";
+var recordmp3url = "{$Think.config.record_mp3_path}";
+var classid = "{$classid}";
+var studentid = "{$studentid}";
+var homeworkid = "{$homeworkid}";
+var channelid = "{$channelid}";
+var yjt_homeworkid = "{$yjt_homeworkid}";
+var local_service = "__RECORD__";
+var recordpath = "{$Think.config.recordpath}";
+var tms = "{$tms}";
+var batchid = "{$batchid}";
+var wacount="{$wacount}";
+var wscount="{$wscount}";
+var wrcount="{$wrcount}";
+var wccount="{$wccount}";
+var tacount="{$tacount}";
+var eqcount="{$eqcount}";
+var p = en.createNew(homeworkid);
+var wordarr='';
+var chapterarr='';
+var woradwaindex = 0;
+var woradwpindex = 0;
+var woradwyindex = 0;
+var woradwxindex = 0;
+var taindex = 0;
+var isOverdue = "{$isOverdue}";
+var arraynum = new Array('一、','二、','三、','四、','五、','六、');
+//console.log(arraynum[0]);
+function hwlistback(){
+  var url=interfaceServiceURL;
+  location.href=url;
+}
+function sumbitPaper(){
+  artDialog(
+      {
+          top:'10%',
+          content:'检查下是否有未做完的试题，点击【确定】按钮提交！',
+          lock:true,
+          style:'succeed noClose'
+      },
+      function(){
+        $.getJSON("../public/stupublish",{batchid:batchid,homeworkid:yjt_homeworkid,paper_id:homeworkid,studentid:studentid,classid:classid,source:1,channelid:channelid,tms:tms,ran:Math.random()},function(data){
+          $(".submit").attr("disabled",true);
+          art.dialog({
+              margin:5,
+              width:450,
+              height:200,
+              title:'',
+              content:$('#zy_ts').get(0),
+              lock:true,
+              time:2,
+              opacity: 0.2,
+              close:function(){
+                 var url=interfaceServiceURL;
+                  location.href=url;
+              }
+          });
+        });
+      },
+      function(){
+          return true;
+      }
+  );
+}
+function savePaper(){
+  artDialog(
+      {
+          top:'10%',
+          content:'检查下是否有未做完的试题，点击【确定】按钮暂存作业！',
+          lock:true,
+          style:'succeed noClose'
+      },
+      function(){
+        $(".submit").attr("disabled",true);
+          art.dialog({
+              margin:5,
+              width:450,
+              height:200,
+              title:'',
+              content:$('#zy_ts2').get(0),
+              lock:true,
+              time:2,
+              opacity: 0.2,
+              close:function(){
+                  var url=interfaceServiceURL;
+                  location.href=url;
+              }
+          });
+      },
+      function(){
+          return true;
+      }
+  );
+}
+</script>
+<script src="__PUBLIC__public/script/pc_hwstu.js"></script>
+<script>
+var ishttps=document.location.protocol;
+var script=document.createElement("script");
+script.type="text/javascript";
+script.src=ishttps+"//{$main}/script/common.jsp";
+document.getElementsByTagName('head')[0].appendChild(script);
+</script>

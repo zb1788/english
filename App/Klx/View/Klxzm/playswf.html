@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>播放动画</title>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script>
+$(function(){
+	var url=GetQueryString('url');
+	url='__RESOURCE__/uploadklx/klxzm/'+url;
+	//url = url.replace(/https/g, "http");
+       var width=580;
+       var height=420;
+       var src='<embed style="margin-left:-8px;margin-top:-8px;" src="'+url+'"  id="swfEmbed"  allowFullScreen="true" allowFullScreenInteractive="true" wmode="transparent" quality="high" width="'+width+'" height="'+height+'" align="L" scale="noborder"  type="application/x-shockwave-flash"></embed>';
+	   src = '<object width="'+width+'" height="'+height+'" id="flashContent" data="'+url+'" type="application/x-shockwave-flash" style="visibility: visible;"><param name="quality" value="high"><param name="allowscriptaccess" value="always"><param name="allowfullscreen" value="true"><param name="WMode" value="transparent"><embed style="margin-left:-8px;margin-top:-8px;" src="'+url+'"  id="swfEmbed"  allowFullScreen="true" allowFullScreenInteractive="true" wmode="transparent" quality="high" width="'+width+'" height="'+height+'" align="L" scale="noborder"  type="application/x-shockwave-flash"></embed></object>';
+       $('#error').html(src);
+});
+
+// $('#swfEmbed').hide();
+// var a=document.getElementById("swfEmbed");
+
+// a.onreadystatechange = function() {
+
+// if (this.readyState=="complete") { //最近才知道的。不然也写不出来。
+// // 解释：一个iframe加载完毕的状态是complete,
+// 	$('#img').hide();
+// 	$('#swfEmbed').show();
+// }
+// }
+
+
+
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+
+</script>
+</head>
+<body>
+	<div id="error" align="center" style="width:100%;height:800px;">
+	</div>
+<!--
+	<object type="application/x-shockwave-flash" data="" width="100%" height="100%" id="flashContent" style="visibility: visible;">
+		<param name="quality" value="high">
+		<param name="allowscriptaccess" value="sameDomain">
+		<param name="allowfullscreen" value="true">
+		<param name="WMode" value="transparent">
+	</object>
+-->
+</body>
+</html>

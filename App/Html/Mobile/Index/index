@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="/public/Mobile//css/fonts.css" rel="stylesheet" type="text/css">
+	 <link href="/public/Mobile//css/jquery.mmenu.all1.css" rel="stylesheet" type="text/css">
+	<link href="/public/Mobile//css/style.css" rel="stylesheet" type="text/css">  
+	<style type="text/css">
+    .signout{ position:absolute; left:0px; top:8px; z-index:1;text-align:left;display:inline;}
+    .signout a{color:#fff; display: block;color: #fff;cursor:pointer;}
+	.signout a span{font-size:18px;vertical-align: middle;}
+	.signout a i{font-size: 33px;vertical-align: middle; margin-right:-8px;}
+	#header a.navicon{ top:0px; left:100%; float:right; margin-left:-35px; margin-top:15px;}
+	</style>    
+      
+</head>
+<div class="content" id="content">
+    <div id="header">
+		<a class="navicon" href="#menu-left" > </a>
+		<!--<label><a href="#menu-left" ><i class="icon-bars"></i><span class="dian"></span></a></label>-->
+	</div>
+    <div class="signout"><a href="http://www.czbanbantong.com"><i class="icon-chevron-left" ></i><span>返回</span></a></div>
+    <div class="nav">
+        <h1>英语同步练</h1>
+    </div>        
+    <div class="user">
+        <div class="face">
+		    <p>
+			<img src="" onerror="javascript:this.src='/public/Mobile//images/default_head.jpg';"  />
+			</p><span></span></div>
+        <div class="info"><i class="icon-quote-left"></i>&nbsp;
+            <font class="welcome">Happiness is a choice that requires effort at times</font>
+            <i class="icon-quote-right"></i> 
+        </div>
+        <div class="line"></div>
+        <div class="number">
+            <span><a href="/Mobile/index/wordbook" class="wordbcount"><i class="icon-heart"></i><font class="wordcount">0</font></a></span><span><a href="/Mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount">0</font></a></span>
+        </div>
+    </div>
+    <div class="iconBox">
+        <ul class="iconCon">
+            <li><a href="/Mobile/wordstudy/index"><i class="icon-document"></i>学单词</a></li>
+            <li><a href="/Mobile/textread/index"><i class="icon-book-open"></i>读课文</a></li>
+            <li><a href="/Mobile/wordrecite/index"><i class="icon-clipboard2"></i>背单词</a></li>
+            <li><a href="/Mobile/listen/index"><i class="icon-document"></i>听力训练</a></li>
+        </ul>
+    </div>
+    <div class="page" id="page" style="display:none;">
+        <nav id="menu-left">
+	        
+	        <ul>
+	        	<h2><img src="" onerror="javascript:this.src='/public/Mobile//images/default_head.jpg';"  /></h2>
+	            <li><a href="#"><i class="icon-tasks"></i><b>学习中心</b></a></li>
+	            <li><a href="/Mobile/index/course"><i class="icon-pencil-square"></i><b>课程设置</b></a></li>
+	            <li><a href="/Mobile/index/record"><i class="icon-list-alt"></i><b>学习记录</b></a></li>
+	        </ul>
+       </nav> 
+    </div>
+</div> 
+
+<script src="/public/Mobile//js/jquery.min.js" type="text/javascript"></script> 
+<script type="text/javascript" src="/public/Mobile//js/xback.js"></script> 
+<script type="text/javascript" src="/public/Mobile//js/22.js"></script>
+<!-- <script type="text/javascript" src="/public/Mobile//js/nav.js"></script> -->
+<!--<script type="text/javascript" src="/public/Mobile//js/jquery.mmenu.min.js"></script>-->
+<script type="text/javascript">
+$(function() {
+    $('nav#menu-left').mmenu({
+         offCanvas: {
+            position: "right"
+         }
+    });
+
+    //获取用户的单词背诵情况
+    $.getJSON('getuserinfo',{ran:Math.random()},function(data){
+        if(data.reciteword!="0"){
+           $(".welcome").html("你累计背诵了<strong class='reciteword'>"+data.reciteword+"</strong>个单词&nbsp;");
+           $(".wordcount").html(data.wordbcount);
+           $(".recordcount").html(data.recordcount);
+        }
+    });
+});
+
+</script>
+
+</body>
+</html>

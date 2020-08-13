@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>背景分类管理</title>
+<link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+</head>
+<body>
+<div class="container">
+<!-- <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+	<tr>
+		<td>
+			<input type="button" id="add" value="添加背景" class="ext_btn ext_btn_submit"/>
+		</td>
+	</tr>
+</table> -->
+<div class="h5"></div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table" id="table_data">
+  <tr>
+    <th width="40">序号：</th>
+    <th width="180">单元：</th>
+    <th width="180">章节：</th>
+    <th width="100">录音：</th>
+    <th>选择</th>
+  </tr>
+</table>
+
+
+
+
+
+<table id="demo" style="display:none;">
+	<tr>
+        <td>序号：</td>
+        <td>单元：</td>
+        <td>章节：</td>
+        <td><input type="button" class="ext_btn ext_btn_success" name="mp3"  value="试听"></td>
+		<td>
+			<input type="radio" name="item" value="ha">选择
+		</td>
+	</tr>
+</table>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+$.ajaxSetup({async:false});
+$(function(){
+    getchapter();
+});
+
+//获取课文录音列表
+function getchapter(){
+    $.get('../Kewen/getKewenFromYibai',
+        {
+            ran:Math.random(),
+            ks_code:'{$ks_code}',
+        },
+        function(data){
+        $('#list_table tr:not(:first)').remove();
+        $.each(data,function(k,v){
+            var tr=$('#demo').children('tbody').children('tr').eq(0).clone();
+            tr.children('td').eq(0).html(k+1);
+            tr.children('td').eq(1).html(v.unit);
+            tr.children('td').eq(2).html(v.name);
+            tr.children('td').eq(3).find('input').attr('file',v.mp3);
+            tr.children('td').eq(4).find('input').val(v.mp3);
+            tr.appendTo('#table_data');
+        });
+    })
+}
+
+//选择
+$('input[name="item"]').live('click',function(){
+    art.dialog.confirm('确定已经试听？',function(){},function(){
+    });
+});
+
+//试听
+$('input[name="mp3"]').live('click',function(){
+        var file=$(this).attr('file');
+        var name = $(this).parent().prev().html();
+        if(file==''||typeof(file)=='undefined'){
+            art.dialog.alert('暂无音频，请手工上传！');
+            return false;
+        }
+        playVideo(name,file);
+});
+
+//播放弹出页面
+function playVideo(filename,filestore){
+    var url='';
+    var width='';
+    var height='';
+
+    url='playmp3';
+    width=220;
+    height=220;
+
+    var myDialog = art.dialog.open(url+'?filename='+filename+'&filepath='+filestore+'&random='+Math.random(),{
+        id:'mate_edit',
+        title:filename,
+        window:'top',
+        width:width,
+        height:height,
+        padding:0,
+        lock:true,
+        opacity:0.3
+      });
+}
+
+//获取选中的raido
+function getVal(){
+    var val=$('input[name="item"]:checked').val();
+    return val;
+}
+function savedata(){
+        var mp3 = getVal();
+        var flag=false;
+        if(typeof(mp3)=='undefined'){
+            art.dialog.alert('必须选择音频！');
+            return false;
+        }else{
+            copyvoice(mp3);
+            return true;
+        }
+
+}
+
+//复制语文100的音频
+function copyvoice(mp3){
+    $.get('../Kewen/copyKewenVoice',
+        {
+            ran:Math.random(),
+            mp3:mp3
+        },
+        function(data){
+            art.dialog.data('mp3', data);
+        });
+}
+
+
+
+
+</script>

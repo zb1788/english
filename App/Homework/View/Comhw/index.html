@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>优教班班通-教师空间-同步备课</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link href="__PUBLIC__/public/style/common.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/beike.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/public/style/online_work.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/mystyle.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+<script src="__COMMON__/js/jquery.form.js"></script>
+<script src="__PUBLIC__/js/artDialog.js?skin=default"></script>
+<script src="__PUBLIC__/js/iframeTools.source.js"></script>
+<script src="__PUBLIC__/js/le.js"></script>
+<script src="__PUBLIC__/public/script/td.js"></script>
+<!-- <script src="__PUBLIC__/public/script/template.js"></script> -->
+<script src="__COMMON__/js/jquery.tmpl.js"></script>
+<script src="__COMMON__/js/en.js"></script>
+</head>
+<style>
+html {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+.w700 {width:700px; margin:0 auto;}
+.w900 {width:900px; margin:0 auto;}
+.w700 .listen dl dd{ width: 87%; }
+.w700 .listen dl dd.w15b ul li{width:120px; white-space:nowrap;word-wrap:normal;text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow:hidden;}
+</style>
+<body>
+<eq name="result" value="0">
+               <div class="tishi">
+             
+              <dl>
+                <dt><img src="__PUBLIC__/public/images/charu.gif" width="131" height="116"  alt=""/></dt>
+                <dd>小编们正在马不停蹄的建设资源，但这里还是空空如也，给小编们加加油吧，有了您的鼓励小编们会更加努力的建设资源的！&nbsp; <a href="#" class="btn_red" style=" "><span class="ico10"></span>加油</a>
+                </dd>
+              </dl>
+             
+             </div>
+<else/>
+  <div class="td_scrollsidebar" id="td_scrollsidebar">
+    <div class="td_side_content">
+      <div class="td_side_list teacher">
+      <div class="td_side_title">已选试题道数：<a href="javascript:;" class="yellow"><font class="totalselectnum">0</font>题</a>  <a title="隐藏" class="td_close_btn"><span>关闭</span></a></div>
+        <div class="td_side_center" >
+          <ul class="xuanti">
+          <li><span><a href="javascript:;" class="blue"><font class="xuanticheck-01">0</font>题</a></span>单词跟读</li>
+          <if condition="($grade neq '0001') and ($grade neq '0002') "> 
+            <li><span><a href="javascript:;" class="blue"><font class="xuanticheck-02">0</font>题</a></span>单词拼写</li>
+          </if>
+            <li><span><a href="javascript:;" class="blue"><font class="xuanticheck-04">0</font>题</a></span>听音选词</li>
+            <li><span><a href="javascript:;" class="blue"><font class="xuanticheck-03">0</font>题</a></span>英汉互译</li>
+           
+            <li><span><a href="javascript:;" class="blue"><font class="xuanticheck-05">0</font>题</a></span>课文跟读</li>
+            <li><span><a href="javascript:;" class="blue"><font class="xuanticheck-06">0</font>题</a></span>听力训练</li>
+            
+          </ul>
+        
+          
+        <p><a href="javascript:;" class=" btn_green w100" onclick="yulan();">预览</a></p>
+        <p><a href="javascript:;" class=" btn_blue w100" onclick="fabu();return false;">发作业</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="td_show_btn teacher"><span>已选试题道数</span></div>
+  </div>
+    <!--听读作业页面开始-->
+    <form id="formid" method = 'post'  action ='preview' target="_blank">
+      <div class="tingdu " style="position: relative;height: 620px;">
+       <neq name="wc" value="0">
+        <h1><strong>单词测试题：</strong>自动生成每个单词拼写、英汉互译、听音选词训练题</h1>
+        <h2 class="tab2">
+        <a href="javascript:;" class="sel2" onclick="changediv(1,this);">单词跟读</a>
+        
+        
+        <if condition="($grade neq '0001') and ($grade neq '0002') "> 
+        <a href="javascript:;" onclick="changediv(2,this);">单词拼写</a>
+        </if>
+         <a href="javascript:;" onclick="changediv(4,this);">听音选词</a>
+          <a href="javascript:;" onclick="changediv(3,this);">英汉互译</a>
+         
+        </h2>
+        <div id="wordtype1" class="changediv">
+        <foreach name="chapternamelist" key="chapkey" item="vo" >
+          <div class="listen word">
+          <dl>   
+            <dd  class="tit"><span class="fr"><i class="grayFon">点击单词或者复选框，即可选中需要练习的单词!</i><a  href="javascript:;" id="arr_blue" class="arr_blue_u">显示单词详情</a></span><input id='wordcheck-01type1{$chapkey}' type="checkbox"   name='check-01type1{$chapkey}' onclick="checkedAll(this);" />
+   <label for="check-01type1{$chapkey}">{$vo.chaptername}</label>&nbsp;&nbsp;&nbsp; 已添加<font class="redFon" selectype="check-01type1{$chapkey}">0</font>个单词，共{$vo.wordpxlistnum}个单词</dd>
+            <dd class="w15b">
+              <ul >
+                 <foreach name="vo['wordpxlist']" item="wordvalue" >
+                <li>
+                   <input id='wordcheck-01type1{$chapkey}-{$wordvalue.id}' type="checkbox" name='wordcheck-01type1{$chapkey}-{$wordvalue.id}' value="{$wordvalue.id}" bid="{$wordvalue.id}" quescount="1" typeid="0" onclick="childcheck(this);" wordtype="0" selectype="check-01type1{$chapkey}" xuantitype="check-01" />
+                   <label for="wordcheck-01type1{$chapkey}-{$wordvalue.id}"><a href="javascript:;" class="blue" selectype="check-01type1{$chapkey}" xuantitype="check-01"><eq name="wordvalue.isstress" value="1"> <strong>{$wordvalue.word}</strong><else />{$wordvalue.word}</eq> </a></label>
+                </li>
+              </foreach>
+              </ul>
+            </dd>
+          </dl>
+          <div class="clearfix"></div>
+        </div>
+      </foreach>
+    </div>
+    <if condition="($grade neq '0001') and ($grade neq '0002') "> 
+    <div id="wordtype2" style="display: none;" class="changediv">
+    <neq name="totalstressnum" value="0">
+        <foreach name="chapternamelist" key="chapkey" item="vo" >
+        <neq name="vo.wordpxlistnum" value="0">
+          <div class="listen word">
+          <dl>   
+            <dd  class="tit"><span class="fr"><i class="grayFon">点击单词或者复选框，即可选中需要练习的单词!</i><a  href="javascript:;" id="arr_blue" class="arr_blue_u">显示单词详情</a></span><input id='check-02type2{$chapkey}' type="checkbox"   name='check-02type2{$chapkey}' onclick="checkedAll(this);"  />
+   <label for="check-02type2{$chapkey}">{$vo.chaptername}</label>&nbsp;&nbsp;&nbsp; 已添加<font class="redFon" selectype="check-02type2{$chapkey}">{$vo.stresslistnum}</font>个单词，共{$vo.wordpxlistnum}个单词</dd>
+            <dd class="w15b">
+              <ul >
+                 <foreach name="vo['wordpxlist']" item="wordvalue" >
+                <li>
+                <input id='wordcheck-02type2{$chapkey}-{$wordvalue.id}' type="checkbox" name='wordcheck-02type2{$chapkey}-{$wordvalue.id}' value="{$wordvalue.id}" bid="{$wordvalue.id}" quescount="1" typeid="1" onclick="childcheck(this);" wordtype="1" selectype="check-02type2{$chapkey}" xuantitype="check-02" <eq name="wordvalue.isstress" value="1">checked</eq> />
+                <label for="wordcheck-02type2{$chapkey}-{$wordvalue.id}"><a href="javascript:;" class="blue" selectype="check-02type2{$chapkey}" xuantitype="check-02"><eq name="wordvalue.isstress" value="1"> <strong>{$wordvalue.word}</strong><else />{$wordvalue.word}</eq></a></label>
+                </li>
+              </foreach>
+              </ul>
+            </dd>
+          </dl>
+          <div class="clearfix"></div>
+        </div>
+      </neq>
+      </foreach>
+    <else />
+    <div class="tishiword" align="left">
+             
+              <dl>
+                
+                <dd>该单元下没有可拼写的单词
+                </dd>
+              </dl>
+             
+             </div>
+  </neq>
+    </div>
+  </if>
+    <div id="wordtype3" style="display: none;" class="changediv">
+        <foreach name="chapternamelist" key="chapkey" item="vo" >
+          <div class="listen word">
+          <dl>   
+            <dd  class="tit"><span class="fr"><i class="grayFon">点击单词或者复选框，即可选中需要练习的单词!</i><a  href="javascript:;" id="arr_blue" class="arr_blue_u">显示单词详情</a></span><input id='check-03type3{$chapkey}' type="checkbox"   name='check-03type3{$chapkey}' onclick="checkedAll(this);" />
+   <label for="check-03type3{$chapkey}">{$vo.chaptername}</label>&nbsp;&nbsp;&nbsp; 已添加<font class="redFon" selectype="check-03type3{$chapkey}">0</font>个单词，共{$vo.wordlistnum}个单词</dd>
+            <dd class="w15b">
+              <ul >
+                 <foreach name="vo['wordlist']" item="wordvalue" >
+                <li>
+                   <input id='wordcheck-03type3{$chapkey}-{$wordvalue.id}' type="checkbox" name='wordcheck-03type3{$chapkey}-{$wordvalue.id}' value="{$wordvalue.id}" bid="{$wordvalue.id}" quescount="1" typeid="3" onclick="childcheck(this);" wordtype="2" selectype="check-03type3{$chapkey}" xuantitype="check-03" />
+                   <label for="wordcheck-03type3{$chapkey}-{$wordvalue.id}"><a href="javascript:;" class="blue" selectype="check-03type3{$chapkey}" xuantitype="check-03"><eq name="wordvalue.isstress" value="1"> <strong>{$wordvalue.word}</strong><else />{$wordvalue.word}</eq> </a></label>
+                </li>
+              </foreach>
+              </ul>
+            </dd>
+          </dl>
+          <div class="clearfix"></div>
+        </div>
+      </foreach>
+    </div>
+    <div id="wordtype4" style="display: none;" class="changediv">
+        <foreach name="chapternamelist" key="chapkey" item="vo" >
+          <div class="listen word">
+          <dl>   
+            <dd  class="tit"><span class="fr"><i class="grayFon">点击单词或者复选框，即可选中需要练习的单词!</i><a  href="javascript:;" id="arr_blue" class="arr_blue_u">显示单词详情</a></span><input id='check-04type4{$chapkey}' type="checkbox"   name='check-04type4{$chapkey}' onclick="checkedAll(this);" />
+   <label for="check-04type4{$chapkey}">{$vo.chaptername}</label>&nbsp;&nbsp;&nbsp; 已添加<font class="redFon" selectype="check-04type4{$chapkey}">0</font>个单词，共{$vo.wordlistnum}个单词</dd>
+            <dd class="w15b">
+              <ul >
+                 <foreach name="vo['wordlist']" item="wordvalue" >
+                <li>
+                   <input id='wordcheck-04type4{$chapkey}-{$wordvalue.id}' type="checkbox" name='wordcheck-04type4{$chapkey}-{$wordvalue.id}' value="{$wordvalue.id}" bid="{$wordvalue.id}" quescount="1" typeid="2" onclick="childcheck(this);" wordtype="3" selectype="check-04type4{$chapkey}" xuantitype="check-04" />
+                   <label for="wordcheck-04type4{$chapkey}-{$wordvalue.id}"><a href="javascript:;" class="blue" selectype="check-04type4{$chapkey}" xuantitype="check-04"><eq name="wordvalue.isstress" value="1"> <strong>{$wordvalue.word}</strong><else />{$wordvalue.word}</eq></a> </label>
+                </li>
+              </foreach>
+              </ul>
+            </dd>
+          </dl>
+          <div class="clearfix"></div>
+        </div>
+      </foreach>
+    </div>
+     </neq>
+     <neq name="tc" value="0">
+        <h1><strong>课文跟读：</strong>自动生成课文跟读试题，仅需选择课文段落发给学生即可！</h1>
+        <div class="listen chapter">
+  
+  <dl>
+    <dd class="tit"><span class="fr"><i class="grayFon">点击段落名称或者复选框，可选中需要跟读的课文!</i></span><input id='check-05' type="checkbox"   name='check-05' onclick="checkedAll(this);" />
+   <label for="check-05">全选</label>&nbsp;&nbsp;&nbsp; 已添加<font class="redFon" selectype="check-05">0</font>节课文，共{$tc}节课文</dd>
+            <dd>
+              <ul  class="heng t15b">
+              <foreach name="chapterlist" item="chapter" >
+              <li>
+                   <input id="wordcheck-05-{$chapter.id}"   value="{$chapter.id}" bid="{$chapter.id}" quescount="{$chapter.textnum}" typeid="1"  type="checkbox" name="wordcheck-05-{$chapter.id}" onclick="childcheck(this);" wordtype="check-05" selectype="check-05" xuantitype="check-05" textnum="{$chapter.textnum}">
+                   <label for="wordcheck-05-{$chapter.id}"><a href="preview_singal?id={$chapter.id}&type=0" target="_blank" class="blue" selectype="check-05" xuantitype="check-05">{$chapter.chapter}</a></label>
+              </li>
+              </foreach>
+                
+               
+              </ul>
+            </dd>
+          </dl>
+  
+  
+  
+</div>
+  </neq>
+  <neq name="ec" value="0">
+        <h1><strong>听力训练题：</strong>听力套卷包含词语听辨、句子理解、对话理解；</h1>
+        
+<div class="listen exams">
+  
+  <dl>
+    <dd class="tit"><span class="fr"><i class="grayFon">点击单选框或试卷名称，可选中听力试卷，也可清除所选试卷</i></span>&nbsp;&nbsp;本课共提供套卷{$ec}套&nbsp;&nbsp;<a href="javascript:;" onclick="cancelAll();">清除选中套卷</a></dd>
+            <dd>
+              <ul class="heng e15b" >
+              <foreach name="examslist" item="exams" >
+              <li>
+                   <input id="wordcheck-06-{$exams.id}" value="{$exams.id}" bid="{$exams.id}" quescount="{$exams.quescount}" typeid="1" type="radio" name="wordcheck-06" onclick="childcheck(this);" wordtype="check-06" selectype="check-06" xuantitype="check-06" quescount="{$exams.quescount}">
+                   <label for="wordcheck-06-{$exams.id}"><a href="preview_singal?id={$exams.id}&type=1" target="_blank" class="blue" selectype="check-06" xuantitype="check-06">{$exams.name}</a></label>
+              </li>
+              </foreach>
+                
+              </ul>
+            </dd>
+          </dl>
+  
+  
+  
+</div>
+  </neq>
+        </div>
+      </form>
+   </eq>
+   <!--听读作业页面end-->
+ </body>
+ </html>
+<script type="text/javascript">
+var ks_code = "{$ks_code}";
+var username = "{$username}";
+var ishttps=document.location.protocol;
+$(function() { 
+  var selectnum = 0;
+  $("#td_scrollsidebar").fix({
+    float : 'right',  //default.left or right
+    //minStatue : true,
+    skin : 'green', //default.gray or blue
+    durationTime : 600
+  });
+  $("a.arr_blue_u").click(function(){
+    if($(this).hasClass("arr_blue_u")){
+      $(this).attr('class','arr_blue_d');
+      if($(this).text()=='隐藏课文详情'){
+        $(this).text('显示课文详情');
+      }
+      else{
+        $(this).text('显示单词详情');
+      }
+      
+      $(this).parents("dl").find(".w15b").attr("style","height:50px;overflow:hidden");
+    }else{
+      $(this).attr('class','arr_blue_u');
+      if($(this).text()=='显示课文详情'){
+        $(this).text('隐藏课文详情');
+      }
+      else{
+        $(this).text('隐藏单词详情');
+      }
+      $(this).parents("dl").find(".w15b").css('height','auto');
+    }
+  });
+  $("a.arr_blue_u").click();
+  $(".w15b input").each(function(){
+     if($(this).is(":checked")){
+       //$('.td_side_title a.yellow')
+       selectnum ++;
+     }
+  })
+  $('.totalselectnum').html(selectnum);
+  $('.xuanticheck-02').html(selectnum);
+  $('.word .w15b a.blue').click(function(){
+    var name=$(this).attr("selectype");
+    var xuantitype = $(this).attr("xuantitype");
+    //console.log(name);
+    var selectobj = $('font.redFon[selectype='+name+']');
+    var obj = $(this).parent().prev();
+    if(!$(obj).is(":checked")){
+      $(obj).attr('checked',true);
+
+      selectobj.html(parseInt(selectobj.html())+1);
+      if(xuantitype == "check-05"){  //课文
+        $('.xuanti'+xuantitype).html(parseInt($('.xuanti'+xuantitype).html())+parseInt($(obj).attr('textnum')));
+      }
+      else if(xuantitype == "check-06"){   //试卷
+          $('.xuanti'+xuantitype).html($(obj).attr('quescount'));
+      }
+      else{
+          $('.xuanti'+xuantitype).html(parseInt($('.xuanti'+xuantitype).html())+1);
+      }  
+   }
+   else{
+    $(obj).attr('checked',false);
+      selectobj.html(parseInt(selectobj.html())-1);
+      if(xuantitype == "check-05"){  //课文
+        $('.xuanti'+xuantitype).html(parseInt($('.xuanti'+xuantitype).html())-parseInt($(obj).attr('textnum')));
+      }
+      else if(xuantitype == "check-06"){   //试卷
+          $('.xuanti'+xuantitype).html(0);
+      }
+      else{
+            $('.xuanti'+xuantitype).html(parseInt($('.xuanti'+xuantitype).html())-1);
+      }
+       
+   }
+   totalselectnum();
+  });
+});
+function changediv(cur,obj){
+  $('.tab2 a').removeClass('sel2');
+  $(obj).addClass('sel2');
+  $('.changediv').hide();
+  $('#wordtype'+cur).show();
+}
+/*预览*/
+function yulan(){
+  if($("input:checked").length<=0){
+    alert("请选择之后再进行预览");
+    return false;
+  }
+  var chartForm=document.getElementById("formid");
+  chartForm.target = "_blank";
+  chartForm.action = "preview";
+  chartForm.submit();
+}
+function fabu(){
+  var homework={};
+  homework.ks_code=ks_code;
+  homework.username=username;
+  homework.source = 0;
+  homework.homework = publish('.w15b','.t15b','.e15b');
+  //console.log(document.location);
+
+  //alert(ishttps);
+  //console.log(homework.homework.length);
+  //console.log(encodeURI(JSON.stringify(homework.homework)));
+  if(homework.homework.length > 0){
+      $.post("../../Pubinterface/index/publish_homework",{ishttps:ishttps,homework:encodeURI(JSON.stringify(homework)),ran:Math.random()},function(result){
+        openDialog(result.url+"&time="+new Date().getTime());
+    });
+  }
+  else{
+      alert('请选择作业内容');
+  }
+  
+}
+function publish (wordselect,textselect,examselect){
+    //word text exams
+    //word中有四种情况0表示单词跟读 1表示单词拼写 2表示听音选词 3表示英汉互译
+    var words=[];
+    //text中有四种情况0表示课文跟读
+    var texts=[];
+    //exams中有四种情况0表示试卷
+    var exams=[];
+    //单词的设置
+    words = setArrs(wordselect);
+    //课文的设置
+    texts = setArrs(textselect);
+    //试卷的设置
+    exams = setArrs(examselect);
+    //汇总
+
+    var hw={};
+    hw.words=words;
+    hw.texts=texts;
+    hw.exams=exams;
+    hw.length=exams.length+words.length+texts.length;
+    //console.log(hw.length);
+    return hw;
+}
+function setArrs(select){
+  var temparr = [];
+  $(select+' input').each(function(){
+      var temp={};
+      if($(this).is(":checked")){
+        temp.id=$(this).attr("bid");
+        temp.quescount=$(this).attr("quescount");
+        temp.typeid=$(this).attr("typeid");
+        temparr.push(temp);
+      }
+  });
+  
+  return temparr;
+}
+var script=document.createElement("script");
+script.type="text/javascript";
+script.src=ishttps+"//{$tqms}/tqms/pages/hw/commoniframe.jsp?time4lcs=1463711552205";
+document.getElementsByTagName('head')[0].appendChild(script);
+</script>
+<!-- <script src="https://tqmsnew.yjt361.com/tqms/pages/hw/commoniframe.jsp?time4lcs=1463711552205"></script> -->

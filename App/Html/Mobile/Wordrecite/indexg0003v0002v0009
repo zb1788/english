@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<title>英语同步练</title>
+    <link href="/public/Mobile//css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="/public/Mobile//css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<header>
+	<div class="l fl"><a href="/Mobile/index/index"><i class="icon-chevron-left"></i><span>返回</span></a></div>
+    <div class="c fl">背单词</div>
+    	<div class="r fl">
+        <div id="dd" class="topMenu" tabindex="1">
+            <span><i class="icon-more-horiz"></i></span>
+            <ul class="dropdown">
+                <!-- <li><a href="wordbook.html"><i class="icon-heart"></i>21</a></li>
+                <li><a href="record.html"><i class="icon-list-alt"></i>5</a></li> -->
+                <li><a href="/Mobile/index/wordbook"><i class="icon-heart"></i><font class="wordcount">0</font></a></li>
+                <li><a href="/Mobile/index/record"><i class="icon-list-alt"></i><font class="recordcount">0</font></a></li>
+                <li><a href="/Mobile/index/index"><i class="icon-evil"></i>学习中心</a></li>
+				<li><a href="/Mobile/index/course"><i class="icon-pencil-square"></i><b>课程设置</b></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section class="study iRecite">
+	<h2>三年级.译林版.下学期</h2>
+    </section>
+
+
+<script src="/public/Mobile//js/jquery.min.js" type="text/javascript"></script>
+<script src="/public/Mobile//js/jquery.cookie.js" type="text/javascript"></script>  
+<script src="/public/Mobile//js/main.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+$(function() {
+    // $.getJSON("getUnitList",{ran:Math.random()},function(data){
+    //     $(".study.iStudy").empty();
+    //     var html="";
+    //     $.each(data,function(key,val){
+    //         if(val.is_unit=="0"){
+    //            html=html+"<dl class='unitid' unitid='"+val.ks_code+"'><a href='study?unitid="+val.ks_code+"'><dt>"+val.ks_name+"</dt><dd><p><span>共"+val.wordlearned+"/"+val.wordcount+"个单词</span></p><p><span class='bar'><i style='width:"+val.learncount+"%'></i></span></p></dd></a> </dl>";
+    //         }else{
+    //            html=html+"<dl class='unitid' unitid='"+val.ks_code+"'><a href='javascript:void(0);'><dt>"+val.ks_name+"</dt><dd><p><span>共"+val.wordlearned+"/"+val.wordcount+"个单词</span></p><p><span class='bar'><i style='width:"+val.learncount+"%'></i></span></p></dd></a> </dl>";
+    //         }
+    //     });
+    //     $(".study.iStudy").html(html);
+    // });
+
+    $(".icon-locked2").parent().parent().click(function(){
+	   art.dialog.tips("请您完成上一单元");
+        return false;
+    });
+
+    $("dl").click(function(){
+       var nextunitid="";
+       $(this).nextAll().each(function(key,value){
+        nextunitid=nextunitid+$(this).attr("unitid")+",";
+       });
+       $.cookie("engm_nextunitid",nextunitid,{path: '/'});
+    });
+
+
+});  
+
+</script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>上传图片</title>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="__PUBLIC__/js/manager.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/jquery.artDialog.js?skin=default"></script>
+        <script type="text/javascript" src="__PUBLIC__/js/iframeTools.js"></script>
+        <link href="__PUBLIC__/style/manage.css" rel="stylesheet" type="text/css" />
+
+<body>
+   <div class="place"><strong>位置</strong>：首页 &gt; 微课应用编辑</div>
+        <div class="container">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+                <tr>
+                    <td class="box_top pl_10 f14"><strong>微课应用编辑</strong>&nbsp;&nbsp;<input name="btn_submit_goback" id="btn_submit_goback" type="button" class="ext_btn ext_btn_submit" value="返回应用列表" /></td> 
+                </tr>
+              </table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box_border">
+  <tr>
+    <td class="p5"> 
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+     <tr>
+        <td class="td_right">应用名称：</td>
+        <td>
+          <input type="text" id="appname" name="appname" class="input-text lh30" size="70" value="{$app_name}" />&nbsp;(<strong><font color="red">*</font></strong>)
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">所属学科：</td>
+        <td>
+          <select name="subjectlist" class="select" id="subjectlist" disabled>
+          </select>&nbsp;(<strong><font color="red">*</font></strong>)
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">版本学期：</td>
+        <td>
+          <input type="checkbox" name="isterm" <eq name="isterm" value="1">checked</eq> disabled /><eq name="isterm" value="1">&nbsp;有<else/>&nbsp;无</eq>&nbsp;
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">单元目录：</td>
+        <td>
+          <input type="checkbox" name="isunit" <eq name="isunit" value="1">checked</eq> disabled /><eq name="isunit" value="1">&nbsp;有<else/>&nbsp;无</eq>&nbsp;<input type="radio" name="unittype" value="0" <eq name="unit_type" value="0">checked</eq> disabled />&nbsp;文字列表&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="unittype" value="1" <eq name="unit_type" value="1">checked</eq> disabled />&nbsp;图片列表
+        </td>
+        
+      </tr>
+       <tr>
+        <td class="td_right">特殊类型：</td>
+        <td>
+          <input type="checkbox" name="isspecial" value="1" <eq name="isspecial" value="1">checked</eq> disabled/><eq name="isspecial" value="1">&nbsp;有<else/>&nbsp;无</eq>&nbsp;<select name="special" class="select" id="special" disabled>
+          </select>
+        </td>
+        
+      </tr>
+      <tr>
+        <td class="td_right">适配年级：</td>
+        <td id="getgrade">
+          
+        </td>
+        
+      </tr>
+      <tr>
+        <td class="td_right">应用图片：</td>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table" id="table_excel"> 
+                <tr>
+                     <td width="100px">
+                       
+                        <input name="btn_submit" id="btn_que_add" type="button" class="ext_btn ext_btn_submit " value="修改图片" onclick="imgupload('#myimg','#filename')" />
+                    </td>
+                    <td align="left">
+                        <img src="/{$app_pic}" id="myimg" width="100" height="100" style="border:1px solid #CCC; padding:2px;" >
+                        <input type="hidden" id="filename" name="filename" value="{$app_pic}" />&nbsp;(<strong><font color="red">*180*270</font></strong>)
+                    </td>
+                </tr>
+            </table> 
+        </td>
+      </tr>
+       <tr>
+        <td class="td_right">宣传语：</td>
+        <td>
+          <textarea id = "drumbeating" name="drumbeating" rows="3" cols="50">{$app_drumbeating}</textarea>
+        </td>
+        
+      </tr>
+     <tr>
+        <td class="td_right">适用对象：</td>
+        <td>
+        <textarea id = "app_object" name="app_object" rows="3" cols="50">{$app_object}</textarea>&nbsp;&nbsp;(多条内容请用<font color="red"> | </font>进行分隔)
+        </td>
+        
+      </tr>
+      <tr>
+        <td class="td_right">培养目标：</td>
+        <td>
+        <textarea id = "app_target" name="app_target" rows="3" cols="50">{$app_target}</textarea>&nbsp;&nbsp;(多条内容请用<font color="red"> | </font>进行分隔)
+        </td>
+        
+      </tr>
+      <tr>
+        <td class="td_right">课程特色：</td>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table"> 
+                <tr>
+                     <td width="100px">
+                        <input name="btn_submit" id="file_upload_feat" type="button" class="ext_btn ext_btn_submit " value="修改图片" onclick="imgupload('#myimg_feat','#filename_feat')" />
+                    </td>
+                    <td align="left">
+                        <img src="/{$pic_feat}" id="myimg_feat" width="100" height="100"/ style="border:1px solid #CCC; padding:2px;" >
+                        <input type="hidden" id="filename_feat" name="#filename_feat" value="{$pic_feat}" />&nbsp;(<strong><font color="red">*宽度500个像素，高度随意</font></strong>)
+                    </td>
+                </tr>
+            </table> 
+        </td>
+      </tr>
+       <tr>
+        <td class="td_right">课程大纲：</td>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table"> 
+                <tr>
+                    <td width="100px">
+                         <input name="btn_submit" id="file_upload_feat" type="button" class="ext_btn ext_btn_submit " value="修改图片" onclick="imgupload('#myimg_content','#filename_content')" />
+                    </td>
+                    <td align="left">
+                        <img src="/{$pic_content}" id="myimg_content" width="100" height="100"/ style="border:1px solid #CCC; padding:2px;" >
+                        <input type="hidden" id="filename_content" name="filename_content" value="{$pic_content}" />&nbsp;(<strong><font color="red">*宽度500个像素，高度随意</font></strong>)
+                    </td>
+                </tr>
+            </table> 
+        </td>
+      </tr>
+      <tr>
+        <td class="td_right">课程名师：</td>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form_table"> 
+                <tr>
+                   <td width="100px">
+                          <input name="btn_submit" id="file_upload_feat" type="button" class="ext_btn ext_btn_submit " value="修改图片" onclick="imgupload('#myimg_teac','#filename_teac')" />
+                    </td>
+                    <td align="left">
+                        <img src="/{$pic_teac}" id="myimg_teac" width="100" height="100"/ style="border:1px solid #CCC; padding:2px;" >
+                        <input type="hidden" id="filename_teac" name="filename_teac" value="{$pic_teac}" />&nbsp;(<strong><font color="red">*宽度500个像素，高度随意</font></strong>)
+                    </td>
+                </tr>
+            </table> 
+        </td>
+      </tr>
+       <tr>
+        <td class="td_right">外接来源：</td>
+        <td>
+          <input type="checkbox" name="issource" value="1" <eq name="issource" value="1">checked</eq> disabled /><eq name="issource" value="1">&nbsp;有<else/>&nbsp;无</eq>&nbsp;<select name="source" class="select" id="source" disabled>
+          </select>
+        </td>
+        
+      </tr>
+
+      <tr><td></td><td align="left">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                 
+                    <tr>
+                     <td width="200"></td>
+                        <td>
+                                        &nbsp;
+                            <input type="button" class="btn btn82 btn_save2" value="保存" /></td>
+                        </tr>
+                       
+            </table>
+  </td></tr>
+    </table>
+   
+  <div class="h10"></div>
+    </td> 
+  </tr> 
+ 
+</table>
+
+</div>
+<div id="edit_tx2" class="edit_tx2" style="display: none;">
+  <iframe id="uploadPhoto" src="{:U('imageupload/index')}" width="100%" style="height:420px; text-align: center;"  frameborder="0" scrolling="no"></iframe>
+</div>
+<script type="text/javascript">
+var id = "{$id}";  
+var subject_code = "{$subject_code}";
+var gradestr = "{$gradestr}";
+var special_code = "{$special_code}";
+var source_code = "{$source_code}";
+$(function(){
+  $.ajaxSetup({async:false});
+  $.EBC.setSubject($('#subjectlist'),subject_code);
+  $.EBC.setSpecial($('#special'),special_code);
+  $.EBC.setSource($('#source'),source_code);
+  $.EBC.setGrade($('#getgrade'),gradestr,'checkbox');
+});
+$(function() {
+
+     $('.btn_save2').click(function(){
+        SaveApp(id);
+     });
+     $('#btn_submit_goback').click(function(){
+        window.location.href="/Elearnmanager/classapp/applist?subject_code="+subject_code;
+     });
+});
+</script> 
+</body>
+</html>
